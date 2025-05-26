@@ -1,75 +1,135 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { ScrollView, View } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Button, Input } from "@/components/molecules";
+import {
+  Alert,
+  BackgroundProcessPanel,
+  PopUp,
+  PromptInput,
+} from "@/components/organims";
+import { useAnimatedPopUp } from "@/lib/hooks/animations";
+import { useState } from "react";
 
-export default function HomeScreen() {
+// import { useState } from "react";
+
+// const options: { optionId: string; optionLabel: string }[] = [
+//   { optionId: "option-1", optionLabel: "Opción 1" },
+//   { optionId: "option-2", optionLabel: "Opción 2" },
+//   { optionId: "option-3", optionLabel: "Opción 3" },
+// ];
+
+export default function DashboardScreen() {
+  const {
+    isPopUpMounted,
+    animatedPopUpStyle,
+    dragGesture,
+    onOpenPopUp,
+    onClosePopUp,
+  } = useAnimatedPopUp();
+  // const [selectedOption, setSelectedOption] = useState<{
+  //   optionId: string;
+  //   optionLabel: string;
+  // } | null>(null);
+  // const handleSelectedOption = (option: {
+  //   optionId: string;
+  //   optionLabel: string;
+  // }) => {
+  //   setSelectedOption(option);
+  // };
+  const [data, setData] = useState<{ email: string; country: string }>({
+    email: "",
+    country: "",
+  });
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ScrollView
+      style={{
+        flex: 1,
+        paddingTop: 24,
+        backgroundColor: "#fff",
+      }}
+    >
+      <PopUp
+        title="Pop Up title"
+        icon="logo-windows"
+        isPopUpMounted={isPopUpMounted}
+        gesture={dragGesture}
+        animatedPopUpStyle={animatedPopUpStyle}
+        onClosePopUp={onClosePopUp}
+      >
+        <Alert
+          variant="success"
+          message="this is an alert message"
+          acceptButtonLabel="Accept"
+          acceptButtonIcon="checkmark-done"
+          onCancel={onClosePopUp}
+          onAccept={onClosePopUp}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      </PopUp>
+      <View
+        style={{
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 16,
+          paddingHorizontal: 24,
+          backgroundColor: "#FFF",
+          paddingBottom: 180,
+        }}
+      >
+        <Input<{ email: string; country: string }>
+          name="country"
+          value={data.country}
+          placeholder="Digite el país"
+          onChange={(name, value) => setData({ ...data, [name]: value })}
+          onClearInput={() => setData({ ...data, country: "" })}
+          icon="location-outline"
+        />
+        <PromptInput<{ email: string; country: string }>
+          onSavePrompt={() => {}}
+          onSearchPrompt={() => {}}
+          onGeneratePrompt={() => {}}
+          name="email"
+          value={data.email}
+          placeholder="Escribe tu prompt"
+          onChange={(name, value) => setData({ ...data, [name]: value })}
+          onClearInput={() => setData({ ...data, email: "" })}
+          icon="mail-outline"
+        />
+        {/* <TokenPackageCard
+          packageId="package_id_1"
+          price="$12.000 COPS"
+          packageTitle="Paquete Básico"
+          description="¡Hasta 100 tokens instantáneos! "
+          SvgIcon={<BasicPackageToken />}
+          onBuyPackage={() => {}}
+        /> */}
+        {/* <SubprocessList subprocesses={subsprocesses} />
+        <Loader
+          title="Generando recurso..."
+          description="Se esta generando el recurso educativo que ha solicitado. El proceso puede tomar unos segundos."
+          icon="bulb-outline"
+          progressConfig={{
+            mode: "duration-timer",
+            limit: 6000,
+          }}
+        /> */}
+        <BackgroundProcessPanel />
+        <Button
+          icon="open-outline"
+          width="auto"
+          variant="primary"
+          onPress={onOpenPopUp}
+          label="Open PopUp"
+        />
+        {/* <DropdownOptionList
+          optionList={options}
+          optionIdkey="optionId"
+          optionLabelKey="optionLabel"
+          searchInputPlaceholder="Buscar elemento"
+          selectedOption={selectedOption}
+          onSelectOption={handleSelectedOption}
+        /> */}
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

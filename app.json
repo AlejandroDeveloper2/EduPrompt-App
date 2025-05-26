@@ -3,7 +3,7 @@
     "name": "EduPrompt_App",
     "slug": "EduPrompt_App",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "edupromptapp",
     "userInterfaceStyle": "automatic",
@@ -14,9 +14,10 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#10B981"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.diazalejo.EduPrompt_App"
     },
     "web": {
       "bundler": "metro",
@@ -31,12 +32,22 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#10B981"
         }
-      ]
+      ],
+      "expo-sqlite",
+      "expo-localization",
+      "expo-background-task",
+      "react-native-iap"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bec4c01c-fe04-42fe-9f3a-d92a6d96cc99"
+      }
     }
   }
 }
