@@ -9,7 +9,10 @@ export const HeaderStyle = (size: SizeType, insets: EdgeInsets) =>
   StyleSheet.create({
     HeaderContainer: {
       width: "100%",
-      paddingTop: insets.top + Spacing.spacing_md,
+      paddingTop:
+        size === "mobile"
+          ? insets.top + Spacing.spacing_xs
+          : insets.top + Spacing.spacing_sm,
       gap: Spacing.spacing_null,
       justifyContent: "center",
       alignItems: "center",
@@ -24,8 +27,8 @@ export const HeaderStyle = (size: SizeType, insets: EdgeInsets) =>
       alignItems: "center",
       paddingHorizontal:
         size === "laptop" ? Spacing.spacing_xl : Spacing.spacing_null,
-      paddingBottom: Spacing.spacing_md,
-      paddingTop: Spacing.spacing_sm,
+      paddingBottom:
+        size === "mobile" ? Spacing.spacing_xs : Spacing.spacing_sm,
     },
     NavItems: {
       flexDirection: "row",

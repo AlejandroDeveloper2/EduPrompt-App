@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { SizeType } from "@/lib/types";
 
-import { AppColors, FontSizes, Spacing } from "@/styles";
+import { AppColors, FontSizes } from "@/styles";
 
 import { getFontFamily } from "@/lib/helpers";
 
@@ -13,7 +13,7 @@ export const ResourceViewerStyle = (scroll: boolean) =>
       backgroundColor: AppColors.basic.white,
       justifyContent: "flex-start",
       alignItems: "center",
-      padding: Spacing.spacing_md,
+      // padding: Spacing.spacing_md,
       maxHeight: scroll ? 500 : "auto",
     },
     Image: {

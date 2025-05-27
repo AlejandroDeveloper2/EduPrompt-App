@@ -1,0 +1,88 @@
+import { ScrollView, View } from "react-native";
+
+import { ResourceFormatKey } from "@/lib/types/data-types";
+
+import { AppColors } from "@/styles";
+
+import { useScreenDimensionsStore } from "@/lib/hooks/store";
+
+import { Badge, Typography } from "@/components/atoms";
+import { Button, ResourceViewer } from "@/components/molecules";
+
+import { IaResponseCardStyle } from "./IaResponseCard.style";
+
+interface IaResponseCardProps {
+  format: ResourceFormatKey;
+  iaGeneratedContent: string;
+}
+
+const IaResponseCard = ({
+  format,
+  iaGeneratedContent,
+}: IaResponseCardProps) => {
+  const size = useScreenDimensionsStore();
+
+  const viewerType =
+    format === "text" ? "text" : format === "image" ? "image" : "table/chart";
+  const iaResponseCardStyle = IaResponseCardStyle(size);
+
+  return (
+    <View style={iaResponseCardStyle.Container}>
+      <View style={iaResponseCardStyle.Header}>
+        <Badge label={format} variant="primary" />
+        <Typography
+          text={new Date().toLocaleDateString()}
+          weight="regular"
+          type="caption"
+          textAlign="center"
+          color={AppColors.neutral[600]}
+          width="auto"
+          icon="calendar-outline"
+        />
+      </View>
+      <ResourceViewer
+        viewerType={viewerType}
+        content={iaGeneratedContent}
+        scroll={false}
+      />
+      <ScrollView
+        horizontal
+        contentContainerStyle={iaResponseCardStyle.Options}
+      >
+        <Button
+          icon="save-outline"
+          variant="neutral"
+          width="auto"
+          onPress={() => {}}
+        />
+        <Button
+          icon="pencil-outline"
+          variant="neutral"
+          width="auto"
+          onPress={() => {}}
+        />
+        <Button
+          icon="reload-outline"
+          variant="neutral"
+          width="auto"
+          onPress={() => {}}
+        />
+        <Button
+          icon="download-outline"
+          variant="neutral"
+          width="auto"
+          onPress={() => {}}
+        />
+        <Button
+          icon="copy-outline"
+          variant="neutral"
+          width="auto"
+          disabled={format !== "text"}
+          onPress={() => {}}
+        />
+      </ScrollView>
+    </View>
+  );
+};
+
+export default IaResponseCard;

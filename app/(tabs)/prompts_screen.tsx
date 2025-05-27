@@ -1,3 +1,24 @@
+import { View } from "react-native";
+
+import { AppColors } from "@/styles";
+
+import { Typography } from "@/components/atoms";
+
+import { GlobalStyles } from "@/styles/GlobalStyles.style";
+
 export default function PromptsScreen() {
-  return <></>;
+  return (
+    <View style={GlobalStyles.RootContainer}>
+      <View style={GlobalStyles.PageContent}>
+        <Typography
+          text="Prompts Screen"
+          weight="bold"
+          type="h1"
+          textAlign="center"
+          color={AppColors.primary[400]}
+          width={"auto"}
+        />
+      </View>
+    </View>
+  );
 }

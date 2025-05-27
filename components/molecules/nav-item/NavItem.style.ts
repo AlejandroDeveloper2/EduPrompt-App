@@ -16,8 +16,8 @@ export const NavItemStyle = (size: SizeType) =>
       alignItems: "center",
     },
     NavItemPressable: {
-      width: size === "mobile" ? 50 : 60,
-      height: size === "mobile" ? 50 : 60,
+      width: size === "mobile" ? 45 : 60,
+      height: size === "mobile" ? 45 : 60,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

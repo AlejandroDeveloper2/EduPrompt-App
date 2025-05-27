@@ -6,12 +6,12 @@ import { Typography } from "@/components/atoms";
 
 import { GlobalStyles } from "@/styles/GlobalStyles.style";
 
-export default function GenerateScreen() {
+export default function FilesScreen() {
   return (
     <View style={GlobalStyles.RootContainer}>
       <View style={GlobalStyles.PageContent}>
         <Typography
-          text="Generate Screen"
+          text="Files Screen"
           weight="bold"
           type="h1"
           textAlign="center"

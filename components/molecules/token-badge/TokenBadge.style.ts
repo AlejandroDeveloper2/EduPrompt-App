@@ -8,7 +8,7 @@ export const TokenBadgeStyle = (size: SizeType) =>
   StyleSheet.create({
     Container: {
       width: "auto",
-      height: size === "mobile" ? 50 : 60,
+      height: size === "mobile" ? 45 : 60,
       borderRadius: Radius.radius_pilled,
       display: "flex",
       flexDirection: "row",

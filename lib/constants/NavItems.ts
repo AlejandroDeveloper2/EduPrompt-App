@@ -10,7 +10,7 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-2",
-      label: "My Resources",
+      label: "Resources",
       icon: "book-outline",
       onPress: () => {},
     },
@@ -22,13 +22,13 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-4",
-      label: "My Files",
+      label: "Files",
       icon: "folder-outline",
       onPress: () => {},
     },
     {
       navItemId: "item-nav-5",
-      label: "My Prompts",
+      label: "Prompts",
       icon: "documents-outline",
       onPress: () => {},
     },
@@ -42,7 +42,7 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-2",
-      label: "Mis Recursos",
+      label: "Recursos",
       icon: "book-outline",
       onPress: () => {},
     },
@@ -54,13 +54,13 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-4",
-      label: "Mis Archivos",
+      label: "Archivos",
       icon: "folder-outline",
       onPress: () => {},
     },
     {
       navItemId: "item-nav-5",
-      label: "Mis Prompts",
+      label: "Prompts",
       icon: "documents-outline",
       onPress: () => {},
     },
@@ -74,7 +74,7 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-2",
-      label: "Meus Recursos",
+      label: "Recursos",
       icon: "book-outline",
       onPress: () => {},
     },
@@ -86,13 +86,13 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-4",
-      label: "Meus Arquivos",
+      label: "Arquivos",
       icon: "folder-outline",
       onPress: () => {},
     },
     {
       navItemId: "item-nav-5",
-      label: "Meus Prompts",
+      label: "Prompts",
       icon: "documents-outline",
       onPress: () => {},
     },

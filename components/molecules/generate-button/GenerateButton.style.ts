@@ -16,8 +16,8 @@ export const GenerateButtonStyle = (size: SizeType) =>
       alignItems: "center",
     },
     NavItemPressable: {
-      width: size === "mobile" ? 65 : 75,
-      height: size === "mobile" ? 65 : 75,
+      width: size === "mobile" ? 55 : 75,
+      height: size === "mobile" ? 55 : 75,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

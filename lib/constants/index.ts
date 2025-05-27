@@ -1,4 +1,5 @@
 export { FOLDER_ACTIONS } from "./FolderActions";
+export { FORMAT_FILTERS } from "./FormatFilters";
 export { MY_FILES_ACTIONS } from "./MyFilesActions";
 export { MY_PROMPTS_ACTIONS } from "./MyPromptsActions";
 export { MY_RESOURCES_ACTIONS } from "./MyResourcesActions";

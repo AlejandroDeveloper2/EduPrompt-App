@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+
 import { ProcessType, ProgressConfig } from ".";
 
 type ResourceFormatKey = "text" | "image" | "chart" | "table";
@@ -7,6 +8,11 @@ type Lang<T> = {
   es: T[];
   pt: T[];
 };
+
+interface FormatFilter {
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+}
 
 interface EducationalResource {
   resourceId: string;
@@ -27,6 +33,14 @@ interface DownloadedResource {
   formatKey: ResourceFormatKey;
   downloadDate: string;
   fileSize: string;
+}
+
+interface Folder {
+  folderId: string;
+  folderName: string;
+  files: number;
+  folderUri: string;
+  creationDate: string;
 }
 
 interface Prompt {
@@ -61,6 +75,8 @@ interface NavOption {
 export type {
   DownloadedResource,
   EducationalResource,
+  Folder,
+  FormatFilter,
   Lang,
   NavOption,
   Notification,
