@@ -9,4 +9,8 @@ export const LogoStyle = (size: SizeType) =>
       width: 36,
       height: 53,
     },
+    logoV2Svg: {
+      width: 202,
+      height: 91,
+    },
   });

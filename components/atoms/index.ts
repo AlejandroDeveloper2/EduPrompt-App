@@ -4,7 +4,7 @@ export { default as ErrorMessage } from "./error-message/ErrorMessage";
 export { Ionicon, MaterialIcon } from "./icon/Icon";
 export { default as LoadPercentage } from "./load-percentage/LoadPercentage";
 export { default as LoaderBar } from "./loader-bar/LoaderBar";
-export { default as Logo } from "./logo/Logo";
+export { default as Logo, LogoV2 } from "./logo/Logo";
 export { default as ScreenSection } from "./screen-section/ScreenSection";
 export { default as Spinner } from "./spinner/Spinner";
 export { default as Step } from "./step/Step";
