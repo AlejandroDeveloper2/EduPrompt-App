@@ -72,6 +72,18 @@ interface NavOption {
   onPress: () => void;
 }
 
+interface Step {
+  stepId: string;
+  stepIcon: keyof typeof Ionicons.glyphMap;
+  stepTitle: string;
+  description: string;
+  stepIllustration:
+    | "FirstStepImage"
+    | "SecondStepImage"
+    | "ThirdStepImage"
+    | "FourthStepImage";
+}
+
 export type {
   DownloadedResource,
   EducationalResource,
@@ -83,4 +95,5 @@ export type {
   Process,
   Prompt,
   ResourceFormatKey,
+  Step,
 };

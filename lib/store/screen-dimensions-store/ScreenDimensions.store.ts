@@ -10,14 +10,15 @@ export const ScreenDimensionsStore = create<ScreenDimensionsStoreType>(
   (set) => ({
     screenSize: "mobile" as SizeType,
     getScreenDimensions: (): void => {
+      const screenWidth = Dimensions.get("window").width;
       if (
-        Dimensions.get("window").width >= Breakpoints.mobile &&
-        Dimensions.get("window").width < Breakpoints.tablet
+        screenWidth >= Breakpoints.mobile &&
+        screenWidth < Breakpoints.tablet
       ) {
         set({ screenSize: "mobile" });
       } else if (
-        Dimensions.get("window").width >= Breakpoints.tablet &&
-        Dimensions.get("window").width < Breakpoints.laptop
+        screenWidth >= Breakpoints.tablet &&
+        screenWidth < Breakpoints.laptop
       )
         set({ screenSize: "tablet" });
       else set({ screenSize: "laptop" });

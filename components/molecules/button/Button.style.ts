@@ -1,16 +1,16 @@
 import { StyleSheet } from "react-native";
 
-import { ButtonVariantType, ButtonWidthType, SizeType } from "@/lib/types";
+import { ButtonWidthType, SizeType } from "@/lib/types";
 
 import { Radius, Spacing } from "@/styles";
 
 interface StyleProps {
   width: ButtonWidthType;
   size: SizeType;
-  variant: ButtonVariantType;
+  flex?: number;
 }
 
-export const ButtonStyle = ({ width, size, variant }: StyleProps) =>
+export const ButtonStyle = ({ width, size }: StyleProps) =>
   StyleSheet.create({
     Button: {
       width,

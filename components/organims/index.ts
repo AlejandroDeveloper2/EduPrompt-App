@@ -7,6 +7,7 @@ export { default as Loader } from "./loader/Loader";
 export { default as NavigationDrawer } from "./navigation/NavigationDrawer";
 export { default as NavigationTab } from "./navigation/NavigationTab";
 export { default as NotificationList } from "./notification-list/NotificationList";
+export { default as OnboardingDescription } from "./onboarding-description/OnboardingDescription";
 export { default as PopUp } from "./pop-up/PopUp";
 export { default as PreviewResourceList } from "./preview-resource-list/PreviewResourceList";
 export { default as PromptInput } from "./prompt-input/PromptInput";

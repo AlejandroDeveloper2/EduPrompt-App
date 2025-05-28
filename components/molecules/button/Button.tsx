@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
-import { Pressable } from "react-native";
+import { Pressable, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { ButtonVariantType, ButtonWidthType } from "@/lib/types";
@@ -19,6 +19,7 @@ interface BaseButtonProps {
   children: ReactNode[] | ReactNode;
   variant: ButtonVariantType;
   width: ButtonWidthType;
+  style?: ViewStyle;
   disabled?: boolean;
   loading?: boolean;
   loadingMessage?: string;
@@ -39,6 +40,7 @@ const BaseButton = ({
   loading,
   loadingMessage,
   width,
+  style,
   onPress,
 }: BaseButtonProps) => {
   const size = useScreenDimensionsStore();
@@ -52,7 +54,7 @@ const BaseButton = ({
 
   return (
     <AnimatedPressable
-      style={[ButtonStyle({ width, size, variant }).Button, animatedBackground]}
+      style={[ButtonStyle({ width, size }).Button, animatedBackground, style]}
       onPress={onPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}

@@ -16,4 +16,7 @@ export const GlobalStyles = StyleSheet.create({
     paddingBottom: Spacing.spacing_4xl * 4.5,
     gap: Spacing.spacing_xl,
   },
+  SvgIllustration: {
+    transform: [{ scale: 0.8 }],
+  },
 });

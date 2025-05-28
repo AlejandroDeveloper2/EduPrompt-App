@@ -13,11 +13,17 @@ import { ScreenSectionStyle } from "./ScreenSection.style";
 
 interface ScreenSectionProps {
   description: string;
+  color?: string;
   title: string;
   icon: keyof typeof Ionicons.glyphMap;
 }
 
-const ScreenSection = ({ description, title, icon }: ScreenSectionProps) => {
+const ScreenSection = ({
+  description,
+  title,
+  icon,
+  color,
+}: ScreenSectionProps) => {
   const size = useScreenDimensionsStore();
 
   const textAlign: AlignTextType = size === "laptop" ? "left" : "center";
@@ -27,9 +33,9 @@ const ScreenSection = ({ description, title, icon }: ScreenSectionProps) => {
       <Typography
         text={title}
         weight="medium"
-        type="h2"
+        type="h1"
         textAlign={textAlign}
-        color={AppColors.neutral[1000]}
+        color={color ? color : AppColors.neutral[1000]}
         width="100%"
         icon={icon}
       />
@@ -37,7 +43,7 @@ const ScreenSection = ({ description, title, icon }: ScreenSectionProps) => {
         text={description}
         weight="regular"
         type="paragraph"
-        textAlign={textAlign}
+        textAlign="left"
         color={AppColors.neutral[1000]}
         width="100%"
       />

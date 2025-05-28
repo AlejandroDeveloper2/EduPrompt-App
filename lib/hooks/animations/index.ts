@@ -3,6 +3,7 @@ export { default as useAnimatedCard } from "./useAnimatedCard";
 export { default as useAnimatedFileFolder } from "./useAnimatedFileFolder";
 export { default as useAnimatedInput } from "./useAnimatedInput";
 export { default as useAnimatedNavItem } from "./useAnimatedNavItem";
+export { default as useAnimatedOnboarding } from "./useAnimatedOnboarding";
 export { default as useAnimatedPopUp } from "./useAnimatedPopUp";
 export { default as useAnimatedProgressBar } from "./useAnimatedProgressBar";
 export { default as useAnimatedSpinner } from "./useAnimatedSpinner";
