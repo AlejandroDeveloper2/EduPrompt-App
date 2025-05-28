@@ -42,6 +42,7 @@ const OnboardingDescription = ({
 
   return (
     <Animated.View
+      key={currentStep.stepId}
       style={[onboardingDescriptionStyle.StepContent, animatedOnboardingStyle]}
     >
       {Illustration}
