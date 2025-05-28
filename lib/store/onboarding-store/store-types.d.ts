@@ -1,6 +1,7 @@
 import { Step } from "../../types/data-types";
 
 export interface OnboardingStoreType {
+  isCompleting: boolean;
   steps: Step[];
   currentStep: Step;
   handleNextStep: () => void;

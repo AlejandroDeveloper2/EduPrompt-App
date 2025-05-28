@@ -9,6 +9,7 @@ import { ONBOARDING_STEPS } from "@/lib/constants";
 const STORAGE_KEY: string = "isOnboardingCompleted";
 
 export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
+  isCompleting: false,
   steps: ONBOARDING_STEPS["es"],
   currentStep: ONBOARDING_STEPS["es"][0],
 
@@ -50,11 +51,14 @@ export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
     set({ currentStep: targetStep });
   },
   completeOnboarding: async () => {
+    set({ isCompleting: true });
     try {
       await Storage.setItem(STORAGE_KEY, JSON.stringify(true));
       router.replace("/(tabs)");
     } catch (e: unknown) {
       console.error(e);
+    } finally {
+      set({ isCompleting: false });
     }
   },
   checkIfOnboardingDone: async () => {

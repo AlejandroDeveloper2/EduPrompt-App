@@ -31,6 +31,7 @@ const OnboardingDescription = ({
 }: OnboardingDescriptionProps) => {
   const size = useScreenDimensionsStore();
   const {
+    isCompleting,
     currentStep,
     handleNextStep,
     handlePreviousStep,
@@ -74,6 +75,9 @@ const OnboardingDescription = ({
             width="100%"
             variant="primary"
             style={{ flex: size === "mobile" ? undefined : 1 }}
+            loading={isCompleting}
+            loadingMessage="Cargando..."
+            disabled={isCompleting}
             onPress={
               currentStep.stepId === "4"
                 ? completeOnboarding
