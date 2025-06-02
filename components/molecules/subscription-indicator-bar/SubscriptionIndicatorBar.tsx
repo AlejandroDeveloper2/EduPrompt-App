@@ -7,7 +7,6 @@ import { useAnimatedSubscriptionBar } from "@/lib/hooks/animations";
 import { useScreenDimensionsStore } from "@/lib/hooks/store";
 
 import { Typography } from "@/components/atoms";
-import Button from "../button/Button";
 
 import { SubscriptionIndicatorBarStyle } from "./SubscriptionIndicatorBar.style";
 
@@ -50,12 +49,6 @@ const SubscriptionIndicatorBar = () => {
             width="auto"
           />
         </View>
-        <Button
-          icon="star-outline"
-          variant="neutral"
-          width="auto"
-          onPress={() => {}}
-        />
       </View>
     </Animated.View>
   );

@@ -21,9 +21,9 @@ export const NavigationStyle = (size: SizeType, insets: EdgeInsets) =>
         size === "laptop" ? Radius.radius_null : Radius.radius_lg,
       borderTopLeftRadius:
         size === "laptop" ? Radius.radius_null : Radius.radius_lg,
-      elevation: 10,
-      shadowOpacity: 0.6,
-      shadowOffset: { width: 0, height: 6 },
+      // elevation: 10,
+      // shadowOpacity: 0.6,
+      // shadowOffset: { width: 0, height: 6 },
 
       overflow: "hidden",
       borderLeftWidth: size === "laptop" ? 1 : 0,
