@@ -13,7 +13,6 @@ export const PreviewResourceListStyle = (size: SizeType) =>
       alignItems: size === "laptop" ? "flex-start" : "center",
       justifyContent: "flex-start",
       display: "flex",
-      marginTop: Spacing.spacing_lg,
     },
     FilterSection: {
       width: "100%",

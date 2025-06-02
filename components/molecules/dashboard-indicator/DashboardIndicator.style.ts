@@ -23,4 +23,10 @@ export const DashboardIndicatorStyle = (size: SizeType) =>
       paddingVertical:
         size === "mobile" ? Spacing.spacing_sm : Spacing.spacing_md,
     },
+    ValueIndicator: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: Spacing.spacing_2xs,
+    },
   });

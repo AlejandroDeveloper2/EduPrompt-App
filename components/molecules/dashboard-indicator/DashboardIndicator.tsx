@@ -5,7 +5,7 @@ import { AppColors } from "@/styles";
 
 import { useScreenDimensionsStore } from "@/lib/hooks/store";
 
-import { Typography } from "@/components/atoms";
+import { Ionicon, Typography } from "@/components/atoms";
 
 import { DashboardIndicatorStyle } from "./DashboardIndicator.style";
 
@@ -26,17 +26,26 @@ const DashboardIndicator = ({
 }: DashboardIndicatorProps) => {
   const size = useScreenDimensionsStore();
 
+  const dashboardIndicatorStyle = DashboardIndicatorStyle(size);
+
   return (
-    <View style={[DashboardIndicatorStyle(size).IndicatorContainer, style]}>
-      <Typography
-        icon={icon}
-        text={value}
-        weight={type === "numeric" ? "bold" : "regular"}
-        type={type === "numeric" ? "h2" : "paragraph"}
-        textAlign="center"
-        color={AppColors.primary[400]}
-        width="auto"
-      />
+    <View style={[dashboardIndicatorStyle.IndicatorContainer, style]}>
+      <View style={dashboardIndicatorStyle.ValueIndicator}>
+        <Ionicon
+          name={icon}
+          size={size === "mobile" ? 22 : 24}
+          color={AppColors.neutral[1000]}
+        />
+        <Typography
+          text={value}
+          weight={type === "numeric" ? "bold" : "regular"}
+          type={type === "numeric" ? "h2" : "paragraph"}
+          textAlign="center"
+          color={AppColors.primary[400]}
+          width="auto"
+        />
+      </View>
+
       <Typography
         text={label}
         weight="regular"
