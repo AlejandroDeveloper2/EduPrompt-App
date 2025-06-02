@@ -29,7 +29,7 @@ export const NAV_ITEMS: Lang<NavOption> = {
     {
       navItemId: "item-nav-5",
       label: "Prompts",
-      icon: "documents-outline",
+      icon: "chatbox-outline",
       onPress: () => {},
     },
   ],
@@ -61,7 +61,7 @@ export const NAV_ITEMS: Lang<NavOption> = {
     {
       navItemId: "item-nav-5",
       label: "Prompts",
-      icon: "documents-outline",
+      icon: "chatbox-outline",
       onPress: () => {},
     },
   ],
@@ -93,7 +93,7 @@ export const NAV_ITEMS: Lang<NavOption> = {
     {
       navItemId: "item-nav-5",
       label: "Prompts",
-      icon: "documents-outline",
+      icon: "chatbox-outline",
       onPress: () => {},
     },
   ],

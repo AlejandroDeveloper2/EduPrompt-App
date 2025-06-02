@@ -8,6 +8,7 @@ type Lang<T> = {
   es: T[];
   pt: T[];
 };
+type ProcessStateType = "pending" | "done" | "in-progress" | "error";
 
 interface FormatFilter {
   icon: keyof typeof Ionicons.glyphMap;
@@ -55,6 +56,8 @@ interface Process {
   type: ProcessType;
   processName: string;
   progressConfig: ProgressConfig;
+  progress: number;
+  state: ProcessStateType;
   tasksDone?: number;
 }
 
@@ -93,6 +96,7 @@ export type {
   NavOption,
   Notification,
   Process,
+  ProcessStateType,
   Prompt,
   ResourceFormatKey,
   Step,

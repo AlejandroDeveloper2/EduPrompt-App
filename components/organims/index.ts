@@ -1,5 +1,6 @@
 export { default as Alert } from "./alert/Alert";
 export { default as BackgroundProcessPanel } from "./background-process-panel/BackgroundProcessPanel";
+export { default as DashboardIndicatorPanel } from "./dashboard-indicator-panel/DashboardIndicatorPanel";
 export { default as DropdownOptionList } from "./dropdown-option-list/DropdownOptionList";
 export { default as Header } from "./header/Header";
 export { default as IaResponseCard } from "./ia-response-card/IaResponseCard";

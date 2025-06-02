@@ -9,7 +9,7 @@ export const SubprocessListStyle = (size: SizeType) =>
     List: {
       width: "100%",
       flexWrap: "wrap",
-      justifyContent: "flex-start",
+      justifyContent: "center",
       alignContent: "center",
       display: "flex",
       flexDirection: "row",

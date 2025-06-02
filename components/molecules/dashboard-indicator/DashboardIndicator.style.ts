@@ -7,8 +7,7 @@ import { AppColors, Radius, Spacing } from "@/styles";
 export const DashboardIndicatorStyle = (size: SizeType) =>
   StyleSheet.create({
     IndicatorContainer: {
-      flex: 1,
-      width: "100%",
+      // width: "100%",
       height: "auto",
       backgroundColor: AppColors.basic.white,
       borderColor: AppColors.neutral[50],

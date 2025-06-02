@@ -15,6 +15,7 @@ export const GlobalStyles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingBottom: Spacing.spacing_4xl * 4.5,
     gap: Spacing.spacing_xl,
+    paddingTop: Spacing.spacing_3xl,
   },
   SvgIllustration: {
     transform: [{ scale: 0.8 }],

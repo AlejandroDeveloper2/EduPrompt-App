@@ -1,4 +1,8 @@
+export { default as useBackgroundTaskRunner } from "./useBackgroundTaskRunner";
 export { default as useCheckOnboarding } from "./useCheckOnboarding";
+export { default as useLoadIndicators } from "./useLoadIndicators";
+export { default as useLoading } from "./useLoading";
 export { default as useProgressBar } from "./useProgressBar";
 export { default as useSearchInput } from "./useSearchInput";
+export { default as useSetupApp } from "./useSetupApp";
 export { default as useToolbar } from "./useToolbar";

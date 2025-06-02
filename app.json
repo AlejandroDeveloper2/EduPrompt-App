@@ -38,7 +38,17 @@
       "expo-sqlite",
       "expo-localization",
       "expo-background-task",
-      "react-native-iap"
+      "react-native-iap",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/adaptive-icon.png",
+          "color": "#10B981",
+          "defaultChannel": "default",
+          "sounds": ["./assets/sounds/notification_sound.wav"],
+          "enableBackgroundRemoteNotifications": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

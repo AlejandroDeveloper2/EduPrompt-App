@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { View } from "react-native";
+import { View, ViewStyle } from "react-native";
 
 import { AppColors } from "@/styles";
 
@@ -14,6 +14,7 @@ interface DashboardIndicatorProps {
   value: string;
   label: string;
   type: "numeric" | "alphabetic";
+  style?: ViewStyle;
 }
 
 const DashboardIndicator = ({
@@ -21,11 +22,12 @@ const DashboardIndicator = ({
   value,
   label,
   type,
+  style,
 }: DashboardIndicatorProps) => {
   const size = useScreenDimensionsStore();
 
   return (
-    <View style={DashboardIndicatorStyle(size).IndicatorContainer}>
+    <View style={[DashboardIndicatorStyle(size).IndicatorContainer, style]}>
       <Typography
         icon={icon}
         text={value}

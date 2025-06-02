@@ -36,7 +36,7 @@ const ScreenSection = ({
         type="h1"
         textAlign={textAlign}
         color={color ? color : AppColors.neutral[1000]}
-        width="100%"
+        width="auto"
         icon={icon}
       />
       <Typography

@@ -13,6 +13,7 @@ export const BackgroundProcessPanelStyle = StyleSheet.create({
   },
 
   Header: {
+    width: "100%",
     justifyContent: "center",
     alignItems: "flex-start",
     gap: Spacing.spacing_2xs,
