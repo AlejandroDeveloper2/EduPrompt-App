@@ -1,5 +1,6 @@
 import { RadiusStyle } from "@/lib/types";
 
+/**  Valores para bordes redondeados */
 export const Radius: RadiusStyle = {
   radius_null: 0,
   radius_sm: 4,

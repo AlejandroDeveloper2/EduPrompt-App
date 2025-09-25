@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { AppColors } from "./AppColors";
 import { Spacing } from "./Spacing";
 
+/** Estilos globales para contenedores principales e ilustraciones */
 export const GlobalStyles = StyleSheet.create({
   RootContainer: {
     flex: 1,

@@ -17,7 +17,17 @@ import PreviewResourceHeader from "./PreviewResourceHeader";
 
 import { PreviewResourceListStyle } from "./PreviewResourceList.style";
 
-const resources: EducationalResource[] = [];
+const resources: EducationalResource[] = [
+  {
+    resourceId: "resource-id",
+    title: "Recurso 1",
+    content: "algun contenido",
+    format: "Texto",
+    formatKey: "text",
+    groupTag: "Talleres",
+    creationDate: "20/08/2025",
+  },
+];
 
 const PreviewResourceList = () => {
   const [loading, setLoading] = useState<boolean>(false);

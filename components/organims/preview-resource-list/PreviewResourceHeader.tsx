@@ -42,7 +42,7 @@ const PreviewResourceHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder="Buscar recurso por nombre"
-        onChange={handleSearchChange}
+        onChange={(_, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
       />
       <View style={previewResourceListStyle.FilterSection}>

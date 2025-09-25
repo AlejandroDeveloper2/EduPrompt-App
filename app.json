@@ -42,13 +42,14 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/adaptive-icon.png",
+          "icon": "./assets/images/adaptive-icon.png",
           "color": "#10B981",
           "defaultChannel": "default",
           "sounds": ["./assets/sounds/notification_sound.wav"],
           "enableBackgroundRemoteNotifications": false
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true

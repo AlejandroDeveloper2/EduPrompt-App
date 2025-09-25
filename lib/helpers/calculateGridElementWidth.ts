@@ -18,8 +18,8 @@ export const calculateGridElementWidth = (
   const numCols = colsConfig[size];
   const totalGap = containerGap * (numCols - 1);
 
-  const subprocessWidth: DimensionValue =
+  const elementWidth: DimensionValue =
     (windowWidth - totalGap - containerVerticalPadding) / numCols;
 
-  return subprocessWidth;
+  return elementWidth;
 };

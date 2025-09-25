@@ -1,5 +1,6 @@
 import { ColorSchema } from "@/lib/types";
 
+/** Paleta de colores de EduPrompt App */
 export const AppColors: ColorSchema = {
   primary: {
     25: "#5BF1BF",
@@ -15,19 +16,19 @@ export const AppColors: ColorSchema = {
     900: "#042A1E",
   },
   neutral: {
-    0: "#F2F2F3",
-    25: "#E5E6E6",
-    50: "#D8D9DA",
-    100: "#CACDCE",
-    200: "#BDC0C1",
-    300: "#B0B4B5",
-    400: "#A3A7A9",
-    500: "#969B9C",
-    600: "#898E90",
-    700: "#7C8183",
-    800: "#6F7476",
-    900: "#636769",
-    1000: "#252727",
+    0: "#F1F2F4",
+    25: "#E3E5E8",
+    50: "#D5D8DD",
+    100: "#C6CAD2",
+    200: "#B8BDC6",
+    300: "#AAB0BB",
+    400: "#9CA3AF",
+    500: "#868E9D",
+    600: "#70798A",
+    700: "#5D6574",
+    800: "#4B525D",
+    900: "#393E47",
+    1000: "#272A30",
   },
   danger: {
     25: "#F5668F",

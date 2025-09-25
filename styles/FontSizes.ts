@@ -1,5 +1,6 @@
 import { FontStyle, ScreenSizeStyle } from "@/lib/types";
 
+/** Tamaños de fuentes para diferentes tamaños de pantalla */
 export const FontSizes: ScreenSizeStyle<FontStyle> = {
   mobile: {
     display: 32,
@@ -27,6 +28,7 @@ export const FontSizes: ScreenSizeStyle<FontStyle> = {
   },
 };
 
+/** Tamaños de iconos para diferentes tamaños de pantalla */
 export const FontIconSizes: ScreenSizeStyle<FontStyle> = {
   mobile: {
     display: 32,

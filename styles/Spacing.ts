@@ -1,5 +1,6 @@
 import { SpacingStyle } from "@/lib/types";
 
+/** Valores para espaciado entre elementos y layouts */
 export const Spacing: SpacingStyle = {
   spacing_null: 0,
   spacing_4xs: 2,
