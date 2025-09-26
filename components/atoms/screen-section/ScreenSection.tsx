@@ -15,12 +15,14 @@ interface ScreenSectionProps {
   description: string;
   color?: string;
   title: string;
+  fullTitleWidth?: boolean;
   icon: keyof typeof Ionicons.glyphMap;
 }
 
 const ScreenSection = ({
   description,
   title,
+  fullTitleWidth,
   icon,
   color,
 }: ScreenSectionProps) => {
@@ -36,7 +38,7 @@ const ScreenSection = ({
         type="h1"
         textAlign={textAlign}
         color={color ? color : AppColors.neutral[1000]}
-        width="auto"
+        width={fullTitleWidth ? "100%" : "auto"}
         icon={icon}
       />
       <Typography

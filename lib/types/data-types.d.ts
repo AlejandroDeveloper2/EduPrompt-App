@@ -84,7 +84,8 @@ interface Step {
     | "FirstStepImage"
     | "SecondStepImage"
     | "ThirdStepImage"
-    | "FourthStepImage";
+    | "FourthStepImage"
+    | "FiveStepImage";
 }
 
 export type {

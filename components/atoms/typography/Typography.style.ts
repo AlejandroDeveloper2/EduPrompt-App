@@ -34,6 +34,7 @@ export const TypographyStyle = ({
       height: "auto",
       display: "flex",
       gap: Spacing.spacing_2xs,
+      flexWrap: "wrap",
       alignItems: "center",
       justifyContent:
         textAlign === "left"

@@ -1,3 +1,4 @@
+export { default as FiveImage } from "./FiveImage";
 export { default as FourthImage } from "./FourthImage";
 export { default as IntroImage } from "./IntroImage";
 export { default as SecondImage } from "./SecondImage";

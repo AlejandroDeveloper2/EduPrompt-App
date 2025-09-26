@@ -21,19 +21,30 @@ export const ONBOARDING_STEPS: Lang<Step> = {
     },
     {
       stepId: "3",
-      stepIcon: "settings-outline",
-      stepTitle: "Gestiona tus recursos",
-      description:
-        "Guarda, edita, elimina y descarga tus recursos en formatos como PDF, TXT o imagen. Administra todo desde tu dispositivo, sin conexión a internet.",
+      stepIcon: "cloud-done-outline",
+      stepTitle: "Guarda tu progreso en la nube (opcional)",
+      description: `Usa EduPrompt sin registro, o crea una cuenta gratuita para:
+          - Resguardar tus recursos educativos.
+          - No perder los tokens que compres.
+          - Acceder desde cualquier dispositivo.`,
       stepIllustration: "ThirdStepImage",
     },
     {
       stepId: "4",
+      stepIcon: "settings-outline",
+      stepTitle: "Gestiona tus recursos",
+      description:
+        "Guarda, edita, elimina y descarga tus recursos en formatos como PDF, TXT o imagen. Administra todo desde tu dispositivo, sin conexión a internet.",
+      stepIllustration: "FourthStepImage",
+    },
+
+    {
+      stepId: "5",
       stepIcon: "hardware-chip-outline",
       stepTitle: "Usa tus tokens para crear",
       description:
         "EduPrompt funciona sin registro. Solo necesitas conexión para generar recursos o comprar tokens. Usa tus tokens disponibles y sigue creando sin límites.",
-      stepIllustration: "FourthStepImage",
+      stepIllustration: "FiveStepImage",
     },
   ],
   pt: [],

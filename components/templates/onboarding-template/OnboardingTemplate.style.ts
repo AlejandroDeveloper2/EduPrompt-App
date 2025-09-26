@@ -16,6 +16,10 @@ export const OnboardingTemplateStyle = (size: SizeType, insets: EdgeInsets) =>
       flex: 1,
       paddingBottom: insets.bottom,
     },
+    OpacityLayer: {
+      ...StyleSheet.absoluteFillObject,
+      backgroundColor: "rgba(16,185,129,0.8)",
+    },
     StepContainerBox: {
       width: "100%",
       height: "85%",

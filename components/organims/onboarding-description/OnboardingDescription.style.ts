@@ -8,11 +8,10 @@ export const OnboardingDescriptionStyle = (size: SizeType) =>
   StyleSheet.create({
     StepContent: {
       width: "90%",
-      justifyContent: "center",
-      alignItems: "center",
       gap: size === "mobile" ? Spacing.spacing_md : Spacing.spacing_lg,
       flexDirection: size === "laptop" ? "row" : "column",
       display: "flex",
+      overflowX: "visible",
     },
     StepDescription: {
       width: "100%",

@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ImageBackground, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -14,6 +14,8 @@ import { OnboardingDescription } from "@/components/organims";
 
 import { GlobalStyles } from "@/styles/GlobalStyles.style";
 import { OnboardingTemplateStyle } from "./OnboardingTemplate.style";
+
+import EduPromptBackground from "@/assets/images/eduprompt-background.png";
 
 const OnboardingTemplate = () => {
   const insets = useSafeAreaInsets();
@@ -31,7 +33,11 @@ const OnboardingTemplate = () => {
 
   return (
     <View style={GlobalStyles.RootContainer}>
-      <View style={onBoardingTemplateStyle.Container}>
+      <ImageBackground
+        style={onBoardingTemplateStyle.Container}
+        source={EduPromptBackground}
+      >
+        <View style={onBoardingTemplateStyle.OpacityLayer} />
         <LogoV2 style={animatedLogoStyle} />
         <Animated.View
           style={[onBoardingTemplateStyle.StepContainerBox, animatedBoxStyle]}
@@ -40,8 +46,8 @@ const OnboardingTemplate = () => {
             icon="play-skip-forward-outline"
             width="auto"
             variant="neutral"
-            style={{ position: "absolute", top: 20, right: 20 }}
-            disabled={currentStep.stepId === "4"}
+            style={{ position: "absolute", top: 20, right: 20, zIndex: 10 }}
+            disabled={currentStep.stepId === "5"}
             onPress={() =>
               runReverseAnimation(() =>
                 goToExactStep(steps[steps.length - 1].stepId)
@@ -55,17 +61,12 @@ const OnboardingTemplate = () => {
           <Stepper
             steps={steps}
             currentStep={currentStep}
-            style={{
-              position: "absolute",
-              bottom: 20,
-              alignSelf: "center",
-            }}
             onActive={(stepId) =>
               runReverseAnimation(() => goToExactStep(stepId))
             }
           />
         </Animated.View>
-      </View>
+      </ImageBackground>
     </View>
   );
 };

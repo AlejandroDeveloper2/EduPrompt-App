@@ -1,4 +1,5 @@
 import {
+  FiveImage,
   FourthImage,
   IntroImage,
   SecondImage,
@@ -11,12 +12,14 @@ export const renderOnboardingStepImage = (
     | "SecondStepImage"
     | "ThirdStepImage"
     | "FourthStepImage"
+    | "FiveStepImage"
 ) => {
   const Illustrations = {
     FirstStepImage: <IntroImage />,
     SecondStepImage: <SecondImage />,
     ThirdStepImage: <ThirdImage />,
     FourthStepImage: <FourthImage />,
+    FiveStepImage: <FiveImage />,
   };
   return Illustrations[stepIllustration];
 };

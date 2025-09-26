@@ -9,7 +9,7 @@ const ThirdImage = () => {
   return (
     <Image
       source={Illustration}
-      style={{ transform: [{ scale: size === "mobile" ? 0.8 : 1 }] }}
+      style={{ transform: [{ scale: size === "mobile" ? 0.7 : 1 }] }}
     />
   );
 };

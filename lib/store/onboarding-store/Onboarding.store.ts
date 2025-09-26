@@ -54,7 +54,7 @@ export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
     set({ isCompleting: true });
     try {
       await Storage.setItem(STORAGE_KEY, JSON.stringify(true));
-      router.replace("/(tabs)");
+      router.replace("/auth");
     } catch (e: unknown) {
       console.error(e);
     } finally {
@@ -65,7 +65,7 @@ export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
     try {
       const isOnboardingCompleted = await Storage.getItem(STORAGE_KEY);
 
-      if (isOnboardingCompleted === "true") router.replace("/(tabs)");
+      if (isOnboardingCompleted === "true") router.replace("/auth");
       else router.replace("/onboarding");
     } catch (e: unknown) {
       console.error(e);
