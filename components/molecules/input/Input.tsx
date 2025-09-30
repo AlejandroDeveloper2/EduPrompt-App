@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { TextInput, View } from "react-native";
 
 import { AppColors, Spacing } from "@/styles";
@@ -18,6 +18,7 @@ export interface InputProps<T>
   value: string;
   icon: keyof typeof Ionicons.glyphMap;
   placeholder: string;
+  password?: boolean;
   children?: ReactNode | ReactNode[];
   onChange: (name: keyof T, value: string) => void;
   onClearInput: () => void;
@@ -27,11 +28,14 @@ function Input<T>({
   name,
   value,
   placeholder,
+  password,
   children,
   onChange,
   onClearInput,
   ...props
 }: InputProps<T>) {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const size = useScreenDimensionsStore();
   const error = props.errorMessage !== undefined;
 
@@ -57,6 +61,7 @@ function Input<T>({
         <TextInput
           id={name as string}
           value={value}
+          secureTextEntry={password ? !showPassword : false}
           onChangeText={(e) => onChange(name, e)}
           editable={props.disabled === undefined}
           placeholder={placeholder}
@@ -79,6 +84,14 @@ function Input<T>({
               onPress={onClearInput}
             />
           )}
+          {password ? (
+            <Ionicon
+              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              color={AppColors.neutral[700]}
+              size={size === "mobile" ? 20 : 24}
+              onPress={() => setShowPassword(!showPassword)}
+            />
+          ) : null}
           {props.errorMessage && (
             <Ionicon
               name="warning-outline"

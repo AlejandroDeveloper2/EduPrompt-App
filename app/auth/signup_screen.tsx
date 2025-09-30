@@ -1,11 +1,11 @@
 import { AuthTemplate } from "@/components/templates";
 
-export default function LoginScreen() {
+export default function SignupScreen() {
   return (
     <AuthTemplate
-      title="Iniciar sesión"
-      titleIcon="log-in-outline"
-      form="login"
+      title="Crear cuenta"
+      titleIcon="add-outline"
+      form="signup"
       hasContiueWithoutAccount
     />
   );

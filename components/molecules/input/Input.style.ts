@@ -50,17 +50,17 @@ export const InputStyle = (size: SizeType) =>
     Tools: {
       display: "flex",
       width: "100%",
-      flex: 1,
+      flex: 0.5,
       flexDirection: "row",
       justifyContent: "flex-end",
       alignItems: "center",
-      gap: Spacing.spacing_xs,
+      gap: Spacing.spacing_4xs,
       paddingVertical:
         size === "mobile" ? Spacing.spacing_md : Spacing.spacing_lg,
     },
     Input: {
       width: "100%",
-      flex: 2,
+      flex: 2.5,
       fontFamily: getFontFamily("regular"),
       fontSize: FontSizes[size]["paragraph"],
       fontStyle: "normal",

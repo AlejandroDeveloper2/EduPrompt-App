@@ -9,6 +9,7 @@ export { default as FileNavigator } from "./file-navigator/FileNavigator";
 export { default as FilterTag } from "./filter-tag/FilterTag";
 export { default as GenerateButton } from "./generate-button/GenerateButton";
 export { default as InfoCard } from "./info-card/InfoCard";
+export { default as InputCode } from "./input-code/InputCode";
 export { default as Input, InputProps } from "./input/Input";
 export { default as LoadingTextIndicator } from "./loading-text-indicator/LoadingTextIndicator";
 export { default as NavItem } from "./nav-item/NavItem";

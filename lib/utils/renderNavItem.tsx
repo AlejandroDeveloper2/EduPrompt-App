@@ -6,7 +6,7 @@ import { NAV_ITEMS } from "../constants";
 
 import { getActiveDrawerItem, getActiveNavItem } from "../helpers";
 
-import { NavItem } from "@/components/molecules";
+import NavItem from "@/components/molecules/nav-item/NavItem";
 
 export const renderDrawerItem = (
   language: "es",

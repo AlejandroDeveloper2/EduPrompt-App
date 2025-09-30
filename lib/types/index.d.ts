@@ -1,4 +1,7 @@
 import { RelativePathString } from "expo-router";
+import { ComponentRef } from "react";
+import { TextInput } from "react-native";
+import { z } from "zod";
 
 type SpacingNamesType =
   | "null"
@@ -131,6 +134,29 @@ type NavigationPropsBase = {
   actions: NavOption[];
 };
 
+type FormErrors<T> = {
+  [K in keyof T]?: T[K] extends (infer U)[]
+    ? U extends object
+      ? (FormErrors<U> | undefined)[]
+      : string[]
+    : string[];
+};
+
+interface FormConfig<T> {
+  initialValues: T;
+  validationSchema: z.ZodType<T>;
+  actionCallback: () => Promise<void>;
+  noReset?: boolean;
+}
+
+interface CodeValue {
+  character1: string;
+  character2: string;
+  character3: string;
+  character4: string;
+}
+type TextInputInstance = ComponentRef<typeof TextInput>;
+
 export {
   AlertVariantType,
   AlignTextType,
@@ -138,12 +164,15 @@ export {
   BasicColor,
   ButtonVariantType,
   ButtonWidthType,
+  CodeValue,
   ColorSchema,
   ColorVariation,
   ColorVariationExtended,
   FontSizeType,
   FontStyle,
   FontWeigthType,
+  FormConfig,
+  FormErrors,
   NavigationPropsBase,
   ProcessType,
   ProgressConfig,
@@ -155,6 +184,7 @@ export {
   SpacingNamesType,
   SpacingStyle,
   StepType,
+  TextInputInstance,
   ToastVariantType,
   TypographyType,
   ViewerType,
