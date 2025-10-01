@@ -1,4 +1,5 @@
 import { useForm } from "@/lib/hooks/core";
+import { useLogin } from "@/lib/hooks/mutations/auth";
 
 import { LoginCredentials, loginSchema } from "./validationSchema";
 
@@ -10,12 +11,13 @@ const initialValues: LoginCredentials = {
 };
 
 const LoginForm = () => {
+  const login = useLogin();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,
       validationSchema: loginSchema,
-      actionCallback: async () => {
-        console.log(data);
+      actionCallback: () => {
+        login.mutate(data);
       },
     });
 
@@ -65,6 +67,8 @@ const LoginForm = () => {
             icon="log-in-outline"
             label="Iniciar sesión"
             onPress={handleSubmit}
+            loading={login.isPending}
+            loadingMessage="Validando credenciales..."
           />
         </Form.Row.Item>
         <Form.Row.Item span={1}>

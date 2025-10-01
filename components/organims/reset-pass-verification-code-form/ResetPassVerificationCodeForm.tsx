@@ -5,6 +5,7 @@ import {
   resetPassVerificationCodeSchema,
 } from "./validationSchema";
 
+import { useValidateResetPassCode } from "@/lib/hooks/mutations/auth";
 import Form from "../form/Form";
 
 const initialValues: ResetPassVerificationCodeData = {
@@ -12,13 +13,15 @@ const initialValues: ResetPassVerificationCodeData = {
 };
 
 const ResetPassVerificationCodeForm = () => {
+  const validateResetPassCode = useValidateResetPassCode();
   const { data, getFieldErrors, handleChange, handleSubmit } = useForm({
     initialValues,
     validationSchema: resetPassVerificationCodeSchema,
-    actionCallback: async () => {
-      console.log(data);
+    actionCallback: () => {
+      validateResetPassCode.mutate(data.code);
     },
   });
+
   return (
     <Form>
       <Form.Fields>
@@ -47,6 +50,8 @@ const ResetPassVerificationCodeForm = () => {
             width="100%"
             icon="checkmark-done-outline"
             label="Verificar código"
+            loading={validateResetPassCode.isPending}
+            loadingMessage="Validando código..."
             onPress={handleSubmit}
           />
         </Form.Row.Item>

@@ -1,6 +1,5 @@
-import { useRouter } from "expo-router";
-
 import { useForm } from "@/lib/hooks/core";
+import { useSendResetPassRequest } from "@/lib/hooks/mutations/auth";
 
 import {
   RequestPassResetData,
@@ -14,14 +13,13 @@ const initialValues: RequestPassResetData = {
 };
 
 const RequestPassResetForm = () => {
-  const router = useRouter();
+  const sendResetPassRequest = useSendResetPassRequest();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,
       validationSchema: requestPassResetSchema,
-      actionCallback: async () => {
-        console.log(data);
-        router.navigate("/auth/verify_reset_pass_code_screen");
+      actionCallback: () => {
+        sendResetPassRequest.mutate(data.email);
       },
     });
 
@@ -50,6 +48,8 @@ const RequestPassResetForm = () => {
             width="100%"
             icon="send-outline"
             label="Enviar solicitud"
+            loading={sendResetPassRequest.isPending}
+            loadingMessage="Enviando solicitud..."
             onPress={handleSubmit}
           />
         </Form.Row.Item>

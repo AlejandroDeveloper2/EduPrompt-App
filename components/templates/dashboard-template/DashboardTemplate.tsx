@@ -1,8 +1,10 @@
 import { ScrollView, View } from "react-native";
 
 import { useLoadIndicators } from "@/lib/hooks/core";
+import { useLogout } from "@/lib/hooks/mutations/auth";
 
 import { ScreenSection } from "@/components/atoms";
+import { Button } from "@/components/molecules";
 import {
   BackgroundProcessPanel,
   DashboardIndicatorPanel,
@@ -13,6 +15,7 @@ import { GlobalStyles } from "@/styles/GlobalStyles.style";
 
 const DashboardTemplate = () => {
   useLoadIndicators();
+  const { mutate } = useLogout();
 
   return (
     <View style={GlobalStyles.RootContainer}>
@@ -20,6 +23,13 @@ const DashboardTemplate = () => {
         contentContainerStyle={GlobalStyles.PageContent}
         showsVerticalScrollIndicator={false}
       >
+        <Button
+          icon="power-outline"
+          variant="neutral"
+          width="auto"
+          onPress={mutate}
+          label="Cerrar sesión"
+        />
         <View style={{ gap: Spacing.spacing_xl }}>
           <ScreenSection
             description={

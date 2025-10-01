@@ -1,4 +1,5 @@
 import { useForm } from "@/lib/hooks/core";
+import { useActivateAccount } from "@/lib/hooks/mutations/auth";
 
 import {
   AccountActivationData,
@@ -12,13 +13,15 @@ const initialValues: AccountActivationData = {
 };
 
 const AccountActivationForm = () => {
+  const activateAccount = useActivateAccount();
   const { data, getFieldErrors, handleChange, handleSubmit } = useForm({
     initialValues,
     validationSchema: accountActivationSchema,
-    actionCallback: async () => {
-      console.log(data);
+    actionCallback: () => {
+      activateAccount.mutate(data.code);
     },
   });
+
   return (
     <Form>
       <Form.Fields>
@@ -47,6 +50,8 @@ const AccountActivationForm = () => {
             width="100%"
             icon="checkmark-done-outline"
             label="Activar cuenta"
+            loading={activateAccount.isPending}
+            loadingMessage="Activando cuenta..."
             onPress={handleSubmit}
           />
         </Form.Row.Item>

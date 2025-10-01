@@ -58,7 +58,7 @@ const BaseButton = ({
       onPress={onPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
-      disabled={disabled}
+      disabled={loading ? true : disabled}
     >
       {loading && loadingMessage ? (
         <>

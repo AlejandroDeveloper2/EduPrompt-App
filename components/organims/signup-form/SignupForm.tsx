@@ -1,8 +1,7 @@
-import { useRouter } from "expo-router";
-
 import { SignupData, signupSchema } from "./validationSchema";
 
 import { useForm } from "@/lib/hooks/core";
+import { useSignup } from "@/lib/hooks/mutations/auth";
 
 import Form from "../form/Form";
 import TermsAndPolicies from "./terms-and-policies/TermsAndPolicies";
@@ -10,13 +9,13 @@ import TermsAndPolicies from "./terms-and-policies/TermsAndPolicies";
 const initialValues: SignupData = {
   email: "",
   password: "",
-  username: "",
+  userName: "",
   confirmPassword: "",
   termsAndPolicies: false,
 };
 
 const SignupForm = () => {
-  const router = useRouter();
+  const signup = useSignup();
   const {
     data,
     getFieldErrors,
@@ -27,9 +26,9 @@ const SignupForm = () => {
   } = useForm({
     initialValues,
     validationSchema: signupSchema,
-    actionCallback: async () => {
-      console.log(data);
-      router.navigate("/auth/account_activation_screen");
+    actionCallback: () => {
+      const { userName, email, password } = data;
+      signup.mutate({ userName, email, password });
     },
   });
 
@@ -41,12 +40,12 @@ const SignupForm = () => {
             <Form.Input<SignupData>
               label="Nombre de usuario"
               icon="person-outline"
-              name="username"
-              value={data.username}
+              name="userName"
+              value={data.userName}
               placeholder="Nombre de usuario"
-              errorMessage={getFieldErrors("username")?.join(", ")}
+              errorMessage={getFieldErrors("userName")?.join(", ")}
               onChange={handleChange}
-              onClearInput={() => handleClearInput("username")}
+              onClearInput={() => handleClearInput("userName")}
             />
           </Form.Row.Item>
           <Form.Row.Item span={1}>
@@ -114,6 +113,8 @@ const SignupForm = () => {
             width="100%"
             icon="add-outline"
             label="Crear cuenta"
+            loading={signup.isPending}
+            loadingMessage="Creando cuenta..."
             onPress={handleSubmit}
           />
         </Form.Row.Item>

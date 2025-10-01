@@ -1,6 +1,6 @@
 import { ErrorMessages } from "./ErrorMessages";
 
-type ErrorCodeType = keyof typeof ErrorMessages;
+export type ErrorCodeType = keyof typeof ErrorMessages;
 
 export class ServerError extends Error {
   public code: number;

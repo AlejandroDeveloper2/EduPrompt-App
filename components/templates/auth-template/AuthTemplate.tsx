@@ -10,6 +10,7 @@ import { LogoV2, Typography } from "@/components/atoms";
 import { Button } from "@/components/molecules";
 import {
   AccountActivationForm,
+  AccountActivationRequestForm,
   LoginForm,
   RequestPassResetForm,
   ResetPassVerificationCodeForm,
@@ -30,7 +31,8 @@ interface AuthTemplateProps {
     | "reset-password"
     | "request-password-reset"
     | "reset-pass-verification-code"
-    | "account-activation";
+    | "account-activation"
+    | "account-activation-request";
   hasContiueWithoutAccount?: boolean;
 }
 
@@ -41,6 +43,7 @@ const AuthForm = {
   "request-password-reset": <RequestPassResetForm />,
   "reset-pass-verification-code": <ResetPassVerificationCodeForm />,
   "account-activation": <AccountActivationForm />,
+  "account-activation-request": <AccountActivationRequestForm />,
 };
 
 const AuthTemplate = ({

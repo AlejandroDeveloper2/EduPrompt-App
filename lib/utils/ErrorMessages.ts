@@ -7,7 +7,7 @@ export enum ErrorMessages {
   USER_EMAIL_ALREADY_EXISTS = "Ya existe un usuario con ese correo electrónico",
   USERNAME_ALREADY_EXISTS = "El nombre de usuario ya ha sido tomado, elije otro",
   USER_NOT_FOUND = "Usuario no encontrado",
-  INACTIVE_ACCOUNT = "La cuenta esta inactiva",
+  INACTIVE_ACCOUNT = "La cuenta esta inactiva, puedes solicitar un nuevo código de activación:",
   INCORRECT_PASSWORD = "La contraseña es incorrecta",
   INVALID_SESSION = "La sesión es invalida",
   SESSION_ALREADY_ACTIVE = "El usuario ya tiene una sesión activa",

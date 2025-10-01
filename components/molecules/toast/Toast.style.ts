@@ -11,10 +11,12 @@ export const ToastStyle = (size: SizeType, variant: ToastVariantType) =>
       height: "auto",
       maxWidth: 250,
       display: "flex",
+      flexDirection: "row",
       justifyContent: "center",
       alignItems: "center",
       position: "relative",
       overflow: "hidden",
+      gap: size === "mobile" ? Spacing.spacing_2xs : Spacing.spacing_xs,
       backgroundColor:
         variant === "neutral" ? AppColors[variant][0] : AppColors[variant][400],
       paddingHorizontal:

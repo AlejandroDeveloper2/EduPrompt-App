@@ -51,18 +51,16 @@ const useForm = <T>({
   };
 
   /** Función para enviar el formulario*/
-  const handleSubmit = async (): Promise<void> => {
-    try {
-      const hasErrors: boolean = validateForm(data);
+  const handleSubmit = (): void => {
+    const hasErrors: boolean = validateForm(data);
 
-      if (hasErrors) return;
+    if (hasErrors) return;
 
-      await actionCallback();
-      setErrors({});
-      if (!noReset) setData(initialValues);
-    } catch (e: unknown) {
-      console.log(e);
-    }
+    actionCallback();
+
+    setErrors({});
+
+    if (!noReset) setData(initialValues);
   };
 
   /** Función para escuchar si un input externo con estado independiente

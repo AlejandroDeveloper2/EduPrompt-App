@@ -88,17 +88,47 @@ interface Step {
     | "FiveStepImage";
 }
 
+/** Auth Module types */
+interface LoginResponse {
+  token: string;
+}
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface SignupPayload {
+  userName: string;
+  email: string;
+  password: string;
+}
+
+interface ResetPassCodeResponse {
+  userId: string;
+}
+
+interface ResetPassPayload {
+  newPassword: string;
+  userId: string;
+}
+
 export type {
   DownloadedResource,
   EducationalResource,
   Folder,
   FormatFilter,
   Lang,
+  LoginCredentials,
+  LoginResponse,
   NavOption,
   Notification,
   Process,
   ProcessStateType,
   Prompt,
+  ResetPassCodeResponse,
+  ResetPassPayload,
   ResourceFormatKey,
+  SignupPayload,
   Step,
 };

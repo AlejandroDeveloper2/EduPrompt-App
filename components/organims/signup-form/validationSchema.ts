@@ -5,7 +5,7 @@ const passwordRegex =
 
 export const signupSchema = z
   .object({
-    username: z.string().min(3, {
+    userName: z.string().min(3, {
       message: "El nombre de usuario debe tener almenos 3 caracteres ",
     }),
     email: z.string().email({ message: "Correo electrónico invalido" }),
@@ -16,11 +16,9 @@ export const signupSchema = z
     confirmPassword: z
       .string()
       .min(1, { message: "La confirmación de contraseña es requerida" }),
-    termsAndPolicies: z
-      .boolean()
-      .refine((val) => val === true, {
-        message: "Debes aceptar los términos y políticas",
-      }),
+    termsAndPolicies: z.boolean().refine((val) => val === true, {
+      message: "Debes aceptar los términos y políticas",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Las contraseñas no coinciden",

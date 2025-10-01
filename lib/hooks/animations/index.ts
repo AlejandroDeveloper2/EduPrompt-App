@@ -9,5 +9,6 @@ export { default as useAnimatedProgressBar } from "./useAnimatedProgressBar";
 export { default as useAnimatedSpinner } from "./useAnimatedSpinner";
 export { default as useAnimatedSubprocess } from "./useAnimatedSubprocess";
 export { default as useAnimatedSubscriptionBar } from "./useAnimatedSubscriptionBar";
+export { default as useAnimatedToast } from "./useAnimatedToast";
 export { default as useAnimatedToastLoadBar } from "./useAnimatedToastLoadBar";
 export { default as useAnimatedToolbar } from "./useAnimatedToolbar";

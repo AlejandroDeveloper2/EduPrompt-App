@@ -145,7 +145,7 @@ type FormErrors<T> = {
 interface FormConfig<T> {
   initialValues: T;
   validationSchema: z.ZodType<T>;
-  actionCallback: () => Promise<void>;
+  actionCallback: () => void;
   noReset?: boolean;
 }
 
@@ -156,6 +156,11 @@ interface CodeValue {
   character4: string;
 }
 type TextInputInstance = ComponentRef<typeof TextInput>;
+
+interface ServerResponse<T> {
+  data: T;
+  message: string;
+}
 
 export {
   AlertVariantType,
@@ -180,6 +185,7 @@ export {
   RadiusValuesType,
   ScreenBreakpoint,
   ScreenSizeStyle,
+  ServerResponse,
   SizeType,
   SpacingNamesType,
   SpacingStyle,

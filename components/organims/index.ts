@@ -1,4 +1,5 @@
 export { default as AccountActivationForm } from "./account-activation-form/AccountActivationForm";
+export { default as AccountActivationRequestForm } from "./account-activation-request-form/AccountActivationRequestForm";
 export { default as Alert } from "./alert/Alert";
 export { default as BackgroundProcessPanel } from "./background-process-panel/BackgroundProcessPanel";
 export { default as DashboardIndicatorPanel } from "./dashboard-indicator-panel/DashboardIndicatorPanel";

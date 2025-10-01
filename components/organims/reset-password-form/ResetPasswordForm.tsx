@@ -1,4 +1,5 @@
 import { useForm } from "@/lib/hooks/core";
+import { useResetUserPassword } from "@/lib/hooks/mutations/auth";
 
 import { ResetPasswordData, resetPasswordSchema } from "./validationSchema";
 
@@ -10,12 +11,13 @@ const initialValues: ResetPasswordData = {
 };
 
 const ResetPasswordForm = () => {
+  const { resetUserPassword, isPending } = useResetUserPassword();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,
       validationSchema: resetPasswordSchema,
-      actionCallback: async () => {
-        console.log(data);
+      actionCallback: () => {
+        resetUserPassword(data.newPassword);
       },
     });
 
@@ -58,6 +60,8 @@ const ResetPasswordForm = () => {
             width="100%"
             icon="pencil-outline"
             label="Actualizar contraseña"
+            loading={isPending}
+            loadingMessage="Actualizando contraseña..."
             onPress={handleSubmit}
           />
         </Form.Row.Item>

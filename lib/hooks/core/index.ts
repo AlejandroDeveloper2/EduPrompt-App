@@ -1,4 +1,5 @@
 export { default as useBackgroundTaskRunner } from "./useBackgroundTaskRunner";
+export { default as useCheckAuth } from "./useCheckAuth";
 export { default as useCheckOnboarding } from "./useCheckOnboarding";
 export { default as useCodeInput } from "./useCodeInput";
 export { default as useForm } from "./useForm";

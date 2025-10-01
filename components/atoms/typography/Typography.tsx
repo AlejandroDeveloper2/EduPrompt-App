@@ -17,7 +17,7 @@ interface TypographyProps {
   type: TypographyType;
   textAlign: AlignTextType;
   color: string;
-  width: "auto" | "100%";
+  width: "auto" | "100%" | number;
   icon?: keyof typeof Ionicons.glyphMap;
 }
 

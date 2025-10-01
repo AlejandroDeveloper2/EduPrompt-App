@@ -47,4 +47,15 @@ export const GlobalStyles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(16,185,129,0.8)",
   },
+  ToastsQueueContainer: {
+    width: "auto",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    gap: Spacing.spacing_sm,
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    zIndex: 50,
+  },
 });

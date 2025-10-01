@@ -17,7 +17,7 @@ interface StyleProps {
   textAlign: AlignTextType;
   size: FontSizeType;
   type: TypographyType;
-  width: "auto" | "100%";
+  width: "auto" | "100%" | number;
 }
 
 export const TypographyStyle = ({
