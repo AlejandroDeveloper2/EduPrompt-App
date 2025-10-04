@@ -21,6 +21,7 @@ export { default as ResourceViewer } from "./resource-viewer/ResourceViewer";
 export { default as Stepper } from "./stepper/Stepper";
 export { default as Subprocess } from "./subprocess/Subprocess";
 export { default as SubscriptionIndicator } from "./subscription-indicator-bar/SubscriptionIndicatorBar";
+export { default as Switch } from "./switch/Switch";
 export { default as Toast } from "./toast/Toast";
 export { default as TokenBadge } from "./token-badge/TokenBadge";
 export { default as Toolbar } from "./toolbar/Toolbar";

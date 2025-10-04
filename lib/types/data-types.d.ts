@@ -113,6 +113,27 @@ interface ResetPassPayload {
   userId: string;
 }
 
+/** Tipos Modulo de usuarios */
+interface UserPreferences {
+  autoSync: boolean;
+  cleanFrecuency: string | null;
+  pushNotifications: boolean;
+  autoCleanNotifications: boolean;
+  language: string;
+}
+
+interface User {
+  userName: string;
+  email: string;
+  tokenCoins: number;
+  isPremiumUser: boolean;
+  userPreferences: UserPreferences;
+}
+
+interface UserStats extends User {
+  sync: boolean;
+}
+
 export type {
   DownloadedResource,
   EducationalResource,
@@ -131,4 +152,7 @@ export type {
   ResourceFormatKey,
   SignupPayload,
   Step,
+  User,
+  UserPreferences,
+  UserStats,
 };

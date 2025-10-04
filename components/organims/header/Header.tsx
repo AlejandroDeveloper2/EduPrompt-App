@@ -44,6 +44,11 @@ const Header = () => {
               icon="storefront-outline"
               onPress={() => {}}
             />
+            <NavItem
+              active={false}
+              icon="settings-outline"
+              onPress={() => {}}
+            />
             <TokenBadge tokenAmount="100K" />
           </View>
         </View>
