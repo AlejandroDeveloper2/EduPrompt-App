@@ -50,7 +50,12 @@ const useUpdateUserTokenCoins = () => {
       if (previousUser) {
         queryClient.setQueryData(["user_profile"], {
           ...previousUser,
-          tokenCoins: config.amount,
+          tokenCoins:
+            config.mode === "add"
+              ? previousUser.tokenCoins + config.amount
+              : previousUser.tokenCoins > 0
+              ? previousUser.tokenCoins - config.amount
+              : 0,
         });
       }
 
