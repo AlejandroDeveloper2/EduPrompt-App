@@ -92,7 +92,7 @@ const useUserSync = () => {
       });
       return;
     }
-    if (userStats.sync === false) {
+    if (!userStats.sync) {
       mutation.mutate(userStats);
       return;
     }
