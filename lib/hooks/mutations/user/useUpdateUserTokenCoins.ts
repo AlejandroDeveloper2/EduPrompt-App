@@ -53,9 +53,7 @@ const useUpdateUserTokenCoins = () => {
           tokenCoins:
             config.mode === "add"
               ? previousUser.tokenCoins + config.amount
-              : previousUser.tokenCoins > 0
-              ? previousUser.tokenCoins - config.amount
-              : 0,
+              : previousUser.tokenCoins - config.amount,
         });
       }
 
