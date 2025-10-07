@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Pressable, View } from "react-native";
 
 import { AppColors } from "@/styles";
@@ -13,6 +14,7 @@ import { DropdownStyle } from "./Dropdown.style";
 interface DropdownProps<T, D>
   extends Omit<BaseInputProps, "children" | "textArea" | "animatedInputStyle"> {
   name: keyof T;
+  icon: keyof typeof Ionicons.glyphMap;
   placeholder: string;
   selectedOption: D | null;
   optionValueKey: keyof D;
@@ -22,6 +24,7 @@ interface DropdownProps<T, D>
 
 function Dropdown<T, D>({
   name,
+  icon,
   placeholder,
   selectedOption,
   optionValueKey,
@@ -39,10 +42,16 @@ function Dropdown<T, D>({
   return (
     <BaseInput {...props} animatedInputStyle={animatedInputStyle}>
       <View style={dropdownStyle.Body}>
+        <Ionicon
+          name={icon}
+          size={size === "mobile" ? 20 : 24}
+          color={AppColors.neutral[props.disabled ? 500 : 1000]}
+        />
         <Pressable
           onPressIn={onFocus}
           onPressOut={onBlur}
           style={dropdownStyle.Option}
+          onPress={displayDropdownOptions}
         >
           <Typography
             text={

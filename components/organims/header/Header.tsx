@@ -1,3 +1,4 @@
+import { usePathname, useRouter } from "expo-router";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -15,8 +16,11 @@ import {
 import { HeaderStyle } from "./Header.style";
 
 const Header = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const insets = useSafeAreaInsets();
   const size = useScreenDimensionsStore();
+
   const { selectionMode, showToolbar, onHiddenToolbar, toggleSelectionMode } =
     useToolbar();
 
@@ -45,9 +49,9 @@ const Header = () => {
               onPress={() => {}}
             />
             <NavItem
-              active={false}
+              active={pathname === "/settings_screen"}
               icon="settings-outline"
-              onPress={() => {}}
+              onPress={() => router.navigate("/(tabs)/settings_screen")}
             />
             <TokenBadge tokenAmount="100K" />
           </View>

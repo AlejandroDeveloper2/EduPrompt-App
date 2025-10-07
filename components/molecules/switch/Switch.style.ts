@@ -20,6 +20,7 @@ export const SwitchStyle = (size: SizeType, labelDirection: "right" | "left") =>
       flexDirection: "row",
       gap: Spacing.spacing_null,
       padding: Spacing.spacing_null,
+      borderRadius: Radius.radius_pilled,
     },
     Indicator: {
       width: size === "mobile" ? 30 : 40,

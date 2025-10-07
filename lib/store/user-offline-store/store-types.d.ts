@@ -14,7 +14,7 @@ export interface StoreUserActions {
   addLocalTokenCoins: (amount: number, sync: boolean) => void;
   subtractLocalTokenCoins: (amount: number, sync: boolean) => void;
   updateLocalAccountType: (isPremiumUser: boolean, sync: boolean) => void;
-  loadLocalUserStats: () => void;
+  loadLocalUserStats: () => UserStats;
 }
 
 export type UserStoreType = StoreStateProps & StoreUserActions;

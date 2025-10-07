@@ -27,8 +27,8 @@ const NavigationTab = ({
 
   const navigationStyle = NavigationStyle(size, insets);
 
-  const firstItemsSlice = [state.routes[0], state.routes[3]];
-  const secondItemsSlice = [state.routes[4], state.routes[1]];
+  const firstItemsSlice = [state.routes[0], state.routes[4]];
+  const secondItemsSlice = [state.routes[5], state.routes[1]];
   const isActionsVisible = actions.length > 0;
 
   return (

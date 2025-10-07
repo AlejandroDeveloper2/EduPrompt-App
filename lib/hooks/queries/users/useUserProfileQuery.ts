@@ -21,7 +21,7 @@ const useUserProfileQuery = () => {
           ...userProfile,
           sync: true,
         });
-        return userProfile;
+        return { ...userProfile, sync: true };
       } else {
         return userStats;
       }

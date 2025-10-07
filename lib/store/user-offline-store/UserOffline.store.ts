@@ -52,8 +52,7 @@ export const UserOfflineStore = create<UserStoreType>()(
 
       loadLocalUserStats: () => {
         const { userStats } = get();
-        if (!userStats) return;
-        set({ userStats });
+        return userStats;
       },
 
       // --- Acciones de preferencias ---
@@ -62,9 +61,12 @@ export const UserOfflineStore = create<UserStoreType>()(
         sync: boolean
       ) => {
         const { userStats } = get();
-        const updated = {
+        const updated: UserStats = {
           ...userStats,
-          ...updatedUserPreferences,
+          userPreferences: {
+            ...userStats.userPreferences,
+            ...updatedUserPreferences,
+          },
           sync,
         };
         set({ userStats: updated });

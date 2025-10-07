@@ -22,3 +22,4 @@ export { default as ResetPasswordForm } from "./reset-password-form/ResetPasswor
 export { default as SignupForm } from "./signup-form/SignupForm";
 export { default as SubprocessList } from "./subprocess-list/SubprocessList";
 export { default as TokenPackageCard } from "./token-package-card/TokenPackageCard";
+export { default as UserPreferencesPanel } from "./user-preferences-panel/UserPreferencesPanel";

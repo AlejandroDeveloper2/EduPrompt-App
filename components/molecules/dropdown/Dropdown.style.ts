@@ -15,7 +15,7 @@ export const DropdownStyle = (size: SizeType) =>
       overflow: "hidden",
     },
     Tools: {
-      flex: 2,
+      flex: 0.5,
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
@@ -25,6 +25,7 @@ export const DropdownStyle = (size: SizeType) =>
     Option: {
       width: "100%",
       flex: 3,
+      marginLeft: Spacing.spacing_2xs,
       display: "flex",
       flexDirection: "row",
       justifyContent: "flex-start",

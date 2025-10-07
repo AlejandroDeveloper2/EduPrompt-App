@@ -56,6 +56,6 @@ export const GlobalStyles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 20,
-    zIndex: 50,
+    zIndex: 10000,
   },
 });

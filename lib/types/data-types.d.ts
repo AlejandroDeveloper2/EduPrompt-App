@@ -134,7 +134,19 @@ interface UserStats extends User {
   sync: boolean;
 }
 
+interface CleanFrecuencyOption {
+  key: string;
+  frecuency: number;
+  label: string;
+}
+interface AppLanguage {
+  key: "es" | "pt" | "en";
+  label: string;
+}
+
 export type {
+  AppLanguage,
+  CleanFrecuencyOption,
   DownloadedResource,
   EducationalResource,
   Folder,

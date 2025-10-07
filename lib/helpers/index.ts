@@ -8,6 +8,7 @@ export {
 } from "./getButtonBackground";
 export { getButtonColorLabel } from "./getButtonColorLabel";
 export { getFontFamily } from "./getFontFamily";
+export { getFormattedPreferences } from "./getFormattedPreferences";
 export { getIsSelectedOption } from "./getIsSelectedOption";
 export { getSessionToken } from "./getSessionToken";
 export { getSubprocessIcon } from "./getSubprocessIcon";

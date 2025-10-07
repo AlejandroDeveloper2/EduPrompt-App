@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
 
 import { AppColors } from "@/styles";
@@ -6,14 +7,22 @@ import { useScreenDimensionsStore } from "@/lib/hooks/store";
 
 import { Typography } from "@/components/atoms";
 
+import Button from "../button/Button";
 import { InfoCardStyle } from "./InfoCard.style";
 
 interface InfoCardProps {
   title: string;
   description: string;
+  buttonData?: {
+    loading?: boolean;
+    loadingMessage?: string;
+    label?: string;
+    icon: keyof typeof Ionicons.glyphMap;
+    onPress: () => void;
+  };
 }
 
-const InfoCard = ({ title, description }: InfoCardProps) => {
+const InfoCard = ({ title, description, buttonData }: InfoCardProps) => {
   const size = useScreenDimensionsStore();
 
   return (
@@ -24,7 +33,7 @@ const InfoCard = ({ title, description }: InfoCardProps) => {
         type="button"
         textAlign="center"
         color={AppColors.neutral[700]}
-        width="100%"
+        width="auto"
         icon="information-circle-outline"
       />
       <Typography
@@ -35,6 +44,17 @@ const InfoCard = ({ title, description }: InfoCardProps) => {
         color={AppColors.neutral[900]}
         width="100%"
       />
+      {buttonData && (
+        <Button
+          icon={buttonData.icon}
+          width="auto"
+          variant="primary"
+          label={buttonData?.label}
+          onPress={buttonData.onPress}
+          loading={buttonData.loading}
+          loadingMessage={buttonData.loadingMessage}
+        />
+      )}
     </View>
   );
 };
