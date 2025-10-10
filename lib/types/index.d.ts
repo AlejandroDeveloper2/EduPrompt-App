@@ -162,6 +162,11 @@ interface ServerResponse<T> {
   message: string;
 }
 
+interface Tab {
+  tabId: string;
+  label: string;
+}
+
 export {
   AlertVariantType,
   AlignTextType,
@@ -190,6 +195,7 @@ export {
   SpacingNamesType,
   SpacingStyle,
   StepType,
+  Tab,
   TextInputInstance,
   ToastVariantType,
   TypographyType,

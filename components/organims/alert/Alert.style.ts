@@ -15,7 +15,7 @@ export const AlertStyle = (size: SizeType) =>
     },
     Options: {
       width: "100%",
-      flexDirection: "row",
+      flexDirection: size === "mobile" ? "column" : "row",
       justifyContent: "center",
       alignItems: "center",
       gap: Spacing.spacing_xs,

@@ -66,7 +66,7 @@ const Alert = ({
         icon={alertIcon}
       />
       <View style={alertStyle.Options}>
-        <View style={{ flex: 1 }}>
+        <View style={size !== "mobile" ? { flex: 1 } : { width: "100%" }}>
           <Button
             icon={acceptButtonIcon}
             label={acceptButtonLabel}
@@ -77,7 +77,7 @@ const Alert = ({
             loadingMessage={loadingMessage}
           />
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={size !== "mobile" ? { flex: 1 } : { width: "100%" }}>
           <Button
             icon="close-outline"
             variant="neutral"

@@ -8,14 +8,12 @@ const useCheckAuth = (): void => {
   useEffect(() => {
     const checkUserSession = async () => {
       const token = await getSessionToken();
-      if (!token) {
-        router.replace("/auth");
-        return;
-      }
+      if (!token) return;
       router.replace("/(tabs)");
     };
     checkUserSession();
-  }, [router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 };
 
 export default useCheckAuth;

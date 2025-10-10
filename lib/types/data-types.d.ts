@@ -113,6 +113,15 @@ interface ResetPassPayload {
   userId: string;
 }
 
+interface ChangePassPayload {
+  currentPassword: string;
+  newPassword: string;
+}
+interface EmailUpdatePayload {
+  updatedEmail: string;
+  code: string;
+}
+
 /** Tipos Modulo de usuarios */
 interface UserPreferences {
   autoSync: boolean;
@@ -130,8 +139,10 @@ interface User {
   userPreferences: UserPreferences;
 }
 
-interface UserStats extends User {
+interface UserStats extends Omit<User, "userName" | "email"> {
   sync: boolean;
+  userName?: string;
+  email?: string;
 }
 
 interface CleanFrecuencyOption {
@@ -146,9 +157,11 @@ interface AppLanguage {
 
 export type {
   AppLanguage,
+  ChangePassPayload,
   CleanFrecuencyOption,
   DownloadedResource,
   EducationalResource,
+  EmailUpdatePayload,
   Folder,
   FormatFilter,
   Lang,

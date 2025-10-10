@@ -64,7 +64,7 @@ const PopUp = ({
                 weight="medium"
                 type="h2"
                 textAlign="center"
-                color={AppColors.primary[400]}
+                color={AppColors.neutral[1000]}
                 width="100%"
                 icon={icon}
               />

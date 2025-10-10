@@ -1,26 +1,29 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import AsyncStorage from "expo-sqlite/kv-store";
 
-import { UserStats } from "@/lib/types/data-types";
+import { EmailUpdatePayload, UserStats } from "@/lib/types/data-types";
+
+import { ASYNC_STORAGE_KEYS } from "@/lib/constants";
 
 import { showToast } from "@/lib/context";
 
 import { generateToastKey, getSessionToken } from "@/lib/helpers";
 import { useCheckNetwork } from "../../core";
 
-import { patchUsername } from "@/services/users";
+import { patchUserEmail } from "@/services/auth";
 
-const useUpdateUsername = () => {
+const useUpdateUserEmail = (toggleFormState: () => void) => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
 
   return useMutation({
-    mutationFn: async (userName: string) => {
+    mutationFn: async (emailUpdatePayload: EmailUpdatePayload) => {
       const token = await getSessionToken();
       if (isConnected && token) {
-        await patchUsername(userName);
+        await patchUserEmail(emailUpdatePayload);
       }
     },
-    onMutate: async (newUsername: string) => {
+    onMutate: async (emailUpdatePayload: EmailUpdatePayload) => {
       await queryClient.cancelQueries({ queryKey: ["user_profile"] });
 
       // Obtener el estado actual
@@ -32,7 +35,7 @@ const useUpdateUsername = () => {
       if (previousUserStats) {
         queryClient.setQueryData(["user_profile"], {
           ...previousUserStats,
-          userName: newUsername,
+          email: emailUpdatePayload.updatedEmail,
         });
       }
 
@@ -44,11 +47,13 @@ const useUpdateUsername = () => {
         queryClient.setQueryData(["user_profile"], context.previousUserStats);
       }
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await AsyncStorage.removeItem(ASYNC_STORAGE_KEYS.userUpdatedEmail);
+      toggleFormState();
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Nombre de usuario actualizado con éxito",
+        message: "Correo electrónico actualizado con éxito",
       });
     },
     onSettled: () => {
@@ -57,4 +62,4 @@ const useUpdateUsername = () => {
   });
 };
 
-export default useUpdateUsername;
+export default useUpdateUserEmail;

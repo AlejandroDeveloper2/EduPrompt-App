@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useToolbar } from "@/lib/hooks/core";
+import { useUserProfileQuery } from "@/lib/hooks/queries/users";
 import { useScreenDimensionsStore } from "@/lib/hooks/store";
 
 import { Logo } from "@/components/atoms";
@@ -20,6 +21,8 @@ const Header = () => {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
   const size = useScreenDimensionsStore();
+
+  const { data: userProfile } = useUserProfileQuery();
 
   const { selectionMode, showToolbar, onHiddenToolbar, toggleSelectionMode } =
     useToolbar();
@@ -53,7 +56,11 @@ const Header = () => {
               icon="settings-outline"
               onPress={() => router.navigate("/(tabs)/settings_screen")}
             />
-            <TokenBadge tokenAmount="100K" />
+            <TokenBadge
+              tokenAmount={
+                userProfile ? userProfile.tokenCoins.toString() : "0"
+              }
+            />
           </View>
         </View>
       )}

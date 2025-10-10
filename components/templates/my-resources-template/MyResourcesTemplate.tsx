@@ -7,7 +7,7 @@ import { GlobalStyles } from "@/styles/GlobalStyles.style";
 const MyResourcesTemplate = () => {
   return (
     <View style={GlobalStyles.RootContainer}>
-      <View style={GlobalStyles.PageContent}>
+      <View style={[GlobalStyles.PageContent, { width: "90%" }]}>
         <PreviewResourceList />
       </View>
     </View>

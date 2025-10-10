@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 
-import { UserPreferencesPanel } from "@/components/organims";
+import { UserPreferencesPanel, UserProfilePanel } from "@/components/organims";
 
 import { GlobalStyles } from "@/styles/GlobalStyles.style";
 
@@ -8,10 +8,12 @@ const SettingsTemplate = () => {
   return (
     <View style={GlobalStyles.RootContainer}>
       <ScrollView
+        style={{ width: "90%" }}
         contentContainerStyle={GlobalStyles.PageContent}
         showsVerticalScrollIndicator={false}
       >
         <UserPreferencesPanel />
+        <UserProfilePanel />
       </ScrollView>
     </View>
   );

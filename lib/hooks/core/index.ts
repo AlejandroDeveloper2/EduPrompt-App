@@ -1,3 +1,4 @@
+export { default as useAuth } from "./useAuth";
 export { default as useBackgroundTaskRunner } from "./useBackgroundTaskRunner";
 export { default as useCheckAuth } from "./useCheckAuth";
 export { default as useCheckNetwork } from "./useCheckNetwork";
