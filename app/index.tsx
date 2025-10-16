@@ -9,7 +9,6 @@ import { Spinner } from "@/shared/components/atoms";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
-/** TODO: Comunicar al servicio de onboarding por event bus */
 export default function Index() {
   useCheckOnboarding();
 

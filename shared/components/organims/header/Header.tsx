@@ -58,7 +58,7 @@ const Header = () => {
             />
             <TokenBadge
               tokenAmount={
-                userProfile ? userProfile.tokenCoins.toString() : "0"
+                userProfile ? userProfile.tokenCoins.toString() : "?"
               }
             />
           </View>
