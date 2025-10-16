@@ -26,7 +26,8 @@ const useUserProfileQuery = () => {
         return userStats;
       }
     },
-    staleTime: 1000 * 60, // cache 1min
+    staleTime: Infinity,
+    // staleTime: 1000 * 60, // cache 1min
     // gcTime: 1000 * 60 * 5,
   });
 };
