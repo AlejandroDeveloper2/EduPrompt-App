@@ -13,8 +13,8 @@ const useAnimatedNavItem = (active: boolean, filter?: boolean) => {
   const background = useSharedValue(0);
 
   useEffect(() => {
-    if (active) background.value = withTiming(1, { duration: 400 });
-    else background.value = withTiming(0, { duration: 400 });
+    if (active) background.value = withTiming(1, { duration: 200 });
+    else background.value = withTiming(0, { duration: 200 });
   }, [active, background]);
 
   const animatedBackground = useAnimatedStyle(() => ({
