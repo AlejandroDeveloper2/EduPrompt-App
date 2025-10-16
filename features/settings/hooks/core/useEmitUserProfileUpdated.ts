@@ -6,13 +6,18 @@ import { EventKey } from "@/core/events/types";
 import { useUserProfileQuery } from "../queries";
 
 const useEmitUserProfileUpdated = () => {
-  const { data, isSuccess } = useUserProfileQuery();
+  const { data, isSuccess, isLoading } = useUserProfileQuery();
 
   useEffect(() => {
     if (isSuccess && data) {
-      eventBus.emit("userProfile:updated" as EventKey, data);
+      eventBus.emit("userProfile.user.updated" as EventKey, data);
     }
   }, [isSuccess, data]);
+
+  return {
+    userProfile: data,
+    isLoading,
+  };
 };
 
 export default useEmitUserProfileUpdated;

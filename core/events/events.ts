@@ -29,5 +29,5 @@ export type AppEvents = {
   "auth.updateEmail.failed": EventError;
 
   /** Eventos Módulo de perfil usuarios  */
-  "userProfile:updated": UserProfile | null;
+  "userProfile.user.updated": UserProfile | null;
 };

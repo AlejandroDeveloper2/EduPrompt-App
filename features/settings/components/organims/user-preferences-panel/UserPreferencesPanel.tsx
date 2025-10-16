@@ -5,13 +5,13 @@ import { AppLanguage, CleanFrecuencyOption } from "../../../types";
 import { AppColors } from "@/shared/styles";
 import { APP_LANGUAGES, CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
+import { useEmitUserProfileUpdated } from "@/features/settings/hooks/core";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import { getFormattedPreferences } from "../../../helpers";
 import {
   useUpdateUserPreferences,
   useUserSync,
 } from "../../../hooks/mutations";
-import { useUserProfileQuery } from "../../../hooks/queries";
 
 import { ScreenSection } from "@/shared/components/atoms";
 import {
@@ -25,7 +25,7 @@ import { DropdownOptionList, PopUp } from "@/shared/components/organims";
 import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
-  const { data: userProfile, isLoading } = useUserProfileQuery();
+  const { userProfile, isLoading } = useEmitUserProfileUpdated();
   const { mutate } = useUpdateUserPreferences();
   const { syncUserProfile, isPending } = useUserSync();
 

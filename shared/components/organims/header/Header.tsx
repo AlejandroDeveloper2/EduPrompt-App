@@ -25,7 +25,7 @@ const Header = () => {
   const { selectionMode, showToolbar, onHiddenToolbar, toggleSelectionMode } =
     useToolbar();
 
-  const userProfile = useEventbusValue("userProfile:updated", null);
+  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const headerStyle = HeaderStyle(size, insets);
 
@@ -42,9 +42,9 @@ const Header = () => {
           <Logo />
           <View style={headerStyle.NavItems}>
             <NavItem
-              active={false}
+              active={pathname === "/notifications_screen"}
               icon="notifications-outline"
-              onPress={() => {}}
+              onPress={() => router.navigate("/(tabs)/notifications_screen")}
             />
             <NavItem
               active={false}

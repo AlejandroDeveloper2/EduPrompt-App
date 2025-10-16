@@ -7,10 +7,19 @@ const useEventBusValue = <K extends keyof AppEvents>(
   event: K,
   initialValue: AppEvents[K]
 ) => {
-  const [state, setState] = useState<AppEvents[K]>(initialValue);
+  const [state, setState] = useState<AppEvents[K]>(
+    eventBus.getLast(event) ?? initialValue
+  );
 
   useEffect(() => {
-    const unsubscribe = eventBus.on(event, (data) => setState(data));
+    const unsubscribe = eventBus.on(
+      event,
+      (data) => {
+        // Evitamos re-render si el valor es el mismo
+        setState((prev) => (Object.is(prev, data) ? prev : data));
+      },
+      { immediate: false }
+    );
     return unsubscribe;
   }, [event]);
 
