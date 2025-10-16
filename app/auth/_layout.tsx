@@ -1,5 +1,6 @@
-import { CustomStatusBar } from "@/components/atoms";
 import { Stack } from "expo-router";
+
+import { CustomStatusBar } from "@/shared/components/atoms";
 
 export default function AuthLayout() {
   return (

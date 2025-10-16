@@ -1,14 +1,15 @@
 import { View } from "react-native";
 
-import { AppColors } from "@/styles";
+import { AppColors } from "@/shared/styles";
 
-import { useAnimatedSpinner } from "@/lib/hooks/animations";
-import { useCheckOnboarding } from "@/lib/hooks/core";
+import { useCheckOnboarding } from "@/features/onboarding/hooks/core";
+import { useAnimatedSpinner } from "@/shared/hooks/animations";
 
-import { Spinner } from "@/components/atoms";
+import { Spinner } from "@/shared/components/atoms";
 
-import { GlobalStyles } from "@/styles/GlobalStyles.style";
+import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
+/** TODO: Comunicar al servicio de onboarding por event bus */
 export default function Index() {
   useCheckOnboarding();
 

@@ -1,12 +1,16 @@
 import { Tabs } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 
-import { AppColors } from "@/styles";
+import { AppColors } from "@/shared/styles";
 
-import { useScreenDimensionsStore } from "@/lib/hooks/store";
+import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import { CustomStatusBar } from "@/components/atoms";
-import { Header, NavigationDrawer, NavigationTab } from "@/components/organims";
+import { CustomStatusBar } from "@/shared/components/atoms";
+import {
+  Header,
+  NavigationDrawer,
+  NavigationTab,
+} from "@/shared/components/organims";
 
 export default function TabLayout() {
   const size = useScreenDimensionsStore();

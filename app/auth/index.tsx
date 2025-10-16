@@ -1,6 +1,6 @@
-import { useCheckAuth } from "@/lib/hooks/core";
+import { useCheckAuth } from "@/features/auth/hooks/core";
 
-import { AuthTemplate } from "@/components/templates";
+import { AuthTemplate } from "@/features/auth/components/templates";
 
 export default function LoginScreen() {
   useCheckAuth();

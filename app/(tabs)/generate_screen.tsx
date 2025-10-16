@@ -1,10 +1,10 @@
 import { View } from "react-native";
 
-import { AppColors } from "@/styles";
+import { AppColors } from "@/shared/styles";
 
-import { Typography } from "@/components/atoms";
+import { Typography } from "@/shared/components/atoms";
 
-import { GlobalStyles } from "@/styles/GlobalStyles.style";
+import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 export default function GenerateScreen() {
   return (

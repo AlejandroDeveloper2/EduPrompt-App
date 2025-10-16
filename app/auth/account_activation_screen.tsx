@@ -1,4 +1,4 @@
-import { AuthTemplate } from "@/components/templates";
+import { AuthTemplate } from "@/features/auth/components/templates";
 
 export default function AccountActivationScreen() {
   return (

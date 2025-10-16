@@ -1,6 +1,6 @@
 import { Image } from "react-native";
 
-import { useScreenDimensionsStore } from "@/lib/hooks/store";
+import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import Illustration from "../images/five-onboarding-step-image.png";
 
