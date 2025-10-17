@@ -1,5 +1,6 @@
 import { Lang, NavOption } from "@/core/types";
 
+/** Opciones o acciones para la vista de prompts guardados */
 export const MY_PROMPTS_ACTIONS: Lang<NavOption> = {
   en: [
     {

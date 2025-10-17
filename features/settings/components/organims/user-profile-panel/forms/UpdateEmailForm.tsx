@@ -5,7 +5,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useEmitUserProfileUpdated } from "@/features/settings/hooks/core";
+import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useForm } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 
@@ -98,7 +98,9 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
     "auth.sendEmailUpdateRequest.failed",
   ]);
 
-  const { userProfile } = useEmitUserProfileUpdated();
+  const { data: userProfile } = useUserProfileQuery();
+
+  // useEmitUserProfileUpdated(isSuccess, userProfile);
 
   const {
     data,

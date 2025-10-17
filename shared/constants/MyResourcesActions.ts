@@ -1,5 +1,6 @@
 import { Lang, NavOption } from "@/core/types";
 
+/** Acciones para la vista de recursos educativos guardados */
 export const MY_RESOURCES_ACTIONS: Lang<NavOption> = {
   en: [
     {

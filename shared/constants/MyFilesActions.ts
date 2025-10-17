@@ -1,5 +1,6 @@
 import { Lang, NavOption } from "@/core/types";
 
+/** Opciones o acciones para la vista de archivos descargados */
 export const MY_FILES_ACTIONS: Lang<NavOption> = {
   en: [
     {

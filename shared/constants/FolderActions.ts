@@ -1,5 +1,6 @@
 import { Lang, NavOption } from "@/core/types";
 
+/** Opciones o acciones de la vista de carpetas de recursos descargados */
 export const FOLDER_ACTIONS: Lang<NavOption> = {
   en: [
     {

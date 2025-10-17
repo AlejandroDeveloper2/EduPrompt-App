@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { eventBus } from "@/core/events/EventBus";
+import { EventKey } from "@/core/events/types";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useUserOfflineStore } from "../store";
 
@@ -17,12 +20,14 @@ const useUserProfileQuery = () => {
 
       if (isConnected && token) {
         const userProfile = await getUserProfile();
+        eventBus.emit("userProfile.user.updated" as EventKey, userProfile);
         setUserStats({
           ...userProfile,
           sync: true,
         });
         return { ...userProfile, sync: true };
       } else {
+        eventBus.emit("userProfile.user.updated" as EventKey, userStats);
         return userStats;
       }
     },

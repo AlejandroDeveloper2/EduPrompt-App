@@ -1,4 +1,30 @@
-export const renderHtmlPdf = (base64Content: string) => {
+/**
+ * Genera una plantilla HTML que permite visualizar un archivo PDF a partir de su contenido en Base64.
+ *
+ * Esta función retorna un string HTML que incluye la configuración necesaria para renderizar
+ * el PDF en un navegador utilizando **PDF.js**. Cada página del documento se dibuja dentro
+ * de un elemento `<canvas>` contenido en el div `#pdf-container`.
+ *
+ * @param {string} base64Content - Contenido del archivo PDF en formato Base64.
+ * @returns {string} Cadena HTML lista para ser inyectada en un `WebView` o mostrada en un navegador.
+ *
+ * @example
+ * import { renderHtmlPdf } from "@/utils/renderHtmlPdf";
+ * import { WebView } from "react-native-webview";
+ *
+ * const base64Pdf = "JVBERi0xLjQKJ...."; // PDF en Base64
+ *
+ * <WebView originWhitelist={['*']} source={{ html: renderHtmlPdf(base64Pdf) }} />;
+ *
+ * @description
+ * La plantilla generada:
+ * - Usa la librería **PDF.js** desde un CDN (`cdnjs.cloudflare.com`).
+ * - Decodifica el contenido Base64 en binario usando `atob`.
+ * - Renderiza cada página del PDF dentro de un `<canvas>` dinámicamente.
+ * - Aplica estilos básicos para centrado y sombras en las páginas.
+ */
+
+export const renderHtmlPdf = (base64Content: string): string => {
   return `
     <!DOCTYPE html>
     <html>

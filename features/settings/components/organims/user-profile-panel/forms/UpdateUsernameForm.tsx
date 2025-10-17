@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import { useEmitUserProfileUpdated } from "@/features/settings/hooks/core";
 import { useUpdateUsername } from "@/features/settings/hooks/mutations";
+import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useForm } from "@/shared/hooks/core";
 
 import { UpdateUsernameData, updateUsernameSchema } from "./validationSchema";
@@ -14,7 +14,9 @@ const initialValues: UpdateUsernameData = {
 
 const UpdateUsernameForm = () => {
   const { mutate, isPending } = useUpdateUsername();
-  const { userProfile } = useEmitUserProfileUpdated();
+  const { data: userProfile } = useUserProfileQuery();
+
+  // useEmitUserProfileUpdated(isSuccess, userProfile);
 
   const {
     data,
@@ -29,6 +31,7 @@ const UpdateUsernameForm = () => {
     actionCallback: () => {
       mutate(data.userName);
     },
+    noReset: true,
   });
 
   useEffect(() => {

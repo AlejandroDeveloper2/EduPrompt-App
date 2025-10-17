@@ -1,5 +1,6 @@
 import { FormatFilter, Lang } from "@/core/types";
 
+/** Filtros por tipo de recurso educativo */
 export const FORMAT_FILTERS: Lang<FormatFilter> = {
   en: [
     { icon: "star-outline", label: "All" },

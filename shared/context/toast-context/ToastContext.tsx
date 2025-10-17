@@ -13,6 +13,31 @@ const Toast = lazy(() => import("@/shared/components/molecules/toast/Toast"));
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
+/**
+ * Componente Provider para gestionar notificaciones toast en la aplicación.
+ *
+ * @component
+ * @param {ProviderProps} props - Las props del provider
+ * @param {ReactNode} props.children - Componentes hijos que serán envueltos por el provider
+ *
+ * @remarks
+ * Este componente gestiona una cola de notificaciones toast y proporciona métodos para añadirlas y eliminarlas.
+ * Utiliza el Context API de React para hacer que la funcionalidad toast esté disponible en toda la aplicación.
+ *
+ * El provider:
+ * - Mantiene una cola de notificaciones toast usando el estado de React
+ * - Proporciona métodos para añadir y eliminar toasts de la cola
+ * - Renderiza los toasts en un Portal para asegurar que aparezcan por encima de otros elementos de la UI
+ * - Registra un manejador global para mostrar toasts al montarse
+ *
+ * @example
+ * ```tsx
+ * <ToastProvider>
+ *   <App />
+ * </ToastProvider>
+ * ```
+ */
+
 export const ToastProvider = ({ children }: ProviderProps) => {
   const [toastsQueue, setToastsQueue] = useState<ToastConfig[]>([]);
 

@@ -6,6 +6,7 @@ import {
   UserProfile,
 } from "./types";
 
+/** Eventos que se pueden usar en el EventBus */
 export type AppEvents = {
   /** Eventos módulo de auth */
   "auth.logout.requested": undefined;

@@ -1,5 +1,6 @@
 import { Lang, NavOption } from "@/core/types";
 
+/** Lista de items de la barra de navegación inferior */
 export const NAV_ITEMS: Lang<NavOption> = {
   en: [
     {

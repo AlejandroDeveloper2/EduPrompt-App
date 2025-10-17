@@ -5,7 +5,7 @@ import { AppLanguage, CleanFrecuencyOption } from "../../../types";
 import { AppColors } from "@/shared/styles";
 import { APP_LANGUAGES, CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
-import { useEmitUserProfileUpdated } from "@/features/settings/hooks/core";
+import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import { getFormattedPreferences } from "../../../helpers";
 import {
@@ -25,12 +25,14 @@ import { DropdownOptionList, PopUp } from "@/shared/components/organims";
 import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
-  const { userProfile, isLoading } = useEmitUserProfileUpdated();
+  const { data: userProfile, isLoading } = useUserProfileQuery();
   const { mutate } = useUpdateUserPreferences();
   const { syncUserProfile, isPending } = useUserSync();
 
   const frecuencyPopUp = useAnimatedPopUp();
   const languagePopUp = useAnimatedPopUp();
+
+  // useEmitUserProfileUpdated(isSuccess, userProfile);
 
   const preferences = getFormattedPreferences(userProfile);
 
