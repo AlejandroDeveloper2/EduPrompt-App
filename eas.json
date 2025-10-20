@@ -6,10 +6,12 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "workflow": "prebuild"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "workflow": "prebuild"
     },
     "production": {
       "autoIncrement": true,
