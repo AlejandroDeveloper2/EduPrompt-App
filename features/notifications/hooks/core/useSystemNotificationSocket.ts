@@ -4,10 +4,17 @@ import { useEffect } from "react";
 
 import { getSocketClient } from "@/core/config/socketClient";
 
+import { useEventbusValue } from "@/shared/hooks/events";
+
 import { Order, SystemNotification } from "../../types";
 
 const useSystemNotificationSocket = (filters: Order) => {
   const queryClient = useQueryClient();
+  const userProfile = useEventbusValue("userProfile.user.updated", null);
+
+  const notificationsPushAvailable = userProfile
+    ? userProfile.userPreferences.pushNotifications
+    : false;
 
   const sendPushNotification = async (title: string, message: string) => {
     await scheduleNotificationAsync({
@@ -15,7 +22,6 @@ const useSystemNotificationSocket = (filters: Order) => {
         title,
         body: message,
       },
-
       trigger: null,
     });
   };
@@ -26,8 +32,9 @@ const useSystemNotificationSocket = (filters: Order) => {
     /** Nueva notificación */
     socket.on("notifications:new", (newNotification: SystemNotification) => {
       queryClient.invalidateQueries({
-        queryKey: ["system_notifications", filters],
+        queryKey: ["system_notifications"],
       });
+      if (!notificationsPushAvailable) return;
       sendPushNotification(newNotification.title, newNotification.message);
     });
 
@@ -36,8 +43,9 @@ const useSystemNotificationSocket = (filters: Order) => {
       "notifications:update",
       (updatedNotification: SystemNotification) => {
         queryClient.invalidateQueries({
-          queryKey: ["system_notifications", filters],
+          queryKey: ["system_notifications"],
         });
+        if (!notificationsPushAvailable) return;
         sendPushNotification(
           updatedNotification.title,
           updatedNotification.message
@@ -50,7 +58,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       "notifications:deleteMany",
       (_deletedNotificationIds: string[]) => {
         queryClient.invalidateQueries({
-          queryKey: ["system_notifications", filters],
+          queryKey: ["system_notifications"],
         });
       }
     );
@@ -60,7 +68,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       socket.off("notifications:update");
       socket.off("notifications:deleteMany");
     };
-  }, [queryClient, filters]);
+  }, [queryClient, notificationsPushAvailable]);
 };
 
 export default useSystemNotificationSocket;
