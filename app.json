@@ -56,6 +56,14 @@
       "expo-background-task",
       "react-native-iap",
       [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "2.1.20"
+          }
+        }
+      ],
+      [
         "expo-notifications",
         {
           "icon": "./assets/images/adaptive-icon.png",
@@ -63,12 +71,6 @@
           "defaultChannel": "default",
           "sounds": ["./assets/sounds/notification_sound.wav"],
           "enableBackgroundRemoteNotifications": false
-        },
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "2.1.20"
-          }
         }
       ],
       "expo-web-browser"
