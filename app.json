@@ -63,6 +63,12 @@
           "defaultChannel": "default",
           "sounds": ["./assets/sounds/notification_sound.wav"],
           "enableBackgroundRemoteNotifications": false
+        },
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "2.1.20"
+          }
         }
       ],
       "expo-web-browser"
