@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "EduPrompt",
-    "slug": "EduPrompt",
+    "slug": "EduPrompt_App",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
