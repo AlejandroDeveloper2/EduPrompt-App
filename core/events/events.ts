@@ -2,6 +2,7 @@ import {
   ChangePassPayload,
   EventError,
   SendEmailChangePayload,
+  SystemNotification,
   UpdateEmailPayload,
   UserProfile,
 } from "./types";
@@ -31,4 +32,7 @@ export type AppEvents = {
 
   /** Eventos Módulo de perfil usuarios  */
   "userProfile.user.updated": UserProfile | null;
+
+  /** Eventos Módulo de notificaciones */
+  "notifications.systemNotifications.updated": SystemNotification[];
 };

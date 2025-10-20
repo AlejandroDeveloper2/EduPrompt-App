@@ -50,6 +50,7 @@ axiosClient.interceptors.response.use(
       if (status >= 500) {
         console.log("🚨 Error del servidor: ", axiosError.message);
       }
+
       appError = new AppError(
         errorMessageCode,
         status,

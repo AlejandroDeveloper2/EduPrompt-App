@@ -21,19 +21,31 @@ const notifications: Notification[] = [
   {
     notificationId: "not-1",
     title: "Notificación 1",
-    notificationDate: "20/05/2025",
+    creationDate: new Date(),
     message: "Mensaje",
   },
   {
     notificationId: "not-2",
     title: "Notificación 2",
-    notificationDate: "20/05/2025",
+    creationDate: new Date(),
     message: "Mensaje",
   },
   {
     notificationId: "not-3",
     title: "Notificación 3",
-    notificationDate: "20/05/2025",
+    creationDate: new Date(),
+    message: "Mensaje",
+  },
+  {
+    notificationId: "not-4",
+    title: "Notificación 4",
+    creationDate: new Date(),
+    message: "Mensaje",
+  },
+  {
+    notificationId: "not-5",
+    title: "Notificación 5",
+    creationDate: new Date(),
     message: "Mensaje",
   },
 ];
@@ -45,7 +57,7 @@ const NotificationListHeader = () => {
   return (
     <View style={notificationListStyle.ListHeaderContainer}>
       <ScreenSection
-        description="Encuentra aqui todas las notificaciones del sistema "
+        description="Encuentra aqui todas las notificaciones internas de tus actividades en Edu Prompt. "
         title="Notificaciones"
         icon="notifications-outline"
       />
@@ -92,7 +104,11 @@ const NotificationList = () => {
       horizontal={false}
       numColumns={size === "laptop" ? 2 : 1}
       renderItem={({ item }) => (
-        <NotificationCard {...item} onDeleteNotification={() => {}} />
+        <NotificationCard
+          {...item}
+          notificationDate={new Date(item.creationDate)}
+          onDeleteNotification={() => {}}
+        />
       )}
       keyExtractor={(item) => item.notificationId}
       ListHeaderComponent={<NotificationListHeader />}

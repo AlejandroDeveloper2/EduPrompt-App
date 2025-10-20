@@ -28,13 +28,15 @@ export const NotificationListStyle = (size: SizeType) =>
       gap: Spacing.spacing_2xs,
     },
     ListContainer: {
-      width: "100%",
+      width: "90%",
       gap: size === "mobile" ? Spacing.spacing_lg : Spacing.spacing_xl,
+      paddingTop: Spacing.spacing_3xl,
     },
     ListContent: {
       width: "100%",
       display: "flex",
       gap: size === "mobile" ? Spacing.spacing_lg : Spacing.spacing_xl,
+      paddingBottom: Spacing.spacing_4xl * 4.5,
       justifyContent: "flex-start",
     },
   });

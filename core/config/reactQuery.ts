@@ -40,10 +40,9 @@ const queryErrorHandler = async (error: unknown) => {
       router.replace("/auth");
       return;
     }
-
     showToast({
       variant: "danger",
-      message: message ?? errorMessageCode,
+      message: message ?? "Error desconocido",
       key: generateToastKey(),
       toastDuration: 4000,
     });

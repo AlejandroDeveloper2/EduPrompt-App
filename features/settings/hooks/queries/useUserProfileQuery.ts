@@ -15,16 +15,18 @@ const useUserProfileQuery = () => {
 
   return useQuery({
     queryKey: ["user_profile"],
+    enabled: isConnected !== null && isConnected !== undefined,
     queryFn: async () => {
       const token = await getSessionToken();
 
       if (isConnected && token) {
+        console.log("isConnected");
         const userProfile = await getUserProfile();
-        eventBus.emit("userProfile.user.updated" as EventKey, userProfile);
         setUserStats({
           ...userProfile,
           sync: true,
         });
+        eventBus.emit("userProfile.user.updated" as EventKey, userProfile);
         return { ...userProfile, sync: true };
       } else {
         eventBus.emit("userProfile.user.updated" as EventKey, userStats);
@@ -32,7 +34,6 @@ const useUserProfileQuery = () => {
       }
     },
     staleTime: Infinity,
-    // staleTime: 1000 * 60, // cache 1min
     // gcTime: 1000 * 60 * 5,
   });
 };

@@ -8,5 +8,5 @@ export interface OnboardingStoreType {
   handlePreviousStep: () => void;
   goToExactStep: (stepId: string) => void;
   completeOnboarding: () => Promise<void>;
-  checkIfOnboardingDone: () => Promise<void>;
+  checkIfOnboardingDone: () => Promise<boolean>;
 }

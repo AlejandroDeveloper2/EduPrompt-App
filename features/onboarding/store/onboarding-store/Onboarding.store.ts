@@ -63,12 +63,14 @@ export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
   },
   checkIfOnboardingDone: async () => {
     try {
-      const isOnboardingCompleted = await Storage.getItem(STORAGE_KEY);
+      const isCompleted = await Storage.getItem(STORAGE_KEY);
 
-      if (isOnboardingCompleted === "true") router.replace("/auth");
-      else router.replace("/onboarding");
+      const isOnboardingCompleted = Boolean(JSON.parse(isCompleted ?? "false"));
+
+      return isOnboardingCompleted;
     } catch (e: unknown) {
       console.error(e);
+      return false;
     }
   },
 }));

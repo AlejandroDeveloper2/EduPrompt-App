@@ -34,12 +34,25 @@ interface UserProfile {
   };
 }
 
+/** Notifications */
+interface SystemNotification {
+  notificationId: string;
+  title: string;
+  creationDate: Date;
+  message: string;
+  links?: {
+    label: string;
+    href: string;
+  }[];
+}
+
 export type {
   ChangePassPayload,
   EventError,
   EventHandler,
   EventKey,
   SendEmailChangePayload,
+  SystemNotification,
   UpdateEmailPayload,
   UserProfile,
 };

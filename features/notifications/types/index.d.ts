@@ -1,16 +1,19 @@
-interface SystemNotification {
-  notificationId: string;
-  title: string;
-  message: string;
-  links?: string[];
-  creationDate: Date;
-}
+type NotificationLink = {
+  label: string;
+  href: string;
+};
+
+type Order = "asc" | "desc";
 
 interface Notification {
   notificationId: string;
   title: string;
-  notificationDate: string;
+  creationDate: Date;
   message: string;
 }
 
-export type { Notification, SystemNotification };
+interface SystemNotification extends Notification {
+  links?: NotificationLink[];
+}
+
+export type { Notification, NotificationLink, Order, SystemNotification };

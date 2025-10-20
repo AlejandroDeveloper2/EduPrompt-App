@@ -38,4 +38,21 @@ export const NotificationCardStyle = (size: SizeType) =>
       justifyContent: "space-between",
       alignItems: "center",
     },
+    Tools: {
+      flexDirection: "row",
+      gap: Spacing.spacing_3xs,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    LinksContainer: {
+      width: "100%",
+      flexDirection: "column",
+      gap: Spacing.spacing_xs,
+      justifyContent: "center",
+      alignItems: "flex-start",
+    },
+    LinkPressable: {
+      width: "100%",
+      height: "auto",
+    },
   });
