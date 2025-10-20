@@ -56,14 +56,6 @@
       "expo-background-task",
       "react-native-iap",
       [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "2.1.20"
-          }
-        }
-      ],
-      [
         "expo-notifications",
         {
           "icon": "./assets/images/adaptive-icon.png",
