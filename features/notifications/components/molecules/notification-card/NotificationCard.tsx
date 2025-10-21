@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -6,14 +5,12 @@ import { AppColors } from "@/shared/styles";
 
 import { NotificationLink } from "@/features/notifications/types";
 
-import {
-  checkIsNewNotification,
-  openExternalLink,
-} from "@/features/notifications/helpers";
+import { openExternalLink } from "@/features/notifications/helpers";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Badge, Ionicon, Typography } from "@/shared/components/atoms";
 
+import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
 import { NotificationCardStyle } from "./NotificationCard.style";
 
 interface NotificationCardProps {
@@ -21,7 +18,6 @@ interface NotificationCardProps {
   title: string;
   notificationDate: Date;
   message: string;
-  isNew?: boolean;
   links?: NotificationLink[];
   onDeleteNotification?: () => void;
 }
@@ -37,9 +33,7 @@ const NotificationCard = ({
   const size = useScreenDimensionsStore();
   const notificationCardStyle = NotificationCardStyle(size);
 
-  const { isNew, formattedDate } = useMemo(() => {
-    return checkIsNewNotification(notificationDate);
-  }, [notificationDate]);
+  const { isNew, formattedDate } = useCheckIsNewNotification(notificationDate);
 
   return (
     <Animated.View style={[notificationCardStyle.NotificationContainer]}>
