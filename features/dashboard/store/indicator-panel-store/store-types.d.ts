@@ -5,7 +5,6 @@ export interface StoreStateProps {
 }
 
 export interface StoreActions {
-  setupIndicators: () => Promise<void>;
   getIndicators: () => Promise<void>;
   addGeneratedResource: () => Promise<void>;
   addUsedToken: () => Promise<void>;

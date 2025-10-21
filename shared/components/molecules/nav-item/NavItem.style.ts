@@ -25,5 +25,6 @@ export const NavItemStyle = (size: SizeType) =>
       borderRadius: Radius.radius_rounded,
       borderWidth: 1,
       borderColor: AppColors.neutral[25],
+      position: "relative",
     },
   });

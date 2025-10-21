@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Order, SystemNotification } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
-import useSystemNotificationSocket from "../core/useSystemNotificationSocket";
+import { useSystemNotificationSocket } from "../core";
 
 import { eventBus } from "@/core/events/EventBus";
 

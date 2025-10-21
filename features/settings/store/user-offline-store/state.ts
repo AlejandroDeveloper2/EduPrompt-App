@@ -9,6 +9,7 @@ export const initialState: UserStats = {
     pushNotifications: false,
     autoCleanNotifications: false,
     language: "es",
+    lastCleanAt: undefined,
   },
   sync: false,
   userName: "",

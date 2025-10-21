@@ -4,4 +4,5 @@ export const ASYNC_STORAGE_KEYS = {
   userIdResetPass: "user_id_reset_pass",
   userStats: "user_stats",
   userUpdatedEmail: "user_updated_email",
+  userNotifications: "user_notifications",
 };

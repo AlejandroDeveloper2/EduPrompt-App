@@ -2,6 +2,7 @@ interface UserPreferences {
   autoSync: boolean;
   cleanFrecuency: string | null;
   pushNotifications: boolean;
+  lastCleanAt?: string;
   autoCleanNotifications: boolean;
   language: string;
 }

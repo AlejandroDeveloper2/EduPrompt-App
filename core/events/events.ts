@@ -1,9 +1,11 @@
 import {
   ChangePassPayload,
   EventError,
+  Notification,
   SendEmailChangePayload,
   SystemNotification,
   UpdateEmailPayload,
+  UserPreferences,
   UserProfile,
 } from "./types";
 
@@ -33,6 +35,16 @@ export type AppEvents = {
   /** Eventos Módulo de perfil usuarios  */
   "userProfile.user.updated": UserProfile | null;
 
+  "userProfile.updateUserPreferences.requested": Partial<UserPreferences>;
+  "userProfile.updateUserPreferences.started": undefined;
+  "userProfile.updateUserPreferences.completed": undefined;
+  "userProfile.updateUserPreferences.failed": EventError;
+
   /** Eventos Módulo de notificaciones */
   "notifications.systemNotifications.updated": SystemNotification[];
+  "notifications.userNotifications.updated": Notification[];
+  "notifications.createNotification.requested": Notification;
+  "notifications.createNotification.started": undefined;
+  "notifications.createNotification.completed": undefined;
+  "notifications.createNotification.failed": EventError;
 };

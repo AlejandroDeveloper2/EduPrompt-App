@@ -8,7 +8,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/outfit";
 
-import { useIndicatorPanelStore } from "@/features/dashboard/hooks/store";
+import { setupNotificationChannel, setupNotifications } from "@/shared/utils";
 
 const useSetupApp = () => {
   const [loaded] = useFonts({
@@ -18,11 +18,11 @@ const useSetupApp = () => {
     Outfit_300Light,
   });
 
-  const { setupIndicators } = useIndicatorPanelStore();
-
   useEffect(() => {
-    setupIndicators();
-  }, [setupIndicators]);
+    /** 🔔 Configurar handlers y canales cuando la app inicia */
+    setupNotifications();
+    setupNotificationChannel();
+  }, []);
 
   return { loaded };
 };

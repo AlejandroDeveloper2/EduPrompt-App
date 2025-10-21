@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Dimensions } from "react-native";
 import { Gesture } from "react-native-gesture-handler";
 import {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
 
 const { height } = Dimensions.get("window");
 
@@ -20,10 +19,10 @@ const useAnimatedPopUp = () => {
   useEffect(() => {
     if (isPopUpVisible) {
       setIsPopUpMounted(true);
-      translateY.value = withSpring(0, { damping: 15 });
+      translateY.value = withTiming(0, { duration: 400 });
     } else {
-      translateY.value = withTiming(height, { duration: 300 }, () => {
-        runOnJS(setIsPopUpMounted)(false);
+      translateY.value = withTiming(height, { duration: 400 }, () => {
+        scheduleOnRN(setIsPopUpMounted, false);
       });
     }
   }, [isPopUpVisible, translateY]);
@@ -49,9 +48,9 @@ const useAnimatedPopUp = () => {
     })
     .onEnd((event) => {
       if (event.translationY > 100) {
-        runOnJS(onClosePopUp)();
+        scheduleOnRN(onClosePopUp);
       } else {
-        translateY.value = withSpring(0, { damping: 15 });
+        translateY.value = withTiming(0, { duration: 400 });
       }
     });
 

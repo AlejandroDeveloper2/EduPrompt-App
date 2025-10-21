@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { FlatList, View } from "react-native";
 
-import { Notification } from "../../../types";
+import { Order } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useLoadUserNotifications } from "@/features/notifications/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -17,10 +17,17 @@ import { NotificationCard } from "../../molecules";
 
 import { NotificationListStyle } from "./NotificationList.style";
 
-const notifications: Notification[] = [];
+interface NotificationHeaderProps {
+  filter: Order;
+  updateFilter: (updatedFilter: Order) => void;
+}
 
-const NotificationListHeader = () => {
+const NotificationListHeader = ({
+  filter,
+  updateFilter,
+}: NotificationHeaderProps) => {
   const size = useScreenDimensionsStore();
+
   const notificationListStyle = NotificationListStyle(size);
 
   return (
@@ -44,14 +51,14 @@ const NotificationListHeader = () => {
           <FilterTag
             icon="calendar-outline"
             label="Ascendente"
-            active={true}
-            onPressFilter={() => {}}
+            active={filter === "asc"}
+            onPressFilter={() => updateFilter("asc")}
           />
           <FilterTag
             icon="calendar-outline"
             label="Descendente"
-            active={false}
-            onPressFilter={() => {}}
+            active={filter === "desc"}
+            onPressFilter={() => updateFilter("desc")}
           />
         </View>
       </View>
@@ -61,9 +68,16 @@ const NotificationListHeader = () => {
 
 const NotificationList = () => {
   const size = useScreenDimensionsStore();
-  const notificationListStyle = NotificationListStyle(size);
+  const {
+    isLoading,
+    loadingMessage,
+    updateFilter,
+    notifications,
+    filter,
+    removeOneNotification,
+  } = useLoadUserNotifications();
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const notificationListStyle = NotificationListStyle(size);
 
   return (
     <FlatList
@@ -75,25 +89,26 @@ const NotificationList = () => {
       renderItem={({ item }) => (
         <NotificationCard
           {...item}
-          notificationDate={new Date(item.creationDate)}
-          onDeleteNotification={() => {}}
+          notificationDate={item.creationDate}
+          onDeleteNotification={() =>
+            removeOneNotification(item.notificationId)
+          }
         />
       )}
       keyExtractor={(item) => item.notificationId}
-      ListHeaderComponent={<NotificationListHeader />}
+      ListHeaderComponent={
+        <NotificationListHeader filter={filter} updateFilter={updateFilter} />
+      }
       ListEmptyComponent={
         <Empty
           message="No hay notificaciones ahora mismo"
           icon="notifications-off-outline"
         />
       }
-      onEndReached={(info) =>
-        info.distanceFromEnd === 0 ? setLoading(true) : setLoading(false)
-      }
       ListFooterComponent={
-        loading ? (
+        isLoading ? (
           <LoadingTextIndicator
-            message="Cargando notificaciones..."
+            message={loadingMessage ?? "..."}
             color={AppColors.primary[400]}
           />
         ) : null

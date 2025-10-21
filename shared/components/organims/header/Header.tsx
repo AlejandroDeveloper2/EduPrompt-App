@@ -26,6 +26,14 @@ const Header = () => {
     useToolbar();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
+  const systemNotifications = useEventbusValue(
+    "notifications.systemNotifications.updated",
+    []
+  );
+  const userNotifications = useEventbusValue(
+    "notifications.userNotifications.updated",
+    []
+  );
 
   const headerStyle = HeaderStyle(size, insets);
 
@@ -43,7 +51,13 @@ const Header = () => {
           <View style={headerStyle.NavItems}>
             <NavItem
               active={pathname === "/notifications_screen"}
-              icon="notifications-outline"
+              icon={"notifications-outline"}
+              Node={
+                systemNotifications.length > 0 ||
+                userNotifications.length > 0 ? (
+                  <View style={headerStyle.NotificationIndicator} />
+                ) : undefined
+              }
               onPress={() => router.navigate("/(tabs)/notifications_screen")}
             />
             <NavItem

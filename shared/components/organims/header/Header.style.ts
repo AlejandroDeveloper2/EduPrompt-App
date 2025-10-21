@@ -3,7 +3,7 @@ import { EdgeInsets } from "react-native-safe-area-context";
 
 import { SizeType } from "@/core/types";
 
-import { AppColors, Spacing } from "@/shared/styles";
+import { AppColors, Radius, Spacing } from "@/shared/styles";
 
 export const HeaderStyle = (size: SizeType, insets: EdgeInsets) =>
   StyleSheet.create({
@@ -35,5 +35,17 @@ export const HeaderStyle = (size: SizeType, insets: EdgeInsets) =>
       justifyContent: "flex-end",
       alignItems: "center",
       gap: size === "laptop" ? Spacing.spacing_md : Spacing.spacing_xs,
+    },
+    NotificationIndicator: {
+      width: 15,
+      height: 15,
+      borderRadius: Radius.radius_rounded,
+      backgroundColor: AppColors.primary[400],
+      borderWidth: 2,
+      borderStyle: "solid",
+      borderColor: AppColors.basic.white,
+      position: "absolute",
+      right: -Spacing.spacing_4xs,
+      top: -Spacing.spacing_4xs,
     },
   });

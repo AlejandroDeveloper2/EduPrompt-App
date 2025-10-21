@@ -1,9 +1,11 @@
 import { scheduleNotificationAsync } from "expo-notifications";
 import { useEffect, useRef } from "react";
 import { AppState, AppStateStatus } from "react-native";
+import uuid from "react-native-uuid";
 
 import { Process } from "@/core/types";
 
+import { eventBus } from "@/core/events/EventBus";
 import { useBackgroundTasksStore } from "../store";
 
 const useBackgroundTaskRunner = () => {
@@ -53,22 +55,20 @@ const useBackgroundTaskRunner = () => {
       /** update task as Done */
       updateBackgroundTask({ ...newTask, state: "done" });
 
-      await scheduleNotificationAsync({
-        content: {
-          title: newTask.processName,
-          body: "✅ Proceso finalizado",
-        },
-        trigger: null,
+      eventBus.emit("notifications.createNotification.requested", {
+        notificationId: uuid.v4(),
+        title: newTask.processName,
+        message: "✅ Proceso finalizado",
+        creationDate: new Date(),
       });
     } catch (e: unknown) {
       console.error(e);
       updateBackgroundTask({ ...newTask, state: "error" });
-      await scheduleNotificationAsync({
-        content: {
-          title: newTask.processName,
-          body: "❌ No se pudo completar el proceso",
-        },
-        trigger: null,
+      eventBus.emit("notifications.createNotification.requested", {
+        notificationId: uuid.v4(),
+        title: newTask.processName,
+        message: "❌ No se pudo completar el proceso",
+        creationDate: new Date(),
       });
     } finally {
       /** Delete backgraund task when it have finished */

@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { ReactNode } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -14,6 +15,7 @@ import { NavItemStyle } from "./NavItem.style";
 interface NavItemProps {
   active: boolean;
   icon: keyof typeof Ionicons.glyphMap;
+  Node?: ReactNode | ReactNode[];
   disabled?: boolean;
   label?: string;
   onPress: () => void;
@@ -21,7 +23,14 @@ interface NavItemProps {
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const NavItem = ({ active, icon, disabled, label, onPress }: NavItemProps) => {
+const NavItem = ({
+  active,
+  icon,
+  disabled,
+  Node,
+  label,
+  onPress,
+}: NavItemProps) => {
   const size = useScreenDimensionsStore();
   const animatedBackground = useAnimatedNavItem(active);
 
@@ -31,8 +40,10 @@ const NavItem = ({ active, icon, disabled, label, onPress }: NavItemProps) => {
     <View style={navItemStyle.Container}>
       <AnimatedPressable
         onPress={onPress}
+        disabled={disabled}
         style={[navItemStyle.NavItemPressable, animatedBackground]}
       >
+        {Node && Node}
         <Ionicon
           name={icon}
           size={size === "mobile" ? 20 : 24}

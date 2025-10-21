@@ -22,24 +22,29 @@ interface UpdateEmailPayload extends SendEmailChangePayload {
 }
 
 /** Users */
+interface UserPreferences {
+  autoSync: boolean;
+  lastCleanAt?: string;
+  cleanFrecuency: string | null;
+  pushNotifications: boolean;
+  autoCleanNotifications: boolean;
+  language: string;
+}
 interface UserProfile {
   tokenCoins: number;
   isPremiumUser: boolean;
-  userPreferences: {
-    autoSync: boolean;
-    cleanFrecuency: string | null;
-    pushNotifications: boolean;
-    autoCleanNotifications: boolean;
-    language: string;
-  };
+  userPreferences: UserPreferences;
 }
 
 /** Notifications */
-interface SystemNotification {
+interface Notification {
   notificationId: string;
   title: string;
   creationDate: Date;
   message: string;
+}
+
+interface SystemNotification extends Notification {
   links?: {
     label: string;
     href: string;
@@ -51,8 +56,10 @@ export type {
   EventError,
   EventHandler,
   EventKey,
+  Notification,
   SendEmailChangePayload,
   SystemNotification,
   UpdateEmailPayload,
+  UserPreferences,
   UserProfile,
 };

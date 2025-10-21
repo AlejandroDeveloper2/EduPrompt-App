@@ -7,28 +7,33 @@ import { queryClient } from "@/core/config/reactQuery";
 import { ToastProvider } from "@/shared/context";
 
 import { useAuthEventListeners } from "@/features/auth/hooks/core";
+import {
+  useCleanNotificationsJob,
+  useUserNotificationsEventListener,
+} from "@/features/notifications/hooks/core";
+import { useUserEventsListener } from "@/features/settings/hooks/core";
 import { useSetupApp } from "@/shared/hooks/core";
 
-import { setupNotifications } from "@/shared/utils";
-
-/** SetUp Notifications */
-setupNotifications();
-
 export default function RootLayout() {
+  const { loaded } = useSetupApp();
   return (
     <Host>
       <ToastProvider>
         <QueryClientProvider client={queryClient}>
-          <InnerApp />
+          <InnerApp loaded={loaded} />
         </QueryClientProvider>
       </ToastProvider>
     </Host>
   );
 }
 
-function InnerApp() {
-  const { loaded } = useSetupApp();
+function InnerApp({ loaded }: { loaded: boolean }) {
   useAuthEventListeners();
+  useUserNotificationsEventListener();
+  useUserEventsListener();
+
+  /** Job para limpiar notificaciones */
+  useCleanNotificationsJob();
 
   if (!loaded) return null;
 

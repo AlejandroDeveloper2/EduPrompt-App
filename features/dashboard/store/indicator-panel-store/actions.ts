@@ -15,21 +15,6 @@ export const storeActions: StateCreator<
   [],
   StoreActions
 > = (set) => ({
-  setupIndicators: async (): Promise<void> => {
-    try {
-      const indicators = await Storage.getItem(STORAGE_KEY);
-      if (!indicators) {
-        const initialIndicators: StoreStateProps = {
-          generatedResources: 0,
-          usedTokens: 0,
-          lastGeneratedResource: "",
-        };
-        await Storage.setItem(STORAGE_KEY, JSON.stringify(initialIndicators));
-      }
-    } catch (e: unknown) {
-      console.error(e);
-    }
-  },
   getIndicators: async (): Promise<void> => {
     try {
       const indicators = await Storage.getItem(STORAGE_KEY);
