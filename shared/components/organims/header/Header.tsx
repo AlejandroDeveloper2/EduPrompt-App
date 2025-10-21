@@ -35,6 +35,11 @@ const Header = () => {
     []
   );
 
+  const mixedNotifications = systemNotifications.concat(userNotifications);
+  const thereAreNewUnreadNotifications =
+    mixedNotifications.length > 0 &&
+    mixedNotifications.some((n) => n.read === false);
+
   const headerStyle = HeaderStyle(size, insets);
 
   return (
@@ -53,8 +58,7 @@ const Header = () => {
               active={pathname === "/notifications_screen"}
               icon={"notifications-outline"}
               Node={
-                systemNotifications.length > 0 ||
-                userNotifications.length > 0 ? (
+                thereAreNewUnreadNotifications ? (
                   <View style={headerStyle.NotificationIndicator} />
                 ) : undefined
               }

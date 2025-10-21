@@ -43,7 +43,7 @@ export type AppEvents = {
   /** Eventos Módulo de notificaciones */
   "notifications.systemNotifications.updated": SystemNotification[];
   "notifications.userNotifications.updated": Notification[];
-  "notifications.createNotification.requested": Notification;
+  "notifications.createNotification.requested": Omit<Notification, "read">;
   "notifications.createNotification.started": undefined;
   "notifications.createNotification.completed": undefined;
   "notifications.createNotification.failed": EventError;

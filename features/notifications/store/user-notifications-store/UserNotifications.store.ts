@@ -6,34 +6,40 @@ import { create } from "zustand";
 import { Notification, Order } from "../../types";
 import { UserNotificationStoreType } from "./store-types";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
-import { getParsedNotifications } from "./helpers";
+import { getParsedNotifications, showErrorToast } from "./helpers";
 
 export const UserNotificationsStore = create<UserNotificationStoreType>(
   (set) => ({
     notifications: [],
     notification: null,
     createNotification: async (
-      notification: Notification,
+      notification: Omit<Notification, "read">,
       pushNotificationsAvailable: boolean
     ): Promise<void> => {
       try {
         const notifications = await getParsedNotifications();
 
-        const existsNotifications: boolean = notifications.length > 0;
-
+        const updatedNotifications = [
+          ...notifications,
+          { ...notification, read: false },
+        ];
         await AsyncStorage.setItem(
           ASYNC_STORAGE_KEYS.userNotifications,
-          JSON.stringify(
-            existsNotifications
-              ? [...notifications, notification]
-              : [notification]
-          )
+          JSON.stringify(updatedNotifications)
         );
-        set(({ notifications }) => ({
-          notifications: [...notifications, notification],
-        }));
+
+        set({
+          notifications: updatedNotifications,
+        });
+
+        eventBus.emit(
+          "notifications.userNotifications.updated",
+          updatedNotifications
+        );
 
         if (!pushNotificationsAvailable) return;
         await scheduleNotificationAsync({
@@ -44,7 +50,10 @@ export const UserNotificationsStore = create<UserNotificationStoreType>(
           trigger: null,
         });
       } catch (error: unknown) {
-        console.log(error);
+        showErrorToast(
+          "Ha ocurrido un error el sistema de notificaciones del usuario.",
+          error
+        );
       }
     },
     getAllNotifications: async (filter: Order): Promise<void> => {
@@ -56,8 +65,15 @@ export const UserNotificationsStore = create<UserNotificationStoreType>(
             : compareDesc(a.creationDate, b.creationDate)
         );
         set({ notifications: sortedNotifications });
+        eventBus.emit(
+          "notifications.userNotifications.updated",
+          sortedNotifications
+        );
       } catch (error: unknown) {
-        console.log(error);
+        showErrorToast(
+          "Ha ocurrido un error el sistema de notificaciones del usuario.",
+          error
+        );
       }
     },
     getOneNotification: async (notificationId: string): Promise<void> => {
@@ -69,7 +85,10 @@ export const UserNotificationsStore = create<UserNotificationStoreType>(
         if (notification) set({ notification: null });
         else set({ notification });
       } catch (error) {
-        console.log(error);
+        showErrorToast(
+          "Ha ocurrido un error el sistema de notificaciones del usuario.",
+          error
+        );
       }
     },
     removeAllNotifications: async (): Promise<void> => {
@@ -79,8 +98,12 @@ export const UserNotificationsStore = create<UserNotificationStoreType>(
           JSON.stringify([])
         );
         set({ notifications: [] });
+        eventBus.emit("notifications.userNotifications.updated", []);
       } catch (error) {
-        console.log(error);
+        showErrorToast(
+          "Ha ocurrido un error el sistema de notificaciones del usuario.",
+          error
+        );
       }
     },
     removeOneNotification: async (notificationId: string): Promise<void> => {
@@ -94,8 +117,41 @@ export const UserNotificationsStore = create<UserNotificationStoreType>(
           JSON.stringify(filteredNotifications)
         );
         set({ notifications: filteredNotifications });
+        eventBus.emit(
+          "notifications.userNotifications.updated",
+          filteredNotifications
+        );
       } catch (error) {
-        console.log(error);
+        showErrorToast(
+          "Ha ocurrido un error el sistema de notificaciones del usuario.",
+          error
+        );
+      }
+    },
+    markAllNotificationsAsRead: async (): Promise<void> => {
+      try {
+        const notifications = await getParsedNotifications();
+        const updatedNotifications = notifications.map((n) => ({
+          ...n,
+          read: true,
+        }));
+
+        await AsyncStorage.setItem(
+          ASYNC_STORAGE_KEYS.userNotifications,
+          JSON.stringify(updatedNotifications)
+        );
+
+        set({ notifications: updatedNotifications });
+
+        eventBus.emit(
+          "notifications.userNotifications.updated",
+          updatedNotifications
+        );
+      } catch (error) {
+        showErrorToast(
+          "Ha ocurrido un error el sistema de notificaciones del usuario.",
+          error
+        );
       }
     },
   })

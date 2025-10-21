@@ -66,10 +66,22 @@ const useSystemNotificationSocket = (filters: Order) => {
       }
     );
 
+    /** Notificaciones marcadas como leidas */
+    socket.on(
+      "notifications:markAsRead",
+      (_markedNotificationIds: string[]) => {
+        queryClient.invalidateQueries({
+          queryKey: ["system_notifications"],
+          exact: false,
+        });
+      }
+    );
+
     return () => {
       socket.off("notifications:new");
       socket.off("notifications:update");
       socket.off("notifications:deleteMany");
+      socket.off("notifications:markAsRead");
     };
   }, [queryClient, notificationsPushAvailable, filters]);
 };

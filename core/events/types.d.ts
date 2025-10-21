@@ -42,6 +42,7 @@ interface Notification {
   title: string;
   creationDate: Date;
   message: string;
+  read: boolean;
 }
 
 interface SystemNotification extends Notification {

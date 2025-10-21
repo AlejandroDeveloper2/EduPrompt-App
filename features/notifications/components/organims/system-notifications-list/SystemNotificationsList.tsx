@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { FlatList, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
 import { Order } from "@/features/notifications/types";
 
+import { useMarkAsReadNotifications } from "@/features/notifications/hooks/mutations";
 import { useSystemNotifications } from "@/features/notifications/hooks/queries";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -75,6 +77,14 @@ const SystemNotificationsList = () => {
     filter,
     updateFilter,
   } = useSystemNotifications();
+  const { mutate } = useMarkAsReadNotifications();
+
+  useEffect(() => {
+    if (!notifications) return;
+    const notificationsIds = notifications.map((n) => n.notificationId);
+    mutate(notificationsIds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <FlatList
