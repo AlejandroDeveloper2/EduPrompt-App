@@ -17,38 +17,7 @@ import { NotificationCard } from "../../molecules";
 
 import { NotificationListStyle } from "./NotificationList.style";
 
-const notifications: Notification[] = [
-  {
-    notificationId: "not-1",
-    title: "Notificación 1",
-    creationDate: new Date(),
-    message: "Mensaje",
-  },
-  {
-    notificationId: "not-2",
-    title: "Notificación 2",
-    creationDate: new Date(),
-    message: "Mensaje",
-  },
-  {
-    notificationId: "not-3",
-    title: "Notificación 3",
-    creationDate: new Date(),
-    message: "Mensaje",
-  },
-  {
-    notificationId: "not-4",
-    title: "Notificación 4",
-    creationDate: new Date(),
-    message: "Mensaje",
-  },
-  {
-    notificationId: "not-5",
-    title: "Notificación 5",
-    creationDate: new Date(),
-    message: "Mensaje",
-  },
-];
+const notifications: Notification[] = [];
 
 const NotificationListHeader = () => {
   const size = useScreenDimensionsStore();

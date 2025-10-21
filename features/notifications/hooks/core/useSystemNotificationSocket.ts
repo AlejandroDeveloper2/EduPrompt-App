@@ -33,6 +33,7 @@ const useSystemNotificationSocket = (filters: Order) => {
     socket.on("notifications:new", (newNotification: SystemNotification) => {
       queryClient.invalidateQueries({
         queryKey: ["system_notifications"],
+        exact: false,
       });
       if (!notificationsPushAvailable) return;
       sendPushNotification(newNotification.title, newNotification.message);
@@ -44,6 +45,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       (updatedNotification: SystemNotification) => {
         queryClient.invalidateQueries({
           queryKey: ["system_notifications"],
+          exact: false,
         });
         if (!notificationsPushAvailable) return;
         sendPushNotification(
@@ -59,6 +61,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       (_deletedNotificationIds: string[]) => {
         queryClient.invalidateQueries({
           queryKey: ["system_notifications"],
+          exact: false,
         });
       }
     );
@@ -68,7 +71,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       socket.off("notifications:update");
       socket.off("notifications:deleteMany");
     };
-  }, [queryClient, notificationsPushAvailable]);
+  }, [queryClient, notificationsPushAvailable, filters]);
 };
 
 export default useSystemNotificationSocket;
