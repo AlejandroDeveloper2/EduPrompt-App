@@ -1,6 +1,4 @@
-import { ViewStyle } from "react-native";
 import {
-  AnimatedStyleProp,
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
@@ -51,7 +49,7 @@ const useAnimatedButton = (
   variant: ButtonVariantType,
   disabled?: boolean
 ): {
-  animatedBackground: AnimatedStyleProp<ViewStyle>;
+  animatedBackground: { backgroundColor: string };
   onPressIn: () => void;
   onPressOut: () => void;
 } => {

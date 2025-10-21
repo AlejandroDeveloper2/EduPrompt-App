@@ -2,12 +2,13 @@
 import { useEffect } from "react";
 import { Dimensions } from "react-native";
 import {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from "react-native-reanimated";
+
+import { scheduleOnRN } from "react-native-worklets";
 
 const SCREEN_WIDTH = Dimensions.get("screen").width;
 
@@ -18,7 +19,7 @@ const useAnimatedToolbar = (selectionMode: boolean, onHidden: () => void) => {
     if (selectionMode) translateX.value = withSpring(0, { duration: 1000 });
     else
       translateX.value = withTiming(-SCREEN_WIDTH, { duration: 300 }, () => {
-        runOnJS(onHidden)();
+        scheduleOnRN(onHidden);
       });
   }, [selectionMode, translateX]);
 
