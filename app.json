@@ -12,6 +12,10 @@
       "supportsTablet": true
     },
     "android": {
+      "notification": {
+        "icon": "./assets/notification-icon.png",
+        "color": "#10B981"
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#10B981"

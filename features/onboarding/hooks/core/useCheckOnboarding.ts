@@ -11,6 +11,7 @@ const useCheckOnboarding = () => {
   useEffect(() => {
     const validateOnboardingStatus = async () => {
       const isOnboardingCompleted = await checkIfOnboardingDone();
+
       if (isOnboardingCompleted) router.replace("/auth");
       else router.replace("/onboarding");
     };

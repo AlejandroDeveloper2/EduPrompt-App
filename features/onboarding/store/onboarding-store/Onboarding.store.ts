@@ -64,8 +64,7 @@ export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
   checkIfOnboardingDone: async () => {
     try {
       const isCompleted = await Storage.getItem(STORAGE_KEY);
-
-      const isOnboardingCompleted = Boolean(JSON.parse(isCompleted ?? "false"));
+      const isOnboardingCompleted = isCompleted ? Boolean(isCompleted) : false;
 
       return isOnboardingCompleted;
     } catch (e: unknown) {
