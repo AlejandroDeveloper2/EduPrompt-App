@@ -8,7 +8,7 @@ const SettingsTemplate = () => {
   return (
     <View style={GlobalStyles.RootContainer}>
       <ScrollView
-        style={{ width: "90%" }}
+        style={GlobalStyles.PageDimensions}
         contentContainerStyle={GlobalStyles.PageContent}
         showsVerticalScrollIndicator={false}
       >

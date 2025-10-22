@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, lazy, Suspense, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { createContext, useEffect, useState } from "react";
+import { View } from "react-native";
 import { Portal } from "react-native-portalize";
 
 import { ProviderProps, ToastConfig, ToastContextType } from "./types";
@@ -9,7 +9,9 @@ import { registerShowToast } from "./showToast";
 
 import { GlobalStyles } from "../../styles/GlobalStyles.style";
 
-const Toast = lazy(() => import("@/shared/components/molecules/toast/Toast"));
+import Toast from "@/shared/components/molecules/toast/Toast";
+
+// const Toast = lazy(() => import("@/shared/components/molecules/toast/Toast"));
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
@@ -59,20 +61,20 @@ export const ToastProvider = ({ children }: ProviderProps) => {
   return (
     <ToastContext.Provider value={{ toastsQueue, onAdd, onRemove }}>
       <Portal>
-        <Suspense fallback={<Text>Cargando..</Text>}>
-          <View style={GlobalStyles.ToastsQueueContainer}>
-            {toastsQueue.map((toast) => (
-              <Toast
-                key={toast.key}
-                variant={toast.variant}
-                message={toast.message}
-                duration={toast.toastDuration}
-                link={toast.link}
-                onRemove={() => onRemove(toast.key)}
-              />
-            ))}
-          </View>
-        </Suspense>
+        {/* <Suspense fallback={<Text>Cargando..</Text>}> */}
+        <View style={GlobalStyles.ToastsQueueContainer}>
+          {toastsQueue.map((toast) => (
+            <Toast
+              key={toast.key}
+              variant={toast.variant}
+              message={toast.message}
+              duration={toast.toastDuration}
+              link={toast.link}
+              onRemove={() => onRemove(toast.key)}
+            />
+          ))}
+        </View>
+        {/* </Suspense> */}
       </Portal>
       {children}
     </ToastContext.Provider>

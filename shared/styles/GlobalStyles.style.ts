@@ -13,11 +13,14 @@ export const GlobalStyles = StyleSheet.create({
     alignItems: "center",
   },
   PageContent: {
-    // width: "90%",
     justifyContent: "flex-start",
     paddingBottom: Spacing.spacing_4xl * 4.5,
     gap: Spacing.spacing_xl,
     paddingTop: Spacing.spacing_3xl,
+  },
+  PageDimensions: {
+    width: "100%",
+    paddingHorizontal: Spacing.spacing_xl,
   },
   SvgIllustration: {
     transform: [{ scale: 0.8 }],

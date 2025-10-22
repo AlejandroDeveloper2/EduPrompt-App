@@ -65,9 +65,9 @@ const Header = () => {
               onPress={() => router.navigate("/(tabs)/notifications_screen")}
             />
             <NavItem
-              active={false}
+              active={pathname === "/marketplace_screen"}
               icon="storefront-outline"
-              onPress={() => {}}
+              onPress={() => router.navigate("/(tabs)/marketplace_screen")}
             />
             <NavItem
               active={pathname === "/settings_screen"}

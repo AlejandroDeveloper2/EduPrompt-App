@@ -15,5 +15,6 @@ export { default as ToastLoadBar } from "./toast-load-bar/ToastLoadBar";
 export { AdvancePackageToken } from "./token-coin/AdvancePackageToken";
 export { BasicPackageToken } from "./token-coin/BasicPackageToken";
 export { ProPackageToken } from "./token-coin/ProPackageToken";
+export { SubscriptionPlan } from "./token-coin/SubscriptionPlan";
 export { default as TokenCoin } from "./token-coin/TokenCoin";
 export { default as Typography } from "./typography/Typography";

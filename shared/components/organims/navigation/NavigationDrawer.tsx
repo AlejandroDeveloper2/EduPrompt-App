@@ -28,7 +28,7 @@ const NavigationDrawer = ({
   const navigationStyle = NavigationStyle(size, insets);
 
   const firstItemsSlice = [state.routes[0], state.routes[4]];
-  const secondItemsSlice = [state.routes[5], state.routes[1]];
+  const secondItemsSlice = [state.routes[6], state.routes[1]];
 
   const isActionsVisible = actions.length > 0;
 

@@ -19,9 +19,9 @@ const useAnimatedPopUp = () => {
   useEffect(() => {
     if (isPopUpVisible) {
       setIsPopUpMounted(true);
-      translateY.value = withTiming(0, { duration: 400 });
+      translateY.value = withTiming(0, { duration: 800 });
     } else {
-      translateY.value = withTiming(height, { duration: 400 }, () => {
+      translateY.value = withTiming(height, { duration: 800 }, () => {
         scheduleOnRN(setIsPopUpMounted, false);
       });
     }
@@ -50,7 +50,7 @@ const useAnimatedPopUp = () => {
       if (event.translationY > 100) {
         scheduleOnRN(onClosePopUp);
       } else {
-        translateY.value = withTiming(0, { duration: 400 });
+        translateY.value = withTiming(0, { duration: 800 });
       }
     });
 

@@ -4,10 +4,10 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "@/shared/styles";
 
-export const TokenPackageCardStyle = (size: SizeType) =>
+export const TokenPackageCardStyle = (size: SizeType, full?: boolean) =>
   StyleSheet.create({
     CardContainer: {
-      width: "100%",
+      width: full ? "100%" : size === "laptop" ? 350 : 300,
       borderRadius: Radius.radius_lg,
       backgroundColor: AppColors.basic.white,
       display: "flex",
@@ -15,9 +15,7 @@ export const TokenPackageCardStyle = (size: SizeType) =>
       gap: Spacing.spacing_xs,
       justifyContent: "center",
       alignItems: "center",
-      borderColor: AppColors.primary[400],
-      borderWidth: 1,
-      borderStyle: "solid",
+      elevation: 5,
       overflow: "hidden",
     },
     PriceSection: {
@@ -29,7 +27,7 @@ export const TokenPackageCardStyle = (size: SizeType) =>
     },
     CardBody: {
       width: "100%",
-      backgroundColor: AppColors.primary[400],
+      backgroundColor: AppColors.basic.white,
       gap: Spacing.spacing_sm,
       justifyContent: "center",
       alignItems: "center",

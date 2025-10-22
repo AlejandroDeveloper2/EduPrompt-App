@@ -16,6 +16,7 @@ interface TokenPackageCardProps {
   packageTitle: string;
   description: string;
   SvgIcon: ReactNode;
+  full?: boolean;
   onBuyPackage: () => void;
 }
 
@@ -23,33 +24,24 @@ const TokenPackageCard = ({
   price,
   packageTitle,
   description,
+  full,
   SvgIcon,
   onBuyPackage,
 }: TokenPackageCardProps) => {
   const size = useScreenDimensionsStore();
 
-  const tokenPackageCardStyle = TokenPackageCardStyle(size);
+  const tokenPackageCardStyle = TokenPackageCardStyle(size, full);
 
   return (
     <View style={tokenPackageCardStyle.CardContainer}>
-      <View style={tokenPackageCardStyle.PriceSection}>
-        {SvgIcon}
-        <Typography
-          text={price}
-          weight="bold"
-          type="button"
-          textAlign="center"
-          color={AppColors.neutral[900]}
-          width="auto"
-        />
-      </View>
+      <View style={tokenPackageCardStyle.PriceSection}>{SvgIcon}</View>
       <View style={tokenPackageCardStyle.CardBody}>
         <Typography
           text={packageTitle}
           weight="bold"
           type="button"
           textAlign="center"
-          color={AppColors.basic.white}
+          color={AppColors.neutral[1000]}
           width="auto"
         />
         <Typography
@@ -57,14 +49,14 @@ const TokenPackageCard = ({
           weight="regular"
           type="paragraph"
           textAlign="center"
-          color={AppColors.basic.white}
+          color={AppColors.neutral[1000]}
           width="auto"
         />
         <Button
-          label="Comprar"
+          label={`Comprar ${price}`}
           icon="cart-outline"
           width="100%"
-          variant="neutral"
+          variant="primary"
           onPress={onBuyPackage}
         />
       </View>

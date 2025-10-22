@@ -17,7 +17,9 @@ const useUserNotificationsEventListener = () => {
     : false;
 
   useEffect(() => {
-    const handleCreateNotificationRequest = (newNotification: Notification) => {
+    const handleCreateNotificationRequest = (
+      newNotification: Omit<Notification, "read">
+    ) => {
       eventBus.emit("notifications.createNotification.started", undefined);
 
       createNotification(newNotification, notificationsPushAvailable)

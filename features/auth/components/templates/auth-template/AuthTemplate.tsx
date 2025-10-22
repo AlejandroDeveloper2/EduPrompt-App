@@ -64,7 +64,7 @@ const AuthTemplate = ({
     >
       <View style={GlobalStyles.OpacityLayer} />
       <ScrollView
-        style={{ width: "100%" }}
+        style={GlobalStyles.PageDimensions}
         contentContainerStyle={{ flexGrow: 1, paddingTop: insets.top }}
       >
         <View

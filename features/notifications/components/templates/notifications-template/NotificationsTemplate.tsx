@@ -23,7 +23,12 @@ const NotificationsTemplate = () => {
 
   return (
     <View style={GlobalStyles.RootContainer}>
-      <View style={{ width: "90%", paddingTop: Spacing.spacing_xl }}>
+      <View
+        style={[
+          { paddingTop: Spacing.spacing_xl },
+          GlobalStyles.PageDimensions,
+        ]}
+      >
         <Tabulator
           tabs={LIST_TABS}
           activeTab={activeListTab}
