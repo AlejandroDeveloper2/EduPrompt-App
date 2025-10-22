@@ -47,4 +47,5 @@ export type AppEvents = {
   "notifications.createNotification.started": undefined;
   "notifications.createNotification.completed": undefined;
   "notifications.createNotification.failed": EventError;
+  "notifications.checkNotification": undefined;
 };

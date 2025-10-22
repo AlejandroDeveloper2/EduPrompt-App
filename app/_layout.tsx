@@ -9,6 +9,7 @@ import { ToastProvider } from "@/shared/context";
 import { useAuthEventListeners } from "@/features/auth/hooks/core";
 import {
   useCleanNotificationsJob,
+  useNotificationCheckerJob,
   useUserNotificationsEventListener,
 } from "@/features/notifications/hooks/core";
 import { useUserEventsListener } from "@/features/settings/hooks/core";
@@ -34,6 +35,8 @@ function InnerApp({ loaded }: { loaded: boolean }) {
 
   /** Job para limpiar notificaciones */
   useCleanNotificationsJob();
+  /** Job para revisar si la notificaciones son nuevas o no */
+  useNotificationCheckerJob();
 
   if (!loaded) return null;
 

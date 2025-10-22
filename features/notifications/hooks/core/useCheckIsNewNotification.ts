@@ -1,32 +1,31 @@
 import { useEffect, useState } from "react";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import { checkIsNewNotification } from "../../helpers";
 
 const useCheckIsNewNotification = (notificationDate: Date) => {
-  const [{ isNew, formattedDate }, setNewState] = useState(() =>
+  const [state, setState] = useState(() =>
     checkIsNewNotification(notificationDate)
   );
 
   useEffect(() => {
-    const { isNew, formattedDate } = checkIsNewNotification(notificationDate);
-    setNewState({ isNew, formattedDate });
+    setState(checkIsNewNotification(notificationDate));
 
-    if (!isNew) return;
+    const listener = () => {
+      const newState = checkIsNewNotification(notificationDate);
+      // Solo actualiza si hay cambio real (optimización)
+      setState((prev) => (prev.isNew !== newState.isNew ? newState : prev));
+    };
 
-    // calcular cuánto falta para que deje de ser nueva
-    const TWENTY_MINUTES = 20 * 60 * 1000;
-    const creationTime = new Date(notificationDate).getTime();
-    const now = Date.now();
-    const timeLeft = Math.max(TWENTY_MINUTES - (now - creationTime), 0);
+    eventBus.on("notifications.checkNotification", listener);
 
-    const timer = setTimeout(() => {
-      setNewState(checkIsNewNotification(notificationDate));
-    }, timeLeft);
-
-    return () => clearTimeout(timer);
+    return () => {
+      eventBus.off("notifications.checkNotification", listener);
+    };
   }, [notificationDate]);
 
-  return { isNew, formattedDate };
+  return state;
 };
 
 export default useCheckIsNewNotification;
