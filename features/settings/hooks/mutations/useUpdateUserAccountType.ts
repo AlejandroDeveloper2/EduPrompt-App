@@ -7,7 +7,8 @@ import { User } from "../../types";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { patchUserAccountType } from "../../services";
 
 const useUpdateUserAccountType = () => {
@@ -23,7 +24,7 @@ const useUpdateUserAccountType = () => {
 
   return useMutation({
     mutationFn: async (isPremiumUser: boolean) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
       updateLocalAccountType(isPremiumUser, false);
 
       if (isConnected && token) {

@@ -35,6 +35,10 @@ interface UserProfile {
   isPremiumUser: boolean;
   userPreferences: UserPreferences;
 }
+interface UpdateTokensPayload {
+  amount: number;
+  mode: "add" | "substract";
+}
 
 /** Notifications */
 interface Notification {
@@ -61,6 +65,7 @@ export type {
   SendEmailChangePayload,
   SystemNotification,
   UpdateEmailPayload,
+  UpdateTokensPayload,
   UserPreferences,
   UserProfile,
 };

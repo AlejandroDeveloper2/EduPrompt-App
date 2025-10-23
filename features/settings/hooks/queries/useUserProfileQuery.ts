@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 import { EventKey } from "@/core/events/types";
@@ -6,21 +7,20 @@ import { EventKey } from "@/core/events/types";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useUserOfflineStore } from "../store";
 
-import { getSessionToken } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { getUserProfile } from "../../services";
 
 const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
   const { userStats, setUserStats } = useUserOfflineStore();
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["user_profile"],
     enabled: isConnected !== null && isConnected !== undefined,
     queryFn: async () => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
 
       if (isConnected && token) {
-        console.log("isConnected");
         const userProfile = await getUserProfile();
         setUserStats({
           ...userProfile,
@@ -36,6 +36,19 @@ const useUserProfileQuery = () => {
     staleTime: Infinity,
     // gcTime: 1000 * 60 * 5,
   });
+
+  useEffect(() => {
+    const handler = () => {
+      query.refetch();
+    };
+
+    eventBus.on("userProfile.fetch" as EventKey, handler);
+    return () => {
+      eventBus.off("userProfile.fetch" as EventKey, handler);
+    };
+  }, [query]);
+
+  return query;
 };
 
 export default useUserProfileQuery;

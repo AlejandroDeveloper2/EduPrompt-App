@@ -44,7 +44,6 @@ export const GlobalStyles = StyleSheet.create({
     alignItems: "center",
     gap: Spacing.spacing_md,
     flex: 1,
-    paddingHorizontal: Spacing.spacing_xl,
   },
   OpacityLayer: {
     ...StyleSheet.absoluteFillObject,

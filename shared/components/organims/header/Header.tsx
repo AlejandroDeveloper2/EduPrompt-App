@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useToolbar } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
+import { useEventBusToggle, useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Logo } from "@/shared/components/atoms";
@@ -34,6 +34,11 @@ const Header = () => {
     "notifications.userNotifications.updated",
     []
   );
+
+  const loading = useEventBusToggle("userProfile.updateTokeUserCoins.started", [
+    "userProfile.updateTokeUserCoins.completed",
+    "userProfile.updateTokeUserCoins.failed",
+  ]);
 
   const mixedNotifications = systemNotifications.concat(userNotifications);
   const thereAreNewUnreadNotifications =
@@ -75,6 +80,7 @@ const Header = () => {
               onPress={() => router.navigate("/(tabs)/settings_screen")}
             />
             <TokenBadge
+              isLoading={loading}
               tokenAmount={
                 userProfile ? userProfile.tokenCoins.toString() : "?"
               }

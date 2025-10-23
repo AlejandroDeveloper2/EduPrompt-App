@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
@@ -10,22 +10,27 @@ import { TokenBadgeStyle } from "./TokenBadge.style";
 
 interface TokenBadgeProps {
   tokenAmount: string;
+  isLoading: boolean;
 }
 
-const TokenBadge = ({ tokenAmount }: TokenBadgeProps) => {
+const TokenBadge = ({ tokenAmount, isLoading }: TokenBadgeProps) => {
   const size = useScreenDimensionsStore();
 
   return (
     <View style={TokenBadgeStyle(size).Container}>
       <TokenCoin />
-      <Typography
-        text={tokenAmount}
-        weight="regular"
-        type="paragraph"
-        textAlign="center"
-        color={AppColors.primary[400]}
-        width="auto"
-      />
+      {isLoading ? (
+        <ActivityIndicator size="small" color={AppColors.primary[400]} />
+      ) : (
+        <Typography
+          text={tokenAmount}
+          weight="regular"
+          type="paragraph"
+          textAlign="center"
+          color={AppColors.primary[400]}
+          width="auto"
+        />
+      )}
     </View>
   );
 };

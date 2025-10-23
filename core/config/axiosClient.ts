@@ -4,8 +4,11 @@ import { ServerErrorResponse } from "../types";
 
 import { config } from "./enviromentVariables";
 
-import { addSessionToken, getSessionToken } from "@/shared/helpers";
 import { AppError, ErrorCodeType } from "@/shared/utils";
+import {
+  addSessionToken,
+  getSessionToken,
+} from "@/shared/utils/functions/sessionTokenManager";
 
 /** Cliente de axios para integración con la api de edu prompt */
 export const axiosClient: AxiosInstance = axios.create({
@@ -15,9 +18,9 @@ export const axiosClient: AxiosInstance = axios.create({
 
 /* Interceptor para requests (ej. añadir tokens) */
 axiosClient.interceptors.request.use(
-  async (config) => {
-    // Aquí inyectas el token si existe
-    const token = await getSessionToken();
+  (config) => {
+    const token = getSessionToken();
+    // console.log("Token desde axiosClient: ", token);
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
@@ -28,9 +31,10 @@ axiosClient.interceptors.request.use(
 
 /* Interceptor para responses (manejo de errores específicos)*/
 axiosClient.interceptors.response.use(
-  async (response) => {
+  (response) => {
     const accessToken = response.headers["x-access-token"] as string;
-    if (accessToken) await addSessionToken(accessToken);
+    if (accessToken) addSessionToken(accessToken);
+
     return response;
   },
   async (error) => {
@@ -44,7 +48,7 @@ axiosClient.interceptors.response.use(
       const isOperational = axiosError.response.data.isOperational;
 
       if (status < 500 && status >= 400) {
-        console.log("⚠️ Error del cliente: ", errorMessageCode);
+        console.log("⚠️ Error del cliente: ", description);
       }
 
       if (status >= 500) {

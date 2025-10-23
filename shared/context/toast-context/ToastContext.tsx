@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect, useState } from "react";
 import { View } from "react-native";
 import { Portal } from "react-native-portalize";
 
 import { ProviderProps, ToastConfig, ToastContextType } from "./types";
 
-import { registerShowToast } from "./showToast";
+import { registerShowToast, unregisterShowToast } from "./showToast";
 
 import { GlobalStyles } from "../../styles/GlobalStyles.style";
 
@@ -51,11 +50,13 @@ export const ToastProvider = ({ children }: ProviderProps) => {
   };
 
   const onAdd = (toast: ToastConfig): void => {
-    setToastsQueue([toast, ...toastsQueue]);
+    setToastsQueue((prev) => [toast, ...prev]);
   };
 
   useEffect(() => {
     registerShowToast(onAdd);
+
+    return () => unregisterShowToast();
   }, []);
 
   return (

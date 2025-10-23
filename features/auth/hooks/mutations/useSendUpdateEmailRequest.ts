@@ -7,7 +7,8 @@ import { showToast } from "@/shared/context";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { postEmailChangeRequest } from "../../services";
 
 const useSendUpdateEmailRequest = () => {
@@ -15,7 +16,7 @@ const useSendUpdateEmailRequest = () => {
 
   return useMutation({
     mutationFn: async (updatedEmail: string) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
 
       if (isConnected && token) {
         const requestResult = await postEmailChangeRequest(updatedEmail);

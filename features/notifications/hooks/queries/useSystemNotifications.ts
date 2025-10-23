@@ -7,7 +7,6 @@ import { useCheckNetwork } from "@/shared/hooks/core";
 import { useSystemNotificationSocket } from "../core";
 
 import { eventBus } from "@/core/events/EventBus";
-
 import { getNotifications } from "../../services";
 
 const useSystemNotifications = () => {

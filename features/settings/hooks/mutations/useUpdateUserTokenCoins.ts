@@ -5,7 +5,8 @@ import { showToast } from "@/shared/context";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { patchUserTokenCoins } from "../../services";
 
 const useUpdateUserTokenCoins = () => {
@@ -26,7 +27,7 @@ const useUpdateUserTokenCoins = () => {
       amount: number;
       mode: "add" | "substract";
     }) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
       if (config.mode === "add") addLocalTokenCoins(config.amount, false);
       else subtractLocalTokenCoins(config.amount, false);
 

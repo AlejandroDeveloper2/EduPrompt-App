@@ -9,7 +9,8 @@ import { showToast } from "@/shared/context";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { putUserStats } from "../../services";
 
 const useUserSync = () => {
@@ -74,7 +75,7 @@ const useUserSync = () => {
   });
 
   const syncUserProfile = async () => {
-    const token = await getSessionToken();
+    const token = getSessionToken();
     if (!isConnected) {
       showToast({
         key: generateToastKey(),

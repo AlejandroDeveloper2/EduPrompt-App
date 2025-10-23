@@ -7,7 +7,8 @@ import { showToast } from "@/shared/context";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { patchUserPreferences } from "../../services";
 
 const useUpdateUserPreferences = () => {
@@ -19,7 +20,7 @@ const useUpdateUserPreferences = () => {
 
   return useMutation({
     mutationFn: async (userPreferences: Partial<UserPreferences>) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
       updateLocalUserPreferences(userPreferences, false);
 
       if (isConnected && token) {

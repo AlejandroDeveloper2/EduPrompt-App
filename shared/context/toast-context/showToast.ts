@@ -31,6 +31,10 @@ export const registerShowToast = (fn: (config: ToastConfig) => void) => {
   _onOpen = fn;
 };
 
+export const unregisterShowToast = () => {
+  _onOpen = null;
+};
+
 /**
  * Muestra una notificación toast con la configuración proporcionada
  * @param {ToastConfig} config - Objeto de configuración para el toast

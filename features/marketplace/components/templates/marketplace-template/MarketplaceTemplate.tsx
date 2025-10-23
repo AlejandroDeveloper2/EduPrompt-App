@@ -1,6 +1,7 @@
+import { ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 
-import { TokenPackage } from "@/features/marketplace/types";
+import { TokenPackage, TokenPackagePlan } from "@/features/marketplace/types";
 
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -13,35 +14,44 @@ import {
 } from "@/shared/components/atoms";
 import { TokenPackageCard } from "../../organims";
 
+import { useMarketplace } from "@/features/marketplace/hooks/core";
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { MarketplaceTemplateStyle } from "./MarketplaceTemplate.style";
 
 const packages: TokenPackage[] = [
   {
-    packageId: "1",
+    packageId: "basic_package",
     price: "2.99USD",
     packageTitle: "Paquete Básico",
     description: "¡Hasta 100 tokens instantáneos!",
-    SvgIcon: <BasicPackageToken />,
+    tokensAmount: 100,
   },
   {
-    packageId: "2",
+    packageId: "pro_package",
     price: "6.99USD",
     packageTitle: "Paquete Pro",
     description: "¡Hasta 300 tokens instantáneos!",
-    SvgIcon: <ProPackageToken />,
+    tokensAmount: 300,
   },
   {
-    packageId: "3",
+    packageId: "advanced_package",
     price: "14.99USD",
     packageTitle: "Paquete Avanzado",
     description: "¡Hasta 1000 tokens instantáneos!",
-    SvgIcon: <AdvancePackageToken />,
+    tokensAmount: 1000,
   },
 ];
 
 const MarketplaceTemplate = () => {
   const size = useScreenDimensionsStore();
+
+  const { loading, createPurchase } = useMarketplace();
+
+  const PackageImage: Record<TokenPackagePlan, ReactNode> = {
+    basic_package: <BasicPackageToken />,
+    pro_package: <ProPackageToken />,
+    advanced_package: <AdvancePackageToken />,
+  };
 
   return (
     <View style={GlobalStyles.RootContainer}>
@@ -66,8 +76,9 @@ const MarketplaceTemplate = () => {
               price={pack.price}
               packageTitle={pack.packageTitle}
               description={pack.description}
-              SvgIcon={pack.SvgIcon}
-              onBuyPackage={() => {}}
+              SvgIcon={PackageImage[pack.packageId as TokenPackagePlan]}
+              loading={loading}
+              onBuyPackage={() => createPurchase(pack)}
             />
           ))}
         </ScrollView>
@@ -83,6 +94,7 @@ const MarketplaceTemplate = () => {
           description="Que se te terminen los tokens ya no será un problema. ¡Genera sin limites!"
           SvgIcon={<SubscriptionPlan />}
           full
+          loading={loading}
           onBuyPackage={() => {}}
         />
       </ScrollView>

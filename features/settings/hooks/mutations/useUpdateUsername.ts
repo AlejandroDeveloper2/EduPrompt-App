@@ -4,7 +4,8 @@ import { UserStats } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 
@@ -16,7 +17,7 @@ const useUpdateUsername = () => {
 
   return useMutation({
     mutationFn: async (userName: string) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
       if (isConnected && token) {
         await patchUsername(userName);
       }

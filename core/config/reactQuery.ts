@@ -3,11 +3,16 @@ import { router } from "expo-router";
 
 import { showToast } from "@/shared/context";
 
-import { generateToastKey, removeSessionToken } from "@/shared/helpers";
-import { AppError, ErrorCodeType, ErrorMessages } from "@/shared/utils";
+import { generateToastKey } from "@/shared/helpers";
+import {
+  AppError,
+  ErrorCodeType,
+  ErrorMessages,
+  removeSessionToken,
+} from "@/shared/utils";
 
 /** Manejador de errores global con react query */
-const queryErrorHandler = async (error: unknown) => {
+const queryErrorHandler = (error: unknown) => {
   if (error instanceof Error) {
     const errorMessageCode = (error as AppError).name as ErrorCodeType;
     /** Disparar el toast de error */
@@ -35,7 +40,7 @@ const queryErrorHandler = async (error: unknown) => {
         toastDuration: 6000,
       });
 
-      await removeSessionToken();
+      removeSessionToken();
 
       router.replace("/auth");
       return;

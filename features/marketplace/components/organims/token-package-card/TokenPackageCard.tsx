@@ -17,6 +17,11 @@ interface TokenPackageCardProps {
   description: string;
   SvgIcon: ReactNode;
   full?: boolean;
+  loading: {
+    isLoading: boolean;
+    message: string | null;
+  };
+
   onBuyPackage: () => void;
 }
 
@@ -26,6 +31,7 @@ const TokenPackageCard = ({
   description,
   full,
   SvgIcon,
+  loading,
   onBuyPackage,
 }: TokenPackageCardProps) => {
   const size = useScreenDimensionsStore();
@@ -57,6 +63,8 @@ const TokenPackageCard = ({
           icon="cart-outline"
           width="100%"
           variant="primary"
+          loading={loading.isLoading}
+          loadingMessage={loading.message ?? "..."}
           onPress={onBuyPackage}
         />
       </View>

@@ -8,5 +8,6 @@ export * from "./exeptions/AppError";
 export * from "./functions/getIndicatorPanelGrid";
 export * from "./functions/mapZodErrors";
 export * from "./functions/renderNavItem";
+export * from "./functions/sessionTokenManager";
 export * from "./functions/setupNotifications";
 export * from "./functions/setupNotificationsChannel";

@@ -7,7 +7,9 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { showToast } from "@/shared/context";
 
-import { generateToastKey, getSessionToken } from "@/shared/helpers";
+import { generateToastKey } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 
 import { patchUserEmail } from "../../services";
@@ -18,7 +20,7 @@ const useUpdateUserEmail = () => {
 
   return useMutation({
     mutationFn: async (emailUpdatePayload: EmailUpdatePayload) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
       if (isConnected && token) {
         await patchUserEmail(emailUpdatePayload);
       }

@@ -4,7 +4,7 @@ import { SystemNotification } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 
-import { getSessionToken } from "@/shared/helpers";
+import { getSessionToken } from "@/shared/utils";
 import { patchNotificationsReadStatus } from "../../services";
 
 const useMarkAsReadNotifications = () => {
@@ -13,7 +13,7 @@ const useMarkAsReadNotifications = () => {
 
   return useMutation({
     mutationFn: async (notificationsIds: string[]) => {
-      const token = await getSessionToken();
+      const token = getSessionToken();
       if (isConnected && token) {
         await patchNotificationsReadStatus(notificationsIds);
       }

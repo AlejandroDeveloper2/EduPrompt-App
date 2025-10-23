@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { getSessionToken } from "../../helpers";
+import { getSessionToken } from "../../utils";
 
 const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const token = await getSessionToken();
+    const checkAuth = () => {
+      const token = getSessionToken();
       if (token) setIsAuth(true);
       else setIsAuth(false);
     };

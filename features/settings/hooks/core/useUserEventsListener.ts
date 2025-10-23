@@ -4,10 +4,14 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { UserPreferences } from "../../types";
 
-import { useUpdateUserPreferences } from "../mutations";
+import {
+  useUpdateUserPreferences,
+  useUpdateUserTokenCoins,
+} from "../mutations";
 
 const useUserEventListener = () => {
   const preferencesMutation = useUpdateUserPreferences();
+  const tokenAmountMutation = useUpdateUserTokenCoins();
 
   useEffect(() => {
     const handleUpdatePreferencesRequest = (
@@ -41,5 +45,36 @@ const useUserEventListener = () => {
       );
     };
   }, [preferencesMutation]);
+
+  useEffect(() => {
+    const handleUpdateTokenCoinsRequest = (payload: {
+      amount: number;
+      mode: "add" | "substract";
+    }) => {
+      eventBus.emit("userProfile.updateTokeUserCoins.started", undefined);
+
+      tokenAmountMutation.mutate(payload, {
+        onSuccess: () => {
+          eventBus.emit("userProfile.updateTokeUserCoins.completed", undefined);
+        },
+        onError: (error) => {
+          eventBus.emit("userProfile.updateTokeUserCoins.failed", {
+            error: String(error),
+          });
+        },
+      });
+    };
+
+    eventBus.on(
+      "userProfile.updateTokeUserCoins.requested",
+      handleUpdateTokenCoinsRequest
+    );
+    return () => {
+      eventBus.off(
+        "userProfile.updateTokeUserCoins.requested",
+        handleUpdateTokenCoinsRequest
+      );
+    };
+  }, [tokenAmountMutation]);
 };
 export default useUserEventListener;
