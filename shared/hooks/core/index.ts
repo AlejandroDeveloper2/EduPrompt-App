@@ -2,6 +2,7 @@ export { default as useAuth } from "./useAuth";
 export { default as useBackgroundTaskRunner } from "./useBackgroundTaskRunner";
 export { default as useCheckNetwork } from "./useCheckNetwork";
 export { default as useCodeInput } from "./useCodeInput";
+export { default as useDailyRewardJob } from "./useDailyRewardJob";
 export { default as useForm } from "./useForm";
 export { default as useLoading } from "./useLoading";
 export { default as useProgressBar } from "./useProgressBar";

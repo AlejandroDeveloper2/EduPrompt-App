@@ -39,7 +39,6 @@
           "backgroundColor": "#10B981"
         }
       ],
-
       [
         "expo-sqlite",
         {
@@ -65,11 +64,14 @@
           "icon": "./assets/images/adaptive-icon.png",
           "color": "#10B981",
           "defaultChannel": "default",
-          "sounds": ["./assets/sounds/notification_sound.wav"],
+          "sounds": [
+            "./assets/sounds/notification_sound.wav"
+          ],
           "enableBackgroundRemoteNotifications": false
         }
       ],
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

@@ -3,6 +3,7 @@ import { ScrollView, View } from "react-native";
 
 import { TokenPackage, TokenPackagePlan } from "@/features/marketplace/types";
 
+import { useMarketplace } from "@/features/marketplace/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import {
@@ -14,7 +15,6 @@ import {
 } from "@/shared/components/atoms";
 import { TokenPackageCard } from "../../organims";
 
-import { useMarketplace } from "@/features/marketplace/hooks/core";
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { MarketplaceTemplateStyle } from "./MarketplaceTemplate.style";
 
@@ -88,13 +88,14 @@ const MarketplaceTemplate = () => {
           icon="star-outline"
         />
         <TokenPackageCard
-          packageId="4"
+          packageId="susbscription_plan"
           price="3.99USD/Mes"
           packageTitle="Plan Edu Prompt Pro"
           description="Que se te terminen los tokens ya no será un problema. ¡Genera sin limites!"
           SvgIcon={<SubscriptionPlan />}
           full
           loading={loading}
+          buttonText="Suscribirse 3.99USD/Mes"
           onBuyPackage={() => {}}
         />
       </ScrollView>

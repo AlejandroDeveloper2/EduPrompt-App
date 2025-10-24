@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 
-import { removeSessionToken } from "@/shared/utils";
+import { removeRefreshToken, removeSessionToken } from "@/shared/utils";
 import { postLogout } from "../../services";
 
 const useLogout = () => {
@@ -10,8 +10,9 @@ const useLogout = () => {
     mutationFn: async () => {
       return await postLogout();
     },
-    onSuccess: () => {
-      removeSessionToken();
+    onSuccess: async () => {
+      await removeSessionToken();
+      await removeRefreshToken();
       router.replace("/auth");
     },
   });

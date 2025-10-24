@@ -15,6 +15,9 @@ import {
 export default function TabLayout() {
   const size = useScreenDimensionsStore();
 
+  // /** Job de recompenza diaria al ingresar al panel principal de la app */
+  // useDailyRewardJob();
+
   if (size === "laptop")
     return (
       <>

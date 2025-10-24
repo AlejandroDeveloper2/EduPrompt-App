@@ -6,4 +6,6 @@ export const config = {
       : process.env.EXPO_PUBLIC_DEVELOPMENT_EDU_PROMPT_API || "",
   eduPromptSocketUrl:
     process.env.EXPO_PUBLIC_DEVELOPMENT_EDU_PROMPT_SOCKET || "",
+  tokenDailyRewardAmount:
+    process.env.EXPO_PUBLIC_TOKEN_DAILY_REWARD_AMOUNT || "0",
 };

@@ -6,6 +6,8 @@ import { useToolbar } from "@/shared/hooks/core";
 import { useEventBusToggle, useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
+import { formatTokenAmount } from "@/shared/utils";
+
 import { Logo } from "@/shared/components/atoms";
 import {
   NavItem,
@@ -82,7 +84,7 @@ const Header = () => {
             <TokenBadge
               isLoading={loading}
               tokenAmount={
-                userProfile ? userProfile.tokenCoins.toString() : "?"
+                userProfile ? formatTokenAmount(userProfile.tokenCoins) : "?"
               }
             />
           </View>

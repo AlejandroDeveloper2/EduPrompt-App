@@ -5,8 +5,10 @@ export * from "./enums/ErrorMessages";
 export * from "./exeptions/AppError";
 
 /** Functions */
+export * from "./functions/formatTokenAmount";
 export * from "./functions/getIndicatorPanelGrid";
 export * from "./functions/mapZodErrors";
+export * from "./functions/refreshTokenManager";
 export * from "./functions/renderNavItem";
 export * from "./functions/sessionTokenManager";
 export * from "./functions/setupNotifications";

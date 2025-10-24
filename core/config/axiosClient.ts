@@ -4,7 +4,12 @@ import { ServerErrorResponse } from "../types";
 
 import { config } from "./enviromentVariables";
 
-import { AppError, ErrorCodeType } from "@/shared/utils";
+import {
+  addRefreshToken,
+  AppError,
+  ErrorCodeType,
+  getRefreshToken,
+} from "@/shared/utils";
 import {
   addSessionToken,
   getSessionToken,
@@ -13,15 +18,17 @@ import {
 /** Cliente de axios para integración con la api de edu prompt */
 export const axiosClient: AxiosInstance = axios.create({
   baseURL: config.eduPromptApiUrl,
-  withCredentials: true,
 });
 
 /* Interceptor para requests (ej. añadir tokens) */
 axiosClient.interceptors.request.use(
   (config) => {
     const token = getSessionToken();
-    // console.log("Token desde axiosClient: ", token);
+    const refreshToken = getRefreshToken();
+
     if (token) config.headers.Authorization = `Bearer ${token}`;
+    if (refreshToken) config.headers["x-refresh-token"] = refreshToken;
+
     return config;
   },
   (error) => {
@@ -33,7 +40,9 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   (response) => {
     const accessToken = response.headers["x-access-token"] as string;
+    const refreshToken = response.headers["x-refresh-token"] as string;
     if (accessToken) addSessionToken(accessToken);
+    if (refreshToken) addRefreshToken(refreshToken);
 
     return response;
   },

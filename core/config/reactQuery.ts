@@ -8,11 +8,12 @@ import {
   AppError,
   ErrorCodeType,
   ErrorMessages,
+  removeRefreshToken,
   removeSessionToken,
 } from "@/shared/utils";
 
 /** Manejador de errores global con react query */
-const queryErrorHandler = (error: unknown) => {
+const queryErrorHandler = async (error: unknown) => {
   if (error instanceof Error) {
     const errorMessageCode = (error as AppError).name as ErrorCodeType;
     /** Disparar el toast de error */
@@ -40,7 +41,8 @@ const queryErrorHandler = (error: unknown) => {
         toastDuration: 6000,
       });
 
-      removeSessionToken();
+      await removeSessionToken();
+      await removeRefreshToken();
 
       router.replace("/auth");
       return;

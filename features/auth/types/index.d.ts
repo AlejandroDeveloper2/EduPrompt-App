@@ -1,5 +1,6 @@
 interface LoginResponse {
   token: string;
+  refreshToken: string;
 }
 
 interface LoginCredentials {
