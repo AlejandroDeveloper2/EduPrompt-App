@@ -3,6 +3,7 @@ import { Drawer } from "expo-router/drawer";
 
 import { AppColors } from "@/shared/styles";
 
+import { useDailyRewardJob } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
@@ -15,8 +16,8 @@ import {
 export default function TabLayout() {
   const size = useScreenDimensionsStore();
 
-  // /** Job de recompenza diaria al ingresar al panel principal de la app */
-  // useDailyRewardJob();
+  /** Job de recompenza diaria al ingresar al panel principal de la app */
+  useDailyRewardJob();
 
   if (size === "laptop")
     return (

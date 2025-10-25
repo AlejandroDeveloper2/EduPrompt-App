@@ -30,12 +30,13 @@ export default function RootLayout() {
 }
 
 function InnerApp({ loaded }: { loaded: boolean }) {
+  /** Montar perfil de usuario */
+  useUserProfileQuery();
+
+  /** Listeners de eventos con el eventBus */
   useAuthEventListeners();
   useUserNotificationsEventListener();
   useUserEventsListener();
-
-  /** Montar perfil de usuario */
-  useUserProfileQuery();
 
   /** Job para limpiar notificaciones */
   useCleanNotificationsJob();

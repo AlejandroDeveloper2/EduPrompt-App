@@ -27,7 +27,7 @@ const useUpdateUserTokenCoins = () => {
       amount: number;
       mode: "add" | "substract";
     }) => {
-      const token = getSessionToken();
+      const token = await getSessionToken();
       if (config.mode === "add") addLocalTokenCoins(config.amount, false);
       else subtractLocalTokenCoins(config.amount, false);
 

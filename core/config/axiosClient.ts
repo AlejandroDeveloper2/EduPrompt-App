@@ -22,9 +22,9 @@ export const axiosClient: AxiosInstance = axios.create({
 
 /* Interceptor para requests (ej. añadir tokens) */
 axiosClient.interceptors.request.use(
-  (config) => {
-    const token = getSessionToken();
-    const refreshToken = getRefreshToken();
+  async (config) => {
+    const token = await getSessionToken();
+    const refreshToken = await getRefreshToken();
 
     if (token) config.headers.Authorization = `Bearer ${token}`;
     if (refreshToken) config.headers["x-refresh-token"] = refreshToken;
@@ -38,11 +38,11 @@ axiosClient.interceptors.request.use(
 
 /* Interceptor para responses (manejo de errores específicos)*/
 axiosClient.interceptors.response.use(
-  (response) => {
+  async (response) => {
     const accessToken = response.headers["x-access-token"] as string;
     const refreshToken = response.headers["x-refresh-token"] as string;
-    if (accessToken) addSessionToken(accessToken);
-    if (refreshToken) addRefreshToken(refreshToken);
+    if (accessToken) await addSessionToken(accessToken);
+    if (refreshToken) await addRefreshToken(refreshToken);
 
     return response;
   },
@@ -57,7 +57,7 @@ axiosClient.interceptors.response.use(
       const isOperational = axiosError.response.data.isOperational;
 
       if (status < 500 && status >= 400) {
-        console.log("⚠️ Error del cliente: ", description);
+        console.log("⚠️ Error del cliente: ", status, description);
       }
 
       if (status >= 500) {

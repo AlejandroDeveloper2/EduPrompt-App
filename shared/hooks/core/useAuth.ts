@@ -6,8 +6,8 @@ const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
   useEffect(() => {
-    const checkAuth = () => {
-      const token = getSessionToken();
+    const checkAuth = async () => {
+      const token = await getSessionToken();
       if (token) setIsAuth(true);
       else setIsAuth(false);
     };

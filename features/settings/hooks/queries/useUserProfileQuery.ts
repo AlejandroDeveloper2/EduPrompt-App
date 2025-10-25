@@ -18,7 +18,7 @@ const useUserProfileQuery = () => {
     queryKey: ["user_profile"],
     enabled: isConnected !== null && isConnected !== undefined,
     queryFn: async () => {
-      const token = getSessionToken();
+      const token = await getSessionToken();
       if (isConnected && token) {
         const userProfile = await getUserProfile();
         setUserStats({

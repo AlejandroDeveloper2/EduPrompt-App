@@ -17,7 +17,7 @@ const useUpdateUsername = () => {
 
   return useMutation({
     mutationFn: async (userName: string) => {
-      const token = getSessionToken();
+      const token = await getSessionToken();
       if (isConnected && token) {
         await patchUsername(userName);
       }

@@ -10,8 +10,11 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
  *
  * @param token - Token de sesión a almacenar.
  */
-export const addSessionToken = (token: string): void => {
-  SecureStorage.setItem(ASYNC_STORAGE_KEYS.sessionToken, token);
+export const addSessionToken = async (token: string): Promise<void> => {
+  await SecureStorage.setItemAsync(
+    ASYNC_STORAGE_KEYS.sessionToken,
+    String(token)
+  );
 };
 
 /**
@@ -22,8 +25,10 @@ export const addSessionToken = (token: string): void => {
  *
  * @returns El token si existe; en caso contrario, null.
  */
-export const getSessionToken = (): string | null => {
-  const token = SecureStorage.getItem(ASYNC_STORAGE_KEYS.sessionToken);
+export const getSessionToken = async (): Promise<string | null> => {
+  const token = await SecureStorage.getItemAsync(
+    ASYNC_STORAGE_KEYS.sessionToken
+  );
   return token;
 };
 

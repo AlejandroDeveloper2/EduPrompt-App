@@ -6,8 +6,8 @@ import { getSessionToken } from "@/shared/utils";
 const useCheckAuth = (): void => {
   const router = useRouter();
   useEffect(() => {
-    const checkUserSession = () => {
-      const token = getSessionToken();
+    const checkUserSession = async () => {
+      const token = await getSessionToken();
       if (!token) return;
       router.replace("/(tabs)");
     };

@@ -12,8 +12,11 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
  *
  * @param refreshToken - Cadena del refresh token a almacenar.
  */
-export const addRefreshToken = (refreshToken: string): void => {
-  SecureStorage.setItemAsync(ASYNC_STORAGE_KEYS.refreshToken, refreshToken);
+export const addRefreshToken = async (refreshToken: string): Promise<void> => {
+  await SecureStorage.setItemAsync(
+    ASYNC_STORAGE_KEYS.refreshToken,
+    String(refreshToken)
+  );
 };
 
 /**
@@ -24,8 +27,10 @@ export const addRefreshToken = (refreshToken: string): void => {
  *
  * @returns El refresh token si existe; de lo contrario, null.
  */
-export const getRefreshToken = (): string | null => {
-  const refreshToken = SecureStorage.getItem(ASYNC_STORAGE_KEYS.refreshToken);
+export const getRefreshToken = async (): Promise<string | null> => {
+  const refreshToken = await SecureStorage.getItemAsync(
+    ASYNC_STORAGE_KEYS.refreshToken
+  );
   return refreshToken;
 };
 

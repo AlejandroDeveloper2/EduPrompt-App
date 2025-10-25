@@ -13,7 +13,7 @@ const useMarkAsReadNotifications = () => {
 
   return useMutation({
     mutationFn: async (notificationsIds: string[]) => {
-      const token = getSessionToken();
+      const token = await getSessionToken();
       if (isConnected && token) {
         await patchNotificationsReadStatus(notificationsIds);
       }

@@ -14,9 +14,9 @@ const useLogin = () => {
       const loginResponse = await postLogin(credentials);
       return loginResponse;
     },
-    onSuccess: (data) => {
-      addSessionToken(data.token);
-      addRefreshToken(data.refreshToken);
+    onSuccess: async (data) => {
+      await addSessionToken(data.token);
+      await addRefreshToken(data.refreshToken);
       router.replace("/(tabs)");
     },
   });

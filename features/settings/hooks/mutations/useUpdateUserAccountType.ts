@@ -24,7 +24,7 @@ const useUpdateUserAccountType = () => {
 
   return useMutation({
     mutationFn: async (isPremiumUser: boolean) => {
-      const token = getSessionToken();
+      const token = await getSessionToken();
       updateLocalAccountType(isPremiumUser, false);
 
       if (isConnected && token) {

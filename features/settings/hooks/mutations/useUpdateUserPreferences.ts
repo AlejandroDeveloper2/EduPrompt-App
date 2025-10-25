@@ -20,7 +20,7 @@ const useUpdateUserPreferences = () => {
 
   return useMutation({
     mutationFn: async (userPreferences: Partial<UserPreferences>) => {
-      const token = getSessionToken();
+      const token = await getSessionToken();
       updateLocalUserPreferences(userPreferences, false);
 
       if (isConnected && token) {

@@ -31,6 +31,15 @@ const sendTokensDailyReward = () => {
   });
 };
 
+const processTokenReward = (now: Date) => {
+  sendTokensDailyReward();
+  const nextRewardDate = addDays(now, 1);
+  AsyncStorage.setItemSync(
+    ASYNC_STORAGE_KEYS.rewardDate,
+    JSON.stringify(nextRewardDate)
+  );
+};
+
 TaskManager.defineTask(DAILY_REWARD_TASK_NAME, async () => {
   try {
     const rewardDateRaw = AsyncStorage.getItemSync(
@@ -39,12 +48,7 @@ TaskManager.defineTask(DAILY_REWARD_TASK_NAME, async () => {
     const now = new Date();
 
     if (!rewardDateRaw || isAfter(now, new Date(rewardDateRaw))) {
-      sendTokensDailyReward();
-      const nextRewardDate = addDays(now, 1);
-      AsyncStorage.setItemSync(
-        ASYNC_STORAGE_KEYS.rewardDate,
-        JSON.stringify(nextRewardDate)
-      );
+      processTokenReward(now);
     }
     return BackgroundTaskResult.Success;
   } catch (error: unknown) {
@@ -80,6 +84,16 @@ const useDailyRewardJob = () => {
         console.error("[Task] Error registrando background fetch:", error);
       }
     };
+    (() => {
+      const rewardDateRaw = AsyncStorage.getItemSync(
+        ASYNC_STORAGE_KEYS.rewardDate
+      );
+      const now = new Date();
+
+      if (!rewardDateRaw) {
+        processTokenReward(now);
+      }
+    })();
     registerBackgroundRewardChecker();
   }, []);
 };
