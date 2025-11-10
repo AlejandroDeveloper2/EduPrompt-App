@@ -1,14 +1,7 @@
-import { Lang, Step } from "@/core/types";
+import { Lang } from "@/core/types";
+import { OnboardingStep } from "../types";
 
-export const ONBOARDING_STEPS: Lang<
-  Step<
-    | "FirstStepImage"
-    | "SecondStepImage"
-    | "ThirdStepImage"
-    | "FourthStepImage"
-    | "FiveStepImage"
-  >
-> = {
+export const ONBOARDING_STEPS: Lang<OnboardingStep> = {
   en: [],
   es: [
     {

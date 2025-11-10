@@ -7,7 +7,7 @@ export interface StoreStateProps {
 export interface StoreActions {
   getIndicators: () => Promise<void>;
   addGeneratedResource: () => Promise<void>;
-  addUsedToken: () => Promise<void>;
+  addUsedToken: (amount: number) => Promise<void>;
   updateLastGeneratedResource: (lastResourceName: string) => Promise<void>;
 }
 

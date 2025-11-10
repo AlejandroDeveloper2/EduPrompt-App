@@ -1,4 +1,5 @@
 export * from "./calculateGridElementWidth";
+export * from "./formatDate";
 export * from "./generateToastKey";
 export * from "./getActiveNavItem";
 export * from "./getButtonBackground";

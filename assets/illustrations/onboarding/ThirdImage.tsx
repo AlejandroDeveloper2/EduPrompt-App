@@ -2,16 +2,16 @@ import { Image } from "react-native";
 
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import Illustration from "../images/welcome-onboarding-image.png";
+import Illustration from "../../images/third-onboarding-step-image.png";
 
-const IntroImage = () => {
+const ThirdImage = () => {
   const size = useScreenDimensionsStore();
   return (
     <Image
       source={Illustration}
-      style={{ transform: [{ scale: size === "mobile" ? 0.8 : 1 }] }}
+      style={{ transform: [{ scale: size === "mobile" ? 0.7 : 1 }] }}
     />
   );
 };
 
-export default IntroImage;
+export default ThirdImage;

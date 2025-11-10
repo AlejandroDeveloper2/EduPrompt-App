@@ -5,6 +5,7 @@ import { DashboardIndicator } from "../../molecules";
 
 import { AppColors } from "@/shared/styles";
 
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useIndicatorPanelStore } from "../../../hooks/store";
 
@@ -17,6 +18,7 @@ const DashboardIndicatorPanel = () => {
   const { width } = useWindowDimensions();
   const { generatedResources, usedTokens, lastGeneratedResource } =
     useIndicatorPanelStore();
+  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { PanelContainer, IndicatorsGrid } = DashboardIndicatorPanelStyle(size);
   const { firstWidth, secondWidth, thirdWidth } = getIndicatorPanelGrid(
@@ -56,7 +58,7 @@ const DashboardIndicatorPanel = () => {
         />
         <DashboardIndicator
           icon="hardware-chip-outline"
-          value={`${usedTokens}/50`}
+          value={`${usedTokens}/${userProfile?.tokenCoins}`}
           label="Tokens usados"
           type="numeric"
           style={{
@@ -85,7 +87,7 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="watch-outline"
           value={
-            lastGeneratedResource === ""
+            lastGeneratedResource.length === 0
               ? "No se ha generado un recurso"
               : lastGeneratedResource
           }

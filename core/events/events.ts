@@ -2,6 +2,7 @@ import {
   ChangePassPayload,
   EventError,
   Notification,
+  SavePromptPayload,
   SendEmailChangePayload,
   SystemNotification,
   UpdateEmailPayload,
@@ -55,4 +56,15 @@ export type AppEvents = {
   "notifications.createNotification.completed": undefined;
   "notifications.createNotification.failed": EventError;
   "notifications.checkNotification": undefined;
+
+  /** Eventos Módulo de prompts */
+  "prompts.savePrompt.requested": SavePromptPayload;
+  "prompts.savePrompt.started": undefined;
+  "prompts.savePrompt.completed": undefined;
+  "prompts.savePrompt.failed": EventError;
+
+  /** Eventos Módulo de dashboard */
+  "dashboard.setLastGeneratedResource": string;
+  "dashboard.addGeneratedResource": undefined;
+  "dashboard.addUsedTokens": number;
 };

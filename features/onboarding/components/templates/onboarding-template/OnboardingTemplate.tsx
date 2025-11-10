@@ -2,6 +2,8 @@ import { ImageBackground, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { OnboardingStep } from "@/features/onboarding/types";
+
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useAnimatedOnboarding } from "../../../hooks/animations";
 import { useOnboardingStore } from "../../../hooks/store";
@@ -56,8 +58,9 @@ const OnboardingTemplate = () => {
             animatedOnboardingStyle={animatedOnboardingStyle}
             runReverseAnimation={runReverseAnimation}
           />
-          <Stepper
+          <Stepper<OnboardingStep>
             steps={steps}
+            stepIdKey="stepId"
             currentStep={currentStep}
             onActive={(stepId) =>
               runReverseAnimation(() => goToExactStep(stepId))

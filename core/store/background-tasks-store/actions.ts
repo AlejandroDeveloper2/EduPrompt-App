@@ -26,7 +26,12 @@ export const storeActions: StateCreator<
   [],
   [],
   StoreActions
-> = (set) => ({
+> = (set, get) => ({
+  getTaskByName: (taskName: string): Process | null => {
+    const task = get().tasks.find((t) => t.processName === taskName);
+    if (!task) return null;
+    return task;
+  },
   createBackgroundTask: (task: Process): void => {
     set(({ tasks }) => ({ tasks: [...tasks, task] }));
   },
@@ -42,7 +47,7 @@ export const storeActions: StateCreator<
 
   removeBackgroundTask: (taskId: string): void => {
     set(({ tasks }) => ({
-      tasks: tasks.filter((task) => task.processId === taskId),
+      tasks: tasks.filter((task) => task.processId !== taskId),
     }));
   },
 });

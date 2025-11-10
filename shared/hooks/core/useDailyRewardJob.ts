@@ -90,6 +90,8 @@ const useDailyRewardJob = () => {
       );
       const now = new Date();
 
+      console.log(rewardDateRaw);
+
       if (!rewardDateRaw) {
         processTokenReward(now);
       }

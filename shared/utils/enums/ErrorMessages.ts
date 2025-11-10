@@ -31,4 +31,5 @@ export enum ErrorMessages {
   SOME_PROMPT_NOT_FOUND = "Alguno de los prompts no existe",
   NOTIFICATION_NOT_FOUND = "Notificación del sistema no encontrada",
   SOME_NOTIFICATION_NOT_FOUND = "Alguna de las notificaciones no existe",
+  IMAGE_GENERATION_NOT_COMPLETED = "La generación de imagenes no se completo",
 }

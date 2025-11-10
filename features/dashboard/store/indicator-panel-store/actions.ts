@@ -19,6 +19,8 @@ export const storeActions: StateCreator<
     try {
       const indicators = await Storage.getItem(STORAGE_KEY);
 
+      console.log("Indicadores: " + indicators);
+
       if (!indicators) return;
 
       const {
@@ -39,7 +41,20 @@ export const storeActions: StateCreator<
   addGeneratedResource: async (): Promise<void> => {
     try {
       const indicators = await Storage.getItem(STORAGE_KEY);
-      if (!indicators) return;
+      if (!indicators) {
+        await Storage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            usedTokens: 0,
+            lastGeneratedResource: "",
+            generatedResources: 1,
+          })
+        );
+        set(({ generatedResources }) => ({
+          generatedResources: generatedResources + 1,
+        }));
+        return;
+      }
 
       const storagedIndicators: StoreStateProps = JSON.parse(indicators);
 
@@ -56,10 +71,24 @@ export const storeActions: StateCreator<
       console.error(e);
     }
   },
-  addUsedToken: async (): Promise<void> => {
+  addUsedToken: async (amount: number): Promise<void> => {
     try {
       const indicators = await Storage.getItem(STORAGE_KEY);
-      if (!indicators) return;
+
+      if (!indicators) {
+        await Storage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            usedTokens: amount,
+            lastGeneratedResource: "",
+            generatedResources: 0,
+          })
+        );
+        set(({ usedTokens }) => ({
+          usedTokens: usedTokens + amount,
+        }));
+        return;
+      }
 
       const storagedIndicators: StoreStateProps = JSON.parse(indicators);
 
@@ -67,11 +96,11 @@ export const storeActions: StateCreator<
         STORAGE_KEY,
         JSON.stringify({
           ...storagedIndicators,
-          usedTokens: storagedIndicators.usedTokens + 1,
+          usedTokens: storagedIndicators.usedTokens + amount,
         })
       );
 
-      set({ usedTokens: storagedIndicators.usedTokens + 1 });
+      set({ usedTokens: storagedIndicators.usedTokens + amount });
     } catch (e: unknown) {
       console.error(e);
     }
@@ -79,7 +108,18 @@ export const storeActions: StateCreator<
   updateLastGeneratedResource: async (lastResourceName: string) => {
     try {
       const indicators = await Storage.getItem(STORAGE_KEY);
-      if (!indicators) return;
+      if (!indicators) {
+        await Storage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            usedTokens: 0,
+            lastGeneratedResource: lastResourceName,
+            generatedResources: 0,
+          })
+        );
+        set({ lastGeneratedResource: lastResourceName });
+        return;
+      }
 
       const storagedIndicators: StoreStateProps = JSON.parse(indicators);
 

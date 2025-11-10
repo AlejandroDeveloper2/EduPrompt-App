@@ -7,4 +7,5 @@ export const ASYNC_STORAGE_KEYS = {
   userUpdatedEmail: "user_updated_email",
   userNotifications: "user_notifications",
   rewardDate: "reward_date",
+  generations: "generations",
 };

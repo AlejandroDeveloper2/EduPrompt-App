@@ -1,37 +1,35 @@
 import { View, ViewStyle } from "react-native";
 
-import { Step as StepType } from "@/core/types";
-
 import { Step } from "../../atoms";
 
 import { StepperStyle } from "./Stepper.style";
 
-type IllustrationType =
-  | "FirstStepImage"
-  | "SecondStepImage"
-  | "ThirdStepImage"
-  | "FourthStepImage"
-  | "FiveStepImage";
-
-interface StepperProps {
-  steps: StepType<IllustrationType>[];
-  currentStep: StepType<IllustrationType>;
+interface StepperProps<T> {
+  steps: T[];
+  currentStep: T;
+  stepIdKey: keyof T;
   style?: ViewStyle;
   onActive: (stepId: string) => void;
 }
 
-const Stepper = ({ steps, currentStep, style, onActive }: StepperProps) => {
+function Stepper<T>({
+  steps,
+  currentStep,
+  stepIdKey,
+  style,
+  onActive,
+}: StepperProps<T>) {
   return (
     <View style={[StepperStyle.StepList, style]}>
       {steps.map((step) => (
         <Step
-          key={step.stepId}
-          active={step.stepId === currentStep.stepId}
-          onActive={() => onActive(step.stepId)}
+          key={step[stepIdKey] as string}
+          active={step[stepIdKey] === currentStep[stepIdKey]}
+          onActive={() => onActive(step[stepIdKey] as string)}
         />
       ))}
     </View>
   );
-};
+}
 
 export default Stepper;

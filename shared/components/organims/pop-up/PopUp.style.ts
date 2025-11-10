@@ -20,7 +20,7 @@ export const PopUpStyle = (size: SizeType, insets: EdgeInsets) =>
     PopUpWindow: {
       width: size === "mobile" ? "100%" : size === "tablet" ? "80%" : "50%",
       minHeight: 250,
-      maxHeight: 550,
+      // maxHeight: 550,
       backgroundColor: AppColors.basic.white,
       borderTopLeftRadius: Radius.radius_lg,
       borderTopRightRadius: Radius.radius_lg,
@@ -47,7 +47,7 @@ export const PopUpStyle = (size: SizeType, insets: EdgeInsets) =>
     PopUpContent: {
       width: "100%",
       height: "auto",
-      justifyContent: "center",
+      justifyContent: "flex-start",
       alignItems: "center",
     },
     ClosePopUpDragIndicator: {

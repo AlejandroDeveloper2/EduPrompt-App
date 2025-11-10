@@ -105,7 +105,13 @@ interface Process {
   progressConfig: ProgressConfig;
   progress: number;
   state: ProcessStateType;
+  startTime: number;
   tasksDone?: number;
+}
+
+interface AppLanguage {
+  key: "es" | "pt" | "en";
+  label: string;
 }
 
 interface SpacingStyle {
@@ -223,6 +229,7 @@ interface ServerErrorResponse {
 export {
   AlertVariantType,
   AlignTextType,
+  AppLanguage,
   BadgeVariantType,
   BasicColor,
   ButtonVariantType,

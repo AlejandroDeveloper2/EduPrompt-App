@@ -1,24 +1,5 @@
-import { View } from "react-native";
-
-import { AppColors } from "@/shared/styles";
-
-import { Typography } from "@/shared/components/atoms";
-
-import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
+import { ResourceGenerationTemplate } from "@/features/resource-generation/components/templates";
 
 export default function GenerateScreen() {
-  return (
-    <View style={GlobalStyles.RootContainer}>
-      <View style={GlobalStyles.PageContent}>
-        <Typography
-          text="Generate Screen"
-          weight="bold"
-          type="h1"
-          textAlign="center"
-          color={AppColors.primary[400]}
-          width={"auto"}
-        />
-      </View>
-    </View>
-  );
+  return <ResourceGenerationTemplate />;
 }

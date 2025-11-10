@@ -26,15 +26,5 @@ interface CleanFrecuencyOption {
   frecuency: number;
   label: string;
 }
-interface AppLanguage {
-  key: "es" | "pt" | "en";
-  label: string;
-}
 
-export type {
-  AppLanguage,
-  CleanFrecuencyOption,
-  User,
-  UserPreferences,
-  UserStats,
-};
+export type { CleanFrecuencyOption, User, UserPreferences, UserStats };

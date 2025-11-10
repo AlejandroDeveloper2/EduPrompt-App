@@ -5,8 +5,8 @@ import { Button, Input, InputProps } from "../../molecules";
 import { PromptInputStyle } from "./PromptInput.style";
 
 interface PromptInputProps<T> extends Omit<InputProps<T>, "textArea"> {
-  onSavePrompt: () => void;
-  onSearchPrompt: () => void;
+  onSavePrompt?: () => void;
+  onSearchPrompt?: () => void;
   onGeneratePrompt: () => void;
 }
 
@@ -19,18 +19,22 @@ function PromptInput<T>({
   return (
     <Input {...props} textArea>
       <View style={PromptInputStyle.OptionList}>
-        <Button
-          icon="add-outline"
-          variant="neutral"
-          width="auto"
-          onPress={onSavePrompt}
-        />
-        <Button
-          icon="search-outline"
-          variant="neutral"
-          width="auto"
-          onPress={onSearchPrompt}
-        />
+        {onSavePrompt && (
+          <Button
+            icon="add-outline"
+            variant="neutral"
+            width="auto"
+            onPress={onSavePrompt}
+          />
+        )}
+        {onSearchPrompt && (
+          <Button
+            icon="search-outline"
+            variant="neutral"
+            width="auto"
+            onPress={onSearchPrompt}
+          />
+        )}
         <Button
           icon="star-outline"
           variant="neutral"

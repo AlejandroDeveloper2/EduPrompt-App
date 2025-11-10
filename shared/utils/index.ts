@@ -5,6 +5,7 @@ export * from "./enums/ErrorMessages";
 export * from "./exeptions/AppError";
 
 /** Functions */
+export * from "./functions/calcAverageProcessDuration";
 export * from "./functions/formatTokenAmount";
 export * from "./functions/getIndicatorPanelGrid";
 export * from "./functions/mapZodErrors";

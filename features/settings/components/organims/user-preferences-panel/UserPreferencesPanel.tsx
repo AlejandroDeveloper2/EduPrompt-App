@@ -1,9 +1,11 @@
 import { View } from "react-native";
 
-import { AppLanguage, CleanFrecuencyOption } from "../../../types";
+import { AppLanguage } from "@/core/types";
+import { CleanFrecuencyOption } from "../../../types";
 
+import { APP_LANGUAGES } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
-import { APP_LANGUAGES, CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
+import { CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";

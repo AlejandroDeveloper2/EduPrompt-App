@@ -1,0 +1,36 @@
+import { QueryClient } from "@tanstack/react-query";
+
+/**
+ * Calcula la duración promedio para un proceso dado leyendo las duraciones desde la caché del QueryClient.
+ *
+ * @param queryClient - La instancia de QueryClient utilizada para leer datos en caché.
+ * @param processName - La clave/nombre del proceso cuyas duraciones están almacenadas bajo la consulta 'processes_durations'.
+ * @returns La duración promedio como número, o `null` si la entrada 'processes_durations' falta, no se encuentra el nombre del proceso, o el arreglo de duraciones está vacío.
+ *
+ * @remarks
+ * - Se espera que el valor en caché en la clave de consulta ['processes_durations'] sea un Record<string, number[]>.
+ * - La función no modifica la caché.
+ *
+ * @example
+ * // Dada la caché: { processes_durations: { upload: [120, 80, 100] } }
+ * // calcAvarageProcessDuration(queryClient, 'upload') -> 100
+ */
+export const calcAvarageProcessDuration = (
+  queryClient: QueryClient,
+  processName: string
+): number | null => {
+  const data = queryClient.getQueryData<Record<string, number[]>>([
+    "processes_durations",
+  ]);
+
+  if (!data || !data[processName] || data[processName].length === 0)
+    return null;
+
+  const durations = data[processName];
+
+  const averageDuration: number =
+    durations.reduce((prevValue, currentValue) => prevValue + currentValue, 0) /
+    durations.length;
+
+  return averageDuration;
+};

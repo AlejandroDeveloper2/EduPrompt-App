@@ -56,12 +56,20 @@ interface SystemNotification extends Notification {
   }[];
 }
 
+/** Prompts */
+interface SavePromptPayload {
+  promptTitle: string;
+  promptText: string;
+  tag: string;
+}
+
 export type {
   ChangePassPayload,
   EventError,
   EventHandler,
   EventKey,
   Notification,
+  SavePromptPayload,
   SendEmailChangePayload,
   SystemNotification,
   UpdateEmailPayload,

@@ -42,7 +42,7 @@ const useForm = <T>({
   // };
 
   /** Función para capturar los cambios de estado de cada input del formulario */
-  const handleChange = (field: string, value: string | number): void => {
+  const handleChange = (field: keyof T, value: string | number): void => {
     setData((prev) => {
       const updated = { ...prev, [field]: value };
       validateForm(updated);

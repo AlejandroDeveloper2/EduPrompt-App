@@ -2,9 +2,9 @@ import { Image } from "react-native";
 
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import Illustration from "../images/second-onboarding-step-image.png";
+import Illustration from "../../images/fourth-form-step-image.png";
 
-const SecondImage = () => {
+const FourthFormStepImage = () => {
   const size = useScreenDimensionsStore();
   return (
     <Image
@@ -14,4 +14,4 @@ const SecondImage = () => {
   );
 };
 
-export default SecondImage;
+export default FourthFormStepImage;

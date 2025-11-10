@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { scheduleNotificationAsync } from "expo-notifications";
 import { useEffect, useRef } from "react";
 import { AppState, AppStateStatus } from "react-native";
@@ -6,9 +7,13 @@ import uuid from "react-native-uuid";
 import { Process } from "@/core/types";
 
 import { eventBus } from "@/core/events/EventBus";
+
 import { useBackgroundTasksStore } from "../store";
 
+import { calcAvarageProcessDuration } from "@/shared/utils";
+
 const useBackgroundTaskRunner = () => {
+  const queryClient = useQueryClient();
   const appState = useRef<AppStateStatus>(AppState.currentState);
 
   const {
@@ -17,6 +22,29 @@ const useBackgroundTaskRunner = () => {
     updateBackgroundTask,
     removeBackgroundTask,
   } = useBackgroundTasksStore();
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const inProgressTasks = tasks.filter(
+        (task) => task.state === "in-progress"
+      );
+
+      for (const task of inProgressTasks) {
+        const averageDuration = calcAvarageProcessDuration(
+          queryClient,
+          task.processName
+        );
+        if (!averageDuration) continue;
+        const elapsed = Date.now() - (task.startTime ?? Date.now());
+        const progress = Math.min((elapsed / averageDuration) * 100, 100);
+
+        updateBackgroundTask({ ...task, progress });
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tasks]);
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", async (next) => {
@@ -50,7 +78,20 @@ const useBackgroundTaskRunner = () => {
       createBackgroundTask(newTask);
 
       /** Action callback */
+      const start = performance.now();
       await actionCallback();
+      const end = performance.now();
+
+      const duration = end - start;
+      queryClient.setQueryData<Record<string, number[]>>(
+        ["processes_durations"],
+        (data) => {
+          const current = data ?? {};
+          const key: string = newTask.processName;
+          const durations = current[key] ?? [];
+          return { ...data, [key]: [...durations, duration] };
+        }
+      );
 
       /** update task as Done */
       updateBackgroundTask({ ...newTask, state: "done" });

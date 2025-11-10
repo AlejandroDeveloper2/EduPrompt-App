@@ -1,4 +1,4 @@
-import { AppLanguage } from "../types";
+import { AppLanguage } from "@/core/types";
 
 export const APP_LANGUAGES: AppLanguage[] = [
   { key: "es", label: "Español" },

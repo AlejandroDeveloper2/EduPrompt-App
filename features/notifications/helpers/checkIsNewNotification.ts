@@ -1,5 +1,7 @@
 import { differenceInMinutes } from "date-fns";
 
+import { formatDate } from "@/shared/helpers";
+
 export const checkIsNewNotification = (
   creationDate: string | Date | number
 ) => {
@@ -23,14 +25,6 @@ export const checkIsNewNotification = (
 
   return {
     isNew: diffMinutes < 20 && diffMinutes >= 0,
-    formattedDate: createdAt.toLocaleString("es", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-    }),
+    formattedDate: formatDate("es", createdAt),
   };
 };
