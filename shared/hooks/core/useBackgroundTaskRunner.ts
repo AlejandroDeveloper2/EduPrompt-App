@@ -129,10 +129,14 @@ const useBackgroundTaskRunner = () => {
       });
     } catch (e: unknown) {
       console.error(e);
+
       updateBackgroundTask({ ...newTask, state: "error" });
+
+      const processName = newTask.processName.split("_")[1];
+
       eventBus.emit("notifications.createNotification.requested", {
         notificationId: uuid.v4(),
-        title: newTask.processName,
+        title: processName,
         message: "❌ No se pudo completar el proceso",
         creationDate: new Date(),
       });

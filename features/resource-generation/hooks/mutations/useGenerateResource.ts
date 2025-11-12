@@ -39,6 +39,17 @@ const useGenerateResource = () => {
 
       return iaResponse;
     },
+    onError: () => {
+      if (currentIaGeneration) {
+        updateIaGeneration(
+          currentIaGeneration.generationId,
+          {},
+          {},
+          { isGenerating: false }
+        );
+        getIaGeneration(currentIaGeneration.generationId);
+      }
+    },
     onSuccess: (data) => {
       queryClient.setQueryData<AssistantResponse>(
         ["ia_generation_result"],
