@@ -218,7 +218,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         const processName = setGenerationProcessName(
           `${data.resourceType.resourceTypeLabel} -
                 ${data.subjectName}`
-        ).replace("_", " ");
+        );
 
         const newTask: Process = {
           processId: uuid.v4(),
