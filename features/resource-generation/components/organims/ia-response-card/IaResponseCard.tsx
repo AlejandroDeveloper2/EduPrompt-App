@@ -7,12 +7,16 @@ import { AppColors, Spacing } from "@/shared/styles";
 
 import { useGenerateResource } from "@/features/resource-generation/hooks/mutations";
 import { useGenerationsStore } from "@/features/resource-generation/hooks/store";
+import { useBackgroundTaskRunner } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
+
+import { getResourcePrice } from "@/features/resource-generation/helpers";
+import { copyToClipboard } from "@/shared/utils";
 
 import { Badge, ScreenSection, Typography } from "@/shared/components/atoms";
 import { Button, ResourceViewer } from "@/shared/components/molecules";
 
-import { copyToClipboard } from "@/shared/utils";
 import { IaResponseCardStyle } from "./IaResponseCard.style";
 
 interface IaResponseCardProps {
@@ -25,13 +29,17 @@ const IaResponseCard = ({
   iaGeneratedContent,
 }: IaResponseCardProps) => {
   const size = useScreenDimensionsStore();
+
   const {
-    currentIaGeneration,
     createAndSelectNewGeneration,
-    setGenerationStep,
-    getIaGeneration,
+    editSelectedGeneration,
+    clearAndRemoveSelectedGeneration,
+    executeIaGeneration,
   } = useGenerationsStore();
-  const { mutate, isPending, data } = useGenerateResource();
+
+  const { mutateAsync, isPending, data } = useGenerateResource();
+  const { runBackgroundTask } = useBackgroundTaskRunner();
+  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const viewerType = useMemo(
     () =>
@@ -46,11 +54,18 @@ const IaResponseCard = ({
   const iaResponseCardStyle = IaResponseCardStyle(size);
 
   return (
-    <View style={{ alignItems: "center", gap: Spacing.spacing_xl }}>
+    <View style={{ alignItems: "flex-end", gap: Spacing.spacing_xl }}>
+      <Button
+        icon="chevron-back-outline"
+        label="Volver"
+        variant="neutral"
+        width="auto"
+        onPress={clearAndRemoveSelectedGeneration}
+      />
       <ScreenSection
-        description="Genera tus recursos educativos aquí. Puedes generar varios recursos simultáneamente ahora mismo!. Toca el botón de abajo y comienza ahora."
-        title="Generar recurso"
-        icon="bulb-outline"
+        description="Aquí tienes el recurso solicitado, puedes guardar el recurso en vista previa, descargarlo,  generarlo de nuevo o ajustar la información para generar una mejor versión."
+        title="Resultado"
+        icon="star-outline"
       />
       <View style={iaResponseCardStyle.Container}>
         <View style={iaResponseCardStyle.Header}>
@@ -88,14 +103,7 @@ const IaResponseCard = ({
             icon="pencil-outline"
             variant="neutral"
             width="auto"
-            onPress={() => {
-              if (!currentIaGeneration) return;
-              setGenerationStep(
-                currentIaGeneration.generationId,
-                "resource_type_selection"
-              );
-              getIaGeneration(currentIaGeneration.generationId);
-            }}
+            onPress={editSelectedGeneration}
           />
           <Button
             icon="reload-outline"
@@ -103,8 +111,18 @@ const IaResponseCard = ({
             width="auto"
             loading={isPending}
             onPress={() => {
-              if (!currentIaGeneration) return;
-              mutate(currentIaGeneration.data);
+              executeIaGeneration(
+                (formatKey) => {
+                  return userProfile
+                    ? userProfile.tokenCoins >= getResourcePrice(formatKey)
+                    : false;
+                },
+                async (newTask, currentIaGeneration) => {
+                  await runBackgroundTask(newTask, async () => {
+                    await mutateAsync(currentIaGeneration.data);
+                  });
+                }
+              );
             }}
           />
           <Button

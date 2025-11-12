@@ -30,6 +30,7 @@ const ResourceDescriptionForm = () => {
         gesture={savePromptPopUp.dragGesture}
         animatedPopUpStyle={savePromptPopUp.animatedPopUpStyle}
         onClosePopUp={savePromptPopUp.onClosePopUp}
+        style={{ maxHeight: "auto" }}
       >
         <SavePromptForm
           promptText={data.descriptionPrompt}
@@ -82,6 +83,11 @@ const ResourceDescriptionForm = () => {
               icon="bulb-outline"
               label="Generar recurso"
               loading={isPending}
+              disabled={
+                currentIaGeneration
+                  ? !currentIaGeneration.generationCompleted
+                  : true
+              }
               loadingMessage="Generando recurso..."
               onPress={handleSubmit}
             />

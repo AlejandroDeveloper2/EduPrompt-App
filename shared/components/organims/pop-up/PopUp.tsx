@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 import {
   GestureDetector,
   GestureHandlerRootView,
@@ -28,6 +28,7 @@ interface PopUpProps {
       translateY: number;
     }[];
   };
+  style?: ViewStyle;
   children: ReactNode | ReactNode[];
   onClosePopUp: () => void;
 }
@@ -37,6 +38,7 @@ const PopUp = ({
   icon,
   isPopUpMounted,
   gesture,
+  style,
   animatedPopUpStyle,
   children,
   onClosePopUp,
@@ -68,7 +70,7 @@ const PopUp = ({
                 width="100%"
                 icon={icon}
               />
-              <View style={popUpStyle.PopUpContent}>{children}</View>
+              <View style={[popUpStyle.PopUpContent, style]}>{children}</View>
             </Animated.View>
           </GestureDetector>
         </View>

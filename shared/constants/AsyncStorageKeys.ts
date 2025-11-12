@@ -8,4 +8,5 @@ export const ASYNC_STORAGE_KEYS = {
   userNotifications: "user_notifications",
   rewardDate: "reward_date",
   generations: "generations",
+  averageProcessDuration: "average_process_duration",
 };

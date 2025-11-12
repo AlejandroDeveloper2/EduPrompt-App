@@ -1,8 +1,11 @@
+import { Process } from "@/core/types";
+
 import {
   GenerationData,
   GenerationStep,
   GenerationStepNameType,
   IaGeneration,
+  ResourceFormatKey,
 } from "../../types";
 
 export interface ResourceGenerationStoreType {
@@ -24,6 +27,16 @@ export interface ResourceGenerationStoreType {
   ) => void;
   reinitGeneration: (generationId: string) => void;
   createAndSelectNewGeneration: () => void;
+  clearAndRemoveSelectedGeneration: () => void;
+  editSelectedGeneration: () => void;
+  executeIaGeneration: (
+    canGenerate: (formatKey: ResourceFormatKey) => boolean,
+    genCallback: (
+      newTask: Process,
+      currentIaGeneration: IaGeneration
+    ) => Promise<void>,
+    descriptionPrompt?: string
+  ) => Promise<void>;
 }
 
 export type GenerationStorePersistedState = Pick<

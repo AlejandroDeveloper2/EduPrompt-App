@@ -9,3 +9,4 @@ export * from "./getIsSelectedOption";
 export * from "./getSubprocessIcon";
 export * from "./getToastIcon";
 export * from "./renderHtmlPdf";
+export * from "./setGenerationProcessName";

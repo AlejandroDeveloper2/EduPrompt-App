@@ -1,9 +1,11 @@
 import AsyncStorage from "expo-sqlite/kv-store";
+import uuid from "react-native-uuid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import { Process } from "@/core/types";
 import {
   GenerationData,
   GenerationStepNameType,
@@ -14,7 +16,14 @@ import {
   ResourceGenerationStoreType,
 } from "./store-types";
 
-import { formatDate } from "@/shared/helpers";
+import { showToast } from "@/shared/context";
+
+import {
+  formatDate,
+  generateToastKey,
+  setGenerationProcessName,
+} from "@/shared/helpers";
+import { calcAvarageProcessDuration } from "@/shared/utils";
 import { buildNewGeneration, initialGenerationData } from "./helpers";
 
 export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
@@ -143,6 +152,88 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         const newGeneration = createIaGeneration();
 
         set({ currentIaGeneration: newGeneration });
+      },
+      clearAndRemoveSelectedGeneration: (): void => {
+        const {
+          currentIaGeneration,
+          deleteIaGeneration,
+          clearSelectedGeneration,
+        } = get();
+
+        if (!currentIaGeneration) return;
+
+        deleteIaGeneration(currentIaGeneration.generationId);
+
+        clearSelectedGeneration();
+      },
+      editSelectedGeneration: (): void => {
+        const { currentIaGeneration, setGenerationStep, getIaGeneration } =
+          get();
+
+        if (!currentIaGeneration) return;
+
+        setGenerationStep(
+          currentIaGeneration.generationId,
+          "resource_type_selection"
+        );
+
+        getIaGeneration(currentIaGeneration.generationId);
+      },
+      executeIaGeneration: async (
+        canGenerate,
+        genCallback,
+        descriptionPrompt
+      ): Promise<void> => {
+        const { currentIaGeneration, updateIaGeneration } = get();
+
+        if (!currentIaGeneration) return;
+        if (!currentIaGeneration.generationCompleted) return;
+
+        const formatKey = currentIaGeneration.data.resourceFormat.formatKey;
+
+        if (!canGenerate(formatKey)) {
+          showToast({
+            key: generateToastKey(),
+            variant: "danger",
+            message:
+              "Tokens insuficientes para generar este recurso, recarga mas tokens.",
+          });
+          return;
+        }
+        const { generationId, data } = currentIaGeneration;
+
+        updateIaGeneration(
+          generationId,
+          descriptionPrompt
+            ? {
+                resourceDescriptionPrompt: descriptionPrompt,
+              }
+            : {},
+          { completed: true },
+          {
+            isGenerating: true,
+            canDelete: false,
+          }
+        );
+        const processName = setGenerationProcessName(
+          `${data.resourceType.resourceTypeLabel} -
+                ${data.subjectName}`
+        ).replace("_", " ");
+
+        const newTask: Process = {
+          processId: uuid.v4(),
+          startTime: Date.now(),
+          type: "generation",
+          processName,
+          progressConfig: {
+            mode: "duration-timer",
+            limit: calcAvarageProcessDuration(processName) ?? 10000,
+          },
+          progress: 0,
+          state: "in-progress",
+        };
+
+        await genCallback(newTask, currentIaGeneration);
       },
     }),
     {

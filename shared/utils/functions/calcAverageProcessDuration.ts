@@ -1,4 +1,5 @@
-import { QueryClient } from "@tanstack/react-query";
+import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
+import AsyncStorage from "expo-sqlite/kv-store";
 
 /**
  * Calcula la duración promedio para un proceso dado leyendo las duraciones desde la caché del QueryClient.
@@ -16,17 +17,23 @@ import { QueryClient } from "@tanstack/react-query";
  * // calcAvarageProcessDuration(queryClient, 'upload') -> 100
  */
 export const calcAvarageProcessDuration = (
-  queryClient: QueryClient,
   processName: string
 ): number | null => {
-  const data = queryClient.getQueryData<Record<string, number[]>>([
-    "processes_durations",
-  ]);
+  const data = AsyncStorage.getItemSync(
+    ASYNC_STORAGE_KEYS.averageProcessDuration
+  );
+  const parsedData: Record<string, number[]> | null = data
+    ? JSON.parse(data)
+    : null;
 
-  if (!data || !data[processName] || data[processName].length === 0)
+  if (
+    !parsedData ||
+    !parsedData[processName] ||
+    parsedData[processName].length === 0
+  )
     return null;
 
-  const durations = data[processName];
+  const durations = parsedData[processName];
 
   const averageDuration: number =
     durations.reduce((prevValue, currentValue) => prevValue + currentValue, 0) /
