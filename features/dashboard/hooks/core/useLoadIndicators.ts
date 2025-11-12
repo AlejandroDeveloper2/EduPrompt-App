@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 
 import { useIndicatorPanelStore } from "../store";
@@ -7,11 +8,10 @@ const useLoadIndicators = (): void => {
 
   useEffect(() => {
     const loadIndicators = async () => {
-      console.log("Carga indicadores");
       await getIndicators();
     };
     loadIndicators();
-  }, [getIndicators]);
+  }, []);
 };
 
 export default useLoadIndicators;

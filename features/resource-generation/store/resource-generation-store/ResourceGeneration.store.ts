@@ -29,7 +29,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         );
         set({ currentIaGeneration: generation || null });
       },
-      createIaGeneration: (): void => {
+      createIaGeneration: (): IaGeneration => {
         const { iaGenerations } = get();
         const generationTitle: string = `Generación ${formatDate(
           "es",
@@ -37,6 +37,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         )}`;
         const newGeneration: IaGeneration = buildNewGeneration(generationTitle);
         set({ iaGenerations: [...iaGenerations, newGeneration] });
+        return newGeneration;
       },
       updateIaGeneration: (
         generationId,
@@ -130,6 +131,18 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           return generation;
         });
         set({ iaGenerations: updatedGenerations });
+      },
+      createAndSelectNewGeneration: (): void => {
+        const { currentIaGeneration, deleteIaGeneration, createIaGeneration } =
+          get();
+
+        if (!currentIaGeneration) return;
+
+        deleteIaGeneration(currentIaGeneration.generationId);
+
+        const newGeneration = createIaGeneration();
+
+        set({ currentIaGeneration: newGeneration });
       },
     }),
     {

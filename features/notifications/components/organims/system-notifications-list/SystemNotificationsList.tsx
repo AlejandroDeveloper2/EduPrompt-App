@@ -93,6 +93,9 @@ const SystemNotificationsList = () => {
       contentContainerStyle={notificationListStyle.ListContent}
       data={notifications}
       horizontal={false}
+      windowSize={5}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
       numColumns={size === "laptop" ? 2 : 1}
       renderItem={({ item }) => (
         <NotificationCard {...item} notificationDate={item.creationDate} />

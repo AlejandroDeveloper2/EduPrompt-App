@@ -90,7 +90,6 @@ const ResourceFormatForm = () => {
           </Form.Row.Item>
         </Form.Actions>
       </Form>
-      ;
     </>
   );
 };

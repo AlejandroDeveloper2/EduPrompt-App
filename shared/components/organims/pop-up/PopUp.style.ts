@@ -19,8 +19,6 @@ export const PopUpStyle = (size: SizeType, insets: EdgeInsets) =>
     },
     PopUpWindow: {
       width: size === "mobile" ? "100%" : size === "tablet" ? "80%" : "50%",
-      minHeight: 250,
-      // maxHeight: 550,
       backgroundColor: AppColors.basic.white,
       borderTopLeftRadius: Radius.radius_lg,
       borderTopRightRadius: Radius.radius_lg,
@@ -30,12 +28,12 @@ export const PopUpStyle = (size: SizeType, insets: EdgeInsets) =>
         size === "mobile" ? Radius.radius_null : Radius.radius_lg,
       display: "flex",
       position: "relative",
-      justifyContent: "flex-end",
+      justifyContent: "flex-start",
       alignItems: "center",
       gap: Spacing.spacing_md,
       overflow: "hidden",
       paddingHorizontal: Spacing.spacing_xl,
-      paddingTop: Spacing.spacing_md + 20,
+      paddingTop: Spacing.spacing_md,
       paddingBottom:
         size === "mobile"
           ? Spacing.spacing_md + insets.bottom
@@ -49,14 +47,13 @@ export const PopUpStyle = (size: SizeType, insets: EdgeInsets) =>
       height: "auto",
       justifyContent: "flex-start",
       alignItems: "center",
+      maxHeight: 550,
     },
     ClosePopUpDragIndicator: {
       width: size === "mobile" ? 180 : 220,
       height: 10,
       backgroundColor: AppColors.neutral[100],
       borderRadius: Radius.radius_pilled,
-      position: "absolute",
-      top: 10,
       alignSelf: "center",
       marginHorizontal: "auto",
     },

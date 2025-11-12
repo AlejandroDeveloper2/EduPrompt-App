@@ -9,6 +9,7 @@ import { GenerationCard } from "../../molecules";
 import GenerationEmpty from "./GenerationEmpty";
 import GenerationListHeader from "./GenerationListHeader";
 
+import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { GenerationCardListStyle } from "./GenerationCardList.style";
 
 const GenerationCardList = () => {
@@ -25,12 +26,18 @@ const GenerationCardList = () => {
 
   return (
     <FlatList
-      style={generationListStyle.ListContainer}
-      contentContainerStyle={generationListStyle.ListContent}
+      style={[generationListStyle.ListContainer, GlobalStyles.PageDimensions]}
+      contentContainerStyle={[
+        generationListStyle.ListContent,
+        GlobalStyles.PageContent,
+      ]}
       numColumns={size === "laptop" ? 2 : 1}
       data={filteredElements}
       renderItem={({ item }) => <GenerationCard data={item} />}
       showsVerticalScrollIndicator={false}
+      windowSize={5}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
       keyExtractor={(item) => item.generationId}
       ListHeaderComponent={
         <GenerationListHeader

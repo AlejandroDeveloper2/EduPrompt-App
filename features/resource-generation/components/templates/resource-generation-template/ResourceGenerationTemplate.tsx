@@ -42,9 +42,7 @@ const ResourceGenerationTemplate = () => {
           )}
         </ScrollView>
       ) : (
-        <View style={[GlobalStyles.PageContent, GlobalStyles.PageDimensions]}>
-          <GenerationCardList />
-        </View>
+        <GenerationCardList />
       )}
     </View>
   );

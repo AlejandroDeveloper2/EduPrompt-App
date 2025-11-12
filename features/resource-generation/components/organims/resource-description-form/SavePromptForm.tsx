@@ -55,7 +55,7 @@ const SavePromptForm = ({ promptText, onClosePopUp }: SavePromptFormProps) => {
               label="Titulo (*)"
               icon="text-outline"
               name="promptTitle"
-              value={data.promptText}
+              value={data.promptTitle}
               placeholder="Digita el titulo del prompt"
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
@@ -98,10 +98,10 @@ const SavePromptForm = ({ promptText, onClosePopUp }: SavePromptFormProps) => {
           <Form.Button
             variant="primary"
             width="100%"
-            icon="bulb-outline"
-            label="Generar"
+            icon="add-outline"
+            label="Guardar prompt"
             loading={isLoading}
-            loadingMessage="Generando..."
+            loadingMessage="Guardando..."
             onPress={handleSubmit}
           />
         </Form.Row.Item>

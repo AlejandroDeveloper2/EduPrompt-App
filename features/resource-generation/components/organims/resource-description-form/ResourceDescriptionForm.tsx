@@ -80,7 +80,7 @@ const ResourceDescriptionForm = () => {
               variant="primary"
               width="100%"
               icon="bulb-outline"
-              label="Generar"
+              label="Generar recurso"
               loading={isPending}
               loadingMessage="Generando recurso..."
               onPress={handleSubmit}

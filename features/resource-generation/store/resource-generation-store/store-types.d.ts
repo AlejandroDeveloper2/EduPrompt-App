@@ -9,7 +9,7 @@ export interface ResourceGenerationStoreType {
   iaGenerations: IaGeneration[];
   currentIaGeneration: IaGeneration | null;
   getIaGeneration: (generationId: string) => void;
-  createIaGeneration: () => void;
+  createIaGeneration: () => IaGeneration;
   updateIaGeneration: (
     generationId: string,
     updatedData: Partial<GenerationData>,
@@ -23,6 +23,7 @@ export interface ResourceGenerationStoreType {
     stepId: GenerationStepNameType
   ) => void;
   reinitGeneration: (generationId: string) => void;
+  createAndSelectNewGeneration: () => void;
 }
 
 export type GenerationStorePersistedState = Pick<

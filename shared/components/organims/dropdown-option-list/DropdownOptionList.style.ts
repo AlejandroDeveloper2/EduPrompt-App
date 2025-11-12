@@ -15,10 +15,10 @@ export const DropdownOptionListStyle = (size: SizeType) =>
     },
     ListContent: {
       width: "100%",
-      maxHeight: 550,
       display: "flex",
       gap: Spacing.spacing_null,
       justifyContent: "flex-start",
+      flexGrow: 1,
     },
     PanelContainer: {
       width: "100%",

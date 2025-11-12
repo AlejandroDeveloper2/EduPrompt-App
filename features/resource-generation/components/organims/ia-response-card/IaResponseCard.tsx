@@ -5,12 +5,14 @@ import { ResourceFormat } from "../../../types";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
+import { useGenerateResource } from "@/features/resource-generation/hooks/mutations";
 import { useGenerationsStore } from "@/features/resource-generation/hooks/store";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Badge, ScreenSection, Typography } from "@/shared/components/atoms";
 import { Button, ResourceViewer } from "@/shared/components/molecules";
 
+import { copyToClipboard } from "@/shared/utils";
 import { IaResponseCardStyle } from "./IaResponseCard.style";
 
 interface IaResponseCardProps {
@@ -23,7 +25,13 @@ const IaResponseCard = ({
   iaGeneratedContent,
 }: IaResponseCardProps) => {
   const size = useScreenDimensionsStore();
-  const { clearSelectedGeneration } = useGenerationsStore();
+  const {
+    currentIaGeneration,
+    createAndSelectNewGeneration,
+    setGenerationStep,
+    getIaGeneration,
+  } = useGenerationsStore();
+  const { mutate, isPending, data } = useGenerateResource();
 
   const viewerType = useMemo(
     () =>
@@ -48,7 +56,11 @@ const IaResponseCard = ({
         <View style={iaResponseCardStyle.Header}>
           <Badge label={format.formatLabel} variant="primary" />
           <Typography
-            text={new Date().toLocaleDateString()}
+            text={
+              data
+                ? new Date(data.generationDate).toLocaleDateString()
+                : new Date().toLocaleDateString()
+            }
             weight="regular"
             type="caption"
             textAlign="center"
@@ -76,13 +88,24 @@ const IaResponseCard = ({
             icon="pencil-outline"
             variant="neutral"
             width="auto"
-            onPress={() => {}}
+            onPress={() => {
+              if (!currentIaGeneration) return;
+              setGenerationStep(
+                currentIaGeneration.generationId,
+                "resource_type_selection"
+              );
+              getIaGeneration(currentIaGeneration.generationId);
+            }}
           />
           <Button
             icon="reload-outline"
             variant="neutral"
             width="auto"
-            onPress={() => {}}
+            loading={isPending}
+            onPress={() => {
+              if (!currentIaGeneration) return;
+              mutate(currentIaGeneration.data);
+            }}
           />
           <Button
             icon="download-outline"
@@ -95,7 +118,7 @@ const IaResponseCard = ({
             variant="neutral"
             width="auto"
             disabled={format.formatKey !== "text"}
-            onPress={() => {}}
+            onPress={() => copyToClipboard(iaGeneratedContent)}
           />
         </ScrollView>
       </View>
@@ -104,7 +127,7 @@ const IaResponseCard = ({
         label="Generar otro recurso"
         variant="primary"
         width="100%"
-        onPress={clearSelectedGeneration}
+        onPress={createAndSelectNewGeneration}
       />
     </View>
   );

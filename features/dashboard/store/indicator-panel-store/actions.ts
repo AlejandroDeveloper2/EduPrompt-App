@@ -19,8 +19,6 @@ export const storeActions: StateCreator<
     try {
       const indicators = await Storage.getItem(STORAGE_KEY);
 
-      console.log("Indicadores: " + indicators);
-
       if (!indicators) return;
 
       const {

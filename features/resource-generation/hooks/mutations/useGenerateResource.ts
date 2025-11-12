@@ -11,15 +11,12 @@ import { generateToastKey } from "@/shared/helpers";
 import { formatGenerationData, getResourcePrice } from "../../helpers";
 
 import { postGenerateEducationalResource } from "../../services";
+import { generateAndLoadPDF } from "../../utils";
 
 const useGenerateResource = () => {
   const queryClient = useQueryClient();
-  const {
-    currentIaGeneration,
-    deleteIaGeneration,
-    updateIaGeneration,
-    getIaGeneration,
-  } = useGenerationsStore();
+  const { currentIaGeneration, updateIaGeneration, getIaGeneration } =
+    useGenerationsStore();
 
   return useMutation({
     mutationFn: async (generationData: GenerationData) => {
@@ -28,6 +25,18 @@ const useGenerateResource = () => {
         formattedData,
         generationData.resourceFormat.formatKey
       );
+
+      const { resourceFormat } = generationData;
+
+      if (
+        resourceFormat.formatKey === "chart" ||
+        resourceFormat.formatKey === "table"
+      )
+        return {
+          ...iaResponse,
+          result: await generateAndLoadPDF(iaResponse.result),
+        };
+
       return iaResponse;
     },
     onSuccess: (data) => {
@@ -61,8 +70,6 @@ const useGenerateResource = () => {
         );
         eventBus.emit("dashboard.addGeneratedResource", undefined);
         eventBus.emit("dashboard.addUsedTokens", amount);
-
-        deleteIaGeneration(currentIaGeneration.generationId);
       }
 
       showToast({

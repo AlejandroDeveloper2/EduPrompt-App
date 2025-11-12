@@ -1,4 +1,6 @@
-import { FlatList, View } from "react-native";
+import { View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import { useAnimatedRef } from "react-native-reanimated";
 
 import { getIsSelectedOption } from "../../../helpers";
 import { useSearchInput } from "../../../hooks/core";
@@ -54,7 +56,10 @@ function DropdownOptionList<T>({
   selectedOption,
   onSelectOption,
 }: DropdownOptionListProps<T>) {
+  const listRef = useAnimatedRef<FlatList<T>>();
+
   const size = useScreenDimensionsStore();
+
   const {
     searchValue,
     filteredElements,
@@ -66,6 +71,9 @@ function DropdownOptionList<T>({
 
   return (
     <FlatList
+      ref={listRef}
+      scrollEventThrottle={16}
+      simultaneousHandlers={listRef}
       style={dropdownOptionListStyle.ListContainer}
       contentContainerStyle={dropdownOptionListStyle.ListContent}
       data={filteredElements}
@@ -77,7 +85,11 @@ function DropdownOptionList<T>({
           onSelectOption={onSelectOption}
         />
       )}
+      windowSize={5}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
       keyExtractor={(item) => item[optionIdkey] as string}
+      keyboardShouldPersistTaps="handled"
       ListHeaderComponent={
         <SearchPanel
           searchValue={searchValue}

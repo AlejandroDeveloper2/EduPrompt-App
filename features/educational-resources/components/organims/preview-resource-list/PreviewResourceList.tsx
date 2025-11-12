@@ -12,6 +12,7 @@ import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
 import { ResourceCard } from "../../molecules";
 import PreviewResourceHeader from "./PreviewResourceHeader";
 
+import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { PreviewResourceListStyle } from "./PreviewResourceList.style";
 
 const resources: EducationalResource[] = [
@@ -40,9 +41,18 @@ const PreviewResourceList = () => {
 
   return (
     <FlatList
-      style={previewResourceListStyle.ListContainer}
-      contentContainerStyle={previewResourceListStyle.ListContent}
+      style={[
+        previewResourceListStyle.ListContainer,
+        GlobalStyles.PageDimensions,
+      ]}
+      contentContainerStyle={[
+        previewResourceListStyle.ListContent,
+        GlobalStyles.PageContent,
+      ]}
       numColumns={size === "laptop" ? 2 : 1}
+      windowSize={5}
+      initialNumToRender={10}
+      maxToRenderPerBatch={10}
       data={filteredElements}
       renderItem={({ item }) => (
         <ResourceCard

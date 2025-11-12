@@ -44,6 +44,12 @@ const ResourceViewer = ({
           source={{
             html: renderHtmlPdf(content),
           }}
+          style={[
+            {
+              width: size === "laptop" ? 600 : 320,
+              height: 400,
+            },
+          ]}
           javaScriptEnabled
           domStorageEnabled
           startInLoadingState
