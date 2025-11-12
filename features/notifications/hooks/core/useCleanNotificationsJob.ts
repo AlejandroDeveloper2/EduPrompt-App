@@ -21,7 +21,7 @@ TaskManager.defineTask(CLEAN_TASK_NAME, async () => {
     const should = shouldPerformClean(userProfile);
     if (!should) return BackgroundTaskResult.Failed;
 
-    await UserNotificationsStore.getState().removeAllNotifications();
+    UserNotificationsStore.getState().removeAllNotifications();
     eventBus.emit("userProfile.updateUserPreferences.requested", {
       ...userProfile?.userPreferences,
       lastCleanAt: new Date().toISOString(),
@@ -38,8 +38,8 @@ const useCleanNotificationsJob = () => {
   const userProfile = useEventbusValue("userProfile.user.updated", null);
   const { removeAllNotifications } = useUserNotificationsStore();
 
-  const performClean = async (): Promise<void> => {
-    await removeAllNotifications();
+  const performClean = (): void => {
+    removeAllNotifications();
     eventBus.emit("userProfile.updateUserPreferences.requested", {
       ...userProfile?.userPreferences,
       lastCleanAt: new Date().toISOString(),
@@ -62,16 +62,16 @@ const useCleanNotificationsJob = () => {
 
       const should = shouldPerformClean(userProfile);
       if (should) {
-        await performClean();
+        performClean();
       }
     })();
 
     let cleaning = false;
-    const sub = AppState.addEventListener("change", async (state) => {
+    const sub = AppState.addEventListener("change", (state) => {
       if (state === "active" && !cleaning) {
         cleaning = true;
         const should = shouldPerformClean(userProfile);
-        if (should) await performClean();
+        if (should) performClean();
         cleaning = false;
       }
     });

@@ -21,9 +21,9 @@ const useLoadUserNotifications = () => {
   };
 
   useEffect(() => {
-    const loadNotifications = async () => {
+    const loadNotifications = () => {
       toggleLoading(true, "Cargando notificaciones de usuario...");
-      await getAllNotifications(filter);
+      getAllNotifications(filter);
       toggleLoading(false, null);
     };
     loadNotifications();

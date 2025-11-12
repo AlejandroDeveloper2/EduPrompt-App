@@ -1,4 +1,5 @@
 import { usePathname, useRouter } from "expo-router";
+import { useMemo } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -42,10 +43,13 @@ const Header = () => {
     "userProfile.updateTokeUserCoins.failed",
   ]);
 
-  const mixedNotifications = systemNotifications.concat(userNotifications);
-  const thereAreNewUnreadNotifications =
-    mixedNotifications.length > 0 &&
-    mixedNotifications.some((n) => n.read === false);
+  const thereAreNewUnreadNotifications = useMemo(() => {
+    const mixedNotifications = systemNotifications.concat(userNotifications);
+    return (
+      mixedNotifications.length > 0 &&
+      mixedNotifications.some((n) => n.read === false)
+    );
+  }, [systemNotifications, userNotifications]);
 
   const headerStyle = HeaderStyle(size, insets);
 
