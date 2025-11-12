@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 
-import { useDashboardInit, useLoadIndicators } from "../../../hooks/core";
+import { useDashboardInit } from "../../../hooks/core";
 
 import { ScreenSection } from "@/shared/components/atoms";
 import { BackgroundProcessPanel } from "@/shared/components/organims";
@@ -10,7 +10,6 @@ import { Spacing } from "@/shared/styles";
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 const DashboardTemplate = () => {
-  useLoadIndicators();
   useDashboardInit();
 
   return (

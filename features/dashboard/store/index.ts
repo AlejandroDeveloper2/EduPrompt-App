@@ -1,1 +1,1 @@
-export * from "./indicator-panel-store";
+export * from "./indicator-panel-store/IndicatorPanel.store";

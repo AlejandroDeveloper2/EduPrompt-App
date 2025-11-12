@@ -1,14 +1,13 @@
 export interface StoreStateProps {
   generatedResources: number;
   usedTokens: number;
-  lastGeneratedResource: string;
+  lastGeneratedResource: string | null;
 }
 
 export interface StoreActions {
-  getIndicators: () => Promise<void>;
-  addGeneratedResource: () => Promise<void>;
-  addUsedToken: (amount: number) => Promise<void>;
-  updateLastGeneratedResource: (lastResourceName: string) => Promise<void>;
+  addGeneratedResource: () => void;
+  addUsedToken: (amount: number) => void;
+  updateLastGeneratedResource: (lastResourceName: string) => void;
 }
 
 export type IndicatorPanelStoreType = StoreStateProps & StoreActions;

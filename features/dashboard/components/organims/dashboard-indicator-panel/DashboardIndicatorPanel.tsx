@@ -87,7 +87,7 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="watch-outline"
           value={
-            lastGeneratedResource.length === 0
+            !lastGeneratedResource
               ? "No se ha generado un recurso"
               : lastGeneratedResource
           }

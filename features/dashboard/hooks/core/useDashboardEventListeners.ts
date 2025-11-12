@@ -9,10 +9,8 @@ const useDashboardEventListeners = () => {
     useIndicatorPanelStore();
 
   useEffect(() => {
-    const handleUpdateLastGeneratedRequest = async (
-      lastResourceName: string
-    ) => {
-      await updateLastGeneratedResource(lastResourceName);
+    const handleUpdateLastGeneratedRequest = (lastResourceName: string) => {
+      updateLastGeneratedResource(lastResourceName);
     };
 
     eventBus.on(
@@ -28,8 +26,8 @@ const useDashboardEventListeners = () => {
   }, [updateLastGeneratedResource]);
 
   useEffect(() => {
-    const handleAddGeneratedResourceRequest = async () => {
-      await addGeneratedResource();
+    const handleAddGeneratedResourceRequest = () => {
+      addGeneratedResource();
     };
     eventBus.on(
       "dashboard.addGeneratedResource",
@@ -44,8 +42,8 @@ const useDashboardEventListeners = () => {
   }, [addGeneratedResource]);
 
   useEffect(() => {
-    const handleAddUsedTokenRequest = async (amount: number) => {
-      await addUsedToken(amount);
+    const handleAddUsedTokenRequest = (amount: number) => {
+      addUsedToken(amount);
     };
     eventBus.on("dashboard.addUsedTokens", handleAddUsedTokenRequest);
     return () => {
