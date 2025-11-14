@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Directory, Paths } from "expo-file-system";
 
 import { AssistantResponse, GenerationData } from "../../types";
 
@@ -9,9 +10,9 @@ import { useGenerationsStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
 import { formatGenerationData, getResourcePrice } from "../../helpers";
+import { generateAndLoadPDF } from "../../utils";
 
 import { postGenerateEducationalResource } from "../../services";
-import { generateAndLoadPDF } from "../../utils";
 
 const useGenerateResource = () => {
   const queryClient = useQueryClient();
@@ -25,18 +26,6 @@ const useGenerateResource = () => {
         formattedData,
         generationData.resourceFormat.formatKey
       );
-
-      const { resourceFormat } = generationData;
-
-      if (
-        resourceFormat.formatKey === "chart" ||
-        resourceFormat.formatKey === "table"
-      )
-        return {
-          ...iaResponse,
-          result: await generateAndLoadPDF(iaResponse.result),
-        };
-
       return iaResponse;
     },
     onError: () => {
@@ -50,38 +39,70 @@ const useGenerateResource = () => {
         getIaGeneration(currentIaGeneration.generationId);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: async (data, variables) => {
+      const { resourceFormat } = variables;
+      let iaResponse: AssistantResponse = { ...data };
+
+      if (
+        resourceFormat.formatKey === "chart" ||
+        resourceFormat.formatKey === "table"
+      )
+        iaResponse = {
+          ...data,
+          result: await generateAndLoadPDF(data.result),
+        };
+
+      if (resourceFormat.formatKey === "image") {
+        const cacheDirectory = new Directory(Paths.cache);
+
+        if (!cacheDirectory.exists) cacheDirectory.create();
+
+        const file = cacheDirectory.createFile(
+          `generated_image_${new Date(data.generationDate).getTime()}.png`,
+          "image/png"
+        );
+
+        file.write(data.result, { encoding: "base64" });
+
+        const dataUrl = file.uri;
+
+        iaResponse = {
+          ...data,
+          result: dataUrl,
+        };
+      }
+
       queryClient.setQueryData<AssistantResponse>(
         ["ia_generation_result"],
-        data
+        iaResponse
       );
 
-      if (currentIaGeneration) {
-        updateIaGeneration(
-          currentIaGeneration.generationId,
-          {},
-          {},
-          { isGenerating: false }
-        );
-        getIaGeneration(currentIaGeneration.generationId);
+      if (!currentIaGeneration) return;
 
-        const amount = getResourcePrice(
-          currentIaGeneration.data.resourceFormat.formatKey
-        );
+      updateIaGeneration(
+        currentIaGeneration.generationId,
+        {},
+        {},
+        { isGenerating: false }
+      );
+      getIaGeneration(currentIaGeneration.generationId);
 
-        eventBus.emit("userProfile.updateTokeUserCoins.requested", {
-          amount,
-          mode: "substract",
-        });
+      const amount = getResourcePrice(
+        currentIaGeneration.data.resourceFormat.formatKey
+      );
 
-        eventBus.emit(
-          "dashboard.setLastGeneratedResource",
-          currentIaGeneration.data.resourceType.other ??
-            currentIaGeneration.data.resourceType.resourceTypeLabel
-        );
-        eventBus.emit("dashboard.addGeneratedResource", undefined);
-        eventBus.emit("dashboard.addUsedTokens", amount);
-      }
+      eventBus.emit("userProfile.updateTokeUserCoins.requested", {
+        amount,
+        mode: "substract",
+      });
+
+      eventBus.emit(
+        "dashboard.setLastGeneratedResource",
+        currentIaGeneration.data.resourceType.other ??
+          currentIaGeneration.data.resourceType.resourceTypeLabel
+      );
+      eventBus.emit("dashboard.addGeneratedResource", undefined);
+      eventBus.emit("dashboard.addUsedTokens", amount);
 
       showToast({
         key: generateToastKey(),

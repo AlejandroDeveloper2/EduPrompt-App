@@ -23,7 +23,7 @@ const Generating = () => {
     const processName = setGenerationProcessName(
       `${data.resourceType.resourceTypeLabel} -
                 ${data.subjectName}`
-    ).replace("_", " ");
+    );
     return calcAvarageProcessDuration(processName);
   }, [currentIaGeneration]);
 
