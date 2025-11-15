@@ -216,8 +216,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           }
         );
         const processName = setGenerationProcessName(
-          `${data.resourceType.resourceTypeLabel} -
-                ${data.subjectName}`
+          `${data.resourceType.resourceTypeLabel} - ${data.subjectName}`
         );
 
         const newTask: Process = {

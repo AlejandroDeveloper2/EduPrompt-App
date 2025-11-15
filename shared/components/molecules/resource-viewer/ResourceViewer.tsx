@@ -1,4 +1,4 @@
-import { Image, ScrollView } from "react-native";
+import { Image, View } from "react-native";
 import Markdown from "react-native-markdown-display";
 import { WebView } from "react-native-webview";
 
@@ -25,10 +25,7 @@ const ResourceViewer = ({
   const resourceViewerStyle = ResourceViewerStyle(scroll);
 
   return (
-    <ScrollView
-      scrollEnabled={scroll}
-      contentContainerStyle={resourceViewerStyle.ViewerContainer}
-    >
+    <View style={resourceViewerStyle.ViewerContainer}>
       {viewerType === "image" ? (
         <Image
           resizeMode="contain"
@@ -55,7 +52,7 @@ const ResourceViewer = ({
           startInLoadingState
         />
       )}
-    </ScrollView>
+    </View>
   );
 };
 

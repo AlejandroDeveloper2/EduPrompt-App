@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Directory, Paths } from "expo-file-system";
 
 import { AssistantResponse, GenerationData } from "../../types";
 
@@ -28,7 +27,8 @@ const useGenerateResource = () => {
       );
       return iaResponse;
     },
-    onError: () => {
+    onError: (error) => {
+      console.log("error al generar: " + error);
       if (currentIaGeneration) {
         updateIaGeneration(
           currentIaGeneration.generationId,
@@ -51,26 +51,6 @@ const useGenerateResource = () => {
           ...data,
           result: await generateAndLoadPDF(data.result),
         };
-
-      if (resourceFormat.formatKey === "image") {
-        const cacheDirectory = new Directory(Paths.cache);
-
-        if (!cacheDirectory.exists) cacheDirectory.create();
-
-        const file = cacheDirectory.createFile(
-          `generated_image_${new Date(data.generationDate).getTime()}.png`,
-          "image/png"
-        );
-
-        file.write(data.result, { encoding: "base64" });
-
-        const dataUrl = file.uri;
-
-        iaResponse = {
-          ...data,
-          result: dataUrl,
-        };
-      }
 
       queryClient.setQueryData<AssistantResponse>(
         ["ia_generation_result"],
