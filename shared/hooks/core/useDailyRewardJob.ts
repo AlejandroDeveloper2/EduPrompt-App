@@ -15,6 +15,8 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import useEventBusValue from "../events/useEventbusValue";
+
 const DAILY_REWARD_TASK_NAME = "daily_reward_task";
 
 const sendTokensDailyReward = () => {
@@ -58,6 +60,8 @@ TaskManager.defineTask(DAILY_REWARD_TASK_NAME, async () => {
 });
 
 const useDailyRewardJob = () => {
+  const userProfile = useEventBusValue("userProfile.user.updated", null);
+
   useEffect(() => {
     const registerBackgroundRewardChecker = async () => {
       try {
@@ -90,12 +94,12 @@ const useDailyRewardJob = () => {
       );
       const now = new Date();
 
-      if (!rewardDateRaw) {
+      if (!rewardDateRaw && userProfile) {
         processTokenReward(now);
       }
     })();
     registerBackgroundRewardChecker();
-  }, []);
+  }, [userProfile]);
 };
 
 export default useDailyRewardJob;
