@@ -20,7 +20,7 @@ export const UserOfflineStore = create<UserStoreType>()(
         set({ userStats });
       },
 
-      addLocalTokenCoins: (amount: number, sync: boolean) => {
+      addLocalTokenCoins: (amount: number, sync: boolean): number => {
         const { userStats } = get();
         const updated = {
           ...userStats,
@@ -28,9 +28,11 @@ export const UserOfflineStore = create<UserStoreType>()(
           sync,
         };
         set({ userStats: updated });
+
+        return updated.tokenCoins;
       },
 
-      subtractLocalTokenCoins: (amount: number, sync: boolean) => {
+      subtractLocalTokenCoins: (amount: number, sync: boolean): number => {
         const { userStats } = get();
         const updated = {
           ...userStats,
@@ -38,6 +40,7 @@ export const UserOfflineStore = create<UserStoreType>()(
           sync,
         };
         set({ userStats: updated });
+        return updated.tokenCoins;
       },
 
       updateLocalAccountType: (isPremiumUser: boolean, sync: boolean) => {

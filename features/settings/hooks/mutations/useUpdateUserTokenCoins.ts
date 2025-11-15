@@ -14,7 +14,6 @@ const useUpdateUserTokenCoins = () => {
   const { isConnected } = useCheckNetwork();
 
   const {
-    userStats,
     addLocalTokenCoins,
     subtractLocalTokenCoins,
     setUserStats,
@@ -27,12 +26,15 @@ const useUpdateUserTokenCoins = () => {
       amount: number;
       mode: "add" | "substract";
     }) => {
+      let updatedTokenAmount: number;
       const token = await getSessionToken();
-      if (config.mode === "add") addLocalTokenCoins(config.amount, false);
-      else subtractLocalTokenCoins(config.amount, false);
+
+      if (config.mode === "add")
+        updatedTokenAmount = addLocalTokenCoins(config.amount, false);
+      else updatedTokenAmount = subtractLocalTokenCoins(config.amount, false);
 
       if (isConnected && token) {
-        await patchUserTokenCoins(userStats.tokenCoins);
+        await patchUserTokenCoins(updatedTokenAmount);
         markAsSynced();
       }
     },

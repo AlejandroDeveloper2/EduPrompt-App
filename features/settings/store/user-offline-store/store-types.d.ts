@@ -11,8 +11,8 @@ export interface StoreUserActions {
   ) => void;
   markAsSynced: () => void;
   setUserStats: (userStats: UserStats) => void;
-  addLocalTokenCoins: (amount: number, sync: boolean) => void;
-  subtractLocalTokenCoins: (amount: number, sync: boolean) => void;
+  addLocalTokenCoins: (amount: number, sync: boolean) => number;
+  subtractLocalTokenCoins: (amount: number, sync: boolean) => number;
   updateLocalAccountType: (isPremiumUser: boolean, sync: boolean) => void;
   loadLocalUserStats: () => UserStats;
 }

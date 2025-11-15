@@ -75,7 +75,7 @@ const useDailyRewardJob = () => {
 
         if (!isAlreadyRegistered) {
           await registerTaskAsync(DAILY_REWARD_TASK_NAME, {
-            minimumInterval: 1440, //Cada 24 horas 1440 minutos
+            minimumInterval: 180, //Cada 3 horas 180 minutos
           });
 
           console.log("[Task] Background reward checker registrado");
@@ -89,8 +89,6 @@ const useDailyRewardJob = () => {
         ASYNC_STORAGE_KEYS.rewardDate
       );
       const now = new Date();
-
-      console.log(rewardDateRaw);
 
       if (!rewardDateRaw) {
         processTokenReward(now);
