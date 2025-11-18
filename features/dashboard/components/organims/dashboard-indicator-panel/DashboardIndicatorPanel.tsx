@@ -5,11 +5,10 @@ import { DashboardIndicator } from "../../molecules";
 
 import { AppColors } from "@/shared/styles";
 
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useIndicatorPanelStore } from "../../../hooks/store";
 
-import { getIndicatorPanelGrid } from "@/shared/utils";
+import { formatTokenAmount, getIndicatorPanelGrid } from "@/shared/utils";
 
 import { DashboardIndicatorPanelStyle } from "./DashboardIndicatorPanel.style";
 
@@ -18,7 +17,6 @@ const DashboardIndicatorPanel = () => {
   const { width } = useWindowDimensions();
   const { generatedResources, usedTokens, lastGeneratedResource } =
     useIndicatorPanelStore();
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { PanelContainer, IndicatorsGrid } = DashboardIndicatorPanelStyle(size);
   const { firstWidth, secondWidth, thirdWidth } = getIndicatorPanelGrid(
@@ -58,7 +56,7 @@ const DashboardIndicatorPanel = () => {
         />
         <DashboardIndicator
           icon="hardware-chip-outline"
-          value={`${usedTokens}/${userProfile?.tokenCoins}`}
+          value={formatTokenAmount(usedTokens)}
           label="Tokens usados"
           type="numeric"
           style={{
