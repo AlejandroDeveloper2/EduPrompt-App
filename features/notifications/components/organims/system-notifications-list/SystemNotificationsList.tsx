@@ -82,7 +82,7 @@ const SystemNotificationsList = () => {
   useEffect(() => {
     if (!notifications) return;
     const notificationsIds = notifications.map((n) => n.notificationId);
-    mutate(notificationsIds);
+    if (notificationsIds.length > 0) mutate(notificationsIds);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);

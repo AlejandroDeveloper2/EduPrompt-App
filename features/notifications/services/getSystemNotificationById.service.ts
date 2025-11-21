@@ -7,7 +7,7 @@ export const getNotificationById = async (
   notificationId: string
 ): Promise<SystemNotification> => {
   const { data } = await axiosClient.get<ServerResponse<SystemNotification>>(
-    `/systemNotifications/${notificationId}`
+    `/notifications/${notificationId}`
   );
   return data.data;
 };

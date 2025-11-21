@@ -7,7 +7,7 @@ export const getNotifications = async (
   order: Order
 ): Promise<SystemNotification[]> => {
   const { data } = await axiosClient.get<ServerResponse<SystemNotification[]>>(
-    "/systemNotifications",
+    "/notifications",
     {
       params: {
         order,

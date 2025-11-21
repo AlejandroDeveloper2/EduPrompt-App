@@ -15,6 +15,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import { UserProfile } from "@/core/events/types";
 import useEventBusValue from "../events/useEventbusValue";
 
 const DAILY_REWARD_TASK_NAME = "daily_reward_task";
@@ -57,15 +58,25 @@ const getRewardDate = () => {
 };
 
 TaskManager.defineTask(DAILY_REWARD_TASK_NAME, async () => {
+  let unsuscribe: () => void = () => {};
   try {
     const { now, rewardDateRaw } = getRewardDate();
 
-    if (!rewardDateRaw || isAfter(now, rewardDateRaw)) processTokenReward(now);
+    let userProfile: UserProfile | null = null;
+
+    unsuscribe = eventBus.on("userProfile.user.updated", (data) => {
+      userProfile = data;
+    });
+
+    if (userProfile && (!rewardDateRaw || isAfter(now, rewardDateRaw)))
+      processTokenReward(now);
 
     return BackgroundTaskResult.Success;
   } catch (error: unknown) {
     console.error("Background daily reward failed", error);
     return BackgroundTaskResult.Failed;
+  } finally {
+    unsuscribe();
   }
 });
 
