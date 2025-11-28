@@ -1,13 +1,12 @@
+import { LocalIndicator } from "../../types";
+
 export interface StoreStateProps {
-  generatedResources: number;
-  usedTokens: number;
-  lastGeneratedResource: string | null;
+  indicators: LocalIndicator;
 }
 
 export interface StoreActions {
-  addGeneratedResource: () => void;
-  addUsedToken: (amount: number) => void;
-  updateLastGeneratedResource: (lastResourceName: string) => void;
+  loadIndicators: () => LocalIndicator;
+  setIndicators: (indicators: Partial<LocalIndicator>) => void;
 }
 
 export type IndicatorPanelStoreType = StoreStateProps & StoreActions;

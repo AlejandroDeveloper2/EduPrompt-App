@@ -4,24 +4,28 @@ import { persist } from "zustand/middleware";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import { LocalIndicator } from "../../types";
 import { IndicatorPanelStoreType, StoreStateProps } from "./store-types";
 
 export const IndicatorPanelStore = create<IndicatorPanelStoreType>()(
   persist<IndicatorPanelStoreType, [], [], StoreStateProps>(
     (set, get) => ({
-      generatedResources: 0,
-      usedTokens: 0,
-      lastGeneratedResource: null,
-      addGeneratedResource: (): void => {
-        const { generatedResources } = get();
-        set({ generatedResources: generatedResources + 1 });
+      indicators: {
+        sync: false,
+        generatedResources: 0,
+        usedTokens: 0,
+        lastGeneratedResource: null,
+        dowloadedResources: 0,
+        savedResources: 0,
       },
-      addUsedToken: (amount: number): void => {
-        const { usedTokens } = get();
-        set({ usedTokens: usedTokens + amount });
+      loadIndicators: (): LocalIndicator => {
+        const { indicators } = get();
+        return indicators;
       },
-      updateLastGeneratedResource: (lastResourceName: string): void => {
-        set({ lastGeneratedResource: lastResourceName });
+      setIndicators: (updatedIndicators): void => {
+        set(({ indicators }) => ({
+          indicators: { ...indicators, ...updatedIndicators },
+        }));
       },
     }),
     {
@@ -39,9 +43,7 @@ export const IndicatorPanelStore = create<IndicatorPanelStoreType>()(
         },
       },
       partialize: (state) => ({
-        generatedResources: state.generatedResources,
-        usedTokens: state.usedTokens,
-        lastGeneratedResource: state.lastGeneratedResource,
+        indicators: state.indicators,
       }),
     }
   )

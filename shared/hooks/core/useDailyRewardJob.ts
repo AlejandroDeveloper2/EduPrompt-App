@@ -110,7 +110,7 @@ const useDailyRewardJob = () => {
     (() => {
       const { now, rewardDateRaw } = getRewardDate();
 
-      if (userProfile && (!rewardDateRaw || isAfter(now, rewardDateRaw)))
+      if (userProfile && rewardDateRaw && isAfter(now, rewardDateRaw))
         processTokenReward(now);
     })();
 

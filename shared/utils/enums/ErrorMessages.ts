@@ -32,4 +32,6 @@ export enum ErrorMessages {
   NOTIFICATION_NOT_FOUND = "Notificación del sistema no encontrada",
   SOME_NOTIFICATION_NOT_FOUND = "Alguna de las notificaciones no existe",
   IMAGE_GENERATION_NOT_COMPLETED = "La generación de imagenes no se completo",
+  INDICATOR_NOT_FOUND = "Indicadores no fueron encontrados",
+  USER_INDICATOR_ALREADY_CREATED = "El usuario ya tiene indicadores registrados",
 }

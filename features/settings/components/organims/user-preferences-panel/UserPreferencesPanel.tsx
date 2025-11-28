@@ -28,6 +28,7 @@ import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
   const { data: userProfile, isLoading } = useUserProfileQuery();
+
   const { mutate } = useUpdateUserPreferences();
   const { syncUserProfile, isPending } = useUserSync();
 

@@ -6,6 +6,7 @@ export const shouldPerformClean = (
   userProfile: Omit<UserStats, "sync" | "userName" | "email"> | null | undefined
 ): boolean => {
   if (!userProfile) return false;
+  if (!userProfile.userPreferences) return false;
   if (userProfile.userPreferences.autoCleanNotifications === false)
     return false;
   const cleanFrecuency = userProfile.userPreferences.cleanFrecuency

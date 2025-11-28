@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
@@ -12,9 +12,12 @@ const useUserNotificationsEventListener = () => {
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
-  const notificationsPushAvailable = userProfile
-    ? userProfile.userPreferences.pushNotifications
-    : false;
+  const notificationsPushAvailable = useMemo(() => {
+    if (!userProfile) return false;
+    if (!userProfile.userPreferences) return false;
+    if (!userProfile.userPreferences.pushNotifications) return false;
+    return true;
+  }, [userProfile]);
 
   useEffect(() => {
     const handleCreateNotificationRequest = (

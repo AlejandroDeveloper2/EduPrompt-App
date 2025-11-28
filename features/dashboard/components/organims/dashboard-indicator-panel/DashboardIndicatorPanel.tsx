@@ -5,8 +5,8 @@ import { DashboardIndicator } from "../../molecules";
 
 import { AppColors } from "@/shared/styles";
 
+import { useIndicatorsQuery } from "@/features/dashboard/hooks/queries";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
-import { useIndicatorPanelStore } from "../../../hooks/store";
 
 import { formatTokenAmount, getIndicatorPanelGrid } from "@/shared/utils";
 
@@ -15,8 +15,8 @@ import { DashboardIndicatorPanelStyle } from "./DashboardIndicatorPanel.style";
 const DashboardIndicatorPanel = () => {
   const size = useScreenDimensionsStore();
   const { width } = useWindowDimensions();
-  const { generatedResources, usedTokens, lastGeneratedResource } =
-    useIndicatorPanelStore();
+
+  const { data, isLoading } = useIndicatorsQuery();
 
   const { PanelContainer, IndicatorsGrid } = DashboardIndicatorPanelStyle(size);
   const { firstWidth, secondWidth, thirdWidth } = getIndicatorPanelGrid(
@@ -47,18 +47,20 @@ const DashboardIndicatorPanel = () => {
       <View style={IndicatorsGrid}>
         <DashboardIndicator
           icon="book-outline"
-          value={`${generatedResources}`}
+          value={data ? `${data.generatedResources}` : "--"}
           label="Recursos generados"
           type="numeric"
+          loading={isLoading}
           style={{
             width: firstWidth,
           }}
         />
         <DashboardIndicator
           icon="hardware-chip-outline"
-          value={formatTokenAmount(usedTokens)}
+          value={data ? formatTokenAmount(data.usedTokens) : "--"}
           label="Tokens usados"
           type="numeric"
+          loading={isLoading}
           style={{
             width: firstWidth,
           }}
@@ -66,18 +68,20 @@ const DashboardIndicatorPanel = () => {
 
         <DashboardIndicator
           icon="download-outline"
-          value={"0"}
+          value={data ? `${data.dowloadedResources}` : "--"}
           label="Recursos descargados"
           type="numeric"
+          loading={isLoading}
           style={{
             width: firstWidth,
           }}
         />
         <DashboardIndicator
           icon="save-outline"
-          value={"0"}
+          value={data ? `${data.savedResources}` : "--"}
           label="Recursos guardados"
           type="numeric"
+          loading={isLoading}
           style={{
             width: secondWidth,
           }}
@@ -85,12 +89,15 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="watch-outline"
           value={
-            !lastGeneratedResource
-              ? "No se ha generado un recurso"
-              : lastGeneratedResource
+            data
+              ? !data.lastGeneratedResource
+                ? "No se ha generado un recurso"
+                : data.lastGeneratedResource
+              : "--"
           }
           label="Último recurso generado"
           type="alphabetic"
+          loading={isLoading}
           style={{
             width: thirdWidth,
           }}

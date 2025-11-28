@@ -3,9 +3,10 @@ import { View, ViewStyle } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
+import { useAnimatedSpinner } from "@/shared/hooks/animations";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import { Ionicon, Typography } from "@/shared/components/atoms";
+import { Ionicon, Spinner, Typography } from "@/shared/components/atoms";
 
 import { DashboardIndicatorStyle } from "./DashboardIndicator.style";
 
@@ -14,6 +15,7 @@ interface DashboardIndicatorProps {
   value: string;
   label: string;
   type: "numeric" | "alphabetic";
+  loading: boolean;
   style?: ViewStyle;
 }
 
@@ -22,9 +24,12 @@ const DashboardIndicator = ({
   value,
   label,
   type,
+  loading,
   style,
 }: DashboardIndicatorProps) => {
   const size = useScreenDimensionsStore();
+
+  const { animatedCircleStyles } = useAnimatedSpinner();
 
   const dashboardIndicatorStyle = DashboardIndicatorStyle(size);
 
@@ -36,14 +41,21 @@ const DashboardIndicator = ({
           size={size === "mobile" ? 22 : 24}
           color={AppColors.neutral[1000]}
         />
-        <Typography
-          text={value}
-          weight={type === "numeric" ? "bold" : "regular"}
-          type={type === "numeric" ? "h2" : "paragraph"}
-          textAlign="center"
-          color={AppColors.primary[400]}
-          width="auto"
-        />
+        {loading ? (
+          <Spinner
+            color={AppColors.primary[400]}
+            animatedCircleStyles={animatedCircleStyles}
+          />
+        ) : (
+          <Typography
+            text={value}
+            weight={type === "numeric" ? "bold" : "regular"}
+            type={type === "numeric" ? "h2" : "paragraph"}
+            textAlign="center"
+            color={AppColors.primary[400]}
+            width="auto"
+          />
+        )}
       </View>
 
       <Typography

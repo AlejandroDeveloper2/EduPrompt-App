@@ -67,4 +67,6 @@ export type AppEvents = {
   "dashboard.setLastGeneratedResource": string;
   "dashboard.addGeneratedResource": undefined;
   "dashboard.addUsedTokens": number;
+  "dashboard.addDownloadedResources": undefined;
+  "dashboard.addSavedResources": undefined;
 };
