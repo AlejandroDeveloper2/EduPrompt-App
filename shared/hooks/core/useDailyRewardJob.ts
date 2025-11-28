@@ -1,24 +1,13 @@
 import { addDays, isAfter } from "date-fns";
-import {
-  BackgroundTaskResult,
-  BackgroundTaskStatus,
-  getStatusAsync,
-  registerTaskAsync,
-} from "expo-background-task";
 import AsyncStorage from "expo-sqlite/kv-store";
-import * as TaskManager from "expo-task-manager";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { AppState } from "react-native";
 import uuid from "react-native-uuid";
 
 import { config } from "@/core/config/enviromentVariables";
 import { eventBus } from "@/core/events/EventBus";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
-
-import { UserProfile } from "@/core/events/types";
-import useEventBusValue from "../events/useEventbusValue";
-
-const DAILY_REWARD_TASK_NAME = "daily_reward_task";
 
 const sendTokensDailyReward = () => {
   eventBus.emit("userProfile.updateTokeUserCoins.requested", {
@@ -57,65 +46,30 @@ const getRewardDate = () => {
   };
 };
 
-TaskManager.defineTask(DAILY_REWARD_TASK_NAME, async () => {
-  let unsuscribe: () => void = () => {};
-  try {
-    const { now, rewardDateRaw } = getRewardDate();
-
-    let userProfile: UserProfile | null = null;
-
-    unsuscribe = eventBus.on("userProfile.user.updated", (data) => {
-      userProfile = data;
-    });
-
-    if (userProfile && (!rewardDateRaw || isAfter(now, rewardDateRaw)))
-      processTokenReward(now);
-
-    return BackgroundTaskResult.Success;
-  } catch (error: unknown) {
-    console.error("Background daily reward failed", error);
-    return BackgroundTaskResult.Failed;
-  } finally {
-    unsuscribe();
-  }
-});
-
 const useDailyRewardJob = () => {
-  const userProfile = useEventBusValue("userProfile.user.updated", null);
+  const appState = useRef(AppState.currentState);
+
+  const checkReward = (): void => {
+    const { now, rewardDateRaw } = getRewardDate();
+    if (!rewardDateRaw || isAfter(now, rewardDateRaw)) processTokenReward(now);
+  };
 
   useEffect(() => {
-    const registerBackgroundRewardChecker = async () => {
-      try {
-        const status = await getStatusAsync();
+    checkReward();
+  }, []);
 
-        if (status === BackgroundTaskStatus.Restricted) {
-          console.warn("[Task] Background fetch no permitido por el sistema");
-          return;
-        }
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextState) => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextState === "active"
+      )
+        checkReward();
+      appState.current = nextState;
+    });
 
-        const tasks = await TaskManager.getRegisteredTasksAsync();
-        const isAlreadyRegistered = tasks.some(
-          (task) => task.taskName === DAILY_REWARD_TASK_NAME
-        );
-
-        if (!isAlreadyRegistered) {
-          await registerTaskAsync(DAILY_REWARD_TASK_NAME, {
-            minimumInterval: 1440, //Cada 24 horas 1440 minutos
-          });
-        }
-      } catch (error) {
-        console.error("[Task] Error registrando background fetch:", error);
-      }
-    };
-    (() => {
-      const { now, rewardDateRaw } = getRewardDate();
-
-      if (userProfile && rewardDateRaw && isAfter(now, rewardDateRaw))
-        processTokenReward(now);
-    })();
-
-    registerBackgroundRewardChecker();
-  }, [userProfile]);
+    return () => subscription.remove();
+  }, []);
 };
 
 export default useDailyRewardJob;

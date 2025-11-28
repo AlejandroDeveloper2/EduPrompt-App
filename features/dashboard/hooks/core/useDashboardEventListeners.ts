@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
@@ -11,10 +11,7 @@ const useDashboardEventListeners = () => {
   const queryClient = useQueryClient();
   const updateIndicatorMutation = useUpdateIndicators();
 
-  const indicators = useMemo(
-    () => queryClient.getQueryData<Indicator>(["app_indicators"]),
-    [queryClient]
-  );
+  const indicators = queryClient.getQueryData<Indicator>(["app_indicators"]);
 
   useEffect(() => {
     const handler = (lastGeneratedResource: string | null) => {

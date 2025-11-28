@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 import { EventKey } from "@/core/events/types";
@@ -36,16 +35,16 @@ const useUserProfileQuery = () => {
     // gcTime: 1000 * 60 * 5,
   });
 
-  useEffect(() => {
-    const handler = () => {
-      query.refetch();
-    };
+  // useEffect(() => {
+  //   const handler = () => {
+  //     query.refetch();
+  //   };
 
-    eventBus.on("userProfile.fetch" as EventKey, handler);
-    return () => {
-      eventBus.off("userProfile.fetch" as EventKey, handler);
-    };
-  }, [query]);
+  //   eventBus.on("userProfile.fetch" as EventKey, handler);
+  //   return () => {
+  //     eventBus.off("userProfile.fetch" as EventKey, handler);
+  //   };
+  // }, [query]);
 
   return query;
 };

@@ -2,12 +2,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Indicator, LocalIndicator } from "../../types";
 
-import { showToast } from "@/shared/context";
-
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useIndicatorPanelStore } from "../store";
 
-import { generateToastKey } from "@/shared/helpers";
 import { getSessionToken } from "@/shared/utils";
 import { patchIndicators } from "../../services";
 
@@ -43,13 +40,6 @@ const useUpdateIndicators = () => {
         });
       }
 
-      //Actualizar store offline
-      setIndicators({
-        ...previousLocalIndicators,
-        ...updatedIndicators,
-        sync: false,
-      });
-
       // Retornar el contexto para rollback en caso de error
       return { previousIndicators, previousLocalIndicators };
     },
@@ -65,13 +55,6 @@ const useUpdateIndicators = () => {
         // Revertir el valor de los indicadores en el store local
         setIndicators(context.previousLocalIndicators);
       }
-    },
-    onSuccess: () => {
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: "Indicadores actualizados con éxito",
-      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["app_indicators"] });

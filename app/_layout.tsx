@@ -13,7 +13,6 @@ import {
   useUserNotificationsEventListener,
 } from "@/features/notifications/hooks/core";
 import { useUserEventsListener } from "@/features/settings/hooks/core";
-import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useSetupApp } from "@/shared/hooks/core";
 
 export default function RootLayout() {
@@ -30,9 +29,6 @@ export default function RootLayout() {
 }
 
 function InnerApp({ loaded }: { loaded: boolean }) {
-  /** Montar perfil de usuario */
-  useUserProfileQuery();
-
   /** Listeners de eventos con el eventBus */
   useAuthEventListeners();
   useUserNotificationsEventListener();

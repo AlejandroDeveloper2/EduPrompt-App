@@ -4,6 +4,7 @@ import { Drawer } from "expo-router/drawer";
 import { AppColors } from "@/shared/styles";
 
 import { useDashboardEventListeners } from "@/features/dashboard/hooks/core";
+import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useDailyRewardJob } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -17,8 +18,12 @@ import {
 export default function TabLayout() {
   const size = useScreenDimensionsStore();
 
+  /** Cargar perifl de usuario */
+  useUserProfileQuery();
+
   /** Job de recompenza diaria al ingresar al panel principal de la app */
   useDailyRewardJob();
+
   /** Listener para escuchar los cambios en las estadisticas del panel de control */
   useDashboardEventListeners();
 

@@ -61,8 +61,8 @@ const useUpdateUserTokenCoins = () => {
       }
 
       // También actualizamos el store offline instantáneamente
-      if (config.mode === "add") addLocalTokenCoins(config.amount, false);
-      else subtractLocalTokenCoins(config.amount, false);
+      // if (config.mode === "add") addLocalTokenCoins(config.amount, false);
+      // else subtractLocalTokenCoins(config.amount, false);
 
       // Retornar el contexto para rollback en caso de error
       return { previousUser, previousLocalUser };
