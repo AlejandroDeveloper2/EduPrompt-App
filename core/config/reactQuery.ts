@@ -1,16 +1,11 @@
 import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
-import { router } from "expo-router";
 
 import { showToast } from "@/shared/context";
 
+import { eventBus } from "../events/EventBus";
+
 import { generateToastKey } from "@/shared/helpers";
-import {
-  AppError,
-  ErrorCodeType,
-  ErrorMessages,
-  removeRefreshToken,
-  removeSessionToken,
-} from "@/shared/utils";
+import { AppError, ErrorCodeType, ErrorMessages } from "@/shared/utils";
 
 /** Manejador de errores global con react query */
 const queryErrorHandler = async (error: unknown) => {
@@ -41,10 +36,8 @@ const queryErrorHandler = async (error: unknown) => {
         toastDuration: 6000,
       });
 
-      await removeSessionToken();
-      await removeRefreshToken();
+      eventBus.emit("auth.logoutByRefresh.requested", undefined);
 
-      router.replace("/auth");
       return;
     }
     showToast({

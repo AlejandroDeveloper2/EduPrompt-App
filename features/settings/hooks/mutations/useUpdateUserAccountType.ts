@@ -5,15 +5,20 @@ import { showToast } from "@/shared/context";
 import { User } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 import { patchUserAccountType } from "../../services";
 
 const useUpdateUserAccountType = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
+
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
 
   const {
     updateLocalAccountType,
@@ -24,7 +29,6 @@ const useUpdateUserAccountType = () => {
 
   return useMutation({
     mutationFn: async (isPremiumUser: boolean) => {
-      const token = await getSessionToken();
       updateLocalAccountType(isPremiumUser, false);
 
       if (isConnected && token) {

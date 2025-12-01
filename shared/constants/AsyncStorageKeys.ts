@@ -1,7 +1,7 @@
 /** Claves del async storage  */
 export const ASYNC_STORAGE_KEYS = {
-  sessionToken: "session_token",
-  refreshToken: "refresh_token",
+  auth: "auth",
+
   userIdResetPass: "user_id_reset_pass",
   userStats: "user_stats",
   userUpdatedEmail: "user_updated_email",

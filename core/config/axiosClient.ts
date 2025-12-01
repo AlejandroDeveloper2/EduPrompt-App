@@ -1,19 +1,12 @@
 import axios, { AxiosError, type AxiosInstance } from "axios";
 
+import { eventBus } from "../events/EventBus";
+
 import { ServerErrorResponse } from "../types";
 
 import { config } from "./enviromentVariables";
 
-import {
-  addRefreshToken,
-  AppError,
-  ErrorCodeType,
-  getRefreshToken,
-} from "@/shared/utils";
-import {
-  addSessionToken,
-  getSessionToken,
-} from "@/shared/utils/functions/sessionTokenManager";
+import { AppError, ErrorCodeType } from "@/shared/utils";
 
 /** Cliente de axios para integración con la api de edu prompt */
 export const axiosClient: AxiosInstance = axios.create({
@@ -23,8 +16,8 @@ export const axiosClient: AxiosInstance = axios.create({
 /* Interceptor para requests (ej. añadir tokens) */
 axiosClient.interceptors.request.use(
   async (config) => {
-    const token = await getSessionToken();
-    const refreshToken = await getRefreshToken();
+    const { token, refreshToken } =
+      eventBus.getLast("auth.tokens.getted") ?? {};
 
     if (token) config.headers.Authorization = `Bearer ${token}`;
     if (refreshToken) config.headers["x-refresh-token"] = refreshToken;
@@ -41,9 +34,9 @@ axiosClient.interceptors.response.use(
   async (response) => {
     const accessToken = response.headers["x-access-token"] as string;
     const refreshToken = response.headers["x-refresh-token"] as string;
-    if (accessToken) await addSessionToken(accessToken);
-    if (refreshToken) await addRefreshToken(refreshToken);
 
+    if (accessToken && refreshToken)
+      eventBus.emit("auth.setTokens", { token: accessToken, refreshToken });
     return response;
   },
   async (error) => {
@@ -57,11 +50,12 @@ axiosClient.interceptors.response.use(
       const isOperational = axiosError.response.data.isOperational;
 
       if (status < 500 && status >= 400) {
-        console.log("⚠️ Error del cliente: ", status, description);
+        console.log("⚠️  Error del cliente: ", status, description);
       }
 
       if (status >= 500) {
         console.log("🚨 Error del servidor: ", axiosError.message);
+        console.log("🚨 Detalles del error del servidor: ", axiosError);
       }
 
       appError = new AppError(

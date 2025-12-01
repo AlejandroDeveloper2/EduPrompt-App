@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { showToast } from "@/shared/context";
-
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 import { patchUserTokenCoins } from "../../services";
 
 const useUpdateUserTokenCoins = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
 
   const {
     addLocalTokenCoins,
@@ -27,7 +28,6 @@ const useUpdateUserTokenCoins = () => {
       mode: "add" | "substract";
     }) => {
       let updatedTokenAmount: number;
-      const token = await getSessionToken();
 
       if (config.mode === "add")
         updatedTokenAmount = addLocalTokenCoins(config.amount, false);
@@ -60,10 +60,6 @@ const useUpdateUserTokenCoins = () => {
         });
       }
 
-      // También actualizamos el store offline instantáneamente
-      // if (config.mode === "add") addLocalTokenCoins(config.amount, false);
-      // else subtractLocalTokenCoins(config.amount, false);
-
       // Retornar el contexto para rollback en caso de error
       return { previousUser, previousLocalUser };
     },
@@ -77,13 +73,7 @@ const useUpdateUserTokenCoins = () => {
         setUserStats(context.previousLocalUser);
       }
     },
-    onSuccess: () => {
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: "Monto de tokens actualizado con éxito",
-      });
-    },
+
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["user_profile"] });
     },

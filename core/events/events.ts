@@ -14,10 +14,17 @@ import {
 /** Eventos que se pueden usar en el EventBus */
 export type AppEvents = {
   /** Eventos módulo de auth */
+  "auth.authenticated": boolean;
+  "auth.tokens.getted": { token: string | null; refreshToken: string | null };
+  "auth.setTokens": { token: string; refreshToken: string };
+  "auth.clearTokens": undefined;
+
   "auth.logout.requested": undefined;
   "auth.logout.started": undefined;
   "auth.logout.completed": undefined;
   "auth.logout.failed": EventError;
+
+  "auth.logoutByRefresh.requested": undefined;
 
   "auth.changePassword.requested": ChangePassPayload;
   "auth.changePassword.started": undefined;

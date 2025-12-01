@@ -142,16 +142,30 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         set({ iaGenerations: updatedGenerations });
       },
       createAndSelectNewGeneration: (): void => {
-        const { currentIaGeneration, deleteIaGeneration, createIaGeneration } =
-          get();
+        const {
+          currentIaGeneration,
+          deleteIaGeneration,
+          createIaGeneration,
+          getIaGeneration,
+          updateIaGeneration,
+        } = get();
 
         if (!currentIaGeneration) return;
+
+        updateIaGeneration(
+          currentIaGeneration.generationId,
+          {},
+          {},
+          { isGenerating: false, canDelete: true, result: null }
+        );
 
         deleteIaGeneration(currentIaGeneration.generationId);
 
         const newGeneration = createIaGeneration();
 
         set({ currentIaGeneration: newGeneration });
+
+        getIaGeneration(newGeneration.generationId);
       },
       clearAndRemoveSelectedGeneration: (): void => {
         const {
@@ -167,10 +181,21 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         clearSelectedGeneration();
       },
       editSelectedGeneration: (): void => {
-        const { currentIaGeneration, setGenerationStep, getIaGeneration } =
-          get();
+        const {
+          currentIaGeneration,
+          setGenerationStep,
+          getIaGeneration,
+          updateIaGeneration,
+        } = get();
 
         if (!currentIaGeneration) return;
+
+        updateIaGeneration(
+          currentIaGeneration.generationId,
+          {},
+          {},
+          { isGenerating: false, canDelete: true, result: null }
+        );
 
         setGenerationStep(
           currentIaGeneration.generationId,

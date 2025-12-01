@@ -4,20 +4,24 @@ import { eventBus } from "@/core/events/EventBus";
 import { EventKey } from "@/core/events/types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
-import { getSessionToken } from "@/shared/utils";
 import { getUserProfile } from "../../services";
 
 const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
   const { userStats, setUserStats } = useUserOfflineStore();
 
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
+
   const query = useQuery({
     queryKey: ["user_profile"],
     enabled: isConnected !== null && isConnected !== undefined,
     queryFn: async () => {
-      const token = await getSessionToken();
       if (isConnected && token) {
         const userProfile = await getUserProfile();
         setUserStats({
@@ -34,17 +38,6 @@ const useUserProfileQuery = () => {
     staleTime: Infinity,
     // gcTime: 1000 * 60 * 5,
   });
-
-  // useEffect(() => {
-  //   const handler = () => {
-  //     query.refetch();
-  //   };
-
-  //   eventBus.on("userProfile.fetch" as EventKey, handler);
-  //   return () => {
-  //     eventBus.off("userProfile.fetch" as EventKey, handler);
-  //   };
-  // }, [query]);
 
   return query;
 };

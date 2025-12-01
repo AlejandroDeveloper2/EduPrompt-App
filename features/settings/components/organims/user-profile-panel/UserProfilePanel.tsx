@@ -10,8 +10,9 @@ import { eventBus } from "@/core/events/EventBus";
 import { FORM_TABS } from "./constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useAuth, useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
+import useEventBusValue from "@/shared/hooks/events/useEventbusValue";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Link, ScreenSection } from "@/shared/components/atoms";
@@ -32,7 +33,7 @@ const UserProfilePanel = () => {
 
   const router = useRouter();
 
-  const isAuth = useAuth();
+  const isAuth = useEventBusValue("auth.authenticated", false);
   const loading = useEventBusToggle("auth.logout.started", [
     "auth.logout.completed",
     "auth.logout.failed",

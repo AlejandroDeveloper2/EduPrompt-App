@@ -6,18 +6,17 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 import { showToast } from "@/shared/context";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useAuthStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 import { postEmailChangeRequest } from "../../services";
 
 const useSendUpdateEmailRequest = () => {
   const { isConnected } = useCheckNetwork();
+  const { token } = useAuthStore();
 
   return useMutation({
     mutationFn: async (updatedEmail: string) => {
-      const token = getSessionToken();
-
       if (isConnected && token) {
         const requestResult = await postEmailChangeRequest(updatedEmail);
         return requestResult;

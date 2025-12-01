@@ -3,21 +3,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Indicator, LocalIndicator } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useIndicatorPanelStore } from "../store";
 
-import { getSessionToken } from "@/shared/utils";
 import { patchIndicators } from "../../services";
 
 const useUpdateIndicators = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
 
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
+
   const { loadIndicators, setIndicators } = useIndicatorPanelStore();
 
   return useMutation({
     mutationFn: async (updatedIndicators: Partial<Indicator>) => {
-      const token = await getSessionToken();
-
       setIndicators({ ...updatedIndicators, sync: false });
 
       if (token && isConnected) {

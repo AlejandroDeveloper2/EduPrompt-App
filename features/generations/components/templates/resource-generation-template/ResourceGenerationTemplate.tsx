@@ -1,7 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { ScrollView, View } from "react-native";
-
-import { AssistantResponse } from "@/features/generations/types";
 
 import { useGenerationsStore } from "@/features/generations/hooks/store";
 
@@ -16,11 +13,6 @@ import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 const ResourceGenerationTemplate = () => {
   const { currentIaGeneration } = useGenerationsStore();
-  const queryClient = useQueryClient();
-
-  const iaGenerationResult = queryClient.getQueryData<AssistantResponse>([
-    "ia_generation_result",
-  ]);
 
   return (
     <View style={GlobalStyles.RootContainer}>
@@ -32,10 +24,10 @@ const ResourceGenerationTemplate = () => {
         >
           {currentIaGeneration.isGenerating ? (
             <Generating />
-          ) : iaGenerationResult ? (
+          ) : currentIaGeneration.result ? (
             <IaResponseCard
               format={currentIaGeneration.data.resourceFormat}
-              iaGeneratedContent={iaGenerationResult.result}
+              iaGeneratedContent={currentIaGeneration.result.result}
             />
           ) : (
             <GenerationStepView currentIaGeneration={currentIaGeneration} />

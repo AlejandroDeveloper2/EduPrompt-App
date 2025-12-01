@@ -49,6 +49,7 @@ interface IaGeneration {
   isGenerating: boolean;
   generationCompleted: boolean;
   data: GenerationData;
+  result: AssistantResponse | null;
 }
 
 interface ResourceType {

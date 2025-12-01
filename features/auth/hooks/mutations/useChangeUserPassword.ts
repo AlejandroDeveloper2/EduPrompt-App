@@ -5,20 +5,21 @@ import { ChangePassPayload } from "../../types";
 import { showToast } from "@/shared/context";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useAuthStore } from "../store";
 import useLogout from "./useLogout";
 
 import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 import { patchUserPassword } from "../../services";
 
 const useChangeUserPassword = () => {
   const { isConnected } = useCheckNetwork();
 
+  const { token } = useAuthStore();
+
   const logout = useLogout();
 
   return useMutation({
     mutationFn: async (changePassPayload: ChangePassPayload) => {
-      const token = getSessionToken();
       if (isConnected && token) {
         await patchUserPassword(changePassPayload);
       }

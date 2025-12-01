@@ -51,6 +51,7 @@ const useDailyRewardJob = () => {
 
   const checkReward = (): void => {
     const { now, rewardDateRaw } = getRewardDate();
+
     if (!rewardDateRaw || isAfter(now, rewardDateRaw)) processTokenReward(now);
   };
 

@@ -7,15 +7,61 @@ import { ChangePassPayload } from "../../types";
 import {
   useChangeUserPassword,
   useLogout,
+  useLogoutByRefresh,
   useSendUpdateEmailRequest,
   useUpdateUserEmail,
 } from "../mutations";
+import { useAuthStore } from "../store";
 
 const useAuthEventListeners = () => {
   const logoutMutation = useLogout();
   const passChangeMutation = useChangeUserPassword();
   const sendEmailUpdateMutation = useSendUpdateEmailRequest();
   const updatedEmailMutation = useUpdateUserEmail();
+  const logoutByRefreshMutation = useLogoutByRefresh();
+
+  const {
+    setAuthTokens,
+    clearAuthTokens,
+    token,
+    refreshToken,
+    isAuthenticated,
+  } = useAuthStore();
+
+  useEffect(() => {
+    eventBus.emit("auth.tokens.getted", { token, refreshToken });
+  }, [token, refreshToken]);
+
+  useEffect(() => {
+    eventBus.emit("auth.authenticated", isAuthenticated);
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    const handler = ({
+      token,
+      refreshToken,
+    }: {
+      token: string;
+      refreshToken: string;
+    }) => {
+      setAuthTokens(token, refreshToken);
+    };
+
+    eventBus.on("auth.setTokens", handler);
+    return () => {
+      eventBus.off("auth.setTokens", handler);
+    };
+  }, [setAuthTokens]);
+
+  useEffect(() => {
+    const handler = () => {
+      clearAuthTokens();
+    };
+    eventBus.on("auth.clearTokens", handler);
+    return () => {
+      eventBus.off("auth.clearTokens", handler);
+    };
+  }, [clearAuthTokens]);
 
   useEffect(() => {
     const handleLogoutRequest = () => {
@@ -36,6 +82,20 @@ const useAuthEventListeners = () => {
       eventBus.off("auth.logout.requested", handleLogoutRequest);
     };
   }, [logoutMutation]);
+
+  useEffect(() => {
+    const handleLogoutByRefreshRequest = (): void => {
+      logoutByRefreshMutation.mutate();
+    };
+
+    eventBus.on("auth.logoutByRefresh.requested", handleLogoutByRefreshRequest);
+    return () => {
+      eventBus.off(
+        "auth.logoutByRefresh.requested",
+        handleLogoutByRefreshRequest
+      );
+    };
+  }, [logoutByRefreshMutation]);
 
   useEffect(() => {
     const handlePassChangeRequest = (changePassPayload: ChangePassPayload) => {

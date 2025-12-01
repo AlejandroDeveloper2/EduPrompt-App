@@ -7,15 +7,19 @@ import { UserStats } from "../../types";
 import { showToast } from "@/shared/context";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 import { putUserStats } from "../../services";
 
 const useUserSync = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
 
   const { userStats, markAsSynced, loadLocalUserStats, setUserStats } =
     useUserOfflineStore();
@@ -75,8 +79,14 @@ const useUserSync = () => {
   });
 
   const syncUserProfile = async () => {
-    const token = getSessionToken();
-    if (!isConnected) {
+    if (isConnected === null) {
+      showToast({
+        key: generateToastKey(),
+        variant: "neutral",
+        message: "Conectando a internet...",
+      });
+    }
+    if (isConnected === false) {
       showToast({
         key: generateToastKey(),
         variant: "danger",

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import { AssistantResponse, GenerationData } from "../../types";
 
@@ -14,7 +14,6 @@ import { generateAndLoadPDF } from "../../utils";
 import { postGenerateEducationalResource } from "../../services";
 
 const useGenerateResource = () => {
-  const queryClient = useQueryClient();
   const { currentIaGeneration, updateIaGeneration, getIaGeneration } =
     useGenerationsStore();
 
@@ -52,18 +51,13 @@ const useGenerateResource = () => {
           result: await generateAndLoadPDF(data.result),
         };
 
-      queryClient.setQueryData<AssistantResponse>(
-        ["ia_generation_result"],
-        iaResponse
-      );
-
       if (!currentIaGeneration) return;
 
       updateIaGeneration(
         currentIaGeneration.generationId,
         {},
         {},
-        { isGenerating: false }
+        { isGenerating: false, result: iaResponse }
       );
       getIaGeneration(currentIaGeneration.generationId);
 

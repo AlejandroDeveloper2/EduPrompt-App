@@ -2,25 +2,25 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { UserPreferences } from "../../types";
 
-import { showToast } from "@/shared/context";
-
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 import { patchUserPreferences } from "../../services";
 
 const useUpdateUserPreferences = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
 
   const { updateLocalUserPreferences, loadLocalUserStats, markAsSynced } =
     useUserOfflineStore();
 
   return useMutation({
     mutationFn: async (userPreferences: Partial<UserPreferences>) => {
-      const token = await getSessionToken();
       updateLocalUserPreferences(userPreferences, false);
 
       if (isConnected && token) {
@@ -51,8 +51,8 @@ const useUpdateUserPreferences = () => {
         });
       }
 
-      // También actualizamos el store offline instantáneamente
-      updateLocalUserPreferences(newPreferences, false);
+      // // También actualizamos el store offline instantáneamente
+      // updateLocalUserPreferences(newPreferences, false);
 
       // Retornar el contexto para rollback en caso de error
       return { previousUser, previousLocalPreferences };
@@ -67,13 +67,7 @@ const useUpdateUserPreferences = () => {
         updateLocalUserPreferences(context.previousLocalPreferences, false);
       }
     },
-    onSuccess: () => {
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: "Preferencias de usuario actualizadas con éxito",
-      });
-    },
+
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["user_profile"] });
     },

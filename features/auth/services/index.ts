@@ -2,6 +2,7 @@ export * from "./activateAccount.service";
 export * from "./changeUserPassword.service";
 export * from "./login.service";
 export * from "./logout.service";
+export * from "./postLogoutByRefresh.service";
 export * from "./resetUserPassword.service";
 export * from "./sendNewEmailVerificationCode.service";
 export * from "./sendResetPassRequest.service";

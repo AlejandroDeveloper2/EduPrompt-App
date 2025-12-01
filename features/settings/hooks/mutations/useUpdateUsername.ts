@@ -5,19 +5,22 @@ import { UserStats } from "../../types";
 import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
-import { getSessionToken } from "@/shared/utils";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
 
 import { patchUsername } from "../../services";
 
 const useUpdateUsername = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
+  const { token } = useEventbusValue("auth.tokens.getted", {
+    token: null,
+    refreshToken: null,
+  });
 
   return useMutation({
     mutationFn: async (userName: string) => {
-      const token = await getSessionToken();
       if (isConnected && token) {
         await patchUsername(userName);
       }
