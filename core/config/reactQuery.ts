@@ -2,8 +2,6 @@ import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 
 import { showToast } from "@/shared/context";
 
-import { eventBus } from "../events/EventBus";
-
 import { generateToastKey } from "@/shared/helpers";
 import { AppError, ErrorCodeType, ErrorMessages } from "@/shared/utils";
 
@@ -28,18 +26,6 @@ const queryErrorHandler = async (error: unknown) => {
       return;
     }
 
-    if (errorMessageCode === "INVALID_SESSION") {
-      showToast({
-        variant: "danger",
-        message,
-        key: generateToastKey(),
-        toastDuration: 6000,
-      });
-
-      eventBus.emit("auth.logoutByRefresh.requested", undefined);
-
-      return;
-    }
     showToast({
       variant: "danger",
       message: message ?? "Error desconocido",

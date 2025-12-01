@@ -50,12 +50,14 @@ axiosClient.interceptors.response.use(
       const isOperational = axiosError.response.data.isOperational;
 
       if (status < 500 && status >= 400) {
+        if (errorMessageCode === "INVALID_SESSION")
+          eventBus.emit("auth.logoutByRefresh.requested", undefined);
+
         console.log("⚠️  Error del cliente: ", status, description);
       }
 
       if (status >= 500) {
         console.log("🚨 Error del servidor: ", axiosError.message);
-        console.log("🚨 Detalles del error del servidor: ", axiosError);
       }
 
       appError = new AppError(
