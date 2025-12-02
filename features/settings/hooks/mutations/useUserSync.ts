@@ -11,6 +11,7 @@ import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
+import { syncData } from "@/shared/utils";
 import { putUserStats } from "../../services";
 
 const useUserSync = () => {
@@ -78,50 +79,22 @@ const useUserSync = () => {
     },
   });
 
-  const syncUserProfile = async () => {
-    if (isConnected === null) {
-      showToast({
-        key: generateToastKey(),
-        variant: "neutral",
-        message: "Conectando a internet...",
-      });
-    }
-    if (isConnected === false) {
-      showToast({
-        key: generateToastKey(),
-        variant: "danger",
-        message: "Conectate a internet para sincronizar tus datos.",
-      });
-      return;
-    }
-    if (!token) {
-      showToast({
-        key: generateToastKey(),
-        variant: "danger",
-        message:
-          "Inicia sesión o crea una cuenta para poder sincronizar tus datos.",
-      });
-      return;
-    }
-    if (!userStats.sync) {
-      mutation.mutate(userStats);
-      return;
-    }
-
-    showToast({
-      key: generateToastKey(),
-      variant: "primary",
-      message: "Todo esta sincronizado",
-    });
-  };
-
   useEffect(() => {
     if (userStats.userPreferences.autoSync) {
-      syncUserProfile();
+      syncData(isConnected, token, userStats.sync, () => {
+        mutation.mutate(userStats);
+      });
     }
-  }, [isConnected, userStats.userPreferences.autoSync]);
+  }, [isConnected, token, userStats]);
 
-  return { ...mutation, syncUserProfile };
+  return {
+    ...mutation,
+    syncUserProfile: () => {
+      syncData(isConnected, token, userStats.sync, () => {
+        mutation.mutate(userStats);
+      });
+    },
+  };
 };
 
 export default useUserSync;

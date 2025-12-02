@@ -10,6 +10,9 @@ import { eventBus } from "@/core/events/EventBus";
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 const sendTokensDailyReward = () => {
+  console.log(
+    "Sending daily token reward... " + parseInt(config.tokenDailyRewardAmount)
+  );
   eventBus.emit("userProfile.updateTokeUserCoins.requested", {
     amount: parseInt(config.tokenDailyRewardAmount),
     mode: "add",
