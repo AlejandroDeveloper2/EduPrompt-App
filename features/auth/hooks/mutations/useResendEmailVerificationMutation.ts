@@ -6,12 +6,10 @@ import { generateToastKey } from "@/shared/helpers";
 
 import { postNewEmailVerificationCode } from "../../services";
 
-const useSendNewEmailVerification = () => {
+const useResendEmailVerificationMutation = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (code: string) => {
-      await postNewEmailVerificationCode(code);
-    },
+    mutationFn: postNewEmailVerificationCode,
     onSuccess: () => {
       showToast({
         key: generateToastKey(),
@@ -25,4 +23,4 @@ const useSendNewEmailVerification = () => {
   });
 };
 
-export default useSendNewEmailVerification;
+export default useResendEmailVerificationMutation;

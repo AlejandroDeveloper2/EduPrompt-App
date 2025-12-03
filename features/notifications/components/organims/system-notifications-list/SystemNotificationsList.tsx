@@ -5,8 +5,8 @@ import { AppColors } from "@/shared/styles";
 
 import { Order } from "@/features/notifications/types";
 
-import { useMarkAsReadNotifications } from "@/features/notifications/hooks/mutations";
-import { useSystemNotifications } from "@/features/notifications/hooks/queries";
+import { useMarkAsReadNotificationsMutation } from "@/features/notifications/hooks/mutations";
+import { useSystemNotificationsQuery } from "@/features/notifications/hooks/queries";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -76,8 +76,8 @@ const SystemNotificationsList = () => {
     isLoading,
     filter,
     updateFilter,
-  } = useSystemNotifications();
-  const { mutate } = useMarkAsReadNotifications();
+  } = useSystemNotificationsQuery();
+  const { mutate } = useMarkAsReadNotificationsMutation();
 
   useEffect(() => {
     if (!notifications) return;

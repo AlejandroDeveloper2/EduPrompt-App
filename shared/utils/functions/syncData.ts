@@ -4,7 +4,7 @@ import { generateToastKey } from "@/shared/helpers";
 
 export const syncData = (
   isConnected: boolean | null,
-  token: string | null,
+  isAuthenticated: boolean,
   isDataSynced: boolean,
   mutationCallback: () => void
 ) => {
@@ -17,7 +17,7 @@ export const syncData = (
     return;
   }
 
-  if (!token) {
+  if (!isAuthenticated) {
     showToast({
       key: generateToastKey(),
       variant: "danger",

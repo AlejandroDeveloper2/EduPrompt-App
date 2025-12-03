@@ -1,5 +1,5 @@
 import { useForm } from "@/shared/hooks/core";
-import { useLogin } from "../../../hooks/mutations";
+import { useLoginMutation } from "../../../hooks/mutations";
 
 import { LoginCredentials, loginSchema } from "./validationSchema";
 
@@ -11,7 +11,7 @@ const initialValues: LoginCredentials = {
 };
 
 const LoginForm = () => {
-  const login = useLogin();
+  const login = useLoginMutation();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,

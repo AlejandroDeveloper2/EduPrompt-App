@@ -3,15 +3,16 @@ import { Drawer } from "expo-router/drawer";
 
 import { AppColors } from "@/shared/styles";
 
-import { useDashboardEventListeners } from "@/features/dashboard/hooks/core";
-import {
-  useCleanNotificationsJob,
-  useNotificationCheckerJob,
-  useUserNotificationsEventListener,
-} from "@/features/notifications/hooks/core";
-import { useUserEventsListener } from "@/features/settings/hooks/core";
+/** Listeners */
+import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners";
+
+/** Queries */
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
+
+/** Jobs */
 import { useDailyRewardJob } from "@/shared/hooks/core";
+
+/** Stores */
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
@@ -29,18 +30,6 @@ export default function TabLayout() {
 
   /** Job de recompenza diaria al ingresar al panel principal de la app */
   useDailyRewardJob();
-
-  /** Job para escuchar eventos del modulo de notificaciones */
-  useUserNotificationsEventListener();
-
-  /** Job para escuchar eventos del modulo de perfil de usuario */
-  useUserEventsListener();
-
-  /** Job para limpiar notificaciones */
-  useCleanNotificationsJob();
-
-  /** Job para revisar si la notificaciones son nuevas o no */
-  useNotificationCheckerJob();
 
   /** Listener para escuchar los cambios en las estadisticas del panel de control */
   useDashboardEventListeners();

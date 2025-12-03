@@ -1,31 +1,31 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import AsyncStorage from "expo-sqlite/kv-store";
 
-import { UserStats } from "../../types";
+import { EmailUpdatePayload, UserStats } from "../../types";
+
+import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { showToast } from "@/shared/context";
 
+import { useCheckNetwork } from "@/shared/hooks/core";
+import { useAuthStore } from "../store";
+
 import { generateToastKey } from "@/shared/helpers";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
+import { patchUserEmail } from "../../services";
 
-import { patchUsername } from "../../services";
-
-const useUpdateUsername = () => {
+const useUpdateEmailMutation = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
-  const { token } = useEventbusValue("auth.tokens.getted", {
-    token: null,
-    refreshToken: null,
-  });
+  const { token } = useAuthStore();
 
   return useMutation({
-    mutationFn: async (userName: string) => {
+    mutationFn: async (emailUpdatePayload: EmailUpdatePayload) => {
       if (isConnected && token) {
-        await patchUsername(userName);
+        await patchUserEmail(emailUpdatePayload);
       }
     },
-    onMutate: async (newUsername: string) => {
+    onMutate: async (emailUpdatePayload: EmailUpdatePayload) => {
       await queryClient.cancelQueries({ queryKey: ["user_profile"] });
 
       // Obtener el estado actual
@@ -37,7 +37,7 @@ const useUpdateUsername = () => {
       if (previousUserStats) {
         queryClient.setQueryData(["user_profile"], {
           ...previousUserStats,
-          userName: newUsername,
+          email: emailUpdatePayload.updatedEmail,
         });
       }
 
@@ -49,11 +49,13 @@ const useUpdateUsername = () => {
         queryClient.setQueryData(["user_profile"], context.previousUserStats);
       }
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await AsyncStorage.removeItem(ASYNC_STORAGE_KEYS.userUpdatedEmail);
+
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Nombre de usuario actualizado con éxito",
+        message: "Correo electrónico actualizado con éxito",
       });
     },
     onSettled: () => {
@@ -62,4 +64,4 @@ const useUpdateUsername = () => {
   });
 };
 
-export default useUpdateUsername;
+export default useUpdateEmailMutation;

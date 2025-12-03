@@ -1,19 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 
-import { SignupPayload } from "../../types";
-
 import { postSignup } from "../../services";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 
-const useSignup = () => {
+const useSignupMutation = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (signupPayload: SignupPayload) => {
-      await postSignup(signupPayload);
-    },
+    mutationFn: postSignup,
     onSuccess: () => {
       showToast({
         key: generateToastKey(),
@@ -26,4 +22,4 @@ const useSignup = () => {
     },
   });
 };
-export default useSignup;
+export default useSignupMutation;

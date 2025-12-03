@@ -2,7 +2,7 @@ import { useWindowDimensions, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { useSyncIndicators } from "@/features/dashboard/hooks/mutations";
+import { useSyncIndicatorsMutation } from "@/features/dashboard/hooks/mutations";
 import { useIndicatorsQuery } from "@/features/dashboard/hooks/queries";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
@@ -20,7 +20,7 @@ const DashboardIndicatorPanel = () => {
   const { width } = useWindowDimensions();
 
   const { data, isLoading } = useIndicatorsQuery();
-  const { syncIndicators, isPending } = useSyncIndicators();
+  const { syncIndicators, isPending } = useSyncIndicatorsMutation();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
@@ -116,7 +116,7 @@ const DashboardIndicatorPanel = () => {
           buttonData={{
             onPress: syncIndicators,
             icon: "sync-outline",
-            label: "Sincronizar",
+            label: "Sincronizar indicadores",
             loading: isPending,
             loadingMessage: "Sincronizando datos...",
           }}

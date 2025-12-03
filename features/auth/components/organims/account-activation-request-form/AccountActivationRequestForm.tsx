@@ -1,5 +1,5 @@
 import { useForm } from "@/shared/hooks/core";
-import { useSendNewEmailVerification } from "../../../hooks/mutations";
+import { useResendEmailVerificationMutation } from "../../../hooks/mutations";
 
 import {
   AccountActivationRequestData,
@@ -13,7 +13,7 @@ const initialValues: AccountActivationRequestData = {
 };
 
 const AccountActivationRequestForm = () => {
-  const { mutate, isPending } = useSendNewEmailVerification();
+  const { mutate, isPending } = useResendEmailVerificationMutation();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,

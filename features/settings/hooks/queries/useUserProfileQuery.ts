@@ -13,16 +13,13 @@ const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
   const { userStats, setUserStats } = useUserOfflineStore();
 
-  const { token } = useEventbusValue("auth.tokens.getted", {
-    token: null,
-    refreshToken: null,
-  });
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const query = useQuery({
     queryKey: ["user_profile"],
     enabled: isConnected !== null && isConnected !== undefined,
     queryFn: async () => {
-      if (isConnected && token) {
+      if (isConnected && isAuthenticated) {
         const userProfile = await getUserProfile();
         setUserStats({
           ...userProfile,

@@ -1,23 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import { postLogout } from "../../services";
 
 import { useAuthStore } from "../store";
 
-const useLogout = () => {
+const useLogoutMutation = () => {
   const router = useRouter();
   const { clearAuthTokens } = useAuthStore();
 
   return useMutation({
-    mutationFn: async () => {
-      return await postLogout();
-    },
+    mutationFn: postLogout,
     onSuccess: () => {
+      eventBus.clearAll();
       clearAuthTokens();
       router.replace("/auth");
     },
   });
 };
 
-export default useLogout;
+export default useLogoutMutation;

@@ -1,29 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { ChangePassPayload } from "../../types";
-
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
-import { useAuthStore } from "../store";
-import useLogout from "./useLogout";
+import useLogout from "./useLogoutMutation";
 
 import { generateToastKey } from "@/shared/helpers";
 import { patchUserPassword } from "../../services";
 
-const useChangeUserPassword = () => {
-  const { isConnected } = useCheckNetwork();
-
-  const { token } = useAuthStore();
-
+const useChangePasswordMutation = () => {
   const logout = useLogout();
 
   return useMutation({
-    mutationFn: async (changePassPayload: ChangePassPayload) => {
-      if (isConnected && token) {
-        await patchUserPassword(changePassPayload);
-      }
-    },
+    mutationFn: patchUserPassword,
     onSuccess: () => {
       logout.mutate();
       showToast({
@@ -36,4 +24,4 @@ const useChangeUserPassword = () => {
   });
 };
 
-export default useChangeUserPassword;
+export default useChangePasswordMutation;

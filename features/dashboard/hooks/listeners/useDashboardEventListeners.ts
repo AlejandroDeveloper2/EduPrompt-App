@@ -5,28 +5,28 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { Indicator } from "../../types";
 
-import { useUpdateIndicators } from "../mutations";
+import { useUpdateIndicators } from "../core";
 
 const useDashboardEventListeners = () => {
   const queryClient = useQueryClient();
-  const updateIndicatorMutation = useUpdateIndicators();
+  const { updateIndicators } = useUpdateIndicators();
 
   const indicators = queryClient.getQueryData<Indicator>(["app_indicators"]);
 
   useEffect(() => {
     const handler = (lastGeneratedResource: string | null) => {
-      updateIndicatorMutation.mutate({ lastGeneratedResource });
+      updateIndicators({ lastGeneratedResource });
     };
     eventBus.on("dashboard.setLastGeneratedResource", handler);
     return () => {
       eventBus.off("dashboard.setLastGeneratedResource", handler);
     };
-  }, [updateIndicatorMutation]);
+  }, [updateIndicators]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      updateIndicatorMutation.mutate({
+      updateIndicators({
         generatedResources: indicators.generatedResources + 1,
       });
     };
@@ -34,12 +34,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addGeneratedResource", handler);
     };
-  }, [updateIndicatorMutation, indicators]);
+  }, [updateIndicators, indicators]);
 
   useEffect(() => {
     const handler = (amount: number) => {
       if (!indicators) return;
-      updateIndicatorMutation.mutate({
+      updateIndicators({
         usedTokens: indicators.usedTokens + amount,
       });
     };
@@ -47,12 +47,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addUsedTokens", handler);
     };
-  }, [updateIndicatorMutation, indicators]);
+  }, [updateIndicators, indicators]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      updateIndicatorMutation.mutate({
+      updateIndicators({
         dowloadedResources: indicators.dowloadedResources + 1,
       });
     };
@@ -60,12 +60,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addDownloadedResources", handler);
     };
-  }, [updateIndicatorMutation, indicators]);
+  }, [updateIndicators, indicators]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      updateIndicatorMutation.mutate({
+      updateIndicators({
         savedResources: indicators.savedResources + 1,
       });
     };
@@ -73,7 +73,7 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addSavedResources", handler);
     };
-  }, [updateIndicatorMutation, indicators]);
+  }, [updateIndicators, indicators]);
 };
 
 export default useDashboardEventListeners;

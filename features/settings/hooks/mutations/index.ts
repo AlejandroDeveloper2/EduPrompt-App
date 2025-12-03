@@ -1,5 +1,5 @@
-export { default as useUpdateUserAccountType } from "./useUpdateUserAccountType";
-export { default as useUpdateUsername } from "./useUpdateUsername";
-export { default as useUpdateUserPreferences } from "./useUpdateUserPreferences";
-export { default as useUpdateUserTokenCoins } from "./useUpdateUserTokenCoins";
-export { default as useUserSync } from "./useUserSync";
+export { default as useUpdateAccountTypeMutation } from "./useUpdateAccountTypeMutation";
+export { default as useUpdatePreferencesMutation } from "./useUpdatePreferencesMutation";
+export { default as useUpdateTokenCoinsMutation } from "./useUpdateTokenCoinsMutation";
+export { default as useUpdateUsernameMutation } from "./useUpdateUsernameMutation";
+export { default as useUserSyncMutation } from "./useUserSyncMutation";

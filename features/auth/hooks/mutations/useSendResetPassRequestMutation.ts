@@ -6,12 +6,10 @@ import { generateToastKey } from "@/shared/helpers";
 
 import { postResetPassRequest } from "../../services";
 
-const useSendResetPassRequest = () => {
+const useSendResetPassRequestMutation = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (email: string) => {
-      await postResetPassRequest(email);
-    },
+    mutationFn: postResetPassRequest,
     onSuccess: () => {
       showToast({
         key: generateToastKey(),
@@ -25,4 +23,4 @@ const useSendResetPassRequest = () => {
   });
 };
 
-export default useSendResetPassRequest;
+export default useSendResetPassRequestMutation;

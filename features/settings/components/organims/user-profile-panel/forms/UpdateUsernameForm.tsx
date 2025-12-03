@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useUpdateUsername } from "@/features/settings/hooks/mutations";
+import { useUpdateUsernameMutation } from "@/features/settings/hooks/mutations";
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useForm } from "@/shared/hooks/core";
 
@@ -13,7 +13,7 @@ const initialValues: UpdateUsernameData = {
 };
 
 const UpdateUsernameForm = () => {
-  const { mutate, isPending } = useUpdateUsername();
+  const { mutate, isPending } = useUpdateUsernameMutation();
   const { data: userProfile } = useUserProfileQuery();
 
   // useEmitUserProfileUpdated(isSuccess, userProfile);

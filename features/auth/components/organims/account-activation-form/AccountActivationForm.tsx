@@ -1,5 +1,5 @@
 import { useForm } from "@/shared/hooks/core";
-import { useActivateAccount } from "../../../hooks/mutations";
+import { useActivateAccountMutation } from "../../../hooks/mutations";
 
 import {
   AccountActivationData,
@@ -13,7 +13,7 @@ const initialValues: AccountActivationData = {
 };
 
 const AccountActivationForm = () => {
-  const activateAccount = useActivateAccount();
+  const activateAccount = useActivateAccountMutation();
   const { data, getFieldErrors, handleChange, handleSubmit } = useForm({
     initialValues,
     validationSchema: accountActivationSchema,

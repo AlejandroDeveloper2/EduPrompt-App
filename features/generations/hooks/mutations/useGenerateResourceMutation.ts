@@ -13,7 +13,7 @@ import { generateAndLoadPDF } from "../../utils";
 
 import { postGenerateEducationalResource } from "../../services";
 
-const useGenerateResource = () => {
+const useGenerateResourceMutation = () => {
   const { currentIaGeneration, updateIaGeneration, getIaGeneration } =
     useGenerationsStore();
 
@@ -87,4 +87,4 @@ const useGenerateResource = () => {
   });
 };
 
-export default useGenerateResource;
+export default useGenerateResourceMutation;

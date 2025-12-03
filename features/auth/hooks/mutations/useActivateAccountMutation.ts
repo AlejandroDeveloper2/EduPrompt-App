@@ -6,12 +6,10 @@ import { generateToastKey } from "@/shared/helpers";
 
 import { postEmailVerificationCode } from "../../services";
 
-const useActivateAccount = () => {
+const useActivateAccountMutation = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (code: string) => {
-      await postEmailVerificationCode(code);
-    },
+    mutationFn: postEmailVerificationCode,
     onSuccess: () => {
       showToast({
         key: generateToastKey(),
@@ -24,4 +22,4 @@ const useActivateAccount = () => {
   });
 };
 
-export default useActivateAccount;
+export default useActivateAccountMutation;

@@ -6,7 +6,18 @@ import { queryClient } from "@/core/config/reactQuery";
 
 import { ToastProvider } from "@/shared/context";
 
-import { useAuthEventListeners } from "@/features/auth/hooks/core";
+/** Listeners */
+import { useAuthEventListeners } from "@/features/auth/hooks/listeners";
+import { useUserNotificationsEventListener } from "@/features/notifications/hooks/listeners";
+import { useUserEventsListener } from "@/features/settings/hooks/listeners";
+
+/** Jobs */
+import {
+  useCleanNotificationsJob,
+  useNotificationCheckerJob,
+} from "@/features/notifications/hooks/core";
+
+/** Inicializers */
 import { useSetupApp } from "@/shared/hooks/core";
 
 export default function RootLayout() {
@@ -25,6 +36,18 @@ export default function RootLayout() {
 function InnerApp({ loaded }: { loaded: boolean }) {
   /** Listeners de eventos con el eventBus */
   useAuthEventListeners();
+
+  /** Job para escuchar eventos del modulo de perfil de usuario */
+  useUserEventsListener();
+
+  /** Job para escuchar eventos del modulo de notificaciones */
+  useUserNotificationsEventListener();
+
+  /** Job para limpiar notificaciones */
+  useCleanNotificationsJob();
+
+  /** Job para revisar si la notificaciones son nuevas o no */
+  useNotificationCheckerJob();
 
   if (!loaded) return null;
 

@@ -2,7 +2,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import { Indicator, LocalIndicator } from "../../types";
+import { Indicator } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -11,35 +11,23 @@ import { useIndicatorPanelStore } from "../store";
 import { syncData } from "@/shared/utils";
 import { putIndicators } from "../../services";
 
-const useSyncIndicators = () => {
+const useSyncIndicatorsMutation = () => {
   const queryClient = useQueryClient();
+
   const { isConnected } = useCheckNetwork();
-
-  const { token } = useEventbusValue("auth.tokens.getted", {
-    token: null,
-    refreshToken: null,
-  });
-
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
-  const { loadIndicators, setIndicators, indicators } =
-    useIndicatorPanelStore();
+  const { setIndicators, indicators } = useIndicatorPanelStore();
 
   const mutation = useMutation({
-    mutationFn: async (updatedIndicators: Indicator) => {
-      setIndicators({ ...updatedIndicators, sync: false });
+    mutationFn: putIndicators,
 
-      if (token && isConnected) {
-        await putIndicators(updatedIndicators);
-      }
-    },
     onMutate: async (updatedIndicators: Indicator) => {
       await queryClient.cancelQueries({ queryKey: ["app_indicators"] });
 
       // Obtener el estado actual
       const previousIndicators = queryClient.getQueryData(["app_indicators"]);
-
-      const previousLocalIndicators: LocalIndicator = loadIndicators();
 
       // Actualizar cache de manera optimista
       if (previousIndicators) {
@@ -47,7 +35,7 @@ const useSyncIndicators = () => {
       }
 
       // Retornar el contexto para rollback en caso de error
-      return { previousIndicators, previousLocalIndicators };
+      return { previousIndicators };
     },
     onError: (error, _newIndicators, context) => {
       if (context?.previousIndicators) {
@@ -56,33 +44,29 @@ const useSyncIndicators = () => {
           context.previousIndicators
         );
       }
-
-      if (context?.previousLocalIndicators) {
-        // Revertir el valor de los indicadores en el store local
-        setIndicators(context.previousLocalIndicators);
-      }
     },
     onSettled: () => {
+      setIndicators({ sync: true });
       queryClient.invalidateQueries({ queryKey: ["app_indicators"] });
     },
   });
 
   useEffect(() => {
     if (userProfile && userProfile.userPreferences.autoSync) {
-      syncData(isConnected, token, indicators.sync, () => {
+      syncData(isConnected, isAuthenticated, indicators.sync, () => {
         mutation.mutate(indicators);
       });
     }
-  }, [userProfile, indicators, isConnected, token]);
+  }, [userProfile, indicators, isConnected, isAuthenticated]);
 
   return {
     ...mutation,
     syncIndicators: () => {
-      syncData(isConnected, token, indicators.sync, () => {
+      syncData(isConnected, isAuthenticated, indicators.sync, () => {
         mutation.mutate(indicators);
       });
     },
   };
 };
 
-export default useSyncIndicators;
+export default useSyncIndicatorsMutation;

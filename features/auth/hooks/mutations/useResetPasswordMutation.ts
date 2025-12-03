@@ -4,20 +4,16 @@ import AsyncStorage from "expo-sqlite/kv-store";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
-import { ResetPassPayload } from "../../types";
-
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 
 import { patchUserPasswordReset } from "../../services";
 
-const useResetUserPassword = () => {
+const useResetPasswordMutation = () => {
   const router = useRouter();
 
   const mutation = useMutation({
-    mutationFn: async (resetPassPayload: ResetPassPayload) => {
-      await patchUserPasswordReset(resetPassPayload);
-    },
+    mutationFn: patchUserPasswordReset,
     onSuccess: async () => {
       await AsyncStorage.removeItem(ASYNC_STORAGE_KEYS.userIdResetPass);
       showToast({
@@ -50,4 +46,4 @@ const useResetUserPassword = () => {
   return { ...mutation, resetUserPassword };
 };
 
-export default useResetUserPassword;
+export default useResetPasswordMutation;

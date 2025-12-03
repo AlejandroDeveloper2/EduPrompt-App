@@ -5,7 +5,7 @@ import { ResourceFormat } from "../../../types";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
-import { useGenerateResource } from "@/features/generations/hooks/mutations";
+import { useGenerateResourceMutation } from "@/features/generations/hooks/mutations";
 import { useGenerationsStore } from "@/features/generations/hooks/store";
 import { useBackgroundTaskRunner } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -37,7 +37,7 @@ const IaResponseCard = ({
     executeIaGeneration,
   } = useGenerationsStore();
 
-  const { mutateAsync, isPending, data } = useGenerateResource();
+  const { mutateAsync, isPending, data } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 

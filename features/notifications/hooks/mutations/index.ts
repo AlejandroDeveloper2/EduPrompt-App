@@ -1,1 +1,1 @@
-export { default as useMarkAsReadNotifications } from "./useMarkAsReadNotifications";
+export { default as useMarkAsReadNotificationsMutation } from "./useMarkAsReadNotificationsMutation";

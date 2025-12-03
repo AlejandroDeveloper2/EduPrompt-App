@@ -2,5 +2,3 @@ export { default as useCheckIsNewNotification } from "./useCheckIsNewNotificatio
 export { default as useCleanNotificationsJob } from "./useCleanNotificationsJob";
 export { default as useLoadUserNotifications } from "./useLoadUserNotifications";
 export { default as useNotificationCheckerJob } from "./useNotificationCheckerJob";
-export { default as useSystemNotificationSocket } from "./useSystemNotificationSocket";
-export { default as useUserNotificationsEventListener } from "./useUserNotificationsEventListener";

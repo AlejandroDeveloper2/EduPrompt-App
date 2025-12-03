@@ -43,17 +43,15 @@ export type AppEvents = {
 
   /** Eventos Módulo de perfil usuarios  */
   "userProfile.user.updated": UserProfile | null;
-  "userProfile.fetch": undefined;
-
-  "userProfile.updateUserPreferences.requested": Partial<UserPreferences>;
-  "userProfile.updateUserPreferences.started": undefined;
-  "userProfile.updateUserPreferences.completed": undefined;
-  "userProfile.updateUserPreferences.failed": EventError;
 
   "userProfile.updateTokeUserCoins.requested": UpdateTokensPayload;
   "userProfile.updateTokeUserCoins.started": undefined;
   "userProfile.updateTokeUserCoins.completed": undefined;
   "userProfile.updateTokeUserCoins.failed": EventError;
+
+  "userProfile.updateUserPreferences.requested": UserPreferences;
+
+  "userProfile.updateAcoountType.requested": boolean;
 
   /** Eventos Módulo de notificaciones */
   "notifications.systemNotifications.updated": SystemNotification[];

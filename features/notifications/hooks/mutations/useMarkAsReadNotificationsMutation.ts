@@ -2,26 +2,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { SystemNotification } from "../../types";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
-
 import { patchNotificationsReadStatus } from "../../services";
 
-const useMarkAsReadNotifications = () => {
+const useMarkAsReadNotificationsMutation = () => {
   const queryClient = useQueryClient();
-  const { isConnected } = useCheckNetwork();
-
-  const { token } = useEventbusValue("auth.tokens.getted", {
-    token: null,
-    refreshToken: null,
-  });
 
   return useMutation({
-    mutationFn: async (notificationsIds: string[]) => {
-      if (isConnected && token) {
-        await patchNotificationsReadStatus(notificationsIds);
-      }
-    },
+    mutationFn: patchNotificationsReadStatus,
     onMutate: async (notificationsIds: string[]) => {
       await queryClient.cancelQueries({
         queryKey: ["system_notifications"],
@@ -68,4 +55,4 @@ const useMarkAsReadNotifications = () => {
   });
 };
 
-export default useMarkAsReadNotifications;
+export default useMarkAsReadNotificationsMutation;

@@ -5,7 +5,7 @@ import {
   resetPassVerificationCodeSchema,
 } from "./validationSchema";
 
-import { useValidateResetPassCode } from "../../../hooks/mutations";
+import { useValidateResetPassCodeMutation } from "../../../hooks/mutations";
 
 import { Form } from "@/shared/components/organims";
 
@@ -14,7 +14,7 @@ const initialValues: ResetPassVerificationCodeData = {
 };
 
 const ResetPassVerificationCodeForm = () => {
-  const validateResetPassCode = useValidateResetPassCode();
+  const validateResetPassCode = useValidateResetPassCodeMutation();
   const { data, getFieldErrors, handleChange, handleSubmit } = useForm({
     initialValues,
     validationSchema: resetPassVerificationCodeSchema,

@@ -1,1 +1,1 @@
-export * from "./generateEducationalResource.service";
+export * from "./postGenerateEducationalResource.service";

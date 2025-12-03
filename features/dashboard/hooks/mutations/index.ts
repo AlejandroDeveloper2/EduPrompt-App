@@ -1,2 +1,2 @@
-export { default as useSyncIndicators } from "./useSyncIndicators";
-export { default as useUpdateIndicators } from "./useUpdateIndicators";
+export { default as useSyncIndicatorsMutation } from "./useSyncIndicatorsMutation";
+export { default as useUpdateIndicatorsMutation } from "./useUpdateIndicatorsMutation";

@@ -1,7 +1,7 @@
 import { SignupData, signupSchema } from "./validationSchema";
 
 import { useForm } from "@/shared/hooks/core";
-import { useSignup } from "../../../hooks/mutations";
+import { useSignupMutation } from "../../../hooks/mutations";
 
 import { Form } from "@/shared/components/organims";
 import TermsAndPolicies from "./terms-and-policies/TermsAndPolicies";
@@ -15,7 +15,7 @@ const initialValues: SignupData = {
 };
 
 const SignupForm = () => {
-  const signup = useSignup();
+  const signup = useSignupMutation();
   const {
     data,
     getFieldErrors,

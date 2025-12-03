@@ -11,7 +11,7 @@ import { useAuthStore } from "../store";
 import { generateToastKey } from "@/shared/helpers";
 import { postEmailChangeRequest } from "../../services";
 
-const useSendUpdateEmailRequest = () => {
+const useSendUpdateEmailRequestMutation = () => {
   const { isConnected } = useCheckNetwork();
   const { token } = useAuthStore();
 
@@ -40,4 +40,4 @@ const useSendUpdateEmailRequest = () => {
   });
 };
 
-export default useSendUpdateEmailRequest;
+export default useSendUpdateEmailRequestMutation;

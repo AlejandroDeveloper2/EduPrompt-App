@@ -1,3 +1,3 @@
-export * from "./getSystemNotificationById.service";
-export * from "./getSystemNotifications.service";
-export * from "./updateSystemNotificationStatus.service";
+export * from "./getNotificationById.service";
+export * from "./getNotifications.service";
+export * from "./patchNotificationsReadStatus.service";

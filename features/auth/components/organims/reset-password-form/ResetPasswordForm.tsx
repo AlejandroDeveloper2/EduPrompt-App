@@ -1,5 +1,5 @@
 import { useForm } from "@/shared/hooks/core";
-import { useResetUserPassword } from "../../../hooks/mutations";
+import { useResetPasswordMutation } from "../../../hooks/mutations";
 
 import { ResetPasswordData, resetPasswordSchema } from "./validationSchema";
 
@@ -11,7 +11,7 @@ const initialValues: ResetPasswordData = {
 };
 
 const ResetPasswordForm = () => {
-  const { resetUserPassword, isPending } = useResetUserPassword();
+  const { resetUserPassword, isPending } = useResetPasswordMutation();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,

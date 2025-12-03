@@ -1,1 +1,1 @@
-export { default as useGenerateResource } from "./useGenerateResource";
+export { default as useGenerateResourceMutation } from "./useGenerateResourceMutation";

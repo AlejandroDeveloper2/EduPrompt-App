@@ -86,10 +86,11 @@ class EventBus {
     this.on(event, wrapper);
   }
   /**
-   * Elimina todos los listeners registrados
+   * Elimina todos los listeners registrados y payloads almacenados
    */
   clearAll(): void {
     this.listeners.clear();
+    this.lastPayloads.clear();
   }
   /**
    * Obtiene el último payload emitido para un tipo de evento

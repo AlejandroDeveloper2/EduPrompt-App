@@ -9,13 +9,11 @@ import { generateToastKey } from "@/shared/helpers";
 
 import { postResetPassCode } from "../../services";
 
-const useValidateResetPassCode = () => {
+const useValidateResetPassCodeMutation = () => {
   const router = useRouter();
   return useMutation({
-    mutationFn: async (code: string) => {
-      const response = await postResetPassCode(code);
-      return response;
-    },
+    mutationFn: postResetPassCode,
+
     onSuccess: async (data) => {
       await AsyncStorage.setItem(
         ASYNC_STORAGE_KEYS.userIdResetPass,
@@ -33,4 +31,4 @@ const useValidateResetPassCode = () => {
   });
 };
 
-export default useValidateResetPassCode;
+export default useValidateResetPassCodeMutation;

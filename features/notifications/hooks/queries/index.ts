@@ -1,1 +1,1 @@
-export { default as useSystemNotifications } from "./useSystemNotifications";
+export { default as useSystemNotificationsQuery } from "./useSystemNotificationsQuery";

@@ -22,10 +22,12 @@ TaskManager.defineTask(CLEAN_TASK_NAME, async () => {
     if (!should) return BackgroundTaskResult.Failed;
 
     UserNotificationsStore.getState().removeAllNotifications();
-    eventBus.emit("userProfile.updateUserPreferences.requested", {
-      ...userProfile?.userPreferences,
-      lastCleanAt: new Date().toISOString(),
-    });
+
+    if (userProfile)
+      eventBus.emit("userProfile.updateUserPreferences.requested", {
+        ...userProfile.userPreferences,
+        lastCleanAt: new Date().toISOString(),
+      });
 
     return BackgroundTaskResult.Success;
   } catch (error: unknown) {
@@ -40,10 +42,11 @@ const useCleanNotificationsJob = () => {
 
   const performClean = (): void => {
     removeAllNotifications();
-    eventBus.emit("userProfile.updateUserPreferences.requested", {
-      ...userProfile?.userPreferences,
-      lastCleanAt: new Date().toISOString(),
-    });
+    if (userProfile)
+      eventBus.emit("userProfile.updateUserPreferences.requested", {
+        ...userProfile?.userPreferences,
+        lastCleanAt: new Date().toISOString(),
+      });
   };
 
   useEffect(() => {

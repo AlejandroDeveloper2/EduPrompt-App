@@ -14,40 +14,22 @@ import { generateToastKey } from "@/shared/helpers";
 import { syncData } from "@/shared/utils";
 import { putUserStats } from "../../services";
 
-const useUserSync = () => {
+const useUserSyncMutation = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
-  const { token } = useEventbusValue("auth.tokens.getted", {
-    token: null,
-    refreshToken: null,
-  });
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { userStats, markAsSynced, loadLocalUserStats, setUserStats } =
-    useUserOfflineStore();
+  const { userStats, markAsSynced } = useUserOfflineStore();
 
   const mutation = useMutation({
-    mutationFn: async (updatedUserStats: UserStats) => {
-      const { tokenCoins, isPremiumUser, userPreferences } = updatedUserStats;
-      await putUserStats({ tokenCoins, isPremiumUser, userPreferences });
-    },
-
-    onSuccess: async () => {
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: "Datos de perfil sincronizados con éxito",
-      });
-    },
-    onMutate: async (updatedUserStats: UserStats) => {
+    mutationFn: putUserStats,
+    onMutate: async (updatedUserStats) => {
       await queryClient.cancelQueries({ queryKey: ["user_profile"] });
 
       // Obtener el estado actual
       const previousUserStats = queryClient.getQueryData<UserStats>([
         "user_profile",
       ]);
-
-      // Guardamos el estado previo del store offline
-      const previousLocalStats = loadLocalUserStats();
 
       // Actualizar cache de manera optimista
       if (previousUserStats) {
@@ -57,20 +39,19 @@ const useUserSync = () => {
         });
       }
 
-      // También actualizamos el store offline instantáneamente
-      setUserStats({ ...updatedUserStats, sync: false });
-
       // Retornar el contexto para rollback en caso de error
-      return { previousUserStats, previousLocalStats };
+      return { previousUserStats };
+    },
+    onSuccess: () => {
+      showToast({
+        key: generateToastKey(),
+        variant: "primary",
+        message: "Datos de perfil sincronizados con éxito",
+      });
     },
     onError: (error, _newUserStats, context) => {
       if (context?.previousUserStats) {
         queryClient.setQueryData(["user_profile"], context.previousUserStats);
-      }
-
-      if (context?.previousLocalStats) {
-        // Revertir las stats en el store local
-        setUserStats({ ...context.previousLocalStats, sync: false });
       }
     },
     onSettled: () => {
@@ -81,20 +62,20 @@ const useUserSync = () => {
 
   useEffect(() => {
     if (userStats.userPreferences.autoSync) {
-      syncData(isConnected, token, userStats.sync, () => {
+      syncData(isConnected, isAuthenticated, userStats.sync, () => {
         mutation.mutate(userStats);
       });
     }
-  }, [isConnected, token, userStats]);
+  }, [isConnected, isAuthenticated, userStats.userPreferences.autoSync]);
 
   return {
     ...mutation,
     syncUserProfile: () => {
-      syncData(isConnected, token, userStats.sync, () => {
+      syncData(isConnected, isAuthenticated, userStats.sync, () => {
         mutation.mutate(userStats);
       });
     },
   };
 };
 
-export default useUserSync;
+export default useUserSyncMutation;

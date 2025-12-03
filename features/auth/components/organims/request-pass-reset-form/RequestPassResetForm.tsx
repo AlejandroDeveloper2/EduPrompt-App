@@ -1,5 +1,5 @@
 import { useForm } from "@/shared/hooks/core";
-import { useSendResetPassRequest } from "../../../hooks/mutations";
+import { useSendResetPassRequestMutation } from "../../../hooks/mutations";
 
 import {
   RequestPassResetData,
@@ -13,7 +13,7 @@ const initialValues: RequestPassResetData = {
 };
 
 const RequestPassResetForm = () => {
-  const sendResetPassRequest = useSendResetPassRequest();
+  const sendResetPassRequest = useSendResetPassRequestMutation();
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       initialValues,

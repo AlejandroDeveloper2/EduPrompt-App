@@ -1,31 +1,20 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import AsyncStorage from "expo-sqlite/kv-store";
 
-import { EmailUpdatePayload, UserStats } from "../../types";
-
-import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
+import { UserStats } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
-import { useAuthStore } from "../store";
-
 import { generateToastKey } from "@/shared/helpers";
 
-import { patchUserEmail } from "../../services";
+import { patchUsername } from "../../services";
 
-const useUpdateUserEmail = () => {
+const useUpdateUsernameMutation = () => {
   const queryClient = useQueryClient();
-  const { isConnected } = useCheckNetwork();
-  const { token } = useAuthStore();
 
   return useMutation({
-    mutationFn: async (emailUpdatePayload: EmailUpdatePayload) => {
-      if (isConnected && token) {
-        await patchUserEmail(emailUpdatePayload);
-      }
-    },
-    onMutate: async (emailUpdatePayload: EmailUpdatePayload) => {
+    mutationFn: patchUsername,
+
+    onMutate: async (newUsername: string) => {
       await queryClient.cancelQueries({ queryKey: ["user_profile"] });
 
       // Obtener el estado actual
@@ -37,7 +26,7 @@ const useUpdateUserEmail = () => {
       if (previousUserStats) {
         queryClient.setQueryData(["user_profile"], {
           ...previousUserStats,
-          email: emailUpdatePayload.updatedEmail,
+          userName: newUsername,
         });
       }
 
@@ -49,13 +38,11 @@ const useUpdateUserEmail = () => {
         queryClient.setQueryData(["user_profile"], context.previousUserStats);
       }
     },
-    onSuccess: async () => {
-      await AsyncStorage.removeItem(ASYNC_STORAGE_KEYS.userUpdatedEmail);
-
+    onSuccess: () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Correo electrónico actualizado con éxito",
+        message: "Nombre de usuario actualizado con éxito",
       });
     },
     onSettled: () => {
@@ -64,4 +51,4 @@ const useUpdateUserEmail = () => {
   });
 };
 
-export default useUpdateUserEmail;
+export default useUpdateUsernameMutation;

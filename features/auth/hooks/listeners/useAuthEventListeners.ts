@@ -5,20 +5,20 @@ import { eventBus } from "@/core/events/EventBus";
 import { ChangePassPayload } from "../../types";
 
 import {
-  useChangeUserPassword,
-  useLogout,
-  useLogoutByRefresh,
-  useSendUpdateEmailRequest,
-  useUpdateUserEmail,
+  useChangePasswordMutation,
+  useLogoutByRefreshMutation,
+  useLogoutMutation,
+  useSendUpdateEmailRequestMutation,
+  useUpdateEmailMutation,
 } from "../mutations";
 import { useAuthStore } from "../store";
 
 const useAuthEventListeners = () => {
-  const logoutMutation = useLogout();
-  const passChangeMutation = useChangeUserPassword();
-  const sendEmailUpdateMutation = useSendUpdateEmailRequest();
-  const updatedEmailMutation = useUpdateUserEmail();
-  const logoutByRefreshMutation = useLogoutByRefresh();
+  const logoutMutation = useLogoutMutation();
+  const passChangeMutation = useChangePasswordMutation();
+  const sendEmailUpdateMutation = useSendUpdateEmailRequestMutation();
+  const updatedEmailMutation = useUpdateEmailMutation();
+  const logoutByRefreshMutation = useLogoutByRefreshMutation();
 
   const {
     setAuthTokens,
@@ -27,6 +27,10 @@ const useAuthEventListeners = () => {
     refreshToken,
     isAuthenticated,
   } = useAuthStore();
+
+  // useEffect(() => {
+  //   console.log("Authenticated status changed:", { isAuthenticated });
+  // }, [isAuthenticated]);
 
   useEffect(() => {
     eventBus.emit("auth.tokens.getted", { token, refreshToken });

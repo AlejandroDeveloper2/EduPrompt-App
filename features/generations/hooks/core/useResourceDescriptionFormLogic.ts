@@ -11,7 +11,7 @@ import {
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import { useBackgroundTaskRunner, useForm } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useGenerateResource } from "../mutations";
+import { useGenerateResourceMutation } from "../mutations";
 import { useGenerationsStore } from "../store";
 
 import { getResourcePrice } from "../../helpers";
@@ -28,7 +28,7 @@ const useResourceDescriptionFormLogic = () => {
     updateIaGeneration,
   } = useGenerationsStore();
 
-  const { mutateAsync, isPending } = useGenerateResource();
+  const { mutateAsync, isPending } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 

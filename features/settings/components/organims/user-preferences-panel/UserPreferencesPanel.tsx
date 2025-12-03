@@ -9,11 +9,10 @@ import { CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
+import { useUpdatePreferences } from "../../../hooks/core";
+import { useUserSyncMutation } from "../../../hooks/mutations";
+
 import { getFormattedPreferences } from "../../../helpers";
-import {
-  useUpdateUserPreferences,
-  useUserSync,
-} from "../../../hooks/mutations";
 
 import { ScreenSection } from "@/shared/components/atoms";
 import {
@@ -29,8 +28,8 @@ import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
 const UserPreferencesPanel = () => {
   const { data: userProfile, isLoading } = useUserProfileQuery();
 
-  const { mutate } = useUpdateUserPreferences();
-  const { syncUserProfile, isPending } = useUserSync();
+  const { updatePreferences } = useUpdatePreferences();
+  const { syncUserProfile, isPending } = useUserSyncMutation();
 
   const frecuencyPopUp = useAnimatedPopUp();
   const languagePopUp = useAnimatedPopUp();
@@ -69,7 +68,9 @@ const UserPreferencesPanel = () => {
               ? getSelectedLanguage(preferences.language)
               : APP_LANGUAGES[0]
           }
-          onSelectOption={(option) => mutate({ language: option.key })}
+          onSelectOption={(option) =>
+            updatePreferences({ language: option.key })
+          }
         />
       </PopUp>
       <PopUp
@@ -90,7 +91,9 @@ const UserPreferencesPanel = () => {
               ? getSelectedFrecuency(preferences.cleanFrecuency)
               : CLEAN_FRECUENCY_OPTIONS[0]
           }
-          onSelectOption={(option) => mutate({ cleanFrecuency: option.key })}
+          onSelectOption={(option) =>
+            updatePreferences({ cleanFrecuency: option.key })
+          }
         />
       </PopUp>
 
@@ -126,14 +129,18 @@ const UserPreferencesPanel = () => {
               label="Sincronización automática de datos"
               labelDirection="left"
               state={preferences.autoSync ? "on" : "off"}
-              onToggleSwitch={() => mutate({ autoSync: !preferences.autoSync })}
+              onToggleSwitch={() =>
+                updatePreferences({ autoSync: !preferences.autoSync })
+              }
             />
             <Switch
               label="Notificaciones push"
               labelDirection="left"
               state={preferences.pushNotifications ? "on" : "off"}
               onToggleSwitch={() =>
-                mutate({ pushNotifications: !preferences.pushNotifications })
+                updatePreferences({
+                  pushNotifications: !preferences.pushNotifications,
+                })
               }
             />
             <Switch
@@ -141,7 +148,7 @@ const UserPreferencesPanel = () => {
               labelDirection="left"
               state={preferences.autoCleanNotifications ? "on" : "off"}
               onToggleSwitch={() =>
-                mutate({
+                updatePreferences({
                   autoCleanNotifications: !preferences.autoCleanNotifications,
                 })
               }
@@ -160,7 +167,9 @@ const UserPreferencesPanel = () => {
                 optionValueKey="label"
                 displayDropdownOptions={frecuencyPopUp.onOpenPopUp}
                 clearSelectedOption={() =>
-                  mutate({ cleanFrecuency: CLEAN_FRECUENCY_OPTIONS[0].key })
+                  updatePreferences({
+                    cleanFrecuency: CLEAN_FRECUENCY_OPTIONS[0].key,
+                  })
                 }
               />
             )}
@@ -177,7 +186,7 @@ const UserPreferencesPanel = () => {
               optionValueKey="label"
               displayDropdownOptions={languagePopUp.onOpenPopUp}
               clearSelectedOption={() =>
-                mutate({ language: APP_LANGUAGES[0].key })
+                updatePreferences({ language: APP_LANGUAGES[0].key })
               }
             />
           </View>
