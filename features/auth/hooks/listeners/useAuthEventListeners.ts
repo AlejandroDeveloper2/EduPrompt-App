@@ -15,10 +15,10 @@ import { useAuthStore } from "../store";
 
 const useAuthEventListeners = () => {
   const logoutMutation = useLogoutMutation();
+  const logoutByRefreshMutation = useLogoutByRefreshMutation();
   const passChangeMutation = useChangePasswordMutation();
   const sendEmailUpdateMutation = useSendUpdateEmailRequestMutation();
   const updatedEmailMutation = useUpdateEmailMutation();
-  const logoutByRefreshMutation = useLogoutByRefreshMutation();
 
   const {
     setAuthTokens,
