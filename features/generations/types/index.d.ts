@@ -50,6 +50,7 @@ interface IaGeneration {
   generationCompleted: boolean;
   data: GenerationData;
   result: AssistantResponse | null;
+  isSelected: boolean;
 }
 
 interface ResourceType {

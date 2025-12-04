@@ -28,7 +28,6 @@ const GenerationCardList = () => {
 
   const {
     iaGenerations,
-    selectedGenerations,
     createIaGeneration,
     clearSelectionList,
     selectAllGenerations,
@@ -47,18 +46,14 @@ const GenerationCardList = () => {
 
   useEffect(() => {
     if (allSelected) selectAllGenerations();
-    else if (
-      !allSelected &&
-      selectedGenerations.length === iaGenerations.length
-    )
+    else if (!allSelected && iaGenerations.every((g) => g.isSelected))
       clearSelectionList();
   }, [allSelected]);
 
   useEffect(() => {
-    if (selectedGenerations.length === iaGenerations.length)
-      enableAllSelection();
+    if (iaGenerations.every((g) => g.isSelected)) enableAllSelection();
     else disableAllSelection();
-  }, [selectedGenerations.length, iaGenerations.length]);
+  }, [iaGenerations]);
 
   const generationListStyle = GenerationCardListStyle(size);
 

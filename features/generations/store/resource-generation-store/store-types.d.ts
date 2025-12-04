@@ -11,7 +11,6 @@ import {
 export interface ResourceGenerationStoreType {
   iaGenerations: IaGeneration[];
   currentIaGeneration: IaGeneration | null;
-  selectedGenerations: IaGeneration[];
 
   /** Management actions */
   getIaGeneration: (generationId: string) => void;
@@ -33,7 +32,7 @@ export interface ResourceGenerationStoreType {
 
   /** Selection mode actions */
   selectAllGenerations: () => void;
-  selectGeneration: (generation: IaGeneration) => void;
+  selectGeneration: (generationId: string) => void;
   unselectGeneration: (generationId: string) => void;
   deleteSelectedGenerations: (disableSelectionMode: () => void) => void;
   deleteIaGeneration: (generationId: string) => void;

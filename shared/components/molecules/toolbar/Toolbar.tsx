@@ -33,7 +33,7 @@ const Toolbar = () => {
       <Pressable onPress={disableSelectionMode}>
         <Ionicon
           name="close-outline"
-          size={size === "mobile" ? 20 : 24}
+          size={size === "mobile" ? 24 : 32}
           color={AppColors.neutral[1000]}
         />
       </Pressable>
