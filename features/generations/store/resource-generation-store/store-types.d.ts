@@ -32,24 +32,14 @@ export interface ResourceGenerationStoreType {
   editSelectedGeneration: () => void;
 
   /** Selection mode actions */
-  selectAllGenerations: (
-    updateSelectedItems: (selectedItems: number) => void
-  ) => void;
-  selectGeneration: (
-    generation: IaGeneration,
-    updateSelectedItems: (selectedItems: number) => void
-  ) => void;
-  unselectGeneration: (
-    generationId: string,
-    updateSelectedItems: (selectedItems: number) => void
-  ) => void;
+  selectAllGenerations: () => void;
+  selectGeneration: (generation: IaGeneration) => void;
+  unselectGeneration: (generationId: string) => void;
   deleteSelectedGenerations: (disableSelectionMode: () => void) => void;
   deleteIaGeneration: (generationId: string) => void;
   reinitGeneration: (generationId: string) => void;
   reinitSelectedGenerations: (disableSelectionMode: () => void) => void;
-  clearSelectionList: (
-    updateSelectedItems: (selectedItems: number) => void
-  ) => void;
+  clearSelectionList: () => void;
 
   /** Generation Actions */
   executeIaGeneration: (

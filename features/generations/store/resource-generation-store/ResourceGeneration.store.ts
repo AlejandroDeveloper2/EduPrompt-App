@@ -18,6 +18,8 @@ import {
 
 import { showToast } from "@/shared/context";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import {
   formatDate,
   generateToastKey,
@@ -180,36 +182,37 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
       },
 
       /** Selection mode actions */
-      selectAllGenerations: (
-        updateSelectedItems: (selectedItems: number) => void
-      ): void => {
+      selectAllGenerations: (): void => {
         set(({ iaGenerations }) => {
           const updated: IaGeneration[] = [...iaGenerations];
-          updateSelectedItems(updated.length);
+          eventBus.emit(
+            "selectionMode.selectedElements.updated",
+            updated.length
+          );
           return { selectedGenerations: updated };
         });
       },
-      selectGeneration: (
-        generation: IaGeneration,
-        updateSelectedItems: (selectedItems: number) => void
-      ): void => {
+      selectGeneration: (generation: IaGeneration): void => {
         set(({ selectedGenerations }) => {
           const updated = [...selectedGenerations, generation];
-          updateSelectedItems(updated.length);
+          eventBus.emit(
+            "selectionMode.selectedElements.updated",
+            updated.length
+          );
           return {
             selectedGenerations: updated,
           };
         });
       },
-      unselectGeneration: (
-        generationId: string,
-        updateSelectedItems: (selectedItems: number) => void
-      ): void => {
+      unselectGeneration: (generationId: string): void => {
         const { selectedGenerations } = get();
         const updatedSelectedGenerations = selectedGenerations.filter(
           (g) => g.generationId !== generationId
         );
-        updateSelectedItems(updatedSelectedGenerations.length);
+        eventBus.emit(
+          "selectionMode.selectedElements.updated",
+          updatedSelectedGenerations.length
+        );
         set({ selectedGenerations: updatedSelectedGenerations });
       },
       deleteIaGeneration: (generationId: string): void => {
@@ -225,14 +228,16 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           deleteIaGeneration(selectedGeneration.generationId);
         });
         disableSelectionMode();
+        eventBus.emit("selectionMode.selectedElements.updated", 0);
         set({ selectedGenerations: [] });
       },
-      clearSelectionList: (
-        updateSelectedItems: (selectedItems: number) => void
-      ): void => {
+      clearSelectionList: (): void => {
         set(() => {
           const updated: IaGeneration[] = [];
-          updateSelectedItems(updated.length);
+          eventBus.emit(
+            "selectionMode.selectedElements.updated",
+            updated.length
+          );
           return { selectedGenerations: updated };
         });
       },

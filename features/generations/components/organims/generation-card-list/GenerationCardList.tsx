@@ -19,11 +19,16 @@ const GenerationCardList = () => {
   const size = useScreenDimensionsStore();
 
   /** Selection mode hooks */
-  const { allSelected, selectionMode, updateSelectedItems } =
-    useSelectionModeContext();
+  const {
+    allSelected,
+    selectionMode,
+    enableAllSelection,
+    disableAllSelection,
+  } = useSelectionModeContext();
 
   const {
     iaGenerations,
+    selectedGenerations,
     createIaGeneration,
     clearSelectionList,
     selectAllGenerations,
@@ -37,18 +42,23 @@ const GenerationCardList = () => {
   } = useSearchInput(iaGenerations, "title");
 
   useEffect(() => {
-    if (!selectionMode) {
-      clearSelectionList(updateSelectedItems);
-    }
+    if (!selectionMode) clearSelectionList();
   }, [selectionMode]);
 
   useEffect(() => {
-    if (allSelected) {
-      selectAllGenerations(updateSelectedItems);
-    } else {
-      clearSelectionList(updateSelectedItems);
-    }
+    if (allSelected) selectAllGenerations();
+    else if (
+      !allSelected &&
+      selectedGenerations.length === iaGenerations.length
+    )
+      clearSelectionList();
   }, [allSelected]);
+
+  useEffect(() => {
+    if (selectedGenerations.length === iaGenerations.length)
+      enableAllSelection();
+    else disableAllSelection();
+  }, [selectedGenerations.length, iaGenerations.length]);
 
   const generationListStyle = GenerationCardListStyle(size);
 

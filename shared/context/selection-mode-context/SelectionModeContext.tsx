@@ -10,7 +10,6 @@ const SelectionModeContext = createContext<
 export const SelectionModeProvider = ({ children }: ProviderProps) => {
   const [selectionMode, setSelectionMode] = useState<boolean>(false);
   const [actions, setActions] = useState<NavOption[]>([]);
-  const [selectedItems, setSelectedItems] = useState<number>(0);
   const [allSelected, setAllSelected] = useState<boolean>(false);
 
   const toggleSelectionMode = (selectionActions: NavOption[]): void => {
@@ -29,12 +28,16 @@ export const SelectionModeProvider = ({ children }: ProviderProps) => {
     setActions([]);
   };
 
-  const updateSelectedItems = (selectedItemsParam: number): void => {
-    setSelectedItems(selectedItemsParam);
-  };
-
   const toggleSelectAll = (): void => {
     setAllSelected((prev) => !prev);
+  };
+
+  const enableAllSelection = (): void => {
+    setAllSelected(true);
+  };
+
+  const disableAllSelection = (): void => {
+    setAllSelected(false);
   };
 
   return (
@@ -42,13 +45,13 @@ export const SelectionModeProvider = ({ children }: ProviderProps) => {
       value={{
         selectionMode,
         actions,
-        selectedItems,
         allSelected,
         toggleSelectionMode,
         enableSelectionMode,
         disableSelectionMode,
-        updateSelectedItems,
         toggleSelectAll,
+        enableAllSelection,
+        disableAllSelection,
       }}
     >
       {children}

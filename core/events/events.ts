@@ -78,4 +78,7 @@ export type AppEvents = {
   "dashboard.addUsedTokens": number;
   "dashboard.addDownloadedResources": undefined;
   "dashboard.addSavedResources": undefined;
+
+  /** Eventos modo seleccion */
+  "selectionMode.selectedElements.updated": number;
 };

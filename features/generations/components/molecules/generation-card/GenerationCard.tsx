@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
@@ -30,6 +29,8 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
 
   const size = useScreenDimensionsStore();
   const {
+    iaGenerations,
+    selectedGenerations,
     deleteSelectedGenerations,
     getIaGeneration,
     reinitSelectedGenerations,
@@ -39,7 +40,6 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
   const {
     allSelected,
     selectionMode,
-    updateSelectedItems,
     enableSelectionMode,
     disableSelectionMode,
   } = useSelectionModeContext();
@@ -54,8 +54,24 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
   }, [data.steps]);
 
   useEffect(() => {
-    if (isSelected) {
-      selectGeneration(data, updateSelectedItems);
+    if (!selectionMode) setIsSelected(false);
+  }, [selectionMode]);
+
+  useEffect(() => {
+    if (allSelected && selectedGenerations.length === iaGenerations.length) {
+      setIsSelected(true);
+    } else if (
+      !allSelected &&
+      selectedGenerations.length === iaGenerations.length
+    ) {
+      setIsSelected(false);
+    }
+  }, [allSelected, selectedGenerations.length, iaGenerations.length]);
+
+  const handleSelectElement = (): void => {
+    setIsSelected((prev) => !prev);
+    if (!isSelected) {
+      selectGeneration(data);
       enableSelectionMode(
         SELECTION_MODE_ACTIONS(
           () => deleteSelectedGenerations(disableSelectionMode),
@@ -63,21 +79,9 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
         )
       );
     } else {
-      unselectGeneration(data.generationId, updateSelectedItems);
+      unselectGeneration(data.generationId);
     }
-  }, [isSelected]);
-
-  useEffect(() => {
-    if (!selectionMode) setIsSelected(false);
-  }, [selectionMode]);
-
-  useEffect(() => {
-    if (allSelected) {
-      setIsSelected(true);
-    } else {
-      setIsSelected(false);
-    }
-  }, [allSelected]);
+  };
 
   const generationCardStyle = GenerationCardStyle(size);
 
@@ -99,10 +103,7 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
           icon="text-outline"
         />
         <View style={generationCardStyle.CardActions}>
-          <Checkbox
-            checked={isSelected}
-            onCheck={() => setIsSelected((prev) => !prev)}
-          />
+          <Checkbox checked={isSelected} onCheck={handleSelectElement} />
         </View>
       </View>
       <View style={generationCardStyle.CardBody}>

@@ -32,6 +32,7 @@ export default function TabLayout() {
   const size = useScreenDimensionsStore();
 
   const { actions } = useSelectionModeContext();
+
   useBlockBackWhenSelection();
 
   /** Cargar perifl de usuario */

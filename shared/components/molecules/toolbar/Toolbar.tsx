@@ -3,22 +3,25 @@ import Animated from "react-native-reanimated";
 import { AppColors } from "../../../styles";
 
 import { useSelectionModeContext } from "@/shared/hooks/context";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useAnimatedToolbar } from "../../../hooks/animations";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
+import { Pressable } from "react-native";
 import { ToolbarStyle } from "./ToolBar.style";
 
 const Toolbar = () => {
   const size = useScreenDimensionsStore();
-  const {
-    selectionMode,
-    selectedItems,
-    allSelected,
-    disableSelectionMode,
-    toggleSelectAll,
-  } = useSelectionModeContext();
+
+  const selectedItems = useEventbusValue(
+    "selectionMode.selectedElements.updated",
+    0
+  );
+
+  const { selectionMode, allSelected, disableSelectionMode, toggleSelectAll } =
+    useSelectionModeContext();
 
   const animatedTranslate = useAnimatedToolbar(
     selectionMode,
@@ -27,12 +30,14 @@ const Toolbar = () => {
 
   return (
     <Animated.View style={[ToolbarStyle(size).Container, animatedTranslate]}>
-      <Ionicon
-        name="close-outline"
-        size={size === "mobile" ? 20 : 24}
-        color={AppColors.neutral[1000]}
-        onPress={disableSelectionMode}
-      />
+      <Pressable onPress={disableSelectionMode}>
+        <Ionicon
+          name="close-outline"
+          size={size === "mobile" ? 20 : 24}
+          color={AppColors.neutral[1000]}
+        />
+      </Pressable>
+
       <Typography
         text={`Elementos seleccionados (${selectedItems})`}
         weight="regular"
@@ -41,12 +46,13 @@ const Toolbar = () => {
         color={AppColors.neutral[1000]}
         width="auto"
       />
-      <Ionicon
-        name="list-outline"
-        size={size === "mobile" ? 20 : 24}
-        color={allSelected ? AppColors.primary[400] : AppColors.neutral[1000]}
-        onPress={toggleSelectAll}
-      />
+      <Pressable onPress={toggleSelectAll}>
+        <Ionicon
+          name="list-outline"
+          size={size === "mobile" ? 24 : 32}
+          color={allSelected ? AppColors.primary[400] : AppColors.neutral[1000]}
+        />
+      </Pressable>
     </Animated.View>
   );
 };
