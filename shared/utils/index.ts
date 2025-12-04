@@ -14,4 +14,3 @@ export * from "./functions/renderNavItem";
 export * from "./functions/setupNotifications";
 export * from "./functions/setupNotificationsChannel";
 export * from "./functions/syncData";
-export * from "./functions/tokenManager";

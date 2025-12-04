@@ -4,7 +4,6 @@ import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
 import { AppError, ErrorCodeType, ErrorMessages } from "@/shared/utils";
-import { eventBus } from "../events/EventBus";
 
 /** Manejador de errores global con react query */
 const queryErrorHandler = async (error: unknown) => {
@@ -25,10 +24,6 @@ const queryErrorHandler = async (error: unknown) => {
         },
       });
       return;
-    }
-
-    if (errorMessageCode === "INVALID_SESSION") {
-      eventBus.emit("auth.logoutByRefresh.requested", undefined);
     }
 
     showToast({

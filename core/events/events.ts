@@ -24,7 +24,11 @@ export type AppEvents = {
   "auth.logout.completed": undefined;
   "auth.logout.failed": EventError;
 
-  "auth.logoutByRefresh.requested": undefined;
+  "auth.refreshSession.requested": undefined;
+  "auth.refreshSession.completed": {
+    accessToken: string;
+    refreshToken: string;
+  };
 
   "auth.changePassword.requested": ChangePassPayload;
   "auth.changePassword.started": undefined;

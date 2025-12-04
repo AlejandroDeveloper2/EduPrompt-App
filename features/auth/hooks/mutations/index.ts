@@ -1,8 +1,8 @@
 export { default as useActivateAccountMutation } from "./useActivateAccountMutation";
 export { default as useChangePasswordMutation } from "./useChangePasswordMutation";
 export { default as useLoginMutation } from "./useLoginMutation";
-export { default as useLogoutByRefreshMutation } from "./useLogoutByRefreshMutation";
 export { default as useLogoutMutation } from "./useLogoutMutation";
+export { default as useRefreshSessionMutation } from "./useRefreshSessionMutation";
 export { default as useResendEmailVerificationMutation } from "./useResendEmailVerificationMutation";
 export { default as useResetPasswordMutation } from "./useResetPasswordMutation";
 export { default as useSendResetPassRequestMutation } from "./useSendResetPassRequestMutation";

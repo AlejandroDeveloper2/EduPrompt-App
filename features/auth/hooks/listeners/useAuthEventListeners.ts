@@ -1,26 +1,21 @@
-import * as SecureStorage from "expo-secure-store";
+import { useRouter } from "expo-router";
 import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
 import { ChangePassPayload } from "../../types";
 
-import { tokenManager } from "@/shared/utils";
 import {
   useChangePasswordMutation,
-  useLogoutByRefreshMutation,
   useLogoutMutation,
+  useRefreshSessionMutation,
   useSendUpdateEmailRequestMutation,
   useUpdateEmailMutation,
 } from "../mutations";
 import { useAuthStore } from "../store";
 
 const useAuthEventListeners = () => {
-  const logoutMutation = useLogoutMutation();
-  const logoutByRefreshMutation = useLogoutByRefreshMutation();
-  const passChangeMutation = useChangePasswordMutation();
-  const sendEmailUpdateMutation = useSendUpdateEmailRequestMutation();
-  const updatedEmailMutation = useUpdateEmailMutation();
+  const router = useRouter();
 
   const {
     setAuthTokens,
@@ -30,22 +25,17 @@ const useAuthEventListeners = () => {
     isAuthenticated,
   } = useAuthStore();
 
-  useEffect(() => {
-    const get = async () => {
-      console.log(
-        "Tokens desde el secure storage: " +
-          (await SecureStorage.getItemAsync("auth"))
-      );
-    };
-    get();
-  }, []);
+  const logoutMutation = useLogoutMutation();
+  const passChangeMutation = useChangePasswordMutation();
+  const sendEmailUpdateMutation = useSendUpdateEmailRequestMutation();
+  const updatedEmailMutation = useUpdateEmailMutation();
+  const refreshSessionMutation = useRefreshSessionMutation();
+
+  // useEffect(() => {
+  //   console.log("Tokens desde listener de auth :", { token, refreshToken });
+  // }, [token, refreshToken]);
 
   useEffect(() => {
-    console.log("Tokens desde listener de auth :", { token, refreshToken });
-  }, [token, refreshToken]);
-
-  useEffect(() => {
-    if (token && refreshToken) tokenManager.setTokens(token, refreshToken);
     eventBus.emit("auth.tokens.getted", { token, refreshToken });
   }, [token, refreshToken]);
 
@@ -61,7 +51,6 @@ const useAuthEventListeners = () => {
       token: string;
       refreshToken: string;
     }) => {
-      tokenManager.setTokens(token, refreshToken);
       setAuthTokens(token, refreshToken);
     };
 
@@ -73,13 +62,14 @@ const useAuthEventListeners = () => {
 
   useEffect(() => {
     const handler = () => {
-      tokenManager.clearTokens();
       clearAuthTokens();
+      router.replace("/auth");
     };
     eventBus.on("auth.clearTokens", handler);
     return () => {
       eventBus.off("auth.clearTokens", handler);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clearAuthTokens]);
 
   useEffect(() => {
@@ -101,20 +91,6 @@ const useAuthEventListeners = () => {
       eventBus.off("auth.logout.requested", handleLogoutRequest);
     };
   }, [logoutMutation]);
-
-  useEffect(() => {
-    const handleLogoutByRefreshRequest = (): void => {
-      logoutByRefreshMutation.mutate();
-    };
-
-    eventBus.on("auth.logoutByRefresh.requested", handleLogoutByRefreshRequest);
-    return () => {
-      eventBus.off(
-        "auth.logoutByRefresh.requested",
-        handleLogoutByRefreshRequest
-      );
-    };
-  }, [logoutByRefreshMutation]);
 
   useEffect(() => {
     const handlePassChangeRequest = (changePassPayload: ChangePassPayload) => {
@@ -204,6 +180,19 @@ const useAuthEventListeners = () => {
       eventBus.off("auth.updateEmail.requested", handleUpdateEmailRequest);
     };
   }, [updatedEmailMutation]);
+
+  useEffect(() => {
+    const handler = () => {
+      refreshSessionMutation.mutate(undefined, {
+        onSuccess: (data) =>
+          eventBus.emit("auth.refreshSession.completed", data),
+      });
+    };
+    eventBus.on("auth.refreshSession.requested", handler);
+    return () => {
+      eventBus.off("auth.refreshSession.requested", handler);
+    };
+  }, [refreshSessionMutation]);
 };
 
 export default useAuthEventListeners;
