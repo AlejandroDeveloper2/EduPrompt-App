@@ -10,10 +10,16 @@ import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 
 /** Jobs */
-import { useDailyRewardJob } from "@/shared/hooks/core";
+import {
+  useBlockBackWhenSelection,
+  useDailyRewardJob,
+} from "@/shared/hooks/core";
 
 /** Stores */
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
+
+/** Contextos */
+import { useSelectionModeContext } from "@/shared/hooks/context";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
 import {
@@ -24,6 +30,9 @@ import {
 
 export default function TabLayout() {
   const size = useScreenDimensionsStore();
+
+  const { actions } = useSelectionModeContext();
+  useBlockBackWhenSelection();
 
   /** Cargar perifl de usuario */
   useUserProfileQuery();
@@ -43,12 +52,13 @@ export default function TabLayout() {
             headerShown: true,
             header: () => <Header />,
             drawerType: "permanent",
+
             drawerStyle: {
               width: "auto",
             },
           }}
           drawerContent={(props) => (
-            <NavigationDrawer actions={[]} {...props} />
+            <NavigationDrawer actions={actions} {...props} />
           )}
         />
       </>
@@ -67,7 +77,7 @@ export default function TabLayout() {
             height: 0,
           },
         }}
-        tabBar={(props) => <NavigationTab actions={[]} {...props} />}
+        tabBar={(props) => <NavigationTab actions={actions} {...props} />}
       />
     </>
   );

@@ -14,7 +14,7 @@ const initialValues: UpdateUsernameData = {
 
 const UpdateUsernameForm = () => {
   const { mutate, isPending } = useUpdateUsernameMutation();
-  const { data: userProfile } = useUserProfileQuery();
+  const { userProfile } = useUserProfileQuery();
 
   // useEmitUserProfileUpdated(isSuccess, userProfile);
 

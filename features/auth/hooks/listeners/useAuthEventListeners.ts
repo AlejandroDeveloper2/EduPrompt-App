@@ -1,9 +1,11 @@
+import * as SecureStorage from "expo-secure-store";
 import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
 import { ChangePassPayload } from "../../types";
 
+import { tokenManager } from "@/shared/utils";
 import {
   useChangePasswordMutation,
   useLogoutByRefreshMutation,
@@ -28,11 +30,22 @@ const useAuthEventListeners = () => {
     isAuthenticated,
   } = useAuthStore();
 
-  // useEffect(() => {
-  //   console.log("Authenticated status changed:", { isAuthenticated });
-  // }, [isAuthenticated]);
+  useEffect(() => {
+    const get = async () => {
+      console.log(
+        "Tokens desde el secure storage: " +
+          (await SecureStorage.getItemAsync("auth"))
+      );
+    };
+    get();
+  }, []);
 
   useEffect(() => {
+    console.log("Tokens desde listener de auth :", { token, refreshToken });
+  }, [token, refreshToken]);
+
+  useEffect(() => {
+    if (token && refreshToken) tokenManager.setTokens(token, refreshToken);
     eventBus.emit("auth.tokens.getted", { token, refreshToken });
   }, [token, refreshToken]);
 
@@ -48,6 +61,7 @@ const useAuthEventListeners = () => {
       token: string;
       refreshToken: string;
     }) => {
+      tokenManager.setTokens(token, refreshToken);
       setAuthTokens(token, refreshToken);
     };
 
@@ -59,6 +73,7 @@ const useAuthEventListeners = () => {
 
   useEffect(() => {
     const handler = () => {
+      tokenManager.clearTokens();
       clearAuthTokens();
     };
     eventBus.on("auth.clearTokens", handler);

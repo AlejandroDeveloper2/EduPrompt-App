@@ -4,7 +4,7 @@ import { Host } from "react-native-portalize";
 
 import { queryClient } from "@/core/config/reactQuery";
 
-import { ToastProvider } from "@/shared/context";
+import { SelectionModeProvider, ToastProvider } from "@/shared/context";
 
 /** Listeners */
 import { useAuthEventListeners } from "@/features/auth/hooks/listeners";
@@ -25,9 +25,11 @@ export default function RootLayout() {
   return (
     <Host>
       <ToastProvider>
-        <QueryClientProvider client={queryClient}>
-          <InnerApp loaded={loaded} />
-        </QueryClientProvider>
+        <SelectionModeProvider>
+          <QueryClientProvider client={queryClient}>
+            <InnerApp loaded={loaded} />
+          </QueryClientProvider>
+        </SelectionModeProvider>
       </ToastProvider>
     </Host>
   );
@@ -52,7 +54,7 @@ function InnerApp({ loaded }: { loaded: boolean }) {
   if (!loaded) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack screenOptions={{ headerShown: false, gestureEnabled: true }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="onboarding" />
       <Stack.Screen name="auth" />

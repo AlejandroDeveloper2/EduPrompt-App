@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 import { EventKey } from "@/core/events/types";
@@ -11,32 +12,46 @@ import { getUserProfile } from "../../services";
 
 const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
-  const { userStats, setUserStats } = useUserOfflineStore();
+  const { setUserStats, loadLocalUserStats } = useUserOfflineStore();
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const query = useQuery({
     queryKey: ["user_profile"],
-    enabled: isConnected !== null && isConnected !== undefined,
+    enabled:
+      isConnected !== null &&
+      isConnected !== undefined &&
+      isAuthenticated === true,
     queryFn: async () => {
-      if (isConnected && isAuthenticated) {
-        const userProfile = await getUserProfile();
-        setUserStats({
-          ...userProfile,
-          sync: true,
-        });
-        eventBus.emit("userProfile.user.updated" as EventKey, userProfile);
-        return { ...userProfile, sync: true };
-      } else {
-        eventBus.emit("userProfile.user.updated" as EventKey, userStats);
-        return userStats;
-      }
+      const userProfile = await getUserProfile();
+      setUserStats({
+        ...userProfile,
+        sync: true,
+      });
+      return { ...userProfile, sync: true };
     },
     staleTime: Infinity,
     // gcTime: 1000 * 60 * 5,
   });
 
-  return query;
+  const localProfile = loadLocalUserStats();
+
+  useEffect(() => {
+    if (query.data) {
+      eventBus.emit("userProfile.user.updated" as EventKey, query.data);
+    }
+  }, [query.data]);
+
+  useEffect(() => {
+    if (!query.data && localProfile) {
+      eventBus.emit("userProfile.user.updated" as EventKey, localProfile);
+    }
+  }, [query.data, localProfile]);
+
+  return {
+    userProfile: query.data ?? localProfile,
+    isLoading: query.isLoading,
+  };
 };
 
 export default useUserProfileQuery;

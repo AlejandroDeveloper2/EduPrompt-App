@@ -6,7 +6,7 @@ interface StoreState {
 
 interface StoreActions {
   setAuthTokens: (token: string, refreshToken: string) => void;
-  clearAuthTokens: () => void;
+  clearAuthTokens: () => Promise<void>;
 }
 
 type AuthStoreType = StoreState & StoreActions;

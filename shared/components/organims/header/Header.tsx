@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useToolbar } from "@/shared/hooks/core";
+import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useEventBusToggle, useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -25,8 +25,7 @@ const Header = () => {
   const insets = useSafeAreaInsets();
   const size = useScreenDimensionsStore();
 
-  const { selectionMode, showToolbar, onHiddenToolbar, toggleSelectionMode } =
-    useToolbar();
+  const { selectionMode } = useSelectionModeContext();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
   const systemNotifications = useEventbusValue(
@@ -55,12 +54,8 @@ const Header = () => {
 
   return (
     <View style={headerStyle.HeaderContainer}>
-      {showToolbar ? (
-        <Toolbar
-          selectionMode={selectionMode}
-          onHidden={onHiddenToolbar}
-          toggleSelectionMode={toggleSelectionMode}
-        />
+      {selectionMode ? (
+        <Toolbar />
       ) : (
         <View style={headerStyle.NavItemListContainer}>
           <Logo />

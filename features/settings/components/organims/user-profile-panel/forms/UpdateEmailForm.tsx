@@ -98,9 +98,7 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
     "auth.sendEmailUpdateRequest.failed",
   ]);
 
-  const { data: userProfile } = useUserProfileQuery();
-
-  // useEmitUserProfileUpdated(isSuccess, userProfile);
+  const { userProfile } = useUserProfileQuery();
 
   const {
     data,

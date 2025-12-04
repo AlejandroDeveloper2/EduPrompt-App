@@ -6,7 +6,7 @@ import { ServerErrorResponse } from "../types";
 
 import { config } from "./enviromentVariables";
 
-import { AppError, ErrorCodeType } from "@/shared/utils";
+import { AppError, ErrorCodeType, tokenManager } from "@/shared/utils";
 
 /** Cliente de axios para integración con la api de edu prompt */
 export const axiosClient: AxiosInstance = axios.create({
@@ -16,8 +16,7 @@ export const axiosClient: AxiosInstance = axios.create({
 /* Interceptor para requests (ej. añadir tokens) */
 axiosClient.interceptors.request.use(
   async (config) => {
-    const { token, refreshToken } =
-      eventBus.getLast("auth.tokens.getted") ?? {};
+    const { token, refreshToken } = tokenManager.getTokens();
 
     if (token) config.headers.Authorization = `Bearer ${token}`;
     if (refreshToken) config.headers["x-refresh-token"] = refreshToken;
@@ -35,8 +34,12 @@ axiosClient.interceptors.response.use(
     const accessToken = response.headers["x-access-token"] as string;
     const refreshToken = response.headers["x-refresh-token"] as string;
 
-    if (accessToken && refreshToken)
+    if (accessToken && refreshToken) {
+      console.log("Tokens desde la response: " + { accessToken, refreshToken });
+      tokenManager.setTokens(accessToken, refreshToken);
       eventBus.emit("auth.setTokens", { token: accessToken, refreshToken });
+    }
+
     return response;
   },
   async (error) => {
@@ -50,9 +53,6 @@ axiosClient.interceptors.response.use(
       const isOperational = axiosError.response.data.isOperational;
 
       if (status < 500 && status >= 400) {
-        if (errorMessageCode === "INVALID_SESSION")
-          eventBus.emit("auth.logoutByRefresh.requested", undefined);
-
         console.log("⚠️  Error del cliente: ", status, description);
       }
 

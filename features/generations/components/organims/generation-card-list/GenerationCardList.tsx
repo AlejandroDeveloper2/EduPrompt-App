@@ -1,6 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { FlatList } from "react-native";
 
 import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useSearchInput } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -14,13 +17,38 @@ import { GenerationCardListStyle } from "./GenerationCardList.style";
 
 const GenerationCardList = () => {
   const size = useScreenDimensionsStore();
-  const { iaGenerations, createIaGeneration } = useGenerationsStore();
+
+  /** Selection mode hooks */
+  const { allSelected, selectionMode, updateSelectedItems } =
+    useSelectionModeContext();
+
+  const {
+    iaGenerations,
+    createIaGeneration,
+    clearSelectionList,
+    selectAllGenerations,
+  } = useGenerationsStore();
+
   const {
     searchValue,
     filteredElements,
     handleSearchChange,
     onClearSearchInput,
   } = useSearchInput(iaGenerations, "title");
+
+  useEffect(() => {
+    if (!selectionMode) {
+      clearSelectionList(updateSelectedItems);
+    }
+  }, [selectionMode]);
+
+  useEffect(() => {
+    if (allSelected) {
+      selectAllGenerations(updateSelectedItems);
+    } else {
+      clearSelectionList(updateSelectedItems);
+    }
+  }, [allSelected]);
 
   const generationListStyle = GenerationCardListStyle(size);
 

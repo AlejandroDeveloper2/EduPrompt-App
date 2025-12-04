@@ -11,6 +11,9 @@ import {
 export interface ResourceGenerationStoreType {
   iaGenerations: IaGeneration[];
   currentIaGeneration: IaGeneration | null;
+  selectedGenerations: IaGeneration[];
+
+  /** Management actions */
   getIaGeneration: (generationId: string) => void;
   createIaGeneration: () => IaGeneration;
   updateIaGeneration: (
@@ -19,16 +22,36 @@ export interface ResourceGenerationStoreType {
     updatedCurrentStep: Partial<GenerationStep>,
     updatedGeneration: Partial<IaGeneration>
   ) => void;
-  deleteIaGeneration: (generationId: string) => void;
   clearSelectedGeneration: () => void;
   setGenerationStep: (
     generationId: string,
     stepId: GenerationStepNameType
   ) => void;
-  reinitGeneration: (generationId: string) => void;
   createAndSelectNewGeneration: () => void;
   clearAndRemoveSelectedGeneration: () => void;
   editSelectedGeneration: () => void;
+
+  /** Selection mode actions */
+  selectAllGenerations: (
+    updateSelectedItems: (selectedItems: number) => void
+  ) => void;
+  selectGeneration: (
+    generation: IaGeneration,
+    updateSelectedItems: (selectedItems: number) => void
+  ) => void;
+  unselectGeneration: (
+    generationId: string,
+    updateSelectedItems: (selectedItems: number) => void
+  ) => void;
+  deleteSelectedGenerations: (disableSelectionMode: () => void) => void;
+  deleteIaGeneration: (generationId: string) => void;
+  reinitGeneration: (generationId: string) => void;
+  reinitSelectedGenerations: (disableSelectionMode: () => void) => void;
+  clearSelectionList: (
+    updateSelectedItems: (selectedItems: number) => void
+  ) => void;
+
+  /** Generation Actions */
   executeIaGeneration: (
     canGenerate: (formatKey: ResourceFormatKey) => boolean,
     genCallback: (

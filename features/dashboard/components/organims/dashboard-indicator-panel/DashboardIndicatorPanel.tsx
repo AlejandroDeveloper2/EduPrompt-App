@@ -19,7 +19,7 @@ const DashboardIndicatorPanel = () => {
   const size = useScreenDimensionsStore();
   const { width } = useWindowDimensions();
 
-  const { data, isLoading } = useIndicatorsQuery();
+  const { indicators, isLoading } = useIndicatorsQuery();
   const { syncIndicators, isPending } = useSyncIndicatorsMutation();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
@@ -53,7 +53,7 @@ const DashboardIndicatorPanel = () => {
       <View style={IndicatorsGrid}>
         <DashboardIndicator
           icon="book-outline"
-          value={data ? `${data.generatedResources}` : "--"}
+          value={`${indicators.generatedResources}`}
           label="Recursos generados"
           type="numeric"
           loading={isLoading}
@@ -63,7 +63,7 @@ const DashboardIndicatorPanel = () => {
         />
         <DashboardIndicator
           icon="hardware-chip-outline"
-          value={data ? formatTokenAmount(data.usedTokens) : "--"}
+          value={formatTokenAmount(indicators.usedTokens)}
           label="Tokens usados"
           type="numeric"
           loading={isLoading}
@@ -74,7 +74,7 @@ const DashboardIndicatorPanel = () => {
 
         <DashboardIndicator
           icon="download-outline"
-          value={data ? `${data.dowloadedResources}` : "--"}
+          value={`${indicators.dowloadedResources}`}
           label="Recursos descargados"
           type="numeric"
           loading={isLoading}
@@ -84,7 +84,7 @@ const DashboardIndicatorPanel = () => {
         />
         <DashboardIndicator
           icon="save-outline"
-          value={data ? `${data.savedResources}` : "--"}
+          value={`${indicators.savedResources}`}
           label="Recursos guardados"
           type="numeric"
           loading={isLoading}
@@ -95,11 +95,9 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="watch-outline"
           value={
-            data
-              ? !data.lastGeneratedResource
-                ? "No se ha generado un recurso"
-                : data.lastGeneratedResource
-              : "--"
+            !indicators.lastGeneratedResource
+              ? "No se ha generado un recurso"
+              : indicators.lastGeneratedResource
           }
           label="Último recurso generado"
           type="alphabetic"
@@ -109,7 +107,9 @@ const DashboardIndicatorPanel = () => {
           }}
         />
       </View>
-      {userProfile && !userProfile.userPreferences.autoSync && !data?.sync ? (
+      {userProfile &&
+      !userProfile.userPreferences.autoSync &&
+      !indicators.sync ? (
         <InfoCard
           title="Sincronización de datos"
           description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"

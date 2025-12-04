@@ -1,14 +1,20 @@
-import { useMemo } from "react";
-import { View } from "react-native";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useMemo, useState } from "react";
+import { Pressable, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 import { IaGeneration } from "@/features/generations/types";
 
 import { AppColors } from "@/shared/styles";
 
+import { SELECTION_MODE_ACTIONS } from "@/features/generations/constants";
+
 import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import { Ionicon, Typography } from "@/shared/components/atoms";
+import { Checkbox, Typography } from "@/shared/components/atoms";
 import { ProgressBar } from "@/shared/components/molecules";
 
 import { GenerationCardStyle } from "./GenerationCard.style";
@@ -17,12 +23,29 @@ interface GenerationCardProps {
   data: IaGeneration;
 }
 
-const GenerationCard = ({ data }: GenerationCardProps) => {
-  const size = useScreenDimensionsStore();
-  const { deleteIaGeneration, getIaGeneration, reinitGeneration } =
-    useGenerationsStore();
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-  const iconSize: number = useMemo(() => (size === "laptop" ? 24 : 20), [size]);
+const GenerationCard = ({ data }: GenerationCardProps) => {
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+
+  const size = useScreenDimensionsStore();
+  const {
+    deleteSelectedGenerations,
+    getIaGeneration,
+    reinitSelectedGenerations,
+    selectGeneration,
+    unselectGeneration,
+  } = useGenerationsStore();
+  const {
+    allSelected,
+    selectionMode,
+    updateSelectedItems,
+    enableSelectionMode,
+    disableSelectionMode,
+  } = useSelectionModeContext();
+
+  const animatedCardStyle = useAnimatedCard(isSelected);
+
   const generationProgress = useMemo(() => {
     const completedSteps = data.steps.filter(
       (step) => step.completed === true
@@ -30,10 +53,41 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
     return Math.floor((completedSteps * 100) / data.steps.length);
   }, [data.steps]);
 
+  useEffect(() => {
+    if (isSelected) {
+      selectGeneration(data, updateSelectedItems);
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(
+          () => deleteSelectedGenerations(disableSelectionMode),
+          () => reinitSelectedGenerations(disableSelectionMode)
+        )
+      );
+    } else {
+      unselectGeneration(data.generationId, updateSelectedItems);
+    }
+  }, [isSelected]);
+
+  useEffect(() => {
+    if (!selectionMode) setIsSelected(false);
+  }, [selectionMode]);
+
+  useEffect(() => {
+    if (allSelected) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [allSelected]);
+
   const generationCardStyle = GenerationCardStyle(size);
 
   return (
-    <View style={generationCardStyle.CardContainer}>
+    <AnimatedPressable
+      style={[generationCardStyle.CardContainer, animatedCardStyle]}
+      onPress={
+        !selectionMode ? () => getIaGeneration(data.generationId) : () => {}
+      }
+    >
       <View style={generationCardStyle.CardHeader}>
         <Typography
           text={data.title}
@@ -45,23 +99,9 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
           icon="text-outline"
         />
         <View style={generationCardStyle.CardActions}>
-          <Ionicon
-            name="trash-bin-outline"
-            color={AppColors.neutral[1000]}
-            size={iconSize}
-            onPress={() => deleteIaGeneration(data.generationId)}
-          />
-          <Ionicon
-            name="reload-outline"
-            color={AppColors.neutral[1000]}
-            size={iconSize}
-            onPress={() => reinitGeneration(data.generationId)}
-          />
-          <Ionicon
-            name="play-forward-outline"
-            color={AppColors.neutral[1000]}
-            size={iconSize}
-            onPress={() => getIaGeneration(data.generationId)}
+          <Checkbox
+            checked={isSelected}
+            onCheck={() => setIsSelected((prev) => !prev)}
           />
         </View>
       </View>
@@ -93,7 +133,7 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
           progressPercentage={generationProgress}
         />
       </View>
-    </View>
+    </AnimatedPressable>
   );
 };
 

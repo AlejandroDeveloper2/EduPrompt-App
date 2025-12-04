@@ -31,6 +31,9 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
     (set, get) => ({
       iaGenerations: [],
       currentIaGeneration: null,
+      selectedGenerations: [],
+
+      /** Management actions */
       getIaGeneration: (generationId: string): void => {
         const { iaGenerations } = get();
         const generation = iaGenerations.find(
@@ -88,15 +91,9 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           currentIaGeneration: finalUpdatedGeneration,
         });
       },
-
-      deleteIaGeneration: (generationId: string): void => {
-        const { iaGenerations } = get();
-        const updatedGenerations = iaGenerations.filter(
-          (gen) => gen.generationId !== generationId
-        );
-        set({ iaGenerations: updatedGenerations });
+      clearSelectedGeneration: (): void => {
+        set({ currentIaGeneration: null });
       },
-
       setGenerationStep(
         generationId: string,
         stepId: GenerationStepNameType
@@ -117,29 +114,6 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           currentStep || generation.steps[0],
           {}
         );
-      },
-      clearSelectedGeneration: (): void => {
-        set({ currentIaGeneration: null });
-      },
-      reinitGeneration: (generationId: string): void => {
-        const { iaGenerations } = get();
-        const updatedGenerations = iaGenerations.map((generation) => {
-          if (generation.generationId === generationId) {
-            const updatedSteps = generation.steps.map((step) => ({
-              ...step,
-              completed: false,
-            }));
-            return {
-              ...generation,
-              generationCompleted: false,
-              steps: updatedSteps,
-              currentStep: updatedSteps[0],
-              data: initialGenerationData,
-            };
-          }
-          return generation;
-        });
-        set({ iaGenerations: updatedGenerations });
       },
       createAndSelectNewGeneration: (): void => {
         const {
@@ -204,6 +178,94 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
 
         getIaGeneration(currentIaGeneration.generationId);
       },
+
+      /** Selection mode actions */
+      selectAllGenerations: (
+        updateSelectedItems: (selectedItems: number) => void
+      ): void => {
+        set(({ iaGenerations }) => {
+          const updated: IaGeneration[] = [...iaGenerations];
+          updateSelectedItems(updated.length);
+          return { selectedGenerations: updated };
+        });
+      },
+      selectGeneration: (
+        generation: IaGeneration,
+        updateSelectedItems: (selectedItems: number) => void
+      ): void => {
+        set(({ selectedGenerations }) => {
+          const updated = [...selectedGenerations, generation];
+          updateSelectedItems(updated.length);
+          return {
+            selectedGenerations: updated,
+          };
+        });
+      },
+      unselectGeneration: (
+        generationId: string,
+        updateSelectedItems: (selectedItems: number) => void
+      ): void => {
+        const { selectedGenerations } = get();
+        const updatedSelectedGenerations = selectedGenerations.filter(
+          (g) => g.generationId !== generationId
+        );
+        updateSelectedItems(updatedSelectedGenerations.length);
+        set({ selectedGenerations: updatedSelectedGenerations });
+      },
+      deleteIaGeneration: (generationId: string): void => {
+        const { iaGenerations } = get();
+        const updatedGenerations = iaGenerations.filter(
+          (gen) => gen.generationId !== generationId
+        );
+        set({ iaGenerations: updatedGenerations });
+      },
+      deleteSelectedGenerations: (disableSelectionMode: () => void): void => {
+        const { selectedGenerations, deleteIaGeneration } = get();
+        selectedGenerations.forEach((selectedGeneration) => {
+          deleteIaGeneration(selectedGeneration.generationId);
+        });
+        disableSelectionMode();
+        set({ selectedGenerations: [] });
+      },
+      clearSelectionList: (
+        updateSelectedItems: (selectedItems: number) => void
+      ): void => {
+        set(() => {
+          const updated: IaGeneration[] = [];
+          updateSelectedItems(updated.length);
+          return { selectedGenerations: updated };
+        });
+      },
+      reinitGeneration: (generationId: string): void => {
+        const { iaGenerations } = get();
+        const updatedGenerations = iaGenerations.map((generation) => {
+          if (generation.generationId === generationId) {
+            const updatedSteps = generation.steps.map((step) => ({
+              ...step,
+              completed: false,
+            }));
+            return {
+              ...generation,
+              generationCompleted: false,
+              steps: updatedSteps,
+              currentStep: updatedSteps[0],
+              data: initialGenerationData,
+            };
+          }
+          return generation;
+        });
+        set({ iaGenerations: updatedGenerations });
+      },
+      reinitSelectedGenerations: (disableSelectionMode: () => void): void => {
+        const { selectedGenerations, reinitGeneration } = get();
+        selectedGenerations.forEach((selectedGeneration) => {
+          reinitGeneration(selectedGeneration.generationId);
+        });
+        disableSelectionMode();
+        set({ selectedGenerations: [] });
+      },
+
+      /** Generation Actions */
       executeIaGeneration: async (
         canGenerate,
         genCallback,

@@ -26,15 +26,13 @@ import { DropdownOptionList, PopUp } from "@/shared/components/organims";
 import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
-  const { data: userProfile, isLoading } = useUserProfileQuery();
+  const { userProfile, isLoading } = useUserProfileQuery();
 
   const { updatePreferences } = useUpdatePreferences();
   const { syncUserProfile, isPending } = useUserSyncMutation();
 
   const frecuencyPopUp = useAnimatedPopUp();
   const languagePopUp = useAnimatedPopUp();
-
-  // useEmitUserProfileUpdated(isSuccess, userProfile);
 
   const preferences = getFormattedPreferences(userProfile);
 

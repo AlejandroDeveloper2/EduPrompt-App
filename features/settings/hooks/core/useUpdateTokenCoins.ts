@@ -1,16 +1,20 @@
 import { eventBus } from "@/core/events/EventBus";
 
+import { UserStats } from "../../types";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useQueryClient } from "@tanstack/react-query";
 import { useUpdateTokenCoinsMutation } from "../mutations";
-import { useUserProfileQuery } from "../queries";
 import { useUserOfflineStore } from "../store";
 
 const useUpdateTokenCoins = () => {
+  const queryClient = useQueryClient();
+
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { data } = useUserProfileQuery();
+  const userProfile = queryClient.getQueryData<UserStats>(["user_profile"]);
 
   /** Offline */
   const {
@@ -38,9 +42,9 @@ const useUpdateTokenCoins = () => {
       /** Actualización online */
       if (isConnected && isAuthenticated) {
         eventBus.emit("userProfile.updateTokeUserCoins.started", undefined);
-        const totalUpdateAmount: number = data
+        const totalUpdateAmount: number = userProfile
           ? userStats.tokenCoins === 0
-            ? data.tokenCoins + updatedTokenAmount
+            ? userProfile.tokenCoins + updatedTokenAmount
             : updatedTokenAmount
           : updatedTokenAmount;
 

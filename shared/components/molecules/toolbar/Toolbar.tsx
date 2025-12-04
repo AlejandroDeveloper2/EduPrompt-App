@@ -2,6 +2,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
+import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useAnimatedToolbar } from "../../../hooks/animations";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
@@ -9,19 +10,20 @@ import { Ionicon, Typography } from "../../atoms";
 
 import { ToolbarStyle } from "./ToolBar.style";
 
-interface ToolbarProps {
-  selectionMode: boolean;
-  onHidden: () => void;
-  toggleSelectionMode: () => void;
-}
-
-const Toolbar = ({
-  selectionMode,
-  onHidden,
-  toggleSelectionMode,
-}: ToolbarProps) => {
+const Toolbar = () => {
   const size = useScreenDimensionsStore();
-  const animatedTranslate = useAnimatedToolbar(selectionMode, onHidden);
+  const {
+    selectionMode,
+    selectedItems,
+    allSelected,
+    disableSelectionMode,
+    toggleSelectAll,
+  } = useSelectionModeContext();
+
+  const animatedTranslate = useAnimatedToolbar(
+    selectionMode,
+    disableSelectionMode
+  );
 
   return (
     <Animated.View style={[ToolbarStyle(size).Container, animatedTranslate]}>
@@ -29,10 +31,10 @@ const Toolbar = ({
         name="close-outline"
         size={size === "mobile" ? 20 : 24}
         color={AppColors.neutral[1000]}
-        onPress={toggleSelectionMode}
+        onPress={disableSelectionMode}
       />
       <Typography
-        text="Recursos seleccionados (2)"
+        text={`Elementos seleccionados (${selectedItems})`}
         weight="regular"
         type="button"
         textAlign="center"
@@ -42,7 +44,8 @@ const Toolbar = ({
       <Ionicon
         name="list-outline"
         size={size === "mobile" ? 20 : 24}
-        color={AppColors.neutral[1000]}
+        color={allSelected ? AppColors.primary[400] : AppColors.neutral[1000]}
+        onPress={toggleSelectAll}
       />
     </Animated.View>
   );

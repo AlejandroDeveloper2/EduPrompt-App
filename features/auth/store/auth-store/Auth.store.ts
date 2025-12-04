@@ -1,12 +1,11 @@
 import * as SecureStorage from "expo-secure-store";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 import { AuthStoreType, StoreState } from "./store-types";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
-//TODO: implementar manejo de tokens y refresh tokens en el store de auth
 export const AuthStore = create<AuthStoreType>()(
   persist<AuthStoreType, [], [], StoreState>(
     (set) => ({
@@ -21,7 +20,8 @@ export const AuthStore = create<AuthStoreType>()(
           refreshToken,
         });
       },
-      clearAuthTokens: (): void => {
+      clearAuthTokens: async (): Promise<void> => {
+        await SecureStorage.deleteItemAsync(ASYNC_STORAGE_KEYS.auth);
         set({
           isAuthenticated: false,
           token: null,
@@ -31,7 +31,7 @@ export const AuthStore = create<AuthStoreType>()(
     }),
     {
       name: ASYNC_STORAGE_KEYS.auth,
-      storage: {
+      storage: createJSONStorage(() => ({
         getItem: async (name) => {
           const value = await SecureStorage.getItemAsync(name);
           return value ? JSON.parse(value) : null;
@@ -42,7 +42,7 @@ export const AuthStore = create<AuthStoreType>()(
         removeItem: async (name) => {
           await SecureStorage.deleteItemAsync(name);
         },
-      },
+      })),
       partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         token: state.token,
