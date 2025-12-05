@@ -10,8 +10,9 @@ import {
 } from "../core";
 
 const useUserEventListener = () => {
-  const { updatePreferences } = useUpdatePreferences();
   const { updateTokenCoins } = useUpdateTokenCoins();
+  const { updatePreferences } = useUpdatePreferences();
+
   const { updateAccountType } = useUpdateAccountType();
 
   useEffect(() => {

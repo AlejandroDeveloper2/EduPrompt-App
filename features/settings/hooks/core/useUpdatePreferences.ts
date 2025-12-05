@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import { UserPreferences } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
@@ -15,8 +17,8 @@ const useUpdatePreferences = () => {
   /** Online */
   const { mutate } = useUpdatePreferencesMutation();
 
-  return {
-    updatePreferences: (userPreferences: Partial<UserPreferences>): void => {
+  const updatePreferences = useCallback(
+    (userPreferences: Partial<UserPreferences>) => {
       /** Actualización offline inmediata */
       updateLocalUserPreferences(userPreferences, false);
 
@@ -26,6 +28,18 @@ const useUpdatePreferences = () => {
         markAsSynced();
       }
     },
+    [
+      isAuthenticated,
+      isConnected,
+      markAsSynced,
+      mutate,
+      updateLocalUserPreferences,
+    ]
+  );
+
+  return {
+    updatePreferences,
   };
 };
+
 export default useUpdatePreferences;

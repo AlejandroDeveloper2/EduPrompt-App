@@ -10,14 +10,19 @@ import { CheckboxStyle } from "./Checkbox.style";
 
 interface CheckboxProps {
   checked: boolean;
+  disabled?: boolean;
   onCheck: () => void;
 }
 
-const Checkbox = ({ checked, onCheck }: CheckboxProps) => {
+const Checkbox = ({ checked, onCheck, disabled }: CheckboxProps) => {
   const size = useScreenDimensionsStore();
 
   return (
-    <Pressable onPress={onCheck} style={CheckboxStyle(size, checked).checkbox}>
+    <Pressable
+      disabled={disabled}
+      onPress={onCheck}
+      style={CheckboxStyle(size, checked, disabled).checkbox}
+    >
       {checked && (
         <Ionicon name="checkmark" size={20} color={AppColors.neutral[1000]} />
       )}

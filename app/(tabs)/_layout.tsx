@@ -3,23 +3,23 @@ import { Drawer } from "expo-router/drawer";
 
 import { AppColors } from "@/shared/styles";
 
-/** Listeners */
-import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners";
+/** Stores */
+import { useScreenDimensionsStore } from "@/shared/hooks/store";
+
+/** Contextos */
+import { useSelectionModeContext } from "@/shared/hooks/context";
 
 /** Queries */
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
+
+/** Listeners */
+import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners";
 
 /** Jobs */
 import {
   useBlockBackWhenSelection,
   useDailyRewardJob,
 } from "@/shared/hooks/core";
-
-/** Stores */
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
-
-/** Contextos */
-import { useSelectionModeContext } from "@/shared/hooks/context";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
 import {
@@ -33,16 +33,17 @@ export default function TabLayout() {
 
   const { actions } = useSelectionModeContext();
 
-  useBlockBackWhenSelection();
-
   /** Cargar perifl de usuario */
   useUserProfileQuery();
+
+  /** Listener para escuchar los cambios en las estadisticas del panel de control */
+  useDashboardEventListeners();
 
   /** Job de recompenza diaria al ingresar al panel principal de la app */
   useDailyRewardJob();
 
-  /** Listener para escuchar los cambios en las estadisticas del panel de control */
-  useDashboardEventListeners();
+  /** Detectar el back swipe del usuario */
+  useBlockBackWhenSelection();
 
   if (size === "laptop")
     return (

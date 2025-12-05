@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdateAccountTypeMutation } from "../mutations";
@@ -13,8 +15,8 @@ const useUpdateAccountType = () => {
   /** Online */
   const { mutate } = useUpdateAccountTypeMutation();
 
-  return {
-    updateAccountType: (isPremiumUser: boolean): void => {
+  const updateAccountType = useCallback(
+    (isPremiumUser: boolean) => {
       /** Actualización offline inmediata */
       updateLocalAccountType(isPremiumUser, false);
 
@@ -24,6 +26,11 @@ const useUpdateAccountType = () => {
         markAsSynced();
       }
     },
+    [isAuthenticated, isConnected, markAsSynced, mutate, updateLocalAccountType]
+  );
+
+  return {
+    updateAccountType,
   };
 };
 

@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { Indicator } from "../../types";
 
@@ -57,15 +56,18 @@ const useSyncIndicatorsMutation = () => {
         mutation.mutate(indicators);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfile, indicators, isConnected, isAuthenticated]);
+
+  const syncIndicators = useCallback(() => {
+    syncData(isConnected, isAuthenticated, indicators.sync, () => {
+      mutation.mutate(indicators);
+    });
+  }, [indicators, isAuthenticated, isConnected, mutation]);
 
   return {
     ...mutation,
-    syncIndicators: () => {
-      syncData(isConnected, isAuthenticated, indicators.sync, () => {
-        mutation.mutate(indicators);
-      });
-    },
+    syncIndicators,
   };
 };
 

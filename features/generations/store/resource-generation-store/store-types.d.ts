@@ -36,7 +36,6 @@ export interface ResourceGenerationStoreType {
   unselectGeneration: (generationId: string) => void;
   deleteSelectedGenerations: (disableSelectionMode: () => void) => void;
   deleteIaGeneration: (generationId: string) => void;
-  reinitGeneration: (generationId: string) => void;
   reinitSelectedGenerations: (disableSelectionMode: () => void) => void;
   clearSelectionList: () => void;
 

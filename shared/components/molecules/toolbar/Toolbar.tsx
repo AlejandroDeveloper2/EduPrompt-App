@@ -1,6 +1,6 @@
 import Animated from "react-native-reanimated";
 
-import { AppColors } from "../../../styles";
+import { AppColors, Spacing } from "../../../styles";
 
 import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -30,7 +30,10 @@ const Toolbar = () => {
 
   return (
     <Animated.View style={[ToolbarStyle(size).Container, animatedTranslate]}>
-      <Pressable onPress={disableSelectionMode}>
+      <Pressable
+        style={{ padding: Spacing.spacing_sm }}
+        onPress={disableSelectionMode}
+      >
         <Ionicon
           name="close-outline"
           size={size === "mobile" ? 24 : 32}
@@ -46,7 +49,10 @@ const Toolbar = () => {
         color={AppColors.neutral[1000]}
         width="auto"
       />
-      <Pressable onPress={toggleSelectAll}>
+      <Pressable
+        style={{ padding: Spacing.spacing_sm }}
+        onPress={toggleSelectAll}
+      >
         <Ionicon
           name="list-outline"
           size={size === "mobile" ? 24 : 32}

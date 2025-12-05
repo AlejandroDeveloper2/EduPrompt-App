@@ -1,10 +1,12 @@
+import { useQueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
+
 import { eventBus } from "@/core/events/EventBus";
 
 import { UserStats } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useQueryClient } from "@tanstack/react-query";
 import { useUpdateTokenCoinsMutation } from "../mutations";
 import { useUserOfflineStore } from "../store";
 
@@ -27,21 +29,17 @@ const useUpdateTokenCoins = () => {
   /** Online */
   const { mutate } = useUpdateTokenCoinsMutation();
 
-  return {
-    updateTokenCoins: (config: {
-      amount: number;
-      mode: "add" | "substract";
-    }): void => {
-      /** Actualización offline inmediata */
+  const updateTokenCoins = useCallback(
+    (config: { amount: number; mode: "add" | "substract" }) => {
       let updatedTokenAmount: number;
 
       if (config.mode === "add")
         updatedTokenAmount = addLocalTokenCoins(config.amount, false);
       else updatedTokenAmount = subtractLocalTokenCoins(config.amount, false);
 
-      /** Actualización online */
       if (isConnected && isAuthenticated) {
         eventBus.emit("userProfile.updateTokeUserCoins.started", undefined);
+
         const totalUpdateAmount: number = userProfile
           ? userStats.tokenCoins === 0
             ? userProfile.tokenCoins + updatedTokenAmount
@@ -61,10 +59,22 @@ const useUpdateTokenCoins = () => {
             });
           },
         });
+
         markAsSynced();
       }
     },
-  };
+    [
+      addLocalTokenCoins,
+      subtractLocalTokenCoins,
+      markAsSynced,
+      userProfile,
+      userStats,
+      mutate,
+      isConnected,
+      isAuthenticated,
+    ]
+  );
+  return { updateTokenCoins };
 };
 
 export default useUpdateTokenCoins;

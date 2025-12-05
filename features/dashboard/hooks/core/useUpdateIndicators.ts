@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 import { Indicator } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
@@ -15,9 +17,8 @@ const useUpdateIndicators = () => {
   /** Online */
   const { mutate, isPending } = useUpdateIndicatorsMutation();
 
-  return {
-    isPending,
-    updateIndicators: (indicators: Partial<Indicator>) => {
+  const updateIndicators = useCallback(
+    (indicators: Partial<Indicator>) => {
       /** Actualización inmediata offline */
       setIndicators({ ...indicators, sync: false });
 
@@ -27,6 +28,12 @@ const useUpdateIndicators = () => {
         setIndicators({ ...indicators, sync: true });
       }
     },
+    [isAuthenticated, isConnected, mutate, setIndicators]
+  );
+
+  return {
+    isPending,
+    updateIndicators,
   };
 };
 

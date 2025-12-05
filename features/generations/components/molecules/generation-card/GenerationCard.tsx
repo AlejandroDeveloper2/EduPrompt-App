@@ -79,7 +79,11 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
           icon="text-outline"
         />
         <View style={generationCardStyle.CardActions}>
-          <Checkbox checked={data.isSelected} onCheck={handleSelectElement} />
+          <Checkbox
+            checked={data.isSelected}
+            disabled={!data.canDelete}
+            onCheck={handleSelectElement}
+          />
         </View>
       </View>
       <View style={generationCardStyle.CardBody}>

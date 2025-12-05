@@ -239,13 +239,14 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         set({ iaGenerations: updatedGenerations });
       },
       deleteSelectedGenerations: (disableSelectionMode: () => void): void => {
-        const { iaGenerations, deleteIaGeneration } = get();
+        const { iaGenerations } = get();
 
-        iaGenerations.forEach((generation) => {
-          if (generation.isSelected)
-            deleteIaGeneration(generation.generationId);
-        });
+        const updated = iaGenerations.filter((g) => !g.isSelected);
+
+        set({ iaGenerations: updated });
+
         disableSelectionMode();
+
         eventBus.emit("selectionMode.selectedElements.updated", 0);
       },
       clearSelectionList: (): void => {
@@ -258,31 +259,22 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           return { iaGenerations: updated };
         });
       },
-      reinitGeneration: (generationId: string): void => {
-        const { iaGenerations } = get();
-        const updatedGenerations = iaGenerations.map((generation) => {
-          if (generation.generationId === generationId) {
-            const updatedSteps = generation.steps.map((step) => ({
-              ...step,
-              completed: false,
-            }));
-            return {
-              ...generation,
-              generationCompleted: false,
-              steps: updatedSteps,
-              currentStep: updatedSteps[0],
-              data: initialGenerationData,
-            };
-          }
-          return generation;
-        });
-        set({ iaGenerations: updatedGenerations });
-      },
       reinitSelectedGenerations: (disableSelectionMode: () => void): void => {
-        const { iaGenerations, reinitGeneration } = get();
-        iaGenerations.forEach((generation) => {
-          if (generation.isSelected) reinitGeneration(generation.generationId);
+        const { iaGenerations } = get();
+        const updated = iaGenerations.map((generation) => {
+          const updatedSteps = generation.steps.map((step) => ({
+            ...step,
+            completed: false,
+          }));
+          return {
+            ...generation,
+            generationCompleted: false,
+            steps: updatedSteps,
+            currentStep: updatedSteps[0],
+            data: initialGenerationData,
+          };
         });
+        set({ iaGenerations: updated });
         disableSelectionMode();
       },
 
