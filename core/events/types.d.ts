@@ -47,6 +47,7 @@ interface Notification {
   creationDate: Date;
   message: string;
   read: boolean;
+  isSelected: boolean;
 }
 
 interface SystemNotification extends Notification {

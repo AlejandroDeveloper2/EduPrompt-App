@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
 import { Order } from "../../types";
 
+import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useLoading } from "@/shared/hooks/core";
 import { useUserNotificationsStore } from "../store";
 
@@ -10,10 +12,19 @@ const useLoadUserNotifications = () => {
   const { isLoading, message, toggleLoading } = useLoading();
 
   const {
+    allSelected,
+    selectionMode,
+    enableAllSelection,
+    disableAllSelection,
+  } = useSelectionModeContext();
+
+  const {
     notifications,
     getAllNotifications,
     removeOneNotification,
     markAllNotificationsAsRead,
+    clearSelectionList,
+    selectAllNotifications,
   } = useUserNotificationsStore();
 
   const updateFilter = (updatedFilter: Order): void => {
@@ -27,13 +38,26 @@ const useLoadUserNotifications = () => {
       toggleLoading(false, null);
     };
     loadNotifications();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   useEffect(() => {
     if (notifications.length > 0) markAllNotificationsAsRead();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications.length]);
+
+  useEffect(() => {
+    if (!selectionMode) clearSelectionList();
+  }, [selectionMode]);
+
+  useEffect(() => {
+    if (allSelected) selectAllNotifications();
+    else if (!allSelected && notifications.every((n) => n.isSelected))
+      clearSelectionList();
+  }, [allSelected]);
+
+  useEffect(() => {
+    if (notifications.every((n) => n.isSelected)) enableAllSelection();
+    else disableAllSelection();
+  }, [notifications]);
 
   return {
     isLoading,

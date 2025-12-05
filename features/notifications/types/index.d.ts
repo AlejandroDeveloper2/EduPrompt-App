@@ -11,9 +11,10 @@ interface Notification {
   creationDate: Date;
   message: string;
   read: boolean;
+  isSelected: boolean;
 }
 
-interface SystemNotification extends Notification {
+interface SystemNotification extends Omit<Notification, "isSelected"> {
   links?: NotificationLink[];
 }
 

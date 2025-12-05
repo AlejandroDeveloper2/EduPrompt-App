@@ -1,16 +1,21 @@
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
+import { SELECTION_MODE_ACTIONS } from "@/features/notifications/constants";
 import { AppColors } from "@/shared/styles";
 
 import { NotificationLink } from "@/features/notifications/types";
 
-import { openExternalLink } from "@/features/notifications/helpers";
+import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
+import { useUserNotificationsStore } from "@/features/notifications/hooks/store";
+import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import { Badge, Ionicon, Typography } from "@/shared/components/atoms";
+import { openExternalLink } from "@/features/notifications/helpers";
 
-import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
+import { Badge, Checkbox, Typography } from "@/shared/components/atoms";
+
 import { NotificationCardStyle } from "./NotificationCard.style";
 
 interface NotificationCardProps {
@@ -19,7 +24,8 @@ interface NotificationCardProps {
   notificationDate: Date;
   message: string;
   links?: NotificationLink[];
-  onDeleteNotification?: () => void;
+  isSelected: boolean;
+  canSelect?: boolean;
 }
 
 const NotificationCard = ({
@@ -28,15 +34,43 @@ const NotificationCard = ({
   notificationDate,
   message,
   links,
-  onDeleteNotification,
+  isSelected,
+  canSelect,
 }: NotificationCardProps) => {
   const size = useScreenDimensionsStore();
-  const notificationCardStyle = NotificationCardStyle(size);
+
+  const animatedCardStyle = useAnimatedCard(isSelected);
 
   const { isNew, formattedDate } = useCheckIsNewNotification(notificationDate);
 
+  const {
+    deleteSelectedNotifications,
+    selectNotification,
+    unselectNotification,
+  } = useUserNotificationsStore();
+
+  const { enableSelectionMode, disableSelectionMode } =
+    useSelectionModeContext();
+
+  const handleSelectElement = (): void => {
+    if (!isSelected) {
+      selectNotification(notificationId);
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(() =>
+          deleteSelectedNotifications(disableSelectionMode)
+        )
+      );
+    } else {
+      unselectNotification(notificationId);
+    }
+  };
+
+  const notificationCardStyle = NotificationCardStyle(size);
+
   return (
-    <Animated.View style={[notificationCardStyle.NotificationContainer]}>
+    <Animated.View
+      style={[notificationCardStyle.NotificationContainer, animatedCardStyle]}
+    >
       <View style={notificationCardStyle.Header}>
         <View style={notificationCardStyle.TitleContainer}>
           <View style={{ flex: 1 }}>
@@ -50,15 +84,10 @@ const NotificationCard = ({
               icon="notifications-outline"
             />
           </View>
-          <View style={[notificationCardStyle.Tools, { flex: 0.3 }]}>
+          <View style={[notificationCardStyle.Tools]}>
             {isNew && <Badge label="Nuevo" variant="primary" />}
-            {onDeleteNotification && (
-              <Ionicon
-                name="close-outline"
-                size={20}
-                color={AppColors.neutral[700]}
-                onPress={onDeleteNotification}
-              />
+            {canSelect && (
+              <Checkbox checked={isSelected} onCheck={handleSelectElement} />
             )}
           </View>
         </View>

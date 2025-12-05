@@ -98,7 +98,11 @@ const SystemNotificationsList = () => {
       maxToRenderPerBatch={10}
       numColumns={size === "laptop" ? 2 : 1}
       renderItem={({ item }) => (
-        <NotificationCard {...item} notificationDate={item.creationDate} />
+        <NotificationCard
+          {...item}
+          notificationDate={item.creationDate}
+          isSelected={false}
+        />
       )}
       keyExtractor={(item) => item.notificationId}
       ListHeaderComponent={

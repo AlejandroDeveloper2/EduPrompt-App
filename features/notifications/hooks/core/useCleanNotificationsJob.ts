@@ -44,14 +44,14 @@ const useCleanNotificationsJob = () => {
     removeAllNotifications();
     if (userProfile)
       eventBus.emit("userProfile.updateUserPreferences.requested", {
-        ...userProfile?.userPreferences,
+        ...userProfile.userPreferences,
         lastCleanAt: new Date().toISOString(),
       });
   };
 
   useEffect(() => {
     (async () => {
-      if (userProfile?.userPreferences?.autoCleanNotifications) {
+      if (userProfile && userProfile.userPreferences.autoCleanNotifications) {
         const frecuency = userProfile.userPreferences.cleanFrecuency
           ? parseInt(
               userProfile.userPreferences.cleanFrecuency.split("-")[0] ?? 2

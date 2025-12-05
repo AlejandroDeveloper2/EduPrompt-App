@@ -68,14 +68,8 @@ const NotificationListHeader = ({
 
 const NotificationList = () => {
   const size = useScreenDimensionsStore();
-  const {
-    isLoading,
-    loadingMessage,
-    updateFilter,
-    notifications,
-    filter,
-    removeOneNotification,
-  } = useLoadUserNotifications();
+  const { isLoading, loadingMessage, updateFilter, notifications, filter } =
+    useLoadUserNotifications();
 
   const notificationListStyle = NotificationListStyle(size);
 
@@ -93,9 +87,7 @@ const NotificationList = () => {
         <NotificationCard
           {...item}
           notificationDate={item.creationDate}
-          onDeleteNotification={() =>
-            removeOneNotification(item.notificationId)
-          }
+          canSelect
         />
       )}
       keyExtractor={(item) => item.notificationId}
