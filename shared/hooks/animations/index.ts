@@ -1,5 +1,6 @@
 export { default as useAnimatedButton } from "./useAnimatedButton";
 export { default as useAnimatedCard } from "./useAnimatedCard";
+export { default as useAnimatedFloatMenu } from "./useAnimatedFloatMenu";
 export { default as useAnimatedInput } from "./useAnimatedInput";
 export { default as useAnimatedNavItem } from "./useAnimatedNavItem";
 export { default as useAnimatedPopUp } from "./useAnimatedPopUp";

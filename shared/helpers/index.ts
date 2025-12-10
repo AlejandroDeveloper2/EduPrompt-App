@@ -6,6 +6,7 @@ export * from "./getButtonBackground";
 export * from "./getButtonColorLabel";
 export * from "./getFontFamily";
 export * from "./getIsSelectedOption";
+export * from "./getMainNavigationRoutes";
 export * from "./getSubprocessIcon";
 export * from "./getToastIcon";
 export * from "./renderHtmlPdf";

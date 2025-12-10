@@ -1,6 +1,7 @@
 export { default as Alert } from "./alert/Alert";
 export { default as BackgroundProcessPanel } from "./background-process-panel/BackgroundProcessPanel";
 export { default as DropdownOptionList } from "./dropdown-option-list/DropdownOptionList";
+export { default as FloatMenu } from "./float-menu/FloatMenu";
 export { default as Form } from "./form/Form";
 export { default as Header } from "./header/Header";
 export { default as Loader } from "./loader/Loader";

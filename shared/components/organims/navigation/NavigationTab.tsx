@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { NavigationPropsBase } from "@/core/types";
 
-import { getActiveNavItem } from "../../../helpers";
+import { getActiveNavItem, getMainNavigationRoutes } from "../../../helpers";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 import { renderNavItem } from "../../../utils";
 
@@ -27,8 +27,9 @@ const NavigationTab = ({
 
   const navigationStyle = NavigationStyle(size, insets);
 
-  const firstItemsSlice = [state.routes[0], state.routes[4]];
-  const secondItemsSlice = [state.routes[6], state.routes[1]];
+  const { firstItemsSlice, secondItemsSlice, centerItemsSlice } =
+    getMainNavigationRoutes(state.routes);
+
   const isActionsVisible = actions.length > 0;
 
   return (
@@ -48,8 +49,8 @@ const NavigationTab = ({
             })}
           </View>
           <GenerateButton
-            active={getActiveNavItem(state.routes[2], state)}
-            onPress={() => navigation.navigate(state.routes[2].name)}
+            active={getActiveNavItem(centerItemsSlice[0], state)}
+            onPress={() => navigation.navigate(centerItemsSlice[0].name)}
           />
           <View style={navigationStyle.NavSlice}>
             {secondItemsSlice.map((navOption, index) => {

@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { NavigationPropsBase } from "@/core/types";
 
-import { getActiveDrawerItem } from "../../../helpers";
+import { getActiveDrawerItem, getMainNavigationRoutes } from "../../../helpers";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 import { renderDrawerItem } from "../../../utils";
 
@@ -27,8 +27,8 @@ const NavigationDrawer = ({
 
   const navigationStyle = NavigationStyle(size, insets);
 
-  const firstItemsSlice = [state.routes[0], state.routes[4]];
-  const secondItemsSlice = [state.routes[6], state.routes[1]];
+  const { firstItemsSlice, secondItemsSlice, centerItemsSlice } =
+    getMainNavigationRoutes(state.routes);
 
   const isActionsVisible = actions.length > 0;
 
@@ -49,8 +49,8 @@ const NavigationDrawer = ({
             })}
           </View>
           <GenerateButton
-            active={getActiveDrawerItem(state.routes[2], state)}
-            onPress={() => navigation.navigate(state.routes[2].name)}
+            active={getActiveDrawerItem(centerItemsSlice[0], state)}
+            onPress={() => navigation.navigate(centerItemsSlice[0].name)}
           />
           <View style={navigationStyle.NavSlice}>
             {secondItemsSlice.map((navOption, index) => {

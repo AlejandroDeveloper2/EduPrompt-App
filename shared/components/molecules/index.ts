@@ -3,6 +3,7 @@ export { default as DropdownOption } from "./dropdown-option/DropdownOption";
 export { default as Dropdown } from "./dropdown/Dropdown";
 export { default as Empty } from "./empty/Empty";
 export { default as FilterTag } from "./filter-tag/FilterTag";
+export { default as FloatMenuItem } from "./float-menu-item/FloatMenuItem";
 export { default as GenerateButton } from "./generate-button/GenerateButton";
 export { default as InfoCard } from "./info-card/InfoCard";
 export { default as InputCode } from "./input-code/InputCode";
