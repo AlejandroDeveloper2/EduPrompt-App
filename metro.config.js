@@ -11,4 +11,6 @@ config.resolver.alias = {
   "@": path.resolve(__dirname),
 };
 
+config.resolver.sourceExts.push("sql");
+
 module.exports = config;

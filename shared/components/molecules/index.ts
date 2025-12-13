@@ -9,6 +9,7 @@ export { default as InfoCard } from "./info-card/InfoCard";
 export { default as InputCode } from "./input-code/InputCode";
 export { default as Input, InputProps } from "./input/Input";
 export { default as LoadingTextIndicator } from "./loading-text-indicator/LoadingTextIndicator";
+export { default as MultiOptionInput } from "./multi-option-input/MultiOptionInput";
 export { default as NavItem } from "./nav-item/NavItem";
 export { default as NoConnectionIndicator } from "./no-connection-indicator/NoConnectionIndicator";
 export { default as ProgressBar } from "./progress-bar/ProgressBar";

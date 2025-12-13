@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import {
   Outfit_300Light,
   Outfit_400Regular,
@@ -7,10 +5,17 @@ import {
   Outfit_700Bold,
   useFonts,
 } from "@expo-google-fonts/outfit";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import { useEffect } from "react";
+
+import { db } from "@/core/config/db/drizzleClient";
+import migrations from "@/drizzle/migrations";
 
 import { setupNotificationChannel, setupNotifications } from "@/shared/utils";
 
 const useSetupApp = () => {
+  const { success, error } = useMigrations(db, migrations);
+
   const [loaded] = useFonts({
     Outfit_700Bold,
     Outfit_500Medium,
@@ -19,12 +24,12 @@ const useSetupApp = () => {
   });
 
   useEffect(() => {
-    /** 🔔 Configurar handlers y canales cuando la app inicia */
+    /** Configurar handlers y canales cuando la app inicia */
     setupNotifications();
     setupNotificationChannel();
   }, []);
 
-  return { loaded };
+  return { loaded, db: { success, error } };
 };
 
 export default useSetupApp;

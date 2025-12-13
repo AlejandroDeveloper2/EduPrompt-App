@@ -14,6 +14,7 @@ import {
   Dropdown,
   Input,
   InputCode,
+  MultiOptionInput,
 } from "@/shared/components/molecules";
 import PromptInput from "../prompt-input/PromptInput";
 import Actions from "./form-components/Actions";
@@ -67,5 +68,6 @@ Form.InputCode = InputCode;
 Form.Button = Button;
 Form.Link = Link;
 Form.PromptInput = PromptInput;
+Form.MultiOptionInput = MultiOptionInput;
 
 export default Form as unknown as FormComponent;

@@ -219,6 +219,14 @@ interface ServerResponse<T> {
   message: string;
 }
 
+interface PaginatedResponse<T> {
+  records: T[];
+  page: number;
+  limit: number;
+  totalPages: number;
+  totalItems: number;
+}
+
 interface ServerErrorResponse {
   name: string;
   httpCode: number;
@@ -247,6 +255,7 @@ export {
   Lang,
   NavigationPropsBase,
   NavOption,
+  PaginatedResponse,
   Process,
   ProcessType,
   ProgressConfig,

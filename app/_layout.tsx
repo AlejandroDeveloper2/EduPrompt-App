@@ -5,6 +5,7 @@ import { Host } from "react-native-portalize";
 import { queryClient } from "@/core/config/reactQuery";
 
 import { SelectionModeProvider, ToastProvider } from "@/shared/context";
+import { AppColors } from "@/shared/styles";
 
 /** Listeners */
 import { useAuthEventListeners } from "@/features/auth/hooks/listeners";
@@ -20,14 +21,16 @@ import {
 /** Inicializers */
 import { useSetupApp } from "@/shared/hooks/core";
 
+import { Typography } from "@/shared/components/atoms";
+
 export default function RootLayout() {
-  const { loaded } = useSetupApp();
+  const { loaded, db } = useSetupApp();
   return (
     <Host>
       <ToastProvider>
         <SelectionModeProvider>
           <QueryClientProvider client={queryClient}>
-            <InnerApp loaded={loaded} />
+            <InnerApp loaded={loaded} db={db} />
           </QueryClientProvider>
         </SelectionModeProvider>
       </ToastProvider>
@@ -35,7 +38,13 @@ export default function RootLayout() {
   );
 }
 
-function InnerApp({ loaded }: { loaded: boolean }) {
+function InnerApp({
+  loaded,
+  db,
+}: {
+  loaded: boolean;
+  db: { success: boolean; error: Error | undefined };
+}) {
   /** Listeners de eventos con el eventBus */
   useAuthEventListeners();
 
@@ -52,6 +61,29 @@ function InnerApp({ loaded }: { loaded: boolean }) {
   useNotificationCheckerJob();
 
   if (!loaded) return null;
+
+  if (db.error)
+    return (
+      <Typography
+        text={`Error: ${db.error.message}`}
+        weight="regular"
+        type="button"
+        textAlign="center"
+        color={AppColors.danger[400]}
+        width="100%"
+      />
+    );
+  if (!db.success)
+    return (
+      <Typography
+        text="Running migrations…"
+        weight="regular"
+        type="button"
+        textAlign="center"
+        color={AppColors.neutral[1000]}
+        width="100%"
+      />
+    );
 
   return (
     <Stack screenOptions={{ headerShown: false, gestureEnabled: true }}>

@@ -1,4 +1,8 @@
 export {
+  default as MultiOptionInputContext,
+  MultiOptionInputProvider,
+} from "./multi-option-input-context/MultiOptionInputContext";
+export {
   default as SelectionModeContext,
   SelectionModeProvider,
 } from "./selection-mode-context/SelectionModeContext";

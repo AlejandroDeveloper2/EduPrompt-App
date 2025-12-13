@@ -5,6 +5,7 @@ import {
   SavePromptPayload,
   SendEmailChangePayload,
   SystemNotification,
+  Tag,
   UpdateEmailPayload,
   UpdateTokensPayload,
   UserPreferences,
@@ -81,4 +82,7 @@ export type AppEvents = {
 
   /** Eventos modo seleccion */
   "selectionMode.selectedElements.updated": number;
+
+  /** Eventos módulo de tags */
+  "tags.list.updated": Tag[];
 };

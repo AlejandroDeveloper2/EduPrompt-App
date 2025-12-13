@@ -64,6 +64,13 @@ interface SavePromptPayload {
   tag: string;
 }
 
+/** Tags */
+interface Tag {
+  tagId: string;
+  name: string;
+  type: "prompt_tag" | "resource_tag";
+}
+
 export type {
   ChangePassPayload,
   EventError,
@@ -73,6 +80,7 @@ export type {
   SavePromptPayload,
   SendEmailChangePayload,
   SystemNotification,
+  Tag,
   UpdateEmailPayload,
   UpdateTokensPayload,
   UserPreferences,

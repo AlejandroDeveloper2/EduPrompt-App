@@ -7,7 +7,7 @@ const useSelectionModeContext = () => {
 
   if (!context)
     throw new Error(
-      "Extas accidiendo al contexto de Mode selección por fuera del provider"
+      "Estas accidiendo al contexto de Mode selección por fuera del provider"
     );
   return context;
 };
