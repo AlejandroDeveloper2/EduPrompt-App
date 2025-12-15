@@ -1,1 +1,0 @@
-ALTER TABLE `tags` ADD `sync` text DEFAULT 'false';

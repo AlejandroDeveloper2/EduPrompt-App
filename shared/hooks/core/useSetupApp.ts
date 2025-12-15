@@ -9,7 +9,7 @@ import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import { useEffect } from "react";
 
 import { db } from "@/core/config/db/drizzleClient";
-import migrations from "@/drizzle/migrations";
+import migrations from "@/core/config/db/migrations/migrations";
 
 import { setupNotificationChannel, setupNotifications } from "@/shared/utils";
 

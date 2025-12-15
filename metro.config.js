@@ -7,10 +7,10 @@ const config = getDefaultConfig(__dirname);
 
 config.resolver.assetExts.push("png", "jpg", "jpeg", "gif", "webp", "svg");
 
+config.resolver.sourceExts.push("sql");
+
 config.resolver.alias = {
   "@": path.resolve(__dirname),
 };
-
-config.resolver.sourceExts.push("sql");
 
 module.exports = config;
