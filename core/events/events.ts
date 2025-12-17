@@ -82,6 +82,7 @@ export type AppEvents = {
 
   /** Eventos modo seleccion */
   "selectionMode.selectedElements.updated": number;
+  "selectionMode.isAllSelected.updated": boolean;
 
   /** Eventos módulo de tags */
   "tags.list.updated": Tag[];

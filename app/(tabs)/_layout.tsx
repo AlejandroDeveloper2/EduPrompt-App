@@ -4,10 +4,10 @@ import { Drawer } from "expo-router/drawer";
 import { AppColors } from "@/shared/styles";
 
 /** Stores */
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
-
-/** Contextos */
-import { useSelectionModeContext } from "@/shared/hooks/context";
+import {
+  useScreenDimensionsStore,
+  useSelectionModeStore,
+} from "@/shared/hooks/store";
 
 /** Queries */
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
@@ -31,7 +31,7 @@ import {
 export default function TabLayout() {
   const size = useScreenDimensionsStore();
 
-  const { actions } = useSelectionModeContext();
+  const { actions } = useSelectionModeStore();
 
   /** Cargar perifl de usuario */
   useUserProfileQuery();

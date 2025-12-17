@@ -3,33 +3,55 @@ import { useEffect, useState } from "react";
 
 import { Order } from "../../types";
 
-import { useSelectionModeContext } from "@/shared/hooks/context";
+import { eventBus } from "@/core/events/EventBus";
 import { useLoading } from "@/shared/hooks/core";
-import { useUserNotificationsStore } from "../store";
+import { useSelectionModeStore } from "@/shared/hooks/store";
+import { SELECTION_MODE_ACTIONS } from "../../constants";
+import {
+  useNotificationsSelectionStore,
+  useUserNotificationsStore,
+} from "../store";
 
 const useLoadUserNotifications = () => {
   const [filter, setFilter] = useState<Order>("desc");
   const { isLoading, message, toggleLoading } = useLoading();
 
   const {
-    allSelected,
     selectionMode,
-    enableAllSelection,
-    disableAllSelection,
-  } = useSelectionModeContext();
+    allSelected,
+    enableSelectionMode,
+    disableSelectionMode,
+  } = useSelectionModeStore();
+  const { selectionCount, isAllSelected, clearSelection, selectAll } =
+    useNotificationsSelectionStore();
 
   const {
     notifications,
     getAllNotifications,
-    removeOneNotification,
     markAllNotificationsAsRead,
-    clearSelectionList,
-    selectAllNotifications,
+    deleteSelectedNotifications,
   } = useUserNotificationsStore();
 
   const updateFilter = (updatedFilter: Order): void => {
     setFilter(updatedFilter);
   };
+
+  /** Emitimos el cambio de elementos seleccionados */
+  useEffect(() => {
+    eventBus.emit("selectionMode.selectedElements.updated", selectionCount);
+  }, [selectionCount]);
+
+  /** Emitimos el flag para validar si se ha seleccionado todo */
+  useEffect(() => {
+    eventBus.emit("selectionMode.isAllSelected.updated", isAllSelected);
+  }, [isAllSelected]);
+
+  /** Validamos si hay elementos seleccionados */
+  useEffect(() => {
+    if (selectionCount > 0)
+      enableSelectionMode(SELECTION_MODE_ACTIONS(deleteSelectedNotifications));
+    else disableSelectionMode();
+  }, [selectionCount]);
 
   useEffect(() => {
     const loadNotifications = () => {
@@ -45,19 +67,13 @@ const useLoadUserNotifications = () => {
   }, [notifications.length]);
 
   useEffect(() => {
-    if (!selectionMode) clearSelectionList();
+    if (!selectionMode) clearSelection();
   }, [selectionMode]);
 
   useEffect(() => {
-    if (allSelected) selectAllNotifications();
-    else if (!allSelected && notifications.every((n) => n.isSelected))
-      clearSelectionList();
+    if (allSelected) selectAll(notifications.map((n) => n.notificationId));
+    else if (!allSelected && isAllSelected) clearSelection();
   }, [allSelected]);
-
-  useEffect(() => {
-    if (notifications.every((n) => n.isSelected)) enableAllSelection();
-    else disableAllSelection();
-  }, [notifications]);
 
   return {
     isLoading,
@@ -65,7 +81,6 @@ const useLoadUserNotifications = () => {
     notifications,
     filter,
     updateFilter,
-    removeOneNotification,
   };
 };
 

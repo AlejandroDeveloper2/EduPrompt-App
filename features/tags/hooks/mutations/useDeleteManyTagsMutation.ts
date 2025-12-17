@@ -4,23 +4,30 @@ import { Tag } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { deleteTag } from "../../services";
+import { deleteManyTags } from "../../services";
 
 import { generateToastKey } from "@/shared/helpers";
 
-const useDeleteTagMutation = () => {
+const useDeleteManyTagsMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteTag,
-    onMutate: async (tagId: string) => {
+    mutationFn: deleteManyTags,
+    onMutate: async (tagIds: string[]) => {
       await queryClient.cancelQueries({ queryKey: ["tags"] });
       // Obtener el estado actual
       const previousTags = queryClient.getQueryData<Tag[]>(["tags"]);
 
       // Actualizar cache de manera optimista
       if (previousTags) {
-        const updatedTags = previousTags.filter((tag) => tag.tagId !== tagId);
+        let updatedTags: Tag[] = [];
+        previousTags.forEach((tag) => {
+          const tagId = tagIds.find((id) => id === tag.tagId);
+          if (!tagId) return;
+          updatedTags = previousTags.filter(
+            (updateTag) => updateTag.tagId !== tagId
+          );
+        });
         queryClient.setQueryData(["tags"], updatedTags);
       }
 
@@ -31,7 +38,7 @@ const useDeleteTagMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Etiqueta eliminada con éxito",
+        message: "Etiquetas eliminadas con éxito",
       });
     },
     onSettled: () => {
@@ -40,4 +47,4 @@ const useDeleteTagMutation = () => {
   });
 };
 
-export default useDeleteTagMutation;
+export default useDeleteManyTagsMutation;

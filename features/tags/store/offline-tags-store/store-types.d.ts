@@ -6,16 +6,19 @@ import {
   UpdateTagPayload,
 } from "../../types";
 
-export interface StoreActions {
+export interface StoreStateProps {
   isProcessing: boolean;
   isLoading: boolean;
+}
+
+export interface StoreActions {
   createTag: (createTagPayload: CreateTagPayload) => Promise<Tag>;
   findTags: (filters: TagFilters) => Promise<PaginatedResponse<Tag>>;
   findTagById: (tagId: string) => Promise<Tag | null>;
   updateTag: (updateTagPayload: UpdateTagPayload) => Promise<Tag>;
-  deleteTag: (tagId: string) => Promise<void>;
+  deleteManyTags: () => Promise<void>;
   updateTagsSyncStatus: (sync: boolean, tagId?: string) => Promise<void>;
   findAllTags: () => Promise<Tag[]>;
 }
 
-export type OfflineTagsStoreType = StoreActions;
+export type OfflineTagsStoreType = StoreStateProps & StoreActions;

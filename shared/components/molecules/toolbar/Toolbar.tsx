@@ -1,27 +1,33 @@
+import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors, Spacing } from "../../../styles";
 
-import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useAnimatedToolbar } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import {
+  useScreenDimensionsStore,
+  useSelectionModeStore,
+} from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
-import { Pressable } from "react-native";
 import { ToolbarStyle } from "./ToolBar.style";
 
 const Toolbar = () => {
   const size = useScreenDimensionsStore();
 
-  const selectedItems = useEventbusValue(
+  const { selectionMode, disableSelectionMode, toggleSelectAll } =
+    useSelectionModeStore();
+
+  const isAllSelected: boolean = useEventbusValue(
+    "selectionMode.isAllSelected.updated",
+    false
+  );
+  const selectionCount: number = useEventbusValue(
     "selectionMode.selectedElements.updated",
     0
   );
-
-  const { selectionMode, allSelected, disableSelectionMode, toggleSelectAll } =
-    useSelectionModeContext();
 
   const animatedTranslate = useAnimatedToolbar(
     selectionMode,
@@ -42,7 +48,7 @@ const Toolbar = () => {
       </Pressable>
 
       <Typography
-        text={`Elementos seleccionados (${selectedItems})`}
+        text={`Elementos seleccionados (${selectionCount})`}
         weight="regular"
         type="button"
         textAlign="center"
@@ -51,12 +57,14 @@ const Toolbar = () => {
       />
       <Pressable
         style={{ padding: Spacing.spacing_sm }}
-        onPress={toggleSelectAll}
+        onPress={() => toggleSelectAll()}
       >
         <Ionicon
           name="list-outline"
           size={size === "mobile" ? 24 : 32}
-          color={allSelected ? AppColors.primary[400] : AppColors.neutral[1000]}
+          color={
+            isAllSelected ? AppColors.primary[400] : AppColors.neutral[1000]
+          }
         />
       </Pressable>
     </Animated.View>

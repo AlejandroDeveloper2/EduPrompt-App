@@ -2,10 +2,18 @@
 import { useEffect } from "react";
 import { FlatList } from "react-native";
 
-import { useGenerationsStore } from "@/features/generations/hooks/store";
-import { useSelectionModeContext } from "@/shared/hooks/context";
+import { eventBus } from "@/core/events/EventBus";
+import { SELECTION_MODE_ACTIONS } from "@/features/generations/constants";
+
+import {
+  useGenerationsSelectionStore,
+  useGenerationsStore,
+} from "@/features/generations/hooks/store";
 import { useSearchInput } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import {
+  useScreenDimensionsStore,
+  useSelectionModeStore,
+} from "@/shared/hooks/store";
 
 import { Button } from "@/shared/components/molecules";
 import { GenerationCard } from "../../molecules";
@@ -17,20 +25,19 @@ import { GenerationCardListStyle } from "./GenerationCardList.style";
 
 const GenerationCardList = () => {
   const size = useScreenDimensionsStore();
-
-  /** Selection mode hooks */
+  const { selectionCount, isAllSelected, clearSelection, selectAll } =
+    useGenerationsSelectionStore();
   const {
-    allSelected,
     selectionMode,
-    enableAllSelection,
-    disableAllSelection,
-  } = useSelectionModeContext();
-
+    allSelected,
+    enableSelectionMode,
+    disableSelectionMode,
+  } = useSelectionModeStore();
   const {
     iaGenerations,
     createIaGeneration,
-    clearSelectionList,
-    selectAllGenerations,
+    deleteSelectedGenerations,
+    reinitSelectedGenerations,
   } = useGenerationsStore();
 
   const {
@@ -40,20 +47,36 @@ const GenerationCardList = () => {
     onClearSearchInput,
   } = useSearchInput(iaGenerations, "title");
 
+  /** Emitimos el cambio de elementos seleccionados */
   useEffect(() => {
-    if (!selectionMode) clearSelectionList();
+    eventBus.emit("selectionMode.selectedElements.updated", selectionCount);
+  }, [selectionCount]);
+
+  /** Emitimos el flag para validar si se ha seleccionado todo */
+  useEffect(() => {
+    eventBus.emit("selectionMode.isAllSelected.updated", isAllSelected);
+  }, [isAllSelected]);
+
+  /** Validamos si hay elementos seleccionados */
+  useEffect(() => {
+    if (selectionCount > 0)
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(
+          deleteSelectedGenerations,
+          reinitSelectedGenerations
+        )
+      );
+    else disableSelectionMode();
+  }, [selectionCount]);
+
+  useEffect(() => {
+    if (!selectionMode) clearSelection();
   }, [selectionMode]);
 
   useEffect(() => {
-    if (allSelected) selectAllGenerations();
-    else if (!allSelected && iaGenerations.every((g) => g.isSelected))
-      clearSelectionList();
+    if (allSelected) selectAll(iaGenerations.map((g) => g.generationId));
+    else if (!allSelected && isAllSelected) clearSelection();
   }, [allSelected]);
-
-  useEffect(() => {
-    if (iaGenerations.every((g) => g.isSelected)) enableAllSelection();
-    else disableAllSelection();
-  }, [iaGenerations]);
 
   const generationListStyle = GenerationCardListStyle(size);
 
@@ -66,7 +89,9 @@ const GenerationCardList = () => {
       ]}
       numColumns={size === "laptop" ? 2 : 1}
       data={filteredElements}
-      renderItem={({ item }) => <GenerationCard data={item} />}
+      renderItem={({ item }) => (
+        <GenerationCard data={item} totalRecords={iaGenerations.length} />
+      )}
       showsVerticalScrollIndicator={false}
       windowSize={5}
       initialNumToRender={10}

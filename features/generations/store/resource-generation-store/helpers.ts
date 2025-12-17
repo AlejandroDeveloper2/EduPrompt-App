@@ -103,6 +103,5 @@ export const buildNewGeneration = (title: string): IaGeneration => {
     isGenerating: false,
     data: initialGenerationData,
     result: null,
-    isSelected: false,
   };
 };

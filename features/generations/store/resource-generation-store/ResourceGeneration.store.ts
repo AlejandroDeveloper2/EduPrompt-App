@@ -17,8 +17,7 @@ import {
 } from "./store-types";
 
 import { showToast } from "@/shared/context";
-
-import { eventBus } from "@/core/events/EventBus";
+import { GenerationsSelectionStore } from "../generations-selection-store/GenerationsSelection.store";
 
 import {
   formatDate,
@@ -180,57 +179,6 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         getIaGeneration(currentIaGeneration.generationId);
       },
 
-      /** Selection mode actions */
-      selectAllGenerations: (): void => {
-        set(({ iaGenerations }) => {
-          const updated: IaGeneration[] = iaGenerations.map((g) => ({
-            ...g,
-            isSelected: true,
-          }));
-          eventBus.emit(
-            "selectionMode.selectedElements.updated",
-            updated.length
-          );
-          return { iaGenerations: updated };
-        });
-      },
-      selectGeneration: (generationId: string): void => {
-        set(({ iaGenerations }) => {
-          const updated = iaGenerations.map((g) => {
-            if (g.generationId === generationId)
-              return { ...g, isSelected: true };
-            return g;
-          });
-
-          const selectedGenerations: number = updated.filter(
-            (g) => g.isSelected
-          ).length;
-
-          eventBus.emit(
-            "selectionMode.selectedElements.updated",
-            selectedGenerations
-          );
-          return {
-            iaGenerations: updated,
-          };
-        });
-      },
-      unselectGeneration: (generationId: string): void => {
-        const { iaGenerations } = get();
-        const updated = iaGenerations.map((g) => {
-          if (g.generationId === generationId)
-            return { ...g, isSelected: false };
-          return g;
-        });
-        const selectedGenerations: number = updated.filter(
-          (g) => g.isSelected
-        ).length;
-        eventBus.emit(
-          "selectionMode.selectedElements.updated",
-          selectedGenerations
-        );
-        set({ iaGenerations: updated });
-      },
       deleteIaGeneration: (generationId: string): void => {
         const { iaGenerations } = get();
         const updatedGenerations = iaGenerations.filter(
@@ -238,30 +186,36 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         );
         set({ iaGenerations: updatedGenerations });
       },
-      deleteSelectedGenerations: (disableSelectionMode: () => void): void => {
+      deleteSelectedGenerations: (): void => {
         const { iaGenerations } = get();
+        const { selectedGenerationIds } = GenerationsSelectionStore.getState();
+        const selectedGenerations = Array.from(selectedGenerationIds);
 
-        const updated = iaGenerations.filter((g) => !g.isSelected);
+        let updated: IaGeneration[] = [];
+
+        selectedGenerations.forEach((generationId) => {
+          updated = iaGenerations.filter(
+            (g) => g.generationId !== generationId
+          );
+        });
 
         set({ iaGenerations: updated });
-
-        disableSelectionMode();
-
-        eventBus.emit("selectionMode.selectedElements.updated", 0);
       },
-      clearSelectionList: (): void => {
-        set(({ iaGenerations }) => {
-          const updated: IaGeneration[] = iaGenerations.map((g) => ({
-            ...g,
-            isSelected: false,
-          }));
-          eventBus.emit("selectionMode.selectedElements.updated", 0);
-          return { iaGenerations: updated };
-        });
-      },
-      reinitSelectedGenerations: (disableSelectionMode: () => void): void => {
+      reinitSelectedGenerations: (): void => {
         const { iaGenerations } = get();
-        const updated = iaGenerations.map((generation) => {
+        const { selectedGenerationIds } = GenerationsSelectionStore.getState();
+
+        let selectedGenerations: IaGeneration[] = [];
+
+        Array.from(selectedGenerationIds).forEach((generationId) => {
+          const iaGeneration = iaGenerations.find(
+            (g) => g.generationId === generationId
+          );
+          if (!iaGeneration) return;
+          selectedGenerations.push(iaGeneration);
+        });
+
+        const updated = selectedGenerations.map((generation) => {
           const updatedSteps = generation.steps.map((step) => ({
             ...step,
             completed: false,
@@ -275,7 +229,6 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           };
         });
         set({ iaGenerations: updated });
-        disableSelectionMode();
       },
 
       /** Generation Actions */

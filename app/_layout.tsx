@@ -4,7 +4,7 @@ import { Host } from "react-native-portalize";
 
 import { queryClient } from "@/core/config/reactQuery";
 
-import { SelectionModeProvider, ToastProvider } from "@/shared/context";
+import { ToastProvider } from "@/shared/context";
 import { AppColors } from "@/shared/styles";
 
 /** Listeners */
@@ -28,11 +28,9 @@ export default function RootLayout() {
   return (
     <Host>
       <ToastProvider>
-        <SelectionModeProvider>
-          <QueryClientProvider client={queryClient}>
-            <InnerApp loaded={loaded} db={db} />
-          </QueryClientProvider>
-        </SelectionModeProvider>
+        <QueryClientProvider client={queryClient}>
+          <InnerApp loaded={loaded} db={db} />
+        </QueryClientProvider>
       </ToastProvider>
     </Host>
   );

@@ -2,10 +2,10 @@
 import { useEffect } from "react";
 import { BackHandler } from "react-native";
 
-import { useSelectionModeContext } from "../context";
+import { useSelectionModeStore } from "../store";
 
 export default function useBlockBackWhenSelection(): void {
-  const { selectionMode, disableSelectionMode } = useSelectionModeContext();
+  const { selectionMode, disableSelectionMode } = useSelectionModeStore();
 
   useEffect(() => {
     if (!selectionMode) return;

@@ -1,4 +1,4 @@
-export * from "./deleteTag.service";
+export * from "./deleteManyTags.service";
 export * from "./getTagById.service";
 export * from "./getTags.service";
 export * from "./patchTag.service";

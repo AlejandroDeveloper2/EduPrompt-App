@@ -29,15 +29,9 @@ export interface ResourceGenerationStoreType {
   createAndSelectNewGeneration: () => void;
   clearAndRemoveSelectedGeneration: () => void;
   editSelectedGeneration: () => void;
-
-  /** Selection mode actions */
-  selectAllGenerations: () => void;
-  selectGeneration: (generationId: string) => void;
-  unselectGeneration: (generationId: string) => void;
-  deleteSelectedGenerations: (disableSelectionMode: () => void) => void;
+  deleteSelectedGenerations: () => void;
   deleteIaGeneration: (generationId: string) => void;
-  reinitSelectedGenerations: (disableSelectionMode: () => void) => void;
-  clearSelectionList: () => void;
+  reinitSelectedGenerations: () => void;
 
   /** Generation Actions */
   executeIaGeneration: (

@@ -1,5 +1,4 @@
-import { and, eq, like } from "drizzle-orm";
-import { v4 as uuid } from "react-native-uuid/dist/v4";
+import { and, eq, inArray, like } from "drizzle-orm";
 import { create } from "zustand";
 
 import { db } from "@/core/config/db/drizzleClient";
@@ -19,18 +18,19 @@ import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
+import { TagsSelectionStore } from "../tags-selection-store/TagsSelection.store";
 
-export const OfflineTagsStore = create<OfflineTagsStoreType>((set) => ({
+export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
   isLoading: false,
   isProcessing: false,
   createTag: async (createTagPayload: CreateTagPayload) => {
-    const { name, type } = createTagPayload;
+    const { name, type, tagId } = createTagPayload;
     set({ isProcessing: true });
     return await tryCatchWrapper(
       async () => {
         const addedTagRow = await db
           .insert(tagsTable)
-          .values({ tagId: uuid(), name, type })
+          .values({ tagId, name, type })
           .returning();
 
         showToast({
@@ -189,23 +189,27 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set) => ({
       }
     );
   },
-  deleteTag: async (tagId: string) => {
+  deleteManyTags: async () => {
+    const { selectedTagIds } = TagsSelectionStore.getState();
+
+    const selectedTags = Array.from(selectedTagIds);
+
     set({ isProcessing: true });
     tryCatchWrapper(
       async () => {
         const result = await db
           .delete(tagsTable)
-          .where(eq(tagsTable.tagId, tagId));
+          .where(inArray(tagsTable.tagId, selectedTags));
 
-        if (result.changes === 0) {
+        if (result.changes < selectedTags.length) {
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message: `No se ha encontrado una etiqueta con el id: ${tagId}`,
+            message:
+              "Alguna etiqueta de la lista no se existe en la base de datos",
           });
           return;
         }
-
         showToast({
           key: generateToastKey(),
           variant: "primary",

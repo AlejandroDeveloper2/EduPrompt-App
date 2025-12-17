@@ -16,25 +16,6 @@ const useUserEventListener = () => {
   const { updateAccountType } = useUpdateAccountType();
 
   useEffect(() => {
-    const handleUpdatePreferencesRequest = (
-      userPreferences: Partial<UserPreferences>
-    ) => {
-      updatePreferences(userPreferences);
-    };
-
-    eventBus.on(
-      "userProfile.updateUserPreferences.requested",
-      handleUpdatePreferencesRequest
-    );
-    return () => {
-      eventBus.off(
-        "userProfile.updateUserPreferences.requested",
-        handleUpdatePreferencesRequest
-      );
-    };
-  }, [updatePreferences]);
-
-  useEffect(() => {
     const handleUpdateTokenCoinsRequest = (payload: {
       amount: number;
       mode: "add" | "substract";
@@ -53,6 +34,25 @@ const useUserEventListener = () => {
       );
     };
   }, [updateTokenCoins]);
+
+  useEffect(() => {
+    const handleUpdatePreferencesRequest = (
+      userPreferences: Partial<UserPreferences>
+    ) => {
+      updatePreferences(userPreferences);
+    };
+
+    eventBus.on(
+      "userProfile.updateUserPreferences.requested",
+      handleUpdatePreferencesRequest
+    );
+    return () => {
+      eventBus.off(
+        "userProfile.updateUserPreferences.requested",
+        handleUpdatePreferencesRequest
+      );
+    };
+  }, [updatePreferences]);
 
   useEffect(() => {
     const handleUpdateAccountTypeRequest = (isPremiumUser: boolean) => {

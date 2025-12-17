@@ -3,9 +3,8 @@ import { useMemo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAnimatedFloatMenu } from "../animations";
-import { useSelectionModeContext } from "../context";
 import { useEventBusToggle, useEventbusValue } from "../events";
-import { useScreenDimensionsStore } from "../store";
+import { useScreenDimensionsStore, useSelectionModeStore } from "../store";
 
 const useHeaderLogic = () => {
   const router = useRouter();
@@ -16,7 +15,7 @@ const useHeaderLogic = () => {
 
   const { isMounted, animatedStyle, toggleDeploy } = useAnimatedFloatMenu();
 
-  const { selectionMode } = useSelectionModeContext();
+  const { selectionMode } = useSelectionModeStore();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
   const systemNotifications = useEventbusValue(

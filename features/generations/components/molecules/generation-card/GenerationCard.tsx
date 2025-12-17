@@ -6,12 +6,15 @@ import { IaGeneration } from "@/features/generations/types";
 
 import { AppColors } from "@/shared/styles";
 
-import { SELECTION_MODE_ACTIONS } from "@/features/generations/constants";
-
-import { useGenerationsStore } from "@/features/generations/hooks/store";
+import {
+  useGenerationsSelectionStore,
+  useGenerationsStore,
+} from "@/features/generations/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useSelectionModeContext } from "@/shared/hooks/context";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import {
+  useScreenDimensionsStore,
+  useSelectionModeStore,
+} from "@/shared/hooks/store";
 
 import { Checkbox, Typography } from "@/shared/components/atoms";
 import { ProgressBar } from "@/shared/components/molecules";
@@ -20,23 +23,17 @@ import { GenerationCardStyle } from "./GenerationCard.style";
 
 interface GenerationCardProps {
   data: IaGeneration;
+  totalRecords: number;
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const GenerationCard = ({ data }: GenerationCardProps) => {
+const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
   const size = useScreenDimensionsStore();
-  const {
-    deleteSelectedGenerations,
-    getIaGeneration,
-    reinitSelectedGenerations,
-    selectGeneration,
-    unselectGeneration,
-  } = useGenerationsStore();
-  const { selectionMode, enableSelectionMode, disableSelectionMode } =
-    useSelectionModeContext();
-
-  const animatedCardStyle = useAnimatedCard(data.isSelected);
+  const { selectedGenerationIds, toggleSelection } =
+    useGenerationsSelectionStore();
+  const { selectionMode } = useSelectionModeStore();
+  const { getIaGeneration } = useGenerationsStore();
 
   const generationProgress = useMemo(() => {
     const completedSteps = data.steps.filter(
@@ -45,19 +42,12 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
     return Math.floor((completedSteps * 100) / data.steps.length);
   }, [data.steps]);
 
-  const handleSelectElement = (): void => {
-    if (!data.isSelected) {
-      selectGeneration(data.generationId);
-      enableSelectionMode(
-        SELECTION_MODE_ACTIONS(
-          () => deleteSelectedGenerations(disableSelectionMode),
-          () => reinitSelectedGenerations(disableSelectionMode)
-        )
-      );
-    } else {
-      unselectGeneration(data.generationId);
-    }
-  };
+  const isSelected: boolean = useMemo(
+    () => selectedGenerationIds.has(data.generationId),
+    [data.generationId, selectedGenerationIds]
+  );
+
+  const animatedCardStyle = useAnimatedCard(isSelected);
 
   const generationCardStyle = GenerationCardStyle(size);
 
@@ -80,9 +70,9 @@ const GenerationCard = ({ data }: GenerationCardProps) => {
         />
         <View style={generationCardStyle.CardActions}>
           <Checkbox
-            checked={data.isSelected}
+            checked={isSelected}
             disabled={!data.canDelete}
-            onCheck={handleSelectElement}
+            onCheck={() => toggleSelection(data.generationId, totalRecords)}
           />
         </View>
       </View>

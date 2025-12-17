@@ -11,6 +11,8 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import { NotificationsSelectionStore } from "../notifications-selection-store/NotificationsSelection.store";
+
 import { showErrorToast } from "./helpers";
 
 export const UserNotificationsStore = create<UserNotificationStoreType>()(
@@ -97,50 +99,21 @@ export const UserNotificationsStore = create<UserNotificationStoreType>()(
         );
       },
 
-      /** Selection actions */
-      selectAllNotifications: (): void => {
+      deleteSelectedNotifications: (): void => {
         const { notifications } = get();
-        const updated: Notification[] = notifications.map((n) => ({
-          ...n,
-          isSelected: true,
-        }));
-        set({ notifications: updated });
-      },
-      selectNotification: (notificationId: string): void => {
-        const { notifications } = get();
-        const updated: Notification[] = notifications.map((n) => {
-          if (n.notificationId === notificationId)
-            return { ...n, isSelected: true };
-          return n;
-        });
-        set({ notifications: updated });
-      },
-      unselectNotification: (notificationId: string): void => {
-        const { notifications } = get();
-        const updated: Notification[] = notifications.map((n) => {
-          if (n.notificationId === notificationId)
-            return { ...n, isSelected: false };
-          return n;
-        });
-        set({ notifications: updated });
-      },
+        const { selectedNotificationIds } =
+          NotificationsSelectionStore.getState();
+        const selectedNotifications = Array.from(selectedNotificationIds);
 
-      deleteSelectedNotifications: (disableSelectionMode: () => void): void => {
-        const { notifications } = get();
-        const updated: Notification[] = notifications.filter(
-          (notification) => !notification.isSelected
-        );
-        set({ notifications: updated });
-        disableSelectionMode();
-      },
+        let updated: Notification[] = [];
+        selectedNotifications.forEach((notificationId) => {
+          updated = notifications.filter(
+            (n) => n.notificationId !== notificationId
+          );
+        });
 
-      clearSelectionList: (): void => {
-        const { notifications } = get();
-        const updated: Notification[] = notifications.map((n) => ({
-          ...n,
-          isSelected: false,
-        }));
         set({ notifications: updated });
+        eventBus.emit("notifications.userNotifications.updated", updated);
       },
     }),
     {

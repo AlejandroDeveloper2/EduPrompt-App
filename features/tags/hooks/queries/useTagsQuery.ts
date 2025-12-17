@@ -28,7 +28,7 @@ const useTagsQuery = (
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { findTags, updateTagsSyncStatus } = useOfflineTagsStore();
+  const { findTags, updateTagsSyncStatus, createTag } = useOfflineTagsStore();
 
   const stableFiltersKey = useMemo(
     () => JSON.stringify(baseFilters),
@@ -56,7 +56,20 @@ const useTagsQuery = (
         ) {
           return localTags;
         }
-
+        /** Sincronizamos las etiquetas online si no estan en el almacenamiento local */
+        await Promise.all(
+          paginatedTags.records.map(async (tag) => {
+            const localTag = localTags.records.find(
+              (t) => t.tagId === tag.tagId
+            );
+            if (!localTag)
+              return await createTag({
+                tagId: tag.tagId,
+                name: tag.name,
+                type: tag.type,
+              });
+          })
+        );
         await updateTagsSyncStatus(true);
 
         return paginatedTags;

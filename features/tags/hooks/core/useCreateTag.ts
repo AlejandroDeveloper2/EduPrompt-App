@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { v4 as uuid } from "react-native-uuid/dist/v4";
 
 import { CreateTagPayload } from "../../types";
 
@@ -22,16 +23,17 @@ const useCreateTag = () => {
   const { mutate, isPending } = useCreateTagMutation();
 
   const addTag = useCallback(
-    async (createTagPayload: CreateTagPayload) => {
+    async (createTagPayload: Omit<CreateTagPayload, "tagId">) => {
       /** Creación  offline inmediata */
-      const addedTag = await createTag(createTagPayload);
+      const tagId: string = uuid();
+      const addedTag = await createTag({ ...createTagPayload, tagId });
 
       if (!isAuthenticated)
         await queryClient.refetchQueries({ queryKey: ["tags"] });
 
       /** Creacion online */
       if (isConnected && isAuthenticated) {
-        mutate(createTagPayload);
+        mutate({ ...createTagPayload, tagId });
         await updateTagsSyncStatus(true, addedTag.tagId);
       }
     },

@@ -2,11 +2,15 @@
 
 import journal from './meta/_journal.json';
 import m0000 from './0000_wooden_epoch.sql';
+import m0001 from './0001_wide_norrin_radd.sql';
+import m0002 from './0002_overrated_red_ghost.sql';
 
   export default {
     journal,
     migrations: {
-      m0000
+      m0000,
+m0001,
+m0002
     }
   }
   

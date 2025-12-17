@@ -1,11 +1,12 @@
 type TagType = "prompt_tag" | "resource_tag";
 
 interface CreateTagPayload {
+  tagId: string;
   name: string;
   type: TagType;
 }
 
-interface UpdateTagPayload extends Partial<CreateTagPayload> {
+interface UpdateTagPayload extends Partial<Omit<CreateTagPayload, "tagId">> {
   tagId: string;
 }
 interface SyncTagsPayload {

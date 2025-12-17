@@ -1,15 +1,14 @@
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { SELECTION_MODE_ACTIONS } from "@/features/notifications/constants";
 import { AppColors } from "@/shared/styles";
 
-import { NotificationLink } from "@/features/notifications/types";
+import { Notification, NotificationLink } from "@/features/notifications/types";
 
 import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
-import { useUserNotificationsStore } from "@/features/notifications/hooks/store";
+import { useNotificationsSelectionStore } from "@/features/notifications/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useSelectionModeContext } from "@/shared/hooks/context";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { openExternalLink } from "@/features/notifications/helpers";
@@ -19,51 +18,29 @@ import { Badge, Checkbox, Typography } from "@/shared/components/atoms";
 import { NotificationCardStyle } from "./NotificationCard.style";
 
 interface NotificationCardProps {
-  notificationId: string;
-  title: string;
-  notificationDate: Date;
-  message: string;
+  data: Notification;
+  totalRecords: number;
   links?: NotificationLink[];
-  isSelected: boolean;
   canSelect?: boolean;
 }
 
 const NotificationCard = ({
-  notificationId,
-  title,
-  notificationDate,
-  message,
+  data,
+  totalRecords,
   links,
-  isSelected,
   canSelect,
 }: NotificationCardProps) => {
   const size = useScreenDimensionsStore();
+  const { selectedNotificationIds, toggleSelection } =
+    useNotificationsSelectionStore();
+
+  const isSelected: boolean = useMemo(
+    () => selectedNotificationIds.has(data.notificationId),
+    [data.notificationId, selectedNotificationIds]
+  );
 
   const animatedCardStyle = useAnimatedCard(isSelected);
-
-  const { isNew, formattedDate } = useCheckIsNewNotification(notificationDate);
-
-  const {
-    deleteSelectedNotifications,
-    selectNotification,
-    unselectNotification,
-  } = useUserNotificationsStore();
-
-  const { enableSelectionMode, disableSelectionMode } =
-    useSelectionModeContext();
-
-  const handleSelectElement = (): void => {
-    if (!isSelected) {
-      selectNotification(notificationId);
-      enableSelectionMode(
-        SELECTION_MODE_ACTIONS(() =>
-          deleteSelectedNotifications(disableSelectionMode)
-        )
-      );
-    } else {
-      unselectNotification(notificationId);
-    }
-  };
+  const { isNew, formattedDate } = useCheckIsNewNotification(data.creationDate);
 
   const notificationCardStyle = NotificationCardStyle(size);
 
@@ -75,7 +52,7 @@ const NotificationCard = ({
         <View style={notificationCardStyle.TitleContainer}>
           <View style={{ flex: 1 }}>
             <Typography
-              text={title}
+              text={data.title}
               weight="bold"
               type="button"
               textAlign="left"
@@ -87,7 +64,12 @@ const NotificationCard = ({
           <View style={[notificationCardStyle.Tools]}>
             {isNew && <Badge label="Nuevo" variant="primary" />}
             {canSelect && (
-              <Checkbox checked={isSelected} onCheck={handleSelectElement} />
+              <Checkbox
+                checked={isSelected}
+                onCheck={() =>
+                  toggleSelection(data.notificationId, totalRecords)
+                }
+              />
             )}
           </View>
         </View>
@@ -101,7 +83,7 @@ const NotificationCard = ({
         />
       </View>
       <Typography
-        text={message}
+        text={data.message}
         weight="regular"
         type="paragraph"
         textAlign="left"

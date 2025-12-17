@@ -85,8 +85,8 @@ const NotificationList = () => {
       numColumns={size === "laptop" ? 2 : 1}
       renderItem={({ item }) => (
         <NotificationCard
-          {...item}
-          notificationDate={item.creationDate}
+          data={item}
+          totalRecords={notifications.length}
           canSelect
         />
       )}

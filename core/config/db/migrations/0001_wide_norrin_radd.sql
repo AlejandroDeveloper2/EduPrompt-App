@@ -1,0 +1,1 @@
+ALTER TABLE `tags` ADD `isSelected` text DEFAULT 'false' NOT NULL;
