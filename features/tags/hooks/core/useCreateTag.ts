@@ -4,10 +4,14 @@ import { v4 as uuid } from "react-native-uuid/dist/v4";
 
 import { CreateTagPayload } from "../../types";
 
+import { showToast } from "@/shared/context";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useCreateTagMutation } from "../mutations";
 import { useOfflineTagsStore } from "../store";
+
+import { generateToastKey } from "@/shared/helpers";
 
 const useCreateTag = () => {
   const queryClient = useQueryClient();
@@ -36,6 +40,12 @@ const useCreateTag = () => {
         mutate({ ...createTagPayload, tagId });
         await updateTagsSyncStatus(true, addedTag.tagId);
       }
+
+      showToast({
+        key: generateToastKey(),
+        variant: "primary",
+        message: "Etiqueta creada correctamente",
+      });
     },
     [
       isAuthenticated,

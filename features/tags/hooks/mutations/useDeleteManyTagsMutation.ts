@@ -2,11 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Tag } from "../../types";
 
-import { showToast } from "@/shared/context";
-
 import { deleteManyTags } from "../../services";
-
-import { generateToastKey } from "@/shared/helpers";
 
 const useDeleteManyTagsMutation = () => {
   const queryClient = useQueryClient();
@@ -34,13 +30,7 @@ const useDeleteManyTagsMutation = () => {
       // Retornar el contexto para rollback en caso de error
       return { previousTags };
     },
-    onSuccess: () => {
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: "Etiquetas eliminadas con éxito",
-      });
-    },
+
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tags"] });
     },

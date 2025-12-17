@@ -2,11 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Tag, UpdateTagPayload } from "../../types";
 
-import { showToast } from "@/shared/context";
-
 import { patchTag } from "../../services";
-
-import { generateToastKey } from "@/shared/helpers";
 
 const useUpdateTagMutation = () => {
   const queryClient = useQueryClient();
@@ -32,13 +28,7 @@ const useUpdateTagMutation = () => {
       // Retornar el contexto para rollback en caso de error
       return { previousTags };
     },
-    onSuccess: () => {
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: "Etiqueta actualizada con éxito",
-      });
-    },
+
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["tags"] });
     },

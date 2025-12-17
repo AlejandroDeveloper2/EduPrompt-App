@@ -165,12 +165,6 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           throw new Error(errorMsg);
         }
 
-        showToast({
-          key: generateToastKey(),
-          variant: "primary",
-          message: "Etiqueta actualizada correctamente",
-        });
-
         return {
           ...updatedTagRow[0],
           sync: Boolean(updatedTagRow[0].sync),
@@ -190,7 +184,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
     );
   },
   deleteManyTags: async () => {
-    const { selectedTagIds } = TagsSelectionStore.getState();
+    const { selectedTagIds, clearSelection } = TagsSelectionStore.getState();
 
     const selectedTags = Array.from(selectedTagIds);
 
@@ -210,11 +204,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           });
           return;
         }
-        showToast({
-          key: generateToastKey(),
-          variant: "primary",
-          message: "Etiqueta eliminada correctamente",
-        });
+        clearSelection();
       },
       (error) => {
         showToast({

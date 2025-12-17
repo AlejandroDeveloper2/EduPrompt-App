@@ -3,10 +3,14 @@ import { useCallback } from "react";
 
 import { UpdateTagPayload } from "../../types";
 
+import { showToast } from "@/shared/context";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdateTagMutation } from "../mutations";
 import { useOfflineTagsStore } from "../store";
+
+import { generateToastKey } from "@/shared/helpers";
 
 const useUpdateTag = () => {
   const queryClient = useQueryClient();
@@ -34,6 +38,12 @@ const useUpdateTag = () => {
         mutate(updateTagPayload);
         await updateTagsSyncStatus(true, updatedTag.tagId);
       }
+
+      showToast({
+        key: generateToastKey(),
+        variant: "primary",
+        message: "Etiqueta actualizada correctamente",
+      });
     },
     [
       isAuthenticated,

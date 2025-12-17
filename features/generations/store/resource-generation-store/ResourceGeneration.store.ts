@@ -188,22 +188,21 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
       },
       deleteSelectedGenerations: (): void => {
         const { iaGenerations } = get();
-        const { selectedGenerationIds } = GenerationsSelectionStore.getState();
-        const selectedGenerations = Array.from(selectedGenerationIds);
+        const { selectedGenerationIds, clearSelection } =
+          GenerationsSelectionStore.getState();
 
-        let updated: IaGeneration[] = [];
-
-        selectedGenerations.forEach((generationId) => {
-          updated = iaGenerations.filter(
-            (g) => g.generationId !== generationId
-          );
-        });
+        const updated = iaGenerations.filter(
+          (g) => !selectedGenerationIds.has(g.generationId)
+        );
 
         set({ iaGenerations: updated });
+
+        clearSelection();
       },
       reinitSelectedGenerations: (): void => {
         const { iaGenerations } = get();
-        const { selectedGenerationIds } = GenerationsSelectionStore.getState();
+        const { selectedGenerationIds, clearSelection } =
+          GenerationsSelectionStore.getState();
 
         let selectedGenerations: IaGeneration[] = [];
 
@@ -229,6 +228,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           };
         });
         set({ iaGenerations: updated });
+        clearSelection();
       },
 
       /** Generation Actions */

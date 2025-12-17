@@ -101,19 +101,16 @@ export const UserNotificationsStore = create<UserNotificationStoreType>()(
 
       deleteSelectedNotifications: (): void => {
         const { notifications } = get();
-        const { selectedNotificationIds } =
+        const { selectedNotificationIds, clearSelection } =
           NotificationsSelectionStore.getState();
-        const selectedNotifications = Array.from(selectedNotificationIds);
 
-        let updated: Notification[] = [];
-        selectedNotifications.forEach((notificationId) => {
-          updated = notifications.filter(
-            (n) => n.notificationId !== notificationId
-          );
-        });
+        const updated = notifications.filter(
+          (n) => !selectedNotificationIds.has(n.notificationId)
+        );
 
         set({ notifications: updated });
         eventBus.emit("notifications.userNotifications.updated", updated);
+        clearSelection();
       },
     }),
     {

@@ -1,11 +1,15 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 
+import { showToast } from "@/shared/context";
+
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSelectionModeStore } from "@/shared/hooks/store";
 import { useDeleteManyTagsMutation } from "../mutations";
 import { useOfflineTagsStore, useTagsSelectionStore } from "../store";
+
+import { generateToastKey } from "@/shared/helpers";
 
 const useDeleteManyTags = () => {
   const queryClient = useQueryClient();
@@ -35,6 +39,11 @@ const useDeleteManyTags = () => {
       mutate(selectedTags);
     }
     disableSelectionMode();
+    showToast({
+      key: generateToastKey(),
+      variant: "primary",
+      message: "Etiquetas eliminadas correctamente",
+    });
   }, [
     isAuthenticated,
     isConnected,
