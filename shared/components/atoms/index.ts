@@ -10,6 +10,7 @@ export { default as Logo, LogoV2 } from "./logo/Logo";
 export { default as ScreenSection } from "./screen-section/ScreenSection";
 export { default as Spinner } from "./spinner/Spinner";
 export { default as Step } from "./step/Step";
+export { default as SyncronizationIndicator } from "./syncronization-indicator/SyncronizationIndicator";
 export { default as ToastLink } from "./toast-link/ToastLink";
 export { default as ToastLoadBar } from "./toast-load-bar/ToastLoadBar";
 export { AdvancePackageToken } from "./token-coin/AdvancePackageToken";

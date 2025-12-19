@@ -26,13 +26,13 @@ import { Typography } from "@/shared/components/atoms";
 export default function RootLayout() {
   const { loaded, db } = useSetupApp();
   return (
-    <Host>
-      <ToastProvider>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Host>
+        <ToastProvider>
           <InnerApp loaded={loaded} db={db} />
-        </QueryClientProvider>
-      </ToastProvider>
-    </Host>
+        </ToastProvider>
+      </Host>
+    </QueryClientProvider>
   );
 }
 

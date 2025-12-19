@@ -16,14 +16,10 @@ const useDeleteManyTagsMutation = () => {
 
       // Actualizar cache de manera optimista
       if (previousTags) {
-        let updatedTags: Tag[] = [];
-        previousTags.forEach((tag) => {
-          const tagId = tagIds.find((id) => id === tag.tagId);
-          if (!tagId) return;
-          updatedTags = previousTags.filter(
-            (updateTag) => updateTag.tagId !== tagId
-          );
-        });
+        const selectedTagIds = new Set(tagIds);
+        const updatedTags = previousTags.filter(
+          (tag) => !selectedTagIds.has(tag.tagId)
+        );
         queryClient.setQueryData(["tags"], updatedTags);
       }
 

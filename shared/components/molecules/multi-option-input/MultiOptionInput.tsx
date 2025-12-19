@@ -51,6 +51,7 @@ const Option = ({ label, optionValue, isSelected }: OptionProps) => {
         OptionContainer,
         animatedStyled,
         {
+          flex: 1,
           width: firstWidth,
         },
       ]}
@@ -85,7 +86,7 @@ function MultiOptionInput<T, K>({
           text={label}
           weight="regular"
           type="paragraph"
-          textAlign="center"
+          textAlign="left"
           color={AppColors.neutral[1000]}
           width="auto"
         />

@@ -16,6 +16,7 @@ import {
   Badge,
   Checkbox,
   MaterialIcon,
+  SyncronizationIndicator,
   Typography,
 } from "@/shared/components/atoms";
 
@@ -56,6 +57,7 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
             }
             variant="primary"
           />
+          <SyncronizationIndicator synced={data.sync} />
         </View>
         {onEdit && !selectionMode && (
           <MaterialIcon

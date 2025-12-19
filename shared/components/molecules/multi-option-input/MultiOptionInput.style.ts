@@ -9,8 +9,8 @@ export const MultiOptionInputStyle = (size: SizeType) =>
       width: "100%",
       height: "auto",
       gap: Spacing.spacing_xs,
-      justifyContent: "flex-start",
-      alignItems: "center",
+      justifyContent: "center",
+      alignItems: "flex-start",
       flexDirection: "column",
     },
     OptionsGrid: {

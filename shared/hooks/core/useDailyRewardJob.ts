@@ -9,6 +9,8 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import { useEventbusValue } from "../events";
+
 const sendTokensDailyReward = () => {
   console.log(
     "Sending daily token reward... " + parseInt(config.tokenDailyRewardAmount)
@@ -51,15 +53,18 @@ const getRewardDate = () => {
 
 const useDailyRewardJob = () => {
   const appState = useRef(AppState.currentState);
+  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const checkReward = (): void => {
     const { now, rewardDateRaw } = getRewardDate();
 
-    if (!rewardDateRaw || isAfter(now, rewardDateRaw)) processTokenReward(now);
+    if (userProfile && (!rewardDateRaw || isAfter(now, rewardDateRaw)))
+      processTokenReward(now);
   };
 
   useEffect(() => {
     checkReward();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -73,6 +78,7 @@ const useDailyRewardJob = () => {
     });
 
     return () => subscription.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
