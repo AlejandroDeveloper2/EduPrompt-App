@@ -32,25 +32,30 @@ const TagCardListHeader = ({
   const size = useScreenDimensionsStore();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
+
   const { isPending, syncTags } = useSyncTagMutation();
 
   const tagCardListStyle = TagCardListStyle(size);
 
   return (
     <View style={tagCardListStyle.ListHeaderContainer}>
-      {userProfile && !isDataSync && !userProfile.userPreferences.autoSync && (
-        <InfoCard
-          title="Sincronización de datos"
-          description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
-          buttonData={{
-            onPress: syncTags,
-            icon: "sync-outline",
-            label: "Sincronizar",
-            loading: isPending,
-            loadingMessage: "Sincronizando datos...",
-          }}
-        />
-      )}
+      {userProfile &&
+        !isDataSync &&
+        !userProfile.userPreferences.autoSync &&
+        isAuthenticated && (
+          <InfoCard
+            title="Sincronización de datos"
+            description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
+            buttonData={{
+              onPress: syncTags,
+              icon: "sync-outline",
+              label: "Sincronizar",
+              loading: isPending,
+              loadingMessage: "Sincronizando datos...",
+            }}
+          />
+        )}
       <ScreenSection
         description="Gestiona el conjunto de etiquetas para tus recursos educativos y prompts personalizados."
         title="Etiquetas"

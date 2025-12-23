@@ -28,6 +28,8 @@ export const axiosResponseInterceptor = async (
   const isOperational = body.isOperational;
   const originalRequest = axiosError.config;
 
+  // console.log("axios error: " + JSON.stringify(error.request));
+
   /* Prevención de loops inifinitos */
   if ((originalRequest as any)?._retry) {
     console.log("⚠️ Evitando loop de refresh infinito");
@@ -91,7 +93,7 @@ export const axiosResponseInterceptor = async (
   }
 
   /** 401 normal limpiamos tokens de sesión y redirigimos */
-  if (status === 401) {
+  if (status === 401 && errorMessageCode !== "INCORRECT_PASSWORD") {
     eventBus.emit("auth.clearTokens", undefined);
   }
 

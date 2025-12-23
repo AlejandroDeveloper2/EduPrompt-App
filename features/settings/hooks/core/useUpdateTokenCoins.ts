@@ -1,9 +1,6 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
-
-import { UserStats } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -11,20 +8,12 @@ import { useUpdateTokenCoinsMutation } from "../mutations";
 import { useUserOfflineStore } from "../store";
 
 const useUpdateTokenCoins = () => {
-  const queryClient = useQueryClient();
-
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const userProfile = queryClient.getQueryData<UserStats>(["user_profile"]);
-
   /** Offline */
-  const {
-    addLocalTokenCoins,
-    subtractLocalTokenCoins,
-    markAsSynced,
-    userStats,
-  } = useUserOfflineStore();
+  const { addLocalTokenCoins, subtractLocalTokenCoins, markAsSynced } =
+    useUserOfflineStore();
 
   /** Online */
   const { mutate } = useUpdateTokenCoinsMutation();
@@ -40,13 +29,7 @@ const useUpdateTokenCoins = () => {
       if (isConnected && isAuthenticated) {
         eventBus.emit("userProfile.updateTokeUserCoins.started", undefined);
 
-        const totalUpdateAmount: number = userProfile
-          ? userStats.tokenCoins === 0
-            ? userProfile.tokenCoins + updatedTokenAmount
-            : updatedTokenAmount
-          : updatedTokenAmount;
-
-        mutate(totalUpdateAmount, {
+        mutate(updatedTokenAmount, {
           onSuccess: () => {
             eventBus.emit(
               "userProfile.updateTokeUserCoins.completed",
@@ -64,14 +47,12 @@ const useUpdateTokenCoins = () => {
       }
     },
     [
+      isConnected,
+      isAuthenticated,
       addLocalTokenCoins,
       subtractLocalTokenCoins,
       markAsSynced,
-      userProfile,
-      userStats,
       mutate,
-      isConnected,
-      isAuthenticated,
     ]
   );
   return { updateTokenCoins };

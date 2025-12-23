@@ -1,8 +1,11 @@
 import { Stack } from "expo-router";
 
+import { useCheckAuth } from "@/features/auth/hooks/core";
+
 import { CustomStatusBar } from "@/shared/components/atoms";
 
 export default function AuthLayout() {
+  useCheckAuth();
   return (
     <>
       <CustomStatusBar />

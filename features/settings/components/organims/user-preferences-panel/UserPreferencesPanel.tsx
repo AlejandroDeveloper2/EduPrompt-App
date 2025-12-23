@@ -9,6 +9,7 @@ import { CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
+import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdatePreferences } from "../../../hooks/core";
 import { useUserSyncMutation } from "../../../hooks/mutations";
 
@@ -27,6 +28,7 @@ import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
   const { userProfile, isLoading } = useUserProfileQuery();
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { updatePreferences } = useUpdatePreferences();
   const { syncUserProfile, isPending } = useUserSyncMutation();
@@ -98,7 +100,8 @@ const UserPreferencesPanel = () => {
       <View style={UserPreferencesPanelStyles.PanelContainer}>
         {userProfile &&
           !userProfile.sync &&
-          !userProfile.userPreferences.autoSync && (
+          !userProfile.userPreferences.autoSync &&
+          isAuthenticated && (
             <InfoCard
               title="Sincronización de datos"
               description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"

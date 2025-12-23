@@ -12,7 +12,10 @@ export interface StoreStateProps {
 }
 
 export interface StoreActions {
-  createTag: (createTagPayload: CreateTagPayload) => Promise<Tag>;
+  createTag: (
+    createTagPayload: CreateTagPayload,
+    toast?: boolean
+  ) => Promise<Tag>;
   findTags: (filters: TagFilters) => Promise<PaginatedResponse<Tag>>;
   findTagById: (tagId: string) => Promise<Tag | null>;
   updateTag: (updateTagPayload: UpdateTagPayload) => Promise<Tag>;

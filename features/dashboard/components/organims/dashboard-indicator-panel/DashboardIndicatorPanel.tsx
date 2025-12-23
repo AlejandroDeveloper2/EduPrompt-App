@@ -19,6 +19,8 @@ const DashboardIndicatorPanel = () => {
   const size = useScreenDimensionsStore();
   const { width } = useWindowDimensions();
 
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
+
   const { indicators, isLoading } = useIndicatorsQuery();
   const { syncIndicators, isPending } = useSyncIndicatorsMutation();
 
@@ -109,7 +111,8 @@ const DashboardIndicatorPanel = () => {
       </View>
       {userProfile &&
       !userProfile.userPreferences.autoSync &&
-      !indicators.sync ? (
+      !indicators.sync &&
+      isAuthenticated ? (
         <InfoCard
           title="Sincronización de datos"
           description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"

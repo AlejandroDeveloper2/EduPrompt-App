@@ -13,9 +13,9 @@ const useLogoutMutation = () => {
 
   return useMutation({
     mutationFn: postLogout,
-    onSuccess: () => {
+    onSuccess: async () => {
+      await clearAuthTokens();
       eventBus.clearAll();
-      clearAuthTokens();
       router.replace("/auth");
     },
   });

@@ -74,7 +74,7 @@ const useTagsQuery = (
 
         return paginatedTags;
       }
-      return await findTags(filters);
+      return localTags;
     },
     getNextPageParam: (lastPage, pages) => {
       return lastPage.page < lastPage.totalPages

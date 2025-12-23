@@ -61,8 +61,9 @@ const useAuthEventListeners = () => {
   }, [setAuthTokens]);
 
   useEffect(() => {
-    const handler = () => {
-      clearAuthTokens();
+    const handler = async () => {
+      await clearAuthTokens();
+      eventBus.clearAll();
       router.replace("/auth");
     };
     eventBus.on("auth.clearTokens", handler);

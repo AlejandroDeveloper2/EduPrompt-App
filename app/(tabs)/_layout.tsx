@@ -14,12 +14,15 @@ import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 
 /** Listeners */
 import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners";
+import { useUserNotificationsEventListener } from "@/features/notifications/hooks/listeners";
+import { useUserEventsListener } from "@/features/settings/hooks/listeners";
 
 /** Jobs */
 import {
-  useBlockBackWhenSelection,
-  useDailyRewardJob,
-} from "@/shared/hooks/core";
+  useCleanNotificationsJob,
+  useNotificationCheckerJob,
+} from "@/features/notifications/hooks/core";
+import { useBlockBackWhenSelection } from "@/shared/hooks/core";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
 import {
@@ -33,14 +36,23 @@ export default function TabLayout() {
 
   const { actions } = useSelectionModeStore();
 
-  /** Cargar perifl de usuario */
+  /** Cargar perfil de usuario */
   useUserProfileQuery();
+
+  /** Listener para escuchar eventos del modulo de notificaciones */
+  useUserNotificationsEventListener();
+
+  /** Job para limpiar notificaciones */
+  useCleanNotificationsJob();
+
+  /** Job para revisar si la notificaciones son nuevas o no */
+  useNotificationCheckerJob();
+
+  /** Listener para escuchar eventos del modulo de perfil de usuario */
+  useUserEventsListener();
 
   /** Listener para escuchar los cambios en las estadisticas del panel de control */
   useDashboardEventListeners();
-
-  /** Job de recompenza diaria al ingresar al panel principal de la app */
-  useDailyRewardJob();
 
   /** Detectar el back swipe del usuario */
   useBlockBackWhenSelection();

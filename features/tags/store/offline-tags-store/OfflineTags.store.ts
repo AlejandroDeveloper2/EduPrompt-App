@@ -23,7 +23,7 @@ import { TagsSelectionStore } from "../tags-selection-store/TagsSelection.store"
 export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
   isLoading: false,
   isProcessing: false,
-  createTag: async (createTagPayload: CreateTagPayload) => {
+  createTag: async (createTagPayload: CreateTagPayload, toast?: boolean) => {
     const { name, type, tagId } = createTagPayload;
     set({ isProcessing: true });
     return await tryCatchWrapper(
@@ -33,14 +33,16 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           .values({ tagId, name, type })
           .returning();
 
-        showToast({
-          key: generateToastKey(),
-          variant: "primary",
-          message: "Etiqueta creada correctamente",
-        });
+        if (toast)
+          showToast({
+            key: generateToastKey(),
+            variant: "primary",
+            message: "Etiqueta creada correctamente",
+          });
+
         return {
           ...addedTagRow[0],
-          sync: Boolean(addedTagRow[0].sync),
+          sync: addedTagRow[0].sync === "false" ? false : true,
           type: addedTagRow[0].type as TagType,
         };
       },
@@ -78,7 +80,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           tagId: tagRow[0].tagId,
           name: tagRow[0].name,
           type: tagRow[0].type as TagType,
-          sync: Boolean(tagRow[0].sync),
+          sync: tagRow[0].sync === "false" ? false : true,
         };
       },
       (error) => {
@@ -119,7 +121,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
         const parsedRecords: Tag[] = tags.map((t) => ({
           ...t,
           type: t.type as TagType,
-          sync: Boolean(t.sync),
+          sync: t.sync === "false" ? false : true,
         }));
 
         const response: PaginatedResponse<Tag> = {
@@ -151,7 +153,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
       async () => {
         const updatedTagRow = await db
           .update(tagsTable)
-          .set({ name, type })
+          .set({ name, type, sync: "false" })
           .where(eq(tagsTable.tagId, tagId))
           .returning();
 
@@ -167,7 +169,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
 
         return {
           ...updatedTagRow[0],
-          sync: Boolean(updatedTagRow[0].sync),
+          sync: updatedTagRow[0].sync === "false" ? false : true,
           type: updatedTagRow[0].type as TagType,
         };
       },
@@ -251,7 +253,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
         return tags.map((t) => ({
           ...t,
           type: t.type as TagType,
-          sync: Boolean(t.sync),
+          sync: t.sync === "false" ? false : true,
         }));
       },
       (error) => {

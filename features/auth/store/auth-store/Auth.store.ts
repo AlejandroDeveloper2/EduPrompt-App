@@ -21,7 +21,7 @@ export const AuthStore = create<AuthStoreType>()(
         });
       },
       clearAuthTokens: async (): Promise<void> => {
-        await SecureStorage.deleteItemAsync(ASYNC_STORAGE_KEYS.auth);
+        // await SecureStorage.deleteItemAsync(ASYNC_STORAGE_KEYS.auth);
         set({
           isAuthenticated: false,
           token: null,

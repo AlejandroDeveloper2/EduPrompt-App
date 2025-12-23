@@ -34,4 +34,6 @@ export enum ErrorMessages {
   IMAGE_GENERATION_NOT_COMPLETED = "La generación de imagenes no se completo",
   INDICATOR_NOT_FOUND = "Indicadores no fueron encontrados",
   USER_INDICATOR_ALREADY_CREATED = "El usuario ya tiene indicadores registrados",
+  TAG_NOT_FOUND = "Etiqueta no encontrada",
+  SOME_TAG_NOT_FOUND = "Alguna de las etiquetas no existe",
 }
