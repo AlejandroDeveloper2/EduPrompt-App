@@ -4,6 +4,8 @@ import { v4 as uuid } from "react-native-uuid/dist/v4";
 
 import { CreateTagPayload } from "../../types";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import { showToast } from "@/shared/context";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
@@ -37,7 +39,20 @@ const useCreateTag = () => {
 
       /** Creacion online */
       if (isConnected && isAuthenticated) {
-        mutate({ ...createTagPayload, tagId });
+        eventBus.emit("tags.createTag.started", undefined);
+        mutate(
+          { ...createTagPayload, tagId },
+          {
+            onSuccess: () => {
+              eventBus.emit("tags.createTag.completed", undefined);
+            },
+            onError: (error) => {
+              eventBus.emit("tags.createTag.failed", {
+                error: String(error),
+              });
+            },
+          }
+        );
         await updateTagsSyncStatus(true, addedTag.tagId);
       }
 

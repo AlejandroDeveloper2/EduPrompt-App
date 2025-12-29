@@ -49,6 +49,7 @@ const useUserProfileQuery = () => {
   return {
     userProfile: query.data ?? localProfile,
     isLoading: query.isLoading,
+    isFetched: query.isFetched,
   };
 };
 

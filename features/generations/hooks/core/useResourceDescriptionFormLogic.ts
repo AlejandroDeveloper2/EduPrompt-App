@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { GenerationData } from "../../types";
 
@@ -21,6 +21,8 @@ const initialValues: ResourceDescriptionFormData = {
 };
 
 const useResourceDescriptionFormLogic = () => {
+  const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
+
   const {
     currentIaGeneration,
     setGenerationStep,
@@ -89,6 +91,8 @@ const useResourceDescriptionFormLogic = () => {
   return {
     currentIaGeneration,
     setGenerationStep,
+    isTagSelection,
+    setIsTagSelection,
     form: {
       data,
       isPending,

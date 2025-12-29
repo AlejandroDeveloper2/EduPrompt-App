@@ -85,5 +85,24 @@ export type AppEvents = {
   "selectionMode.isAllSelected.updated": boolean;
 
   /** Eventos módulo de tags */
-  "tags.list.updated": Tag[];
+  "tags.list.pagination.updated": {
+    tags: Tag[];
+    hasNextPage: boolean;
+    isFetchingNextPage: boolean;
+    refreshing: boolean;
+  };
+  "tags.fetchNextPage.requested": undefined;
+  "tags.refetch.requested": undefined;
+
+  "tags.fetch": {
+    type: "prompt_tag" | "resource_tag";
+    name?: string | undefined;
+  };
+  "tags.createTag.requested": {
+    type: "prompt_tag" | "resource_tag";
+    name: string;
+  };
+  "tags.createTag.started": undefined;
+  "tags.createTag.completed": undefined;
+  "tags.createTag.failed": EventError;
 };

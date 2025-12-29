@@ -4,3 +4,4 @@ export { default as useFormatFormLogic } from "./useFormatFormLogic";
 export { default as useLanguageFormLogic } from "./useLanguageFormLogic";
 export { default as useResourceDescriptionFormLogic } from "./useResourceDescriptionFormLogic";
 export { default as useResourceTypeFormLogic } from "./useResourceTypeFormLogic";
+export { default as useSavePromptFormLogic } from "./useSavePromptFormLogic";

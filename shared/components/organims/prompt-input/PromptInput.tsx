@@ -7,13 +7,11 @@ import { PromptInputStyle } from "./PromptInput.style";
 interface PromptInputProps<T> extends Omit<InputProps<T>, "textArea"> {
   onSavePrompt?: () => void;
   onSearchPrompt?: () => void;
-  onGeneratePrompt: () => void;
 }
 
 function PromptInput<T>({
   onSavePrompt,
   onSearchPrompt,
-  onGeneratePrompt,
   ...props
 }: PromptInputProps<T>) {
   return (
@@ -35,12 +33,6 @@ function PromptInput<T>({
             onPress={onSearchPrompt}
           />
         )}
-        <Button
-          icon="star-outline"
-          variant="neutral"
-          width="auto"
-          onPress={onGeneratePrompt}
-        />
       </View>
     </Input>
   );

@@ -10,7 +10,7 @@ import { DropdownOption, Empty, Input } from "../../molecules";
 
 import { DropdownOptionListStyle } from "./DropdownOptionList.style";
 
-interface DropdownOptionListProps<T> {
+export interface DropdownOptionListProps<T> {
   optionList: T[];
   optionIdkey: keyof T;
   optionLabelKey: keyof T;

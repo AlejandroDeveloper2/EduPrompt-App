@@ -1,7 +1,11 @@
 import { Tabs } from "expo-router";
 import { Drawer } from "expo-router/drawer";
+import { useEffect } from "react";
 
 import { AppColors } from "@/shared/styles";
+
+import { jobScheduler } from "@/core/jobs/JobScheduler";
+import { registerJobs } from "@/core/jobs/registerJobs";
 
 /** Stores */
 import {
@@ -16,6 +20,7 @@ import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners";
 import { useUserNotificationsEventListener } from "@/features/notifications/hooks/listeners";
 import { useUserEventsListener } from "@/features/settings/hooks/listeners";
+import { useTagEventListeners } from "@/features/tags/hooks/listeners";
 
 /** Jobs */
 import {
@@ -37,7 +42,7 @@ export default function TabLayout() {
   const { actions } = useSelectionModeStore();
 
   /** Cargar perfil de usuario */
-  useUserProfileQuery();
+  const { isFetched } = useUserProfileQuery();
 
   /** Listener para escuchar eventos del modulo de notificaciones */
   useUserNotificationsEventListener();
@@ -54,8 +59,28 @@ export default function TabLayout() {
   /** Listener para escuchar los cambios en las estadisticas del panel de control */
   useDashboardEventListeners();
 
+  /** Listener para escuchar eventos del módulo de Etiquetas */
+  useTagEventListeners();
+
   /** Detectar el back swipe del usuario */
   useBlockBackWhenSelection();
+
+  /** Registramos el Job schedule */
+  useEffect(() => {
+    registerJobs();
+    jobScheduler.init();
+
+    if (!isFetched) return;
+
+    const timer = setTimeout(() => {
+      jobScheduler.start();
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      jobScheduler.cleanup();
+    };
+  }, [isFetched]);
 
   if (size === "laptop")
     return (

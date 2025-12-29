@@ -1,5 +1,7 @@
 export { default as Alert } from "./alert/Alert";
 export { default as BackgroundProcessPanel } from "./background-process-panel/BackgroundProcessPanel";
+export { default as CreateTagForm } from "./create-tag-form/CreateTagForm";
+export { default as ComposedDropdownOptionList } from "./dropdown-option-list/ComposedDropdownOptionList";
 export { default as DropdownOptionList } from "./dropdown-option-list/DropdownOptionList";
 export { default as FloatMenu } from "./float-menu/FloatMenu";
 export { default as Form } from "./form/Form";
@@ -10,3 +12,4 @@ export { default as NavigationTab } from "./navigation/NavigationTab";
 export { default as PopUp } from "./pop-up/PopUp";
 export { default as PromptInput } from "./prompt-input/PromptInput";
 export { default as SubprocessList } from "./subprocess-list/SubprocessList";
+export { default as TagSelectionPanel } from "./tag-selection-panel/TagSelectionPanel";

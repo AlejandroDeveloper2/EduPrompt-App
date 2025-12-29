@@ -1,9 +1,8 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useMemo } from "react";
 
-import { EventKey } from "@/core/events/types";
 import { PaginatedResponse } from "@/core/types";
-import { Tag, TagFilters } from "../../types";
+import { BaseFilters, Tag, TagFilters } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -13,14 +12,13 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { getTags } from "../../services";
 
-type BaseFilters = Omit<TagFilters, "page" | "limit">;
 type InfiniteQueryOptions = {
   limit?: number;
   enabled?: boolean;
 };
 
 const useTagsQuery = (
-  baseFilters: BaseFilters,
+  baseFilters: BaseFilters | null,
   options: InfiniteQueryOptions
 ) => {
   const limit = options?.limit ?? 10;
@@ -30,17 +28,17 @@ const useTagsQuery = (
 
   const { findTags, updateTagsSyncStatus, createTag } = useOfflineTagsStore();
 
-  const stableFiltersKey = useMemo(
-    () => JSON.stringify(baseFilters),
-    [baseFilters]
+  const queryKey = useMemo(
+    () => ["tags", baseFilters?.type ?? null, baseFilters?.name ?? null, limit],
+    [baseFilters?.type, baseFilters?.name, limit]
   );
 
   const query = useInfiniteQuery<PaginatedResponse<Tag>>({
-    queryKey: ["tags", stableFiltersKey, limit],
+    queryKey,
     initialPageParam: "1",
     queryFn: async ({ pageParam = "1" }) => {
       const filters: TagFilters = {
-        ...baseFilters,
+        ...baseFilters!,
         page: String(pageParam),
         limit: String(limit),
       };
@@ -84,15 +82,27 @@ const useTagsQuery = (
     enabled:
       (options?.enabled ?? true) &&
       isConnected !== null &&
-      isConnected !== undefined,
+      isConnected !== undefined &&
+      baseFilters !== null,
+    staleTime: Infinity,
   });
 
   useEffect(() => {
     if (query.data) {
       const tags = query.data.pages.flatMap((page) => page.records);
-      eventBus.emit("tags.list.updated" as EventKey, tags);
+      eventBus.emit("tags.list.pagination.updated", {
+        tags,
+        hasNextPage: query.hasNextPage,
+        isFetchingNextPage: query.isFetchingNextPage,
+        refreshing: query.isRefetching,
+      });
     }
-  }, [query.data]);
+  }, [
+    query.data,
+    query.hasNextPage,
+    query.isFetchingNextPage,
+    query.isRefetching,
+  ]);
 
   return query;
 };

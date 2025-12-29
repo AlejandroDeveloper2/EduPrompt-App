@@ -1,6 +1,6 @@
 import { addDays, addHours, isAfter } from "date-fns";
 import AsyncStorage from "expo-sqlite/kv-store";
-import { AppState } from "react-native";
+import { AppState, NativeEventSubscription } from "react-native";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 import { Job } from "./types";
@@ -23,6 +23,8 @@ class JobScheduler {
    */
   private initialized = false;
 
+  private listenerSubscription: NativeEventSubscription | null = null;
+
   /**
    * Inicializa el planificador y programa la ejecución de los trabajos.
    *
@@ -34,12 +36,18 @@ class JobScheduler {
     if (this.initialized) return;
     this.initialized = true;
 
-    AppState.addEventListener("change", (state) => {
+    this.listenerSubscription = AppState.addEventListener("change", (state) => {
       if (state === "active") {
         this.runJobs();
       }
     });
+  }
 
+  /**
+   * Ejecuta los jobs por primera vez.
+   * Debe llamarse DESPUÉS de que todos los listeners estén listos.
+   */
+  start(): void {
     this.runJobs();
   }
 
@@ -105,6 +113,15 @@ class JobScheduler {
     if (interval === "hourly") return addHours(lastRun, 1);
 
     return new Date(lastRun.getTime() + interval);
+  }
+
+  /**
+   * Limpia los recursos del scheduler.
+   */
+  cleanup(): void {
+    if (this.listenerSubscription) {
+      this.listenerSubscription.remove();
+    }
   }
 }
 

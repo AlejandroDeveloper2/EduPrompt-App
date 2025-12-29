@@ -1,51 +1,51 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { Tag } from "@/features/tags/types";
 
-import { eventBus } from "@/core/events/EventBus";
-
-import { useForm } from "@/shared/hooks/core";
-import { useEventBusToggle } from "@/shared/hooks/events";
-
-import { SavePromptFormData, savePromptFormSchema } from "./validationSchema";
+import { SavePromptFormData } from "./validationSchema";
 
 import { Form } from "@/shared/components/organims";
 
 interface SavePromptFormProps {
-  promptText: string;
+  isLoading: boolean;
+  selectedTag: Tag | null;
+  form: {
+    data: {
+      promptTitle: string;
+      promptText: string;
+      tag: string;
+    };
+    handleChange: (
+      field: keyof {
+        promptTitle: string;
+        promptText: string;
+        tag: string;
+      },
+      value: string | number
+    ) => void;
+    handleClearInput: (
+      name: keyof {
+        promptTitle: string;
+        promptText: string;
+        tag: string;
+      }
+    ) => void;
+    getFieldErrors: (
+      fieldKey: keyof { promptTitle: string; promptText: string; tag: string }
+    ) => string[] | undefined;
+    handleSubmit: () => void;
+  };
+  onTagSelectionMode: () => void;
   onClosePopUp: () => void;
 }
 
-const initialValues: SavePromptFormData = {
-  promptTitle: "",
-  promptText: "",
-  tag: "",
-};
-
-const SavePromptForm = ({ promptText, onClosePopUp }: SavePromptFormProps) => {
-  const {
-    data,
-    handleChange,
-    handleClearInput,
-    getFieldErrors,
-    handleSubmit,
-    setValues,
-  } = useForm({
-    initialValues,
-    validationSchema: savePromptFormSchema,
-    actionCallback: () => {
-      eventBus.emit("prompts.savePrompt.requested", data);
-    },
-  });
-
-  const isLoading = useEventBusToggle("prompts.savePrompt.started", [
-    "prompts.savePrompt.completed",
-    "prompts.savePrompt.failed",
-  ]);
-
-  useEffect(() => {
-    setValues({ promptText });
-  }, [promptText]);
-
+const SavePromptForm = ({
+  isLoading,
+  selectedTag,
+  form,
+  onTagSelectionMode,
+  onClosePopUp,
+}: SavePromptFormProps) => {
+  const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
+    form;
   return (
     <Form>
       <Form.Fields>
@@ -74,21 +74,28 @@ const SavePromptForm = ({ promptText, onClosePopUp }: SavePromptFormProps) => {
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptText")}
-              onGeneratePrompt={() => {}}
             />
           </Form.Row.Item>
         </Form.Row>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
-            <Form.Input<SavePromptFormData>
+            <Form.Dropdown<
+              SavePromptFormData,
+              {
+                tagId: string;
+                type: "prompt_tag" | "resource_tag";
+                name: string;
+              }
+            >
+              name="tag"
               label="Etiqueta (*)"
               icon="pricetag-outline"
-              name="tag"
-              value={data.tag}
-              placeholder="Digita la etiqueta del prompt"
+              placeholder="Seleccione una opción"
+              selectedOption={selectedTag}
+              optionValueKey="name"
+              displayDropdownOptions={onTagSelectionMode}
               errorMessage={getFieldErrors("tag")?.join(", ")}
-              onChange={handleChange}
-              onClearInput={() => handleClearInput("tag")}
+              clearSelectedOption={() => handleClearInput("tag")}
             />
           </Form.Row.Item>
         </Form.Row>

@@ -1,11 +1,8 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
-import { useEffect } from "react";
 import { Host } from "react-native-portalize";
 
 import { queryClient } from "@/core/config/reactQuery";
-import { jobScheduler } from "@/core/jobs/JobScheduler";
-import { registerJobs } from "@/core/jobs/registerJobs";
 
 import { ToastProvider } from "@/shared/context";
 import { AppColors } from "@/shared/styles";
@@ -39,12 +36,6 @@ function InnerApp({
   loaded: boolean;
   db: { success: boolean; error: Error | undefined };
 }) {
-  /** Registramos el Job schedule */
-  useEffect(() => {
-    registerJobs();
-    jobScheduler.init();
-  }, []);
-
   /** Listener para escuchar eventos del modulo de auth */
   useAuthEventListeners();
 

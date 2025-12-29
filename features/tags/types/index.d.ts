@@ -27,7 +27,10 @@ interface TagFilters {
   limit?: string | undefined;
 }
 
+type BaseFilters = Omit<TagFilters, "page" | "limit">;
+
 export type {
+  BaseFilters,
   CreateTagPayload,
   SyncTagsPayload,
   Tag,

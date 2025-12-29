@@ -1,15 +1,30 @@
+import { eventBus } from "@/core/events/EventBus";
+
+import { Spacing } from "@/shared/styles";
+
 import { ResourceDescriptionFormData } from "./validationSchema";
 
-import { useResourceDescriptionFormLogic } from "@/features/generations/hooks/core";
+import {
+  useResourceDescriptionFormLogic,
+  useSavePromptFormLogic,
+} from "@/features/generations/hooks/core";
 
 import { Typography } from "@/shared/components/atoms";
-import { Form, PopUp } from "@/shared/components/organims";
+import { Button } from "@/shared/components/molecules";
+import {
+  ComposedDropdownOptionList,
+  Form,
+  PopUp,
+  TagSelectionPanel,
+} from "@/shared/components/organims";
 import SavePromptForm from "./SavePromptForm";
 
 const ResourceDescriptionForm = () => {
   const {
     currentIaGeneration,
     setGenerationStep,
+    isTagSelection,
+    setIsTagSelection,
     form: {
       data,
       isPending,
@@ -21,21 +36,68 @@ const ResourceDescriptionForm = () => {
     popUps: { savePromptPopUp, selectPromptPopUp },
   } = useResourceDescriptionFormLogic();
 
+  const { isLoading, tagsPagination, selectedTag, form } =
+    useSavePromptFormLogic(data.descriptionPrompt);
+
   return (
     <>
       <PopUp
-        icon="save-outline"
-        title="Guardar prompt"
+        icon={isTagSelection ? "pricetag-outline" : "save-outline"}
+        title={isTagSelection ? "Seleccionar etiqueta" : "Guardar prompt"}
         isPopUpMounted={savePromptPopUp.isPopUpMounted}
         gesture={savePromptPopUp.dragGesture}
         animatedPopUpStyle={savePromptPopUp.animatedPopUpStyle}
         onClosePopUp={savePromptPopUp.onClosePopUp}
         style={{ maxHeight: "auto" }}
       >
-        <SavePromptForm
-          promptText={data.descriptionPrompt}
-          onClosePopUp={savePromptPopUp.onClosePopUp}
-        />
+        {isTagSelection ? (
+          <ComposedDropdownOptionList<{
+            tagId: string;
+            type: "prompt_tag" | "resource_tag";
+            name: string;
+          }>
+            ControlPanelComponent={<TagSelectionPanel tagType="prompt_tag" />}
+            infinitePaginationOptions={{
+              ...tagsPagination,
+              onRefetch: () =>
+                eventBus.emit("tags.refetch.requested", undefined),
+              onEndReached: () => {
+                if (
+                  tagsPagination.hasNextPage &&
+                  !tagsPagination.isFetchingNextPage
+                )
+                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+              },
+            }}
+            optionList={tagsPagination.tags}
+            optionIdkey="tagId"
+            optionLabelKey="name"
+            searchInputPlaceholder="Buscar etiqueta por nombre"
+            selectedOption={selectedTag}
+            onSelectOption={(option) => {
+              form.handleChange("tag", option.tagId);
+              setIsTagSelection(false);
+            }}
+            FooterComponent={
+              <Button
+                label="Cancelar selección"
+                icon="close-outline"
+                width="100%"
+                variant="neutral"
+                onPress={() => setIsTagSelection(false)}
+                style={{ marginVertical: Spacing.spacing_xl }}
+              />
+            }
+          />
+        ) : (
+          <SavePromptForm
+            isLoading={isLoading}
+            selectedTag={selectedTag}
+            form={form}
+            onTagSelectionMode={() => setIsTagSelection(true)}
+            onClosePopUp={savePromptPopUp.onClosePopUp}
+          />
+        )}
       </PopUp>
 
       <PopUp
@@ -69,7 +131,6 @@ const ResourceDescriptionForm = () => {
                 onChange={handleChange}
                 onClearInput={() => handleClearInput("descriptionPrompt")}
                 onSavePrompt={savePromptPopUp.onOpenPopUp}
-                onGeneratePrompt={() => {}}
                 onSearchPrompt={selectPromptPopUp.onOpenPopUp}
               />
             </Form.Row.Item>
