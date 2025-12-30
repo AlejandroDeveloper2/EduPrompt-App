@@ -1,3 +1,5 @@
+import { Prompt } from "@/features/prompts/types";
+
 import { eventBus } from "@/core/events/EventBus";
 
 import { Spacing } from "@/shared/styles";
@@ -9,7 +11,6 @@ import {
   useSavePromptFormLogic,
 } from "@/features/generations/hooks/core";
 
-import { Typography } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
 import {
   ComposedDropdownOptionList,
@@ -17,6 +18,7 @@ import {
   PopUp,
   TagSelectionPanel,
 } from "@/shared/components/organims";
+import PromptSelectionPanel from "../prompt-selection-panel/PromptSelectionPanel";
 import SavePromptForm from "./SavePromptForm";
 
 const ResourceDescriptionForm = () => {
@@ -25,6 +27,8 @@ const ResourceDescriptionForm = () => {
     setGenerationStep,
     isTagSelection,
     setIsTagSelection,
+    selectedPrompt,
+    setSelectedPrompt,
     form: {
       data,
       isPending,
@@ -34,10 +38,14 @@ const ResourceDescriptionForm = () => {
       handleSubmit,
     },
     popUps: { savePromptPopUp, selectPromptPopUp },
+    paginatedPrompts,
   } = useResourceDescriptionFormLogic();
 
   const { isLoading, tagsPagination, selectedTag, form } =
-    useSavePromptFormLogic(data.descriptionPrompt);
+    useSavePromptFormLogic(
+      data.descriptionPrompt,
+      savePromptPopUp.onClosePopUp
+    );
 
   return (
     <>
@@ -101,21 +109,83 @@ const ResourceDescriptionForm = () => {
       </PopUp>
 
       <PopUp
-        icon="search-outline"
-        title="Seleccionar prompt"
+        icon={isTagSelection ? "pricetag-outline" : "chatbox-outline"}
+        title={isTagSelection ? "Seleccionar etiqueta" : "Seleccionar prompt"}
         isPopUpMounted={selectPromptPopUp.isPopUpMounted}
         gesture={selectPromptPopUp.dragGesture}
         animatedPopUpStyle={selectPromptPopUp.animatedPopUpStyle}
         onClosePopUp={selectPromptPopUp.onClosePopUp}
       >
-        <Typography
-          text={"List"}
-          weight={"bold"}
-          type={"display"}
-          textAlign={"center"}
-          color={""}
-          width="auto"
-        />
+        {isTagSelection ? (
+          <ComposedDropdownOptionList<{
+            tagId: string;
+            type: "prompt_tag" | "resource_tag";
+            name: string;
+          }>
+            ControlPanelComponent={<TagSelectionPanel tagType="prompt_tag" />}
+            infinitePaginationOptions={{
+              ...tagsPagination,
+              onRefetch: () =>
+                eventBus.emit("tags.refetch.requested", undefined),
+              onEndReached: () => {
+                if (
+                  tagsPagination.hasNextPage &&
+                  !tagsPagination.isFetchingNextPage
+                )
+                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+              },
+            }}
+            optionList={tagsPagination.tags}
+            optionIdkey="tagId"
+            optionLabelKey="name"
+            searchInputPlaceholder="Buscar etiqueta por nombre"
+            selectedOption={selectedTag}
+            onSelectOption={(option) => {
+              form.handleChange("tag", option.tagId);
+              setIsTagSelection(false);
+            }}
+            FooterComponent={
+              <Button
+                label="Cancelar selección"
+                icon="close-outline"
+                width="100%"
+                variant="neutral"
+                onPress={() => setIsTagSelection(false)}
+                style={{ marginVertical: Spacing.spacing_xl }}
+              />
+            }
+          />
+        ) : (
+          <ComposedDropdownOptionList<Prompt>
+            ControlPanelComponent={
+              <PromptSelectionPanel
+                isTagSelection={isTagSelection}
+                enableTagSelection={() => setIsTagSelection(true)}
+              />
+            }
+            infinitePaginationOptions={{
+              ...paginatedPrompts,
+              onRefetch: () =>
+                eventBus.emit("prompts.refetch.requested", undefined),
+              onEndReached: () => {
+                if (
+                  paginatedPrompts.hasNextPage &&
+                  !paginatedPrompts.isFetchingNextPage
+                )
+                  eventBus.emit("prompts.fetchNextPage.requested", undefined);
+              },
+            }}
+            optionList={paginatedPrompts.prompts}
+            optionIdkey="promptId"
+            optionLabelKey="promptTitle"
+            searchInputPlaceholder="Buscar prompt por titulo"
+            selectedOption={selectedPrompt}
+            onSelectOption={(option) => {
+              setSelectedPrompt(option);
+              selectPromptPopUp.onClosePopUp();
+            }}
+          />
+        )}
       </PopUp>
       <Form>
         <Form.Fields>

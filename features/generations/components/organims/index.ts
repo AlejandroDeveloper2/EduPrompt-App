@@ -5,6 +5,7 @@ export { default as GenerationCardList } from "./generation-card-list/Generation
 export { default as GenerationStepView } from "./generation-step-view/GenerationStepView";
 export { default as IaResponseCard } from "./ia-response-card/IaResponseCard";
 export { default as LanguageForm } from "./language-form/LanguageForm";
+export { default as PromptSelectionPanel } from "./prompt-selection-panel/PromptSelectionPanel";
 export { default as ResourceDescriptionForm } from "./resource-description-form/ResourceDescriptionForm";
 export { default as ResourceFormatForm } from "./resource-format-form/ResourceFormatForm";
 export { default as ResourceTypeForm } from "./resource-type-form/ResourceTypeForm";

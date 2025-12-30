@@ -57,6 +57,13 @@ interface SystemNotification extends Notification {
 }
 
 /** Prompts */
+interface Prompt {
+  promptId: string;
+  promptTitle: string;
+  promptText: string;
+  tag: string;
+  sync: boolean;
+}
 interface SavePromptPayload {
   promptTitle: string;
   promptText: string;
@@ -68,6 +75,7 @@ interface Tag {
   tagId: string;
   name: string;
   type: "prompt_tag" | "resource_tag";
+  sync: boolean;
 }
 
 export type {
@@ -76,6 +84,7 @@ export type {
   EventHandler,
   EventKey,
   Notification,
+  Prompt,
   SavePromptPayload,
   SendEmailChangePayload,
   SystemNotification,

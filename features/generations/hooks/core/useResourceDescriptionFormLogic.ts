@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
+import { Prompt } from "@/features/prompts/types";
 import { GenerationData } from "../../types";
 
 import {
@@ -22,6 +23,7 @@ const initialValues: ResourceDescriptionFormData = {
 
 const useResourceDescriptionFormLogic = () => {
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
+  const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
 
   const {
     currentIaGeneration,
@@ -33,6 +35,12 @@ const useResourceDescriptionFormLogic = () => {
   const { mutateAsync, isPending } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
   const userProfile = useEventbusValue("userProfile.user.updated", null);
+  const paginatedPrompts = useEventbusValue("prompts.list.pagination.updated", {
+    prompts: [],
+    hasNextPage: false,
+    isFetchingNextPage: false,
+    refreshing: false,
+  });
 
   const {
     data,
@@ -88,11 +96,18 @@ const useResourceDescriptionFormLogic = () => {
     });
   }, [currentIaGeneration]);
 
+  useEffect(() => {
+    if (selectedPrompt)
+      setValues({ descriptionPrompt: selectedPrompt.promptText });
+  }, [selectedPrompt]);
+
   return {
     currentIaGeneration,
     setGenerationStep,
     isTagSelection,
     setIsTagSelection,
+    selectedPrompt,
+    setSelectedPrompt,
     form: {
       data,
       isPending,
@@ -105,6 +120,7 @@ const useResourceDescriptionFormLogic = () => {
       savePromptPopUp,
       selectPromptPopUp,
     },
+    paginatedPrompts,
   };
 };
 

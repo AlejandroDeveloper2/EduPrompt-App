@@ -35,7 +35,7 @@ const TagSelectionPanel = ({ tagType }: TagSelectionPanelProps) => {
         name="searchValue"
         value={searchValue}
         icon="search-outline"
-        placeholder="Buscar generaciones por titulo"
+        placeholder="Buscar etiquetas por nombre"
         onChange={(_, value) => setSearchValue(value)}
         onClearInput={() => setSearchValue("")}
       />

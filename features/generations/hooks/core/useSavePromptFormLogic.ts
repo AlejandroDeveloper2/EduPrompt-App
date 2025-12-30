@@ -20,7 +20,10 @@ const initialValues: SavePromptFormData = {
   tag: "",
 };
 
-const useSavePromptFormLogic = (promptText: string) => {
+const useSavePromptFormLogic = (
+  promptText: string,
+  onClosePopUp: () => void
+) => {
   const {
     data,
     handleChange,
@@ -33,6 +36,7 @@ const useSavePromptFormLogic = (promptText: string) => {
     validationSchema: savePromptFormSchema,
     actionCallback: () => {
       eventBus.emit("prompts.savePrompt.requested", data);
+      onClosePopUp();
     },
   });
 

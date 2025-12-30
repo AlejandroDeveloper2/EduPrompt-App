@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useMemo } from "react";
 
-import { PaginatedResponse } from "@/core/types";
+import { InfiniteQueryOptions, PaginatedResponse } from "@/core/types";
 import { BaseFilters, Tag, TagFilters } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
@@ -11,11 +11,6 @@ import { useOfflineTagsStore } from "../store";
 import { eventBus } from "@/core/events/EventBus";
 
 import { getTags } from "../../services";
-
-type InfiniteQueryOptions = {
-  limit?: number;
-  enabled?: boolean;
-};
 
 const useTagsQuery = (
   baseFilters: BaseFilters | null,

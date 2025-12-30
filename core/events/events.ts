@@ -2,6 +2,7 @@ import {
   ChangePassPayload,
   EventError,
   Notification,
+  Prompt,
   SavePromptPayload,
   SendEmailChangePayload,
   SystemNotification,
@@ -68,6 +69,19 @@ export type AppEvents = {
   "notifications.checkNotification": undefined;
 
   /** Eventos Módulo de prompts */
+  "prompts.list.pagination.updated": {
+    prompts: Prompt[];
+    hasNextPage: boolean;
+    isFetchingNextPage: boolean;
+    refreshing: boolean;
+  };
+  "prompts.fetchNextPage.requested": undefined;
+  "prompts.refetch.requested": undefined;
+
+  "prompts.fetch": {
+    tag?: string | undefined;
+    title?: string | undefined;
+  };
   "prompts.savePrompt.requested": SavePromptPayload;
   "prompts.savePrompt.started": undefined;
   "prompts.savePrompt.completed": undefined;

@@ -234,6 +234,11 @@ interface ServerErrorResponse {
   description: string;
 }
 
+type InfiniteQueryOptions = {
+  limit?: number;
+  enabled?: boolean;
+};
+
 export {
   AlertVariantType,
   AlignTextType,
@@ -252,6 +257,7 @@ export {
   FormatFilter,
   FormConfig,
   FormErrors,
+  InfiniteQueryOptions,
   Lang,
   NavigationPropsBase,
   NavOption,

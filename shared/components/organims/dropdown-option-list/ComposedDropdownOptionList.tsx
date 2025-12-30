@@ -29,7 +29,6 @@ function ComposedDropdownOptionList<T>({
   optionList,
   optionIdkey,
   optionLabelKey,
-  searchInputPlaceholder,
   selectedOption,
   onSelectOption,
   ControlPanelComponent,
