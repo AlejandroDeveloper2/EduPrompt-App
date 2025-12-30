@@ -19,8 +19,8 @@ const usePromptEventListeners = () => {
   useEffect(() => {
     const fetchPrompts = (filters: BaseFilters) => {
       queryClient.invalidateQueries({
-        queryKey: ["prompts"],
-        exact: true,
+        queryKey: ["prompts", filters?.tag ?? null, filters?.title ?? null],
+        // exact: filters.tag ? true : false,
       });
       setBaseFilters(filters);
     };
