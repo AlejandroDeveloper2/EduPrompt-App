@@ -7,7 +7,36 @@ interface EducationalResource {
   format: string;
   formatKey: ResourceFormatKey;
   groupTag: string;
-  creationDate: string;
+  creationDate: Date;
+  sync: boolean;
 }
 
-export type { EducationalResource, ResourceFormatKey };
+type CreateResourcePayload = Omit<EducationalResource, "creationDate" | "sync">;
+type UpdateResourcePayload = Pick<
+  EducationalResource,
+  "title" | "groupTag" | "resourceId"
+>;
+
+interface SyncResourcesPayload {
+  resources: EducationalResource[];
+}
+
+interface ResourceFilters {
+  page?: string | undefined;
+  limit?: string | undefined;
+  formatKey?: ResourceFormatKey | undefined;
+  tag?: string | undefined;
+  title?: string | undefined;
+}
+
+type BaseFilters = Omit<ResourceFilters, "page" | "limit">;
+
+export type {
+  BaseFilters,
+  CreateResourcePayload,
+  EducationalResource,
+  ResourceFilters,
+  ResourceFormatKey,
+  SyncResourcesPayload,
+  UpdateResourcePayload,
+};

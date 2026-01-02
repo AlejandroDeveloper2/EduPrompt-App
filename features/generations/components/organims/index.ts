@@ -9,4 +9,5 @@ export { default as PromptSelectionPanel } from "./prompt-selection-panel/Prompt
 export { default as ResourceDescriptionForm } from "./resource-description-form/ResourceDescriptionForm";
 export { default as ResourceFormatForm } from "./resource-format-form/ResourceFormatForm";
 export { default as ResourceTypeForm } from "./resource-type-form/ResourceTypeForm";
+export { default as SaveResourceForm } from "./save-resource-form/SaveResourceForm";
 export { default as SubjectForm } from "./subject-form/SubjectForm";

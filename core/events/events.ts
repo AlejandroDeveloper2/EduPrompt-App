@@ -1,5 +1,6 @@
 import {
   ChangePassPayload,
+  CreateResourcePayload,
   EventError,
   Notification,
   Prompt,
@@ -119,4 +120,10 @@ export type AppEvents = {
   "tags.createTag.started": undefined;
   "tags.createTag.completed": undefined;
   "tags.createTag.failed": EventError;
+
+  /** Eventos del módulo de recursos educativos */
+  "resources.createResource.requested": CreateResourcePayload;
+  "resources.createResource.started": undefined;
+  "resources.createResource.completed": undefined;
+  "resources.createResource.failed": EventError;
 };

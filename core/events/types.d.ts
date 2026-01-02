@@ -78,8 +78,18 @@ interface Tag {
   sync: boolean;
 }
 
+/** Educational Resources */
+interface CreateResourcePayload {
+  title: string;
+  content: string;
+  format: string;
+  formatKey: "text" | "image" | "chart" | "table";
+  groupTag: string;
+}
+
 export type {
   ChangePassPayload,
+  CreateResourcePayload,
   EventError,
   EventHandler,
   EventKey,

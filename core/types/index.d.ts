@@ -1,3 +1,4 @@
+import { ResourceFormatKey } from "@/features/educational-resources/types";
 import { Ionicons } from "@expo/vector-icons";
 import { RelativePathString } from "expo-router";
 import { ComponentRef } from "react";
@@ -89,6 +90,7 @@ interface Step<T> {
 interface FormatFilter {
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
+  formatKey: ResourceFormatKey | null;
 }
 
 interface NavOption {
