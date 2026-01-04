@@ -1,8 +1,13 @@
 import { FlatList, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+
+import { SectionComponentMap, SectionId } from "./types";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
 import { eventBus } from "@/core/events/EventBus";
+
+import { RESOURCE_PREVIEW_TABS } from "./constants";
 
 import {
   useResourceCardListLogic,
@@ -13,6 +18,8 @@ import {
   Button,
   Empty,
   LoadingTextIndicator,
+  ResourceViewer,
+  Tabulator,
 } from "@/shared/components/molecules";
 import { ResourceCard } from "../../molecules";
 import PreviewResourceHeader from "./PreviewResourceHeader";
@@ -56,13 +63,41 @@ const PreviewResourceList = () => {
     /** Resource Id  */
     selectedResource,
     setSelectedResource,
-  } = useResourceCardListLogic();
+    /** Resources preview popup tabs */
+    activePreviewTab,
+    setActivePreviewTab,
+    /** Preview viewer */
+    viewerType,
+  } = useResourceCardListLogic(RESOURCE_PREVIEW_TABS[0]);
 
   const { isPending, tagsPagination, selectedTag, form } =
     useUpdateResourceFormLogic(
       selectedResource,
       updateResourcePopUp.onClosePopUp
     );
+
+  const Section: SectionComponentMap = {
+    "tab-1": (
+      <ScrollView style={{ width: "100%", maxHeight: 500 }}>
+        <ResourceViewer
+          viewerType={viewerType}
+          content={
+            selectedResource ? selectedResource.content : "Sin contenido..."
+          }
+          scroll={false}
+        />
+      </ScrollView>
+    ),
+    "tab-2": (
+      <UpdateResourceForm
+        isLoading={isPending}
+        selectedTag={selectedTag}
+        form={form}
+        onTagSelectionMode={() => setIsTagSelection(true)}
+        onClosePopUp={updateResourcePopUp.onClosePopUp}
+      />
+    ),
+  };
 
   const previewResourceListStyle = PreviewResourceListStyle(size);
 
@@ -92,8 +127,8 @@ const PreviewResourceList = () => {
   return (
     <>
       <PopUp
-        title={isTagSelection ? "Seleccionar etiqueta" : "Actualizar recurso"}
-        icon={isTagSelection ? "pricetag-outline" : "pencil-outline"}
+        title={isTagSelection ? "Seleccionar etiqueta" : "Visualizar recurso"}
+        icon={isTagSelection ? "pricetag-outline" : "eye-outline"}
         isPopUpMounted={updateResourcePopUp.isPopUpMounted}
         gesture={updateResourcePopUp.dragGesture}
         animatedPopUpStyle={updateResourcePopUp.animatedPopUpStyle}
@@ -143,14 +178,16 @@ const PreviewResourceList = () => {
             }
           />
         ) : (
-          <UpdateResourceForm
-            isLoading={isPending}
-            selectedTag={selectedTag}
-            form={form}
-            selectedResource={selectedResource}
-            onTagSelectionMode={() => setIsTagSelection(true)}
-            onClosePopUp={updateResourcePopUp.onClosePopUp}
-          />
+          <View style={previewResourceListStyle.ViewPreviewContainer}>
+            <Tabulator
+              tabs={RESOURCE_PREVIEW_TABS}
+              activeTab={activePreviewTab}
+              onSwitchTab={(tab) => {
+                setActivePreviewTab(tab);
+              }}
+            />
+            {Section[activePreviewTab.tabId as SectionId]}
+          </View>
         )}
       </PopUp>
       <FlatList

@@ -76,6 +76,7 @@
     "@babel/core": "^7.25.2",
     "@tanstack/eslint-plugin-query": "^5.86.0",
     "@types/react": "~19.1.10",
+    "baseline-browser-mapping": "^2.9.11",
     "dotenv-cli": "^8.0.0",
     "drizzle-kit": "^0.31.8",
     "eslint": "^9.25.0",

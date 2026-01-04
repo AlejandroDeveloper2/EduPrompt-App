@@ -1,35 +1,10 @@
-import { useMemo } from "react";
-
-import { Tag } from "@/features/tags/types";
+import { UpdateResourceFormProps } from "./types";
 
 import { UpdateResourceFormData } from "./validateSchema";
 
-import { EducationalResource } from "@/features/educational-resources/types";
-import { ResourceViewer } from "@/shared/components/molecules";
 import { Form } from "@/shared/components/organims";
 
-interface UpdateResourceFormProps {
-  isLoading: boolean;
-  selectedTag: Tag | null;
-  selectedResource: EducationalResource | null;
-  form: {
-    data: Omit<UpdateResourceFormData, "sync">;
-    handleChange: (
-      field: keyof UpdateResourceFormData,
-      value: string | number
-    ) => void;
-    handleClearInput: (name: keyof UpdateResourceFormData) => void;
-    getFieldErrors: (
-      fieldKey: keyof UpdateResourceFormData
-    ) => string[] | undefined;
-    handleSubmit: () => void;
-  };
-  onTagSelectionMode: () => void;
-  onClosePopUp: () => void;
-}
-
 const UpdateResourceForm = ({
-  selectedResource,
   isLoading,
   selectedTag,
   form,
@@ -39,30 +14,9 @@ const UpdateResourceForm = ({
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     form;
 
-  const viewerType = useMemo(
-    () =>
-      selectedResource?.formatKey === "text"
-        ? "text"
-        : selectedResource?.formatKey === "image"
-        ? "image"
-        : "table/chart",
-    [selectedResource?.formatKey]
-  );
-
   return (
     <Form>
       <Form.Fields>
-        <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
-          <Form.Row.Item span={1}>
-            <ResourceViewer
-              viewerType={viewerType}
-              content={
-                selectedResource ? selectedResource.content : "Sin contenido..."
-              }
-              scroll={false}
-            />
-          </Form.Row.Item>
-        </Form.Row>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<UpdateResourceFormData>

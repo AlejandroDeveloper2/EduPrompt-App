@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
 
+import { Tab, ViewerType } from "@/core/types";
 import { Tag } from "@/features/tags/types";
 import { EducationalResource, ResourceFormatKey } from "../../types";
 
@@ -18,10 +19,13 @@ import { useResourcesQuery } from "../queries";
 import { useResourcesSelectionStore } from "../store";
 import useDeleteManyResources from "./useDeleteManyResources";
 
-const useResourceCardListLogic = () => {
+const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
   const [selectedResource, setSelectedResource] =
     useState<EducationalResource | null>(null);
+  const [activePreviewTab, setActivePreviewTab] = useState<Tab>(
+    defaultResourcePreviewTab
+  );
 
   const size = useScreenDimensionsStore();
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
@@ -52,7 +56,6 @@ const useResourceCardListLogic = () => {
     data,
     isLoading,
     isError,
-    error,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -74,9 +77,15 @@ const useResourceCardListLogic = () => {
     [data]
   );
 
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+  const viewerType: ViewerType = useMemo(
+    () =>
+      selectedResource?.formatKey === "text"
+        ? "text"
+        : selectedResource?.formatKey === "image"
+        ? "image"
+        : "table/chart",
+    [selectedResource?.formatKey]
+  );
 
   /** Emitimos el cambio de elementos seleccionados */
   useEffect(() => {
@@ -137,6 +146,11 @@ const useResourceCardListLogic = () => {
     /** Resource Id  */
     selectedResource,
     setSelectedResource,
+    /** Resources preview popup tabs */
+    activePreviewTab,
+    setActivePreviewTab,
+    /** Preview viewer */
+    viewerType,
   };
 };
 

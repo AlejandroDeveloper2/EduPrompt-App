@@ -94,7 +94,7 @@ const ResourceCard = ({
           type="button"
           textAlign="left"
           color={AppColors.neutral[1000]}
-          width="auto"
+          width={250}
           icon={icon}
         />
         <Checkbox
