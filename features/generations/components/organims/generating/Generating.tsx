@@ -4,7 +4,7 @@ import { Image, View } from "react-native";
 import { useGenerationsStore } from "@/features/generations/hooks/store";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import { setGenerationProcessName } from "@/shared/helpers";
+import { setGenerationProcessName } from "@/features/generations/helpers";
 import { calcAvarageProcessDuration } from "@/shared/utils";
 
 import { Button } from "@/shared/components/molecules";
@@ -20,10 +20,7 @@ const Generating = () => {
   const processDuration = useMemo(() => {
     if (!currentIaGeneration) return null;
     const { data } = currentIaGeneration;
-    const processName = setGenerationProcessName(
-      `${data.resourceType.resourceTypeLabel} -
-                ${data.subjectName}`
-    );
+    const processName = setGenerationProcessName(data);
     return calcAvarageProcessDuration(processName);
   }, [currentIaGeneration]);
 

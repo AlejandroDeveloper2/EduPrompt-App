@@ -9,6 +9,7 @@ import {
 export interface StoreStateProps {
   isProcessing: boolean;
   isLoading: boolean;
+  isDownloading: boolean;
 }
 
 export interface StoreActions {
@@ -29,6 +30,7 @@ export interface StoreActions {
     resourceId?: string
   ) => Promise<void>;
   findAllResources: () => Promise<EducationalResource[]>;
+  downloadManyResources: () => Promise<void>;
 }
 
 export type OfflineResourcesStoreType = StoreStateProps & StoreActions;

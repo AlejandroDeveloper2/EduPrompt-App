@@ -9,7 +9,7 @@ import { useGenerationsStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
 import { formatGenerationData, getResourcePrice } from "../../helpers";
-import { generateAndLoadPDF } from "../../utils";
+import { generateAndLoadPDF, zipImageBase64 } from "../../utils";
 
 import { postGenerateEducationalResource } from "../../services";
 
@@ -42,12 +42,18 @@ const useGenerateResourceMutation = () => {
       const { resourceFormat } = variables;
       let iaResponse: AssistantResponse = { ...data };
 
+      if (resourceFormat.formatKey === "image")
+        iaResponse = {
+          ...iaResponse,
+          result: await zipImageBase64(iaResponse.result),
+        };
+
       if (
         resourceFormat.formatKey === "chart" ||
         resourceFormat.formatKey === "table"
       )
         iaResponse = {
-          ...data,
+          ...iaResponse,
           result: await generateAndLoadPDF(data.result),
         };
 

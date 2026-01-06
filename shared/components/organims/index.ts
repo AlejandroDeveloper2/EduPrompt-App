@@ -3,6 +3,7 @@ export { default as BackgroundProcessPanel } from "./background-process-panel/Ba
 export { default as CreateTagForm } from "./create-tag-form/CreateTagForm";
 export { default as ComposedDropdownOptionList } from "./dropdown-option-list/ComposedDropdownOptionList";
 export { default as DropdownOptionList } from "./dropdown-option-list/DropdownOptionList";
+export { default as FetchingErrorPanel } from "./fetching-error-panel/FetchingErrorPanel";
 export { default as FloatMenu } from "./float-menu/FloatMenu";
 export { default as Form } from "./form/Form";
 export { default as Header } from "./header/Header";

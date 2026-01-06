@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
+import uuid from "react-native-uuid";
 
 import { Tab, ViewerType } from "@/core/types";
 import { Tag } from "@/features/tags/types";
@@ -7,17 +8,22 @@ import { EducationalResource, ResourceFormatKey } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { SELECTION_MODE_ACTIONS } from "../../constants";
+import {
+  BACKGROUND_PROCESS_NAMES,
+  SELECTION_MODE_ACTIONS,
+} from "../../constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useListFilters } from "@/shared/hooks/core";
+import { useBackgroundTaskRunner, useListFilters } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
 } from "@/shared/hooks/store";
 import { useResourcesQuery } from "../queries";
-import { useResourcesSelectionStore } from "../store";
+import { useOfflineResourcesStore, useResourcesSelectionStore } from "../store";
 import useDeleteManyResources from "./useDeleteManyResources";
+
+import { calcAvarageProcessDuration } from "@/shared/utils";
 
 const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
@@ -36,6 +42,9 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     enableSelectionMode,
     disableSelectionMode,
   } = useSelectionModeStore();
+  const { downloadManyResources } = useOfflineResourcesStore();
+
+  const { runBackgroundTask } = useBackgroundTaskRunner();
 
   const {
     searchValue,
@@ -101,7 +110,35 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(removeManyResources, () => {})
+        SELECTION_MODE_ACTIONS(removeManyResources, () => {
+          const processName = BACKGROUND_PROCESS_NAMES.downloadProcess;
+          runBackgroundTask(
+            {
+              processId: uuid.v4(),
+              type: "downloading",
+              processName,
+              progressConfig: {
+                mode: "duration-timer",
+                limit: calcAvarageProcessDuration(processName) ?? 6000,
+              },
+              progress: 0,
+              state: "in-progress",
+              startTime: Date.now(),
+            },
+            downloadManyResources,
+            {
+              successNotification: {
+                title: "¡Recursos descargados!",
+                message: "Tus recursos se han descargado correctamente.",
+              },
+              errorNotification: {
+                title: "¡Error al descargar!",
+                message:
+                  "No se pudo descargar tus recursos, intentalo de nuevo.",
+              },
+            }
+          );
+        })
       );
     else disableSelectionMode();
   }, [selectionCount]);

@@ -60,13 +60,32 @@ const useResourceDescriptionFormLogic = () => {
             : false;
         },
         async (newTask, currentIaGeneration) => {
-          await runBackgroundTask(newTask, async () => {
-            const updatedGenerationData: GenerationData = {
-              ...currentIaGeneration.data,
-              resourceDescriptionPrompt: data.descriptionPrompt,
-            };
-            await mutateAsync(updatedGenerationData);
-          });
+          await runBackgroundTask(
+            newTask,
+            async () => {
+              const updatedGenerationData: GenerationData = {
+                ...currentIaGeneration.data,
+                resourceDescriptionPrompt: data.descriptionPrompt,
+              };
+              await mutateAsync(updatedGenerationData);
+            },
+            {
+              successNotification: {
+                title: "¡Recurso generado!",
+                message: `Se ha generado tu recurso exitosamente: ${
+                  currentIaGeneration.data.resourceType.other ??
+                  currentIaGeneration.data.resourceType.resourceTypeLabel
+                }`,
+              },
+              errorNotification: {
+                title: "¡Error al generar recurso!",
+                message: `Ha ocurrido un error al generar tu recurso: ${
+                  currentIaGeneration.data.resourceType.other ??
+                  currentIaGeneration.data.resourceType.resourceTypeLabel
+                }`,
+              },
+            }
+          );
         },
         data.descriptionPrompt
       );

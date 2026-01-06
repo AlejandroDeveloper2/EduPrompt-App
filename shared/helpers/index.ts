@@ -10,4 +10,3 @@ export * from "./getMainNavigationRoutes";
 export * from "./getSubprocessIcon";
 export * from "./getToastIcon";
 export * from "./renderHtmlPdf";
-export * from "./setGenerationProcessName";

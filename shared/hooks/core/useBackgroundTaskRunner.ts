@@ -13,7 +13,6 @@ import { eventBus } from "@/core/events/EventBus";
 import { useBackgroundTasksStore } from "../store";
 
 import { calcAvarageProcessDuration } from "@/shared/utils";
-import { setGenerationProcessName } from "../../helpers";
 
 const useBackgroundTaskRunner = () => {
   const appState = useRef<AppStateStatus>(AppState.currentState);
@@ -94,7 +93,17 @@ const useBackgroundTaskRunner = () => {
 
   const runBackgroundTask = async (
     newTask: Process,
-    actionCallback: () => Promise<void>
+    actionCallback: () => Promise<void>,
+    options: {
+      successNotification: {
+        title: string;
+        message: string;
+      };
+      errorNotification: {
+        title: string;
+        message: string;
+      };
+    }
   ): Promise<void> => {
     try {
       /** Create a new task */
@@ -115,16 +124,10 @@ const useBackgroundTaskRunner = () => {
         state: "done",
       });
 
-      const processName = newTask.processName.split("_")[1];
-      const notificationMessage = setGenerationProcessName(
-        processName,
-        "Titulo del recurso:"
-      ).replace("_", " ");
-
       eventBus.emit("notifications.createNotification.requested", {
         notificationId: uuid.v4(),
-        title: "¡Recurso generado!",
-        message: `✅ ${notificationMessage}`,
+        title: options.successNotification.title,
+        message: `✅ ${options.successNotification.message}`,
         creationDate: new Date(),
       });
     } catch (e: unknown) {
@@ -132,12 +135,10 @@ const useBackgroundTaskRunner = () => {
 
       updateBackgroundTask({ ...newTask, state: "error" });
 
-      const processName = newTask.processName.split("_")[1];
-
       eventBus.emit("notifications.createNotification.requested", {
         notificationId: uuid.v4(),
-        title: processName,
-        message: "❌ No se pudo completar el proceso",
+        title: options.errorNotification.title,
+        message: `❌ ${options.errorNotification.message}`,
         creationDate: new Date(),
       });
     } finally {

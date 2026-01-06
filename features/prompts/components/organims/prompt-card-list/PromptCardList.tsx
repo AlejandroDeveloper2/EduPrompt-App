@@ -1,4 +1,4 @@
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
@@ -16,6 +16,7 @@ import {
 } from "@/shared/components/molecules";
 import {
   ComposedDropdownOptionList,
+  FetchingErrorPanel,
   PopUp,
   TagSelectionPanel,
 } from "@/shared/components/organims";
@@ -62,26 +63,10 @@ const PromptCardList = () => {
 
   if (isError)
     return (
-      <View
-        style={{
-          marginTop: 24,
-          alignItems: "center",
-          gap: 12,
-          justifyContent: "center",
-        }}
-      >
-        <Empty
-          message="Ha ocurrido un error al cargar los prompts"
-          icon="close-outline"
-        />
-        <Button
-          icon="reload-outline"
-          variant="primary"
-          width="auto"
-          label="Reintentar"
-          onPress={refetch}
-        />
-      </View>
+      <FetchingErrorPanel
+        message="Ha ocurrido un error al cargar los prompts"
+        refetch={refetch}
+      />
     );
 
   return (

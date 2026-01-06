@@ -47,7 +47,9 @@ const IaResponseCard = ({
 
   const { mutateAsync, isPending, data } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
+
   const userProfile = useEventbusValue("userProfile.user.updated", null);
+
   const {
     isLoading,
     selectedTag,
@@ -196,18 +198,33 @@ const IaResponseCard = ({
                       : false;
                   },
                   async (newTask, currentIaGeneration) => {
-                    await runBackgroundTask(newTask, async () => {
-                      await mutateAsync(currentIaGeneration.data);
-                    });
+                    await runBackgroundTask(
+                      newTask,
+                      async () => {
+                        await mutateAsync(currentIaGeneration.data);
+                      },
+                      {
+                        successNotification: {
+                          title: "¡Recurso generado!",
+                          message: `Se ha generado tu recurso exitosamente: ${
+                            currentIaGeneration.data.resourceType.other ??
+                            currentIaGeneration.data.resourceType
+                              .resourceTypeLabel
+                          }`,
+                        },
+                        errorNotification: {
+                          title: "¡Error al generar recurso!",
+                          message: `Ha ocurrido un error al generar tu recurso: ${
+                            currentIaGeneration.data.resourceType.other ??
+                            currentIaGeneration.data.resourceType
+                              .resourceTypeLabel
+                          }`,
+                        },
+                      }
+                    );
                   }
                 );
               }}
-            />
-            <Button
-              icon="download-outline"
-              variant="neutral"
-              width="auto"
-              onPress={() => {}}
             />
             <Button
               icon="copy-outline"

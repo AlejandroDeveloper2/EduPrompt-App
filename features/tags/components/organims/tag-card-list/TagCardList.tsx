@@ -1,15 +1,11 @@
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
 import { useTagCardListLogic } from "@/features/tags/hooks/core";
 
-import {
-  Button,
-  Empty,
-  LoadingTextIndicator,
-} from "@/shared/components/molecules";
-import { PopUp } from "@/shared/components/organims";
+import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
+import { FetchingErrorPanel, PopUp } from "@/shared/components/organims";
 import { TagCard } from "../../molecules";
 import UpdateTagForm from "../update-tag-form/UpdateTagForm";
 import TagCardListHeader from "./TagCardListHeader";
@@ -47,28 +43,11 @@ const TagCardList = () => {
 
   if (isError)
     return (
-      <View
-        style={{
-          marginTop: 24,
-          alignItems: "center",
-          gap: 12,
-          justifyContent: "center",
-        }}
-      >
-        <Empty
-          message="Ha ocurrido un error al cargar las etiquetas"
-          icon="close-outline"
-        />
-        <Button
-          icon="reload-outline"
-          variant="primary"
-          width="auto"
-          label="Reintentar"
-          onPress={refetch}
-        />
-      </View>
+      <FetchingErrorPanel
+        message="Ha ocurrido un error al cargar las etiquetas"
+        refetch={refetch}
+      />
     );
-
   return (
     <>
       <PopUp

@@ -26,6 +26,7 @@ import PreviewResourceHeader from "./PreviewResourceHeader";
 
 import {
   ComposedDropdownOptionList,
+  FetchingErrorPanel,
   PopUp,
   TagSelectionPanel,
 } from "@/shared/components/organims";
@@ -103,26 +104,10 @@ const PreviewResourceList = () => {
 
   if (isError)
     return (
-      <View
-        style={{
-          marginTop: 24,
-          alignItems: "center",
-          gap: 12,
-          justifyContent: "center",
-        }}
-      >
-        <Empty
-          message="Ha ocurrido un error al cargar los recursos educativos"
-          icon="close-outline"
-        />
-        <Button
-          icon="reload-outline"
-          variant="primary"
-          width="auto"
-          label="Reintentar"
-          onPress={refetch}
-        />
-      </View>
+      <FetchingErrorPanel
+        message="Ha ocurrido un error al cargar los recursos educativos"
+        refetch={refetch}
+      />
     );
   return (
     <>

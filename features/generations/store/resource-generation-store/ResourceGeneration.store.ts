@@ -19,12 +19,9 @@ import {
 import { showToast } from "@/shared/context";
 import { GenerationsSelectionStore } from "../generations-selection-store/GenerationsSelection.store";
 
-import {
-  formatDate,
-  generateToastKey,
-  setGenerationProcessName,
-} from "@/shared/helpers";
+import { formatDate, generateToastKey } from "@/shared/helpers";
 import { calcAvarageProcessDuration } from "@/shared/utils";
+import { setGenerationProcessName } from "../../helpers";
 import { buildNewGeneration, initialGenerationData } from "./helpers";
 
 export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
@@ -268,9 +265,8 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
             canDelete: false,
           }
         );
-        const processName = setGenerationProcessName(
-          `${data.resourceType.resourceTypeLabel} - ${data.subjectName}`
-        );
+
+        const processName = setGenerationProcessName(data);
 
         const newTask: Process = {
           processId: uuid.v4(),

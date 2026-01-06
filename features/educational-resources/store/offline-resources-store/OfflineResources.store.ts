@@ -12,6 +12,7 @@ import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
+import { ResourceDownloadManager } from "../../utils";
 
 import { ResourcesSelectionStore } from "../resources-selection-store/ResourcesSelection.store";
 
@@ -19,6 +20,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
   (set) => ({
     isProcessing: false,
     isLoading: false,
+    isDownloading: false,
     createResource: async (createResourcePayload, toast) => {
       const { title, resourceId, content, format, formatKey, groupTag } =
         createResourcePayload;
@@ -290,6 +292,47 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             message: error.message,
           });
         }
+      );
+    },
+
+    downloadManyResources: async () => {
+      const { selectedResourceIds, clearSelection } =
+        ResourcesSelectionStore.getState();
+
+      const selectedResources = Array.from(selectedResourceIds);
+
+      set({ isDownloading: true });
+
+      tryCatchWrapper(
+        async () => {
+          const resources = await db
+            .select()
+            .from(resourcesTable)
+            .where(inArray(resourcesTable.resourceId, selectedResources));
+
+          const resourcesToDownload = resources.map(
+            ({ formatKey, content, groupTag, title }) => ({
+              title,
+              groupTag,
+              content,
+              formatKey: formatKey as ResourceFormatKey,
+            })
+          );
+
+          await ResourceDownloadManager.downloadResourcesConcurrenly(
+            resourcesToDownload
+          );
+
+          clearSelection();
+        },
+        (error) => {
+          showToast({
+            key: generateToastKey(),
+            variant: "danger",
+            message: error.message,
+          });
+        },
+        () => set({ isDownloading: false })
       );
     },
   })
