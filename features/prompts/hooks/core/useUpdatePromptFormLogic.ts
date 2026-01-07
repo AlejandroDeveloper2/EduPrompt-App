@@ -5,7 +5,7 @@ import { Tag } from "@/features/tags/types";
 import { Prompt } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
+import { usePromptFiltersContext } from "../context";
 import useUpdatePrompt from "./useUpdatePrompt";
 
 import {
@@ -44,15 +44,10 @@ const useUpdatePromptFormLogic = (
     noReset: true,
   });
 
-  const tagsPagination = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
+  const { paginatedTags } = usePromptFiltersContext();
 
   const selectedTag = useMemo(
-    () => getSelectedOption(tagsPagination.tags, data.tag, "tagId"),
+    () => getSelectedOption(paginatedTags.tags, data.tag, "tagId"),
     [data.tag]
   ) as Tag | null;
 
@@ -63,7 +58,6 @@ const useUpdatePromptFormLogic = (
   return {
     isPending,
     selectedTag,
-    tagsPagination,
     form: {
       data,
       handleChange,

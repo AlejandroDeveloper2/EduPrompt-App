@@ -3,8 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import uuid from "react-native-uuid";
 
 import { Tab, ViewerType } from "@/core/types";
-import { Tag } from "@/features/tags/types";
-import { EducationalResource, ResourceFormatKey } from "../../types";
+import { EducationalResource } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
@@ -14,11 +13,12 @@ import {
 } from "../../constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useBackgroundTaskRunner, useListFilters } from "@/shared/hooks/core";
+import { useBackgroundTaskRunner } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
 } from "@/shared/hooks/store";
+import { useResourcesFiltersContext } from "../context";
 import { useResourcesQuery } from "../queries";
 import { useOfflineResourcesStore, useResourcesSelectionStore } from "../store";
 import useDeleteManyResources from "./useDeleteManyResources";
@@ -47,17 +47,13 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
   const { runBackgroundTask } = useBackgroundTaskRunner();
 
   const {
-    searchValue,
-    selectedFilter: selectedTagFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange: onTagFilterChange,
-  } = useListFilters<Tag | null>(null);
-
-  const {
-    selectedFilter: selectedFormatFilter,
-    onFilterChange: onFormatFilterChange,
-  } = useListFilters<ResourceFormatKey | null>(null);
+    searchResourceValue,
+    searchTagValue,
+    formatFilter,
+    tagFilter,
+    paginatedTags,
+    onSearchTagValueChange,
+  } = useResourcesFiltersContext();
 
   const updateResourcePopUp = useAnimatedPopUp();
 
@@ -72,9 +68,9 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     isRefetching,
   } = useResourcesQuery(
     {
-      title: searchValue,
-      tag: selectedTagFilter?.tagId,
-      formatKey: selectedFormatFilter ?? undefined,
+      title: searchResourceValue,
+      tag: tagFilter?.tagId,
+      formatKey: formatFilter ?? undefined,
     },
     { limit: 10 }
   );
@@ -162,13 +158,10 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     isTagSelection,
     setIsTagSelection,
     /** Search filters */
-    searchValue,
-    selectedTagFilter,
-    selectedFormatFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onTagFilterChange,
-    onFormatFilterChange,
+    searchTagValue,
+    tagFilter,
+    paginatedTags,
+    onSearchTagValueChange,
     /** Query */
     resources,
     isLoading,

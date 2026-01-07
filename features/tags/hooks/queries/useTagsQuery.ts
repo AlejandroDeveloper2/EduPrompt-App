@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import { InfiniteQueryOptions, PaginatedResponse } from "@/core/types";
 import { BaseFilters, Tag, TagFilters } from "../../types";
@@ -7,8 +7,6 @@ import { BaseFilters, Tag, TagFilters } from "../../types";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflineTagsStore } from "../store";
-
-import { eventBus } from "@/core/events/EventBus";
 
 import { getTags } from "../../services";
 
@@ -81,23 +79,6 @@ const useTagsQuery = (
       baseFilters !== null,
     staleTime: Infinity,
   });
-
-  useEffect(() => {
-    if (query.data) {
-      const tags = query.data.pages.flatMap((page) => page.records);
-      eventBus.emit("tags.list.pagination.updated", {
-        tags,
-        hasNextPage: query.hasNextPage,
-        isFetchingNextPage: query.isFetchingNextPage,
-        refreshing: query.isRefetching,
-      });
-    }
-  }, [
-    query.data,
-    query.hasNextPage,
-    query.isFetchingNextPage,
-    query.isRefetching,
-  ]);
 
   return query;
 };

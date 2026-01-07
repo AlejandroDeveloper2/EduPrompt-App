@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { ScrollView, View } from "react-native";
 
-import { ResourceFormatKey } from "@/features/educational-resources/types";
 import { Tag } from "@/features/tags/types";
 
 import { eventBus } from "@/core/events/EventBus";
@@ -9,6 +7,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { FORMAT_FILTERS } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
 
+import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useSyncResourcesMutation } from "@/features/educational-resources/hooks/mutations";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -31,25 +30,9 @@ import { PreviewResourceListStyle } from "./PreviewResourceList.style";
 
 interface PreviewResourceHeaderProps {
   isDataSync: boolean;
-  selectedTagFilter: Tag | null;
-  selectedFormatFilter: ResourceFormatKey | null;
-  searchValue: string;
-  onChangeTagFilter: (filter: Tag | null) => void;
-  onChangeFormatFilter: (filter: ResourceFormatKey | null) => void;
-  handleSearchChange: (text: string) => void;
-  onClearSearchInput: () => void;
 }
 
-const PreviewResourceHeader = ({
-  isDataSync,
-  selectedTagFilter,
-  selectedFormatFilter,
-  searchValue,
-  onChangeTagFilter,
-  onChangeFormatFilter,
-  handleSearchChange,
-  onClearSearchInput,
-}: PreviewResourceHeaderProps) => {
+const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
   const size = useScreenDimensionsStore();
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
@@ -64,16 +47,17 @@ const PreviewResourceHeader = ({
     onClosePopUp,
   } = useAnimatedPopUp();
 
-  useEffect(() => {
-    eventBus.emit("tags.fetch", { type: "resource_tag" });
-  }, []);
-
-  const paginatedTags = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
+  const {
+    searchResourceValue,
+    searchTagValue,
+    tagFilter,
+    formatFilter,
+    onSearchResourceValueChange,
+    onSearchTagValueChange,
+    paginatedTags,
+    onTagFilterChange,
+    onFormatFilterChange,
+  } = useResourcesFiltersContext();
 
   const { isPending, syncResources } = useSyncResourcesMutation();
 
@@ -90,25 +74,35 @@ const PreviewResourceHeader = ({
         onClosePopUp={onClosePopUp}
       >
         <ComposedDropdownOptionList<Tag>
-          ControlPanelComponent={<TagSelectionPanel tagType="resource_tag" />}
+          ControlPanelComponent={
+            <TagSelectionPanel
+              tagType="resource_tag"
+              searchValue={searchTagValue}
+              onSearchChange={(value) => onSearchTagValueChange(value)}
+            />
+          }
           infinitePaginationOptions={{
             ...paginatedTags,
-            onRefetch: () => eventBus.emit("tags.refetch.requested", undefined),
+            onRefetch: () =>
+              eventBus.emit("tags.resourceType.refetch.requested", undefined),
             onEndReached: () => {
               if (
                 paginatedTags.hasNextPage &&
                 !paginatedTags.isFetchingNextPage
               )
-                eventBus.emit("tags.fetchNextPage.requested", undefined);
+                eventBus.emit(
+                  "tags.resourceType.fetchNextPage.requested",
+                  undefined
+                );
             },
           }}
           optionList={paginatedTags.tags}
           optionIdkey="tagId"
           optionLabelKey="name"
           searchInputPlaceholder="Buscar etiqueta por nombre"
-          selectedOption={selectedTagFilter}
+          selectedOption={tagFilter}
           onSelectOption={(option) => {
-            onChangeTagFilter(option);
+            onTagFilterChange(option);
           }}
         />
       </PopUp>
@@ -134,13 +128,13 @@ const PreviewResourceHeader = ({
           title="Mis Recursos"
           icon="book-outline"
         />
-        <Input<{ searchValue: string }>
-          name="searchValue"
-          value={searchValue}
+        <Input<{ searchResourceValue: string }>
+          name="searchResourceValue"
+          value={searchResourceValue}
           icon="search-outline"
           placeholder="Buscar recurso por titulo"
-          onChange={(_, value) => handleSearchChange(value)}
-          onClearInput={onClearSearchInput}
+          onChange={(_, value) => onSearchResourceValueChange(value)}
+          onClearInput={() => onSearchResourceValueChange("")}
         />
         <View style={previewResourceListStyle.FilterSection}>
           <Typography
@@ -162,8 +156,8 @@ const PreviewResourceHeader = ({
                 key={filter.label}
                 icon={filter.icon}
                 label={filter.label}
-                active={filter.formatKey === selectedFormatFilter}
-                onPressFilter={() => onChangeFormatFilter(filter.formatKey)}
+                active={filter.formatKey === formatFilter}
+                onPressFilter={() => onFormatFilterChange(filter.formatKey)}
               />
             ))}
           </ScrollView>
@@ -187,16 +181,16 @@ const PreviewResourceHeader = ({
               <FilterTag
                 icon="star-outline"
                 label="Todos"
-                active={selectedTagFilter === null}
-                onPressFilter={() => onChangeTagFilter(null)}
+                active={tagFilter === null}
+                onPressFilter={() => onTagFilterChange(null)}
               />
               {paginatedTags.tags.slice(0, 3).map((tag) => (
                 <FilterTag
                   key={tag.tagId}
                   icon="pricetag-outline"
                   label={tag.name}
-                  active={selectedTagFilter?.tagId === tag.tagId}
-                  onPressFilter={() => onChangeTagFilter(tag)}
+                  active={tagFilter?.tagId === tag.tagId}
+                  onPressFilter={() => onTagFilterChange(tag)}
                 />
               ))}
               <NavItem

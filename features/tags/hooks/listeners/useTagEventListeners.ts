@@ -6,41 +6,79 @@ import { eventBus } from "@/core/events/EventBus";
 import { BaseFilters, CreateTagPayload } from "../../types";
 
 import { useCreateTag } from "../core";
-import { useTagsQuery } from "../queries";
+import { usePromptTagsQuery, useResourceTagsQuery } from "../queries";
 
 const useTagEventListeners = () => {
   const queryClient = useQueryClient();
 
-  const [baseFilters, setBaseFilters] = useState<BaseFilters | null>(null);
+  const [baseResourceFilters, setBaseResourceFilters] =
+    useState<BaseFilters | null>(null);
+  const [basePromptFilters, setPromptBaseFilters] =
+    useState<BaseFilters | null>(null);
 
-  const query = useTagsQuery(baseFilters, { limit: 10 });
+  const query = useResourceTagsQuery(baseResourceFilters, {
+    limit: 10,
+  });
+  const promptTagsQuery = usePromptTagsQuery(basePromptFilters, {
+    limit: 10,
+  });
+
   const { addTag } = useCreateTag();
 
   useEffect(() => {
-    const fetchTags = (filters: BaseFilters) => {
+    const fetchResourceTags = (name?: string | undefined) => {
       queryClient.invalidateQueries({
-        queryKey: ["tags"],
-        exact: false,
+        queryKey: ["tags", name, "resource_tag"],
       });
-      setBaseFilters(filters);
+      setBaseResourceFilters({ name, type: "resource_tag" });
+    };
+    eventBus.on("tags.resourceType.fetch", fetchResourceTags);
+    return () => eventBus.off("tags.resourceType.fetch", fetchResourceTags);
+  }, [queryClient]);
+
+  useEffect(() => {
+    const fetchPromptsTags = (name?: string | undefined) => {
+      queryClient.invalidateQueries({
+        queryKey: ["tags", name, "prompt_tag"],
+      });
+      setPromptBaseFilters({ name, type: "prompt_tag" });
     };
 
-    eventBus.on("tags.fetch", fetchTags);
-    return () => eventBus.off("tags.fetch", fetchTags);
+    eventBus.on("tags.promptType.fetch", fetchPromptsTags);
+    return () => eventBus.off("tags.promptType.fetch", fetchPromptsTags);
   }, [queryClient]);
 
   useEffect(() => {
     const unsubscribe = eventBus.on(
-      "tags.fetchNextPage.requested",
+      "tags.resourceType.fetchNextPage.requested",
       query.fetchNextPage
     );
     return unsubscribe;
   }, [query.fetchNextPage]);
 
   useEffect(() => {
-    const unsubscribe = eventBus.on("tags.refetch.requested", query.refetch);
+    const unsubscribe = eventBus.on(
+      "tags.resourceType.refetch.requested",
+      query.refetch
+    );
     return unsubscribe;
   }, [query.refetch]);
+
+  useEffect(() => {
+    const unsubscribe = eventBus.on(
+      "tags.promptType.fetchNextPage.requested",
+      promptTagsQuery.fetchNextPage
+    );
+    return unsubscribe;
+  }, [promptTagsQuery.fetchNextPage]);
+
+  useEffect(() => {
+    const unsubscribe = eventBus.on(
+      "tags.promptType.refetch.requested",
+      promptTagsQuery.refetch
+    );
+    return unsubscribe;
+  }, [promptTagsQuery.refetch]);
 
   useEffect(() => {
     const handleAddTagRequest = async (

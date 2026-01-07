@@ -6,9 +6,9 @@ import { Prompt } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
+import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
 import { usePromptsSelectionStore } from "@/features/prompts/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useEventbusValue } from "@/shared/hooks/events";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -44,12 +44,9 @@ const PromptCard = ({
   const { selectedPromptIds, toggleSelection } = usePromptsSelectionStore();
   const { selectionMode } = useSelectionModeStore();
 
-  const { tags } = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
+  const {
+    paginatedTags: { tags },
+  } = usePromptFiltersContext();
 
   const isSelected: boolean = useMemo(
     () => selectedPromptIds.has(promptData.promptId),

@@ -35,11 +35,10 @@ const PromptCardList = () => {
     isTagSelection,
     setIsTagSelection,
     /** Search filters */
-    searchValue,
-    selectedFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange,
+    searchTagValue,
+    tagFilter,
+    paginatedTags,
+    onSearchTagValueChange,
     /** Query */
     prompts,
     isLoading,
@@ -56,8 +55,10 @@ const PromptCardList = () => {
     setSelectedPrompt,
   } = usePromptCardListLogic();
 
-  const { isPending, tagsPagination, selectedTag, form } =
-    useUpdatePromptFormLogic(selectedPrompt, updatePromptPopUp.onClosePopUp);
+  const { isPending, selectedTag, form } = useUpdatePromptFormLogic(
+    selectedPrompt,
+    updatePromptPopUp.onClosePopUp
+  );
 
   const promptCardListStyle = PromptCardListStyle(size);
 
@@ -89,24 +90,33 @@ const PromptCardList = () => {
             type: "prompt_tag" | "resource_tag";
             name: string;
           }>
-            ControlPanelComponent={<TagSelectionPanel tagType="prompt_tag" />}
+            ControlPanelComponent={
+              <TagSelectionPanel
+                tagType="prompt_tag"
+                searchValue={searchTagValue}
+                onSearchChange={onSearchTagValueChange}
+              />
+            }
             infinitePaginationOptions={{
-              ...tagsPagination,
+              ...paginatedTags,
               onRefetch: () =>
-                eventBus.emit("tags.refetch.requested", undefined),
+                eventBus.emit("tags.promptType.refetch.requested", undefined),
               onEndReached: () => {
                 if (
-                  tagsPagination.hasNextPage &&
-                  !tagsPagination.isFetchingNextPage
+                  paginatedTags.hasNextPage &&
+                  !paginatedTags.isFetchingNextPage
                 )
-                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+                  eventBus.emit(
+                    "tags.promptType.fetchNextPage.requested",
+                    undefined
+                  );
               },
             }}
-            optionList={tagsPagination.tags}
+            optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder="Buscar etiqueta por nombre"
-            selectedOption={selectedTag}
+            selectedOption={tagFilter}
             onSelectOption={(option) => {
               form.handleChange("tag", option.tagId);
               setIsTagSelection(false);
@@ -159,14 +169,7 @@ const PromptCardList = () => {
           <Empty message="No hay resultados" icon="pricetag-outline" />
         }
         ListHeaderComponent={
-          <PromptCardListHeader
-            isDataSync={prompts.every((p) => p.sync)}
-            searchValue={searchValue}
-            selectedFilter={selectedFilter}
-            onChangeFilter={onFilterChange}
-            handleSearchChange={handleSearchChange}
-            onClearSearchInput={onClearSearchInput}
-          />
+          <PromptCardListHeader isDataSync={prompts.every((p) => p.sync)} />
         }
         onEndReachedThreshold={0.4}
         onEndReached={() => {

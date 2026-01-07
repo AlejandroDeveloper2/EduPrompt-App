@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
 
-import { Tag } from "@/features/tags/types";
 import { Prompt } from "../../types";
 
 import { SELECTION_MODE_ACTIONS } from "../../constants";
@@ -9,11 +8,11 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 import { eventBus } from "@/core/events/EventBus";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useListFilters } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
 } from "@/shared/hooks/store";
+import { usePromptFiltersContext } from "../context";
 import { usePromptsQuery } from "../queries";
 import { usePromptsSelectionStore } from "../store";
 import useDeleteManyPrompts from "./useDeleteManyPrompts";
@@ -33,12 +32,12 @@ const usePromptCardListLogic = () => {
   } = useSelectionModeStore();
 
   const {
-    searchValue,
-    selectedFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange,
-  } = useListFilters<Tag | null>(null);
+    searchPromptValue,
+    searchTagValue,
+    tagFilter,
+    paginatedTags,
+    onSearchTagValueChange,
+  } = usePromptFiltersContext();
 
   const updatePromptPopUp = useAnimatedPopUp();
 
@@ -52,7 +51,7 @@ const usePromptCardListLogic = () => {
     refetch,
     isRefetching,
   } = usePromptsQuery(
-    { title: searchValue, tag: selectedFilter?.tagId },
+    { title: searchPromptValue, tag: tagFilter?.tagId },
     { limit: 10 }
   );
 
@@ -98,11 +97,10 @@ const usePromptCardListLogic = () => {
     isTagSelection,
     setIsTagSelection,
     /** Search filters */
-    searchValue,
-    selectedFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange,
+    searchTagValue,
+    tagFilter,
+    paginatedTags,
+    onSearchTagValueChange,
     /** Query */
     prompts,
     isLoading,

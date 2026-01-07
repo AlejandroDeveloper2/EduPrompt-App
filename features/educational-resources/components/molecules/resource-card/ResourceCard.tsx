@@ -9,7 +9,6 @@ import { AppColors } from "@/shared/styles";
 
 import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useEventbusValue } from "@/shared/hooks/events";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -23,6 +22,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
+import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { ResourceCardStyle } from "./ResourceCard.style";
 
 interface ResourceCardProps {
@@ -46,12 +46,9 @@ const ResourceCard = ({
   const { selectedResourceIds, toggleSelection } = useResourcesSelectionStore();
   const { selectionMode } = useSelectionModeStore();
 
-  const { tags } = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
+  const {
+    paginatedTags: { tags },
+  } = useResourcesFiltersContext();
 
   const isSelected: boolean = useMemo(
     () => selectedResourceIds.has(resourceData.resourceId),

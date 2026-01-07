@@ -100,19 +100,26 @@ export type AppEvents = {
   "selectionMode.isAllSelected.updated": boolean;
 
   /** Eventos módulo de tags */
-  "tags.list.pagination.updated": {
+  "tags.list.promptType.updated": {
     tags: Tag[];
     hasNextPage: boolean;
     isFetchingNextPage: boolean;
     refreshing: boolean;
   };
-  "tags.fetchNextPage.requested": undefined;
-  "tags.refetch.requested": undefined;
+  "tags.promptType.fetchNextPage.requested": undefined;
+  "tags.promptType.refetch.requested": undefined;
+  "tags.promptType.fetch": string | undefined;
 
-  "tags.fetch": {
-    type: "prompt_tag" | "resource_tag";
-    name?: string | undefined;
+  "tags.list.resourceType.updated": {
+    tags: Tag[];
+    hasNextPage: boolean;
+    isFetchingNextPage: boolean;
+    refreshing: boolean;
   };
+  "tags.resourceType.fetch": string | undefined;
+  "tags.resourceType.refetch.requested": undefined;
+  "tags.resourceType.fetchNextPage.requested": undefined;
+
   "tags.createTag.requested": {
     type: "prompt_tag" | "resource_tag";
     name: string;

@@ -5,15 +5,15 @@ import { Tag } from "@/features/tags/types";
 import { EducationalResource } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
+import { useResourcesFiltersContext } from "../context";
 import useUpdateResource from "./useUpdateResource";
+
+import { getSelectedOption } from "@/features/generations/helpers";
 
 import {
   UpdateResourceFormData,
   updateResourceSchema,
 } from "../../components/organims/update-resource-form/validateSchema";
-
-import { getSelectedOption } from "@/features/generations/helpers";
 
 const initialValues: UpdateResourceFormData = {
   resourceId: "",
@@ -43,15 +43,10 @@ const useUpdateResourceFormLogic = (
     noReset: true,
   });
 
-  const tagsPagination = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
+  const { paginatedTags } = useResourcesFiltersContext();
 
   const selectedTag = useMemo(
-    () => getSelectedOption(tagsPagination.tags, data.groupTag, "tagId"),
+    () => getSelectedOption(paginatedTags.tags, data.groupTag, "tagId"),
     [data.groupTag]
   ) as Tag | null;
 
@@ -62,7 +57,6 @@ const useUpdateResourceFormLogic = (
   return {
     isPending,
     selectedTag,
-    tagsPagination,
     form: {
       data,
       handleChange,

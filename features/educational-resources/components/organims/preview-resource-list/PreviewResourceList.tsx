@@ -43,13 +43,10 @@ const PreviewResourceList = () => {
     isTagSelection,
     setIsTagSelection,
     /** Search filters */
-    searchValue,
-    selectedTagFilter,
-    selectedFormatFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onTagFilterChange,
-    onFormatFilterChange,
+    searchTagValue,
+    tagFilter,
+    paginatedTags,
+    onSearchTagValueChange,
     /** Query */
     resources,
     isLoading,
@@ -71,11 +68,10 @@ const PreviewResourceList = () => {
     viewerType,
   } = useResourceCardListLogic(RESOURCE_PREVIEW_TABS[0]);
 
-  const { isPending, tagsPagination, selectedTag, form } =
-    useUpdateResourceFormLogic(
-      selectedResource,
-      updateResourcePopUp.onClosePopUp
-    );
+  const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
+    selectedResource,
+    updateResourcePopUp.onClosePopUp
+  );
 
   const Section: SectionComponentMap = {
     "tab-1": (
@@ -91,8 +87,8 @@ const PreviewResourceList = () => {
     ),
     "tab-2": (
       <UpdateResourceForm
-        isLoading={isPending}
         selectedTag={selectedTag}
+        isLoading={isPending}
         form={form}
         onTagSelectionMode={() => setIsTagSelection(true)}
         onClosePopUp={updateResourcePopUp.onClosePopUp}
@@ -129,24 +125,33 @@ const PreviewResourceList = () => {
             type: "prompt_tag" | "resource_tag";
             name: string;
           }>
-            ControlPanelComponent={<TagSelectionPanel tagType="resource_tag" />}
+            ControlPanelComponent={
+              <TagSelectionPanel
+                tagType="resource_tag"
+                searchValue={searchTagValue}
+                onSearchChange={onSearchTagValueChange}
+              />
+            }
             infinitePaginationOptions={{
-              ...tagsPagination,
+              ...paginatedTags,
               onRefetch: () =>
-                eventBus.emit("tags.refetch.requested", undefined),
+                eventBus.emit("tags.resourceType.refetch.requested", undefined),
               onEndReached: () => {
                 if (
-                  tagsPagination.hasNextPage &&
-                  !tagsPagination.isFetchingNextPage
+                  paginatedTags.hasNextPage &&
+                  !paginatedTags.isFetchingNextPage
                 )
-                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+                  eventBus.emit(
+                    "tags.resourceType.fetchNextPage.requested",
+                    undefined
+                  );
               },
             }}
-            optionList={tagsPagination.tags}
+            optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder="Buscar etiqueta por nombre"
-            selectedOption={selectedTag}
+            selectedOption={tagFilter}
             onSelectOption={(option) => {
               form.handleChange("groupTag", option.tagId);
               setIsTagSelection(false);
@@ -203,16 +208,7 @@ const PreviewResourceList = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.resourceId}
         ListHeaderComponent={
-          <PreviewResourceHeader
-            searchValue={searchValue}
-            isDataSync={resources.every((r) => r.sync)}
-            handleSearchChange={handleSearchChange}
-            onClearSearchInput={onClearSearchInput}
-            onChangeFormatFilter={onFormatFilterChange}
-            onChangeTagFilter={onTagFilterChange}
-            selectedFormatFilter={selectedFormatFilter}
-            selectedTagFilter={selectedTagFilter}
-          />
+          <PreviewResourceHeader isDataSync={resources.every((r) => r.sync)} />
         }
         ListEmptyComponent={
           <Empty message="No hay recursos guardados" icon="book-outline" />
