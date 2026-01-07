@@ -36,7 +36,6 @@ const PromptCardList = () => {
     setIsTagSelection,
     /** Search filters */
     searchTagValue,
-    tagFilter,
     paginatedTags,
     onSearchTagValueChange,
     /** Query */
@@ -116,7 +115,7 @@ const PromptCardList = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder="Buscar etiqueta por nombre"
-            selectedOption={tagFilter}
+            selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("tag", option.tagId);
               setIsTagSelection(false);

@@ -159,7 +159,6 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     setIsTagSelection,
     /** Search filters */
     searchTagValue,
-    tagFilter,
     paginatedTags,
     onSearchTagValueChange,
     /** Query */

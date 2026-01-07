@@ -98,7 +98,6 @@ const usePromptCardListLogic = () => {
     setIsTagSelection,
     /** Search filters */
     searchTagValue,
-    tagFilter,
     paginatedTags,
     onSearchTagValueChange,
     /** Query */

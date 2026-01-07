@@ -44,7 +44,6 @@ const PreviewResourceList = () => {
     setIsTagSelection,
     /** Search filters */
     searchTagValue,
-    tagFilter,
     paginatedTags,
     onSearchTagValueChange,
     /** Query */
@@ -151,7 +150,7 @@ const PreviewResourceList = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder="Buscar etiqueta por nombre"
-            selectedOption={tagFilter}
+            selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("groupTag", option.tagId);
               setIsTagSelection(false);
