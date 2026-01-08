@@ -1,6 +1,6 @@
 type ResourceFormatKey = "text" | "image" | "chart" | "table";
 
-interface DownloadedResource {
+interface DownloadedFile {
   fileId: string;
   name: string;
   fileExtension: string;
@@ -14,9 +14,9 @@ interface DownloadedResource {
 interface Folder {
   folderId: string;
   folderName: string;
-  files: number;
+  files: DownloadedFile[];
   folderUri: string;
   creationDate: string;
 }
 
-export type { DownloadedResource, Folder, ResourceFormatKey };
+export type { DownloadedFile, Folder, ResourceFormatKey };

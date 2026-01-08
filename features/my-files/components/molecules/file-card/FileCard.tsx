@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { DownloadedResource } from "../../../types";
+import { DownloadedFile } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
@@ -20,7 +20,7 @@ import {
 import { FileCardStyle } from "./FileCard.style";
 
 interface FileCardProps {
-  fileData: DownloadedResource;
+  fileData: DownloadedFile;
   icon: keyof typeof Ionicons.glyphMap;
   onEditFileName: () => void;
 }
@@ -79,7 +79,7 @@ const FileCard = ({ fileData, icon, onEditFileName }: FileCardProps) => {
           icon="server-outline"
         />
         <Typography
-          text={downloadDate}
+          text={new Date(downloadDate).toLocaleDateString()}
           weight="light"
           type="caption"
           textAlign="left"

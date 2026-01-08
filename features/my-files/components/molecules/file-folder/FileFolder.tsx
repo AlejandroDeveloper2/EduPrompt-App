@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
+import { DownloadedFile } from "@/features/my-files/types";
+
 import { AppColors } from "@/shared/styles";
 
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
@@ -19,7 +21,7 @@ import { FileFolderStyle } from "./FIleFolder.style";
 interface FileFolderProps {
   folderName: string;
   creationDate: string;
-  files: number;
+  files: DownloadedFile[];
   folderUri: string;
   onEditFolderName: () => void;
   onOpenFolder: () => void;
@@ -63,7 +65,7 @@ const FileFolder = ({
       <View style={fileFolderStyle.MetadataContainer}>
         <View style={fileFolderStyle.Metadata}>
           <Typography
-            text={`${files} Archivos`}
+            text={`${files.length} Archivos`}
             weight="bold"
             type="caption"
             textAlign="left"
@@ -72,7 +74,7 @@ const FileFolder = ({
             icon="document-outline"
           />
           <Typography
-            text={creationDate}
+            text={new Date(creationDate).toLocaleDateString()}
             weight="regular"
             type="caption"
             textAlign="left"

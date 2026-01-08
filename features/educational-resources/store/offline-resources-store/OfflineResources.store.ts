@@ -311,15 +311,15 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             .where(inArray(resourcesTable.resourceId, selectedResources));
 
           const resourcesToDownload = resources.map(
-            ({ formatKey, content, groupTag, title }) => ({
+            ({ formatKey, content, groupTag, title, format }) => ({
               title,
               groupTag,
               content,
               formatKey: formatKey as ResourceFormatKey,
+              format,
             })
           );
-
-          await ResourceDownloadManager.downloadResourcesConcurrenly(
+          ResourceDownloadManager.downloadResourcesConcurrenly(
             resourcesToDownload
           );
 
