@@ -132,7 +132,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
         if (selectedFolders.length === 0) {
           showToast({
             key: generateToastKey(),
-            variant: "danger",
+            variant: "neutral",
             message: "No hay carpetas seleccionadas para compartir",
           });
           return;
