@@ -30,6 +30,7 @@
     },
     "plugins": [
       "expo-router",
+      "react-native-zip-archive",
       [
         "expo-splash-screen",
         {
@@ -64,9 +65,7 @@
           "icon": "./assets/images/adaptive-icon.png",
           "color": "#10B981",
           "defaultChannel": "default",
-          "sounds": [
-            "./assets/sounds/notification_sound.wav"
-          ],
+          "sounds": ["./assets/sounds/notification_sound.wav"],
           "enableBackgroundRemoteNotifications": false
         }
       ],
