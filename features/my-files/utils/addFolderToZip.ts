@@ -25,7 +25,7 @@ export const addFolderToZip = (
     // Si es un archivo, agregarlo al ZIP
     else if (item instanceof File) {
       try {
-        const fileContent = new File(itemPath).base64();
+        const fileContent = new File(itemPath).base64Sync();
         zip.file(`${folderName}/${item.name}`, fileContent, { base64: true });
       } catch (error) {
         console.warn(`Error al leer archivo ${itemPath}:`, error);

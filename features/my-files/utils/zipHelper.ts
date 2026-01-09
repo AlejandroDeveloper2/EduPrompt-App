@@ -91,7 +91,7 @@ export class ZipHelper {
       }
 
       // Leer el archivo como base 64
-      const fileContent = fileObj.base64();
+      const fileContent = fileObj.base64Sync();
 
       // Agregar al ZIP
       zip.file(file.name, fileContent);
