@@ -1,7 +1,9 @@
 import { Directory, File, Paths } from "expo-file-system";
-import { zip } from "react-native-zip-archive";
+import JSZip from "jszip";
 
-const TEMP_ZIP_DIR = Paths.cache.uri + "temp_zips";
+import { addFolderToZip } from "./addFolderToZip";
+
+const TEMP_ZIP_DIR = Paths.cache.uri + "temp_zips/";
 
 export class ZipHelper {
   static async zipFolder(
@@ -9,13 +11,33 @@ export class ZipHelper {
     folderName: string
   ): Promise<string> {
     const tempDir = new Directory(TEMP_ZIP_DIR);
+
     if (!tempDir.info().exists) {
       tempDir.create({ intermediates: true });
     }
 
-    const zipPath = `${TEMP_ZIP_DIR}/${folderName}_${Date.now()}.zip`;
+    const zip = new JSZip();
 
-    await zip(folderPath, zipPath);
+    const folderDir = new Directory(folderPath);
+
+    if (!folderDir.info().exists) {
+      throw new Error("La carpeta no existe");
+    }
+
+    // Agregar todos los archivos de la carpeta al ZIP
+    addFolderToZip(zip, folderPath, folderName);
+
+    // Generar el archivo ZIP
+    const zipContent = await zip.generateAsync({
+      type: "base64",
+      compression: "DEFLATE",
+      compressionOptions: { level: 6 },
+    });
+
+    const zipPath = `${TEMP_ZIP_DIR}${folderName}_${Date.now()}.zip`;
+
+    // Escribir el archivo ZIP
+    new File(zipPath).write(zipContent, { encoding: "base64" });
 
     return zipPath;
   }
@@ -28,23 +50,23 @@ export class ZipHelper {
       tempDir.create({ intermediates: true });
     }
 
-    // Crear un directorio temporal para agrupar las carpetas
-    const tempGroupDir = `${TEMP_ZIP_DIR}/temp_group_${Date.now()}`;
-    const groupDir = new Directory(tempGroupDir);
-    groupDir.create({ intermediates: true });
+    const zip = new JSZip();
 
-    // Copiar todas las carpetas al directorio temporal
+    // Agregar cada carpeta al ZIP
     for (const folder of folderPaths) {
-      const sourceDir = new Directory(folder.path);
-      const destinationPath = `${tempGroupDir}/${folder.name}`;
-      sourceDir.copy(new Directory(destinationPath));
+      addFolderToZip(zip, folder.path, folder.name);
     }
 
-    const zipPath = `${TEMP_ZIP_DIR}/carpetas_${Date.now()}.zip`;
-    await zip(tempGroupDir, zipPath);
+    // Generar el archivo ZIP
+    const zipContent = await zip.generateAsync({
+      type: "base64",
+      compression: "DEFLATE",
+      compressionOptions: { level: 6 },
+    });
 
-    // Limpiar directorio temporal
-    groupDir.delete();
+    const zipPath = `${TEMP_ZIP_DIR}carpetas_${Date.now()}.zip`;
+
+    new File(zipPath).write(zipContent, { encoding: "base64" });
 
     return zipPath;
   }
@@ -57,23 +79,34 @@ export class ZipHelper {
       tempDir.create({ intermediates: true });
     }
 
-    // Crear directorio temporal para agrupar archivos
-    const tempGroupDir = `${TEMP_ZIP_DIR}/temp_files_${Date.now()}`;
-    const groupDir = new Directory(tempGroupDir);
-    groupDir.create({ intermediates: true });
+    const zip = new JSZip();
 
-    // Copiar todos los archivos al directorio temporal
+    // Agregar cada archivo al ZIP
     for (const file of files) {
-      const sourceFile = new File(file.path);
-      const destinationPath = `${tempGroupDir}/${file.name}`;
-      sourceFile.copy(new Directory(destinationPath));
+      const fileObj = new File(file.path);
+
+      if (!fileObj.info().exists) {
+        console.warn(`Archivo no encontrado: ${file.path}`);
+        continue;
+      }
+
+      // Leer el archivo como base 64
+      const fileContent = fileObj.base64();
+
+      // Agregar al ZIP
+      zip.file(file.name, fileContent);
     }
 
-    const zipPath = `${TEMP_ZIP_DIR}/archivos_${Date.now()}.zip`;
-    await zip(tempGroupDir, zipPath);
+    // Generar el archivo ZIP
+    const zipContent = await zip.generateAsync({
+      type: "base64",
+      compression: "DEFLATE",
+      compressionOptions: { level: 6 },
+    });
 
-    // Limpiar directorio temporal
-    groupDir.delete();
+    const zipPath = `${TEMP_ZIP_DIR}archivos_${Date.now()}.zip`;
+
+    new File(zipPath).write(zipContent, { encoding: "base64" });
 
     return zipPath;
   }
@@ -82,11 +115,14 @@ export class ZipHelper {
    * Limpia archivos ZIP temporales antiguos
    */
   static cleanupTempZips(): void {
-    const tempDir = new Directory(TEMP_ZIP_DIR);
-
-    if (tempDir.info().exists) {
-      tempDir.delete();
-      tempDir.create({ intermediates: true });
+    try {
+      const tempDir = new Directory(TEMP_ZIP_DIR);
+      if (tempDir.info().exists) {
+        tempDir.delete();
+        tempDir.create({ intermediates: true });
+      }
+    } catch (error) {
+      console.warn("Error al limpiar ZIPs temporales:", error);
     }
   }
 }
