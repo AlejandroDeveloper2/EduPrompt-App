@@ -46,15 +46,15 @@ const DownloadedFileListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder="Buscar archivo por nombre"
-        onChange={onSearchValueChange}
+        onChange={(_name, value) => onSearchValueChange(value)}
         onClearInput={onClearSearchInput}
       />
       <View style={fileListStyle.FiltersContainer}>
         <Typography
-          text="Listar en orden"
+          text="Filtrar por formato"
           weight="bold"
           type="button"
-          textAlign="center"
+          textAlign="left"
           color={AppColors.neutral[1000]}
           width="auto"
           icon="filter-outline"

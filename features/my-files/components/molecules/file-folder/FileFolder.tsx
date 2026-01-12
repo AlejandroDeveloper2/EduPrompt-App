@@ -6,7 +6,7 @@ import { Folder } from "@/features/my-files/types";
 
 import { AppColors } from "@/shared/styles";
 
-import { useFilesSelectionStore } from "@/features/my-files/hooks/store";
+import { useFoldersSelectionStore } from "@/features/my-files/hooks/store";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useAnimatedFileFolder } from "../../../hooks/animations";
 
@@ -33,11 +33,11 @@ const FileFolder = ({
   onOpenFolder,
 }: FileFolderProps) => {
   const size = useScreenDimensionsStore();
-  const { selectedElementIds, toggleSelection } = useFilesSelectionStore();
+  const { selectedFolderIds, toggleSelection } = useFoldersSelectionStore();
 
   const isSelected: boolean = useMemo(
-    () => selectedElementIds.has(data.folderId),
-    [data.folderId, selectedElementIds]
+    () => selectedFolderIds.has(data.folderId),
+    [data.folderId, selectedFolderIds]
   );
 
   const animatedFileFolderStyle = useAnimatedFileFolder(isSelected);

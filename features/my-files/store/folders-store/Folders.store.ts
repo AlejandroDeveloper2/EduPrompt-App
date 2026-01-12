@@ -14,11 +14,10 @@ import { tryCatchWrapper } from "@/shared/utils";
 import { ZipHelper } from "../../utils";
 
 import { FilesSelectionStore } from "../files-selection-store/FilesSelection.store";
-import { FilesStore } from "../files-store/Files.store";
+import { SharedStore } from "../shared-store/Shared.store";
 
 export const FoldersStore = create<FolderStoreType>((set, get) => ({
   isSharing: false,
-  folders: [],
   loadFolders: (orderBy): void => {
     const baseDir = new Directory(BASE_DIRECTORY);
     /** Validamos si existe el directorio base */
@@ -48,8 +47,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
         ? compareAsc(new Date(a.creationDate), new Date(b.creationDate))
         : compareDesc(new Date(a.creationDate), new Date(b.creationDate))
     );
-
-    set({ folders: sortedFolders });
+    SharedStore.setState({
+      folders: sortedFolders,
+    });
   },
   selectFolder: (folderId): void => {
     const folderPath = `${BASE_DIRECTORY}/${folderId}/`;
@@ -57,7 +57,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
 
     const folderRaw = new File(folderMetaPath).textSync();
 
-    FilesStore.setState({ folder: JSON.parse(folderRaw) as Folder });
+    SharedStore.setState({
+      folder: JSON.parse(folderRaw) as Folder,
+    });
   },
   editFolderName: (folderId, updatedName): void => {
     const folderPath = `${BASE_DIRECTORY}/${folderId}/`;
@@ -76,11 +78,12 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
     });
 
     /** Actualizamos el estado en memoria */
-    set(({ folders }) => ({
+    SharedStore.setState(({ folders }) => ({
       folders: folders.map((folder) => {
         if (folder.folderId === folderId) return updatedFolder;
         return folder;
       }),
+      folder: updatedFolder,
     }));
 
     showToast({
@@ -90,7 +93,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
     });
   },
   deleteManyFolders: (): void => {
-    const { folders } = get();
+    const { folders } = SharedStore.getState();
     const { selectedElementIds, clearSelection } =
       FilesSelectionStore.getState();
 
@@ -108,7 +111,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
     const updatedFolders = folders.filter(
       (folder) => !selectedElementIds.has(folder.folderId)
     );
-    set({ folders: updatedFolders });
+    SharedStore.setState({ folders: updatedFolders });
 
     showToast({
       key: generateToastKey(),
@@ -120,7 +123,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
   },
 
   shareManyFolders: async (): Promise<void> => {
-    const { folders } = get();
+    const { folders } = SharedStore.getState();
     const { selectedElementIds, clearSelection } =
       FilesSelectionStore.getState();
 

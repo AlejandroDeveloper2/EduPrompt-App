@@ -2,7 +2,7 @@ import { FlatList } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { useFolderListLogic } from "@/features/my-files/hooks/core";
+import { useMoveFilePanelLogic } from "@/features/my-files/hooks/core";
 
 import {
   Button,
@@ -12,7 +12,6 @@ import {
 import { SelectableFolder } from "../../molecules";
 import FolderListHeader from "../folder-list/FolderListHeader";
 
-import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { MoveFilePanelStyle } from "./MoveFilePanel.style";
 
 interface MoveFilePanelProps {
@@ -38,15 +37,17 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
     setSelectedFolderInfo,
     /** Move Files */
     moveFiles,
-  } = useFolderListLogic();
+  } = useMoveFilePanelLogic();
 
   const moveFilePanelStyle = MoveFilePanelStyle(size);
 
   return (
     <FlatList
-      style={[moveFilePanelStyle.ListContainer, GlobalStyles.PageDimensions]}
+      style={moveFilePanelStyle.ListContainer}
       contentContainerStyle={moveFilePanelStyle.ListContent}
-      data={filteredElements}
+      data={filteredElements.filter(
+        (folder) => folder.folderId !== originFolderId
+      )}
       horizontal={false}
       windowSize={5}
       initialNumToRender={10}
@@ -85,6 +86,7 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
             icon="move-outline"
             variant="primary"
             width="100%"
+            label="Mover"
             disabled={selectedFolderInfo === null}
             onPress={() =>
               selectedFolderInfo

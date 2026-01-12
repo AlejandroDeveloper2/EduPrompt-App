@@ -13,7 +13,7 @@ import { tryCatchWrapper } from "@/shared/utils";
 import { ZipHelper } from "../../utils";
 
 import { FilesSelectionStore } from "../files-selection-store/FilesSelection.store";
-import { FoldersStore } from "../folders-store/Folders.store";
+import { SharedStore } from "../shared-store/Shared.store";
 
 export const FilesStore = create<FileStoreType>((set, get) => ({
   isSharing: false,
@@ -27,7 +27,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     const folderRaw = new File(folderMetaPath).textSync();
     const folderMeta = JSON.parse(folderRaw) as Folder;
 
-    set({
+    SharedStore.setState({
       folder: {
         ...folderMeta,
         files: format
@@ -68,13 +68,13 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     });
 
     /** Actualizamos el estado en memoria */
-    FoldersStore.setState(({ folders }) => ({
+    SharedStore.setState(({ folders }) => ({
       folders: folders.map((folder) => {
         if (folder.folderId === folderId) return updatedFolderMeta;
         return folder;
       }),
+      folder: updatedFolderMeta,
     }));
-    set({ folder: updatedFolderMeta });
 
     showToast({
       key: generateToastKey(),
@@ -115,13 +115,13 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     });
 
     /** Actualizamos el estado en memoria */
-    FoldersStore.setState(({ folders }) => ({
+    SharedStore.setState(({ folders }) => ({
       folders: folders.map((f) => {
         if (f.folderId === folderId) return updatedFolderMeta;
         return f;
       }),
+      folder: updatedFolderMeta,
     }));
-    set({ folder: updatedFolderMeta });
 
     showToast({
       key: generateToastKey(),
@@ -132,7 +132,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     clearSelection();
   },
   shareManyFiles: async (folderId): Promise<void> => {
-    const { folder } = get();
+    const { folder } = SharedStore.getState();
     const { selectedElementIds, clearSelection } =
       FilesSelectionStore.getState();
 
@@ -280,14 +280,13 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     );
 
     /** Actualizamos el estado en memoria */
-    FoldersStore.setState(({ folders }) => ({
+    SharedStore.setState(({ folders }) => ({
       folders: folders.map((f) => {
         if (f.folderId === originFolderId) return updatedOriginFolderMeta;
         return f;
       }),
+      folder: updatedOriginFolderMeta,
     }));
-
-    set({ folder: updatedOriginFolderMeta });
 
     clearSelection();
   },

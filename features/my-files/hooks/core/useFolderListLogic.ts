@@ -24,9 +24,9 @@ import {
   useSelectionModeStore,
 } from "@/shared/hooks/store";
 import {
-  useFilesSelectionStore,
-  useFilesStore,
+  useFoldersSelectionStore,
   useFoldersStore,
+  useSharedStore,
 } from "../store";
 
 import { calcAvarageProcessDuration } from "@/shared/utils";
@@ -50,11 +50,11 @@ const useFolderListLogic = () => {
     disableSelectionMode,
   } = useSelectionModeStore();
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
-    useFilesSelectionStore();
+    useFoldersSelectionStore();
   const size = useScreenDimensionsStore();
-  const { folders, loadFolders, deleteManyFolders, shareManyFolders } =
+  const { loadFolders, deleteManyFolders, shareManyFolders } =
     useFoldersStore();
-  const { moveFiles } = useFilesStore();
+  const { folders } = useSharedStore();
 
   const {
     searchValue,
@@ -152,10 +152,8 @@ const useFolderListLogic = () => {
     setSelectedFolderInfo,
     /** Edit Folder name pop up */
     editFolderNamePopUp,
-    /** */
+    /**  Actions*/
     confirmFolderDeletePopUp,
-    /** Move Files */
-    moveFiles,
     deleteManyFolders,
   };
 };

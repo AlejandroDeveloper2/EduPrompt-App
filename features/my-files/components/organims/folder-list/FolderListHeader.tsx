@@ -42,7 +42,7 @@ const FolderListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder="Buscar carpeta por nombre"
-        onChange={onSearchValueChange}
+        onChange={(_name, value) => onSearchValueChange(value)}
         onClearInput={onClearSearchInput}
       />
       <View style={folderListStyle.FiltersContainer}>

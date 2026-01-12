@@ -24,7 +24,11 @@ import {
   useScreenDimensionsStore,
   useSelectionModeStore,
 } from "@/shared/hooks/store";
-import { useFilesSelectionStore, useFilesStore } from "../store";
+import {
+  useFilesSelectionStore,
+  useFilesStore,
+  useSharedStore,
+} from "../store";
 
 import { calcAvarageProcessDuration } from "@/shared/utils";
 
@@ -54,8 +58,9 @@ const useFileListLogic = () => {
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
     useFilesSelectionStore();
   const size = useScreenDimensionsStore();
-  const { folder, loadFilesByFormat, deleteManyFiles, shareManyFiles } =
+  const { loadFilesByFormat, deleteManyFiles, shareManyFiles } =
     useFilesStore();
+  const { folder } = useSharedStore();
 
   const {
     searchValue,

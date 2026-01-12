@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { NavigationRoute, ParamListBase } from "@react-navigation/native";
@@ -35,7 +37,7 @@ export const renderDrawerItem = (
   index: number,
   navOption: NavigationRoute<ParamListBase, string>,
   { descriptors, state, navigation }: DrawerContentComponentProps
-) => {
+): JSX.Element => {
   const isActive = getActiveDrawerItem(navOption, state);
 
   const { options } = descriptors[navOption.key];
@@ -79,7 +81,7 @@ export const renderNavItem = (
   index: number,
   navOption: NavigationRoute<ParamListBase, string>,
   { descriptors, state, navigation }: BottomTabBarProps
-) => {
+): JSX.Element => {
   const isActive = getActiveNavItem(navOption, state);
 
   const { options } = descriptors[navOption.key];

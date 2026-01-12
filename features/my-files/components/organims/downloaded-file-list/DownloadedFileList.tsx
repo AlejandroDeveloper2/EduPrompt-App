@@ -59,7 +59,10 @@ const DownloadedFileList = () => {
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmFileDeletePopUp.onClosePopUp}
-          onAccept={() => deleteManyFiles(folderId)}
+          onAccept={() => {
+            deleteManyFiles(folderId);
+            confirmFileDeletePopUp.onClosePopUp();
+          }}
         />
       </PopUp>
       <PopUp

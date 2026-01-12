@@ -17,7 +17,7 @@ export const FileListStyle = (size: SizeType) =>
       width: "100%",
       flexDirection: "column",
       justifyContent: "center",
-      alignItems: "center",
+      alignItems: "flex-start",
       display: "flex",
       gap: Spacing.spacing_xs,
     },

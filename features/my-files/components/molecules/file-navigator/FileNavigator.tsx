@@ -5,7 +5,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors } from "@/shared/styles";
 
-import { useFilesStore } from "@/features/my-files/hooks/store";
+import { useSharedStore } from "@/features/my-files/hooks/store";
 import { useAnimatedNavItem } from "@/shared/hooks/animations";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -20,7 +20,7 @@ const FileNavigator = () => {
   const params = useSearchParams();
 
   const size = useScreenDimensionsStore();
-  const { folder } = useFilesStore();
+  const { folder } = useSharedStore();
 
   const folderId = params.get("folderName");
 

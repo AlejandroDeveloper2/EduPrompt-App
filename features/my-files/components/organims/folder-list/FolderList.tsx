@@ -59,7 +59,10 @@ const FolderList = () => {
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmFolderDeletePopUp.onClosePopUp}
-          onAccept={deleteManyFolders}
+          onAccept={() => {
+            deleteManyFolders();
+            confirmFolderDeletePopUp.onClosePopUp();
+          }}
         />
       </PopUp>
       <PopUp

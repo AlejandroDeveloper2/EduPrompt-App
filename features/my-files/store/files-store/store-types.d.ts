@@ -1,8 +1,7 @@
-import { Folder, ResourceFormatKey } from "../../types";
+import { ResourceFormatKey } from "../../types";
 
 export interface FileStoreType {
   isSharing: boolean;
-  folder: Folder | null;
   /** File Actions */
   loadFilesByFormat: (folderId: string, format?: ResourceFormatKey) => void;
   editFileName: (folderId: string, fileId: string, updatedName: string) => void;
