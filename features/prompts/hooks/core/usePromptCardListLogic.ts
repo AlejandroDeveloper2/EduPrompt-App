@@ -39,6 +39,7 @@ const usePromptCardListLogic = () => {
     onSearchTagValueChange,
   } = usePromptFiltersContext();
 
+  const confirmPromptDeletePopUp = useAnimatedPopUp();
   const updatePromptPopUp = useAnimatedPopUp();
 
   const {
@@ -55,7 +56,7 @@ const usePromptCardListLogic = () => {
     { limit: 10 }
   );
 
-  const { removeManyPrompts } = useDeleteManyPrompts();
+  const { isPending, removeManyPrompts } = useDeleteManyPrompts();
 
   const prompts = useMemo(
     () => data?.pages.flatMap((p) => p.records) ?? [],
@@ -75,7 +76,9 @@ const usePromptCardListLogic = () => {
   /** Validamos si hay elementos seleccionados */
   useEffect(() => {
     if (selectionCount > 0)
-      enableSelectionMode(SELECTION_MODE_ACTIONS(removeManyPrompts));
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(confirmPromptDeletePopUp.onOpenPopUp)
+      );
     else disableSelectionMode();
   }, [selectionCount]);
 
@@ -111,9 +114,13 @@ const usePromptCardListLogic = () => {
     isRefetching,
     /** PopUp Controls */
     updatePromptPopUp,
+    confirmPromptDeletePopUp,
     /** Prompt Id  */
     selectedPrompt,
     setSelectedPrompt,
+    /** Actions */
+    isPending,
+    removeManyPrompts,
   };
 };
 

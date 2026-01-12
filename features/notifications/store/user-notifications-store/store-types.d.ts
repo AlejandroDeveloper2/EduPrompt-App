@@ -1,4 +1,5 @@
-import { Notification, Order } from "../../types";
+import { Order } from "@/core/types";
+import { Notification } from "../../types";
 
 export interface StoreStateProps {
   notifications: Notification[];

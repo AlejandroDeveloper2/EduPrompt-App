@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -7,6 +7,7 @@ import { DownloadedFile } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useFilesSelectionStore } from "@/features/my-files/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -21,16 +22,27 @@ import { FileCardStyle } from "./FileCard.style";
 
 interface FileCardProps {
   fileData: DownloadedFile;
+  totalRecords: number;
   icon: keyof typeof Ionicons.glyphMap;
   onEditFileName: () => void;
 }
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const FileCard = ({ fileData, icon, onEditFileName }: FileCardProps) => {
+const FileCard = ({
+  fileData,
+  totalRecords,
+  icon,
+  onEditFileName,
+}: FileCardProps) => {
   const { name, format, downloadDate, fileSize, fileExtension } = fileData;
 
-  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const { selectedElementIds, toggleSelection } = useFilesSelectionStore();
+
+  const isSelected: boolean = useMemo(
+    () => selectedElementIds.has(fileData.fileId),
+    [fileData.fileId, selectedElementIds]
+  );
 
   const size = useScreenDimensionsStore();
   const animatedCardStyle = useAnimatedCard(isSelected);
@@ -65,7 +77,7 @@ const FileCard = ({ fileData, icon, onEditFileName }: FileCardProps) => {
         />
         <Checkbox
           checked={isSelected}
-          onCheck={() => setIsSelected(!isSelected)}
+          onCheck={() => toggleSelection(fileData.fileId, totalRecords)}
         />
       </View>
       <View style={fileCardStyle.FileMetadata}>

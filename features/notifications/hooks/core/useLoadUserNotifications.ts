@@ -1,12 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 
-import { Order } from "../../types";
+import { Order } from "@/core/types";
 
 import { eventBus } from "@/core/events/EventBus";
+
+import { SELECTION_MODE_ACTIONS } from "../../constants";
+
+import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import { useLoading } from "@/shared/hooks/core";
 import { useSelectionModeStore } from "@/shared/hooks/store";
-import { SELECTION_MODE_ACTIONS } from "../../constants";
 import {
   useNotificationsSelectionStore,
   useUserNotificationsStore,
@@ -32,6 +35,8 @@ const useLoadUserNotifications = () => {
     deleteSelectedNotifications,
   } = useUserNotificationsStore();
 
+  const confirmDeletePopUp = useAnimatedPopUp();
+
   const updateFilter = (updatedFilter: Order): void => {
     setFilter(updatedFilter);
   };
@@ -49,7 +54,9 @@ const useLoadUserNotifications = () => {
   /** Validamos si hay elementos seleccionados */
   useEffect(() => {
     if (selectionCount > 0)
-      enableSelectionMode(SELECTION_MODE_ACTIONS(deleteSelectedNotifications));
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(confirmDeletePopUp.onOpenPopUp)
+      );
     else disableSelectionMode();
   }, [selectionCount]);
 
@@ -81,6 +88,8 @@ const useLoadUserNotifications = () => {
     notifications,
     filter,
     updateFilter,
+    confirmDeletePopUp,
+    deleteSelectedNotifications,
   };
 };
 

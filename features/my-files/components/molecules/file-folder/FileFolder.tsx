@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { DownloadedFile } from "@/features/my-files/types";
+import { Folder } from "@/features/my-files/types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useFilesSelectionStore } from "@/features/my-files/hooks/store";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useAnimatedFileFolder } from "../../../hooks/animations";
 
@@ -19,24 +20,26 @@ import {
 import { FileFolderStyle } from "./FIleFolder.style";
 
 interface FileFolderProps {
-  folderName: string;
-  creationDate: string;
-  files: DownloadedFile[];
-  folderUri: string;
+  data: Folder;
+  totalRecords: number;
   onEditFolderName: () => void;
   onOpenFolder: () => void;
 }
 
 const FileFolder = ({
-  folderName,
-  creationDate,
-  files,
-  folderUri,
+  data,
+  totalRecords,
   onEditFolderName,
   onOpenFolder,
 }: FileFolderProps) => {
-  const [isSelected, setIsSelected] = useState<boolean>(false);
   const size = useScreenDimensionsStore();
+  const { selectedElementIds, toggleSelection } = useFilesSelectionStore();
+
+  const isSelected: boolean = useMemo(
+    () => selectedElementIds.has(data.folderId),
+    [data.folderId, selectedElementIds]
+  );
+
   const animatedFileFolderStyle = useAnimatedFileFolder(isSelected);
 
   const fileFolderStyle = FileFolderStyle(size);
@@ -47,7 +50,7 @@ const FileFolder = ({
     >
       <View style={fileFolderStyle.Header}>
         <Typography
-          text={folderName}
+          text={data.folderName}
           weight="medium"
           type="paragraph"
           textAlign="left"
@@ -65,7 +68,7 @@ const FileFolder = ({
       <View style={fileFolderStyle.MetadataContainer}>
         <View style={fileFolderStyle.Metadata}>
           <Typography
-            text={`${files.length} Archivos`}
+            text={`${data.files.length} Archivos`}
             weight="bold"
             type="caption"
             textAlign="left"
@@ -74,7 +77,7 @@ const FileFolder = ({
             icon="document-outline"
           />
           <Typography
-            text={new Date(creationDate).toLocaleDateString()}
+            text={new Date(data.creationDate).toLocaleDateString()}
             weight="regular"
             type="caption"
             textAlign="left"
@@ -85,7 +88,7 @@ const FileFolder = ({
         </View>
         <Checkbox
           checked={isSelected}
-          onCheck={() => setIsSelected(!isSelected)}
+          onCheck={() => toggleSelection(data.folderId, totalRecords)}
         />
       </View>
       <Pressable

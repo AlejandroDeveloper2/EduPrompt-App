@@ -39,6 +39,7 @@ const useTagCardListLogic = () => {
   } = useListFilters<TagType>("resource_tag");
 
   const updateTagPopUp = useAnimatedPopUp();
+  const confirmTagDeletePopUp = useAnimatedPopUp();
 
   const {
     data,
@@ -51,7 +52,7 @@ const useTagCardListLogic = () => {
     isRefetching,
   } = useTagsQuery({ name: searchValue, type: selectedFilter }, { limit: 10 });
 
-  const { removeManyTags } = useDeleteManyTags();
+  const { isPending, removeManyTags } = useDeleteManyTags();
 
   const tags = useMemo(
     () => data?.pages.flatMap((p) => p.records) ?? [],
@@ -71,7 +72,9 @@ const useTagCardListLogic = () => {
   /** Validamos si hay elementos seleccionados */
   useEffect(() => {
     if (selectionCount > 0)
-      enableSelectionMode(SELECTION_MODE_ACTIONS(removeManyTags));
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(confirmTagDeletePopUp.onOpenPopUp)
+      );
     else disableSelectionMode();
   }, [selectionCount]);
 
@@ -106,9 +109,13 @@ const useTagCardListLogic = () => {
     isRefetching,
     /** PopUp Controls */
     updateTagPopUp,
+    confirmTagDeletePopUp,
     /** Tag Id  */
     selectedTag,
     setSelectedTag,
+    /** Actions */
+    isPending,
+    removeManyTags,
   };
 };
 

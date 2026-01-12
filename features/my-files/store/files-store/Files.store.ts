@@ -16,6 +16,7 @@ import { FilesSelectionStore } from "../files-selection-store/FilesSelection.sto
 import { FoldersStore } from "../folders-store/Folders.store";
 
 export const FilesStore = create<FileStoreType>((set, get) => ({
+  isSharing: false,
   folder: null,
 
   /** Files Actions */
@@ -135,6 +136,8 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     const { selectedElementIds, clearSelection } =
       FilesSelectionStore.getState();
 
+    set({ isSharing: true });
+
     await tryCatchWrapper(
       async () => {
         if (!folder || folder.folderId !== folderId) {
@@ -205,10 +208,11 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
           variant: "danger",
           message: "Error al compartir archivos",
         });
-      }
+      },
+      () => set({ isSharing: false })
     );
   },
-  moveFiles: async (originFolderId: string, destinationFolderId: string) => {
+  moveFiles: (originFolderId: string, destinationFolderId: string): void => {
     const { selectedElementIds, clearSelection } =
       FilesSelectionStore.getState();
 

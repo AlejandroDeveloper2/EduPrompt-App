@@ -3,7 +3,7 @@ import { FlatList, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { Order } from "@/features/notifications/types";
+import { Order } from "@/core/types";
 
 import { useMarkAsReadNotificationsMutation } from "@/features/notifications/hooks/mutations";
 import { useSystemNotificationsQuery } from "@/features/notifications/hooks/queries";
@@ -99,9 +99,8 @@ const SystemNotificationsList = () => {
       numColumns={size === "laptop" ? 2 : 1}
       renderItem={({ item }) => (
         <NotificationCard
-          {...item}
-          notificationDate={item.creationDate}
-          isSelected={false}
+          data={item}
+          totalRecords={notifications?.length ?? 0}
         />
       )}
       keyExtractor={(item) => item.notificationId}

@@ -56,6 +56,7 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
   } = useResourcesFiltersContext();
 
   const updateResourcePopUp = useAnimatedPopUp();
+  const confirmDeletePopUp = useAnimatedPopUp();
 
   const {
     data,
@@ -75,7 +76,7 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     { limit: 10 }
   );
 
-  const { removeManyResources } = useDeleteManyResources();
+  const { isPending, removeManyResources } = useDeleteManyResources();
 
   const resources = useMemo(
     () => data?.pages.flatMap((r) => r.records) ?? [],
@@ -106,7 +107,7 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(removeManyResources, () => {
+        SELECTION_MODE_ACTIONS(confirmDeletePopUp.onOpenPopUp, () => {
           const processName = BACKGROUND_PROCESS_NAMES.downloadProcess;
           runBackgroundTask(
             {
@@ -172,6 +173,7 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     isRefetching,
     /** PopUp Controls */
     updateResourcePopUp,
+    confirmDeletePopUp,
     /** Resource Id  */
     selectedResource,
     setSelectedResource,
@@ -180,6 +182,9 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     setActivePreviewTab,
     /** Preview viewer */
     viewerType,
+    /**Actions */
+    isPending,
+    removeManyResources,
   };
 };
 

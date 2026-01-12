@@ -4,7 +4,8 @@ import AsyncStorage from "expo-sqlite/kv-store";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { Notification, Order } from "../../types";
+import { Order } from "@/core/types";
+import { Notification } from "../../types";
 import { StoreStateProps, UserNotificationStoreType } from "./store-types";
 
 import { eventBus } from "@/core/events/EventBus";

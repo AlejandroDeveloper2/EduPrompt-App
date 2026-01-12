@@ -1,9 +1,10 @@
+import { Order } from "@/core/types";
 import { Folder } from "../../types";
-import { OrderBy } from "../shared-types";
 
 export interface FolderStoreType {
+  isSharing: boolean;
   folders: Folder[];
-  loadFolders: (orderBy: OrderBy) => void;
+  loadFolders: (orderBy: Order) => void;
   selectFolder: (folderId: string) => void;
   editFolderName: (folderId: string, updatedName: string) => void;
   deleteManyFolders: () => void;

@@ -3,8 +3,6 @@ type NotificationLink = {
   href: string;
 };
 
-type Order = "asc" | "desc";
-
 interface Notification {
   notificationId: string;
   title: string;
@@ -17,4 +15,4 @@ interface SystemNotification extends Omit<Notification, "isSelected"> {
   links?: NotificationLink[];
 }
 
-export type { Notification, NotificationLink, Order, SystemNotification };
+export type { Notification, NotificationLink, SystemNotification };

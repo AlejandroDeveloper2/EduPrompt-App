@@ -6,7 +6,8 @@ import { getSocketClient } from "@/core/config/socketClient";
 
 import { useEventbusValue } from "@/shared/hooks/events";
 
-import { Order, SystemNotification } from "../../types";
+import { Order } from "@/core/types";
+import { SystemNotification } from "../../types";
 
 const useSystemNotificationSocket = (filters: Order) => {
   const queryClient = useQueryClient();

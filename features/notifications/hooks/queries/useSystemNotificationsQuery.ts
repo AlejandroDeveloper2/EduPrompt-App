@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { Order, SystemNotification } from "../../types";
+import { Order } from "@/core/types";
+import { SystemNotification } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useSystemNotificationSocket } from "../listeners";

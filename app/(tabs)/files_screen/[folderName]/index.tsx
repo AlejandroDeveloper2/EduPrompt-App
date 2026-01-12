@@ -1,5 +1,7 @@
+import { MyFilesTemplate } from "@/features/my-files/components/templates";
+
 const FolderContentScreen = () => {
-  return <div>index</div>;
+  return <MyFilesTemplate />;
 };
 
 export default FolderContentScreen;

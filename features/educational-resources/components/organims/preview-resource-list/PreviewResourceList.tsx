@@ -25,6 +25,7 @@ import { ResourceCard } from "../../molecules";
 import PreviewResourceHeader from "./PreviewResourceHeader";
 
 import {
+  Alert,
   ComposedDropdownOptionList,
   FetchingErrorPanel,
   PopUp,
@@ -57,6 +58,7 @@ const PreviewResourceList = () => {
     isRefetching,
     /** PopUp Controls */
     updateResourcePopUp,
+    confirmDeletePopUp,
     /** Resource Id  */
     selectedResource,
     setSelectedResource,
@@ -65,6 +67,9 @@ const PreviewResourceList = () => {
     setActivePreviewTab,
     /** Preview viewer */
     viewerType,
+    /**Actions */
+    isPending: isDeleting,
+    removeManyResources,
   } = useResourceCardListLogic(RESOURCE_PREVIEW_TABS[0]);
 
   const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
@@ -106,6 +111,23 @@ const PreviewResourceList = () => {
     );
   return (
     <>
+      <PopUp
+        icon="information-circle-outline"
+        title="Alerta"
+        {...confirmDeletePopUp}
+        gesture={confirmDeletePopUp.dragGesture}
+      >
+        <Alert
+          variant="danger"
+          message="¿Estas seguro que deseas eliminar los recursos?"
+          acceptButtonLabel="Eliminar"
+          acceptButtonIcon="trash-bin-outline"
+          onCancel={confirmDeletePopUp.onClosePopUp}
+          onAccept={removeManyResources}
+          loading={isDeleting}
+          loadingMessage="Eliminando..."
+        />
+      </PopUp>
       <PopUp
         title={isTagSelection ? "Seleccionar etiqueta" : "Visualizar recurso"}
         icon={isTagSelection ? "pricetag-outline" : "eye-outline"}

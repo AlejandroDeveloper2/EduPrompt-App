@@ -17,6 +17,7 @@ import { FilesSelectionStore } from "../files-selection-store/FilesSelection.sto
 import { FilesStore } from "../files-store/Files.store";
 
 export const FoldersStore = create<FolderStoreType>((set, get) => ({
+  isSharing: false,
   folders: [],
   loadFolders: (orderBy): void => {
     const baseDir = new Directory(BASE_DIRECTORY);
@@ -123,6 +124,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
     const { selectedElementIds, clearSelection } =
       FilesSelectionStore.getState();
 
+    set({ isSharing: true });
     await tryCatchWrapper(
       async () => {
         const selectedFolders = folders.filter((folder) =>
@@ -188,6 +190,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
           variant: "danger",
           message: "Error al compartir carpetas",
         });
+      },
+      () => {
+        set({ isSharing: false });
       }
     );
   },

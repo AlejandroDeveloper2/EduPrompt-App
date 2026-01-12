@@ -5,7 +5,7 @@ import { AppColors } from "@/shared/styles";
 import { useTagCardListLogic } from "@/features/tags/hooks/core";
 
 import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
-import { FetchingErrorPanel, PopUp } from "@/shared/components/organims";
+import { Alert, FetchingErrorPanel, PopUp } from "@/shared/components/organims";
 import { TagCard } from "../../molecules";
 import UpdateTagForm from "../update-tag-form/UpdateTagForm";
 import TagCardListHeader from "./TagCardListHeader";
@@ -33,10 +33,14 @@ const TagCardList = () => {
     refetch,
     isRefetching,
     /** Popup controls */
+    confirmTagDeletePopUp,
     updateTagPopUp,
     /** Tag Id  */
     selectedTag,
     setSelectedTag,
+    /** Actions */
+    isPending,
+    removeManyTags,
   } = useTagCardListLogic();
 
   const tagCardListStyle = TagCardListStyle(size);
@@ -50,6 +54,23 @@ const TagCardList = () => {
     );
   return (
     <>
+      <PopUp
+        icon="information-circle-outline"
+        title="Alerta"
+        {...confirmTagDeletePopUp}
+        gesture={confirmTagDeletePopUp.dragGesture}
+      >
+        <Alert
+          variant="danger"
+          message="¿Estas seguro que deseas eliminar las etiquetas?"
+          acceptButtonLabel="Eliminar"
+          acceptButtonIcon="trash-bin-outline"
+          onCancel={confirmTagDeletePopUp.onClosePopUp}
+          onAccept={removeManyTags}
+          loading={isPending}
+          loadingMessage="Eliminando..."
+        />
+      </PopUp>
       <PopUp
         title="Actualizar etiqueta"
         icon="pencil-outline"

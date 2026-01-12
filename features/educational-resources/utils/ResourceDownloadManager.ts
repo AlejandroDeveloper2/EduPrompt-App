@@ -1,6 +1,8 @@
 import { Directory, File, Paths } from "expo-file-system";
 import uuid from "react-native-uuid";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import { DownloadedFile, Folder } from "@/features/my-files/types";
 import { EducationalResource } from "../types";
 
@@ -101,12 +103,15 @@ export class ResourceDownloadManager {
   ): void {
     const { formatKey, content, groupTag, title, format } = resource;
 
+    const paginatedTags = eventBus.getLast("tags.list.resourceType.updated");
+    const tagInfo = paginatedTags?.tags.find((tag) => tag.tagId === groupTag);
+
     // PASO 1: Asegurar que la carpeta existe PRIMERO
     let folder = this.findFolderById(groupTag);
     if (!folder) {
       folder = this.createFolder({
         folderId: groupTag,
-        folderName: title,
+        folderName: tagInfo ? tagInfo.name : `Sin titulo -${Date.now()}`,
       });
     }
 

@@ -53,7 +53,7 @@ type ProgressConfig = {
   limit: number;
 };
 
-type ProcessType = "generation" | "downloading" | "deleting";
+type ProcessType = "generation" | "downloading" | "deleting" | "sharing";
 
 type ViewerType = "image" | "text" | "table/chart";
 
@@ -241,6 +241,8 @@ type InfiniteQueryOptions = {
   enabled?: boolean;
 };
 
+type Order = "asc" | "desc";
+
 export {
   AlertVariantType,
   AlignTextType,
@@ -263,6 +265,7 @@ export {
   Lang,
   NavigationPropsBase,
   NavOption,
+  Order,
   PaginatedResponse,
   Process,
   ProcessType,

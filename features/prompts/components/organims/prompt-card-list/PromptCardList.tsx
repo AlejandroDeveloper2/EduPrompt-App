@@ -15,6 +15,7 @@ import {
   LoadingTextIndicator,
 } from "@/shared/components/molecules";
 import {
+  Alert,
   ComposedDropdownOptionList,
   FetchingErrorPanel,
   PopUp,
@@ -49,9 +50,13 @@ const PromptCardList = () => {
     isRefetching,
     /** PopUp Controls */
     updatePromptPopUp,
+    confirmPromptDeletePopUp,
     /** Prompt Id  */
     selectedPrompt,
     setSelectedPrompt,
+    /** Actions */
+    isPending: isDeleting,
+    removeManyPrompts,
   } = usePromptCardListLogic();
 
   const { isPending, selectedTag, form } = useUpdatePromptFormLogic(
@@ -71,6 +76,23 @@ const PromptCardList = () => {
 
   return (
     <>
+      <PopUp
+        icon="information-circle-outline"
+        title="Alerta"
+        {...confirmPromptDeletePopUp}
+        gesture={confirmPromptDeletePopUp.dragGesture}
+      >
+        <Alert
+          variant="danger"
+          message="¿Estas seguro que deseas eliminar los prompts?"
+          acceptButtonLabel="Eliminar"
+          acceptButtonIcon="trash-bin-outline"
+          onCancel={confirmPromptDeletePopUp.onClosePopUp}
+          onAccept={removeManyPrompts}
+          loading={isDeleting}
+          loadingMessage="Eliminando..."
+        />
+      </PopUp>
       <PopUp
         title={isTagSelection ? "Seleccionar etiqueta" : "Actualizar prompt"}
         icon={isTagSelection ? "pricetag-outline" : "pencil-outline"}

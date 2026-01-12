@@ -1,6 +1,6 @@
 import { FlatList, View } from "react-native";
 
-import { Order } from "../../../types";
+import { Order } from "@/core/types";
 
 import { AppColors } from "@/shared/styles";
 
@@ -15,6 +15,7 @@ import {
 } from "@/shared/components/molecules";
 import { NotificationCard } from "../../molecules";
 
+import { Alert, PopUp } from "@/shared/components/organims";
 import { NotificationListStyle } from "./NotificationList.style";
 
 interface NotificationHeaderProps {
@@ -68,47 +69,71 @@ const NotificationListHeader = ({
 
 const NotificationList = () => {
   const size = useScreenDimensionsStore();
-  const { isLoading, loadingMessage, updateFilter, notifications, filter } =
-    useLoadUserNotifications();
+  const {
+    isLoading,
+    loadingMessage,
+    updateFilter,
+    notifications,
+    filter,
+    confirmDeletePopUp,
+    deleteSelectedNotifications,
+  } = useLoadUserNotifications();
 
   const notificationListStyle = NotificationListStyle(size);
 
   return (
-    <FlatList
-      style={notificationListStyle.ListContainer}
-      contentContainerStyle={notificationListStyle.ListContent}
-      data={notifications}
-      horizontal={false}
-      windowSize={5}
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-      numColumns={size === "laptop" ? 2 : 1}
-      renderItem={({ item }) => (
-        <NotificationCard
-          data={item}
-          totalRecords={notifications.length}
-          canSelect
+    <>
+      <PopUp
+        icon="information-circle-outline"
+        title="Alerta"
+        {...confirmDeletePopUp}
+        gesture={confirmDeletePopUp.dragGesture}
+      >
+        <Alert
+          variant="danger"
+          message="¿Estas seguro que deseas eliminar las notificaciones?"
+          acceptButtonLabel="Eliminar"
+          acceptButtonIcon="trash-bin-outline"
+          onCancel={confirmDeletePopUp.onClosePopUp}
+          onAccept={deleteSelectedNotifications}
         />
-      )}
-      keyExtractor={(item) => item.notificationId}
-      ListHeaderComponent={
-        <NotificationListHeader filter={filter} updateFilter={updateFilter} />
-      }
-      ListEmptyComponent={
-        <Empty
-          message="No hay notificaciones ahora mismo"
-          icon="notifications-off-outline"
-        />
-      }
-      ListFooterComponent={
-        isLoading ? (
-          <LoadingTextIndicator
-            message={loadingMessage ?? "..."}
-            color={AppColors.primary[400]}
+      </PopUp>
+      <FlatList
+        style={notificationListStyle.ListContainer}
+        contentContainerStyle={notificationListStyle.ListContent}
+        data={notifications}
+        horizontal={false}
+        windowSize={5}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        numColumns={size === "laptop" ? 2 : 1}
+        renderItem={({ item }) => (
+          <NotificationCard
+            data={item}
+            totalRecords={notifications.length}
+            canSelect
           />
-        ) : null
-      }
-    />
+        )}
+        keyExtractor={(item) => item.notificationId}
+        ListHeaderComponent={
+          <NotificationListHeader filter={filter} updateFilter={updateFilter} />
+        }
+        ListEmptyComponent={
+          <Empty
+            message="No hay notificaciones ahora mismo"
+            icon="notifications-off-outline"
+          />
+        }
+        ListFooterComponent={
+          isLoading ? (
+            <LoadingTextIndicator
+              message={loadingMessage ?? "..."}
+              color={AppColors.primary[400]}
+            />
+          ) : null
+        }
+      />
+    </>
   );
 };
 
