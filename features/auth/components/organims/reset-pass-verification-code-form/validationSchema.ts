@@ -1,13 +1,19 @@
 import { z } from "zod";
 
+import { i18n } from "@/core/store";
+
 export const resetPassVerificationCodeSchema = z.object({
   code: z
     .string()
     .min(4, {
-      message: "El código de verificación debe tener al menos 4 caracteres",
+      message: i18n.t(
+        "auth-translations.reset-pass-verification-code-template.form-error-messages.invalid-code-min-length-msg"
+      ),
     })
     .max(4, {
-      message: "El código de verificación debe tener como máximo 4 caracteres",
+      message: i18n.t(
+        "auth-translations.reset-pass-verification-code-template.form-error-messages.invalid-code-max-length-msg"
+      ),
     }),
 });
 

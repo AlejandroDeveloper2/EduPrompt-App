@@ -1,0 +1,251 @@
+{
+  "onboarding-translations": {
+    "step-options-labels": {
+      "btn-back": "Previous",
+      "btn-start": "Start",
+      "btn-next": "Next"
+    },
+    "loading-messages": {
+      "completing-onboarding-msg": "Loading..."
+    }
+  },
+  "auth-translations": {
+    "btn-continue-without-account": "Continue without account",
+    "separator-label": "OR",
+    "login-template": {
+      "title": "Login",
+      "form-labels": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Access password"
+        },
+        "recover-pass-link": {
+          "label": "have you forgotten your password?",
+          "link-label": "Recover it here"
+        },
+        "sign-up-link": {
+          "label": "Don´t you have an account yet?",
+          "link-label": "Sign up here"
+        },
+        "btn-login": "Login"
+      },
+      "form-loading-messages": {
+        "logging-in-msg": "Checking credentials..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Invalid email address",
+        "required-password-msg": "Password is required"
+      }
+    },
+    "request-pass-reset-template": {
+      "title": "Recover password",
+      "form-labels": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Email"
+        },
+        "login-link": {
+          "label": "Do you already have an account?",
+          "link-label": "Login"
+        },
+        "btn-send-request": "Send request"
+      },
+      "form-loading-messages": {
+        "sending-request-msg": "Sending request..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Invalid email address"
+      }
+    },
+    "sign-up-template": {
+      "title": "Create Account",
+      "form-labels": {
+        "username": {
+          "label": "Username",
+          "placeholder": "Username"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "Email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Access password"
+        },
+        "confirm-password": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm password"
+        },
+        "login-link": {
+          "label": "Already have an account?",
+          "link-label": "Log in"
+        },
+        "terms-policies-links": {
+          "first": {
+            "label": "I accept the",
+            "link-label": "Privacy Policy"
+          },
+          "second": {
+            "label": "and the",
+            "link-label": "Terms of Service"
+          }
+        },
+        "btn-signup": "Create Account"
+      },
+      "form-loading-messages": {
+        "creating-account-msg": "Creating account..."
+      },
+      "form-error-messages": {
+        "invalid-username-msg": "Username must have at least 3 characters",
+        "invalid-email-msg": "Invalid email",
+        "invalid-password-msg": "Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
+        "required-password-confirm-msg": "Password confirmation is required",
+        "required-terms-msg": "You must accept the terms and policies",
+        "passwords-dismatch-msg": "Passwords do not match"
+      }
+    },
+    "account-activation-template": {
+      "title": "Activate Account",
+      "form-labels": {
+        "code": {
+          "label": "Activation Code"
+        },
+        "login-link": {
+          "label": "Already have an account?",
+          "link-label": "Sign in"
+        },
+        "btn-activate-account": "Activate Account"
+      },
+      "form-loading-messages": {
+        "activating-account-msg": "Activating account..."
+      },
+      "form-error-messages": {
+        "invalid-code-min-length-msg": "The verification code must be at least 4 characters long",
+        "invalid-code-max-length-msg": "The verification code must be at most 4 characters long"
+      }
+    },
+    "account-activation-request-template": {
+      "title": "Request Account Activation",
+      "form-labels": {
+        "email": {
+          "label": "Email",
+          "placeholder": "Email"
+        },
+        "login-link": {
+          "label": "Already have an account?",
+          "link-label": "Sign in"
+        },
+        "btn-send-activation-request": "Send Request"
+      },
+      "form-loading-messages": {
+        "sending-request-msg": "Sending request..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Invalid email"
+      }
+    },
+    "reset-pass-verification-code-template": {
+      "title": "Update Password",
+      "form-labels": {
+        "code": {
+          "label": "Verification Code"
+        },
+        "login-link": {
+          "label": "Already have an account?",
+          "link-label": "Sign in"
+        },
+        "btn-verify-code": "Verify Code"
+      },
+      "form-loading-messages": {
+        "verifying-code-msg": "Validating code..."
+      },
+      "form-error-messages": {
+        "invalid-code-min-length-msg": "The verification code must be at least 4 characters long",
+        "invalid-code-max-length-msg": "The verification code must be at most 4 characters long"
+      }
+    },
+
+    "reset-password-template": {
+      "title": "Update Password",
+      "form-labels": {
+        "new-password": {
+          "label": "New Password",
+          "placeholder": "New access password"
+        },
+        "confirm-password": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm new password"
+        },
+        "login-link": {
+          "label": "Already have an account?",
+          "link-label": "Sign in"
+        },
+        "btn-reset-password": "Update Password"
+      },
+      "form-loading-messages": {
+        "updating-password-msg": "Updating password..."
+      },
+      "form-error-messages": {
+        "invalid-password-msg": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+        "required-password-confirm-msg": "Password confirmation is required",
+        "passwords-dismatch-msg": "Passwords do not match"
+      }
+    },
+    "module-success-messages": {
+      "reset-pass-request-sent-msg": "An email with instructions has been sent. Please check your inbox.",
+      "account-created-msg": "Account successfully created. A verification code has been sent to your email address.",
+      "account-activated-msg": "Account successfully activated, you can now log in.",
+      "account-activation-request-sent-msg": "A new activation code has been sent to your email address.",
+      "verification-code-validated-msg": "Verification code valid, you can now update your password",
+      "password-updated-msg": "Password successfully updated, you can now log in.",
+      "update-email-request-sent-msg": "A verification code has been sent to your new email address. Please check your inbox.",
+      "email-updated-msg": "Email successfully updated",
+      "password-changed-msg": "Your password has been successfully changed. Please log in again."
+    },
+    "module-error-messages": {
+      "missing-user-id-msg": "The user ID required to update the password was not found."
+    }
+  },
+  "server-error-messages": {
+    "internal-server-error-msg": "An internal server error has occurred",
+    "database-connection-error-msg": "Error connecting to the database",
+    "validation-error-msg": "Validation error",
+    "email-sending-error-msg": "An error occurred while sending the email",
+    "user-email-already-exists-msg": "A user with that email already exists",
+    "username-already-exists-msg": "The username has already been taken, choose another one",
+    "user-not-found-msg": "User not found",
+    "inactive-account-msg": "The account is inactive, you can request a new activation code:",
+    "incorrect-password-msg": "The password is incorrect",
+    "invalid-session-msg": "The session is invalid",
+    "session-already-active-msg": "The user already has an active session",
+    "invalid-code-msg": "Invalid verification code",
+    "expired-code-msg": "Expired verification code",
+    "required-token-msg": "Session token required",
+    "expired-token-msg": "Session token expired",
+    "invalid-token-msg": "Invalid or malformed session token",
+    "required-refresh-msg": "Session refresh token required",
+    "missing-api-key-msg": "EduPromt API key is required",
+    "inactive-api-key-msg": "EduPromt API key inactive",
+    "expired-api-key-msg": "EduPromt API key expired",
+    "invalid-api-key-msg": "EduPromt API key invalid",
+    "insufficient-scopes-msg": "API key does not have the necessary permissions to access the resource",
+    "api-key-validation-error-msg": "An error occurred while validating the EduPrompt API key",
+    "missing-admin-auth-headers-msg": "Administrator credentials are required",
+    "unauthorized-msg": "Unauthorized access",
+    "resource-not-found-msg": "Educational resource not found",
+    "some-resource-not-found-msg": "Some of the educational resources do not exist",
+    "prompt-not-found-msg": "Prompt not found",
+    "some-prompt-not-found-msg": "Some of the prompts do not exist",
+    "notification-not-found-msg": "System notification not found",
+    "some-notification-not-found-msg": "Some of the notifications do not exist",
+    "image-generation-not-completed-msg": "Image generation was not completed",
+    "indicator-not-found-msg": "Indicators were not found",
+    "user-indicator-already-created-msg": "The user already has registered indicators",
+    "tag-not-found-msg": "Tag not found",
+    "some-tag-not-found-msg": "Some of the tags do not exist"
+  }
+}

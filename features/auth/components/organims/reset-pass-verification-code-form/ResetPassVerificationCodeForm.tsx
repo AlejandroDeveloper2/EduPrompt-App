@@ -1,4 +1,4 @@
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import {
   ResetPassVerificationCodeData,
@@ -23,13 +23,17 @@ const ResetPassVerificationCodeForm = () => {
     },
   });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.InputCode<ResetPassVerificationCodeData>
-              label="Código de verificación"
+              label={t(
+                "auth-translations.reset-pass-verification-code-template.form-labels.code.label"
+              )}
               name="code"
               value={data.code}
               placeholders={{
@@ -50,16 +54,24 @@ const ResetPassVerificationCodeForm = () => {
             variant="primary"
             width="100%"
             icon="checkmark-done-outline"
-            label="Verificar código"
+            label={t(
+              "auth-translations.reset-pass-verification-code-template.form-labels.btn-verify-code"
+            )}
             loading={validateResetPassCode.isPending}
-            loadingMessage="Validando código..."
+            loadingMessage={t(
+              "auth-translations.reset-pass-verification-code-template.form-loading-messages.verifying-code-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
         <Form.Row.Item span={1}>
           <Form.Link
-            label="¿Ya tienes una cuenta?"
-            linkLabel="Iniciar sesión"
+            label={t(
+              "auth-translations.reset-pass-verification-code-template.form-labels.login-link.label"
+            )}
+            linkLabel={t(
+              "auth-translations.reset-pass-verification-code-template.form-labels.login-link.link-label"
+            )}
             href="/auth"
           />
         </Form.Row.Item>

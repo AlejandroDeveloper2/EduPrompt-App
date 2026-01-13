@@ -95,7 +95,10 @@ const NotificationList = () => {
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.onClosePopUp}
-          onAccept={deleteSelectedNotifications}
+          onAccept={() => {
+            deleteSelectedNotifications();
+            confirmDeletePopUp.onClosePopUp();
+          }}
         />
       </PopUp>
       <FlatList

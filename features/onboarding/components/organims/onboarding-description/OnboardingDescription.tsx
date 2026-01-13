@@ -11,6 +11,7 @@ import { renderOnboardingStepImage } from "../../../utils";
 import { ScreenSection } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { OnboardingDescriptionStyle } from "./OnboardingDescription.style";
 
 interface OnboardingDescriptionProps {
@@ -35,6 +36,8 @@ const OnboardingDescription = ({
     handlePreviousStep,
     completeOnboarding,
   } = useOnboardingStore();
+
+  const { t } = useTranslations();
 
   const onboardingDescriptionStyle = OnboardingDescriptionStyle(size);
   const Illustration = renderOnboardingStepImage(currentStep.stepIllustration);
@@ -63,7 +66,7 @@ const OnboardingDescription = ({
           {currentStep.stepId !== "1" && (
             <Button
               icon="chevron-back-outline"
-              label="Anterior"
+              label={t("onboarding-translations.step-options-labels.btn-back")}
               width="100%"
               variant="neutral"
               style={{ flex: size === "mobile" ? undefined : 1 }}
@@ -76,12 +79,18 @@ const OnboardingDescription = ({
                 ? "star-outline"
                 : "chevron-forward-outline"
             }
-            label={currentStep.stepId === "5" ? "Empezar" : "Siguiente"}
+            label={
+              currentStep.stepId === "5"
+                ? t("onboarding-translations.step-options-labels.btn-start")
+                : t("onboarding-translations.step-options-labels.btn-next")
+            }
             width="100%"
             variant="primary"
             style={{ flex: size === "mobile" ? undefined : 1 }}
             loading={isCompleting}
-            loadingMessage="Cargando..."
+            loadingMessage={t(
+              "onboarding-translations.loading-messages.completing-onboarding-msg"
+            )}
             disabled={isCompleting}
             onPress={
               currentStep.stepId === "5"

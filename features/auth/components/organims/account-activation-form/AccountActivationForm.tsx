@@ -1,4 +1,4 @@
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useActivateAccountMutation } from "../../../hooks/mutations";
 
 import {
@@ -22,13 +22,17 @@ const AccountActivationForm = () => {
     },
   });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.InputCode<AccountActivationData>
-              label="Código de activación"
+              label={t(
+                "auth-translations.account-activation-template.form-labels.code.label"
+              )}
               name="code"
               value={data.code}
               placeholders={{
@@ -49,16 +53,24 @@ const AccountActivationForm = () => {
             variant="primary"
             width="100%"
             icon="checkmark-done-outline"
-            label="Activar cuenta"
+            label={t(
+              "auth-translations.account-activation-template.form-labels.btn-activate-account"
+            )}
             loading={activateAccount.isPending}
-            loadingMessage="Activando cuenta..."
+            loadingMessage={t(
+              "auth-translations.account-activation-template.form-loading-messages.activating-account-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
         <Form.Row.Item span={1}>
           <Form.Link
-            label="¿Ya tienes una cuenta?"
-            linkLabel="Iniciar sesión"
+            label={t(
+              "auth-translations.account-activation-template.form-labels.login-link.label"
+            )}
+            linkLabel={t(
+              "auth-translations.account-activation-template.form-labels.login-link.link-label"
+            )}
             href="/auth"
           />
         </Form.Row.Item>

@@ -10,3 +10,4 @@ export { default as useProgressBar } from "./useProgressBar";
 export { default as useSearchInput } from "./useSearchInput";
 export { default as useSetupApp } from "./useSetupApp";
 export { default as useToolbar } from "./useToolbar";
+export { default as useTranslations } from "./useTranslations";

@@ -123,7 +123,10 @@ const PreviewResourceList = () => {
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.onClosePopUp}
-          onAccept={removeManyResources}
+          onAccept={() => {
+            removeManyResources();
+            confirmDeletePopUp.onClosePopUp();
+          }}
           loading={isDeleting}
           loadingMessage="Eliminando..."
         />

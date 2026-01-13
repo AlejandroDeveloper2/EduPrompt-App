@@ -1,4 +1,4 @@
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useResetPasswordMutation } from "../../../hooks/mutations";
 
 import { ResetPasswordData, resetPasswordSchema } from "./validationSchema";
@@ -21,17 +21,23 @@ const ResetPasswordForm = () => {
       },
     });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<ResetPasswordData>
-              label="Nueva contraseña"
+              label={t(
+                "auth-translations.reset-password-template.form-labels.new-password.label"
+              )}
               icon="lock-closed-outline"
               name="newPassword"
               value={data.newPassword}
-              placeholder="Nueva contraseña de acceso"
+              placeholder={t(
+                "auth-translations.reset-password-template.form-labels.new-password.placeholder"
+              )}
               errorMessage={getFieldErrors("newPassword")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("newPassword")}
@@ -40,11 +46,15 @@ const ResetPasswordForm = () => {
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.Input<ResetPasswordData>
-              label="Confirmar contraseña"
+              label={t(
+                "auth-translations.reset-password-template.form-labels.confirm-password.label"
+              )}
               icon="lock-closed-outline"
               name="confirmPassword"
               value={data.confirmPassword}
-              placeholder="Confirmar nueva contraseña"
+              placeholder={t(
+                "auth-translations.reset-password-template.form-labels.confirm-password.placeholder"
+              )}
               errorMessage={getFieldErrors("confirmPassword")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("confirmPassword")}
@@ -59,16 +69,24 @@ const ResetPasswordForm = () => {
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Actualizar contraseña"
+            label={t(
+              "auth-translations.reset-password-template.form-labels.btn-reset-password"
+            )}
             loading={isPending}
-            loadingMessage="Actualizando contraseña..."
+            loadingMessage={t(
+              "auth-translations.reset-password-template.form-loading-messages.updating-password-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
         <Form.Row.Item span={1}>
           <Form.Link
-            label="¿Ya tienes una cuenta?"
-            linkLabel="Iniciar sesión"
+            label={t(
+              "auth-translations.reset-password-template.form-labels.login-link.label"
+            )}
+            linkLabel={t(
+              "auth-translations.reset-password-template.form-labels.login-link.link-label"
+            )}
             href="/auth"
           />
         </Form.Row.Item>

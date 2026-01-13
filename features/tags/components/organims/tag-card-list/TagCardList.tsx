@@ -66,7 +66,10 @@ const TagCardList = () => {
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmTagDeletePopUp.onClosePopUp}
-          onAccept={removeManyTags}
+          onAccept={() => {
+            removeManyTags();
+            confirmTagDeletePopUp.onClosePopUp();
+          }}
           loading={isPending}
           loadingMessage="Eliminando..."
         />

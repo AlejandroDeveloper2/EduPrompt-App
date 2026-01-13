@@ -1,27 +1,42 @@
 import { z } from "zod";
 
+import { i18n } from "@/core/store";
+
 const passwordRegex =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]).{8,}$/;
 
 export const signupSchema = z
   .object({
     userName: z.string().min(3, {
-      message: "El nombre de usuario debe tener almenos 3 caracteres ",
+      message: i18n.t(
+        "auth-translations.sign-up-template.form-error-messages.invalid-username-msg"
+      ),
     }),
-    email: z.string().email({ message: "Correo electrónico invalido" }),
+    email: z.string().email({
+      message: i18n.t(
+        "auth-translations.sign-up-template.form-error-messages.invalid-email-msg"
+      ),
+    }),
     password: z.string().regex(passwordRegex, {
-      message:
-        "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+      message: i18n.t(
+        "auth-translations.sign-up-template.form-error-messages.invalid-password-msg"
+      ),
     }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: "La confirmación de contraseña es requerida" }),
+    confirmPassword: z.string().min(1, {
+      message: i18n.t(
+        "auth-translations.sign-up-template.form-error-messages.required-password-confirm-msg"
+      ),
+    }),
     termsAndPolicies: z.boolean().refine((val) => val === true, {
-      message: "Debes aceptar los términos y políticas",
+      message: i18n.t(
+        "auth-translations.sign-up-template.form-error-messages.required-terms-msg"
+      ),
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: i18n.t(
+      "auth-translations.sign-up-template.form-error-messages.passwords-dismatch-msg"
+    ),
     path: ["confirmPassword"],
   });
 

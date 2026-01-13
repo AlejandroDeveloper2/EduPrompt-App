@@ -6,6 +6,7 @@ import { TextInput } from "react-native";
 import { z } from "zod";
 
 /** Tipos globales compartidos */
+type LangTag = "es" | "en" | "pt";
 type SpacingNamesType =
   | "null"
   | "4xs"
@@ -112,7 +113,7 @@ interface Process {
 }
 
 interface AppLanguage {
-  key: "es" | "pt" | "en";
+  key: LangTag | "system";
   label: string;
 }
 
@@ -263,6 +264,7 @@ export {
   FormErrors,
   InfiniteQueryOptions,
   Lang,
+  LangTag,
   NavigationPropsBase,
   NavOption,
   Order,

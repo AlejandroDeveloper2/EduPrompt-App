@@ -1,4 +1,4 @@
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useLoginMutation } from "../../../hooks/mutations";
 
 import { LoginCredentials, loginSchema } from "./validationSchema";
@@ -21,17 +21,23 @@ const LoginForm = () => {
       },
     });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<LoginCredentials>
-              label="Correo electrónico"
+              label={t(
+                "auth-translations.login-template.form-labels.email.label"
+              )}
               icon="at-outline"
               name="email"
               value={data.email}
-              placeholder="Correo electrónico"
+              placeholder={t(
+                "auth-translations.login-template.form-labels.email.placeholder"
+              )}
               errorMessage={getFieldErrors("email")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("email")}
@@ -39,11 +45,15 @@ const LoginForm = () => {
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.Input<LoginCredentials>
-              label="Contraseña"
+              label={t(
+                "auth-translations.login-template.form-labels.password.label"
+              )}
               icon="lock-closed-outline"
               name="password"
               value={data.password}
-              placeholder="Contraseña de acceso"
+              placeholder={t(
+                "auth-translations.login-template.form-labels.password.placeholder"
+              )}
               errorMessage={getFieldErrors("password")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("password")}
@@ -52,8 +62,12 @@ const LoginForm = () => {
           </Form.Row.Item>
           <Form.Row.Item>
             <Form.Link
-              label="¿Has olvidado tu contraseña?"
-              linkLabel="Recuperar aquí"
+              label={t(
+                "auth-translations.login-template.form-labels.recover-pass-link.label"
+              )}
+              linkLabel={t(
+                "auth-translations.login-template.form-labels.recover-pass-link.link-label"
+              )}
               href="/auth/request_password_reset_screen"
             />
           </Form.Row.Item>
@@ -65,16 +79,22 @@ const LoginForm = () => {
             variant="primary"
             width="100%"
             icon="log-in-outline"
-            label="Iniciar sesión"
+            label={t("auth-translations.login-template.btn-login")}
             onPress={handleSubmit}
             loading={login.isPending}
-            loadingMessage="Validando credenciales..."
+            loadingMessage={t(
+              "auth-translations.login-template.form-loading-messages.logging-in-msg"
+            )}
           />
         </Form.Row.Item>
         <Form.Row.Item span={1}>
           <Form.Link
-            label="¿Aún no tienes una cuenta?"
-            linkLabel="Registrate aquí"
+            label={t(
+              "auth-translations.login-template.form-labels.sign-up-link.label"
+            )}
+            linkLabel={t(
+              "auth-translations.login-template.form-labels.sign-up-link.link-label"
+            )}
             href="/auth/signup_screen"
           />
         </Form.Row.Item>

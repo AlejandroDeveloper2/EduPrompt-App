@@ -1,5 +1,7 @@
 import { View } from "react-native";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { SignupData } from "../validationSchema";
 
 import { Checkbox, ErrorMessage, Link } from "@/shared/components/atoms";
@@ -17,6 +19,8 @@ const TermsAndPolicies = ({
   errorMessage,
   onExternalInputChange,
 }: TermsAndPoliciesProps) => {
+  const { t } = useTranslations();
+
   return (
     <View style={TermsAndPoliciesStyle.TextContainer}>
       <View style={TermsAndPoliciesStyle.Body}>
@@ -29,14 +33,22 @@ const TermsAndPolicies = ({
         <View>
           <Link
             alignment="left"
-            label="Acepto la"
-            linkLabel="Política de Privacidad"
+            label={t(
+              "auth-translations.sign-up-template.form-labels.terms-policies-links.first.label"
+            )}
+            linkLabel={t(
+              "auth-translations.sign-up-template.form-labels.terms-policies-links.first.link-label"
+            )}
             href="/auth"
           />
           <Link
             alignment="left"
-            label="y los"
-            linkLabel="Condiciones de servicio"
+            label={t(
+              "auth-translations.sign-up-template.form-labels.terms-policies-links.second.label"
+            )}
+            linkLabel={t(
+              "auth-translations.sign-up-template.form-labels.terms-policies-links.second.link-label"
+            )}
             href="/auth"
           />
         </View>

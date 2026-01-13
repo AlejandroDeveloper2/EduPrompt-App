@@ -6,12 +6,14 @@ import { OnboardingStoreType } from "./store-types";
 
 import { ONBOARDING_STEPS } from "../../constants";
 
+import { LanguageStore } from "@/core/store";
+
 const STORAGE_KEY: string = "isOnboardingCompleted";
 
 export const OnboardingStore = create<OnboardingStoreType>((set, get) => ({
   isCompleting: false,
-  steps: ONBOARDING_STEPS["es"],
-  currentStep: ONBOARDING_STEPS["es"][0],
+  steps: ONBOARDING_STEPS[LanguageStore.getState().lang],
+  currentStep: ONBOARDING_STEPS[LanguageStore.getState().lang][0],
 
   handleNextStep: (): void => {
     const nextStepId = parseInt(get().currentStep.stepId) + 1;

@@ -88,7 +88,10 @@ const PromptCardList = () => {
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmPromptDeletePopUp.onClosePopUp}
-          onAccept={removeManyPrompts}
+          onAccept={() => {
+            removeManyPrompts();
+            confirmPromptDeletePopUp.onClosePopUp();
+          }}
           loading={isDeleting}
           loadingMessage="Eliminando..."
         />

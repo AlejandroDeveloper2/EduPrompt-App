@@ -1,4 +1,4 @@
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useSendResetPassRequestMutation } from "../../../hooks/mutations";
 
 import {
@@ -23,17 +23,23 @@ const RequestPassResetForm = () => {
       },
     });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<RequestPassResetData>
-              label="Correo electrónico"
+              label={t(
+                "auth-translations.request-pass-reset-template.form-labels.email.label"
+              )}
               icon="at-outline"
               name="email"
               value={data.email}
-              placeholder="Correo electrónico"
+              placeholder={t(
+                "auth-translations.request-pass-reset-template.form-labels.email.placeholder"
+              )}
               errorMessage={getFieldErrors("email")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("email")}
@@ -47,16 +53,24 @@ const RequestPassResetForm = () => {
             variant="primary"
             width="100%"
             icon="send-outline"
-            label="Enviar solicitud"
+            label={t(
+              "auth-translations.request-pass-reset-template.form-labels.btn-send-request"
+            )}
             loading={sendResetPassRequest.isPending}
-            loadingMessage="Enviando solicitud..."
+            loadingMessage={t(
+              "auth-translations.request-pass-reset-template.form-loading-messages.sending-request-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
         <Form.Row.Item>
           <Form.Link
-            label="¿Ya tienes una cuenta?"
-            linkLabel="Iniciar sesión"
+            label={t(
+              "auth-translations.request-pass-reset-template.form-labels.login-link.label"
+            )}
+            linkLabel={t(
+              "auth-translations.request-pass-reset-template.form-labels.login-link.link-label"
+            )}
             href="/auth"
           />
         </Form.Row.Item>

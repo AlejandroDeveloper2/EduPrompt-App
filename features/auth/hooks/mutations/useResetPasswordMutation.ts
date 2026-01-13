@@ -4,6 +4,8 @@ import AsyncStorage from "expo-sqlite/kv-store";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 
@@ -12,6 +14,8 @@ import { patchUserPasswordReset } from "../../services";
 const useResetPasswordMutation = () => {
   const router = useRouter();
 
+  const { t } = useTranslations();
+
   const mutation = useMutation({
     mutationFn: patchUserPasswordReset,
     onSuccess: async () => {
@@ -19,7 +23,9 @@ const useResetPasswordMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Contraseña actualizada con éxito, ya puedes iniciar sesión",
+        message: t(
+          "auth-translations.module-success-messages.password-updated-msg"
+        ),
         toastDuration: 4000,
       });
       router.replace("/auth");
@@ -34,8 +40,9 @@ const useResetPasswordMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "danger",
-        message:
-          "No se encontró el Id de usuario necesario para actualizar la contraseña",
+        message: t(
+          "auth-translations.module-error-messages.missing-user-id-msg"
+        ),
         toastDuration: 4000,
       });
       return;

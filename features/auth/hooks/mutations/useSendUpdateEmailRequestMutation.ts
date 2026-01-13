@@ -5,7 +5,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useAuthStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -14,6 +14,8 @@ import { postEmailChangeRequest } from "../../services";
 const useSendUpdateEmailRequestMutation = () => {
   const { isConnected } = useCheckNetwork();
   const { token } = useAuthStore();
+
+  const { t } = useTranslations();
 
   return useMutation({
     mutationFn: async (updatedEmail: string) => {
@@ -33,8 +35,9 @@ const useSendUpdateEmailRequestMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message:
-          "Se ha enviado un código de verificación a la nueva dirección de correo electrónico. Revisa tu bandeja de entrada",
+        message: t(
+          "auth-translations.module-success-messages.update-email-request-sent-msg"
+        ),
       });
     },
   });

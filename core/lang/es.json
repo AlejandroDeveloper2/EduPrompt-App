@@ -1,0 +1,251 @@
+{
+  "onboarding-translations": {
+    "step-options-labels": {
+      "btn-back": "Anterior",
+      "btn-start": "Empezar",
+      "btn-next": "Siguiente"
+    },
+    "loading-messages": {
+      "completing-onboarding-msg": "Cargando..."
+    }
+  },
+  "auth-translations": {
+    "btn-continue-without-account": "Continuar sin cuenta",
+    "separator-label": "Ó",
+    "login-template": {
+      "title": "Iniciar sesión",
+      "form-labels": {
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Correo electrónico"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Contraseña de acceso"
+        },
+        "recover-pass-link": {
+          "label": "¿Has olvidado tu contraseña?",
+          "link-label": "Recuperar aquí"
+        },
+        "sign-up-link": {
+          "label": "¿Aún no tienes una cuenta?",
+          "link-label": "Registrate aquí"
+        },
+        "btn-login": "Iniciar sesión"
+      },
+      "form-loading-messages": {
+        "logging-in-msg": "Validando credenciales..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Correo electrónico invalido",
+        "required-password-msg": "La contraseña es requerida"
+      }
+    },
+    "request-pass-reset-template": {
+      "title": "Recuperar contraseña",
+      "form-labels": {
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Correo electrónico"
+        },
+        "login-link": {
+          "label": "¿Ya tienes una cuenta?",
+          "link-label": "Iniciar sesión"
+        },
+        "btn-send-request": "Enviar solicitud"
+      },
+      "form-loading-messages": {
+        "sending-request-msg": "Enviando solicitud..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Correo electrónico invalido"
+      }
+    },
+    "sign-up-template": {
+      "title": "Crear cuenta",
+      "form-labels": {
+        "username": {
+          "label": "Nombre de usuario",
+          "placeholder": "Nombre de usuario"
+        },
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Correo electrónico"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Contraseña de acceso"
+        },
+        "confirm-password": {
+          "label": "Confirmar contraseña",
+          "placeholder": "Confirmar contraseña"
+        },
+        "login-link": {
+          "label": "¿Ya tienes una cuenta?",
+          "link-label": "Iniciar sesión"
+        },
+        "terms-policies-links": {
+          "first": {
+            "label": "Acepto la",
+            "link-label": "Política de Privacidad"
+          },
+          "second": {
+            "label": "y los",
+            "link-label": "Condiciones de servicio"
+          }
+        },
+        "btn-signup": "Crear cuenta"
+      },
+      "form-loading-messages": {
+        "creating-account-msg": "Creando cuenta..."
+      },
+      "form-error-messages": {
+        "invalid-username-msg": "El nombre de usuario debe tener almenos 3 caracteres",
+        "invalid-email-msg": "Correo electrónico invalido",
+        "invalid-password-msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+        "required-password-confirm-msg": "La confirmación de contraseña es requerida",
+        "required-terms-msg": "Debes aceptar los términos y políticas",
+        "passwords-dismatch-msg": "Las contraseñas no coinciden"
+      }
+    },
+    "account-activation-template": {
+      "title": "Activar cuenta",
+      "form-labels": {
+        "code": {
+          "label": "Código de activación"
+        },
+        "login-link": {
+          "label": "¿Ya tienes una cuenta?",
+          "link-label": "Iniciar sesión"
+        },
+        "btn-activate-account": "Activar cuenta"
+      },
+      "form-loading-messages": {
+        "activating-account-msg": "Activando cuenta..."
+      },
+      "form-error-messages": {
+        "invalid-code-min-length-msg": "El código de verificación debe tener al menos 4 caracteres",
+        "invalid-code-max-length-msg": "El código de verificación debe tener como máximo 4 caracteres"
+      }
+    },
+    "account-activation-request-template": {
+      "title": "Solicitar activación de cuenta",
+      "form-labels": {
+        "email": {
+          "label": "Correo electrónico",
+          "placeholder": "Correo electrónico"
+        },
+        "login-link": {
+          "label": "¿Ya tienes una cuenta?",
+          "link-label": "Iniciar sesión"
+        },
+        "btn-send-activation-request": "Enviar solicitud"
+      },
+      "form-loading-messages": {
+        "sending-request-msg": "Enviando solicitud..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Correo electrónico invalido"
+      }
+    },
+    "reset-pass-verification-code-template": {
+      "title": "Actualizar contraseña",
+      "form-labels": {
+        "code": {
+          "label": "Código de verificación"
+        },
+        "login-link": {
+          "label": "¿Ya tienes una cuenta?",
+          "link-label": "Iniciar sesión"
+        },
+        "btn-verify-code": "Verificar código"
+      },
+      "form-loading-messages": {
+        "verifying-code-msg": "Validando código..."
+      },
+      "form-error-messages": {
+        "invalid-code-min-length-msg": "El código de verificación debe tener al menos 4 caracteres",
+        "invalid-code-max-length-msg": "El código de verificación debe tener como máximo 4 caracteres"
+      }
+    },
+    "reset-password-template": {
+      "title": "Actualizar contraseña",
+      "form-labels": {
+        "new-password": {
+          "label": "Nueva contraseña",
+          "placeholder": "Nueva contraseña de acceso"
+        },
+        "confirm-password": {
+          "label": "Confirmar contraseña",
+          "placeholder": "Confirmar nueva contraseña"
+        },
+        "login-link": {
+          "label": "¿Ya tienes una cuenta?",
+          "link-label": "Iniciar sesión"
+        },
+        "btn-reset-password": "Actualizar contraseña"
+      },
+      "form-loading-messages": {
+        "updating-password-msg": "Actualizando contraseña..."
+      },
+      "form-error-messages": {
+        "invalid-password-msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+        "required-password-confirm-msg": "La confirmación de contraseña es requerida",
+        "passwords-dismatch-msg": "Las contraseñas no coinciden"
+      }
+    },
+    "module-success-messages": {
+      "reset-pass-request-sent-msg": "Se ha enviado un correo electrónico con las instrucciones, revisa tu bandeja de entrada.",
+      "account-created-msg": "Cuenta creada exitosamente, se ha enviado un código de verificación a su correo electrónico.",
+      "account-activated-msg": "Cuenta activada exitosamente, ya puedes iniciar sesión",
+      "account-activation-request-sent-msg": "Se ha enviado un nuevo código de activación a tu correo electrónico",
+      "verification-code-validated-msg": "Código de verificación valido, ya puedes actualizar tu contraseña",
+      "password-updated-msg": "Contraseña actualizada con éxito, ya puedes iniciar sesión",
+      "update-email-request-sent-msg": "Se ha enviado un código de verificación a la nueva dirección de correo electrónico. Revisa tu bandeja de entrada",
+      "email-updated-msg": "Correo electrónico actualizado con éxito",
+      "password-changed-msg": "Tu contraseña se ha cambiado con éxito. Inicia sesión de nuevo"
+    },
+    "module-error-messages": {
+      "missing-user-id-msg": "No se encontró el Id de usuario necesario para actualizar la contraseña"
+    }
+  },
+
+  "server-error-messages": {
+    "internal-server-error-msg": "Ha ocurrido un error interno en el servidor",
+    "database-connection-error-msg": "Error al conectar con la base de datos",
+    "validation-error-msg": "Error de validación",
+    "email-sending-error-msg": "Ha ocurrido un error al enviar el correo electrónico",
+    "user-email-already-exists-msg": "Ya existe un usuario con ese correo electrónico",
+    "username-already-exists-msg": "El nombre de usuario ya ha sido tomado, elije otro",
+    "user-not-found-msg": "Usuario no encontrado",
+    "inactive-account-msg": "La cuenta esta inactiva, puedes solicitar un nuevo código de activación:",
+    "incorrect-password-msg": "La contraseña es incorrecta",
+    "invalid-session-msg": "La sesión es invalida",
+    "session-already-active-msg": "El usuario ya tiene una sesión activa",
+    "invalid-code-msg": "Código de verificación invalido",
+    "expired-code-msg": "Código de verificación expirado",
+    "required-token-msg": "Token de sesión requerido",
+    "expired-token-msg": "Token de sesión expirado",
+    "invalid-token-msg": "Token de sesión invalido o malformado",
+    "required-refresh-msg": "Refresh token de sesión requerido",
+    "missing-api-key-msg": "Clave de api EduPromt es requerida",
+    "inactive-api-key-msg": "Clave de api EduPromt inactiva",
+    "expired-api-key-msg": "Clave de api EduPromt expirada",
+    "invalid-api-key-msg": "Clave de api EduPromt invalida",
+    "insufficient-scopes-msg": "Clave de api no tiene EduPromt los permisos necesarios para acceder al recurso",
+    "api-key-validation-error-msg": "Ha ocurrido un error al validar la clave de api EduPrompt",
+    "missing-admin-auth-headers-msg": "Las credenciales de administrador son requeridas",
+    "unauthorized-msg": "Acceso no autorizado",
+    "resource-not-found-msg": "Recurso educativo no encontrado",
+    "some-resource-not-found-msg": "Alguno de los recursos educativos no existe",
+    "prompt-not-found-msg": "Prompt no encontrado",
+    "some-prompt-not-found-msg": "Alguno de los prompts no existe",
+    "notification-not-found-msg": "Notificación del sistema no encontrada",
+    "some-notification-not-found-msg": "Alguna de las notificaciones no existe",
+    "image-generation-not-completed-msg": "La generación de imagenes no se completo",
+    "indicator-not-found-msg": "Indicadores no fueron encontrados",
+    "user-indicator-already-created-msg": "El usuario ya tiene indicadores registrados",
+    "tag-not-found-msg": "Etiqueta no encontrada",
+    "some-tag-not-found-msg": "Alguna de las etiquetas no existe"
+  }
+}

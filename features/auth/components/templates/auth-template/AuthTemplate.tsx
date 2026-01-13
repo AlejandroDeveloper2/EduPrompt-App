@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { ImageBackground, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { AppColors } from "@/shared/styles";
@@ -56,6 +57,8 @@ const AuthTemplate = ({
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
+  const { t } = useTranslations();
+
   const size = useScreenDimensionsStore();
   return (
     <ImageBackground
@@ -92,7 +95,7 @@ const AuthTemplate = ({
           {hasContiueWithoutAccount && (
             <>
               <Typography
-                text="O"
+                text={t("auth-translations.separator-label")}
                 weight="medium"
                 type="h1"
                 textAlign="center"
@@ -103,7 +106,7 @@ const AuthTemplate = ({
                 icon="chevron-forward-outline"
                 width="100%"
                 variant="primary"
-                label="Continuar sin cuenta"
+                label={t("auth-translations.btn-continue-without-account")}
                 onPress={() => router.navigate("/(tabs)")}
               />
             </>

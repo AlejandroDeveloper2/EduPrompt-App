@@ -7,7 +7,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useAuthStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -18,6 +18,8 @@ const useUpdateEmailMutation = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
   const { token } = useAuthStore();
+
+  const { t } = useTranslations();
 
   return useMutation({
     mutationFn: async (emailUpdatePayload: EmailUpdatePayload) => {
@@ -55,7 +57,9 @@ const useUpdateEmailMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Correo electrónico actualizado con éxito",
+        message: t(
+          "auth-translations.module-success-messages.email-updated-msg"
+        ),
       });
     },
     onSettled: () => {

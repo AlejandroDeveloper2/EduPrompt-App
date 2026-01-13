@@ -1,6 +1,6 @@
 import { SignupData, signupSchema } from "./validationSchema";
 
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useSignupMutation } from "../../../hooks/mutations";
 
 import { Form } from "@/shared/components/organims";
@@ -32,17 +32,23 @@ const SignupForm = () => {
     },
   });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
-              label="Nombre de usuario"
+              label={t(
+                "auth-translations.sign-up-template.form-labels.username.label"
+              )}
               icon="person-outline"
               name="userName"
               value={data.userName}
-              placeholder="Nombre de usuario"
+              placeholder={t(
+                "auth-translations.sign-up-template.form-labels.username.placeholder"
+              )}
               errorMessage={getFieldErrors("userName")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("userName")}
@@ -50,11 +56,15 @@ const SignupForm = () => {
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
-              label="Correo electrónico"
+              label={t(
+                "auth-translations.sign-up-template.form-labels.email.label"
+              )}
               icon="at-outline"
               name="email"
               value={data.email}
-              placeholder="Correo electrónico"
+              placeholder={t(
+                "auth-translations.sign-up-template.form-labels.email.placeholder"
+              )}
               errorMessage={getFieldErrors("email")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("email")}
@@ -64,11 +74,15 @@ const SignupForm = () => {
         <Form.Row configRows={{ sm: 1, md: 2, lg: 2 }}>
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
-              label="Contraseña"
+              label={t(
+                "auth-translations.sign-up-template.form-labels.password.label"
+              )}
               icon="lock-closed-outline"
               name="password"
               value={data.password}
-              placeholder="Contraseña de acceso"
+              placeholder={t(
+                "auth-translations.sign-up-template.form-labels.password.placeholder"
+              )}
               errorMessage={getFieldErrors("password")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("password")}
@@ -77,11 +91,15 @@ const SignupForm = () => {
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
-              label="Confirmar contraseña"
+              label={t(
+                "auth-translations.sign-up-template.form-labels.confirm-password.label"
+              )}
               icon="lock-closed-outline"
               name="confirmPassword"
               value={data.confirmPassword}
-              placeholder="Confirmar contraseña "
+              placeholder={t(
+                "auth-translations.sign-up-template.form-labels.confirm-password.placeholder"
+              )}
               errorMessage={getFieldErrors("confirmPassword")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("confirmPassword")}
@@ -92,8 +110,12 @@ const SignupForm = () => {
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item>
             <Form.Link
-              label="¿Ya tienes una cuenta?"
-              linkLabel="Iniciar sesión"
+              label={t(
+                "auth-translations.sign-up-template.form-labels.login-link.label"
+              )}
+              linkLabel={t(
+                "auth-translations.sign-up-template.form-labels.login-link.link-label"
+              )}
               href="/auth"
             />
           </Form.Row.Item>
@@ -112,9 +134,13 @@ const SignupForm = () => {
             variant="primary"
             width="100%"
             icon="add-outline"
-            label="Crear cuenta"
+            label={t(
+              "auth-translations.sign-up-template.form-labels.btn-signup"
+            )}
             loading={signup.isPending}
-            loadingMessage="Creando cuenta..."
+            loadingMessage={t(
+              "auth-translations.sign-up-template.form-loading-messages.creating-account-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>

@@ -1,39 +1,67 @@
-/** Enum con los diferentes códigos personalizados de error mapeados con su mensaje al usuario*/
-export enum ErrorMessages {
-  INTERNAL_SERVER_ERROR = "Ha ocurrido un error interno en el servidor",
-  DATABASE_CONNECTION_ERROR = "Error al conectar con la base de datos",
-  VALIDATION_ERROR = "Error de validación",
-  EMAIL_SENDING_ERROR = "Ha ocurrido un error al enviar el correo electrónico",
-  USER_EMAIL_ALREADY_EXISTS = "Ya existe un usuario con ese correo electrónico",
-  USERNAME_ALREADY_EXISTS = "El nombre de usuario ya ha sido tomado, elije otro",
-  USER_NOT_FOUND = "Usuario no encontrado",
-  INACTIVE_ACCOUNT = "La cuenta esta inactiva, puedes solicitar un nuevo código de activación:",
-  INCORRECT_PASSWORD = "La contraseña es incorrecta",
-  INVALID_SESSION = "La sesión es invalida",
-  SESSION_ALREADY_ACTIVE = "El usuario ya tiene una sesión activa",
-  INVALID_CODE = "Código de verificación invalido",
-  EXPIRED_CODE = "Código de verificación expirado",
-  REQUIRED_TOKEN = "Token de sesión requerido",
-  EXPIRED_TOKEN = "Token de sesión expirado",
-  INVALID_TOKEN = "Token de sesión invalido o malformado",
-  REQUIRED_REFRESH = "Refresh token de sesión requerido",
-  MISSING_API_KEY = "Clave de api EduPromt es requerida",
-  INACTIVE_API_KEY = "Clave de api EduPromt inactiva",
-  EXPIRED_API_KEY = "Clave de api EduPromt expirada",
-  INVALID_API_KEY = "Clave de api EduPromt invalida",
-  INSUFFICIENT_SCOPES = "Clave de api no tiene EduPromt los permisos necesarios para acceder al recurso",
-  API_KEY_VALIDATION_ERROR = "Ha ocurrido un error al validar la clave de api EduPrompt",
-  MISSING_ADMIN_AUTH_HEADERS = "Las credenciales de administrador son requeridas",
-  UNAUTHORIZED = "Acceso no autorizado",
-  RESOURCE_NOT_FOUND = "Recurso educativo no encontrado",
-  SOME_RESOURCE_NOT_FOUND = "Alguno de los recursos educativos no existe",
-  PROMPT_NOT_FOUND = "Prompt no encontrado",
-  SOME_PROMPT_NOT_FOUND = "Alguno de los prompts no existe",
-  NOTIFICATION_NOT_FOUND = "Notificación del sistema no encontrada",
-  SOME_NOTIFICATION_NOT_FOUND = "Alguna de las notificaciones no existe",
-  IMAGE_GENERATION_NOT_COMPLETED = "La generación de imagenes no se completo",
-  INDICATOR_NOT_FOUND = "Indicadores no fueron encontrados",
-  USER_INDICATOR_ALREADY_CREATED = "El usuario ya tiene indicadores registrados",
-  TAG_NOT_FOUND = "Etiqueta no encontrada",
-  SOME_TAG_NOT_FOUND = "Alguna de las etiquetas no existe",
-}
+import { i18n } from "@/core/store";
+
+/** Constante con los diferentes códigos personalizados de error mapeados con su mensaje al usuario*/
+export const ErrorMessages = {
+  INTERNAL_SERVER_ERROR: i18n.t(
+    "server-error-messages.internal-server-error-msg"
+  ),
+  DATABASE_CONNECTION_ERROR: i18n.t(
+    "server-error-messages.database-connection-error-msg"
+  ),
+  VALIDATION_ERROR: i18n.t("server-error-messages.validation-error-msg"),
+  EMAIL_SENDING_ERROR: i18n.t("server-error-messages.email-sending-error-msg"),
+  USER_EMAIL_ALREADY_EXISTS: i18n.t(
+    "server-error-messages.user-email-already-exists-msg"
+  ),
+  USERNAME_ALREADY_EXISTS: i18n.t(
+    "server-error-messages.username-already-exists-msg"
+  ),
+  USER_NOT_FOUND: i18n.t("server-error-messages.user-not-found-msg"),
+  INACTIVE_ACCOUNT: i18n.t("server-error-messages.inactive-account-msg"),
+  INCORRECT_PASSWORD: i18n.t("server-error-messages.incorrect-password-msg"),
+  INVALID_SESSION: i18n.t("server-error-messages.invalid-session-msg"),
+  SESSION_ALREADY_ACTIVE: i18n.t(
+    "server-error-messages.session-already-active-msg"
+  ),
+  INVALID_CODE: i18n.t("server-error-messages.invalid-code-msg"),
+  EXPIRED_CODE: i18n.t("server-error-messages.expired-code-msg"),
+  REQUIRED_TOKEN: i18n.t("server-error-messages.required-token-msg"),
+  EXPIRED_TOKEN: i18n.t("server-error-messages.expired-token-msg"),
+  INVALID_TOKEN: i18n.t("server-error-messages.invalid-token-msg"),
+  REQUIRED_REFRESH: i18n.t("server-error-messages.required-refresh-msg"),
+  MISSING_API_KEY: i18n.t("server-error-messages.missing-api-key-msg"),
+  INACTIVE_API_KEY: i18n.t("server-error-messages.inactive-api-key-msg"),
+  EXPIRED_API_KEY: i18n.t("server-error-messages.expired-api-key-msg"),
+  INVALID_API_KEY: i18n.t("server-error-messages.invalid-api-key-msg"),
+  INSUFFICIENT_SCOPES: i18n.t("server-error-messages.insufficient-scopes-msg"),
+  API_KEY_VALIDATION_ERROR: i18n.t(
+    "server-error-messages.api-key-validation-error-msg"
+  ),
+  MISSING_ADMIN_AUTH_HEADERS: i18n.t(
+    "server-error-messages.missing-admin-auth-headers-msg"
+  ),
+  UNAUTHORIZED: i18n.t("server-error-messages.unauthorized-msg"),
+  RESOURCE_NOT_FOUND: i18n.t("server-error-messages.resource-not-found-msg"),
+  SOME_RESOURCE_NOT_FOUND: i18n.t(
+    "server-error-messages.some-resource-not-found-msg"
+  ),
+  PROMPT_NOT_FOUND: i18n.t("server-error-messages.prompt-not-found-msg"),
+  SOME_PROMPT_NOT_FOUND: i18n.t(
+    "server-error-messages.some-prompt-not-found-msg"
+  ),
+  NOTIFICATION_NOT_FOUND: i18n.t(
+    "server-error-messages.notification-not-found-msg"
+  ),
+  SOME_NOTIFICATION_NOT_FOUND: i18n.t(
+    "server-error-messages.some-notification-not-found-msg"
+  ),
+  IMAGE_GENERATION_NOT_COMPLETED: i18n.t(
+    "server-error-messages.image-generation-not-completed-msg"
+  ),
+  INDICATOR_NOT_FOUND: i18n.t("server-error-messages.indicator-not-found-msg"),
+  USER_INDICATOR_ALREADY_CREATED: i18n.t(
+    "server-error-messages.user-indicator-already-created-msg"
+  ),
+  TAG_NOT_FOUND: i18n.t("server-error-messages.tag-not-found-msg"),
+  SOME_TAG_NOT_FOUND: i18n.t("server-error-messages.some-tag-not-found-msg"),
+};
