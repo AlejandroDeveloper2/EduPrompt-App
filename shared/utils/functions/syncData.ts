@@ -1,3 +1,5 @@
+import { i18n } from "@/core/store";
+
 import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -12,7 +14,9 @@ export const syncData = (
     showToast({
       key: generateToastKey(),
       variant: "danger",
-      message: "Conectate a internet para sincronizar tus datos.",
+      message: i18n.t(
+        "common-translations.sync-data-messages.no-connected-msg"
+      ),
     });
     return;
   }
@@ -21,8 +25,7 @@ export const syncData = (
     showToast({
       key: generateToastKey(),
       variant: "danger",
-      message:
-        "Inicia sesión o crea una cuenta para poder sincronizar tus datos.",
+      message: i18n.t("common-translations.sync-data-messages.no-auth-msg"),
     });
     return;
   }
@@ -35,6 +38,6 @@ export const syncData = (
   showToast({
     key: generateToastKey(),
     variant: "primary",
-    message: "Todo esta sincronizado",
+    message: i18n.t("common-translations.sync-data-messages.all-synced-msg"),
   });
 };

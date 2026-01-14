@@ -6,7 +6,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 import { eventBus } from "@/core/events/EventBus";
 
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 
 import {
@@ -49,6 +49,8 @@ const ValidateChangeEmailCodeForm = ({
     },
   });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
@@ -56,7 +58,9 @@ const ValidateChangeEmailCodeForm = ({
           <Form.Row.Item span={1}>
             <Form.InputCode<UpdateEmailVerificationCodeData>
               name="code"
-              label="Código de verificación"
+              label={t(
+                "settings-translations.update-email-template.form-labels.code.label"
+              )}
               value={data.code}
               errorMessage={getFieldErrors("code")?.join(", ")}
               onChange={handleChange}
@@ -76,10 +80,14 @@ const ValidateChangeEmailCodeForm = ({
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Verificar código"
+            label={t(
+              "settings-translations.update-email-template.form-labels.btn-verify-code"
+            )}
             onPress={handleSubmit}
             loading={loading}
-            loadingMessage="Verificando código..."
+            loadingMessage={t(
+              "settings-translations.update-email-template.form-loading-messages.verifying-code-msg"
+            )}
           />
         </Form.Row.Item>
       </Form.Actions>
@@ -119,6 +127,8 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
     noReset: true,
   });
 
+  const { t } = useTranslations();
+
   useEffect(() => {
     if (userProfile) setValues({ currentEmail: userProfile.email });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,11 +140,15 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
         <Form.Row configRows={{ sm: 1, md: 1, lg: 2 }}>
           <Form.Row.Item span={1}>
             <Form.Input<UpdateEmailRequestData>
-              label="Correo electrónico actual"
+              label={t(
+                "settings-translations.update-email-template.form-labels.current-email.label"
+              )}
               icon="at-outline"
               name="currentEmail"
               value={data.currentEmail}
-              placeholder="Correo electrónico actual"
+              placeholder={t(
+                "settings-translations.update-email-template.form-labels.current-email.placeholder"
+              )}
               errorMessage={getFieldErrors("currentEmail")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("currentEmail")}
@@ -143,11 +157,15 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.Input<UpdateEmailRequestData>
-              label="Nuevo correo electrónico"
+              label={t(
+                "settings-translations.update-email-template.form-labels.new-email.label"
+              )}
               icon="at-outline"
               name="updatedEmail"
               value={data.updatedEmail}
-              placeholder="Nuevo correo electrónico"
+              placeholder={t(
+                "settings-translations.update-email-template.form-labels.new-email.placeholder"
+              )}
               errorMessage={getFieldErrors("updatedEmail")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("updatedEmail")}
@@ -161,10 +179,14 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Editar correo electrónico"
+            label={t(
+              "settings-translations.update-email-template.form-labels.btn-edit-email"
+            )}
             onPress={handleSubmit}
             loading={loading}
-            loadingMessage="Enviando solicitud de cambio..."
+            loadingMessage={t(
+              "settings-translations.update-email-template.form-loading-messages.editing-email-msg"
+            )}
           />
         </Form.Row.Item>
       </Form.Actions>

@@ -1,4 +1,49 @@
 {
+  "common-translations": {
+    "alert-labels": {
+      "btn-cancel": "Cancelar"
+    },
+    "generate-button-label": "Gerar",
+    "create-tag-form": {
+      "form-labels": {
+        "name": {
+          "label": "Nome",
+          "placeholder": "Nome da etiqueta"
+        },
+        "btn-add-tag": "Adicionar Etiqueta"
+      },
+      "form-loading-messages": {
+        "adding-tag-msg": "Adicionando..."
+      },
+      "form-error-messages": {
+        "invalid-tag-name-msg": "O nome da etiqueta é obrigatório"
+      }
+    },
+    "dropdown-list-labels": {
+      "empty-list-msg": "Sem resultados"
+    },
+    "toolbar-labels": {
+      "selected-elements-label": "Itens selecionados"
+    },
+    "tag-selection-panel-labels": {
+      "search-input-placeholder": "Buscar etiquetas por nome"
+    },
+    "header-labels": {
+      "notifications": "Notificações",
+      "marketplace": "Loja",
+      "tags": "Etiquetas",
+      "settings": "Configurações"
+    },
+    "fetching-error-panel-labels": {
+      "btn-reload": "Tentar novamente"
+    },
+    "in-progress-task-label": "Em andamento:",
+    "sync-data-messages": {
+      "no-connected-msg": "Conecte-se à Internet para sincronizar seus dados.",
+      "no-auth-msg": "Faça login ou crie uma conta para sincronizar seus dados.",
+      "all-synced-msg": "Tudo está sincronizado"
+    }
+  },
   "onboarding-translations": {
     "step-options-labels": {
       "btn-back": "Anterior",
@@ -208,6 +253,176 @@
     },
     "module-error-messages": {
       "missing-user-id-msg": "Não foi encontrado o ID do usuário necessário para atualizar a senha."
+    }
+  },
+
+  "dashboard-translations": {
+    "screen-title": "Painel de Controle",
+    "screen-description": "Aqui você pode ver como usou o Edu Prompt: quantos recursos gerou, quantos tokens usou e como está indo com suas atividades. Tudo o que você precisa para ter o controle, em um só lugar.",
+    "dashboard-panel-labels": {
+      "title": "Indicadores",
+      "description": "Monitore suas estatísticas no Edu Prompt para um melhor controle de suas atividades.",
+      "indicator-labels": {
+        "generated-resources": "Recursos Gerados",
+        "used-tokens": "Tokens Usados",
+        "downloaded-resources": "Recursos Baixados",
+        "saved-resources": "Recursos Salvos",
+        "last-generated-resource": "Último Recurso Gerado",
+        "not-last-generated-resource": "Não foi gerado um recurso."
+      },
+      "syncronization-card-labels": {
+        "title": "Sincronização de Dados",
+        "description": "Há dados não sincronizados, toque no botão abaixo para sincronizar seus dados",
+        "btn-sync": "Sincronizar Indicadores",
+        "loading-text": "Sincronizando dados..."
+      },
+      "background-processes-labels": {
+        "title": "Processos ativos",
+        "day-span": "Hoje",
+        "no-active-processes-msg": "Não há processos ativos no momento!"
+      }
+    }
+  },
+  "settings-translations": {
+    "screen-title": "Preferências do Usuário",
+    "screen-description": "Ajuste suas preferências como idioma principal do app, sincronização automática e notificações",
+    "syncronization-card-labels": {
+      "title": "Sincronização de Dados",
+      "description": "Há dados não sincronizados, toque no botão abaixo para sincronizar seus dados",
+      "btn-sync": "Sincronizar",
+      "loading-text": "Sincronizando dados..."
+    },
+    "preferences-options-labels": {
+      "auto-sync": "Sincronização automática de dados",
+      "push-notifications": "Notificações push",
+      "auto-clean-notifications": "Limpeza automática de notificações",
+      "auto-clean-notifications-frecuency": {
+        "label": "Frequência de limpeza de notificações (Dias)",
+        "placeholder": "Selecione uma opção"
+      },
+      "app-language": {
+        "label": "Idioma",
+        "placeholder": "Selecione uma opção"
+      }
+    },
+    "preferences-popups-labels": {
+      "language": {
+        "title": "Escolha o idioma do app",
+        "list-search-placeholder": "Buscar idioma"
+      },
+      "auto-clean-frecuency": {
+        "title": "Escolha a frequência de limpeza",
+        "list-search-placeholder": "Buscar frequência de limpeza"
+      }
+    },
+    "languages-list-options-labels": {
+      "spanish": "Espanhol",
+      "english": "Inglês",
+      "portuguese": "Português",
+      "system": "Padrão do sistema"
+    },
+    "frecuency-list-options-labels": {
+      "2-days": "A cada 2 dias",
+      "5-days": "A cada 5 dias",
+      "15-days": "A cada 15 dias",
+      "30-days": "A cada 30 dias"
+    },
+    "user-profile-panel": {
+      "title": "Perfil do Usuário",
+      "description": "Edite e visualize seu perfil do Edu Prompt em um só lugar",
+      "no-connection-indicator-msg": "Você não está conectado à internet para acessar seu perfil",
+      "form-tabulator-labels": {
+        "tab-1": "Usuário",
+        "tab-2": "E-mail",
+        "tab-3": "Senha"
+      },
+      "btn-close-session": "Sair",
+      "btn-login": "Entrar",
+      "signup-link": {
+        "label": "Não tem uma conta?",
+        "link-label": "Crie uma aqui"
+      },
+      "close-session-alert-labels": {
+        "title": "Alerta",
+        "message": "Tem certeza de que deseja sair?",
+        "btn-accept": "Sair",
+        "closing-session-msg": "Saindo..."
+      }
+    },
+    "change-password-template": {
+      "form-labels": {
+        "current-password": {
+          "label": "Senha Atual",
+          "placeholder": "Senha atual"
+        },
+        "new-password": {
+          "label": "Nova Senha",
+          "placeholder": "Nova senha"
+        },
+        "confirm-new-password": {
+          "label": "Confirmar Nova Senha",
+          "placeholder": "Confirmar senha"
+        },
+        "btn-change-password": "Alterar Senha"
+      },
+      "form-loading-messages": {
+        "changing-password-msg": "Alterando senha..."
+      },
+      "form-error-messages": {
+        "required-current-password-msg": "A senha atual é obrigatória",
+        "invalid-password-msg": "A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial",
+        "required-password-confirm-msg": "A confirmação de senha é obrigatória",
+        "passwords-dismatch-msg": "As senhas não coincidem"
+      }
+    },
+    "update-email-template": {
+      "form-labels": {
+        "code": {
+          "label": "Código de Verificação"
+        },
+        "current-email": {
+          "label": "E-mail Atual",
+          "placeholder": "E-mail atual"
+        },
+        "new-email": {
+          "label": "Novo E-mail",
+          "placeholder": "Novo e-mail"
+        },
+        "btn-verify-code": "Verificar Código",
+        "btn-edit-email": "Editar E-mail"
+      },
+      "form-loading-messages": {
+        "verifying-code-msg": "Verificando código...",
+        "editing-email-msg": "Enviando solicitação de alteração..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "E-mail inválido",
+        "invalid-code-min-length-msg": "O código de verificação deve ter pelo menos 4 caracteres",
+        "invalid-code-max-length-msg": "O código de verificação deve ter no máximo 4 caracteres"
+      }
+    },
+    "update-username-template": {
+      "form-labels": {
+        "username": {
+          "label": "Nome de Usuário",
+          "placeholder": "Nome de usuário"
+        },
+        "btn-update-username": "Editar Nome de Usuário"
+      },
+      "form-loading-messages": {
+        "updating-username-msg": "Atualizando usuário..."
+      },
+      "form-error-messages": {
+        "invalid-username-msg": "O nome de usuário deve ter pelo menos 3 caracteres"
+      }
+    },
+    "module-loading-messages": {
+      "loading-user-settings-msg": "Carregando configurações..."
+    },
+    "module-success-messages": {
+      "user-account-updated-msg": "Conta de usuário atualizada com sucesso",
+      "username-updated-msg": "Nome de usuário atualizado com sucesso",
+      "user-profile-synced-msg": "Dados de perfil sincronizados com sucesso"
     }
   },
   "server-error-messages": {

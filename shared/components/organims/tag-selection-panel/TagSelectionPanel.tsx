@@ -2,6 +2,8 @@ import { View } from "react-native";
 
 import { TagType } from "@/features/tags/types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { Input } from "../../molecules";
 import CreateTagForm from "../create-tag-form/CreateTagForm";
 
@@ -18,6 +20,8 @@ const TagSelectionPanel = ({
   searchValue,
   onSearchChange,
 }: TagSelectionPanelProps) => {
+  const { t } = useTranslations();
+
   return (
     <View style={TagSelectionPanelStyle.Container}>
       <CreateTagForm tagType={tagType} />
@@ -25,7 +29,9 @@ const TagSelectionPanel = ({
         name="searchValue"
         value={searchValue}
         icon="search-outline"
-        placeholder="Buscar etiquetas por nombre"
+        placeholder={t(
+          "common-translations.tag-selection-panel-labels.search-input-placeholder"
+        )}
         onChange={(_, value) => onSearchChange(value)}
         onClearInput={() => onSearchChange("")}
       />

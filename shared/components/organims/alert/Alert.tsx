@@ -5,6 +5,7 @@ import { AlertVariantType } from "@/core/types";
 
 import { AppColors } from "../../../styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
@@ -34,6 +35,7 @@ const Alert = ({
   onAccept,
 }: AlertProps) => {
   const size = useScreenDimensionsStore();
+  const { t } = useTranslations();
 
   const alertStyle = AlertStyle(size);
 
@@ -82,7 +84,7 @@ const Alert = ({
             icon="close-outline"
             variant="neutral"
             width="100%"
-            label="Cancelar"
+            label={t("common-translations.alert-labels.btn-cancel")}
             onPress={onCancel}
           />
         </View>

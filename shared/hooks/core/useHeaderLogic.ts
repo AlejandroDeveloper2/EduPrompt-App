@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAnimatedFloatMenu } from "../animations";
 import { useEventBusToggle, useEventbusValue } from "../events";
 import { useScreenDimensionsStore, useSelectionModeStore } from "../store";
+import useTranslations from "./useTranslations";
 
 const useHeaderLogic = () => {
   const router = useRouter();
@@ -31,6 +32,8 @@ const useHeaderLogic = () => {
     "userProfile.updateTokeUserCoins.completed",
     "userProfile.updateTokeUserCoins.failed",
   ]);
+
+  const { t } = useTranslations();
 
   const thereAreNewUnreadNotifications = useMemo(() => {
     const mixedNotifications = systemNotifications.concat(userNotifications);
@@ -62,6 +65,8 @@ const useHeaderLogic = () => {
     userProfile,
     loading,
     thereAreNewUnreadNotifications,
+    /** Language */
+    t,
   };
 };
 

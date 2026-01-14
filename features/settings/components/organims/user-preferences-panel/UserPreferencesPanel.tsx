@@ -9,6 +9,7 @@ import { CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdatePreferences } from "../../../hooks/core";
 import { useUserSyncMutation } from "../../../hooks/mutations";
@@ -36,6 +37,8 @@ const UserPreferencesPanel = () => {
   const frecuencyPopUp = useAnimatedPopUp();
   const languagePopUp = useAnimatedPopUp();
 
+  const { t } = useTranslations();
+
   const preferences = getFormattedPreferences(userProfile);
 
   const getSelectedFrecuency = (cleanFrecuency: string) => {
@@ -52,7 +55,9 @@ const UserPreferencesPanel = () => {
     <>
       <PopUp
         icon="language-outline"
-        title="Elije el idioma de la app"
+        title={t(
+          "settings-translations.preferences-popups-labels.language.title"
+        )}
         isPopUpMounted={languagePopUp.isPopUpMounted}
         gesture={languagePopUp.dragGesture}
         animatedPopUpStyle={languagePopUp.animatedPopUpStyle}
@@ -62,7 +67,9 @@ const UserPreferencesPanel = () => {
           optionList={APP_LANGUAGES}
           optionIdkey="key"
           optionLabelKey="label"
-          searchInputPlaceholder="Buscar idioma"
+          searchInputPlaceholder={t(
+            "settings-translations.preferences-popups-labels.language.list-search-placeholder"
+          )}
           selectedOption={
             preferences.language
               ? getSelectedLanguage(preferences.language)
@@ -75,7 +82,9 @@ const UserPreferencesPanel = () => {
       </PopUp>
       <PopUp
         icon="timer-outline"
-        title="Elije la frecuencia de limpieza"
+        title={t(
+          "settings-translations.preferences-popups-labels.auto-clean-frecuency.title"
+        )}
         isPopUpMounted={frecuencyPopUp.isPopUpMounted}
         gesture={frecuencyPopUp.dragGesture}
         animatedPopUpStyle={frecuencyPopUp.animatedPopUpStyle}
@@ -85,7 +94,9 @@ const UserPreferencesPanel = () => {
           optionList={CLEAN_FRECUENCY_OPTIONS}
           optionIdkey="key"
           optionLabelKey="label"
-          searchInputPlaceholder="Buscar frecuencia de limpieza"
+          searchInputPlaceholder={t(
+            "settings-translations.preferences-popups-labels.auto-clean-frecuency.list-search-placeholder"
+          )}
           selectedOption={
             preferences.cleanFrecuency
               ? getSelectedFrecuency(preferences.cleanFrecuency)
@@ -103,31 +114,43 @@ const UserPreferencesPanel = () => {
           !userProfile.userPreferences.autoSync &&
           isAuthenticated && (
             <InfoCard
-              title="Sincronización de datos"
-              description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
+              title={t(
+                "settings-translations.syncronization-card-labels.title"
+              )}
+              description={t(
+                "settings-translations.syncronization-card-labels.description"
+              )}
               buttonData={{
                 onPress: syncUserProfile,
                 icon: "sync-outline",
-                label: "Sincronizar",
+                label: t(
+                  "settings-translations.syncronization-card-labels.btn-sync"
+                ),
                 loading: isPending,
-                loadingMessage: "Sincronizando datos...",
+                loadingMessage: t(
+                  "settings-translations.syncronization-card-labels.loading-text"
+                ),
               }}
             />
           )}
         <ScreenSection
-          description="Ajusta tus preferencias como idioma principal de la app,  sincronización automática y notificaciones"
-          title="Preferencias de usuario"
+          description={t("settings-translations.screen-description")}
+          title={t("settings-translations.screen-title")}
           icon="settings-outline"
         />
         {isLoading ? (
           <LoadingTextIndicator
-            message="Cargando ajustes..."
+            message={t(
+              "settings-translations.module-loading-messages.loading-user-settings-msg"
+            )}
             color={AppColors.primary[400]}
           />
         ) : (
           <View style={UserPreferencesPanelStyles.OptionsList}>
             <Switch
-              label="Sincronización automática de datos"
+              label={t(
+                "settings-translations.preferences-options-labels.auto-sync"
+              )}
               labelDirection="left"
               state={preferences.autoSync ? "on" : "off"}
               onToggleSwitch={() =>
@@ -135,7 +158,9 @@ const UserPreferencesPanel = () => {
               }
             />
             <Switch
-              label="Notificaciones push"
+              label={t(
+                "settings-translations.preferences-options-labels.push-notifications"
+              )}
               labelDirection="left"
               state={preferences.pushNotifications ? "on" : "off"}
               onToggleSwitch={() =>
@@ -145,7 +170,9 @@ const UserPreferencesPanel = () => {
               }
             />
             <Switch
-              label="Limpieza automática de notificaciones"
+              label={t(
+                "settings-translations.preferences-options-labels.auto-clean-notifications"
+              )}
               labelDirection="left"
               state={preferences.autoCleanNotifications ? "on" : "off"}
               onToggleSwitch={() =>
@@ -158,8 +185,12 @@ const UserPreferencesPanel = () => {
               <Dropdown<{ cleanFrecuency: string }, CleanFrecuencyOption>
                 name="cleanFrecuency"
                 icon="timer-outline"
-                label="Frecuencia de limpieza de notificaciones (Dias)"
-                placeholder="Seleccione una opción"
+                label={t(
+                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.label"
+                )}
+                placeholder={t(
+                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.placeholder"
+                )}
                 selectedOption={
                   preferences.cleanFrecuency
                     ? getSelectedFrecuency(preferences.cleanFrecuency)
@@ -177,8 +208,12 @@ const UserPreferencesPanel = () => {
             <Dropdown<{ language: string }, AppLanguage>
               name="language"
               icon="language-outline"
-              label="Idioma"
-              placeholder="Seleccione una opción"
+              label={t(
+                "settings-translations.preferences-options-labels.app-language.label"
+              )}
+              placeholder={t(
+                "settings-translations.preferences-options-labels.app-language.placeholder"
+              )}
               selectedOption={
                 preferences.language
                   ? getSelectedLanguage(preferences.language)

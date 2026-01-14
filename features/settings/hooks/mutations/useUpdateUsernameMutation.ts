@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { UserStats } from "../../types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -10,6 +12,8 @@ import { patchUsername } from "../../services";
 
 const useUpdateUsernameMutation = () => {
   const queryClient = useQueryClient();
+
+  const { t } = useTranslations();
 
   return useMutation({
     mutationFn: patchUsername,
@@ -42,7 +46,9 @@ const useUpdateUsernameMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Nombre de usuario actualizado con éxito",
+        message: t(
+          "settings-translations.module-success-messages.username-updated-msg"
+        ),
       });
     },
     onSettled: () => {

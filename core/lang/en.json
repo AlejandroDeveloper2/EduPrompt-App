@@ -1,4 +1,49 @@
 {
+  "common-translations": {
+    "alert-labels": {
+      "btn-cancel": "Cancel"
+    },
+    "generate-button-label": "Generate",
+    "create-tag-form": {
+      "form-labels": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Tag name"
+        },
+        "btn-add-tag": "Add Tag"
+      },
+      "form-loading-messages": {
+        "adding-tag-msg": "Adding..."
+      },
+      "form-error-messages": {
+        "invalid-tag-name-msg": "Tag name is required"
+      }
+    },
+    "dropdown-list-labels": {
+      "empty-list-msg": "No results"
+    },
+    "toolbar-labels": {
+      "selected-elements-label": "Selected items"
+    },
+    "tag-selection-panel-labels": {
+      "search-input-placeholder": "Search tags by name"
+    },
+    "header-labels": {
+      "notifications": "Notifications",
+      "marketplace": "Marketplace",
+      "tags": "Tags",
+      "settings": "Settings"
+    },
+    "fetching-error-panel-labels": {
+      "btn-reload": "Try again"
+    },
+    "in-progress-task-label": "In progress:",
+    "sync-data-messages": {
+      "no-connected-msg": "Connect to the internet to synchronize your data.",
+      "no-auth-msg": "Log in or create an account to sync your data.",
+      "all-synced-msg": "Everything is synced"
+    }
+  },
   "onboarding-translations": {
     "step-options-labels": {
       "btn-back": "Previous",
@@ -208,6 +253,176 @@
     },
     "module-error-messages": {
       "missing-user-id-msg": "The user ID required to update the password was not found."
+    }
+  },
+
+  "dashboard-translations": {
+    "screen-title": "Dashboard",
+    "screen-description": "Here you can see how you've used Edu Prompt: how many resources you've generated, how many tokens you've used, and how you're doing with your activities. Everything you need to stay in control, all in one place.",
+    "dashboard-panel-labels": {
+      "title": "Indicators",
+      "description": "Monitor your Edu Prompt statistics for better control of your activities.",
+      "indicator-labels": {
+        "generated-resources": "Generated Resources",
+        "used-tokens": "Tokens Used",
+        "downloaded-resources": "Downloaded Resources",
+        "saved-resources": "Saved Resources",
+        "last-generated-resource": "Last Generated Resource",
+        "not-last-generated-resource": "No resource has been generated."
+      },
+      "syncronization-card-labels": {
+        "title": "Data Synchronization",
+        "description": "There is unsynchronized data, tap the button below to sync your data",
+        "btn-sync": "Sync Indicators",
+        "loading-text": "Synchronizing data..."
+      },
+      "background-processes-labels": {
+        "title": "Active processes",
+        "day-span": "Today",
+        "no-active-processes-msg": "There are no active processes right now!"
+      }
+    }
+  },
+  "settings-translations": {
+    "screen-title": "User Preferences",
+    "screen-description": "Adjust your preferences such as app language, automatic synchronization, and notifications",
+    "syncronization-card-labels": {
+      "title": "Data Synchronization",
+      "description": "There is unsynchronized data, tap the button below to sync your data",
+      "btn-sync": "Synchronize",
+      "loading-text": "Synchronizing data..."
+    },
+    "preferences-options-labels": {
+      "auto-sync": "Automatic data synchronization",
+      "push-notifications": "Push notifications",
+      "auto-clean-notifications": "Automatic notification cleanup",
+      "auto-clean-notifications-frecuency": {
+        "label": "Notification cleanup frequency (Days)",
+        "placeholder": "Select an option"
+      },
+      "app-language": {
+        "label": "Language",
+        "placeholder": "Select an option"
+      }
+    },
+    "preferences-popups-labels": {
+      "language": {
+        "title": "Choose the app language",
+        "list-search-placeholder": "Search language"
+      },
+      "auto-clean-frecuency": {
+        "title": "Choose cleanup frequency",
+        "list-search-placeholder": "Search cleanup frequency"
+      }
+    },
+    "languages-list-options-labels": {
+      "spanish": "Spanish",
+      "english": "English",
+      "portuguese": "Portuguese",
+      "system": "System default"
+    },
+    "frecuency-list-options-labels": {
+      "2-days": "Every 2 days",
+      "5-days": "Every 5 days",
+      "15-days": "Every 15 days",
+      "30-days": "Every 30 days"
+    },
+    "user-profile-panel": {
+      "title": "User Profile",
+      "description": "Edit and view your Edu Prompt profile all in one place",
+      "no-connection-indicator-msg": "You are not connected to the internet to access your profile",
+      "form-tabulator-labels": {
+        "tab-1": "User",
+        "tab-2": "Email",
+        "tab-3": "Password"
+      },
+      "btn-close-session": "Sign out",
+      "btn-login": "Sign in",
+      "signup-link": {
+        "label": "Don't have an account?",
+        "link-label": "Create one here"
+      },
+      "close-session-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to sign out?",
+        "btn-accept": "Sign out",
+        "closing-session-msg": "Signing out..."
+      }
+    },
+    "change-password-template": {
+      "form-labels": {
+        "current-password": {
+          "label": "Current Password",
+          "placeholder": "Current password"
+        },
+        "new-password": {
+          "label": "New Password",
+          "placeholder": "New password"
+        },
+        "confirm-new-password": {
+          "label": "Confirm New Password",
+          "placeholder": "Confirm password"
+        },
+        "btn-change-password": "Change Password"
+      },
+      "form-loading-messages": {
+        "changing-password-msg": "Changing password..."
+      },
+      "form-error-messages": {
+        "required-current-password-msg": "Current password is required",
+        "invalid-password-msg": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+        "required-password-confirm-msg": "Password confirmation is required",
+        "passwords-dismatch-msg": "Passwords do not match"
+      }
+    },
+    "update-email-template": {
+      "form-labels": {
+        "code": {
+          "label": "Verification Code"
+        },
+        "current-email": {
+          "label": "Current Email",
+          "placeholder": "Current email"
+        },
+        "new-email": {
+          "label": "New Email",
+          "placeholder": "New email"
+        },
+        "btn-verify-code": "Verify Code",
+        "btn-edit-email": "Update Email"
+      },
+      "form-loading-messages": {
+        "verifying-code-msg": "Verifying code...",
+        "editing-email-msg": "Sending change request..."
+      },
+      "form-error-messages": {
+        "invalid-email-msg": "Invalid email",
+        "invalid-code-min-length-msg": "The verification code must be at least 4 characters long",
+        "invalid-code-max-length-msg": "The verification code must be at most 4 characters long"
+      }
+    },
+    "update-username-template": {
+      "form-labels": {
+        "username": {
+          "label": "Username",
+          "placeholder": "Username"
+        },
+        "btn-update-username": "Update Username"
+      },
+      "form-loading-messages": {
+        "updating-username-msg": "Updating username..."
+      },
+      "form-error-messages": {
+        "invalid-username-msg": "Username must be at least 3 characters long"
+      }
+    },
+    "module-loading-messages": {
+      "loading-user-settings-msg": "Loading settings..."
+    },
+    "module-success-messages": {
+      "user-account-updated-msg": "User account updated successfully",
+      "username-updated-msg": "Username updated successfully",
+      "user-profile-synced-msg": "Profile data synchronized successfully"
     }
   },
   "server-error-messages": {

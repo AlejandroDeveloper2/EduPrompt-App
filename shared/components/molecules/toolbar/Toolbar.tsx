@@ -3,6 +3,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors, Spacing } from "../../../styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useAnimatedToolbar } from "../../../hooks/animations";
 import {
@@ -34,6 +35,8 @@ const Toolbar = () => {
     disableSelectionMode
   );
 
+  const { t } = useTranslations();
+
   return (
     <Animated.View style={[ToolbarStyle(size).Container, animatedTranslate]}>
       <Pressable
@@ -48,7 +51,9 @@ const Toolbar = () => {
       </Pressable>
 
       <Typography
-        text={`Elementos seleccionados (${selectionCount})`}
+        text={`${t(
+          "common-translations.toolbar-labels.selected-elements-label"
+        )} (${selectionCount})`}
         weight="regular"
         type="button"
         textAlign="center"

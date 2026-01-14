@@ -3,6 +3,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useAnimatedNavItem } from "../../../hooks/animations";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
@@ -21,6 +22,8 @@ const GenerateButton = ({ active, onPress }: GenerateButtonProps) => {
   const size = useScreenDimensionsStore();
   const animatedBackgroundStyle = useAnimatedNavItem(active);
 
+  const { t } = useTranslations();
+
   const generateButtonStyle = GenerateButtonStyle(size);
 
   return (
@@ -36,7 +39,7 @@ const GenerateButton = ({ active, onPress }: GenerateButtonProps) => {
         />
       </AnimatedPressable>
       <Typography
-        text="Generar"
+        text={t("common-translations.generate-button-label")}
         weight="regular"
         type="caption"
         textAlign="center"

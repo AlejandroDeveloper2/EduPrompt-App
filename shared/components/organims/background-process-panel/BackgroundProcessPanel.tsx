@@ -2,6 +2,7 @@ import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useBackgroundTasksStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
@@ -13,11 +14,15 @@ import { BackgroundProcessPanelStyle } from "./BackgroundProcessPanel.style";
 const BackgroundProcessPanel = () => {
   const { tasks } = useBackgroundTasksStore();
 
+  const { t } = useTranslations();
+
   return (
     <View style={BackgroundProcessPanelStyle.Container}>
       <View style={BackgroundProcessPanelStyle.Header}>
         <Typography
-          text="Procesos activos"
+          text={t(
+            "dashboard-translations.dashboard-panel-labels.background-processes-labels.title"
+          )}
           weight="medium"
           type="button"
           textAlign="left"
@@ -26,7 +31,9 @@ const BackgroundProcessPanel = () => {
           icon="settings-outline"
         />
         <Typography
-          text="Hoy, 20/05/2025"
+          text={`${t(
+            "dashboard-translations.dashboard-panel-labels.background-processes-labels.day-span"
+          )}, ${new Date().toLocaleDateString()} `}
           weight="regular"
           type="caption"
           textAlign="left"
@@ -37,7 +44,9 @@ const BackgroundProcessPanel = () => {
 
       {tasks.length === 0 ? (
         <Empty
-          message="No hay procesos activos ahora!"
+          message={t(
+            "dashboard-translations.dashboard-panel-labels.background-processes-labels.no-active-processes-msg"
+          )}
           icon="settings-outline"
         />
       ) : (

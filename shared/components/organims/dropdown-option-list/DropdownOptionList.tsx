@@ -3,7 +3,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { useAnimatedRef } from "react-native-reanimated";
 
 import { getIsSelectedOption } from "../../../helpers";
-import { useSearchInput } from "../../../hooks/core";
+import { useSearchInput, useTranslations } from "../../../hooks/core";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { DropdownOption, Empty, Input } from "../../molecules";
@@ -67,6 +67,8 @@ function DropdownOptionList<T>({
     onClearSearchInput,
   } = useSearchInput<T>(optionList, optionLabelKey);
 
+  const { t } = useTranslations();
+
   const dropdownOptionListStyle = DropdownOptionListStyle(size);
 
   return (
@@ -99,7 +101,10 @@ function DropdownOptionList<T>({
         />
       }
       ListEmptyComponent={
-        <Empty message="No hay resultados" icon="close-circle-outline" />
+        <Empty
+          message={t("common-translations.dropdown-list-labels.empty-list-msg")}
+          icon="close-circle-outline"
+        />
       }
     />
   );

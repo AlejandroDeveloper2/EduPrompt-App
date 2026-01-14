@@ -2,7 +2,7 @@ import { TagType } from "@/features/tags/types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 
 import { CreateTagData, createTagSchema } from "./validationSchema";
@@ -35,17 +35,23 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
       },
     });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<CreateTagData>
-              label="Nombre"
+              label={t(
+                "common-translations.create-tag-form.form-labels.name.label"
+              )}
               icon="pricetag-outline"
               name="name"
               value={data.name}
-              placeholder="Nombre de la etiqueta"
+              placeholder={t(
+                "common-translations.create-tag-form.form-labels.name.placeholder"
+              )}
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("name")}
@@ -62,8 +68,12 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
             icon="add-outline"
             onPress={handleSubmit}
             loading={isLoading}
-            loadingMessage="Agregando..."
-            label="Agregar etiqueta"
+            loadingMessage={t(
+              "common-translations.create-tag-form.form-loading-messages.adding-tag-msg"
+            )}
+            label={t(
+              "common-translations.create-tag-form.form-labels.btn-add-tag"
+            )}
           />
         </Form.Row.Item>
       </Form.Actions>

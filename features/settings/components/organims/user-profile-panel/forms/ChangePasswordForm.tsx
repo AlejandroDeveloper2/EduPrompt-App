@@ -1,6 +1,6 @@
 import { eventBus } from "@/core/events/EventBus";
 
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 
 import { ChangePasswordData, changePasswordSchema } from "./validationSchema";
@@ -32,17 +32,23 @@ const ChangePasswordForm = () => {
       },
     });
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<ChangePasswordData>
-              label="Contraseña actual"
+              label={t(
+                "settings-translations.change-password-template.form-labels.current-password.label"
+              )}
               icon="lock-closed-outline"
               name="currentPassword"
               value={data.currentPassword}
-              placeholder="Contraseña actual"
+              placeholder={t(
+                "settings-translations.change-password-template.form-labels.current-password.placeholder"
+              )}
               errorMessage={getFieldErrors("currentPassword")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("currentPassword")}
@@ -53,11 +59,15 @@ const ChangePasswordForm = () => {
         <Form.Row configRows={{ sm: 1, md: 1, lg: 2 }}>
           <Form.Row.Item span={1}>
             <Form.Input<ChangePasswordData>
-              label="Nueva contraseña"
+              label={t(
+                "settings-translations.change-password-template.form-labels.new-password.label"
+              )}
               icon="lock-closed-outline"
               name="newPassword"
               value={data.newPassword}
-              placeholder="Nueva contraseña"
+              placeholder={t(
+                "settings-translations.change-password-template.form-labels.new-password.placeholder"
+              )}
               errorMessage={getFieldErrors("newPassword")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("newPassword")}
@@ -66,11 +76,15 @@ const ChangePasswordForm = () => {
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.Input<ChangePasswordData>
-              label="Confirmar nueva contraseña"
+              label={t(
+                "settings-translations.change-password-template.form-labels.confirm-new-password.label"
+              )}
               icon="lock-closed-outline"
               name="confirmPassword"
               value={data.confirmPassword}
-              placeholder="Confirmar contraseña"
+              placeholder={t(
+                "settings-translations.change-password-template.form-labels.confirm-new-password.placeholder"
+              )}
               errorMessage={getFieldErrors("confirmPassword")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("confirmPassword")}
@@ -85,10 +99,14 @@ const ChangePasswordForm = () => {
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Cambiar contraseña"
+            label={t(
+              "settings-translations.change-password-template.form-labels.btn-change-password"
+            )}
             onPress={handleSubmit}
             loading={loading}
-            loadingMessage="Cambiando contraseña..."
+            loadingMessage={t(
+              "settings-translations.change-password-template.form-loading-messages.changing-password-msg"
+            )}
           />
         </Form.Row.Item>
       </Form.Actions>

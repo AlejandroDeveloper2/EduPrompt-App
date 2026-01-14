@@ -1,49 +1,68 @@
 import { z } from "zod";
 
+import { i18n } from "@/core/store";
+
 const passwordRegex =
   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]).{8,}$/;
 
 export const updateUsernameSchema = z.object({
   userName: z.string().min(3, {
-    message: "El nombre de usuario debe tener almenos 3 caracteres",
+    message: i18n.t(
+      "settings-translations.update-username-template.form-error-messages.invalid-username-msg"
+    ),
   }),
 });
 
 export const changePasswordSchema = z
   .object({
-    currentPassword: z
-      .string()
-      .min(1, { message: "La contraseña actual es requerida" }),
-    newPassword: z.string().regex(passwordRegex, {
-      message:
-        "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+    currentPassword: z.string().min(1, {
+      message: i18n.t(
+        "settings-translations.change-password-template.form-error-messages.required-current-password-msg"
+      ),
     }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: "La confirmación de contraseña es requerida" }),
+    newPassword: z.string().regex(passwordRegex, {
+      message: i18n.t(
+        "settings-translations.change-password-template.form-error-messages.invalid-password-msg"
+      ),
+    }),
+    confirmPassword: z.string().min(1, {
+      message: i18n.t(
+        "settings-translations.change-password-template.form-error-messages.required-password-confirm-msg"
+      ),
+    }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: i18n.t(
+      "settings-translations.change-password-template.form-error-messages.passwords-dismatch-msg"
+    ),
     path: ["confirmPassword"],
   });
 
 export const updateEmailRequestSchema = z.object({
-  currentEmail: z
-    .string()
-    .email({ message: "El correo ingresado no es valido" }),
-  updatedEmail: z
-    .string()
-    .email({ message: "El correo ingresado no es valido" }),
+  currentEmail: z.string().email({
+    message: i18n.t(
+      "settings-translations.update-email-template.form-error-messages.invalid-email-msg"
+    ),
+  }),
+  updatedEmail: z.string().email({
+    message: i18n.t(
+      "settings-translations.update-email-template.form-error-messages.invalid-email-msg"
+    ),
+  }),
 });
 
 export const updateEmailVerificationCodeSchema = z.object({
   code: z
     .string()
     .min(4, {
-      message: "El código de verificación debe tener al menos 4 caracteres",
+      message: i18n.t(
+        "settings-translations.update-email-template.form-error-messages.invalid-code-min-length-msg"
+      ),
     })
     .max(4, {
-      message: "El código de verificación debe tener como máximo 4 caracteres",
+      message: i18n.t(
+        "settings-translations.update-email-template.form-error-messages.invalid-code-max-length-msg"
+      ),
     }),
 });
 

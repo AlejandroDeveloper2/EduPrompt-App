@@ -4,6 +4,7 @@ import { AppColors } from "@/shared/styles";
 
 import { useSyncIndicatorsMutation } from "@/features/dashboard/hooks/mutations";
 import { useIndicatorsQuery } from "@/features/dashboard/hooks/queries";
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -26,6 +27,8 @@ const DashboardIndicatorPanel = () => {
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
+  const { t } = useTranslations();
+
   const { PanelContainer, IndicatorsGrid } = DashboardIndicatorPanelStyle(size);
   const { firstWidth, secondWidth, thirdWidth } = getIndicatorPanelGrid(
     size,
@@ -35,7 +38,7 @@ const DashboardIndicatorPanel = () => {
   return (
     <View style={PanelContainer}>
       <Typography
-        text="Indicadores"
+        text={t("dashboard-translations.dashboard-panel-labels.title")}
         weight="medium"
         type="button"
         textAlign="left"
@@ -44,7 +47,7 @@ const DashboardIndicatorPanel = () => {
         icon="bar-chart-outline"
       />
       <Typography
-        text="Monitorea tus estadísticas en Edu Prompt para un mejor control de tus actividades."
+        text={t("dashboard-translations.dashboard-panel-labels.description")}
         weight="regular"
         type="paragraph"
         textAlign="left"
@@ -56,7 +59,9 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="book-outline"
           value={`${indicators.generatedResources}`}
-          label="Recursos generados"
+          label={t(
+            "dashboard-translations.dashboard-panel-labels.indicator-labels.generated-resources"
+          )}
           type="numeric"
           loading={isLoading}
           style={{
@@ -66,7 +71,9 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="hardware-chip-outline"
           value={formatTokenAmount(indicators.usedTokens)}
-          label="Tokens usados"
+          label={t(
+            "dashboard-translations.dashboard-panel-labels.indicator-labels.used-tokens"
+          )}
           type="numeric"
           loading={isLoading}
           style={{
@@ -77,7 +84,9 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="download-outline"
           value={`${indicators.dowloadedResources}`}
-          label="Recursos descargados"
+          label={t(
+            "dashboard-translations.dashboard-panel-labels.indicator-labels.downloaded-resources"
+          )}
           type="numeric"
           loading={isLoading}
           style={{
@@ -87,7 +96,9 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="save-outline"
           value={`${indicators.savedResources}`}
-          label="Recursos guardados"
+          label={t(
+            "dashboard-translations.dashboard-panel-labels.indicator-labels.saved-resources"
+          )}
           type="numeric"
           loading={isLoading}
           style={{
@@ -98,10 +109,14 @@ const DashboardIndicatorPanel = () => {
           icon="watch-outline"
           value={
             !indicators.lastGeneratedResource
-              ? "No se ha generado un recurso"
+              ? t(
+                  "dashboard-translations.dashboard-panel-labels.indicator-labels.not-last-generated-resource"
+                )
               : indicators.lastGeneratedResource
           }
-          label="Último recurso generado"
+          label={t(
+            "dashboard-translations.dashboard-panel-labels.indicator-labels.last-generated-resource"
+          )}
           type="alphabetic"
           loading={isLoading}
           style={{
@@ -114,14 +129,22 @@ const DashboardIndicatorPanel = () => {
       !indicators.sync &&
       isAuthenticated ? (
         <InfoCard
-          title="Sincronización de datos"
-          description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
+          title={t(
+            "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.title"
+          )}
+          description={t(
+            "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.description"
+          )}
           buttonData={{
             onPress: syncIndicators,
             icon: "sync-outline",
-            label: "Sincronizar indicadores",
+            label: t(
+              "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.btn-sync"
+            ),
             loading: isPending,
-            loadingMessage: "Sincronizando datos...",
+            loadingMessage: t(
+              "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.loading-text"
+            ),
           }}
         />
       ) : null}

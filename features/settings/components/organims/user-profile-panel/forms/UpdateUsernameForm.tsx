@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useUpdateUsernameMutation } from "@/features/settings/hooks/mutations";
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import { UpdateUsernameData, updateUsernameSchema } from "./validationSchema";
 
@@ -34,6 +34,8 @@ const UpdateUsernameForm = () => {
     noReset: true,
   });
 
+  const { t } = useTranslations();
+
   useEffect(() => {
     if (userProfile) setValues({ userName: userProfile.userName });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,11 +47,15 @@ const UpdateUsernameForm = () => {
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<UpdateUsernameData>
-              label="Nombre de usuario"
+              label={t(
+                "settings-translations.update-username-template.form-labels.username.label"
+              )}
               icon="person-outline"
               name="userName"
               value={data.userName}
-              placeholder="Nombre de usuario"
+              placeholder={t(
+                "settings-translations.update-username-template.form-labels.username.placeholder"
+              )}
               errorMessage={getFieldErrors("userName")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("userName")}
@@ -63,10 +69,14 @@ const UpdateUsernameForm = () => {
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Editar nombre de usuario"
+            label={t(
+              "settings-translations.update-username-template.form-labels.btn-update-username"
+            )}
             onPress={handleSubmit}
             loading={isPending}
-            loadingMessage="Actualizando usuario..."
+            loadingMessage={t(
+              "settings-translations.update-username-template.form-loading-messages.updating-username-msg"
+            )}
           />
         </Form.Row.Item>
       </Form.Actions>

@@ -5,7 +5,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NavigationPropsBase } from "@/core/types";
 
 import { getActiveNavItem, getMainNavigationRoutes } from "../../../helpers";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import {
+  useLanguageStore,
+  useScreenDimensionsStore,
+} from "../../../hooks/store";
 import { renderNavItem } from "../../../utils";
 
 import { GenerateButton } from "../../molecules";
@@ -21,7 +24,7 @@ const NavigationTab = ({
   navigation,
   ...props
 }: NavigationTabProps) => {
-  const language = "es";
+  const { lang } = useLanguageStore();
   const size = useScreenDimensionsStore();
   const insets = useSafeAreaInsets();
 
@@ -40,7 +43,7 @@ const NavigationTab = ({
         <>
           <View style={navigationStyle.NavSlice}>
             {firstItemsSlice.map((navOption, index) => {
-              const NavItem = renderNavItem(language, index, navOption, {
+              const NavItem = renderNavItem(lang, index, navOption, {
                 ...props,
                 state,
                 navigation,
@@ -55,7 +58,7 @@ const NavigationTab = ({
           <View style={navigationStyle.NavSlice}>
             {secondItemsSlice.map((navOption, index) => {
               const NavItem = renderNavItem(
-                language,
+                lang,
                 index === 0 ? 3 : 4,
                 navOption,
                 {

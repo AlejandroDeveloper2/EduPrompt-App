@@ -5,7 +5,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NavigationPropsBase } from "@/core/types";
 
 import { getActiveDrawerItem, getMainNavigationRoutes } from "../../../helpers";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import {
+  useLanguageStore,
+  useScreenDimensionsStore,
+} from "../../../hooks/store";
 import { renderDrawerItem } from "../../../utils";
 
 import { GenerateButton } from "../../molecules";
@@ -21,7 +24,7 @@ const NavigationDrawer = ({
   navigation,
   ...props
 }: NavigationDrawerProps) => {
-  const language = "es";
+  const { lang } = useLanguageStore();
   const size = useScreenDimensionsStore();
   const insets = useSafeAreaInsets();
 
@@ -40,7 +43,7 @@ const NavigationDrawer = ({
         <>
           <View style={navigationStyle.NavSlice}>
             {firstItemsSlice.map((navOption, index) => {
-              const NavItem = renderDrawerItem(language, index, navOption, {
+              const NavItem = renderDrawerItem(lang, index, navOption, {
                 ...props,
                 state,
                 navigation,
@@ -55,7 +58,7 @@ const NavigationDrawer = ({
           <View style={navigationStyle.NavSlice}>
             {secondItemsSlice.map((navOption, index) => {
               const NavItem = renderDrawerItem(
-                language,
+                lang,
                 index === 0 ? 3 : 4,
                 navOption,
                 {

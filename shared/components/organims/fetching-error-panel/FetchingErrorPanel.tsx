@@ -1,6 +1,9 @@
 import { View } from "react-native";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { Button, Empty } from "../../molecules";
+
 import { FetchingErrorPanelStyle } from "./FetchingErrorPanel.style";
 
 interface FetchingErrorPanelProps {
@@ -11,6 +14,8 @@ interface FetchingErrorPanelProps {
 const FetchingErrorPanel = ({ message, refetch }: FetchingErrorPanelProps) => {
   const { Container } = FetchingErrorPanelStyle;
 
+  const { t } = useTranslations();
+
   return (
     <View style={Container}>
       <Empty message={message} icon="close-outline" />
@@ -18,7 +23,7 @@ const FetchingErrorPanel = ({ message, refetch }: FetchingErrorPanelProps) => {
         icon="reload-outline"
         variant="primary"
         width="auto"
-        label="Reintentar"
+        label={t("common-translations.fetching-error-panel-labels.btn-reload")}
         onPress={refetch}
       />
     </View>

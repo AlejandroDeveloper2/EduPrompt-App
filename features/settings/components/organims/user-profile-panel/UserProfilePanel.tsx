@@ -10,7 +10,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { FORM_TABS } from "./constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 import useEventBusValue from "@/shared/hooks/events/useEventbusValue";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
@@ -50,6 +50,8 @@ const UserProfilePanel = () => {
     onOpenPopUp,
   } = useAnimatedPopUp();
 
+  const { t } = useTranslations();
+
   const Form: FormSectionComponentMap = {
     "tab-1": <UpdateUsernameForm />,
     "tab-2": <UserEmailForm />,
@@ -60,7 +62,9 @@ const UserProfilePanel = () => {
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "settings-translations.user-profile-panel.close-session-alert-labels.title"
+        )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
         animatedPopUpStyle={animatedPopUpStyle}
@@ -68,10 +72,16 @@ const UserProfilePanel = () => {
       >
         <Alert
           variant="danger"
-          message="¿Seguro quieres cerrar sesión?"
-          acceptButtonLabel="Cerrar sesión"
+          message={t(
+            "settings-translations.user-profile-panel.close-session-alert-labels.message"
+          )}
+          acceptButtonLabel={t(
+            "settings-translations.user-profile-panel.close-session-alert-labels.btn-accept"
+          )}
           loading={loading}
-          loadingMessage="Cerrando sesión..."
+          loadingMessage={t(
+            "settings-translations.user-profile-panel.close-session-alert-labels.closing-session-msg"
+          )}
           acceptButtonIcon="power-outline"
           onCancel={onClosePopUp}
           onAccept={() => eventBus.emit("auth.logout.requested", undefined)}
@@ -79,12 +89,18 @@ const UserProfilePanel = () => {
       </PopUp>
       <View style={UserProfilePanelStyles(size).PanelContainer}>
         <ScreenSection
-          description="Edita y visualiza tu perfil de Edu Prompt  en un solo lugar"
-          title="Perfil de usuario"
+          description={t(
+            "settings-translations.user-profile-panel.description"
+          )}
+          title={t("settings-translations.user-profile-panel.title")}
           icon="person-outline"
         />
         {!isConnected ? (
-          <NoConnectionIndicator message="No estas conectado a internet para acceder a tu perfil" />
+          <NoConnectionIndicator
+            message={t(
+              "settings-translations.user-profile-panel.no-connection-indicator-msg"
+            )}
+          />
         ) : (
           <View style={UserProfilePanelStyles(size).AuthSection}>
             {isAuth ? (
@@ -104,7 +120,9 @@ const UserProfilePanel = () => {
                   variant="neutral"
                   width="100%"
                   onPress={onOpenPopUp}
-                  label="Cerrar sesión"
+                  label={t(
+                    "settings-translations.user-profile-panel.btn-close-session"
+                  )}
                 />
               </>
             ) : (
@@ -114,11 +132,17 @@ const UserProfilePanel = () => {
                   variant="primary"
                   width={"100%"}
                   onPress={() => router.navigate("/auth")}
-                  label="Iniciar sesión"
+                  label={t(
+                    "settings-translations.user-profile-panel.btn-login"
+                  )}
                 />
                 <Link
-                  label="¿No tienes una cuenta?"
-                  linkLabel="Crea una aquí"
+                  label={t(
+                    "settings-translations.user-profile-panel.signup-link.label"
+                  )}
+                  linkLabel={t(
+                    "settings-translations.user-profile-panel.signup-link.link-label"
+                  )}
                   href="/auth/signup_screen"
                 />
               </>

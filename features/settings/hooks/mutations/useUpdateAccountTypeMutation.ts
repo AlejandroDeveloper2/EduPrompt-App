@@ -4,11 +4,15 @@ import { showToast } from "@/shared/context";
 
 import { User } from "../../types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { generateToastKey } from "@/shared/helpers";
 import { patchUserAccountType } from "../../services";
 
 const useUpdateAccountTypeMutation = () => {
   const queryClient = useQueryClient();
+
+  const { t } = useTranslations();
 
   return useMutation({
     mutationFn: patchUserAccountType,
@@ -32,7 +36,9 @@ const useUpdateAccountTypeMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Cuenta de usuario actualizada con éxito",
+        message: t(
+          "settings-translations.module-success-messages.user-account-updated-msg"
+        ),
       });
     },
     onSettled: () => {

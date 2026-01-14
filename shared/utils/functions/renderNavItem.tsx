@@ -1,8 +1,9 @@
-import { JSX } from "react";
-
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { NavigationRoute, ParamListBase } from "@react-navigation/native";
+import { JSX } from "react";
+
+import { LangTag } from "@/core/types";
 
 import { NAV_ITEMS } from "../../constants";
 
@@ -33,7 +34,7 @@ import NavItem from "../../components/molecules/nav-item/NavItem";
  * });
  */
 export const renderDrawerItem = (
-  language: "es",
+  language: LangTag,
   index: number,
   navOption: NavigationRoute<ParamListBase, string>,
   { descriptors, state, navigation }: DrawerContentComponentProps
@@ -77,7 +78,7 @@ export const renderDrawerItem = (
  * });
  */
 export const renderNavItem = (
-  language: "es",
+  language: LangTag,
   index: number,
   navOption: NavigationRoute<ParamListBase, string>,
   { descriptors, state, navigation }: BottomTabBarProps

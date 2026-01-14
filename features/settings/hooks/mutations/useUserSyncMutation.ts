@@ -5,7 +5,7 @@ import { UserStats } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
@@ -19,6 +19,8 @@ const useUserSyncMutation = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { userStats, markAsSynced } = useUserOfflineStore();
+
+  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: putUserStats,
@@ -45,7 +47,9 @@ const useUserSyncMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Datos de perfil sincronizados con éxito",
+        message: t(
+          "settings-translations.module-success-messages.user-profile-synced-msg"
+        ),
       });
     },
     onError: (error, _newUserStats, context) => {

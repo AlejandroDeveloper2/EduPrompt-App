@@ -11,6 +11,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 import { eventBus } from "@/core/events/EventBus";
 
 import { useBackgroundTasksStore } from "../store";
+import useTranslations from "./useTranslations";
 
 import { calcAvarageProcessDuration } from "@/shared/utils";
 
@@ -23,6 +24,8 @@ const useBackgroundTaskRunner = () => {
     updateBackgroundTask,
     removeBackgroundTask,
   } = useBackgroundTasksStore();
+
+  const { t } = useTranslations();
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -56,7 +59,9 @@ const useBackgroundTaskRunner = () => {
           await scheduleNotificationAsync({
             content: {
               title: task.processName,
-              body: `En progreso: ${task.progress}%`,
+              body: `${t("common-translations.in-progress-task-label")} ${
+                task.progress
+              }%`,
             },
             trigger: null,
           });
@@ -65,7 +70,7 @@ const useBackgroundTaskRunner = () => {
     });
 
     return () => subscription.remove();
-  }, [tasks]);
+  }, [tasks, t]);
 
   const saveAverageProcessesDurations = (
     newTask: Process,
