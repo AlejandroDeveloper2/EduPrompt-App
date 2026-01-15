@@ -13,7 +13,7 @@ import {
 import { useTagsSelectionStore } from "../store";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useListFilters } from "@/shared/hooks/core";
+import { useListFilters, useTranslations } from "@/shared/hooks/core";
 import { useTagsQuery } from "../queries";
 import useDeleteManyTags from "./useDeleteManyTags";
 
@@ -53,6 +53,8 @@ const useTagCardListLogic = () => {
   } = useTagsQuery({ name: searchValue, type: selectedFilter }, { limit: 10 });
 
   const { isPending, removeManyTags } = useDeleteManyTags();
+
+  const { t } = useTranslations();
 
   const tags = useMemo(
     () => data?.pages.flatMap((p) => p.records) ?? [],
@@ -116,6 +118,8 @@ const useTagCardListLogic = () => {
     /** Actions */
     isPending,
     removeManyTags,
+    /**Translations */
+    t,
   };
 };
 

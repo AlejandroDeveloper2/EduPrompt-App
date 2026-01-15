@@ -8,7 +8,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useLoading } from "@/shared/hooks/core";
+import { useLoading, useTranslations } from "@/shared/hooks/core";
 import { useSelectionModeStore } from "@/shared/hooks/store";
 import {
   useNotificationsSelectionStore,
@@ -37,6 +37,8 @@ const useLoadUserNotifications = () => {
 
   const confirmDeletePopUp = useAnimatedPopUp();
 
+  const { t } = useTranslations();
+
   const updateFilter = (updatedFilter: Order): void => {
     setFilter(updatedFilter);
   };
@@ -62,7 +64,12 @@ const useLoadUserNotifications = () => {
 
   useEffect(() => {
     const loadNotifications = () => {
-      toggleLoading(true, "Cargando notificaciones de usuario...");
+      toggleLoading(
+        true,
+        t(
+          "notifications-translations.load-notifications-messages.loading-notifications-msg"
+        )
+      );
       getAllNotifications(filter);
       toggleLoading(false, null);
     };

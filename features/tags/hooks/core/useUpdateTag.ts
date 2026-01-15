@@ -5,7 +5,7 @@ import { UpdateTagPayload } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdateTagMutation } from "../mutations";
 import { useOfflineTagsStore } from "../store";
@@ -25,6 +25,8 @@ const useUpdateTag = () => {
   /** Online */
   const { mutate, isPending } = useUpdateTagMutation();
 
+  const { t } = useTranslations();
+
   const editTag = useCallback(
     async (updateTagPayload: UpdateTagPayload) => {
       /** Actualización  offline inmediata */
@@ -42,7 +44,7 @@ const useUpdateTag = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Etiqueta actualizada correctamente",
+        message: t("tags-translations.module-success-messages.tag-updated-msg"),
       });
     },
     [
@@ -52,6 +54,7 @@ const useUpdateTag = () => {
       updateTag,
       updateTagsSyncStatus,
       queryClient,
+      t,
     ]
   );
 

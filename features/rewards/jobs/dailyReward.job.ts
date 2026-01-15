@@ -4,6 +4,7 @@ import { Job } from "@/core/jobs/types";
 
 import { config } from "@/core/config/enviromentVariables";
 import { eventBus } from "@/core/events/EventBus";
+import { i18n } from "@/core/store";
 
 export const dailyRewardJob: Job = {
   id: "daily-reward",
@@ -16,10 +17,9 @@ export const dailyRewardJob: Job = {
 
     eventBus.emit("notifications.createNotification.requested", {
       notificationId: uuid.v4(),
-      title: "Recompensa diaria",
+      title: i18n.t("rewards-translations.title") ?? "title",
       creationDate: new Date(),
-      message:
-        "Has ganado 10 tokens gratis por ingresar diariamente a EduPrompt.",
+      message: i18n.t("rewards-translations.reward-notification-msg"),
     });
   },
 };

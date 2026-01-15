@@ -9,6 +9,7 @@ import { Notification } from "../../types";
 import { StoreStateProps, UserNotificationStoreType } from "./store-types";
 
 import { eventBus } from "@/core/events/EventBus";
+import { i18n } from "@/core/store";
 
 import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
@@ -53,7 +54,9 @@ export const UserNotificationsStore = create<UserNotificationStoreType>()(
           });
         } catch (error: unknown) {
           showErrorToast(
-            "Ha ocurrido un error en el sistema de notificaciones del usuario.",
+            i18n.t(
+              "notifications-translations.create-notifications-messages.notifications-error-msg"
+            ),
             error
           );
         }

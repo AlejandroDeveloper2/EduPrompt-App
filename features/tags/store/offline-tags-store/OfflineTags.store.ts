@@ -16,6 +16,8 @@ import { OfflineTagsStoreType } from "./store-types";
 
 import { showToast } from "@/shared/context";
 
+import { i18n } from "@/core/store";
+
 import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
 import { TagsSelectionStore } from "../tags-selection-store/TagsSelection.store";
@@ -32,13 +34,6 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           .insert(tagsTable)
           .values({ tagId, name, type })
           .returning();
-
-        if (toast)
-          showToast({
-            key: generateToastKey(),
-            variant: "primary",
-            message: "Etiqueta creada correctamente",
-          });
 
         return {
           ...addedTagRow[0],
@@ -71,7 +66,9 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message: `No se ha encontrado una etiqueta con el id: ${tagId}`,
+            message: `${i18n.t(
+              "tags-translations.module-error-messages.tag-not-found-msg"
+            )} ${tagId}`,
           });
           return null;
         }
@@ -158,7 +155,9 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           .returning();
 
         if (updatedTagRow.length === 0) {
-          const errorMsg = `No se ha encontrado una etiqueta con el id: ${tagId}`;
+          const errorMsg = `${i18n.t(
+            "tags-translations.module-error-messages.tag-not-found-msg"
+          )} ${tagId}`;
           showToast({
             key: generateToastKey(),
             variant: "danger",
@@ -201,8 +200,9 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message:
-              "Alguna etiqueta de la lista no se existe en la base de datos",
+            message: i18n.t(
+              "tags-translations.module-error-messages.some-tag-not-found-msg"
+            ),
           });
           return;
         }

@@ -5,7 +5,7 @@ import { Tag } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflineTagsStore } from "../store";
 
@@ -22,6 +22,8 @@ const useSyncTagMutation = () => {
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { updateTagsSyncStatus, findAllTags } = useOfflineTagsStore();
+
+  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: postSyncTags,
@@ -53,7 +55,7 @@ const useSyncTagMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Info de etiquetas sincronizada con éxito",
+        message: t("tags-translations.module-success-messages.tags-synced-msg"),
       });
     },
     onError: (error, _newTags, context) => {

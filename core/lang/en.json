@@ -425,6 +425,122 @@
       "user-profile-synced-msg": "Profile data synchronized successfully"
     }
   },
+
+  "notifications-translations": {
+    "lists-tabulator-labels": {
+      "tab-1": "Internal notifications",
+      "tab-2": "System notifications"
+    },
+    "user-notification-list": {
+      "title": "Notifications",
+      "description": "Find here all internal notifications of your activities in Edu Prompt.",
+      "order-filters-labels": {
+        "title": "List in order",
+        "desc": "Descending",
+        "asc": "Ascending"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to delete the notifications?",
+        "btn-accept": "Delete"
+      },
+      "no-notifications-msg": "No notifications right now"
+    },
+    "system-notification-list": {
+      "title": "System Notifications",
+      "description": "Find here all system notifications to stay updated on Edu Prompt news.",
+      "order-filters-labels": {
+        "title": "List in order",
+        "desc": "Descending",
+        "asc": "Ascending"
+      },
+      "loading-notifications-msg": "Loading notifications...",
+      "no-notifications-msg": "No notifications right now"
+    },
+    "create-notifications-messages": {
+      "notifications-error-msg": "An error has occurred in the user notification system."
+    },
+    "load-notifications-messages": {
+      "loading-notifications-msg": "Loading user notifications..."
+    },
+    "selection-mode-actions-labels": {
+      "delete": "Delete"
+    },
+    "notification-card-new-badge": "New"
+  },
+
+  "rewards-translations": {
+    "title": "Daily reward",
+    "reward-notification-msg": "You have earned 5 free tokens for logging into EduPrompt every day."
+  },
+
+  "tags-translations": {
+    "tag-list-labels": {
+      "prompt-tag-badge": "Prompts",
+      "resource-tag-badge": "Educational Resources",
+      "title": "Tags",
+      "description": "Manage the set of tags for your educational resources and custom prompts.",
+      "search-input-placeholder": "Search tags by name",
+      "tag-type-filters-labels": {
+        "title": "Filter by type",
+        "resources": "Educational Resources",
+        "prompts": "Prompts"
+      },
+      "syncronization-card-labels": {
+        "title": "Data Synchronization",
+        "description": "There is unsynchronized data, tap the button below to sync your data",
+        "btn-sync": "Synchronize",
+        "loading-text": "Synchronizing data..."
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to delete the tags?",
+        "btn-accept": "Delete",
+        "deleting-tag-msg": "Deleting..."
+      },
+      "update-tag-popup-labels": {
+        "title": "Update Tag"
+      },
+      "loading-tags-msg": "Loading more tags...",
+      "no-tags-msg": "No tags right now",
+      "error-loading-tags-msg": "An error occurred while loading the tags."
+    },
+    "update-tag-template": {
+      "form-labels": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Tag name"
+        },
+        "type": {
+          "label": "Type",
+          "options": {
+            "prompts": "Prompt",
+            "resources": "Educational Resource"
+          }
+        },
+        "btn-update-tag": "Update Tag"
+      },
+      "form-loading-messages": {
+        "updating-tag-msg": "Updating tag..."
+      },
+      "form-error-messages": {
+        "invalid-tag-id-msg": "Invalid UUID",
+        "required-name-msg": "Tag name is required",
+        "invalid-tag-type-msg": "Tag type is invalid"
+      }
+    },
+    "module-error-messages": {
+      "tag-not-found-msg": "A tag with the id has not been found:",
+      "some-tag-not-found-msg": "Some tag from the list does not exist in the database"
+    },
+    "module-success-messages": {
+      "tag-created-msg": "Tag created successfully",
+      "tags-deleted-msg": "Tags deleted successfully",
+      "tag-updated-msg": "Tag updated successfully",
+      "tags-synced-msg": "Tag info synchronized successfully"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "An internal server error has occurred",
     "database-connection-error-msg": "Error connecting to the database",

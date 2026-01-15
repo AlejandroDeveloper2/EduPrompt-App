@@ -41,6 +41,8 @@ const TagCardList = () => {
     /** Actions */
     isPending,
     removeManyTags,
+    /**Translations */
+    t,
   } = useTagCardListLogic();
 
   const tagCardListStyle = TagCardListStyle(size);
@@ -48,7 +50,7 @@ const TagCardList = () => {
   if (isError)
     return (
       <FetchingErrorPanel
-        message="Ha ocurrido un error al cargar las etiquetas"
+        message={t("tags-translations.tag-list-labels.error-loading-tags-msg")}
         refetch={refetch}
       />
     );
@@ -56,14 +58,20 @@ const TagCardList = () => {
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "tags-translations.tag-list-labels.confirm-delete-alert-labels.title"
+        )}
         {...confirmTagDeletePopUp}
         gesture={confirmTagDeletePopUp.dragGesture}
       >
         <Alert
           variant="danger"
-          message="¿Estas seguro que deseas eliminar las etiquetas?"
-          acceptButtonLabel="Eliminar"
+          message={t(
+            "tags-translations.tag-list-labels.confirm-delete-alert-labels.message"
+          )}
+          acceptButtonLabel={t(
+            "tags-translations.tag-list-labels.confirm-delete-alert-labels.btn-accept"
+          )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmTagDeletePopUp.onClosePopUp}
           onAccept={() => {
@@ -71,11 +79,15 @@ const TagCardList = () => {
             confirmTagDeletePopUp.onClosePopUp();
           }}
           loading={isPending}
-          loadingMessage="Eliminando..."
+          loadingMessage={t(
+            "tags-translations.tag-list-labels.confirm-delete-alert-labels.deleting-tag-msg"
+          )}
         />
       </PopUp>
       <PopUp
-        title="Actualizar etiqueta"
+        title={t(
+          "tags-translations.tag-list-labels.update-tag-popup-labels.title"
+        )}
         icon="pencil-outline"
         isPopUpMounted={updateTagPopUp.isPopUpMounted}
         gesture={updateTagPopUp.dragGesture}
@@ -114,7 +126,10 @@ const TagCardList = () => {
         maxToRenderPerBatch={10}
         keyExtractor={(item) => item.tagId}
         ListEmptyComponent={
-          <Empty message="No hay resultados" icon="pricetag-outline" />
+          <Empty
+            message={t("tags-translations.tag-list-labels.no-tags-msg")}
+            icon="pricetag-outline"
+          />
         }
         ListHeaderComponent={
           <TagCardListHeader
@@ -136,7 +151,7 @@ const TagCardList = () => {
           isFetchingNextPage ? (
             <LoadingTextIndicator
               color={AppColors.primary[400]}
-              message="Cargando mas etiquetas..."
+              message={t("tags-translations.tag-list-labels.loading-tags-msg")}
             />
           ) : null
         }

@@ -1,5 +1,11 @@
+type LangTemplate = {
+  en: string;
+  es: string;
+  pt: string;
+};
+
 type NotificationLink = {
-  label: string;
+  label: LangTemplate;
   href: string;
 };
 
@@ -11,7 +17,12 @@ interface Notification {
   read: boolean;
 }
 
-interface SystemNotification extends Omit<Notification, "isSelected"> {
+interface SystemNotification {
+  notificationId: string;
+  title: LangTemplate;
+  message: LangTemplate;
+  read: boolean;
+  creationDate: Date;
   links?: NotificationLink[];
 }
 

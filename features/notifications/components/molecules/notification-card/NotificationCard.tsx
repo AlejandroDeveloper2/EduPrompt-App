@@ -9,6 +9,7 @@ import { Notification, NotificationLink } from "@/features/notifications/types";
 import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
 import { useNotificationsSelectionStore } from "@/features/notifications/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { openExternalLink } from "@/features/notifications/helpers";
@@ -42,6 +43,8 @@ const NotificationCard = ({
   const animatedCardStyle = useAnimatedCard(isSelected);
   const { isNew, formattedDate } = useCheckIsNewNotification(data.creationDate);
 
+  const { t, lang } = useTranslations();
+
   const notificationCardStyle = NotificationCardStyle(size);
 
   return (
@@ -62,7 +65,14 @@ const NotificationCard = ({
             />
           </View>
           <View style={[notificationCardStyle.Tools]}>
-            {isNew && <Badge label="Nuevo" variant="primary" />}
+            {isNew && (
+              <Badge
+                label={t(
+                  "notifications-translations.notification-card-new-badge"
+                )}
+                variant="primary"
+              />
+            )}
             {canSelect && (
               <Checkbox
                 checked={isSelected}
@@ -99,7 +109,7 @@ const NotificationCard = ({
               onPress={() => openExternalLink(link.href)}
             >
               <Typography
-                text={link.label}
+                text={link.label[lang]}
                 weight="bold"
                 type="caption"
                 textAlign="left"

@@ -7,6 +7,7 @@ import { AppColors } from "@/shared/styles";
 
 import { useTagsSelectionStore } from "@/features/tags/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -42,6 +43,8 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
+  const { t } = useTranslations();
+
   const tagCardStyle = TagCardStyle(size);
 
   return (
@@ -53,7 +56,9 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
         <View style={tagCardStyle.CardTags}>
           <Badge
             label={
-              data.type === "prompt_tag" ? "Prompts" : "Recursos educativos"
+              data.type === "prompt_tag"
+                ? t("tags-translations.tag-list-labels.prompt-tag-badge")
+                : t("tags-translations.tag-list-labels.resource-tag-badge")
             }
             variant="primary"
           />

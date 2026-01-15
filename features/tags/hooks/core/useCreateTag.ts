@@ -8,7 +8,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useCreateTagMutation } from "../mutations";
 import { useOfflineTagsStore } from "../store";
@@ -27,6 +27,8 @@ const useCreateTag = () => {
 
   /** Online */
   const { mutate, isPending } = useCreateTagMutation();
+
+  const { t } = useTranslations();
 
   const addTag = useCallback(
     async (createTagPayload: Omit<CreateTagPayload, "tagId">) => {
@@ -59,7 +61,7 @@ const useCreateTag = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Etiqueta creada correctamente",
+        message: t("tags-translations.module-success-messages.tag-created-msg"),
       });
     },
     [
@@ -69,6 +71,7 @@ const useCreateTag = () => {
       createTag,
       updateTagsSyncStatus,
       queryClient,
+      t,
     ]
   );
 

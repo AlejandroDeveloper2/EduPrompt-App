@@ -5,6 +5,7 @@ import { Order } from "@/core/types";
 import { AppColors } from "@/shared/styles";
 
 import { useLoadUserNotifications } from "@/features/notifications/hooks/core";
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -13,9 +14,9 @@ import {
   FilterTag,
   LoadingTextIndicator,
 } from "@/shared/components/molecules";
+import { Alert, PopUp } from "@/shared/components/organims";
 import { NotificationCard } from "../../molecules";
 
-import { Alert, PopUp } from "@/shared/components/organims";
 import { NotificationListStyle } from "./NotificationList.style";
 
 interface NotificationHeaderProps {
@@ -29,18 +30,24 @@ const NotificationListHeader = ({
 }: NotificationHeaderProps) => {
   const size = useScreenDimensionsStore();
 
+  const { t } = useTranslations();
+
   const notificationListStyle = NotificationListStyle(size);
 
   return (
     <View style={notificationListStyle.ListHeaderContainer}>
       <ScreenSection
-        description="Encuentra aqui todas las notificaciones internas de tus actividades en Edu Prompt. "
-        title="Notificaciones"
+        description={t(
+          "notifications-translations.user-notification-list.description"
+        )}
+        title={t("notifications-translations.user-notification-list.title")}
         icon="notifications-outline"
       />
       <View style={notificationListStyle.FiltersContainer}>
         <Typography
-          text="Listar en orden"
+          text={t(
+            "notifications-translations.user-notification-list.order-filters-labels.title"
+          )}
           weight="bold"
           type="button"
           textAlign="center"
@@ -51,13 +58,17 @@ const NotificationListHeader = ({
         <View style={notificationListStyle.Filters}>
           <FilterTag
             icon="calendar-outline"
-            label="Ascendente"
+            label={t(
+              "notifications-translations.user-notification-list.order-filters-labels.asc"
+            )}
             active={filter === "asc"}
             onPressFilter={() => updateFilter("asc")}
           />
           <FilterTag
             icon="calendar-outline"
-            label="Descendente"
+            label={t(
+              "notifications-translations.user-notification-list.order-filters-labels.desc"
+            )}
             active={filter === "desc"}
             onPressFilter={() => updateFilter("desc")}
           />
@@ -79,20 +90,28 @@ const NotificationList = () => {
     deleteSelectedNotifications,
   } = useLoadUserNotifications();
 
+  const { t } = useTranslations();
+
   const notificationListStyle = NotificationListStyle(size);
 
   return (
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "notifications-translations.user-notification-list.confirm-delete-alert-labels.title"
+        )}
         {...confirmDeletePopUp}
         gesture={confirmDeletePopUp.dragGesture}
       >
         <Alert
           variant="danger"
-          message="¿Estas seguro que deseas eliminar las notificaciones?"
-          acceptButtonLabel="Eliminar"
+          message={t(
+            "notifications-translations.user-notification-list.confirm-delete-alert-labels.message"
+          )}
+          acceptButtonLabel={t(
+            "notifications-translations.user-notification-list.confirm-delete-alert-labels.btn-accept"
+          )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.onClosePopUp}
           onAccept={() => {
@@ -123,7 +142,9 @@ const NotificationList = () => {
         }
         ListEmptyComponent={
           <Empty
-            message="No hay notificaciones ahora mismo"
+            message={t(
+              "notifications-translations.user-notification-list.no-notifications-msg"
+            )}
             icon="notifications-off-outline"
           />
         }

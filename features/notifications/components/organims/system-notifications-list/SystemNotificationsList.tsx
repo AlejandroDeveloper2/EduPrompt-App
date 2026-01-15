@@ -7,6 +7,7 @@ import { Order } from "@/core/types";
 
 import { useMarkAsReadNotificationsMutation } from "@/features/notifications/hooks/mutations";
 import { useSystemNotificationsQuery } from "@/features/notifications/hooks/queries";
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -29,18 +30,25 @@ const NotificationListHeader = ({
   updateFilter,
 }: NotificationListHeaderProps) => {
   const size = useScreenDimensionsStore();
+
+  const { t } = useTranslations();
+
   const systemNotificationListStyle = SystemNotificationListStyle(size);
 
   return (
     <View style={systemNotificationListStyle.ListHeaderContainer}>
       <ScreenSection
-        description="Encuentra aqui todas las notificaciones del sistema para enterarte de las novedades de Edu Prompt. "
-        title="Notificaciones del sistema"
+        description={t(
+          "notifications-translations.system-notification-list.description"
+        )}
+        title={t("notifications-translations.system-notification-list.title")}
         icon="notifications-outline"
       />
       <View style={systemNotificationListStyle.FiltersContainer}>
         <Typography
-          text="Listar en orden"
+          text={t(
+            "notifications-translations.system-notification-list.order-filters-labels.title"
+          )}
           weight="bold"
           type="button"
           textAlign="center"
@@ -51,13 +59,17 @@ const NotificationListHeader = ({
         <View style={systemNotificationListStyle.Filters}>
           <FilterTag
             icon="calendar-outline"
-            label="Ascendente"
+            label={t(
+              "notifications-translations.system-notification-list.order-filters-labels.asc"
+            )}
             active={filter === "asc"}
             onPressFilter={() => updateFilter("asc")}
           />
           <FilterTag
             icon="calendar-outline"
-            label="Descendente"
+            label={t(
+              "notifications-translations.system-notification-list.order-filters-labels.desc"
+            )}
             active={filter === "desc"}
             onPressFilter={() => updateFilter("desc")}
           />
@@ -79,6 +91,8 @@ const SystemNotificationsList = () => {
   } = useSystemNotificationsQuery();
   const { mutate } = useMarkAsReadNotificationsMutation();
 
+  const { t, lang } = useTranslations();
+
   useEffect(() => {
     if (!notifications) return;
     const notificationsIds = notifications.map((n) => n.notificationId);
@@ -99,7 +113,11 @@ const SystemNotificationsList = () => {
       numColumns={size === "laptop" ? 2 : 1}
       renderItem={({ item }) => (
         <NotificationCard
-          data={item}
+          data={{
+            ...item,
+            title: item.title[lang],
+            message: item.message[lang],
+          }}
           totalRecords={notifications?.length ?? 0}
         />
       )}
@@ -109,14 +127,18 @@ const SystemNotificationsList = () => {
       }
       ListEmptyComponent={
         <Empty
-          message="No hay notificaciones ahora mismo"
+          message={t(
+            "notifications-translations.system-notification-list.no-notifications-msg"
+          )}
           icon="notifications-off-outline"
         />
       }
       ListFooterComponent={
         isLoading ? (
           <LoadingTextIndicator
-            message="Cargando notificaciones..."
+            message={t(
+              "notifications-translations.system-notification-list.loading-notifications-msg"
+            )}
             color={AppColors.primary[400]}
           />
         ) : null

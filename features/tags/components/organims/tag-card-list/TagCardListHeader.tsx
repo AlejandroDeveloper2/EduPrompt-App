@@ -4,6 +4,7 @@ import { TagType } from "@/features/tags/types";
 import { AppColors } from "@/shared/styles";
 
 import { useSyncTagMutation } from "@/features/tags/hooks/mutations";
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -36,6 +37,8 @@ const TagCardListHeader = ({
 
   const { isPending, syncTags } = useSyncTagMutation();
 
+  const { t } = useTranslations();
+
   const tagCardListStyle = TagCardListStyle(size);
 
   return (
@@ -45,33 +48,45 @@ const TagCardListHeader = ({
         !userProfile.userPreferences.autoSync &&
         isAuthenticated && (
           <InfoCard
-            title="Sincronización de datos"
-            description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
+            title={t(
+              "tags-translations.tag-list-labels.syncronization-card-labels.title"
+            )}
+            description={t(
+              "tags-translations.tag-list-labels.syncronization-card-labels.description"
+            )}
             buttonData={{
               onPress: syncTags,
               icon: "sync-outline",
-              label: "Sincronizar",
+              label: t(
+                "tags-translations.tag-list-labels.syncronization-card-labels.btn-sync"
+              ),
               loading: isPending,
-              loadingMessage: "Sincronizando datos...",
+              loadingMessage: t(
+                "tags-translations.tag-list-labels.syncronization-card-labels.loading-text"
+              ),
             }}
           />
         )}
       <ScreenSection
-        description="Gestiona el conjunto de etiquetas para tus recursos educativos y prompts personalizados."
-        title="Etiquetas"
+        description={t("tags-translations.tag-list-labels.description")}
+        title={t("tags-translations.tag-list-labels.title")}
         icon="pricetag-outline"
       />
       <Input<{ searchValue: string }>
         name="searchValue"
         value={searchValue}
         icon="search-outline"
-        placeholder="Buscar etiquetas por nombre"
+        placeholder={t(
+          "tags-translations.tag-list-labels.search-input-placeholder"
+        )}
         onChange={(_, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
       />
       <View style={tagCardListStyle.FiltersContainer}>
         <Typography
-          text="Filtrar por tipo"
+          text={t(
+            "tags-translations.tag-list-labels.tag-type-filters-labels.title"
+          )}
           weight="bold"
           type="button"
           textAlign="left"
@@ -82,13 +97,17 @@ const TagCardListHeader = ({
         <View style={tagCardListStyle.FiltersRow}>
           <FilterTag
             icon="book-outline"
-            label="Recursos educativos"
+            label={t(
+              "tags-translations.tag-list-labels.tag-type-filters-labels.resources"
+            )}
             active={selectedFilter === "resource_tag"}
             onPressFilter={() => onChangeFilter("resource_tag")}
           />
           <FilterTag
             icon="chatbox-ellipses-outline"
-            label="Prompts"
+            label={t(
+              "tags-translations.tag-list-labels.tag-type-filters-labels.prompts"
+            )}
             active={selectedFilter === "prompt_tag"}
             onPressFilter={() => onChangeFilter("prompt_tag")}
           />

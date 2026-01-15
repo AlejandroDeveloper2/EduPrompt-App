@@ -428,6 +428,121 @@
     }
   },
 
+  "notifications-translations": {
+    "lists-tabulator-labels": {
+      "tab-1": "Notificaciones internas",
+      "tab-2": "Notificaciones sistema"
+    },
+    "user-notification-list": {
+      "title": "Notificaciones",
+      "description": "Encuentra aqui todas las notificaciones internas de tus actividades en Edu Prompt.",
+      "order-filters-labels": {
+        "title": "Listar en orden",
+        "desc": "Descendente",
+        "asc": "Ascendente"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "¿Estas seguro que deseas eliminar las notificaciones?",
+        "btn-accept": "Eliminar"
+      },
+      "no-notifications-msg": "No hay notificaciones ahora mismo"
+    },
+    "system-notification-list": {
+      "title": "Notificaciones del sistema",
+      "description": "Encuentra aqui todas las notificaciones del sistema para enterarte de las novedades de Edu Prompt.",
+      "order-filters-labels": {
+        "title": "Listar en orden",
+        "desc": "Descendente",
+        "asc": "Ascendente"
+      },
+      "loading-notifications-msg": "Cargando notificaciones...",
+      "no-notifications-msg": "No hay notificaciones ahora mismo"
+    },
+    "create-notifications-messages": {
+      "notifications-error-msg": "Ha ocurrido un error en el sistema de notificaciones del usuario."
+    },
+    "load-notifications-messages": {
+      "loading-notifications-msg": "Cargando notificaciones de usuario..."
+    },
+    "selection-mode-actions-labels": {
+      "delete": "Eliminar"
+    },
+    "notification-card-new-badge": "Nuevo"
+  },
+
+  "rewards-translations": {
+    "title": "Recompensa diaria",
+    "reward-notification-msg": "Has ganado 5 tokens gratis por ingresar diariamente a EduPrompt."
+  },
+
+  "tags-translations": {
+    "tag-list-labels": {
+      "prompt-tag-badge": "Prompts",
+      "resource-tag-badge": "Recursos educativos",
+      "title": "Etiquetas",
+      "description": "Gestiona el conjunto de etiquetas para tus recursos educativos y prompts personalizados.",
+      "search-input-placeholder": "Buscar etiquetas por nombre",
+      "tag-type-filters-labels": {
+        "title": "Filtrar por tipo",
+        "resources": "Recursos educativos",
+        "prompts": "Prompts"
+      },
+      "syncronization-card-labels": {
+        "title": "Sincronización de datos",
+        "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
+        "btn-sync": "Sincronizar",
+        "loading-text": "Sincronizando datos..."
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "¿Estas seguro que deseas eliminar las etiquetas?",
+        "btn-accept": "Eliminar",
+        "deleting-tag-msg": "Eliminando..."
+      },
+      "update-tag-popup-labels": {
+        "title": "Actualizar etiqueta"
+      },
+      "loading-tags-msg": "Cargando mas etiquetas...",
+      "no-tags-msg": "No hay etiquetas ahora mismo",
+      "error-loading-tags-msg": "Ha ocurrido un error al cargar las etiquetas"
+    },
+    "update-tag-template": {
+      "form-labels": {
+        "name": {
+          "label": "Nombre",
+          "placeholder": "Nombre de la etiqueta"
+        },
+        "type": {
+          "label": "Tipo",
+          "options": {
+            "prompts": "Prompt",
+            "resources": "Recurso educativo"
+          }
+        },
+        "btn-update-tag": "Actualizar etiqueta"
+      },
+      "form-loading-messages": {
+        "updating-tag-msg": "Actualizando etiqueta..."
+      },
+      "form-error-messages": {
+        "invalid-tag-id-msg": "UUID invalido",
+        "required-name-msg": "El nombre de la etiqueta es requerido",
+        "invalid-tag-type-msg": "El tipo de etiqueta es invalido"
+      }
+    },
+    "module-error-messages": {
+      "tag-not-found-msg": "No se ha encontrado una etiqueta con el id:",
+      "some-tag-not-found-msg": "Alguna etiqueta de la lista no se existe en la base de datos"
+    },
+    "module-success-messages": {
+      "tag-created-msg": "Etiqueta creada correctamente",
+      "tags-deleted-msg": "Etiquetas eliminadas correctamente",
+      "tag-updated-msg": "Etiqueta actualizada correctamente",
+      "tags-synced-msg": "Info de etiquetas sincronizada con éxito"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "Ha ocurrido un error interno en el servidor",
     "database-connection-error-msg": "Error al conectar con la base de datos",

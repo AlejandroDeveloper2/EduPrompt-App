@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSelectionModeStore } from "@/shared/hooks/store";
 import { useDeleteManyTagsMutation } from "../mutations";
@@ -26,6 +26,8 @@ const useDeleteManyTags = () => {
   /** Online */
   const { isPending, mutate } = useDeleteManyTagsMutation();
 
+  const { t } = useTranslations();
+
   const removeManyTags = useCallback(async () => {
     /** Eliminación  offline inmediata */
     await deleteManyTags();
@@ -42,7 +44,7 @@ const useDeleteManyTags = () => {
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Etiquetas eliminadas correctamente",
+      message: t("tags-translations.module-success-messages.tags-deleted-msg"),
     });
   }, [
     isAuthenticated,
@@ -52,6 +54,7 @@ const useDeleteManyTags = () => {
     queryClient,
     disableSelectionMode,
     selectedTagIds,
+    t,
   ]);
 
   return {
