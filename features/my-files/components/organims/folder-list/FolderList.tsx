@@ -41,6 +41,7 @@ const FolderList = () => {
       onOpenPopUp,
     },
     deleteManyFolders,
+    t,
   } = useFolderListLogic();
 
   const folderListStyle = FolderListStyle(size);
@@ -49,13 +50,17 @@ const FolderList = () => {
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "my-files-translations.folder-list-labels.confirm-delete-alert-labels.title"
+        )}
         {...confirmFolderDeletePopUp}
         gesture={confirmFolderDeletePopUp.dragGesture}
       >
         <Alert
           variant="danger"
-          message="¿Estas seguro que deseas eliminar las carpetas?"
+          message={t(
+            "my-files-translations.folder-list-labels.confirm-delete-alert-labels.message"
+          )}
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmFolderDeletePopUp.onClosePopUp}
@@ -67,7 +72,9 @@ const FolderList = () => {
       </PopUp>
       <PopUp
         gesture={dragGesture}
-        title="Editar nombre de la carpeta"
+        title={t(
+          "my-files-translations.folder-list-labels.update-folder-name-popup-labels.title"
+        )}
         icon="pencil-outline"
         onClosePopUp={onClosePopUp}
         animatedPopUpStyle={animatedPopUpStyle}
@@ -117,7 +124,12 @@ const FolderList = () => {
           />
         }
         ListEmptyComponent={
-          <Empty message="No hay carpetas ahora mismo" icon="folder-outline" />
+          <Empty
+            message={t(
+              "my-files-translations.folder-list-labels.no-folders-msg"
+            )}
+            icon="folder-outline"
+          />
         }
         ListFooterComponent={
           isLoading ? (

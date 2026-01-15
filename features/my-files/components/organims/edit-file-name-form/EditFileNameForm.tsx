@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 import { useFilesStore } from "@/features/my-files/hooks/store";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import { FileNameFormData, editFileSchema } from "./validationSchema";
 
@@ -44,6 +44,8 @@ const EditFileNameForm = ({
     noReset: true,
   });
 
+  const { t } = useTranslations();
+
   useEffect(() => {
     setValues({ name: fileName });
   }, [fileName]);
@@ -54,11 +56,15 @@ const EditFileNameForm = ({
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<FileNameFormData>
-              label="Nombre (*)"
+              label={t(
+                "my-files-translations.edit-file-name-template.form-labels.name.label"
+              )}
               icon="text-outline"
               name="name"
               value={data.name}
-              placeholder="Digita el nombre del archivo"
+              placeholder={t(
+                "my-files-translations.edit-file-name-template.form-labels.name.placeholder"
+              )}
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("name")}
@@ -72,7 +78,9 @@ const EditFileNameForm = ({
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Actualizar nombre"
+            label={t(
+              "my-files-translations.edit-file-name-template.form-labels.btn-edit-name"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
@@ -81,7 +89,9 @@ const EditFileNameForm = ({
             variant="neutral"
             width="100%"
             icon="close-outline"
-            label="Cancelar"
+            label={t(
+              "my-files-translations.edit-file-name-template.form-labels.btn-cancel"
+            )}
             onPress={onClosePopUp}
           />
         </Form.Row.Item>

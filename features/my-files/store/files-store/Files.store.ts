@@ -12,6 +12,7 @@ import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
 import { ZipHelper } from "../../utils";
 
+import { i18n } from "@/core/store";
 import { FilesSelectionStore } from "../files-selection-store/FilesSelection.store";
 import { SharedStore } from "../shared-store/Shared.store";
 
@@ -79,7 +80,9 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Nombre de archivo actualizado exitosamente!",
+      message: i18n.t(
+        "my-files-translations.module-success-messages.file-name-updated-msg"
+      ),
     });
   },
   deleteManyFiles: (folderId): void => {
@@ -126,7 +129,9 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "¡Archivos eliminados exitosamente!",
+      message: i18n.t(
+        "my-files-translations.module-success-messages.files-deleted-msg"
+      ),
     });
 
     clearSelection();
@@ -144,7 +149,9 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message: "Error: carpeta no encontrada",
+            message: i18n.t(
+              "my-files-translations.module-error-messages.folder-not-found-msg"
+            ),
           });
           return;
         }
@@ -157,7 +164,9 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "neutral",
-            message: "No hay archivos seleccionados para compartir",
+            message: i18n.t(
+              "my-files-translations.module-warning-messages.no-selected-files-msg"
+            ),
           });
           return;
         }
@@ -165,7 +174,9 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
         showToast({
           key: generateToastKey(),
           variant: "primary",
-          message: "Preparando archivos para compartir...",
+          message: i18n.t(
+            "my-files-translations.module-warning-messages.preparing-files-to-share-msg"
+          ),
         });
 
         const folderPath = `${BASE_DIRECTORY}/${folderId}/`;
@@ -185,14 +196,18 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message: "La función de compartir no está disponible",
+            message: i18n.t(
+              "my-files-translations.module-error-messages.share-function-no-available-msg"
+            ),
           });
           return;
         }
 
         await Sharing.shareAsync(zipPath, {
           mimeType: "application/zip",
-          dialogTitle: "Compartir archivos",
+          dialogTitle: i18n.t(
+            "my-files-translations.file-sharing-dialog-title"
+          ),
         });
 
         clearSelection();
@@ -206,7 +221,9 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
         showToast({
           key: generateToastKey(),
           variant: "danger",
-          message: "Error al compartir archivos",
+          message: i18n.t(
+            "my-files-translations.module-error-messages.file-sharing-error-msg"
+          ),
         });
       },
       () => set({ isSharing: false })
@@ -287,6 +304,14 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
       }),
       folder: updatedOriginFolderMeta,
     }));
+
+    showToast({
+      key: generateToastKey(),
+      variant: "primary",
+      message: i18n.t(
+        "my-files-translations.module-success-messages.files-moved-msg"
+      ),
+    });
 
     clearSelection();
   },

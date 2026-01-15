@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect } from "react";
 
 import { Prompt } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflinePromptsStore } from "../store";
 
@@ -12,7 +13,6 @@ import { postSyncPrompts } from "../../services";
 
 import { generateToastKey } from "@/shared/helpers";
 import { syncData } from "@/shared/utils";
-import { useCallback, useEffect } from "react";
 
 const useSyncPromptsMutation = () => {
   const queryClient = useQueryClient();
@@ -22,6 +22,8 @@ const useSyncPromptsMutation = () => {
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { updatePromptsSyncStatus, findAllPrompts } = useOfflinePromptsStore();
+
+  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: postSyncPrompts,
@@ -55,7 +57,9 @@ const useSyncPromptsMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Info de prompts sincronizada con éxito",
+        message: t(
+          "prompts-translations.module-success-messages.prompts-synced-msg"
+        ),
       });
     },
     onError: (error, _newPrompts, context) => {

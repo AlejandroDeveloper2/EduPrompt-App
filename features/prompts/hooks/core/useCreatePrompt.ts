@@ -8,7 +8,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useCreatePromptMutation } from "../mutations";
 import { useOfflinePromptsStore } from "../store";
@@ -27,6 +27,8 @@ const useCreatePrompt = () => {
 
   /** Online */
   const { mutate, isPending } = useCreatePromptMutation();
+
+  const { t } = useTranslations();
 
   const addPrompt = useCallback(
     async (createPromptPayload: Omit<CreatePromptPayload, "promptId">) => {
@@ -62,7 +64,9 @@ const useCreatePrompt = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Prompt creado correctamente",
+        message: t(
+          "prompts-translations.module-success-messages.prompt-created-msg"
+        ),
       });
     },
     [
@@ -72,6 +76,7 @@ const useCreatePrompt = () => {
       createPrompt,
       updatePromptsSyncStatus,
       queryClient,
+      t,
     ]
   );
 

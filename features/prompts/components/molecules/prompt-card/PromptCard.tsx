@@ -9,6 +9,7 @@ import { AppColors } from "@/shared/styles";
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
 import { usePromptsSelectionStore } from "@/features/prompts/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -55,6 +56,8 @@ const PromptCard = ({
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
+  const { t } = useTranslations();
+
   const promptCardStyle = PromptCardStyle(size);
 
   return (
@@ -67,7 +70,7 @@ const PromptCard = ({
           <Badge
             label={
               tags.find((t) => t.tagId === promptData.tag)?.name ??
-              "Sin etiqueta"
+              t("prompts-translations.prompt-list-labels.no-tag-name-badge")
             }
             variant="primary"
           />

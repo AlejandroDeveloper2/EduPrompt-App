@@ -4,6 +4,7 @@ import { Order } from "@/core/types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -28,26 +29,32 @@ const FolderListHeader = ({
 }: FolderListHeaderProps) => {
   const size = useScreenDimensionsStore();
 
+  const { t } = useTranslations();
+
   const folderListStyle = FolderListStyle(size);
 
   return (
     <View style={folderListStyle.ListHeaderContainer}>
       <ScreenSection
-        description="Revisa y gestiona fácilmente los recursos que has descargado con Edu Prompt, todo en un solo lugar."
-        title="Mis archivos descargados"
+        description={t("my-files-translations.folder-list-labels.description")}
+        title={t("my-files-translations.folder-list-labels.title")}
         icon="folder-open-outline"
       />
       <Input<{ searchValue: string }>
         name="searchValue"
         value={searchValue}
         icon="search-outline"
-        placeholder="Buscar carpeta por nombre"
+        placeholder={t(
+          "my-files-translations.folder-list-labels.search-input-placeholder"
+        )}
         onChange={(_name, value) => onSearchValueChange(value)}
         onClearInput={onClearSearchInput}
       />
       <View style={folderListStyle.FiltersContainer}>
         <Typography
-          text="Listar en orden"
+          text={t(
+            "my-files-translations.folder-list-labels.order-filters-labels.title"
+          )}
           weight="bold"
           type="button"
           textAlign="center"
@@ -58,13 +65,17 @@ const FolderListHeader = ({
         <View style={folderListStyle.Filters}>
           <FilterTag
             icon="calendar-outline"
-            label="Ascendente"
+            label={t(
+              "my-files-translations.folder-list-labels.order-filters-labels.asc"
+            )}
             active={order === "asc"}
             onPressFilter={() => onChangeOrder("asc")}
           />
           <FilterTag
             icon="calendar-outline"
-            label="Descendente"
+            label={t(
+              "my-files-translations.folder-list-labels.order-filters-labels.desc"
+            )}
             active={order === "desc"}
             onPressFilter={() => onChangeOrder("desc")}
           />

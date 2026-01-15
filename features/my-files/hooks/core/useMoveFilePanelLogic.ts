@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { Order } from "@/core/types";
 import { Folder } from "../../types";
 
-import { useLoading, useSearchInput } from "@/shared/hooks/core";
+import {
+  useLoading,
+  useSearchInput,
+  useTranslations,
+} from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useFilesStore, useFoldersStore, useSharedStore } from "../store";
 
@@ -28,6 +32,8 @@ const useMoveFilePanel = () => {
     handleSearchChange,
     onClearSearchInput,
   } = useSearchInput(folders, "folderName");
+
+  const { t } = useTranslations();
 
   const onChangeOrder = (selectedOrder: Order): void => {
     setOrder(selectedOrder);
@@ -57,6 +63,7 @@ const useMoveFilePanel = () => {
     setSelectedFolderInfo,
     /** Move Files */
     moveFiles,
+    t,
   };
 };
 

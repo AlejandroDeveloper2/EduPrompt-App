@@ -9,6 +9,7 @@ import { AppColors } from "@/shared/styles";
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
 import { useSyncPromptsMutation } from "@/features/prompts/hooks/mutations";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -58,12 +59,16 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
     onTagFilterChange,
   } = usePromptFiltersContext();
 
+  const { t } = useTranslations();
+
   const promptCardListStyle = PromptCardListStyle(size);
 
   return (
     <>
       <PopUp
-        title="Etiquetas"
+        title={t(
+          "prompts-translations.prompt-list-labels.tag-list-labels-popup.title"
+        )}
         icon="pricetag-outline"
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -96,7 +101,9 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           optionList={paginatedTags.tags}
           optionIdkey="tagId"
           optionLabelKey="name"
-          searchInputPlaceholder="Buscar etiqueta por nombre"
+          searchInputPlaceholder={t(
+            "prompts-translations.prompt-list-labels.tag-list-labels-popup.search-input-placeholder"
+          )}
           selectedOption={tagFilter}
           onSelectOption={(option) => {
             onTagFilterChange(option);
@@ -109,33 +116,45 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           !userProfile.userPreferences.autoSync &&
           isAuthenticated && (
             <InfoCard
-              title="Sincronización de datos"
-              description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
+              title={t(
+                "prompts-translations.prompt-list-labels.syncronization-card-labels.title"
+              )}
+              description={t(
+                "prompts-translations.prompt-list-labels.syncronization-card-labels.description"
+              )}
               buttonData={{
                 onPress: syncPrompts,
                 icon: "sync-outline",
-                label: "Sincronizar",
+                label: t(
+                  "prompts-translations.prompt-list-labels.syncronization-card-labels.btn-sync"
+                ),
                 loading: isPending,
-                loadingMessage: "Sincronizando datos...",
+                loadingMessage: t(
+                  "prompts-translations.prompt-list-labels.syncronization-card-labels.loading-text"
+                ),
               }}
             />
           )}
         <ScreenSection
-          description="Revisa y gestiona fácilmente los prompts que has usado para generar tus recursos educativos."
-          title="Mis prompts"
+          description={t("prompts-translations.prompt-list-labels.description")}
+          title={t("prompts-translations.prompt-list-labels.title")}
           icon="bulb-outline"
         />
         <Input<{ searchPromptValue: string }>
           name="searchPromptValue"
           value={searchPromptValue}
           icon="search-outline"
-          placeholder="Buscar prompts por titulo"
+          placeholder={t(
+            "prompts-translations.prompt-list-labels.search-input-placeholder"
+          )}
           onChange={(_, value) => onSearchPromptValueChange(value)}
           onClearInput={() => onSearchPromptValueChange("")}
         />
         <View style={promptCardListStyle.FiltersContainer}>
           <Typography
-            text="Filtrar por etiqueta"
+            text={t(
+              "prompts-translations.prompt-list-labels.prompt-tag-filters-labels.title"
+            )}
             weight="bold"
             type="button"
             textAlign="left"
@@ -150,7 +169,9 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           >
             <FilterTag
               icon="star-outline"
-              label="Todos"
+              label={t(
+                "prompts-translations.prompt-list-labels.prompt-tag-filters-labels.all-filter"
+              )}
               active={tagFilter === null}
               onPressFilter={() => onTagFilterChange(null)}
             />

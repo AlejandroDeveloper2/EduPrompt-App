@@ -1,6 +1,8 @@
 import { Prompt } from "@/features/prompts/types";
 import { Tag } from "@/features/tags/types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { UpdatePromptFormData } from "./validationSchema";
 
 import { Form } from "@/shared/components/organims";
@@ -34,17 +36,23 @@ const UpdatePromptForm = ({
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     form;
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<UpdatePromptFormData>
-              label="Titulo (*)"
+              label={t(
+                "prompts-translations.update-prompt-template.form-labels.title.label"
+              )}
               icon="text-outline"
               name="promptTitle"
               value={data.promptTitle}
-              placeholder="Digita el titulo del prompt"
+              placeholder={t(
+                "prompts-translations.update-prompt-template.form-labels.title.placeholder"
+              )}
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptTitle")}
@@ -54,11 +62,15 @@ const UpdatePromptForm = ({
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.PromptInput<UpdatePromptFormData>
-              label="Cuerpo del prompt (*)"
+              label={t(
+                "prompts-translations.update-prompt-template.form-labels.prompt-text.label"
+              )}
               icon="chatbox-ellipses-outline"
               name="promptText"
               value={data.promptText}
-              placeholder="Describe tu recurso. Ejemplo: genera una guía para planificar mi clase de biología sobre animales invertebrados. Diseña la guía para una clase de 2 horas."
+              placeholder={t(
+                "prompts-translations.update-prompt-template.form-labels.prompt-text.placeholder"
+              )}
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptText")}
@@ -76,9 +88,13 @@ const UpdatePromptForm = ({
               }
             >
               name="tag"
-              label="Etiqueta (*)"
+              label={t(
+                "prompts-translations.update-prompt-template.form-labels.tag.label"
+              )}
               icon="pricetag-outline"
-              placeholder="Seleccione una opción"
+              placeholder={t(
+                "prompts-translations.update-prompt-template.form-labels.tag.placeholder"
+              )}
               selectedOption={selectedTag}
               optionValueKey="name"
               displayDropdownOptions={onTagSelectionMode}
@@ -94,9 +110,13 @@ const UpdatePromptForm = ({
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Actualizar prompt"
+            label={t(
+              "prompts-translations.update-prompt-template.form-labels.btn-update-prompt"
+            )}
             loading={isLoading}
-            loadingMessage="Actualizando..."
+            loadingMessage={t(
+              "prompts-translations.update-prompt-template.form-loading-messages.updating-prompt-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
@@ -105,7 +125,9 @@ const UpdatePromptForm = ({
             variant="neutral"
             width="100%"
             icon="close-outline"
-            label="Cancelar"
+            label={t(
+              "prompts-translations.update-prompt-template.form-labels.btn-cancel"
+            )}
             onPress={onClosePopUp}
           />
         </Form.Row.Item>

@@ -18,6 +18,7 @@ import {
   useBackgroundTaskRunner,
   useLoading,
   useSearchInput,
+  useTranslations,
 } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
@@ -65,6 +66,8 @@ const useFolderListLogic = () => {
 
   const { runBackgroundTask } = useBackgroundTaskRunner();
 
+  const { t } = useTranslations();
+
   const onChangeOrder = (selectedOrder: Order): void => {
     setOrder(selectedOrder);
   };
@@ -85,12 +88,20 @@ const useFolderListLogic = () => {
     };
     await runBackgroundTask(task, shareManyFolders, {
       successNotification: {
-        title: "¡Carpetas compartidas!",
-        message: "Se han comprimido y compartido tus carpetas exitosamente.",
+        title: t(
+          "my-files-translations.shared-folders-notifications-labels.success.title"
+        ),
+        message: t(
+          "my-files-translations.shared-folders-notifications-labels.success.message"
+        ),
       },
       errorNotification: {
-        title: "¡Error al compartir!",
-        message: "Hubo un error al intentar compartir las carpetas.",
+        title: t(
+          "my-files-translations.shared-folders-notifications-labels.error.title"
+        ),
+        message: t(
+          "my-files-translations.shared-folders-notifications-labels.error.message"
+        ),
       },
     });
   };
@@ -118,7 +129,10 @@ const useFolderListLogic = () => {
   }, [selectionCount]);
 
   useEffect(() => {
-    toggleLoading(true, "Cargando carpetas...");
+    toggleLoading(
+      true,
+      t("my-files-translations.folder-list-labels.loading-folders-msg")
+    );
     loadFolders(order);
     toggleLoading(false, null);
   }, [order]);
@@ -155,6 +169,7 @@ const useFolderListLogic = () => {
     /**  Actions*/
     confirmFolderDeletePopUp,
     deleteManyFolders,
+    t,
   };
 };
 

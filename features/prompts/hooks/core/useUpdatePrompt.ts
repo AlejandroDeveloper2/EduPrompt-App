@@ -5,7 +5,7 @@ import { UpdatePromptPayload } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdatePromptMutation } from "../mutations";
 import { useOfflinePromptsStore } from "../store";
@@ -25,6 +25,8 @@ const useUpdatePrompt = () => {
   /** Online */
   const { mutate, isPending } = useUpdatePromptMutation();
 
+  const { t } = useTranslations();
+
   const editPrompt = useCallback(
     async (updatePromptPayload: UpdatePromptPayload) => {
       /** Actualización  offline inmediata */
@@ -42,7 +44,9 @@ const useUpdatePrompt = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Prompt actualizado correctamente",
+        message: t(
+          "prompts-translations.module-success-messages.prompt-updated-msg"
+        ),
       });
     },
     [
@@ -52,6 +56,7 @@ const useUpdatePrompt = () => {
       updatePrompt,
       updatePromptsSyncStatus,
       queryClient,
+      t,
     ]
   );
 

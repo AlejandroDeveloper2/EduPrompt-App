@@ -476,6 +476,9 @@
 
   "tags-translations": {
     "tag-list-labels": {
+      "selection-options-labels": {
+        "delete-tags": "Delete"
+      },
       "prompt-tag-badge": "Prompts",
       "resource-tag-badge": "Educational Resources",
       "title": "Tags",
@@ -538,6 +541,217 @@
       "tags-deleted-msg": "Tags deleted successfully",
       "tag-updated-msg": "Tag updated successfully",
       "tags-synced-msg": "Tag info synchronized successfully"
+    }
+  },
+  "prompts-translations": {
+    "prompt-list-labels": {
+      "selection-options-labels": {
+        "delete-prompts": "Delete"
+      },
+      "no-tag-name-badge": "No tag",
+      "title": "My Prompts",
+      "description": "Easily review and manage the prompts you've used to generate your educational resources.",
+      "search-input-placeholder": "Search prompts by title",
+      "prompt-tag-filters-labels": {
+        "title": "Filter by tag",
+        "all-filter": "All"
+      },
+      "syncronization-card-labels": {
+        "title": "Data Synchronization",
+        "description": "There is unsynchronized data, tap the button below to sync your data",
+        "btn-sync": "Synchronize",
+        "loading-text": "Synchronizing data..."
+      },
+      "tag-list-labels-popup": {
+        "title": "Tags",
+        "search-input-placeholder": "Search tag by name",
+        "btn-cancel-selection": "Cancel selection"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to delete the prompts?",
+        "btn-accept": "Delete",
+        "deleting-prompt-msg": "Deleting..."
+      },
+      "loading-prompts-msg": "Loading more prompts...",
+      "no-prompts-msg": "No results",
+      "error-loading-prompts-msg": "An error occurred while loading the prompts"
+    },
+    "update-prompt-template": {
+      "title": "Update prompt",
+      "form-labels": {
+        "title": {
+          "label": "Title (*)",
+          "placeholder": "Enter the prompt title"
+        },
+        "prompt-text": {
+          "label": "Prompt body (*)",
+          "placeholder": "Describe your resource. Example: generate a guide to plan my biology class about invertebrate animals. Design the guide for a 2-hour class."
+        },
+        "tag": {
+          "label": "Tag (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-update-prompt": "Update Prompt",
+        "btn-cancel": "Cancel"
+      },
+      "form-loading-messages": {
+        "updating-prompt-msg": "Updating..."
+      },
+      "form-error-messages": {
+        "invalid-prompt-id-msg": "The prompt ID is not valid",
+        "required-title-msg": "Prompt title is required",
+        "required-prompt-text-msg": "Prompt content is required",
+        "invalid-selected-tag-msg": "The selected tag is not valid"
+      }
+    },
+    "module-error-messages": {
+      "prompt-not-found-msg": "No prompt found with the id:",
+      "some-prompt-not-found-msg": "Some prompt from the list does not exist in the database"
+    },
+    "module-success-messages": {
+      "prompt-created-msg": "Prompt created successfully",
+      "prompts-deleted-msg": "Prompts deleted successfully",
+      "prompt-updated-msg": "Prompt updated successfully",
+      "prompts-synced-msg": "Prompt info synchronized successfully"
+    }
+  },
+
+  "my-files-translations": {
+    "file-navigator-labels": {
+      "folder-tab": "My Folders",
+      "file-tab": "Unnamed"
+    },
+    "folder-list-labels": {
+      "selection-options-labels": {
+        "delete-folders": "Delete",
+        "share-folders": "Share"
+      },
+      "files-count-label": "Files",
+      "title": "My Downloaded Files",
+      "description": "Easily review and manage the resources you've downloaded with Edu Prompt, all in one place.",
+      "search-input-placeholder": "Search folder by name",
+      "order-filters-labels": {
+        "title": "List in order",
+        "asc": "Ascending",
+        "desc": "Descending"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to delete the folders?",
+        "btn-accept": "Delete",
+        "deleting-folder-msg": "Deleting..."
+      },
+      "update-folder-name-popup-labels": {
+        "title": "Edit Folder Name"
+      },
+      "loading-folders-msg": "Loading folders...",
+      "no-folders-msg": "No folders right now"
+    },
+    "file-list-labels": {
+      "selection-options-labels": {
+        "delete-files": "Delete",
+        "share-files": "Share",
+        "move-files": "Move"
+      },
+      "title": "My Downloaded Files",
+      "description": "Easily review and manage the resources you've downloaded with Edu Prompt, all in one place.",
+      "search-input-placeholder": "Search file by name",
+      "format-filters-labels": {
+        "title": "Filter by format"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to delete the files?",
+        "btn-accept": "Delete",
+        "deleting-file-msg": "Deleting..."
+      },
+      "update-file-name-popup-labels": {
+        "title": "Edit File Name"
+      },
+      "move-files-popup-labels": {
+        "title": "Move File to Folder",
+        "btn-move-files": "Move"
+      },
+      "loading-files-msg": "Loading files...",
+      "no-files-msg": "No files created"
+    },
+    "shared-folders-notifications-labels": {
+      "success": {
+        "title": "Folders Shared!",
+        "message": "Your folders have been compressed and shared successfully."
+      },
+      "error": {
+        "title": "Sharing Error!",
+        "message": "There was an error trying to share the folders."
+      }
+    },
+    "shared-files-notifications-labels": {
+      "success": {
+        "title": "Files Shared!",
+        "message": "Your files have been compressed and shared successfully."
+      },
+      "error": {
+        "title": "Sharing Error!",
+        "message": "There was an error trying to share the files."
+      }
+    },
+    "edit-file-name-template": {
+      "form-labels": {
+        "name": {
+          "label": "Name (*)",
+          "placeholder": "Enter the file name"
+        },
+        "btn-edit-name": "Update Name",
+        "btn-cancel": "Cancel"
+      },
+      "form-error-messages": {
+        "required-file-name-msg": "File name is required"
+      }
+    },
+    "edit-folder-name-template": {
+      "form-labels": {
+        "name": {
+          "label": "Name (*)",
+          "placeholder": "Enter the folder name"
+        },
+        "btn-edit-name": "Update Name",
+        "btn-cancel": "Cancel"
+      },
+      "form-error-messages": {
+        "required-folder-name-msg": "Folder name is required"
+      }
+    },
+    "processes-labels": {
+      "share-folders-process": {
+        "title": "Preparing to Share",
+        "description": "The folders to share are being prepared, the process may take a few seconds."
+      },
+      "share-files-process": {
+        "title": "Preparing to Share",
+        "description": "The files to share are being prepared, the process may take a few seconds."
+      }
+    },
+    "folder-sharing-dialog-title": "Share Folders",
+    "file-sharing-dialog-title": "Share Files",
+    "module-warning-messages": {
+      "no-selected-folders-msg": "No folders selected to share",
+      "preparing-folders-to-share-msg": "Preparing folders to share...",
+      "no-selected-files-msg": "No files selected to share",
+      "preparing-files-to-share-msg": "Preparing files to share..."
+    },
+    "module-error-messages": {
+      "share-function-no-available-msg": "The share function is not available on this device",
+      "folder-sharing-error-msg": "Error sharing folders",
+      "folder-not-found-msg": "Error: folder not found",
+      "file-sharing-error-msg": "Error sharing files"
+    },
+    "module-success-messages": {
+      "folders-deleted-msg": "Folders deleted successfully!",
+      "folder-name-updated-msg": "Folder name updated successfully!",
+      "file-name-updated-msg": "File name updated successfully!",
+      "files-deleted-msg": "Files deleted successfully!",
+      "files-moved-msg": "Files moved successfully!"
     }
   },
 

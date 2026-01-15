@@ -19,6 +19,7 @@ import {
   useBackgroundTaskRunner,
   useLoading,
   useSearchInput,
+  useTranslations,
 } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
@@ -71,6 +72,8 @@ const useFileListLogic = () => {
 
   const { runBackgroundTask } = useBackgroundTaskRunner();
 
+  const { t } = useTranslations();
+
   const onChangeFormat = (selectedFormat: ResourceFormatKey | null): void => {
     setFormat(selectedFormat);
   };
@@ -92,12 +95,20 @@ const useFileListLogic = () => {
 
     await runBackgroundTask(task, async () => await shareManyFiles(folderId), {
       successNotification: {
-        title: "¡Carpetas compartidas!",
-        message: "Se han comprimido y compartido tus carpetas exitosamente.",
+        title: t(
+          "my-files-translations.shared-files-notifications-labels.success.title"
+        ),
+        message: t(
+          "my-files-translations.shared-files-notifications-labels.success.message"
+        ),
       },
       errorNotification: {
-        title: "¡Error al compartir!",
-        message: "Hubo un error al intentar compartir las carpetas.",
+        title: t(
+          "my-files-translations.shared-files-notifications-labels.error.title"
+        ),
+        message: t(
+          "my-files-translations.shared-files-notifications-labels.error.message"
+        ),
       },
     });
   };
@@ -136,7 +147,10 @@ const useFileListLogic = () => {
   }, [selectionCount]);
 
   useEffect(() => {
-    toggleLoading(true, "Cargando archivos...");
+    toggleLoading(
+      true,
+      t("my-files-translations.file-list-labels.loading-files-msg")
+    );
     loadFilesByFormat(folderId, format ?? undefined);
     toggleLoading(false, null);
   }, [format, folderId]);
@@ -176,6 +190,7 @@ const useFileListLogic = () => {
     fileIcon,
     /** Delete Files */
     deleteManyFiles,
+    t,
   };
 };
 

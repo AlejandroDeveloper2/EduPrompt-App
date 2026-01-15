@@ -7,6 +7,7 @@ import { Folder } from "@/features/my-files/types";
 import { AppColors } from "@/shared/styles";
 
 import { useFoldersSelectionStore } from "@/features/my-files/hooks/store";
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useAnimatedFileFolder } from "../../../hooks/animations";
 
@@ -42,6 +43,8 @@ const FileFolder = ({
 
   const animatedFileFolderStyle = useAnimatedFileFolder(isSelected);
 
+  const { t } = useTranslations();
+
   const fileFolderStyle = FileFolderStyle(size);
 
   return (
@@ -68,7 +71,9 @@ const FileFolder = ({
       <View style={fileFolderStyle.MetadataContainer}>
         <View style={fileFolderStyle.Metadata}>
           <Typography
-            text={`${data.files.length} Archivos`}
+            text={`${data.files.length} ${t(
+              "my-files-translations.file-navigator-labels.file-tab"
+            )}`}
             weight="bold"
             type="caption"
             textAlign="left"

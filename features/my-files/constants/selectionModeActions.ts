@@ -1,3 +1,4 @@
+import { i18n } from "@/core/store";
 import { NavOption } from "@/core/types";
 
 export const SELECTION_MODE_ACTIONS = (
@@ -8,13 +9,17 @@ export const SELECTION_MODE_ACTIONS = (
     navItemId: "action-1",
     icon: "trash-bin-outline",
     onPress: deleteSelectedNotifications,
-    label: "Eliminar",
+    label: i18n.t(
+      "my-files-translations.folder-list-labels.selection-options-labels.delete-folders"
+    ),
   },
   {
     navItemId: "action-2",
     icon: "share-outline",
     onPress: shareFolders,
-    label: "Compartir",
+    label: i18n.t(
+      "my-files-translations.folder-list-labels.selection-options-labels.share-folders"
+    ),
   },
 ];
 
@@ -27,18 +32,24 @@ export const FILE_SELECTION_MODE_ACTIONS = (
     navItemId: "action-1",
     icon: "trash-bin-outline",
     onPress: deleteManyFiles,
-    label: "Eliminar",
+    label: i18n.t(
+      "my-files-translations.file-list-labels.selection-options-labels.delete-files"
+    ),
   },
   {
     navItemId: "action-2",
     icon: "share-outline",
     onPress: shareFiles,
-    label: "Compartir",
+    label: i18n.t(
+      "my-files-translations.file-list-labels.selection-options-labels.share-files"
+    ),
   },
   {
     navItemId: "action-3",
     icon: "move-outline",
     onPress: moveFiles,
-    label: "Mover",
+    label: i18n.t(
+      "my-files-translations.file-list-labels.selection-options-labels.move-files"
+    ),
   },
 ];

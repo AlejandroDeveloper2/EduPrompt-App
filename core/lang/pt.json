@@ -476,6 +476,9 @@
 
   "tags-translations": {
     "tag-list-labels": {
+      "selection-options-labels": {
+        "delete-tags": "Excluir"
+      },
       "prompt-tag-badge": "Prompts",
       "resource-tag-badge": "Recursos Educacionais",
       "title": "Etiquetas",
@@ -538,6 +541,218 @@
       "tags-deleted-msg": "Etiquetas excluídas com sucesso",
       "tag-updated-msg": "Etiqueta atualizada com sucesso",
       "tags-synced-msg": "Informações de etiquetas sincronizadas com sucesso"
+    }
+  },
+
+  "prompts-translations": {
+    "prompt-list-labels": {
+      "selection-options-labels": {
+        "delete-prompts": "Excluir"
+      },
+      "no-tag-name-badge": "Sem etiqueta",
+      "title": "Meus Prompts",
+      "description": "Revise e gerencie facilmente os prompts que você usou para gerar seus recursos educacionais.",
+      "search-input-placeholder": "Buscar prompts por título",
+      "prompt-tag-filters-labels": {
+        "title": "Filtrar por etiqueta",
+        "all-filter": "Todos"
+      },
+      "syncronization-card-labels": {
+        "title": "Sincronização de Dados",
+        "description": "Há dados não sincronizados, toque no botão abaixo para sincronizar seus dados",
+        "btn-sync": "Sincronizar",
+        "loading-text": "Sincronizando dados..."
+      },
+      "tag-list-labels-popup": {
+        "title": "Etiquetas",
+        "search-input-placeholder": "Buscar etiqueta por nome",
+        "btn-cancel-selection": "Cancelar seleção"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "Tem certeza de que deseja excluir os prompts?",
+        "btn-accept": "Excluir",
+        "deleting-prompt-msg": "Excluindo..."
+      },
+      "loading-prompts-msg": "Carregando mais prompts...",
+      "no-prompts-msg": "Sem resultados",
+      "error-loading-prompts-msg": "Ocorreu um erro ao carregar os prompts"
+    },
+    "update-prompt-template": {
+      "title": "Atualizar prompt",
+      "form-labels": {
+        "title": {
+          "label": "Título (*)",
+          "placeholder": "Digite o título do prompt"
+        },
+        "prompt-text": {
+          "label": "Corpo do prompt (*)",
+          "placeholder": "Descreva seu recurso. Exemplo: gere um guia para planejar minha aula de biologia sobre animais invertebrados. Projete o guia para uma aula de 2 horas."
+        },
+        "tag": {
+          "label": "Etiqueta (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-update-prompt": "Atualizar Prompt",
+        "btn-cancel": "Cancelar"
+      },
+      "form-loading-messages": {
+        "updating-prompt-msg": "Atualizando..."
+      },
+      "form-error-messages": {
+        "invalid-prompt-id-msg": "O ID do prompt não é válido",
+        "required-title-msg": "O título do prompt é obrigatório",
+        "required-prompt-text-msg": "O conteúdo do prompt é obrigatório",
+        "invalid-selected-tag-msg": "A etiqueta selecionada não é válida"
+      }
+    },
+    "module-error-messages": {
+      "prompt-not-found-msg": "Nenhum prompt foi encontrado com o id:",
+      "some-prompt-not-found-msg": "Algum prompt da lista não existe no banco de dados"
+    },
+    "module-success-messages": {
+      "prompt-created-msg": "Prompt criado com sucesso",
+      "prompts-deleted-msg": "Prompts excluídos com sucesso",
+      "prompt-updated-msg": "Prompt atualizado com sucesso",
+      "prompts-synced-msg": "Informações de prompts sincronizadas com sucesso"
+    }
+  },
+
+  "my-files-translations": {
+    "file-navigator-labels": {
+      "folder-tab": "Minhas Pastas",
+      "file-tab": "Sem nome"
+    },
+    "folder-list-labels": {
+      "selection-options-labels": {
+        "delete-folders": "Excluir",
+        "share-folders": "Compartilhar"
+      },
+      "files-count-label": "Arquivos",
+      "title": "Meus Arquivos Baixados",
+      "description": "Revise e gerencie facilmente os recursos que você baixou com o Edu Prompt, tudo em um só lugar.",
+      "search-input-placeholder": "Buscar pasta por nome",
+      "order-filters-labels": {
+        "title": "Listar em ordem",
+        "asc": "Crescente",
+        "desc": "Decrescente"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "Tem certeza de que deseja excluir as pastas?",
+        "btn-accept": "Excluir",
+        "deleting-folder-msg": "Excluindo..."
+      },
+      "update-folder-name-popup-labels": {
+        "title": "Editar Nome da Pasta"
+      },
+      "loading-folders-msg": "Carregando pastas...",
+      "no-folders-msg": "Não há pastas no momento"
+    },
+    "file-list-labels": {
+      "selection-options-labels": {
+        "delete-files": "Excluir",
+        "share-files": "Compartilhar",
+        "move-files": "Mover"
+      },
+      "title": "Meus Arquivos Baixados",
+      "description": "Revise e gerencie facilmente os recursos que você baixou com o Edu Prompt, tudo em um só lugar.",
+      "search-input-placeholder": "Buscar arquivo por nome",
+      "format-filters-labels": {
+        "title": "Filtrar por formato"
+      },
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "Tem certeza de que deseja excluir os arquivos?",
+        "btn-accept": "Excluir",
+        "deleting-file-msg": "Excluindo..."
+      },
+      "update-file-name-popup-labels": {
+        "title": "Editar Nome do Arquivo"
+      },
+      "move-files-popup-labels": {
+        "title": "Mover Arquivo para Pasta",
+        "btn-move-files": "Mover"
+      },
+      "loading-files-msg": "Carregando arquivos...",
+      "no-files-msg": "Não há arquivos criados"
+    },
+    "shared-folders-notifications-labels": {
+      "success": {
+        "title": "Pastas Compartilhadas!",
+        "message": "Suas pastas foram compactadas e compartilhadas com sucesso."
+      },
+      "error": {
+        "title": "Erro ao Compartilhar!",
+        "message": "Houve um erro ao tentar compartilhar as pastas."
+      }
+    },
+    "shared-files-notifications-labels": {
+      "success": {
+        "title": "Arquivos Compartilhados!",
+        "message": "Seus arquivos foram compactados e compartilhados com sucesso."
+      },
+      "error": {
+        "title": "Erro ao Compartilhar!",
+        "message": "Houve um erro ao tentar compartilhar os arquivos."
+      }
+    },
+    "edit-file-name-template": {
+      "form-labels": {
+        "name": {
+          "label": "Nome (*)",
+          "placeholder": "Digite o nome do arquivo"
+        },
+        "btn-edit-name": "Atualizar Nome",
+        "btn-cancel": "Cancelar"
+      },
+      "form-error-messages": {
+        "required-file-name-msg": "O nome do arquivo é obrigatório"
+      }
+    },
+    "edit-folder-name-template": {
+      "form-labels": {
+        "name": {
+          "label": "Nome (*)",
+          "placeholder": "Digite o nome da pasta"
+        },
+        "btn-edit-name": "Atualizar Nome",
+        "btn-cancel": "Cancelar"
+      },
+      "form-error-messages": {
+        "required-folder-name-msg": "O nome da pasta é obrigatório"
+      }
+    },
+    "processes-labels": {
+      "share-folders-process": {
+        "title": "Preparando para Compartilhar",
+        "description": "As pastas para compartilhar estão sendo preparadas, o processo pode levar alguns segundos."
+      },
+      "share-files-process": {
+        "title": "Preparando para Compartilhar",
+        "description": "Os arquivos para compartilhar estão sendo preparados, o processo pode levar alguns segundos."
+      }
+    },
+    "folder-sharing-dialog-title": "Compartilhar Pastas",
+    "file-sharing-dialog-title": "Compartilhar Arquivos",
+    "module-warning-messages": {
+      "no-selected-folders-msg": "Não há pastas selecionadas para compartilhar",
+      "preparing-folders-to-share-msg": "Preparando pastas para compartilhar...",
+      "no-selected-files-msg": "Não há arquivos selecionados para compartilhar",
+      "preparing-files-to-share-msg": "Preparando arquivos para compartilhar..."
+    },
+    "module-error-messages": {
+      "share-function-no-available-msg": "A função de compartilhar não está disponível neste dispositivo",
+      "folder-sharing-error-msg": "Erro ao compartilhar pastas",
+      "folder-not-found-msg": "Erro: pasta não encontrada",
+      "file-sharing-error-msg": "Erro ao compartilhar arquivos"
+    },
+    "module-success-messages": {
+      "folders-deleted-msg": "Pastas excluídas com sucesso!",
+      "folder-name-updated-msg": "Nome da pasta atualizado com sucesso!",
+      "file-name-updated-msg": "Nome do arquivo atualizado com sucesso!",
+      "files-deleted-msg": "Arquivos excluídos com sucesso!",
+      "files-moved-msg": "Arquivos movidos com sucesso!"
     }
   },
 

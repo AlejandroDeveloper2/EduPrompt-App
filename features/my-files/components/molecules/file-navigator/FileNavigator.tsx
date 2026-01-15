@@ -7,6 +7,7 @@ import { AppColors } from "@/shared/styles";
 
 import { useSharedStore } from "@/features/my-files/hooks/store";
 import { useAnimatedNavItem } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Typography } from "@/shared/components/atoms";
@@ -27,6 +28,8 @@ const FileNavigator = () => {
   const animatedFirstBackground = useAnimatedNavItem(folderId === null);
   const animatedSecondBackground = useAnimatedNavItem(folderId !== null);
 
+  const { t } = useTranslations();
+
   const fileNavigatorStyle = FileNavigatorStyle(size);
 
   return (
@@ -36,7 +39,7 @@ const FileNavigator = () => {
         onPress={() => router.navigate("/(tabs)/files_screen")}
       >
         <Typography
-          text="Mis Carpetas"
+          text={t("my-files-translations.file-navigator-labels.folder-tab")}
           weight="regular"
           type="paragraph"
           textAlign="center"
@@ -51,7 +54,10 @@ const FileNavigator = () => {
         onPress={() => router.navigate(`/(tabs)/files_screen/${folderId}`)}
       >
         <Typography
-          text={folder?.folderName ?? "Sin nombre"}
+          text={
+            folder?.folderName ??
+            t("my-files-translations.file-navigator-labels.file-tab")
+          }
           weight="regular"
           type="paragraph"
           textAlign="center"

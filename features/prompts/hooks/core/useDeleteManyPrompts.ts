@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSelectionModeStore } from "@/shared/hooks/store";
 import { useDeleteManyPromptsMutation } from "../mutations";
@@ -26,6 +26,8 @@ const useDeleteManyPrompts = () => {
   /** Online */
   const { mutate, isPending } = useDeleteManyPromptsMutation();
 
+  const { t } = useTranslations();
+
   const removeManyPrompts = useCallback(async () => {
     /** Eliminación  offline inmediata */
     await deleteManyPrompts();
@@ -42,7 +44,9 @@ const useDeleteManyPrompts = () => {
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Prompts eliminados correctamente",
+      message: t(
+        "prompts-translations.module-success-messages.prompts-deleted-msg"
+      ),
     });
   }, [
     isAuthenticated,
@@ -52,6 +56,7 @@ const useDeleteManyPrompts = () => {
     queryClient,
     disableSelectionMode,
     selectedPromptIds,
+    t,
   ]);
 
   return {

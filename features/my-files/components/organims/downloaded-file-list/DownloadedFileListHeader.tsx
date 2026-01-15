@@ -6,6 +6,7 @@ import { AppColors } from "@/shared/styles";
 
 import { FORMAT_FILTERS } from "@/shared/constants";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -31,13 +32,15 @@ const DownloadedFileListHeader = ({
 }: DownloadedFileListHeaderProps) => {
   const size = useScreenDimensionsStore();
 
+  const { t, lang } = useTranslations();
+
   const fileListStyle = FileListStyle(size);
 
   return (
     <View style={fileListStyle.ListHeaderContainer}>
       <ScreenSection
-        description="Revisa y gestiona fácilmente los recursos que has descargado con Edu Prompt, todo en un solo lugar."
-        title="Mis archivos descargados"
+        description={t("my-files-translations.file-list-labels.description")}
+        title={t("my-files-translations.file-list-labels.title")}
         icon="document-outline"
       />
       <FileNavigator />
@@ -45,13 +48,17 @@ const DownloadedFileListHeader = ({
         name="searchValue"
         value={searchValue}
         icon="search-outline"
-        placeholder="Buscar archivo por nombre"
+        placeholder={t(
+          "my-files-translations.file-list-labels.search-input-placeholder"
+        )}
         onChange={(_name, value) => onSearchValueChange(value)}
         onClearInput={onClearSearchInput}
       />
       <View style={fileListStyle.FiltersContainer}>
         <Typography
-          text="Filtrar por formato"
+          text={t(
+            "my-files-translations.file-list-labels.format-filters-labels.title"
+          )}
           weight="bold"
           type="button"
           textAlign="left"
@@ -64,7 +71,7 @@ const DownloadedFileListHeader = ({
           horizontal
           showsHorizontalScrollIndicator={false}
         >
-          {FORMAT_FILTERS["es"].map((filter) => (
+          {FORMAT_FILTERS[lang].map((filter) => (
             <FilterTag
               key={filter.label}
               icon={filter.icon}

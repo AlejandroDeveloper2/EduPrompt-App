@@ -41,6 +41,7 @@ const DownloadedFileList = () => {
     fileIcon,
     /** Delete Files */
     deleteManyFiles,
+    t,
   } = useFileListLogic();
 
   const fileListStyle = FileListStyle(size);
@@ -49,14 +50,20 @@ const DownloadedFileList = () => {
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "my-files-translations.file-list-labels.confirm-delete-alert-labels.title"
+        )}
         {...confirmFileDeletePopUp}
         gesture={confirmFileDeletePopUp.dragGesture}
       >
         <Alert
           variant="danger"
-          message="¿Estas seguro que deseas eliminar los archivos?"
-          acceptButtonLabel="Eliminar"
+          message={t(
+            "my-files-translations.file-list-labels.confirm-delete-alert-labels.message"
+          )}
+          acceptButtonLabel={t(
+            "my-files-translations.file-list-labels.confirm-delete-alert-labels.btn-accept"
+          )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmFileDeletePopUp.onClosePopUp}
           onAccept={() => {
@@ -66,7 +73,9 @@ const DownloadedFileList = () => {
         />
       </PopUp>
       <PopUp
-        title="Editar nombre del archivo"
+        title={t(
+          "my-files-translations.file-list-labels.update-file-name-popup-labels.title"
+        )}
         icon="pencil-outline"
         gesture={editFileNamePopUp.dragGesture}
         {...editFileNamePopUp}
@@ -81,7 +90,9 @@ const DownloadedFileList = () => {
         )}
       </PopUp>
       <PopUp
-        title="Mover archivo a carpeta"
+        title={t(
+          "my-files-translations.file-list-labels.move-files-popup-labels.title"
+        )}
         icon="move-outline"
         gesture={moveFilesPopUp.dragGesture}
         {...moveFilesPopUp}
@@ -120,7 +131,10 @@ const DownloadedFileList = () => {
           />
         }
         ListEmptyComponent={
-          <Empty message="No hay archivos creados" icon="document-outline" />
+          <Empty
+            message={t("my-files-translations.file-list-labels.no-files-msg")}
+            icon="document-outline"
+          />
         }
         ListFooterComponent={
           isLoading && loadingMessage ? (

@@ -12,6 +12,7 @@ import { showToast } from "@/shared/context";
 
 import { PromptsSelectionStore } from "../prompts-selection-store/PromptsSelection.store";
 
+import { i18n } from "@/core/store";
 import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
 
@@ -29,13 +30,6 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
             .insert(promptsTable)
             .values({ promptId, promptTitle, promptText, tag })
             .returning();
-
-          if (toast)
-            showToast({
-              key: generateToastKey(),
-              variant: "primary",
-              message: "Prompt creado correctamente",
-            });
 
           return {
             ...addedPromptRow[0],
@@ -124,7 +118,9 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
             showToast({
               key: generateToastKey(),
               variant: "danger",
-              message: `No se ha encontrado ningún prompt con el id: ${promptId}`,
+              message: `${i18n.t(
+                "prompts-translations.module-error-messages.prompt-not-found-msg"
+              )} ${promptId}`,
             });
             return null;
           }
@@ -159,7 +155,9 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
             .returning();
 
           if (updatedPromptRow.length === 0) {
-            const errorMsg = `No se ha encontrado ningún prompt con el id: ${promptId}`;
+            const errorMsg = `${i18n.t(
+              "prompts-translations.module-error-messages.prompt-not-found-msg"
+            )} ${promptId}`;
             showToast({
               key: generateToastKey(),
               variant: "danger",
@@ -202,8 +200,9 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
             showToast({
               key: generateToastKey(),
               variant: "danger",
-              message:
-                "Algun prompt de la lista no se existe en la base de datos",
+              message: i18n.t(
+                "prompts-translations.module-error-messages.some-prompt-not-found-msg"
+              ),
             });
             return;
           }

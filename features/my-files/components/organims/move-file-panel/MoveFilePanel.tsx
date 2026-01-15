@@ -37,6 +37,7 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
     setSelectedFolderInfo,
     /** Move Files */
     moveFiles,
+    t,
   } = useMoveFilePanelLogic();
 
   const moveFilePanelStyle = MoveFilePanelStyle(size);
@@ -72,7 +73,10 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
         />
       }
       ListEmptyComponent={
-        <Empty message="No hay carpetas creados" icon="folder-outline" />
+        <Empty
+          message={t("my-files-translations.folder-list-labels.no-folders-msg")}
+          icon="folder-outline"
+        />
       }
       ListFooterComponent={
         <>
@@ -86,7 +90,9 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
             icon="move-outline"
             variant="primary"
             width="100%"
-            label="Mover"
+            label={t(
+              "my-files-translations.file-list-labels.move-files-popup-labels.btn-move-files"
+            )}
             disabled={selectedFolderInfo === null}
             onPress={() =>
               selectedFolderInfo

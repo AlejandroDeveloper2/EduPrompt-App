@@ -8,6 +8,7 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 import { eventBus } from "@/core/events/EventBus";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -57,6 +58,8 @@ const usePromptCardListLogic = () => {
   );
 
   const { isPending, removeManyPrompts } = useDeleteManyPrompts();
+
+  const { t } = useTranslations();
 
   const prompts = useMemo(
     () => data?.pages.flatMap((p) => p.records) ?? [],
@@ -121,6 +124,8 @@ const usePromptCardListLogic = () => {
     /** Actions */
     isPending,
     removeManyPrompts,
+    /** Translations */
+    t,
   };
 };
 

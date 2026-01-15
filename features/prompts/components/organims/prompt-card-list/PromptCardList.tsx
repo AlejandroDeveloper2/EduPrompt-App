@@ -57,6 +57,7 @@ const PromptCardList = () => {
     /** Actions */
     isPending: isDeleting,
     removeManyPrompts,
+    t,
   } = usePromptCardListLogic();
 
   const { isPending, selectedTag, form } = useUpdatePromptFormLogic(
@@ -69,7 +70,9 @@ const PromptCardList = () => {
   if (isError)
     return (
       <FetchingErrorPanel
-        message="Ha ocurrido un error al cargar los prompts"
+        message={t(
+          "prompts-translations.prompt-list-labels.error-loading-prompts-msg"
+        )}
         refetch={refetch}
       />
     );
@@ -78,14 +81,20 @@ const PromptCardList = () => {
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "prompts-translations.prompt-list-labels.confirm-delete-alert-labels.title"
+        )}
         {...confirmPromptDeletePopUp}
         gesture={confirmPromptDeletePopUp.dragGesture}
       >
         <Alert
           variant="danger"
-          message="¿Estas seguro que deseas eliminar los prompts?"
-          acceptButtonLabel="Eliminar"
+          message={t(
+            "prompts-translations.prompt-list-labels.confirm-delete-alert-labels.message"
+          )}
+          acceptButtonLabel={t(
+            "prompts-translations.prompt-list-labels.confirm-delete-alert-labels.btn-accept"
+          )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmPromptDeletePopUp.onClosePopUp}
           onAccept={() => {
@@ -93,11 +102,19 @@ const PromptCardList = () => {
             confirmPromptDeletePopUp.onClosePopUp();
           }}
           loading={isDeleting}
-          loadingMessage="Eliminando..."
+          loadingMessage={t(
+            "prompts-translations.prompt-list-labels.confirm-delete-alert-labels.deleting-prompt-msg"
+          )}
         />
       </PopUp>
       <PopUp
-        title={isTagSelection ? "Seleccionar etiqueta" : "Actualizar prompt"}
+        title={
+          isTagSelection
+            ? t(
+                "prompts-translations.prompt-list-labels.tag-list-labels-popup.title"
+              )
+            : t("prompts-translations.update-prompt-template.title")
+        }
         icon={isTagSelection ? "pricetag-outline" : "pencil-outline"}
         isPopUpMounted={updatePromptPopUp.isPopUpMounted}
         gesture={updatePromptPopUp.dragGesture}
@@ -139,7 +156,9 @@ const PromptCardList = () => {
             optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
-            searchInputPlaceholder="Buscar etiqueta por nombre"
+            searchInputPlaceholder={t(
+              "prompts-translations.prompt-list-labels.tag-list-labels-popup.search-input-placeholder"
+            )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("tag", option.tagId);
@@ -147,7 +166,9 @@ const PromptCardList = () => {
             }}
             FooterComponent={
               <Button
-                label="Cancelar selección"
+                label={t(
+                  "prompts-translations.prompt-list-labels.tag-list-labels-popup.btn-cancel-selection"
+                )}
                 icon="close-outline"
                 width="100%"
                 variant="neutral"
@@ -190,7 +211,12 @@ const PromptCardList = () => {
         maxToRenderPerBatch={10}
         keyExtractor={(item) => item.promptId}
         ListEmptyComponent={
-          <Empty message="No hay resultados" icon="pricetag-outline" />
+          <Empty
+            message={t(
+              "prompts-translations.prompt-list-labels.no-prompts-msg"
+            )}
+            icon="pricetag-outline"
+          />
         }
         ListHeaderComponent={
           <PromptCardListHeader isDataSync={prompts.every((p) => p.sync)} />
@@ -205,7 +231,9 @@ const PromptCardList = () => {
           isFetchingNextPage ? (
             <LoadingTextIndicator
               color={AppColors.primary[400]}
-              message="Cargando mas prompts..."
+              message={t(
+                "prompts-translations.prompt-list-labels.loading-prompts-msg"
+              )}
             />
           ) : null
         }

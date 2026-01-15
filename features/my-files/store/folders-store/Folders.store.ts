@@ -13,6 +13,7 @@ import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
 import { ZipHelper } from "../../utils";
 
+import { i18n } from "@/core/store";
 import { FilesSelectionStore } from "../files-selection-store/FilesSelection.store";
 import { SharedStore } from "../shared-store/Shared.store";
 
@@ -89,7 +90,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Nombre de la carpeta actualizado exitosamente!",
+      message: i18n.t(
+        "my-files-translations.module-success-messages.folder-name-updated-msg"
+      ),
     });
   },
   deleteManyFolders: (): void => {
@@ -116,7 +119,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Carpetas eliminadas exitosamente!",
+      message: i18n.t(
+        "my-files-translations.module-success-messages.folders-deleted-msg"
+      ),
     });
 
     clearSelection();
@@ -138,7 +143,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "neutral",
-            message: "No hay carpetas seleccionadas para compartir",
+            message: i18n.t(
+              "my-files-translations.module-warning-messages.no-selected-folders-msg"
+            ),
           });
           return;
         }
@@ -147,7 +154,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
         showToast({
           key: generateToastKey(),
           variant: "primary",
-          message: "Preparando carpetas para compartir...",
+          message: i18n.t(
+            "my-files-translations.module-warning-messages.preparing-folders-to-share-msg"
+          ),
         });
 
         // Preparar rutas de carpetas
@@ -166,8 +175,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message:
-              "La función de compartir no está disponible en este dispositivo",
+            message: i18n.t(
+              "my-files-translations.module-error-messages.share-function-no-available-msg"
+            ),
           });
           return;
         }
@@ -175,7 +185,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
         // Compartir el archivo ZIP
         await Sharing.shareAsync(zipPath, {
           mimeType: "application/zip",
-          dialogTitle: "Compartir carpetas",
+          dialogTitle: i18n.t(
+            "my-files-translations.folder-sharing-dialog-title"
+          ),
         });
 
         // Limpiar selección
@@ -191,7 +203,9 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
         showToast({
           key: generateToastKey(),
           variant: "danger",
-          message: "Error al compartir carpetas",
+          message: i18n.t(
+            "my-files-translations.module-error-messages.folder-sharing-error-msg"
+          ),
         });
       },
       () => {
