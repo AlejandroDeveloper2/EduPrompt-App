@@ -756,6 +756,105 @@
     }
   },
 
+  "resources-translations": {
+    "resources-list-labels": {
+      "selection-options-labels": {
+        "delete-resources": "Excluir",
+        "download-resources": "Baixar"
+      },
+      "no-resource-tag-label": "Sem etiqueta",
+      "title": "Meus Recursos",
+      "description": "Revise e gerencie facilmente as visualizações de todos os recursos que você gerou com o Edu Prompt, tudo em um só lugar.",
+      "search-input-placeholder": "Buscar recurso por título",
+      "format-filters-labels": {
+        "title": "Filtrar por formato"
+      },
+      "tag-filters-labels": {
+        "title": "Filtrar por etiqueta",
+        "all-tags": "Todos"
+      },
+      "tag-list-popup-labels": {
+        "title": "Etiquetas",
+        "search-input-placeholder": "Buscar etiqueta por nome"
+      },
+      "syncronization-card-labels": {
+        "title": "Sincronização de Dados",
+        "description": "Há dados não sincronizados, toque no botão abaixo para sincronizar seus dados",
+        "btn-sync": "Sincronizar",
+        "loading-text": "Sincronizando dados..."
+      },
+      "fetch-resources-error-msg": "Ocorreu um erro ao carregar os recursos educacionais",
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "Tem certeza de que deseja excluir os recursos?",
+        "btn-accept": "Excluir",
+        "deleting-resources-msg": "Excluindo..."
+      },
+      "popups-tabulator-labels": {
+        "tab-1": "Visualização",
+        "tab-2": "Editar Recurso"
+      },
+      "view-resource-popup-labels": {
+        "title": "Visualizar Recurso"
+      },
+      "select-tags-popup-labels": {
+        "title": "Selecionar Etiqueta",
+        "search-input-placeholder": "Buscar etiqueta por nome",
+        "btn-cancel-selection": "Cancelar seleção"
+      },
+      "loading-resources-msg": "Carregando mais recursos...",
+      "no-resources-msg": "Não há recursos salvos"
+    },
+    "processes-labels": {
+      "download-resources-process": {
+        "title": "Baixando recursos...",
+        "description": "Seus recursos selecionados estão sendo baixados, isso pode levar alguns segundos."
+      }
+    },
+    "download-resources-notifications-labels": {
+      "success": {
+        "title": "Recursos Baixados!",
+        "message": "Seus recursos foram baixados com sucesso."
+      },
+      "error": {
+        "title": "Erro ao Baixar!",
+        "message": "Não foi possível baixar seus recursos, tente novamente."
+      }
+    },
+    "update-resource-template": {
+      "form-labels": {
+        "title": {
+          "label": "Título (*)",
+          "placeholder": "Digite o título do recurso"
+        },
+        "tag": {
+          "label": "Etiqueta (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-update-resource": "Atualizar Recurso",
+        "btn-cancel": "Cancelar"
+      },
+      "form-loading-messages": {
+        "updating-resource-msg": "Atualizando..."
+      },
+      "form-error-messages": {
+        "invalid-resource-id-msg": "O ID do recurso não é válido",
+        "required-title-msg": "O título do recurso é obrigatório",
+        "required-tag-msg": "A etiqueta do recurso é obrigatória"
+      }
+    },
+    "module-error-messages": {
+      "resource-not-found-msg": "Nenhum recurso foi encontrado com o id:",
+      "some-resource-not-found-msg": "Algum recurso da lista não existe no banco de dados"
+    },
+    "module-success-messages": {
+      "resource-created-msg": "Recurso educacional salvo com sucesso",
+      "resources-deleted-msg": "Recursos educacionais excluídos com sucesso",
+      "resource-updated-msg": "Recurso educacional atualizado com sucesso",
+      "resources-synced-msg": "Informações dos recursos sincronizadas com sucesso"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "Ocorreu um erro interno no servidor",
     "database-connection-error-msg": "Erro ao conectar com o banco de dados",

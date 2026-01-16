@@ -5,7 +5,7 @@ import { UpdateResourcePayload } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useUpdateResourceMutation } from "../mutations";
 import { useOfflineResourcesStore } from "../store";
@@ -25,6 +25,8 @@ const useUpdateResource = () => {
   /** Online */
   const { mutate, isPending } = useUpdateResourceMutation();
 
+  const { t } = useTranslations();
+
   const editResource = useCallback(
     async (updateResourcePayload: UpdateResourcePayload) => {
       /** Actualización  offline inmediata */
@@ -42,7 +44,9 @@ const useUpdateResource = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Recurso educativo actualizado correctamente",
+        message: t(
+          "resources-translations.module-success-messages.resource-updated-msg"
+        ),
       });
     },
     [
@@ -52,6 +56,7 @@ const useUpdateResource = () => {
       updateResource,
       updateResourcesSyncStatus,
       queryClient,
+      t,
     ]
   );
 

@@ -5,7 +5,7 @@ import { EducationalResource } from "../../types";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflineResourcesStore } from "../store";
 
@@ -23,6 +23,8 @@ const useSyncResourcesMutation = () => {
 
   const { updateResourcesSyncStatus, findAllResources } =
     useOfflineResourcesStore();
+
+  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: postSyncResources,
@@ -61,7 +63,9 @@ const useSyncResourcesMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Info de los recursos sincronizada con éxito",
+        message: t(
+          "resources-translations.module-success-messages.resources-synced-msg"
+        ),
       });
     },
     onError: (error, _newResources, context) => {

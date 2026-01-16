@@ -7,8 +7,10 @@ import { EducationalResource } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -22,7 +24,6 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
-import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { ResourceCardStyle } from "./ResourceCard.style";
 
 interface ResourceCardProps {
@@ -57,6 +58,8 @@ const ResourceCard = ({
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
+  const { t } = useTranslations();
+
   const resourceCardStyle = ResourceCardStyle(size);
 
   return (
@@ -69,7 +72,10 @@ const ResourceCard = ({
           <Badge label={format} variant="primary" />
           <Badge
             label={
-              tags.find((t) => t.tagId === groupTag)?.name ?? "Sin etiqueta"
+              tags.find((t) => t.tagId === groupTag)?.name ??
+              t(
+                "resources-translations.resources-list-labels.no-resource-tag-label"
+              )
             }
             variant="neutral"
           />

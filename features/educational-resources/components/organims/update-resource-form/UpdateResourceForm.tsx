@@ -1,5 +1,7 @@
 import { UpdateResourceFormProps } from "./types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { UpdateResourceFormData } from "./validateSchema";
 
 import { Form } from "@/shared/components/organims";
@@ -14,17 +16,23 @@ const UpdateResourceForm = ({
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     form;
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<UpdateResourceFormData>
-              label="Titulo (*)"
+              label={t(
+                "resources-translations.update-resource-template.form-labels.title.label"
+              )}
               icon="text-outline"
               name="title"
               value={data.title}
-              placeholder="Digita el titulo del recurso"
+              placeholder={t(
+                "resources-translations.update-resource-template.form-labels.title.placeholder"
+              )}
               errorMessage={getFieldErrors("title")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("title")}
@@ -42,9 +50,13 @@ const UpdateResourceForm = ({
               }
             >
               name="groupTag"
-              label="Etiqueta (*)"
+              label={t(
+                "resources-translations.update-resource-template.form-labels.tag.label"
+              )}
               icon="pricetag-outline"
-              placeholder="Seleccione una opción"
+              placeholder={t(
+                "resources-translations.update-resource-template.form-labels.tag.placeholder"
+              )}
               selectedOption={selectedTag}
               optionValueKey="name"
               displayDropdownOptions={onTagSelectionMode}
@@ -60,9 +72,13 @@ const UpdateResourceForm = ({
             variant="primary"
             width="100%"
             icon="pencil-outline"
-            label="Actualizar recurso"
+            label={t(
+              "resources-translations.update-resource-template.form-labels.btn-update-resource"
+            )}
             loading={isLoading}
-            loadingMessage="Actualizando..."
+            loadingMessage={t(
+              "resources-translations.update-resource-template.form-loading-messages.updating-resource-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
@@ -71,7 +87,9 @@ const UpdateResourceForm = ({
             variant="neutral"
             width="100%"
             icon="close-outline"
-            label="Cancelar"
+            label={t(
+              "resources-translations.update-resource-template.form-labels.btn-cancel"
+            )}
             onPress={onClosePopUp}
           />
         </Form.Row.Item>

@@ -758,6 +758,105 @@
     }
   },
 
+  "resources-translations": {
+    "resources-list-labels": {
+      "selection-options-labels": {
+        "delete-resources": "Eliminar",
+        "download-resources": "Descargar"
+      },
+      "no-resource-tag-label": "Sin etiqueta",
+      "title": "Mis Recursos",
+      "description": "Revisa y gestiona fácilmente las vistas previas de todos los recursos que has generado con Edu Prompt, todo en un solo lugar.",
+      "search-input-placeholder": "Buscar recurso por titulo",
+      "format-filters-labels": {
+        "title": "Filtrar por formato"
+      },
+      "tag-filters-labels": {
+        "title": "Filtrar por etiqueta",
+        "all-tags": "Todos"
+      },
+      "tag-list-popup-labels": {
+        "title": "Etiquetas",
+        "search-input-placeholder": "Buscar etiqueta por nombre"
+      },
+      "syncronization-card-labels": {
+        "title": "Sincronización de datos",
+        "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
+        "btn-sync": "Sincronizar",
+        "loading-text": "Sincronizando datos..."
+      },
+      "fetch-resources-error-msg": "Ha ocurrido un error al cargar los recursos educativos",
+      "confirm-delete-alert-labels": {
+        "title": "Alerta",
+        "message": "¿Estas seguro que deseas eliminar los recursos?",
+        "btn-accept": "Eliminar",
+        "deleting-resources-msg": "Eliminando..."
+      },
+      "popups-tabulator-labels": {
+        "tab-1": "Vista previa",
+        "tab-2": "Editar recurso"
+      },
+      "view-resource-popup-labels": {
+        "title": "Visualizar recurso"
+      },
+      "select-tags-popup-labels": {
+        "title": "Seleccionar etiqueta",
+        "search-input-placeholder": "Buscar etiqueta por nombre",
+        "btn-cancel-selection": "Cancelar selección"
+      },
+      "loading-resources-msg": "Cargando mas recursos...",
+      "no-resources-msg": "No hay recursos guardados"
+    },
+    "processes-labels": {
+      "download-resources-process": {
+        "title": "Descargando recursos...",
+        "description": "Se están descargando tus recursos seleccionados, esto podria tomar unos segundos.."
+      }
+    },
+    "download-resources-notifications-labels": {
+      "success": {
+        "title": "¡Recursos descargados!",
+        "message": "Tus recursos se han descargado correctamente."
+      },
+      "error": {
+        "title": "¡Error al descargar!",
+        "message": "No se pudo descargar tus recursos, intentalo de nuevo."
+      }
+    },
+    "update-resource-template": {
+      "form-labels": {
+        "title": {
+          "label": "Titulo (*)",
+          "placeholder": "Digita el titulo del recurso"
+        },
+        "tag": {
+          "label": "Etiqueta (*)",
+          "placeholder": "Seleccione una opción"
+        },
+        "btn-update-resource": "Actualizar recurso",
+        "btn-cancel": "Cancelar"
+      },
+      "form-loading-messages": {
+        "updating-resource-msg": "Actualizando..."
+      },
+      "form-error-messages": {
+        "invalid-resource-id-msg": "El ID del recurso no es valido",
+        "required-title-msg": "El titulo del recurso es obligatorio",
+        "required-tag-msg": "La etiqueta del recurso es obligatoria"
+      }
+    },
+    "module-error-messages": {
+      "resource-not-found-msg": "No se ha encontrado ningún recurso con el id:",
+      "some-resource-not-found-msg": "Algún recurso de la lista no se existe en la base de datos"
+    },
+    "module-success-messages": {
+      "resource-created-msg": "Recurso educativo guardado correctamente",
+      "resources-deleted-msg": "Recursos educativos eliminados correctamente",
+      "resource-updated-msg": "Recurso educativo actualizado correctamente",
+      "resources-synced-msg": "Info de los recursos sincronizada con éxito"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "Ha ocurrido un error interno en el servidor",
     "database-connection-error-msg": "Error al conectar con la base de datos",

@@ -70,6 +70,7 @@ const PreviewResourceList = () => {
     /**Actions */
     isPending: isDeleting,
     removeManyResources,
+    t,
   } = useResourceCardListLogic(RESOURCE_PREVIEW_TABS[0]);
 
   const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
@@ -82,9 +83,7 @@ const PreviewResourceList = () => {
       <ScrollView style={{ width: "100%", maxHeight: 500 }}>
         <ResourceViewer
           viewerType={viewerType}
-          content={
-            selectedResource ? selectedResource.content : "Sin contenido..."
-          }
+          content={selectedResource ? selectedResource.content : "..."}
           scroll={false}
         />
       </ScrollView>
@@ -105,7 +104,9 @@ const PreviewResourceList = () => {
   if (isError)
     return (
       <FetchingErrorPanel
-        message="Ha ocurrido un error al cargar los recursos educativos"
+        message={t(
+          "resources-translations.resources-list-labels.fetch-resources-error-msg"
+        )}
         refetch={refetch}
       />
     );
@@ -113,14 +114,20 @@ const PreviewResourceList = () => {
     <>
       <PopUp
         icon="information-circle-outline"
-        title="Alerta"
+        title={t(
+          "resources-translations.resources-list-labels.confirm-delete-alert-labels.title"
+        )}
         {...confirmDeletePopUp}
         gesture={confirmDeletePopUp.dragGesture}
       >
         <Alert
           variant="danger"
-          message="¿Estas seguro que deseas eliminar los recursos?"
-          acceptButtonLabel="Eliminar"
+          message={t(
+            "resources-translations.resources-list-labels.confirm-delete-alert-labels.message"
+          )}
+          acceptButtonLabel={t(
+            "resources-translations.resources-list-labels.confirm-delete-alert-labels.btn-accept"
+          )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.onClosePopUp}
           onAccept={() => {
@@ -128,11 +135,21 @@ const PreviewResourceList = () => {
             confirmDeletePopUp.onClosePopUp();
           }}
           loading={isDeleting}
-          loadingMessage="Eliminando..."
+          loadingMessage={t(
+            "resources-translations.resources-list-labels.confirm-delete-alert-labels.deleting-resources-msg"
+          )}
         />
       </PopUp>
       <PopUp
-        title={isTagSelection ? "Seleccionar etiqueta" : "Visualizar recurso"}
+        title={
+          isTagSelection
+            ? t(
+                "resources-translations.resources-list-labels.select-tags-popup-labels.title"
+              )
+            : t(
+                "resources-translations.resources-list-labels.view-resource-popup-labels.title"
+              )
+        }
         icon={isTagSelection ? "pricetag-outline" : "eye-outline"}
         isPopUpMounted={updateResourcePopUp.isPopUpMounted}
         gesture={updateResourcePopUp.dragGesture}
@@ -174,7 +191,9 @@ const PreviewResourceList = () => {
             optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
-            searchInputPlaceholder="Buscar etiqueta por nombre"
+            searchInputPlaceholder={t(
+              "resources-translations.resources-list-labels.select-tags-popup-labels.search-input-placeholder"
+            )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("groupTag", option.tagId);
@@ -182,7 +201,9 @@ const PreviewResourceList = () => {
             }}
             FooterComponent={
               <Button
-                label="Cancelar selección"
+                label={t(
+                  "resources-translations.resources-list-labels.select-tags-popup-labels.btn-cancel-selection"
+                )}
                 icon="close-outline"
                 width="100%"
                 variant="neutral"
@@ -235,7 +256,12 @@ const PreviewResourceList = () => {
           <PreviewResourceHeader isDataSync={resources.every((r) => r.sync)} />
         }
         ListEmptyComponent={
-          <Empty message="No hay recursos guardados" icon="book-outline" />
+          <Empty
+            message={t(
+              "resources-translations.resources-list-labels.no-resources-msg"
+            )}
+            icon="book-outline"
+          />
         }
         onEndReachedThreshold={0.4}
         onEndReached={() => {
@@ -247,7 +273,9 @@ const PreviewResourceList = () => {
           isFetchingNextPage ? (
             <LoadingTextIndicator
               color={AppColors.primary[400]}
-              message="Cargando mas prompts..."
+              message={t(
+                "resources-translations.resources-list-labels.loading-resources-msg"
+              )}
             />
           ) : null
         }

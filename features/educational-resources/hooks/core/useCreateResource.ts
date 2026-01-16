@@ -8,7 +8,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useCreateResourceMutation } from "../mutations";
 import { useOfflineResourcesStore } from "../store";
@@ -27,6 +27,8 @@ const useCreateResource = () => {
 
   /** Online */
   const { mutate, isPending } = useCreateResourceMutation();
+
+  const { t } = useTranslations();
 
   const addResource = useCallback(
     async (
@@ -64,7 +66,9 @@ const useCreateResource = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Recurso educativo guardado correctamente",
+        message: t(
+          "resources-translations.module-success-messages.resource-created-msg"
+        ),
       });
     },
     [
@@ -74,6 +78,7 @@ const useCreateResource = () => {
       createResource,
       updateResourcesSyncStatus,
       queryClient,
+      t,
     ]
   );
 

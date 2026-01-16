@@ -13,7 +13,7 @@ import {
 } from "../../constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useBackgroundTaskRunner } from "@/shared/hooks/core";
+import { useBackgroundTaskRunner, useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -78,6 +78,8 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
 
   const { isPending, removeManyResources } = useDeleteManyResources();
 
+  const { t } = useTranslations();
+
   const resources = useMemo(
     () => data?.pages.flatMap((r) => r.records) ?? [],
     [data]
@@ -125,13 +127,20 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
             downloadManyResources,
             {
               successNotification: {
-                title: "¡Recursos descargados!",
-                message: "Tus recursos se han descargado correctamente.",
+                title: t(
+                  "resources-translations.download-resources-notifications-labels.success.title"
+                ),
+                message: t(
+                  "resources-translations.download-resources-notifications-labels.success.message"
+                ),
               },
               errorNotification: {
-                title: "¡Error al descargar!",
-                message:
-                  "No se pudo descargar tus recursos, intentalo de nuevo.",
+                title: t(
+                  "resources-translations.download-resources-notifications-labels.error.title"
+                ),
+                message: t(
+                  "resources-translations.download-resources-notifications-labels.error.message"
+                ),
               },
             }
           );
@@ -185,6 +194,7 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     /**Actions */
     isPending,
     removeManyResources,
+    t,
   };
 };
 

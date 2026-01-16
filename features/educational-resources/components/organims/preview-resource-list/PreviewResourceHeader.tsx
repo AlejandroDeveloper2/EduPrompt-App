@@ -10,6 +10,7 @@ import { AppColors } from "@/shared/styles";
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useSyncResourcesMutation } from "@/features/educational-resources/hooks/mutations";
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -61,12 +62,16 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
 
   const { isPending, syncResources } = useSyncResourcesMutation();
 
+  const { t, lang } = useTranslations();
+
   const previewResourceListStyle = PreviewResourceListStyle(size);
 
   return (
     <>
       <PopUp
-        title="Etiquetas"
+        title={t(
+          "resources-translations.resources-list-labels.tag-list-popup-labels.title"
+        )}
         icon="pricetag-outline"
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -99,7 +104,9 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           optionList={paginatedTags.tags}
           optionIdkey="tagId"
           optionLabelKey="name"
-          searchInputPlaceholder="Buscar etiqueta por nombre"
+          searchInputPlaceholder={t(
+            "resources-translations.resources-list-labels.tag-list-popup-labels.search-input-placeholder"
+          )}
           selectedOption={tagFilter}
           onSelectOption={(option) => {
             onTagFilterChange(option);
@@ -112,33 +119,47 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           !userProfile.userPreferences.autoSync &&
           isAuthenticated && (
             <InfoCard
-              title="Sincronización de datos"
-              description="Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos"
+              title={t(
+                "resources-translations.resources-list-labels.syncronization-card-labels.title"
+              )}
+              description={t(
+                "resources-translations.resources-list-labels.syncronization-card-labels.description"
+              )}
               buttonData={{
                 onPress: syncResources,
                 icon: "sync-outline",
-                label: "Sincronizar",
+                label: t(
+                  "resources-translations.resources-list-labels.syncronization-card-labels.btn-sync"
+                ),
                 loading: isPending,
-                loadingMessage: "Sincronizando datos...",
+                loadingMessage: t(
+                  "resources-translations.resources-list-labels.syncronization-card-labels.loading-text"
+                ),
               }}
             />
           )}
         <ScreenSection
-          description="Revisa y gestiona fácilmente las vistas previas de todos los recursos que has generado con Edu Prompt, todo en un solo lugar. "
-          title="Mis Recursos"
+          description={t(
+            "resources-translations.resources-list-labels.description"
+          )}
+          title={t("resources-translations.resources-list-labels.title")}
           icon="book-outline"
         />
         <Input<{ searchResourceValue: string }>
           name="searchResourceValue"
           value={searchResourceValue}
           icon="search-outline"
-          placeholder="Buscar recurso por titulo"
+          placeholder={t(
+            "resources-translations.resources-list-labels.search-input-placeholder"
+          )}
           onChange={(_, value) => onSearchResourceValueChange(value)}
           onClearInput={() => onSearchResourceValueChange("")}
         />
         <View style={previewResourceListStyle.FilterSection}>
           <Typography
-            text="Filtrar por formato"
+            text={t(
+              "resources-translations.resources-list-labels.format-filters-labels.title"
+            )}
             weight="medium"
             type="paragraph"
             textAlign="left"
@@ -151,7 +172,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
             horizontal
             showsHorizontalScrollIndicator={false}
           >
-            {FORMAT_FILTERS["es"].map((filter) => (
+            {FORMAT_FILTERS[lang].map((filter) => (
               <FilterTag
                 key={filter.label}
                 icon={filter.icon}
@@ -165,7 +186,9 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
         {paginatedTags.tags.length > 0 && (
           <View style={previewResourceListStyle.FilterSection}>
             <Typography
-              text="Filtrar por etiqueta"
+              text={t(
+                "resources-translations.resources-list-labels.tag-filters-labels.title"
+              )}
               weight="medium"
               type="paragraph"
               textAlign="left"
@@ -180,7 +203,9 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
             >
               <FilterTag
                 icon="star-outline"
-                label="Todos"
+                label={t(
+                  "resources-translations.resources-list-labels.tag-filters-labels.all-tags"
+                )}
                 active={tagFilter === null}
                 onPressFilter={() => onTagFilterChange(null)}
               />

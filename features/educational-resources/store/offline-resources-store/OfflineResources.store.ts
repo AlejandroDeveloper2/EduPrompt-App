@@ -14,6 +14,7 @@ import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
 import { ResourceDownloadManager } from "../../utils";
 
+import { i18n } from "@/core/store";
 import { ResourcesSelectionStore } from "../resources-selection-store/ResourcesSelection.store";
 
 export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
@@ -31,13 +32,6 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             .insert(resourcesTable)
             .values({ title, resourceId, content, format, formatKey, groupTag })
             .returning();
-
-          if (toast)
-            showToast({
-              key: generateToastKey(),
-              variant: "primary",
-              message: "Recurso guardado correctamente",
-            });
 
           return {
             ...addedResourceRow[0],
@@ -148,7 +142,9 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             showToast({
               key: generateToastKey(),
               variant: "danger",
-              message: `No se ha encontrado ningún recurso con el id: ${resourceId}`,
+              message: `${i18n.t(
+                "resources-translations.module-error-messages.resource-not-found-msg"
+              )} ${resourceId}`,
             });
             return null;
           }
@@ -184,7 +180,9 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             .returning();
 
           if (updatedResourceRow.length === 0) {
-            const errorMsg = `No se ha encontrado ningún recurso con el id: ${resourceId}`;
+            const errorMsg = `${i18n.t(
+              "resources-translations.module-error-messages.resource-not-found-msg"
+            )} ${resourceId}`;
             showToast({
               key: generateToastKey(),
               variant: "danger",
@@ -229,8 +227,9 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             showToast({
               key: generateToastKey(),
               variant: "danger",
-              message:
-                "Algún recurso de la lista no se existe en la base de datos",
+              message: i18n.t(
+                "resources-translations.module-error-messages.some-resource-not-found-msg"
+              ),
             });
             return;
           }

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import { showToast } from "@/shared/context";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSelectionModeStore } from "@/shared/hooks/store";
 import { useDeleteManyResourcesMutation } from "../mutations";
@@ -26,6 +26,8 @@ const useDeleteManyResources = () => {
   /** Online */
   const { mutate, isPending } = useDeleteManyResourcesMutation();
 
+  const { t } = useTranslations();
+
   const removeManyResources = useCallback(async () => {
     /** Eliminación  offline inmediata */
     await deleteManyResources();
@@ -42,7 +44,9 @@ const useDeleteManyResources = () => {
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Recursos educativos eliminados correctamente",
+      message: t(
+        "resources-translations.module-success-messages.resources-deleted-msg"
+      ),
     });
   }, [
     isAuthenticated,
@@ -52,6 +56,7 @@ const useDeleteManyResources = () => {
     queryClient,
     disableSelectionMode,
     selectedResourceIds,
+    t,
   ]);
 
   return {

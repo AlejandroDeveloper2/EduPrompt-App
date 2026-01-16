@@ -755,6 +755,105 @@
     }
   },
 
+  "resources-translations": {
+    "resources-list-labels": {
+      "selection-options-labels": {
+        "delete-resources": "Delete",
+        "download-resources": "Download"
+      },
+      "no-resource-tag-label": "No tag",
+      "title": "My Resources",
+      "description": "Easily review and manage previews of all the resources you've generated with Edu Prompt, all in one place.",
+      "search-input-placeholder": "Search resource by title",
+      "format-filters-labels": {
+        "title": "Filter by format"
+      },
+      "tag-filters-labels": {
+        "title": "Filter by tag",
+        "all-tags": "All"
+      },
+      "tag-list-popup-labels": {
+        "title": "Tags",
+        "search-input-placeholder": "Search tag by name"
+      },
+      "syncronization-card-labels": {
+        "title": "Data Synchronization",
+        "description": "There is unsynchronized data, tap the button below to sync your data",
+        "btn-sync": "Synchronize",
+        "loading-text": "Synchronizing data..."
+      },
+      "fetch-resources-error-msg": "An error occurred while loading educational resources",
+      "confirm-delete-alert-labels": {
+        "title": "Alert",
+        "message": "Are you sure you want to delete the resources?",
+        "btn-accept": "Delete",
+        "deleting-resources-msg": "Deleting..."
+      },
+      "popups-tabulator-labels": {
+        "tab-1": "Preview",
+        "tab-2": "Edit Resource"
+      },
+      "view-resource-popup-labels": {
+        "title": "View Resource"
+      },
+      "select-tags-popup-labels": {
+        "title": "Select Tag",
+        "search-input-placeholder": "Search tag by name",
+        "btn-cancel-selection": "Cancel selection"
+      },
+      "loading-resources-msg": "Loading more resources...",
+      "no-resources-msg": "No saved resources"
+    },
+    "processes-labels": {
+      "download-resources-process": {
+        "title": "Downloading resources...",
+        "description": "Your selected resources are being downloaded, this may take a few seconds."
+      }
+    },
+    "download-resources-notifications-labels": {
+      "success": {
+        "title": "Resources Downloaded!",
+        "message": "Your resources have been downloaded successfully."
+      },
+      "error": {
+        "title": "Download Error!",
+        "message": "Could not download your resources, please try again."
+      }
+    },
+    "update-resource-template": {
+      "form-labels": {
+        "title": {
+          "label": "Title (*)",
+          "placeholder": "Enter the resource title"
+        },
+        "tag": {
+          "label": "Tag (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-update-resource": "Update Resource",
+        "btn-cancel": "Cancel"
+      },
+      "form-loading-messages": {
+        "updating-resource-msg": "Updating..."
+      },
+      "form-error-messages": {
+        "invalid-resource-id-msg": "The resource ID is not valid",
+        "required-title-msg": "Resource title is required",
+        "required-tag-msg": "Resource tag is required"
+      }
+    },
+    "module-error-messages": {
+      "resource-not-found-msg": "No resource found with the id:",
+      "some-resource-not-found-msg": "Some resource from the list does not exist in the database"
+    },
+    "module-success-messages": {
+      "resource-created-msg": "Educational resource saved successfully",
+      "resources-deleted-msg": "Educational resources deleted successfully",
+      "resource-updated-msg": "Educational resource updated successfully",
+      "resources-synced-msg": "Resource info synchronized successfully"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "An internal server error has occurred",
     "database-connection-error-msg": "Error connecting to the database",
