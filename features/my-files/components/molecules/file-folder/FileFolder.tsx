@@ -38,7 +38,7 @@ const FileFolder = ({
 
   const isSelected: boolean = useMemo(
     () => selectedFolderIds.has(data.folderId),
-    [data.folderId, selectedFolderIds]
+    [data.folderId, selectedFolderIds],
   );
 
   const animatedFileFolderStyle = useAnimatedFileFolder(isSelected);
@@ -72,7 +72,7 @@ const FileFolder = ({
         <View style={fileFolderStyle.Metadata}>
           <Typography
             text={`${data.files.length} ${t(
-              "my-files-translations.file-navigator-labels.file-tab"
+              "my-files-translations.folder-list-labels.files-count-label",
             )}`}
             weight="bold"
             type="caption"

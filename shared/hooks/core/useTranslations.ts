@@ -5,8 +5,8 @@ import { useLanguageStore } from "../store";
 
 const useTranslations = () => {
   const t = (key: string, options?: TranslateOptions) => i18n.t(key, options);
-  const { lang } = useLanguageStore();
+  const { lang, setLanguage } = useLanguageStore();
 
-  return { t, lang };
+  return { t, lang, setLanguage };
 };
 export default useTranslations;

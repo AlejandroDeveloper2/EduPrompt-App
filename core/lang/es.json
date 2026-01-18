@@ -42,6 +42,11 @@
       "no-connected-msg": "Conectate a internet para sincronizar tus datos.",
       "no-auth-msg": "Inicia sesión o crea una cuenta para poder sincronizar tus datos.",
       "all-synced-msg": "Todo esta sincronizado"
+    },
+    "subscription-indicator-labels": {
+      "label": "Plan Activo:",
+      "premium-plan": "Premium",
+      "free-plan": "Gratuito"
     }
   },
   "onboarding-translations": {

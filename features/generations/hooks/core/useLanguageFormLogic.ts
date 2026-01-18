@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
 
-import { LangTag } from "@/core/types";
-
 import { APP_LANGUAGES } from "@/shared/constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
@@ -26,6 +24,8 @@ const useLanguageFormLogic = () => {
 
   const { t } = useTranslations();
 
+  const appLanguages = useMemo(() => APP_LANGUAGES(t), [t]);
+
   const {
     data,
     getFieldErrors,
@@ -38,7 +38,7 @@ const useLanguageFormLogic = () => {
     validationSchema: languageFormSchema,
     actionCallback: () => {
       if (!currentIaGeneration) return;
-      const language = getSelectedOption(APP_LANGUAGES, data.language, "key");
+      const language = getSelectedOption(appLanguages, data.language, "key");
 
       if (!language) return;
 
@@ -46,11 +46,11 @@ const useLanguageFormLogic = () => {
         currentIaGeneration.generationId,
         { language },
         { completed: true },
-        {}
+        {},
       );
       setGenerationStep(
         currentIaGeneration.generationId,
-        "resource_description_prompt"
+        "resource_description_prompt",
       );
     },
     noReset: true,
@@ -65,15 +65,15 @@ const useLanguageFormLogic = () => {
   } = useAnimatedPopUp();
 
   const selectedLanguage = useMemo(
-    () => getSelectedOption(APP_LANGUAGES, data.language, "key"),
-    [data.language]
+    () => getSelectedOption(appLanguages, data.language, "key"),
+    [data.language],
   );
 
   useEffect(() => {
     if (!currentIaGeneration) return;
     const { data: currentData } = currentIaGeneration;
     setValues({
-      language: currentData.language.key as LangTag,
+      language: currentData.language.key as "es" | "en" | "pt",
     });
   }, [currentIaGeneration]);
 
@@ -93,6 +93,7 @@ const useLanguageFormLogic = () => {
       animatedPopUpStyle,
       onClosePopUp,
     },
+    appLanguages,
     selectedLanguage,
     t,
   };

@@ -1,7 +1,5 @@
 import { AppLanguage } from "@/core/types";
 
-import { APP_LANGUAGES } from "@/shared/constants";
-
 import { useLanguageFormLogic } from "@/features/generations/hooks/core";
 
 import { LanguageFormData } from "./validationSchema";
@@ -20,6 +18,7 @@ const LanguageForm = () => {
       animatedPopUpStyle,
       onClosePopUp,
     },
+    appLanguages,
     selectedLanguage,
     t,
   } = useLanguageFormLogic();
@@ -29,7 +28,7 @@ const LanguageForm = () => {
       <PopUp
         icon="language-outline"
         title={t(
-          "generations-translations.language-template.language-selection-popup-labels.title"
+          "generations-translations.language-template.language-selection-popup-labels.title",
         )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -37,11 +36,11 @@ const LanguageForm = () => {
         onClosePopUp={onClosePopUp}
       >
         <DropdownOptionList<AppLanguage>
-          optionList={APP_LANGUAGES}
+          optionList={appLanguages}
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-            "generations-translations.language-template.language-selection-popup-labels.search-input-placeholder"
+            "generations-translations.language-template.language-selection-popup-labels.search-input-placeholder",
           )}
           selectedOption={selectedLanguage}
           onSelectOption={(option) => {
@@ -58,10 +57,10 @@ const LanguageForm = () => {
                 name="language"
                 icon="language-outline"
                 label={t(
-                  "generations-translations.language-template.form-labels.language.label"
+                  "generations-translations.language-template.form-labels.language.label",
                 )}
                 placeholder={t(
-                  "generations-translations.language-template.form-labels.language.placeholder"
+                  "generations-translations.language-template.form-labels.language.placeholder",
                 )}
                 selectedOption={selectedLanguage}
                 optionValueKey="label"
@@ -79,13 +78,13 @@ const LanguageForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations-translations.language-template.form-labels.btn-prev-step"
+                "generations-translations.language-template.form-labels.btn-prev-step",
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
                   currentIaGeneration.generationId,
-                  "resource_format_selection"
+                  "resource_format_selection",
                 );
               }}
             />
@@ -96,7 +95,7 @@ const LanguageForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations-translations.language-template.form-labels.btn-next-step"
+                "generations-translations.language-template.form-labels.btn-next-step",
               )}
               onPress={handleSubmit}
             />

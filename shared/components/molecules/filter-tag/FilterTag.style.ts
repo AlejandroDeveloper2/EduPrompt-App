@@ -12,7 +12,6 @@ export const FilterTagStyle = (size: SizeType) =>
       borderRadius: Radius.radius_pilled,
       flexDirection: "row",
       display: "flex",
-      flexGrow: 0,
       justifyContent: "center",
       alignItems: "center",
       paddingVertical: Spacing.spacing_2xs,

@@ -3,6 +3,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useAnimatedSubscriptionBar } from "../../../hooks/animations";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
@@ -15,6 +16,7 @@ const SubscriptionIndicatorBar = () => {
 
   const size = useScreenDimensionsStore();
   const animatedBackgroundStyle = useAnimatedSubscriptionBar(hasSubscription);
+  const { t } = useTranslations();
 
   const subscriptionIndicatorBarStyle = SubscriptionIndicatorBarStyle(size);
 
@@ -28,7 +30,7 @@ const SubscriptionIndicatorBar = () => {
       <View style={subscriptionIndicatorBarStyle.Content}>
         <View style={subscriptionIndicatorBarStyle.LabelContainer}>
           <Typography
-            text="Plan Activo: "
+            text={t("common-translations.subscription-indicator-labels.label")}
             weight="regular"
             type="button"
             textAlign="left"
@@ -39,7 +41,15 @@ const SubscriptionIndicatorBar = () => {
             icon="medal-outline"
           />
           <Typography
-            text={hasSubscription ? "Premium" : "Gratuito"}
+            text={
+              hasSubscription
+                ? t(
+                    "common-translations.subscription-indicator-labels.premium-plan",
+                  )
+                : t(
+                    "common-translations.subscription-indicator-labels.free-plan",
+                  )
+            }
             weight="bold"
             type="button"
             textAlign="left"

@@ -7,8 +7,6 @@ import { AppColors, Spacing } from "@/shared/styles";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { RESOURCE_PREVIEW_TABS } from "./constants";
-
 import {
   useResourceCardListLogic,
   useUpdateResourceFormLogic,
@@ -71,11 +69,12 @@ const PreviewResourceList = () => {
     isPending: isDeleting,
     removeManyResources,
     t,
-  } = useResourceCardListLogic(RESOURCE_PREVIEW_TABS[0]);
+    resourcePreviewTabs,
+  } = useResourceCardListLogic();
 
   const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
     selectedResource,
-    updateResourcePopUp.onClosePopUp
+    updateResourcePopUp.onClosePopUp,
   );
 
   const Section: SectionComponentMap = {
@@ -105,7 +104,7 @@ const PreviewResourceList = () => {
     return (
       <FetchingErrorPanel
         message={t(
-          "resources-translations.resources-list-labels.fetch-resources-error-msg"
+          "resources-translations.resources-list-labels.fetch-resources-error-msg",
         )}
         refetch={refetch}
       />
@@ -115,7 +114,7 @@ const PreviewResourceList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "resources-translations.resources-list-labels.confirm-delete-alert-labels.title"
+          "resources-translations.resources-list-labels.confirm-delete-alert-labels.title",
         )}
         {...confirmDeletePopUp}
         gesture={confirmDeletePopUp.dragGesture}
@@ -123,10 +122,10 @@ const PreviewResourceList = () => {
         <Alert
           variant="danger"
           message={t(
-            "resources-translations.resources-list-labels.confirm-delete-alert-labels.message"
+            "resources-translations.resources-list-labels.confirm-delete-alert-labels.message",
           )}
           acceptButtonLabel={t(
-            "resources-translations.resources-list-labels.confirm-delete-alert-labels.btn-accept"
+            "resources-translations.resources-list-labels.confirm-delete-alert-labels.btn-accept",
           )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.onClosePopUp}
@@ -136,7 +135,7 @@ const PreviewResourceList = () => {
           }}
           loading={isDeleting}
           loadingMessage={t(
-            "resources-translations.resources-list-labels.confirm-delete-alert-labels.deleting-resources-msg"
+            "resources-translations.resources-list-labels.confirm-delete-alert-labels.deleting-resources-msg",
           )}
         />
       </PopUp>
@@ -144,10 +143,10 @@ const PreviewResourceList = () => {
         title={
           isTagSelection
             ? t(
-                "resources-translations.resources-list-labels.select-tags-popup-labels.title"
+                "resources-translations.resources-list-labels.select-tags-popup-labels.title",
               )
             : t(
-                "resources-translations.resources-list-labels.view-resource-popup-labels.title"
+                "resources-translations.resources-list-labels.view-resource-popup-labels.title",
               )
         }
         icon={isTagSelection ? "pricetag-outline" : "eye-outline"}
@@ -184,7 +183,7 @@ const PreviewResourceList = () => {
                 )
                   eventBus.emit(
                     "tags.resourceType.fetchNextPage.requested",
-                    undefined
+                    undefined,
                   );
               },
             }}
@@ -192,7 +191,7 @@ const PreviewResourceList = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-              "resources-translations.resources-list-labels.select-tags-popup-labels.search-input-placeholder"
+              "resources-translations.resources-list-labels.select-tags-popup-labels.search-input-placeholder",
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -202,7 +201,7 @@ const PreviewResourceList = () => {
             FooterComponent={
               <Button
                 label={t(
-                  "resources-translations.resources-list-labels.select-tags-popup-labels.btn-cancel-selection"
+                  "resources-translations.resources-list-labels.select-tags-popup-labels.btn-cancel-selection",
                 )}
                 icon="close-outline"
                 width="100%"
@@ -215,7 +214,7 @@ const PreviewResourceList = () => {
         ) : (
           <View style={previewResourceListStyle.ViewPreviewContainer}>
             <Tabulator
-              tabs={RESOURCE_PREVIEW_TABS}
+              tabs={resourcePreviewTabs}
               activeTab={activePreviewTab}
               onSwitchTab={(tab) => {
                 setActivePreviewTab(tab);
@@ -258,7 +257,7 @@ const PreviewResourceList = () => {
         ListEmptyComponent={
           <Empty
             message={t(
-              "resources-translations.resources-list-labels.no-resources-msg"
+              "resources-translations.resources-list-labels.no-resources-msg",
             )}
             icon="book-outline"
           />
@@ -274,7 +273,7 @@ const PreviewResourceList = () => {
             <LoadingTextIndicator
               color={AppColors.primary[400]}
               message={t(
-                "resources-translations.resources-list-labels.loading-resources-msg"
+                "resources-translations.resources-list-labels.loading-resources-msg",
               )}
             />
           ) : null

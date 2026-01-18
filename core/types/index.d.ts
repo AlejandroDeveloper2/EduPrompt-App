@@ -1,12 +1,16 @@
-import { ResourceFormatKey } from "@/features/educational-resources/types";
 import { Ionicons } from "@expo/vector-icons";
 import { RelativePathString } from "expo-router";
 import { ComponentRef } from "react";
 import { TextInput } from "react-native";
 import { z } from "zod";
 
+import { ResourceFormatKey } from "@/features/educational-resources/types";
+
 /** Tipos globales compartidos */
 type LangTag = "es" | "en" | "pt";
+
+type LangSelectionTag = LangTag | "system";
+
 type SpacingNamesType =
   | "null"
   | "4xs"
@@ -113,7 +117,7 @@ interface Process {
 }
 
 interface AppLanguage {
-  key: LangTag | "system";
+  key: LangSelectionTag;
   label: string;
 }
 
@@ -264,6 +268,7 @@ export {
   FormErrors,
   InfiniteQueryOptions,
   Lang,
+  LangSelectionTag,
   LangTag,
   NavigationPropsBase,
   NavOption,

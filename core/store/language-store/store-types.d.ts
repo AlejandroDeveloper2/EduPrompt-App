@@ -1,10 +1,10 @@
-import { LangTag } from "@/core/types";
+import { LangSelectionTag, LangTag } from "@/core/types";
 
 interface StoreStateProps {
   lang: LangTag;
 }
 interface StoreActions {
-  setLanguage: (langTag: LangTag) => void;
+  setLanguage: (langTag: LangSelectionTag) => void;
 }
 
 export type LanguageStoreType = StoreStateProps & StoreActions;

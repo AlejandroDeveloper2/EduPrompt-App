@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppLanguage } from "@/core/types";
@@ -37,18 +38,21 @@ const UserPreferencesPanel = () => {
   const frecuencyPopUp = useAnimatedPopUp();
   const languagePopUp = useAnimatedPopUp();
 
-  const { t } = useTranslations();
+  const { t, setLanguage } = useTranslations();
+
+  const appLanguages = useMemo(() => APP_LANGUAGES(t), [t]);
+  const cleanFrecuencyOptions = useMemo(() => CLEAN_FRECUENCY_OPTIONS(t), [t]);
 
   const preferences = getFormattedPreferences(userProfile);
 
   const getSelectedFrecuency = (cleanFrecuency: string) => {
-    return CLEAN_FRECUENCY_OPTIONS.filter(
-      (frecuency) => frecuency.key === cleanFrecuency
+    return cleanFrecuencyOptions.filter(
+      (frecuency) => frecuency.key === cleanFrecuency,
     )[0];
   };
 
   const getSelectedLanguage = (language: string) => {
-    return APP_LANGUAGES.filter((lang) => lang.key === language)[0];
+    return appLanguages.filter((lang) => lang.key === language)[0];
   };
 
   return (
@@ -56,7 +60,7 @@ const UserPreferencesPanel = () => {
       <PopUp
         icon="language-outline"
         title={t(
-          "settings-translations.preferences-popups-labels.language.title"
+          "settings-translations.preferences-popups-labels.language.title",
         )}
         isPopUpMounted={languagePopUp.isPopUpMounted}
         gesture={languagePopUp.dragGesture}
@@ -64,26 +68,27 @@ const UserPreferencesPanel = () => {
         onClosePopUp={languagePopUp.onClosePopUp}
       >
         <DropdownOptionList<AppLanguage>
-          optionList={APP_LANGUAGES}
+          optionList={appLanguages}
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-            "settings-translations.preferences-popups-labels.language.list-search-placeholder"
+            "settings-translations.preferences-popups-labels.language.list-search-placeholder",
           )}
           selectedOption={
             preferences.language
               ? getSelectedLanguage(preferences.language)
-              : APP_LANGUAGES[0]
+              : appLanguages[0]
           }
-          onSelectOption={(option) =>
-            updatePreferences({ language: option.key })
-          }
+          onSelectOption={(option) => {
+            setLanguage(option.key);
+            updatePreferences({ language: option.key });
+          }}
         />
       </PopUp>
       <PopUp
         icon="timer-outline"
         title={t(
-          "settings-translations.preferences-popups-labels.auto-clean-frecuency.title"
+          "settings-translations.preferences-popups-labels.auto-clean-frecuency.title",
         )}
         isPopUpMounted={frecuencyPopUp.isPopUpMounted}
         gesture={frecuencyPopUp.dragGesture}
@@ -91,16 +96,16 @@ const UserPreferencesPanel = () => {
         onClosePopUp={frecuencyPopUp.onClosePopUp}
       >
         <DropdownOptionList<CleanFrecuencyOption>
-          optionList={CLEAN_FRECUENCY_OPTIONS}
+          optionList={cleanFrecuencyOptions}
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-            "settings-translations.preferences-popups-labels.auto-clean-frecuency.list-search-placeholder"
+            "settings-translations.preferences-popups-labels.auto-clean-frecuency.list-search-placeholder",
           )}
           selectedOption={
             preferences.cleanFrecuency
               ? getSelectedFrecuency(preferences.cleanFrecuency)
-              : CLEAN_FRECUENCY_OPTIONS[0]
+              : cleanFrecuencyOptions[0]
           }
           onSelectOption={(option) =>
             updatePreferences({ cleanFrecuency: option.key })
@@ -115,20 +120,20 @@ const UserPreferencesPanel = () => {
           isAuthenticated && (
             <InfoCard
               title={t(
-                "settings-translations.syncronization-card-labels.title"
+                "settings-translations.syncronization-card-labels.title",
               )}
               description={t(
-                "settings-translations.syncronization-card-labels.description"
+                "settings-translations.syncronization-card-labels.description",
               )}
               buttonData={{
                 onPress: syncUserProfile,
                 icon: "sync-outline",
                 label: t(
-                  "settings-translations.syncronization-card-labels.btn-sync"
+                  "settings-translations.syncronization-card-labels.btn-sync",
                 ),
                 loading: isPending,
                 loadingMessage: t(
-                  "settings-translations.syncronization-card-labels.loading-text"
+                  "settings-translations.syncronization-card-labels.loading-text",
                 ),
               }}
             />
@@ -141,7 +146,7 @@ const UserPreferencesPanel = () => {
         {isLoading ? (
           <LoadingTextIndicator
             message={t(
-              "settings-translations.module-loading-messages.loading-user-settings-msg"
+              "settings-translations.module-loading-messages.loading-user-settings-msg",
             )}
             color={AppColors.primary[400]}
           />
@@ -149,7 +154,7 @@ const UserPreferencesPanel = () => {
           <View style={UserPreferencesPanelStyles.OptionsList}>
             <Switch
               label={t(
-                "settings-translations.preferences-options-labels.auto-sync"
+                "settings-translations.preferences-options-labels.auto-sync",
               )}
               labelDirection="left"
               state={preferences.autoSync ? "on" : "off"}
@@ -159,7 +164,7 @@ const UserPreferencesPanel = () => {
             />
             <Switch
               label={t(
-                "settings-translations.preferences-options-labels.push-notifications"
+                "settings-translations.preferences-options-labels.push-notifications",
               )}
               labelDirection="left"
               state={preferences.pushNotifications ? "on" : "off"}
@@ -171,7 +176,7 @@ const UserPreferencesPanel = () => {
             />
             <Switch
               label={t(
-                "settings-translations.preferences-options-labels.auto-clean-notifications"
+                "settings-translations.preferences-options-labels.auto-clean-notifications",
               )}
               labelDirection="left"
               state={preferences.autoCleanNotifications ? "on" : "off"}
@@ -186,21 +191,21 @@ const UserPreferencesPanel = () => {
                 name="cleanFrecuency"
                 icon="timer-outline"
                 label={t(
-                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.label"
+                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.label",
                 )}
                 placeholder={t(
-                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.placeholder"
+                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.placeholder",
                 )}
                 selectedOption={
                   preferences.cleanFrecuency
                     ? getSelectedFrecuency(preferences.cleanFrecuency)
-                    : CLEAN_FRECUENCY_OPTIONS[0]
+                    : cleanFrecuencyOptions[0]
                 }
                 optionValueKey="label"
                 displayDropdownOptions={frecuencyPopUp.onOpenPopUp}
                 clearSelectedOption={() =>
                   updatePreferences({
-                    cleanFrecuency: CLEAN_FRECUENCY_OPTIONS[0].key,
+                    cleanFrecuency: cleanFrecuencyOptions[0].key,
                   })
                 }
               />
@@ -209,20 +214,20 @@ const UserPreferencesPanel = () => {
               name="language"
               icon="language-outline"
               label={t(
-                "settings-translations.preferences-options-labels.app-language.label"
+                "settings-translations.preferences-options-labels.app-language.label",
               )}
               placeholder={t(
-                "settings-translations.preferences-options-labels.app-language.placeholder"
+                "settings-translations.preferences-options-labels.app-language.placeholder",
               )}
               selectedOption={
                 preferences.language
                   ? getSelectedLanguage(preferences.language)
-                  : APP_LANGUAGES[0]
+                  : appLanguages[0]
               }
               optionValueKey="label"
               displayDropdownOptions={languagePopUp.onOpenPopUp}
               clearSelectedOption={() =>
-                updatePreferences({ language: APP_LANGUAGES[0].key })
+                updatePreferences({ language: appLanguages[0].key })
               }
             />
           </View>

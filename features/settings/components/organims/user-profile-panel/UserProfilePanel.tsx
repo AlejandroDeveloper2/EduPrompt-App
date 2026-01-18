@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { View } from "react-native";
 
 import { Tab } from "@/core/types";
@@ -29,7 +29,11 @@ import UpdateUsernameForm from "./forms/UpdateUsernameForm";
 import { UserProfilePanelStyles } from "./UserProfilePanel.style";
 
 const UserProfilePanel = () => {
-  const [activeFormTab, setActiveFormTab] = useState<Tab>(FORM_TABS[0]);
+  const { t } = useTranslations();
+
+  const tabs = useMemo(() => FORM_TABS(t), [t]);
+
+  const [activeFormTab, setActiveFormTab] = useState<Tab>(tabs[0]);
 
   const router = useRouter();
 
@@ -50,8 +54,6 @@ const UserProfilePanel = () => {
     onOpenPopUp,
   } = useAnimatedPopUp();
 
-  const { t } = useTranslations();
-
   const Form: FormSectionComponentMap = {
     "tab-1": <UpdateUsernameForm />,
     "tab-2": <UserEmailForm />,
@@ -63,7 +65,7 @@ const UserProfilePanel = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "settings-translations.user-profile-panel.close-session-alert-labels.title"
+          "settings-translations.user-profile-panel.close-session-alert-labels.title",
         )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -73,14 +75,14 @@ const UserProfilePanel = () => {
         <Alert
           variant="danger"
           message={t(
-            "settings-translations.user-profile-panel.close-session-alert-labels.message"
+            "settings-translations.user-profile-panel.close-session-alert-labels.message",
           )}
           acceptButtonLabel={t(
-            "settings-translations.user-profile-panel.close-session-alert-labels.btn-accept"
+            "settings-translations.user-profile-panel.close-session-alert-labels.btn-accept",
           )}
           loading={loading}
           loadingMessage={t(
-            "settings-translations.user-profile-panel.close-session-alert-labels.closing-session-msg"
+            "settings-translations.user-profile-panel.close-session-alert-labels.closing-session-msg",
           )}
           acceptButtonIcon="power-outline"
           onCancel={onClosePopUp}
@@ -90,7 +92,7 @@ const UserProfilePanel = () => {
       <View style={UserProfilePanelStyles(size).PanelContainer}>
         <ScreenSection
           description={t(
-            "settings-translations.user-profile-panel.description"
+            "settings-translations.user-profile-panel.description",
           )}
           title={t("settings-translations.user-profile-panel.title")}
           icon="person-outline"
@@ -98,7 +100,7 @@ const UserProfilePanel = () => {
         {!isConnected ? (
           <NoConnectionIndicator
             message={t(
-              "settings-translations.user-profile-panel.no-connection-indicator-msg"
+              "settings-translations.user-profile-panel.no-connection-indicator-msg",
             )}
           />
         ) : (
@@ -106,7 +108,7 @@ const UserProfilePanel = () => {
             {isAuth ? (
               <>
                 <Tabulator
-                  tabs={FORM_TABS}
+                  tabs={tabs}
                   activeTab={activeFormTab}
                   onSwitchTab={(tab) => {
                     setActiveFormTab(tab);
@@ -121,7 +123,7 @@ const UserProfilePanel = () => {
                   width="100%"
                   onPress={onOpenPopUp}
                   label={t(
-                    "settings-translations.user-profile-panel.btn-close-session"
+                    "settings-translations.user-profile-panel.btn-close-session",
                   )}
                 />
               </>
@@ -133,15 +135,15 @@ const UserProfilePanel = () => {
                   width={"100%"}
                   onPress={() => router.navigate("/auth")}
                   label={t(
-                    "settings-translations.user-profile-panel.btn-login"
+                    "settings-translations.user-profile-panel.btn-login",
                   )}
                 />
                 <Link
                   label={t(
-                    "settings-translations.user-profile-panel.signup-link.label"
+                    "settings-translations.user-profile-panel.signup-link.label",
                   )}
                   linkLabel={t(
-                    "settings-translations.user-profile-panel.signup-link.link-label"
+                    "settings-translations.user-profile-panel.signup-link.link-label",
                   )}
                   href="/auth/signup_screen"
                 />

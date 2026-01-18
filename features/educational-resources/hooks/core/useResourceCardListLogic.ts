@@ -7,6 +7,7 @@ import { EducationalResource } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
+import { RESOURCE_PREVIEW_TABS } from "../../components/organims/preview-resource-list/constants";
 import {
   BACKGROUND_PROCESS_NAMES,
   SELECTION_MODE_ACTIONS,
@@ -25,12 +26,15 @@ import useDeleteManyResources from "./useDeleteManyResources";
 
 import { calcAvarageProcessDuration } from "@/shared/utils";
 
-const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
+const useResourceCardListLogic = () => {
+  const { t } = useTranslations();
+  const resourcePreviewTabs = useMemo(() => RESOURCE_PREVIEW_TABS(t), [t]);
+
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
   const [selectedResource, setSelectedResource] =
     useState<EducationalResource | null>(null);
   const [activePreviewTab, setActivePreviewTab] = useState<Tab>(
-    defaultResourcePreviewTab
+    resourcePreviewTabs[0],
   );
 
   const size = useScreenDimensionsStore();
@@ -73,16 +77,14 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
       tag: tagFilter?.tagId,
       formatKey: formatFilter ?? undefined,
     },
-    { limit: 10 }
+    { limit: 10 },
   );
 
   const { isPending, removeManyResources } = useDeleteManyResources();
 
-  const { t } = useTranslations();
-
   const resources = useMemo(
     () => data?.pages.flatMap((r) => r.records) ?? [],
-    [data]
+    [data],
   );
 
   const viewerType: ViewerType = useMemo(
@@ -90,9 +92,9 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
       selectedResource?.formatKey === "text"
         ? "text"
         : selectedResource?.formatKey === "image"
-        ? "image"
-        : "table/chart",
-    [selectedResource?.formatKey]
+          ? "image"
+          : "table/chart",
+    [selectedResource?.formatKey],
   );
 
   /** Emitimos el cambio de elementos seleccionados */
@@ -128,23 +130,23 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
             {
               successNotification: {
                 title: t(
-                  "resources-translations.download-resources-notifications-labels.success.title"
+                  "resources-translations.download-resources-notifications-labels.success.title",
                 ),
                 message: t(
-                  "resources-translations.download-resources-notifications-labels.success.message"
+                  "resources-translations.download-resources-notifications-labels.success.message",
                 ),
               },
               errorNotification: {
                 title: t(
-                  "resources-translations.download-resources-notifications-labels.error.title"
+                  "resources-translations.download-resources-notifications-labels.error.title",
                 ),
                 message: t(
-                  "resources-translations.download-resources-notifications-labels.error.message"
+                  "resources-translations.download-resources-notifications-labels.error.message",
                 ),
               },
-            }
+            },
           );
-        })
+        }),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -195,6 +197,7 @@ const useResourceCardListLogic = (defaultResourcePreviewTab: Tab) => {
     isPending,
     removeManyResources,
     t,
+    resourcePreviewTabs,
   };
 };
 

@@ -49,8 +49,9 @@ export const LanguageStore = create<LanguageStoreType>((set) => {
   return {
     lang: initialLang,
     setLanguage: (langTag): void => {
-      i18n.locale = langTag;
-      set({ lang: langTag });
+      const finalLang = langTag === "system" ? initialLang : langTag;
+      i18n.locale = finalLang;
+      set({ lang: finalLang });
     },
   };
 });

@@ -42,6 +42,11 @@
       "no-connected-msg": "Conecte-se à Internet para sincronizar seus dados.",
       "no-auth-msg": "Faça login ou crie uma conta para sincronizar seus dados.",
       "all-synced-msg": "Tudo está sincronizado"
+    },
+    "subscription-indicator-labels": {
+      "label": "Plano Ativo:",
+      "premium-plan": "Premium",
+      "free-plan": "Gratuito"
     }
   },
   "onboarding-translations": {
