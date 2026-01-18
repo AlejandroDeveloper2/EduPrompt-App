@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
 
+import { Tag } from "@/features/tags/types";
+
 import { eventBus } from "@/core/events/EventBus";
 
 import {
@@ -9,9 +11,9 @@ import {
 } from "../../components/organims/resource-description-form/validationSchema";
 
 import { useForm } from "@/shared/hooks/core";
-import { useEventBusToggle, useEventbusValue } from "@/shared/hooks/events";
+import { useEventBusToggle } from "@/shared/hooks/events";
+import { useTagFiltersContext } from "../context";
 
-import { Tag } from "@/features/tags/types";
 import { getSelectedOption } from "../../helpers";
 
 const initialValues: SavePromptFormData = {
@@ -45,15 +47,11 @@ const useSavePromptFormLogic = (
     "prompts.savePrompt.failed",
   ]);
 
-  const tagsPagination = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
+  const { paginatedTags, searchTagValue, onSearchTagValueChange } =
+    useTagFiltersContext();
 
   const selectedTag = useMemo(
-    () => getSelectedOption(tagsPagination.tags, data.tag, "tagId"),
+    () => getSelectedOption(paginatedTags.tags, data.tag, "tagId"),
     [data.tag]
   ) as Tag | null;
 
@@ -64,7 +62,9 @@ const useSavePromptFormLogic = (
   return {
     isLoading,
     selectedTag,
-    tagsPagination,
+    paginatedTags,
+    searchTagValue,
+    onSearchTagValueChange,
     form: {
       data,
       handleChange,

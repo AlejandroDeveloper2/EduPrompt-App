@@ -21,23 +21,29 @@ const ResourceTypeForm = () => {
     chooseResourceTypePopUp,
     isLastOptionSelected,
     selectedOption,
+    lang,
+    t,
   } = useResourceTypeFormLogic();
 
   return (
     <>
       <PopUp
         icon="shapes-outline"
-        title="Elije el tipo de recurso académico"
+        title={t(
+          "generations-translations.resource-type-template.resource-type-popup-labels.title"
+        )}
         isPopUpMounted={chooseResourceTypePopUp.isPopUpMounted}
         gesture={chooseResourceTypePopUp.dragGesture}
         animatedPopUpStyle={chooseResourceTypePopUp.animatedPopUpStyle}
         onClosePopUp={chooseResourceTypePopUp.onClosePopUp}
       >
         <DropdownOptionList<ResourceType>
-          optionList={EDUCATIONAL_RESOURCE_TYPES}
+          optionList={EDUCATIONAL_RESOURCE_TYPES[lang]}
           optionIdkey="resourceTypeId"
           optionLabelKey="resourceTypeLabel"
-          searchInputPlaceholder="Buscar tipo de recurso"
+          searchInputPlaceholder={t(
+            "generations-translations.resource-type-template.resource-type-popup-labels.search-input-placeholder"
+          )}
           selectedOption={selectedOption}
           onSelectOption={(option) => {
             handleChange("resourceTypeId", option.resourceTypeId);
@@ -54,8 +60,12 @@ const ResourceTypeForm = () => {
               <Form.Dropdown<ResourceTypeFormData, ResourceType>
                 name="resourceTypeId"
                 icon="book-outline"
-                label="Tipo de recurso académico (*)"
-                placeholder="Seleccione una opción"
+                label={t(
+                  "generations-translations.resource-type-template.form-labels.resource-type.label"
+                )}
+                placeholder={t(
+                  "generations-translations.resource-type-template.form-labels.resource-type.placeholder"
+                )}
                 selectedOption={selectedOption}
                 optionValueKey="resourceTypeLabel"
                 displayDropdownOptions={chooseResourceTypePopUp.onOpenPopUp}
@@ -66,11 +76,15 @@ const ResourceTypeForm = () => {
             {isLastOptionSelected && (
               <Form.Row.Item span={1}>
                 <Form.Input<ResourceTypeFormData>
-                  label="Especifique el tipo de recurso (*)"
+                  label={t(
+                    "generations-translations.resource-type-template.form-labels.other.label"
+                  )}
                   icon="document-text-outline"
                   name="otherResourceType"
                   value={data.otherResourceType ?? ""}
-                  placeholder="Escriba el tipo de recurso"
+                  placeholder={t(
+                    "generations-translations.resource-type-template.form-labels.other.placeholder"
+                  )}
                   errorMessage={getFieldErrors("otherResourceType")?.join(", ")}
                   onChange={handleChange}
                   onClearInput={() =>
@@ -87,7 +101,9 @@ const ResourceTypeForm = () => {
               variant="primary"
               width="100%"
               icon="chevron-forward-outline"
-              label="Siguiente"
+              label={t(
+                "generations-translations.resource-type-template.form-labels.btn-next-step"
+              )}
               onPress={handleSubmit}
             />
           </Form.Row.Item>

@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
 
+import { LangTag } from "@/core/types";
+
 import { APP_LANGUAGES } from "@/shared/constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import {
@@ -21,6 +23,8 @@ const initialValues: LanguageFormData = {
 const useLanguageFormLogic = () => {
   const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
     useGenerationsStore();
+
+  const { t } = useTranslations();
 
   const {
     data,
@@ -69,7 +73,7 @@ const useLanguageFormLogic = () => {
     if (!currentIaGeneration) return;
     const { data: currentData } = currentIaGeneration;
     setValues({
-      language: currentData.language.key,
+      language: currentData.language.key as LangTag,
     });
   }, [currentIaGeneration]);
 
@@ -90,6 +94,7 @@ const useLanguageFormLogic = () => {
       onClosePopUp,
     },
     selectedLanguage,
+    t,
   };
 };
 

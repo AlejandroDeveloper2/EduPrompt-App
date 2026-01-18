@@ -854,6 +854,253 @@
     }
   },
 
+  "generations-translations": {
+    "generation-list-labels": {
+      "generation-card-label": "Current step:",
+      "title": "Generate Resource",
+      "description": "Generate your educational resources here. You can generate multiple resources simultaneously right now! Tap the button below and start now.",
+      "selection-options-labels": {
+        "delete-generations": "Delete",
+        "reinit-generations": "Restart"
+      },
+      "search-input-placeholder": "Search generations by title",
+      "empty-list-label": "No generations started",
+      "btn-generate": {
+        "label-1": "Generate Another Resource",
+        "label-2": "Start Generating"
+      }
+    },
+    "country-template": {
+      "countries-popup-labels": {
+        "title": "Select a Country",
+        "search-input-placeholder": "Search country"
+      },
+      "form-labels": {
+        "country": {
+          "label": "Country (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-prev-step": "Previous",
+        "btn-next-step": "Next"
+      },
+      "form-error-messages": {
+        "required-country-msg": "Country is required"
+      }
+    },
+    "educational-level-template": {
+      "educational-level-popup-labels": {
+        "title": "Choose the Target Educational Level",
+        "search-input-placeholder": "Search educational level"
+      },
+      "target-grade-popup-labels": {
+        "title": "Choose the Target Grade",
+        "search-input-placeholder": "Search grade"
+      },
+      "form-labels": {
+        "target-educational-level": {
+          "label": "Target Educational Level (*)",
+          "placeholder": "Select an option"
+        },
+        "grade": {
+          "label": "Grade (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-prev-step": "Previous",
+        "btn-next-step": "Next"
+      },
+      "form-error-messages": {
+        "required-educational-level-msg": "Educational level is required",
+        "required-grade-msg": "Grade is required for preschool, elementary, and high school levels"
+      }
+    },
+    "language-template": {
+      "language-selection-popup-labels": {
+        "title": "Select the Language",
+        "search-input-placeholder": "Search language"
+      },
+      "form-labels": {
+        "language": {
+          "label": "Language (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-prev-step": "Previous",
+        "btn-next-step": "Next"
+      },
+      "form-error-messages": {
+        "invalid-language-msg": "The selected language is invalid"
+      }
+    },
+    "resource-format-template": {
+      "resource-format-popup-labels": {
+        "title": "Select the Resource Format",
+        "search-input-placeholder": "Search format"
+      },
+      "form-labels": {
+        "format": {
+          "label": "Resource Format (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-prev-step": "Previous",
+        "btn-next-step": "Next"
+      },
+      "form-error-messages": {
+        "invalid-format-msg": "The selected format is invalid"
+      }
+    },
+    "resource-type-template": {
+      "resource-type-popup-labels": {
+        "title": "Choose the Academic Resource Type",
+        "search-input-placeholder": "Search resource type"
+      },
+      "form-labels": {
+        "resource-type": {
+          "label": "Academic Resource Type (*)",
+          "placeholder": "Select an option"
+        },
+        "other": {
+          "label": "Specify the Resource Type (*)",
+          "placeholder": "Enter the resource type"
+        },
+        "btn-prev-step": "Previous",
+        "btn-next-step": "Next"
+      },
+      "form-error-messages": {
+        "required-resource-type-msg": "Resource type is required",
+        "required-alternative-resource-msg": "Alternative resource type is required"
+      }
+    },
+    "subject-template": {
+      "form-labels": {
+        "subject": {
+          "label": "Subject (*)",
+          "placeholder": "Enter the subject"
+        },
+        "btn-prev-step": "Previous",
+        "btn-next-step": "Next"
+      },
+      "form-error-messages": {
+        "required-subject-name-msg": "Subject is required"
+      }
+    },
+    "resource-description-template": {
+      "select-tag-popup-labels": {
+        "title": "Select Tag",
+        "search-input-placeholder": "Search tag by name",
+        "btn-cancel": "Cancel selection"
+      },
+      "save-prompt-popup-labels": {
+        "title": "Save Prompt"
+      },
+      "select-prompt-popup-labels": {
+        "title": "Select Prompt",
+        "search-input-placeholder": "Search prompt by title"
+      },
+      "form-labels": {
+        "prompt-description": {
+          "label": "Describe Your Resource (*)",
+          "placeholder": "Describe your resource. Example: generate a guide to plan my biology class on invertebrate animals. Design the guide for a 2-hour class."
+        },
+        "btn-prev-step": "Previous",
+        "btn-generate-resource": "Generate Resource"
+      },
+      "form-error-messages": {
+        "required-description-msg": "Resource description is required"
+      },
+      "form-loading-messages": {
+        "generating-resource-msg": "Generating resource..."
+      }
+    },
+    "save-prompt-template": {
+      "form-labels": {
+        "prompt-title": {
+          "label": "Title (*)",
+          "placeholder": "Enter the prompt title"
+        },
+        "prompt-body": {
+          "label": "Prompt Body (*)",
+          "placeholder": "Describe your resource. Example: generate a guide to plan my biology class on invertebrate animals. Design the guide for a 2-hour class."
+        },
+        "tag": {
+          "label": "Tag (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-save-prompt": "Save Prompt",
+        "btn-cancel": "Cancel"
+      },
+      "form-error-messages": {
+        "required-prompt-title": "Prompt title is required",
+        "required-prompt-body": "Prompt description is required",
+        "required-prompt-tag": "Prompt tag is required"
+      },
+      "form-loading-messages": {
+        "saving-prompt-msg": "Saving..."
+      }
+    },
+    "save-resource-form": {
+      "form-labels": {
+        "resource-title": {
+          "label": "Title (*)",
+          "placeholder": "Enter the resource title"
+        },
+        "group-tag": {
+          "label": "Tag (*)",
+          "placeholder": "Select an option"
+        },
+        "btn-save-resource": "Save Resource",
+        "btn-cancel": "Cancel"
+      },
+      "form-error-messages": {
+        "required-title-msg": "Resource title is required",
+        "required-group-tag-msg": "Resource tag is required"
+      },
+      "form-loading-messages": {
+        "saving-resource-msg": "Saving resource..."
+      }
+    },
+    "generating-indicator-labels": {
+      "btn-back": "Back",
+      "title": "Generating resource...",
+      "description": "The educational resource you requested is being generated. The process may take a few seconds."
+    },
+    "generation-step-view-labels": {
+      "btn-back": "Back"
+    },
+    "ia-response-card-labels": {
+      "select-tag-popup-labels": {
+        "title": "Select Tag",
+        "search-input-placeholder": "Search tag by name",
+        "btn-cancel": "Cancel selection"
+      },
+      "save-resource-popup-labels": {
+        "title": "Save Resource"
+      },
+      "btn-back": "Back",
+      "title": "Result",
+      "description": "Here's the requested resource. You can save the resource preview, download it, regenerate it, or adjust the information to generate a better version.",
+      "generation-process-labels": {
+        "success": {
+          "title": "Resource Generated!",
+          "message": "Your resource has been generated successfully:"
+        },
+        "error": {
+          "title": "Resource Generation Error!",
+          "message": "An error occurred while generating your resource:"
+        }
+      },
+      "copy-resource-function-labels": {
+        "success-msg": "Text copied successfully to clipboard",
+        "error-msg": "An error occurred while copying the text"
+      },
+      "btn-generate-other-resource": "Generate Another Resource"
+    },
+    "module-error-messages": {
+      "insufficient-tokens-msg": "Insufficient tokens to generate this resource, reload more tokens."
+    },
+    "module-success-messages": {
+      "resource-generated-msg": "Resource generated successfully"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "An internal server error has occurred",
     "database-connection-error-msg": "Error connecting to the database",

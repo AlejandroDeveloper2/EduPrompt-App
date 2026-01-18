@@ -9,7 +9,7 @@ import { AppColors, Spacing } from "@/shared/styles";
 import { useSaveResourceFormLogic } from "@/features/generations/hooks/core";
 import { useGenerateResourceMutation } from "@/features/generations/hooks/mutations";
 import { useGenerationsStore } from "@/features/generations/hooks/store";
-import { useBackgroundTaskRunner } from "@/shared/hooks/core";
+import { useBackgroundTaskRunner, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -53,21 +53,25 @@ const IaResponseCard = ({
   const {
     isLoading,
     selectedTag,
-    tagsPagination,
+    paginatedTags,
+    searchTagValue,
+    onSearchTagValueChange,
     saveResourcePopUp,
     form,
     isTagSelectionMode,
     setIsTagSelectionMode,
   } = useSaveResourceFormLogic();
 
+  const { t } = useTranslations();
+
   const viewerType = useMemo(
     () =>
       format.formatKey === "text"
         ? "text"
         : format.formatKey === "image"
-        ? "image"
-        : "table/chart",
-    [format]
+          ? "image"
+          : "table/chart",
+    [format],
   );
 
   const iaResponseCardStyle = IaResponseCardStyle(size);
@@ -75,7 +79,15 @@ const IaResponseCard = ({
   return (
     <>
       <PopUp
-        title={isTagSelectionMode ? "Seleccionar etiqueta" : "Guardar recurso"}
+        title={
+          isTagSelectionMode
+            ? t(
+                "generations-translations.ia-response-card-labels.select-tag-popup-labels.title",
+              )
+            : t(
+                "generations-translations.ia-response-card-labels.save-resource-popup-labels.title",
+              )
+        }
         icon={isTagSelectionMode ? "pricetag-outline" : "add-outline"}
         isPopUpMounted={saveResourcePopUp.isPopUpMounted}
         gesture={saveResourcePopUp.dragGesture}
@@ -91,23 +103,34 @@ const IaResponseCard = ({
             type: "prompt_tag" | "resource_tag";
             name: string;
           }>
-            ControlPanelComponent={<TagSelectionPanel tagType="resource_tag" />}
+            ControlPanelComponent={
+              <TagSelectionPanel
+                tagType="resource_tag"
+                searchValue={searchTagValue}
+                onSearchChange={onSearchTagValueChange}
+              />
+            }
             infinitePaginationOptions={{
-              ...tagsPagination,
+              ...paginatedTags,
               onRefetch: () =>
-                eventBus.emit("tags.refetch.requested", undefined),
+                eventBus.emit("tags.resourceType.refetch.requested", undefined),
               onEndReached: () => {
                 if (
-                  tagsPagination.hasNextPage &&
-                  !tagsPagination.isFetchingNextPage
+                  paginatedTags.hasNextPage &&
+                  !paginatedTags.isFetchingNextPage
                 )
-                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+                  eventBus.emit(
+                    "tags.resourceType.fetchNextPage.requested",
+                    undefined,
+                  );
               },
             }}
-            optionList={tagsPagination.tags}
+            optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
-            searchInputPlaceholder="Buscar etiqueta por nombre"
+            searchInputPlaceholder={t(
+              "generations-translations.ia-response-card-labels.select-tag-popup-labels.search-input-placeholder",
+            )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("groupTag", option.tagId);
@@ -115,7 +138,9 @@ const IaResponseCard = ({
             }}
             FooterComponent={
               <Button
-                label="Cancelar selección"
+                label={t(
+                  "generations-translations.ia-response-card-labels.select-tag-popup-labels.btn-cancel",
+                )}
                 icon="close-outline"
                 width="100%"
                 variant="neutral"
@@ -137,14 +162,16 @@ const IaResponseCard = ({
       <View style={{ alignItems: "flex-end", gap: Spacing.spacing_xl }}>
         <Button
           icon="chevron-back-outline"
-          label="Volver"
+          label={t("generations-translations.ia-response-card-labels.btn-back")}
           variant="neutral"
           width="auto"
           onPress={clearAndRemoveSelectedGeneration}
         />
         <ScreenSection
-          description="Aquí tienes el recurso solicitado, puedes guardar el recurso en vista previa, descargarlo,  generarlo de nuevo o ajustar la información para generar una mejor versión."
-          title="Resultado"
+          description={t(
+            "generations-translations.ia-response-card-labels.description",
+          )}
+          title={t("generations-translations.ia-response-card-labels.title")}
           icon="star-outline"
         />
         <View style={iaResponseCardStyle.Container}>
@@ -205,24 +232,32 @@ const IaResponseCard = ({
                       },
                       {
                         successNotification: {
-                          title: "¡Recurso generado!",
-                          message: `Se ha generado tu recurso exitosamente: ${
+                          title: t(
+                            "generations-translations.ia-response-card-labels.generation-process-labels.success.title",
+                          ),
+                          message: `${t(
+                            "generations-translations.ia-response-card-labels.generation-process-labels.success.message",
+                          )} ${
                             currentIaGeneration.data.resourceType.other ??
                             currentIaGeneration.data.resourceType
                               .resourceTypeLabel
                           }`,
                         },
                         errorNotification: {
-                          title: "¡Error al generar recurso!",
-                          message: `Ha ocurrido un error al generar tu recurso: ${
+                          title: t(
+                            "generations-translations.ia-response-card-labels.generation-process-labels.error.title",
+                          ),
+                          message: `${t(
+                            "generations-translations.ia-response-card-labels.generation-process-labels.error.message",
+                          )} ${
                             currentIaGeneration.data.resourceType.other ??
                             currentIaGeneration.data.resourceType
                               .resourceTypeLabel
                           }`,
                         },
-                      }
+                      },
                     );
-                  }
+                  },
                 );
               }}
             />
@@ -237,7 +272,9 @@ const IaResponseCard = ({
         </View>
         <Button
           icon="bulb-outline"
-          label="Generar otro recurso"
+          label={t(
+            "generations-translations.ia-response-card-labels.btn-generate-other-resource",
+          )}
           variant="primary"
           width="100%"
           onPress={createAndSelectNewGeneration}

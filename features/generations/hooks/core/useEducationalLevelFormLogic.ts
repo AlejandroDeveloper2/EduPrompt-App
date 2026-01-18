@@ -14,7 +14,7 @@ import {
 } from "../../components/organims/educational-level-form/validationSchema";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { getGrades, getSelectedOption } from "../../helpers";
@@ -26,6 +26,9 @@ const initialValues: EducationalLevelFormData = {
 const useEducationalLevelFormLogic = () => {
   const { currentIaGeneration, updateIaGeneration, setGenerationStep } =
     useGenerationsStore();
+
+  const { t, lang } = useTranslations();
+
   const {
     data,
     getFieldErrors,
@@ -41,13 +44,13 @@ const useEducationalLevelFormLogic = () => {
       if (!currentIaGeneration) return;
 
       const educationalLevel = getSelectedOption(
-        TARGET_EDUCATIONAL_LEVELS,
+        TARGET_EDUCATIONAL_LEVELS[lang],
         data.educationalLevelId,
         "educationalLevelId"
       );
-      const grades = PRESCHOOL_GRADE_LEVELS.concat([
-        ...PRIMARY_GRADE_LEVELS,
-        ...SECONDARY_GRADE_LEVELS,
+      const grades = PRESCHOOL_GRADE_LEVELS[lang].concat([
+        ...PRIMARY_GRADE_LEVELS[lang],
+        ...SECONDARY_GRADE_LEVELS[lang],
       ]);
 
       const grade = getSelectedOption(
@@ -78,7 +81,7 @@ const useEducationalLevelFormLogic = () => {
   const { selectedEducationalLevel } = useMemo(
     () => ({
       selectedEducationalLevel: getSelectedOption(
-        TARGET_EDUCATIONAL_LEVELS,
+        TARGET_EDUCATIONAL_LEVELS[lang],
         data.educationalLevelId,
         "educationalLevelId"
       ),
@@ -88,9 +91,9 @@ const useEducationalLevelFormLogic = () => {
 
   const { grades } = useMemo(
     () => ({
-      grades: getGrades(data.educationalLevelId),
+      grades: getGrades(data.educationalLevelId, lang),
     }),
-    [data.educationalLevelId]
+    [data.educationalLevelId, lang]
   );
 
   const { selectedGrade } = useMemo(
@@ -142,6 +145,8 @@ const useEducationalLevelFormLogic = () => {
       selectedGrade,
       isGradeRequired,
     },
+    lang,
+    t,
   };
 };
 

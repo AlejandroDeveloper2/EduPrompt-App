@@ -21,13 +21,16 @@ const LanguageForm = () => {
       onClosePopUp,
     },
     selectedLanguage,
+    t,
   } = useLanguageFormLogic();
 
   return (
     <>
       <PopUp
         icon="language-outline"
-        title="Selecciona el idioma"
+        title={t(
+          "generations-translations.language-template.language-selection-popup-labels.title"
+        )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
         animatedPopUpStyle={animatedPopUpStyle}
@@ -37,7 +40,9 @@ const LanguageForm = () => {
           optionList={APP_LANGUAGES}
           optionIdkey="key"
           optionLabelKey="label"
-          searchInputPlaceholder="Buscar idioma"
+          searchInputPlaceholder={t(
+            "generations-translations.language-template.language-selection-popup-labels.search-input-placeholder"
+          )}
           selectedOption={selectedLanguage}
           onSelectOption={(option) => {
             handleChange("language", option.key);
@@ -52,8 +57,12 @@ const LanguageForm = () => {
               <Form.Dropdown<LanguageFormData, AppLanguage>
                 name="language"
                 icon="language-outline"
-                label="Idioma (*)"
-                placeholder="Seleccione una opción"
+                label={t(
+                  "generations-translations.language-template.form-labels.language.label"
+                )}
+                placeholder={t(
+                  "generations-translations.language-template.form-labels.language.placeholder"
+                )}
                 selectedOption={selectedLanguage}
                 optionValueKey="label"
                 displayDropdownOptions={onOpenPopUp}
@@ -69,7 +78,9 @@ const LanguageForm = () => {
               variant="neutral"
               width="100%"
               icon="chevron-back-outline"
-              label="Anterior"
+              label={t(
+                "generations-translations.language-template.form-labels.btn-prev-step"
+              )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
@@ -84,7 +95,9 @@ const LanguageForm = () => {
               variant="primary"
               width="100%"
               icon="chevron-forward-outline"
-              label="Siguiente"
+              label={t(
+                "generations-translations.language-template.form-labels.btn-next-step"
+              )}
               onPress={handleSubmit}
             />
           </Form.Row.Item>

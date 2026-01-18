@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Image, View } from "react-native";
 
 import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { setGenerationProcessName } from "@/features/generations/helpers";
@@ -17,6 +18,8 @@ const Generating = () => {
   const { clearSelectedGeneration, currentIaGeneration } =
     useGenerationsStore();
 
+  const { t } = useTranslations();
+
   const processDuration = useMemo(() => {
     if (!currentIaGeneration) return null;
     const { data } = currentIaGeneration;
@@ -28,7 +31,9 @@ const Generating = () => {
     <View style={{ alignItems: "flex-end" }}>
       <Button
         icon="chevron-back-outline"
-        label="Volver"
+        label={t(
+          "generations-translations.generating-indicator-labels.btn-back",
+        )}
         variant="neutral"
         width="auto"
         onPress={clearSelectedGeneration}
@@ -41,8 +46,10 @@ const Generating = () => {
         }}
       />
       <Loader
-        title="Generando recurso..."
-        description="Se esta generando el recurso educativo que ha solicitado. El proceso puede tomar unos segundos."
+        title={t("generations-translations.generating-indicator-labels.title")}
+        description={t(
+          "generations-translations.generating-indicator-labels.description",
+        )}
         icon="settings-outline"
         progressConfig={{
           mode: "duration-timer",

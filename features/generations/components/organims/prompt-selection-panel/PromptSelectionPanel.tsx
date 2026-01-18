@@ -27,7 +27,7 @@ const PromptSelectionPanel = ({
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
 
-  const { tags } = useEventbusValue("tags.list.pagination.updated", {
+  const { tags } = useEventbusValue("tags.list.promptType.updated", {
     tags: [],
     hasNextPage: false,
     isFetchingNextPage: false,

@@ -4,7 +4,7 @@ import { useEffect, useMemo } from "react";
 import { COUNTRIES } from "../../constants";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import {
@@ -21,6 +21,9 @@ const initialValues: CountryFormData = {
 const useCountryFormLogic = () => {
   const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
     useGenerationsStore();
+
+  const { t, lang } = useTranslations();
+
   const {
     data,
     getFieldErrors,
@@ -34,7 +37,11 @@ const useCountryFormLogic = () => {
     actionCallback: () => {
       if (!currentIaGeneration) return;
 
-      const country = getSelectedOption(COUNTRIES, data.country, "countryId");
+      const country = getSelectedOption(
+        COUNTRIES[lang],
+        data.country,
+        "countryId"
+      );
 
       if (!country) return;
 
@@ -62,8 +69,8 @@ const useCountryFormLogic = () => {
   } = useAnimatedPopUp();
 
   const selectedCountry = useMemo(
-    () => getSelectedOption(COUNTRIES, data.country, "countryId"),
-    [data.country]
+    () => getSelectedOption(COUNTRIES[lang], data.country, "countryId"),
+    [data.country, lang]
   );
 
   useEffect(() => {
@@ -91,6 +98,8 @@ const useCountryFormLogic = () => {
       onClosePopUp,
     },
     selectedCountry,
+    t,
+    lang,
   };
 };
 

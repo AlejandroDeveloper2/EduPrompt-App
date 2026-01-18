@@ -1,5 +1,7 @@
 import { Tag } from "@/features/tags/types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { SavePromptFormData } from "./validationSchema";
 
 import { Form } from "@/shared/components/organims";
@@ -46,17 +48,24 @@ const SavePromptForm = ({
 }: SavePromptFormProps) => {
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     form;
+
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<SavePromptFormData>
-              label="Titulo (*)"
+              label={t(
+                "generations-translations.save-prompt-template.form-labels.prompt-title.label"
+              )}
               icon="text-outline"
               name="promptTitle"
               value={data.promptTitle}
-              placeholder="Digita el titulo del prompt"
+              placeholder={t(
+                "generations-translations.save-prompt-template.form-labels.prompt-title.placeholder"
+              )}
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptTitle")}
@@ -66,11 +75,15 @@ const SavePromptForm = ({
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.PromptInput<SavePromptFormData>
-              label="Cuerpo del prompt (*)"
+              label={t(
+                "generations-translations.save-prompt-template.form-labels.prompt-body.label"
+              )}
               icon="chatbox-ellipses-outline"
               name="promptText"
               value={data.promptText}
-              placeholder="Describe tu recurso. Ejemplo: genera una guía para planificar mi clase de biología sobre animales invertebrados. Diseña la guía para una clase de 2 horas."
+              placeholder={t(
+                "generations-translations.save-prompt-template.form-labels.prompt-body.placeholder"
+              )}
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptText")}
@@ -88,9 +101,13 @@ const SavePromptForm = ({
               }
             >
               name="tag"
-              label="Etiqueta (*)"
+              label={t(
+                "generations-translations.save-prompt-template.form-labels.tag.label"
+              )}
               icon="pricetag-outline"
-              placeholder="Seleccione una opción"
+              placeholder={t(
+                "generations-translations.save-prompt-template.form-labels.tag.placeholder"
+              )}
               selectedOption={selectedTag}
               optionValueKey="name"
               displayDropdownOptions={onTagSelectionMode}
@@ -106,9 +123,13 @@ const SavePromptForm = ({
             variant="primary"
             width="100%"
             icon="add-outline"
-            label="Guardar prompt"
+            label={t(
+              "generations-translations.save-prompt-template.form-labels.btn-save-prompt"
+            )}
             loading={isLoading}
-            loadingMessage="Guardando..."
+            loadingMessage={t(
+              "generations-translations.save-prompt-template.form-loading-messages.saving-prompt-msg"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
@@ -117,7 +138,9 @@ const SavePromptForm = ({
             variant="neutral"
             width="100%"
             icon="close-outline"
-            label="Cancelar"
+            label={t(
+              "generations-translations.save-prompt-template.form-labels.btn-cancel"
+            )}
             onPress={onClosePopUp}
           />
         </Form.Row.Item>

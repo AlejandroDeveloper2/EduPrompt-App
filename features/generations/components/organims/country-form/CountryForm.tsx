@@ -21,23 +21,29 @@ const CountryForm = () => {
       onClosePopUp,
     },
     selectedCountry,
+    t,
+    lang,
   } = useCountryFormLogic();
 
   return (
     <>
       <PopUp
         icon="flag-outline"
-        title="Selecciona un país"
+        title={t(
+          "generations-translations.country-template.countries-popup-labels.title"
+        )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
         animatedPopUpStyle={animatedPopUpStyle}
         onClosePopUp={onClosePopUp}
       >
         <DropdownOptionList<Country>
-          optionList={COUNTRIES}
+          optionList={COUNTRIES[lang]}
           optionIdkey="countryId"
           optionLabelKey="countryName"
-          searchInputPlaceholder="Buscar país"
+          searchInputPlaceholder={t(
+            "generations-translations.country-template.countries-popup-labels.search-input-placeholder"
+          )}
           selectedOption={selectedCountry}
           onSelectOption={(option) => {
             handleChange("country", option.countryId);
@@ -52,8 +58,12 @@ const CountryForm = () => {
               <Form.Dropdown<CountryFormData, Country>
                 name="country"
                 icon="flag-outline"
-                label="País (*)"
-                placeholder="Seleccione una opción"
+                label={t(
+                  "generations-translations.country-template.form-labels.country.label"
+                )}
+                placeholder={t(
+                  "generations-translations.country-template.form-labels.country.placeholder"
+                )}
                 selectedOption={selectedCountry}
                 optionValueKey="countryName"
                 displayDropdownOptions={onOpenPopUp}
@@ -69,7 +79,9 @@ const CountryForm = () => {
               variant="neutral"
               width="100%"
               icon="chevron-back-outline"
-              label="Anterior"
+              label={t(
+                "generations-translations.country-template.form-labels.btn-prev-step"
+              )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
@@ -84,7 +96,9 @@ const CountryForm = () => {
               variant="primary"
               width="100%"
               icon="chevron-forward-outline"
-              label="Siguiente"
+              label={t(
+                "generations-translations.country-template.form-labels.btn-next-step"
+              )}
               onPress={handleSubmit}
             />
           </Form.Row.Item>

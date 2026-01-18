@@ -9,7 +9,7 @@ import {
 } from "../../components/organims/resource-format-form/validationSchema";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { getSelectedOption } from "../../helpers";
@@ -21,6 +21,8 @@ const initialValues: ResourceFormatFormData = {
 const useFormatFormLogic = () => {
   const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
     useGenerationsStore();
+
+  const { t, lang } = useTranslations();
 
   const {
     data,
@@ -35,7 +37,7 @@ const useFormatFormLogic = () => {
     actionCallback: () => {
       if (!currentIaGeneration) return;
       const resourceFormat = getSelectedOption(
-        RESOURCE_FORMATS,
+        RESOURCE_FORMATS[lang],
         data.formatKey,
         "formatKey"
       );
@@ -62,8 +64,9 @@ const useFormatFormLogic = () => {
   } = useAnimatedPopUp();
 
   const selectedFormat = useMemo(
-    () => getSelectedOption(RESOURCE_FORMATS, data.formatKey, "formatKey"),
-    [data.formatKey]
+    () =>
+      getSelectedOption(RESOURCE_FORMATS[lang], data.formatKey, "formatKey"),
+    [data.formatKey, lang]
   );
 
   useEffect(() => {
@@ -91,6 +94,8 @@ const useFormatFormLogic = () => {
       onClosePopUp,
     },
     selectedFormat,
+    lang,
+    t,
   };
 };
 

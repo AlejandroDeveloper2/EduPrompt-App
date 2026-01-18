@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Tag } from "@/features/tags/types";
 
@@ -12,7 +12,8 @@ import {
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import { useForm } from "@/shared/hooks/core";
-import { useEventBusToggle, useEventbusValue } from "@/shared/hooks/events";
+import { useEventBusToggle } from "@/shared/hooks/events";
+import { useTagFiltersContext } from "../context";
 import { useGenerationsStore } from "../store";
 
 import { getSelectedOption } from "../../helpers";
@@ -28,6 +29,9 @@ const useSaveResourceFormLogic = () => {
   const saveResourcePopUp = useAnimatedPopUp();
 
   const { currentIaGeneration } = useGenerationsStore();
+
+  const { paginatedTags, searchTagValue, onSearchTagValueChange, setTagType } =
+    useTagFiltersContext();
 
   const { data, handleChange, handleClearInput, getFieldErrors, handleSubmit } =
     useForm({
@@ -53,22 +57,21 @@ const useSaveResourceFormLogic = () => {
     "resources.createResource.failed",
   ]);
 
-  const tagsPagination = useEventbusValue("tags.list.pagination.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
-
   const selectedTag = useMemo(
-    () => getSelectedOption(tagsPagination.tags, data.groupTag, "tagId"),
+    () => getSelectedOption(paginatedTags.tags, data.groupTag, "tagId"),
     [data.groupTag]
   ) as Tag | null;
+
+  useEffect(() => {
+    setTagType("resourceType");
+  }, []);
 
   return {
     isLoading,
     selectedTag,
-    tagsPagination,
+    paginatedTags,
+    searchTagValue,
+    onSearchTagValueChange,
     saveResourcePopUp,
     form: {
       formData: data,

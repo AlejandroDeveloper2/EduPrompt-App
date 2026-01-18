@@ -1,5 +1,7 @@
 import { Tag } from "@/features/tags/types";
 
+import { useTranslations } from "@/shared/hooks/core";
+
 import { CreateResourceFormData } from "./validationSchema";
 
 import { Form } from "@/shared/components/organims";
@@ -11,11 +13,11 @@ interface SaveResourceFormProps {
     formData: CreateResourceFormData;
     handleChange: (
       field: keyof CreateResourceFormData,
-      value: string | number
+      value: string | number,
     ) => void;
     handleClearInput: (name: keyof CreateResourceFormData) => void;
     getFieldErrors: (
-      fieldKey: keyof CreateResourceFormData
+      fieldKey: keyof CreateResourceFormData,
     ) => string[] | undefined;
     handleSubmit: () => void;
   };
@@ -38,17 +40,23 @@ const SaveResourceForm = ({
     handleSubmit,
   } = form;
 
+  const { t } = useTranslations();
+
   return (
     <Form>
       <Form.Fields>
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<CreateResourceFormData>
-              label="Titulo (*)"
+              label={t(
+                "generations-translations.save-resource-form.form-labels.resource-title.label",
+              )}
               icon="text-outline"
               name="title"
               value={formData.title}
-              placeholder="Digita el titulo del recurso"
+              placeholder={t(
+                "generations-translations.save-resource-form.form-labels.resource-title.placeholder",
+              )}
               errorMessage={getFieldErrors("title")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("title")}
@@ -66,9 +74,13 @@ const SaveResourceForm = ({
               }
             >
               name="groupTag"
-              label="Etiqueta (*)"
+              label={t(
+                "generations-translations.save-resource-form.form-labels.group-tag.label",
+              )}
               icon="pricetag-outline"
-              placeholder="Seleccione una opción"
+              placeholder={t(
+                "generations-translations.save-resource-form.form-labels.group-tag.placeholder",
+              )}
               selectedOption={selectedTag}
               optionValueKey="name"
               displayDropdownOptions={onTagSelectionMode}
@@ -84,9 +96,13 @@ const SaveResourceForm = ({
             variant="primary"
             width="100%"
             icon="add-outline"
-            label="Guardar recurso"
+            label={t(
+              "generations-translations.save-resource-form.form-labels.btn-save-resource",
+            )}
             loading={isLoading}
-            loadingMessage="Guardando recurso..."
+            loadingMessage={t(
+              "generations-translations.save-resource-form.form-loading-messages.saving-resource-msg",
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>
@@ -95,7 +111,9 @@ const SaveResourceForm = ({
             variant="neutral"
             width="100%"
             icon="close-outline"
-            label="Cancelar"
+            label={t(
+              "generations-translations.save-resource-form.form-labels.btn-cancel",
+            )}
             onPress={onClosePopUp}
           />
         </Form.Row.Item>

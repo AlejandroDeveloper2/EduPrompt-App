@@ -39,19 +39,34 @@ const ResourceDescriptionForm = () => {
     },
     popUps: { savePromptPopUp, selectPromptPopUp },
     paginatedPrompts,
+    t,
   } = useResourceDescriptionFormLogic();
 
-  const { isLoading, tagsPagination, selectedTag, form } =
-    useSavePromptFormLogic(
-      data.descriptionPrompt,
-      savePromptPopUp.onClosePopUp
-    );
+  const {
+    isLoading,
+    paginatedTags,
+    searchTagValue,
+    onSearchTagValueChange,
+    selectedTag,
+    form,
+  } = useSavePromptFormLogic(
+    data.descriptionPrompt,
+    savePromptPopUp.onClosePopUp
+  );
 
   return (
     <>
       <PopUp
         icon={isTagSelection ? "pricetag-outline" : "save-outline"}
-        title={isTagSelection ? "Seleccionar etiqueta" : "Guardar prompt"}
+        title={
+          isTagSelection
+            ? t(
+                "generations-translations.resource-description-template.select-tag-popup-labels.title"
+              )
+            : t(
+                "generations-translations.resource-description-template.save-prompt-popup-labels.title"
+              )
+        }
         isPopUpMounted={savePromptPopUp.isPopUpMounted}
         gesture={savePromptPopUp.dragGesture}
         animatedPopUpStyle={savePromptPopUp.animatedPopUpStyle}
@@ -64,23 +79,34 @@ const ResourceDescriptionForm = () => {
             type: "prompt_tag" | "resource_tag";
             name: string;
           }>
-            ControlPanelComponent={<TagSelectionPanel tagType="prompt_tag" />}
+            ControlPanelComponent={
+              <TagSelectionPanel
+                tagType="prompt_tag"
+                searchValue={searchTagValue}
+                onSearchChange={onSearchTagValueChange}
+              />
+            }
             infinitePaginationOptions={{
-              ...tagsPagination,
+              ...paginatedTags,
               onRefetch: () =>
-                eventBus.emit("tags.refetch.requested", undefined),
+                eventBus.emit("tags.promptType.fetch", undefined),
               onEndReached: () => {
                 if (
-                  tagsPagination.hasNextPage &&
-                  !tagsPagination.isFetchingNextPage
+                  paginatedTags.hasNextPage &&
+                  !paginatedTags.isFetchingNextPage
                 )
-                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+                  eventBus.emit(
+                    "tags.promptType.fetchNextPage.requested",
+                    undefined
+                  );
               },
             }}
-            optionList={tagsPagination.tags}
+            optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
-            searchInputPlaceholder="Buscar etiqueta por nombre"
+            searchInputPlaceholder={t(
+              "generations-translations.resource-description-template.select-tag-popup-labels.search-input-placeholder"
+            )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("tag", option.tagId);
@@ -88,7 +114,9 @@ const ResourceDescriptionForm = () => {
             }}
             FooterComponent={
               <Button
-                label="Cancelar selección"
+                label={t(
+                  "generations-translations.resource-description-template.select-tag-popup-labels.btn-cancel"
+                )}
                 icon="close-outline"
                 width="100%"
                 variant="neutral"
@@ -110,7 +138,15 @@ const ResourceDescriptionForm = () => {
 
       <PopUp
         icon={isTagSelection ? "pricetag-outline" : "chatbox-outline"}
-        title={isTagSelection ? "Seleccionar etiqueta" : "Seleccionar prompt"}
+        title={
+          isTagSelection
+            ? t(
+                "generations-translations.resource-description-template.select-tag-popup-labels.title"
+              )
+            : t(
+                "generations-translations.resource-description-template.select-prompt-popup-labels.title"
+              )
+        }
         isPopUpMounted={selectPromptPopUp.isPopUpMounted}
         gesture={selectPromptPopUp.dragGesture}
         animatedPopUpStyle={selectPromptPopUp.animatedPopUpStyle}
@@ -122,23 +158,34 @@ const ResourceDescriptionForm = () => {
             type: "prompt_tag" | "resource_tag";
             name: string;
           }>
-            ControlPanelComponent={<TagSelectionPanel tagType="prompt_tag" />}
+            ControlPanelComponent={
+              <TagSelectionPanel
+                tagType="prompt_tag"
+                searchValue={searchTagValue}
+                onSearchChange={onSearchTagValueChange}
+              />
+            }
             infinitePaginationOptions={{
-              ...tagsPagination,
+              ...paginatedTags,
               onRefetch: () =>
-                eventBus.emit("tags.refetch.requested", undefined),
+                eventBus.emit("tags.promptType.refetch.requested", undefined),
               onEndReached: () => {
                 if (
-                  tagsPagination.hasNextPage &&
-                  !tagsPagination.isFetchingNextPage
+                  paginatedTags.hasNextPage &&
+                  !paginatedTags.isFetchingNextPage
                 )
-                  eventBus.emit("tags.fetchNextPage.requested", undefined);
+                  eventBus.emit(
+                    "tags.promptType.fetchNextPage.requested",
+                    undefined
+                  );
               },
             }}
-            optionList={tagsPagination.tags}
+            optionList={paginatedTags.tags}
             optionIdkey="tagId"
             optionLabelKey="name"
-            searchInputPlaceholder="Buscar etiqueta por nombre"
+            searchInputPlaceholder={t(
+              "generations-translations.resource-description-template.select-tag-popup-labels.search-input-placeholder"
+            )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
               form.handleChange("tag", option.tagId);
@@ -146,7 +193,9 @@ const ResourceDescriptionForm = () => {
             }}
             FooterComponent={
               <Button
-                label="Cancelar selección"
+                label={t(
+                  "generations-translations.resource-description-template.select-tag-popup-labels.btn-cancel"
+                )}
                 icon="close-outline"
                 width="100%"
                 variant="neutral"
@@ -178,7 +227,9 @@ const ResourceDescriptionForm = () => {
             optionList={paginatedPrompts.prompts}
             optionIdkey="promptId"
             optionLabelKey="promptTitle"
-            searchInputPlaceholder="Buscar prompt por titulo"
+            searchInputPlaceholder={t(
+              "generations-translations.resource-description-template.select-prompt-popup-labels.search-input-placeholder"
+            )}
             selectedOption={selectedPrompt}
             onSelectOption={(option) => {
               setSelectedPrompt(option);
@@ -192,11 +243,15 @@ const ResourceDescriptionForm = () => {
           <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
             <Form.Row.Item span={1}>
               <Form.PromptInput<ResourceDescriptionFormData>
-                label="Describe tu recurso (*)"
+                label={t(
+                  "generations-translations.resource-description-template.form-labels.prompt-description.label"
+                )}
                 icon="chatbox-ellipses-outline"
                 name="descriptionPrompt"
                 value={data.descriptionPrompt}
-                placeholder="Describe tu recurso. Ejemplo: genera una guía para planificar mi clase de biología sobre animales invertebrados. Diseña la guía para una clase de 2 horas."
+                placeholder={t(
+                  "generations-translations.resource-description-template.form-labels.prompt-description.placeholder"
+                )}
                 errorMessage={getFieldErrors("descriptionPrompt")?.join(", ")}
                 onChange={handleChange}
                 onClearInput={() => handleClearInput("descriptionPrompt")}
@@ -212,14 +267,18 @@ const ResourceDescriptionForm = () => {
               variant="primary"
               width="100%"
               icon="bulb-outline"
-              label="Generar recurso"
+              label={t(
+                "generations-translations.resource-description-template.form-labels.btn-generate-resource"
+              )}
               loading={isPending}
               disabled={
                 currentIaGeneration
                   ? !currentIaGeneration.generationCompleted
                   : true
               }
-              loadingMessage="Generando recurso..."
+              loadingMessage={t(
+                "generations-translations.resource-description-template.form-loading-messages.generating-resource-msg"
+              )}
               onPress={handleSubmit}
             />
           </Form.Row.Item>
@@ -228,7 +287,9 @@ const ResourceDescriptionForm = () => {
               variant="neutral"
               width="100%"
               icon="chevron-back-outline"
-              label="Anterior"
+              label={t(
+                "generations-translations.resource-description-template.form-labels.btn-prev-step"
+              )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(

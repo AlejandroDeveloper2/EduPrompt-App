@@ -5,6 +5,7 @@ import { AssistantResponse, GenerationData } from "../../types";
 import { eventBus } from "@/core/events/EventBus";
 import { showToast } from "@/shared/context";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -17,12 +18,14 @@ const useGenerateResourceMutation = () => {
   const { currentIaGeneration, updateIaGeneration, getIaGeneration } =
     useGenerationsStore();
 
+  const { t } = useTranslations();
+
   return useMutation({
     mutationFn: async (generationData: GenerationData) => {
       const formattedData = formatGenerationData(generationData);
       const iaResponse = await postGenerateEducationalResource(
         formattedData,
-        generationData.resourceFormat.formatKey
+        generationData.resourceFormat.formatKey,
       );
       return iaResponse;
     },
@@ -33,7 +36,7 @@ const useGenerateResourceMutation = () => {
           currentIaGeneration.generationId,
           {},
           {},
-          { isGenerating: false }
+          { isGenerating: false },
         );
         getIaGeneration(currentIaGeneration.generationId);
       }
@@ -63,12 +66,12 @@ const useGenerateResourceMutation = () => {
         currentIaGeneration.generationId,
         {},
         {},
-        { isGenerating: false, result: iaResponse }
+        { isGenerating: false, result: iaResponse },
       );
       getIaGeneration(currentIaGeneration.generationId);
 
       const amount = getResourcePrice(
-        currentIaGeneration.data.resourceFormat.formatKey
+        currentIaGeneration.data.resourceFormat.formatKey,
       );
 
       eventBus.emit("userProfile.updateTokeUserCoins.requested", {
@@ -79,7 +82,7 @@ const useGenerateResourceMutation = () => {
       eventBus.emit(
         "dashboard.setLastGeneratedResource",
         currentIaGeneration.data.resourceType.other ??
-          currentIaGeneration.data.resourceType.resourceTypeLabel
+          currentIaGeneration.data.resourceType.resourceTypeLabel,
       );
       eventBus.emit("dashboard.addGeneratedResource", undefined);
       eventBus.emit("dashboard.addUsedTokens", amount);
@@ -87,7 +90,9 @@ const useGenerateResourceMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: "Recurso generado correctamente",
+        message: t(
+          "generations-translations.module-success-messages.resource-generated-msg",
+        ),
       });
     },
   });

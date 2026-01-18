@@ -21,23 +21,29 @@ const ResourceFormatForm = () => {
       onClosePopUp,
     },
     selectedFormat,
+    lang,
+    t,
   } = useFormatFormLogic();
 
   return (
     <>
       <PopUp
         icon="image-outline"
-        title="Selecciona el formato del recurso"
+        title={t(
+          "generations-translations.resource-format-template.resource-format-popup-labels.title"
+        )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
         animatedPopUpStyle={animatedPopUpStyle}
         onClosePopUp={onClosePopUp}
       >
         <DropdownOptionList<ResourceFormat>
-          optionList={RESOURCE_FORMATS}
+          optionList={RESOURCE_FORMATS[lang]}
           optionIdkey="formatKey"
           optionLabelKey="formatLabel"
-          searchInputPlaceholder="Buscar formato"
+          searchInputPlaceholder={t(
+            "generations-translations.resource-format-template.resource-format-popup-labels.search-input-placeholder"
+          )}
           selectedOption={selectedFormat}
           onSelectOption={(option) => {
             handleChange("formatKey", option.formatKey);
@@ -52,8 +58,12 @@ const ResourceFormatForm = () => {
               <Form.Dropdown<ResourceFormatFormData, ResourceFormat>
                 name="formatKey"
                 icon="image-outline"
-                label="Formato del recurso (*)"
-                placeholder="Seleccione una opción"
+                label={t(
+                  "generations-translations.resource-format-template.form-labels.format.label"
+                )}
+                placeholder={t(
+                  "generations-translations.resource-format-template.form-labels.format.placeholder"
+                )}
                 selectedOption={selectedFormat}
                 optionValueKey="formatLabel"
                 displayDropdownOptions={onOpenPopUp}
@@ -69,7 +79,9 @@ const ResourceFormatForm = () => {
               variant="neutral"
               width="100%"
               icon="chevron-back-outline"
-              label="Anterior"
+              label={t(
+                "generations-translations.resource-format-template.form-labels.btn-prev-step"
+              )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
@@ -84,7 +96,9 @@ const ResourceFormatForm = () => {
               variant="primary"
               width="100%"
               icon="chevron-forward-outline"
-              label="Siguiente"
+              label={t(
+                "generations-translations.resource-format-template.form-labels.btn-next-step"
+              )}
               onPress={handleSubmit}
             />
           </Form.Row.Item>

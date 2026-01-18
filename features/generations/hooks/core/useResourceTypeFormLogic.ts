@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
 
+import { LangTag } from "@/core/types";
+
 import { EDUCATIONAL_RESOURCE_TYPES } from "../../constants";
 
 import {
@@ -9,7 +11,7 @@ import {
 } from "../../components/organims/resource-type-form/validationSchema";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { getSelectedOption, validateIsLastOptionSelected } from "../../helpers";
@@ -18,17 +20,17 @@ const initialValues: ResourceTypeFormData = {
   resourceTypeId: "",
 };
 
-const handleSelectedOption = (resourceTypeId: string) => {
+const handleSelectedOption = (resourceTypeId: string, lang: LangTag) => {
   return getSelectedOption(
-    EDUCATIONAL_RESOURCE_TYPES,
+    EDUCATIONAL_RESOURCE_TYPES[lang],
     resourceTypeId,
     "resourceTypeId"
   );
 };
 
-const handleIsLastSelectedOption = (resourceTypeId: string) => {
+const handleIsLastSelectedOption = (resourceTypeId: string, lang: LangTag) => {
   return validateIsLastOptionSelected(
-    EDUCATIONAL_RESOURCE_TYPES,
+    EDUCATIONAL_RESOURCE_TYPES[lang],
     resourceTypeId,
     "resourceTypeId"
   );
@@ -37,6 +39,9 @@ const handleIsLastSelectedOption = (resourceTypeId: string) => {
 const useResourceTypeFormLogic = () => {
   const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
     useGenerationsStore();
+
+  const { t, lang } = useTranslations();
+
   const {
     data,
     getFieldErrors,
@@ -50,12 +55,13 @@ const useResourceTypeFormLogic = () => {
     validationSchema: resourceTypeFormSchema,
     actionCallback: () => {
       if (!currentIaGeneration) return;
-      const resourceType = handleSelectedOption(data.resourceTypeId);
+      const resourceType = handleSelectedOption(data.resourceTypeId, lang);
 
       if (!resourceType) return;
 
       const isLastOptionSelected = handleIsLastSelectedOption(
-        data.resourceTypeId
+        data.resourceTypeId,
+        lang
       );
 
       const { generationId } = currentIaGeneration;
@@ -81,16 +87,19 @@ const useResourceTypeFormLogic = () => {
 
   const { isLastOptionSelected } = useMemo(
     () => ({
-      isLastOptionSelected: handleIsLastSelectedOption(data.resourceTypeId),
+      isLastOptionSelected: handleIsLastSelectedOption(
+        data.resourceTypeId,
+        lang
+      ),
     }),
-    [data.resourceTypeId]
+    [data.resourceTypeId, lang]
   );
 
   const { selectedOption } = useMemo(
     () => ({
-      selectedOption: handleSelectedOption(data.resourceTypeId),
+      selectedOption: handleSelectedOption(data.resourceTypeId, lang),
     }),
-    [data.resourceTypeId]
+    [data.resourceTypeId, lang]
   );
 
   useEffect(() => {
@@ -114,6 +123,8 @@ const useResourceTypeFormLogic = () => {
     chooseResourceTypePopUp,
     isLastOptionSelected,
     selectedOption,
+    lang,
+    t,
   };
 };
 

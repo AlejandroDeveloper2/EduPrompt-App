@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 import { useGenerationsStore } from "@/features/generations/hooks/store";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import { SubjectFormData, subjectFormSchema } from "./validationSchema";
 
@@ -41,6 +41,8 @@ const SubjectForm = () => {
     noReset: true,
   });
 
+  const { t } = useTranslations();
+
   useEffect(() => {
     const { data: currentData } = currentIaGeneration!;
     setValues({ subjectName: currentData.subjectName });
@@ -52,11 +54,15 @@ const SubjectForm = () => {
         <Form.Row configRows={{ sm: 1, md: 1, lg: 1 }}>
           <Form.Row.Item span={1}>
             <Form.Input<SubjectFormData>
-              label="Materia o asignatura (*)"
+              label={t(
+                "generations-translations.subject-template.form-labels.subject.label"
+              )}
               icon="book-outline"
               name="subjectName"
               value={data.subjectName}
-              placeholder="Digita la asignatura"
+              placeholder={t(
+                "generations-translations.subject-template.form-labels.subject.placeholder"
+              )}
               errorMessage={getFieldErrors("subjectName")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("subjectName")}
@@ -70,7 +76,9 @@ const SubjectForm = () => {
             variant="neutral"
             width="100%"
             icon="chevron-back-outline"
-            label="Anterior"
+            label={t(
+              "generations-translations.subject-template.form-labels.btn-prev-step"
+            )}
             onPress={() => {
               if (!currentIaGeneration) return;
               setGenerationStep(
@@ -85,7 +93,9 @@ const SubjectForm = () => {
             variant="primary"
             width="100%"
             icon="chevron-forward-outline"
-            label="Siguiente"
+            label={t(
+              "generations-translations.subject-template.form-labels.btn-next-step"
+            )}
             onPress={handleSubmit}
           />
         </Form.Row.Item>

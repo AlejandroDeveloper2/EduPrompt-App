@@ -855,6 +855,253 @@
     }
   },
 
+  "generations-translations": {
+    "generation-list-labels": {
+      "generation-card-label": "Passo atual:",
+      "title": "Gerar Recurso",
+      "description": "Gere seus recursos educacionais aqui. Você pode gerar vários recursos simultaneamente agora mesmo! Toque no botão abaixo e comece agora.",
+      "selection-options-labels": {
+        "delete-generations": "Excluir",
+        "reinit-generations": "Reiniciar"
+      },
+      "search-input-placeholder": "Pesquisar gerações por título",
+      "empty-list-label": "Não há gerações iniciadas",
+      "btn-generate": {
+        "label-1": "Gerar Outro Recurso",
+        "label-2": "Começar a Gerar"
+      }
+    },
+    "country-template": {
+      "countries-popup-labels": {
+        "title": "Selecione um País",
+        "search-input-placeholder": "Buscar país"
+      },
+      "form-labels": {
+        "country": {
+          "label": "País (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-prev-step": "Anterior",
+        "btn-next-step": "Próximo"
+      },
+      "form-error-messages": {
+        "required-country-msg": "O país é obrigatório"
+      }
+    },
+    "educational-level-template": {
+      "educational-level-popup-labels": {
+        "title": "Escolha o Nível Educacional Alvo",
+        "search-input-placeholder": "Buscar nível educacional"
+      },
+      "target-grade-popup-labels": {
+        "title": "Escolha a Série Alvo",
+        "search-input-placeholder": "Buscar série"
+      },
+      "form-labels": {
+        "target-educational-level": {
+          "label": "Nível Educacional Alvo (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "grade": {
+          "label": "Série (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-prev-step": "Anterior",
+        "btn-next-step": "Próximo"
+      },
+      "form-error-messages": {
+        "required-educational-level-msg": "O nível educacional é obrigatório",
+        "required-grade-msg": "A série é obrigatória para os níveis pré-escolar, fundamental e médio"
+      }
+    },
+    "language-template": {
+      "language-selection-popup-labels": {
+        "title": "Selecione o Idioma",
+        "search-input-placeholder": "Buscar idioma"
+      },
+      "form-labels": {
+        "language": {
+          "label": "Idioma (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-prev-step": "Anterior",
+        "btn-next-step": "Próximo"
+      },
+      "form-error-messages": {
+        "invalid-language-msg": "O idioma selecionado é inválido"
+      }
+    },
+    "resource-format-template": {
+      "resource-format-popup-labels": {
+        "title": "Selecione o Formato do Recurso",
+        "search-input-placeholder": "Buscar formato"
+      },
+      "form-labels": {
+        "format": {
+          "label": "Formato do Recurso (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-prev-step": "Anterior",
+        "btn-next-step": "Próximo"
+      },
+      "form-error-messages": {
+        "invalid-format-msg": "O formato selecionado é inválido"
+      }
+    },
+    "resource-type-template": {
+      "resource-type-popup-labels": {
+        "title": "Escolha o Tipo de Recurso Acadêmico",
+        "search-input-placeholder": "Buscar tipo de recurso"
+      },
+      "form-labels": {
+        "resource-type": {
+          "label": "Tipo de Recurso Acadêmico (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "other": {
+          "label": "Especifique o Tipo de Recurso (*)",
+          "placeholder": "Digite o tipo de recurso"
+        },
+        "btn-prev-step": "Anterior",
+        "btn-next-step": "Próximo"
+      },
+      "form-error-messages": {
+        "required-resource-type-msg": "O tipo de recurso é obrigatório",
+        "required-alternative-resource-msg": "O tipo de recurso alternativo é obrigatório"
+      }
+    },
+    "subject-template": {
+      "form-labels": {
+        "subject": {
+          "label": "Matéria ou Disciplina (*)",
+          "placeholder": "Digite a disciplina"
+        },
+        "btn-prev-step": "Anterior",
+        "btn-next-step": "Próximo"
+      },
+      "form-error-messages": {
+        "required-subject-name-msg": "A matéria é obrigatória"
+      }
+    },
+    "resource-description-template": {
+      "select-tag-popup-labels": {
+        "title": "Selecionar Etiqueta",
+        "search-input-placeholder": "Buscar etiqueta por nome",
+        "btn-cancel": "Cancelar seleção"
+      },
+      "save-prompt-popup-labels": {
+        "title": "Salvar Prompt"
+      },
+      "select-prompt-popup-labels": {
+        "title": "Selecionar Prompt",
+        "search-input-placeholder": "Buscar prompt por título"
+      },
+      "form-labels": {
+        "prompt-description": {
+          "label": "Descreva Seu Recurso (*)",
+          "placeholder": "Descreva seu recurso. Exemplo: gere um guia para planejar minha aula de biologia sobre animais invertebrados. Projete o guia para uma aula de 2 horas."
+        },
+        "btn-prev-step": "Anterior",
+        "btn-generate-resource": "Gerar Recurso"
+      },
+      "form-error-messages": {
+        "required-description-msg": "A descrição do recurso é obrigatória"
+      },
+      "form-loading-messages": {
+        "generating-resource-msg": "Gerando recurso..."
+      }
+    },
+    "save-prompt-template": {
+      "form-labels": {
+        "prompt-title": {
+          "label": "Título (*)",
+          "placeholder": "Digite o título do prompt"
+        },
+        "prompt-body": {
+          "label": "Corpo do Prompt (*)",
+          "placeholder": "Descreva seu recurso. Exemplo: gere um guia para planejar minha aula de biologia sobre animais invertebrados. Projete o guia para uma aula de 2 horas."
+        },
+        "tag": {
+          "label": "Etiqueta (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-save-prompt": "Salvar Prompt",
+        "btn-cancel": "Cancelar"
+      },
+      "form-error-messages": {
+        "required-prompt-title": "O título do prompt é obrigatório",
+        "required-prompt-body": "A descrição do prompt é obrigatória",
+        "required-prompt-tag": "A etiqueta do prompt é obrigatória"
+      },
+      "form-loading-messages": {
+        "saving-prompt-msg": "Salvando..."
+      }
+    },
+    "save-resource-form": {
+      "form-labels": {
+        "resource-title": {
+          "label": "Título (*)",
+          "placeholder": "Digite o título do recurso"
+        },
+        "group-tag": {
+          "label": "Etiqueta (*)",
+          "placeholder": "Selecione uma opção"
+        },
+        "btn-save-resource": "Salvar Recurso",
+        "btn-cancel": "Cancelar"
+      },
+      "form-error-messages": {
+        "required-title-msg": "O título do recurso é obrigatório",
+        "required-group-tag-msg": "A etiqueta do recurso é obrigatória"
+      },
+      "form-loading-messages": {
+        "saving-resource-msg": "Salvando recurso..."
+      }
+    },
+    "generating-indicator-labels": {
+      "btn-back": "Voltar",
+      "title": "Gerando recurso...",
+      "description": "O recurso educacional solicitado está sendo gerado. O processo pode levar alguns segundos."
+    },
+    "generation-step-view-labels": {
+      "btn-back": "Voltar"
+    },
+    "ia-response-card-labels": {
+      "select-tag-popup-labels": {
+        "title": "Selecionar Etiqueta",
+        "search-input-placeholder": "Buscar etiqueta por nome",
+        "btn-cancel": "Cancelar seleção"
+      },
+      "save-resource-popup-labels": {
+        "title": "Salvar Recurso"
+      },
+      "btn-back": "Voltar",
+      "title": "Resultado",
+      "description": "Aqui está o recurso solicitado. Você pode salvar a visualização do recurso, baixá-lo, gerá-lo novamente ou ajustar as informações para gerar uma versão melhor.",
+      "generation-process-labels": {
+        "success": {
+          "title": "Recurso Gerado!",
+          "message": "Seu recurso foi gerado com sucesso:"
+        },
+        "error": {
+          "title": "Erro ao Gerar Recurso!",
+          "message": "Ocorreu um erro ao gerar seu recurso:"
+        }
+      },
+      "copy-resource-function-labels": {
+        "success-msg": "Texto copiado com sucesso para a área de transferência",
+        "error-msg": "Ocorreu um erro ao copiar o texto"
+      },
+      "btn-generate-other-resource": "Gerar Outro Recurso"
+    },
+    "module-error-messages": {
+      "insufficient-tokens-msg": "Tokens insuficientes para gerar este recurso, recarregue mais tokens."
+    },
+    "module-success-messages": {
+      "resource-generated-msg": "Recurso gerado com sucesso"
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "Ocorreu um erro interno no servidor",
     "database-connection-error-msg": "Erro ao conectar com o banco de dados",

@@ -11,6 +11,7 @@ import {
   useGenerationsStore,
 } from "@/features/generations/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
+import { useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -49,6 +50,8 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
+  const { t } = useTranslations();
+
   const generationCardStyle = GenerationCardStyle(size);
 
   return (
@@ -79,7 +82,9 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
       <View style={generationCardStyle.CardBody}>
         <View style={generationCardStyle.CardCurrentStepTitle}>
           <Typography
-            text="Paso actual:"
+            text={t(
+              "generations-translations.generation-list-labels.generation-card-label"
+            )}
             weight="bold"
             type="caption"
             textAlign="left"

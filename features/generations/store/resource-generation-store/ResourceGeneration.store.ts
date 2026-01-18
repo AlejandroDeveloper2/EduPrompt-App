@@ -19,6 +19,7 @@ import {
 import { showToast } from "@/shared/context";
 import { GenerationsSelectionStore } from "../generations-selection-store/GenerationsSelection.store";
 
+import { i18n } from "@/core/store";
 import { formatDate, generateToastKey } from "@/shared/helpers";
 import { calcAvarageProcessDuration } from "@/shared/utils";
 import { setGenerationProcessName } from "../../helpers";
@@ -34,7 +35,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
       getIaGeneration: (generationId: string): void => {
         const { iaGenerations } = get();
         const generation = iaGenerations.find(
-          (gen) => gen.generationId === generationId
+          (gen) => gen.generationId === generationId,
         );
         set({ currentIaGeneration: generation || null });
       },
@@ -42,9 +43,12 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         const { iaGenerations } = get();
         const generationTitle: string = `Generación ${formatDate(
           "es",
-          new Date()
+          new Date(),
         )}`;
-        const newGeneration: IaGeneration = buildNewGeneration(generationTitle);
+        const newGeneration: IaGeneration = buildNewGeneration(
+          generationTitle,
+          "es",
+        );
         set({ iaGenerations: [...iaGenerations, newGeneration] });
         return newGeneration;
       },
@@ -52,7 +56,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         generationId,
         updatedData,
         updatedCurrentStep,
-        updatedGeneration
+        updatedGeneration,
       ): void => {
         const { iaGenerations, currentIaGeneration } = get();
 
@@ -67,7 +71,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         const updatedSteps = steps.map((step) =>
           step.generationStepId === updatedStep.generationStepId
             ? { ...updatedStep }
-            : step
+            : step,
         );
 
         const finalUpdatedGeneration: IaGeneration = {
@@ -80,7 +84,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         };
 
         const updatedGenerations = iaGenerations.map((gen) =>
-          gen.generationId === generationId ? finalUpdatedGeneration : gen
+          gen.generationId === generationId ? finalUpdatedGeneration : gen,
         );
 
         set({
@@ -93,23 +97,23 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
       },
       setGenerationStep(
         generationId: string,
-        stepId: GenerationStepNameType
+        stepId: GenerationStepNameType,
       ): void {
         const { iaGenerations, updateIaGeneration } = get();
         const generation = iaGenerations.find(
-          (gen) => gen.generationId === generationId
+          (gen) => gen.generationId === generationId,
         );
         if (!generation) return;
 
         const currentStep = generation.steps.find(
-          (step) => step.generationStepId === stepId
+          (step) => step.generationStepId === stepId,
         );
 
         updateIaGeneration(
           generationId,
           {},
           currentStep || generation.steps[0],
-          {}
+          {},
         );
       },
       createAndSelectNewGeneration: (): void => {
@@ -127,7 +131,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           currentIaGeneration.generationId,
           {},
           {},
-          { isGenerating: false, canDelete: true, result: null }
+          { isGenerating: false, canDelete: true, result: null },
         );
 
         deleteIaGeneration(currentIaGeneration.generationId);
@@ -165,12 +169,12 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           currentIaGeneration.generationId,
           {},
           {},
-          { isGenerating: false, canDelete: true, result: null }
+          { isGenerating: false, canDelete: true, result: null },
         );
 
         setGenerationStep(
           currentIaGeneration.generationId,
-          "resource_type_selection"
+          "resource_type_selection",
         );
 
         getIaGeneration(currentIaGeneration.generationId);
@@ -179,7 +183,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
       deleteIaGeneration: (generationId: string): void => {
         const { iaGenerations } = get();
         const updatedGenerations = iaGenerations.filter(
-          (gen) => gen.generationId !== generationId
+          (gen) => gen.generationId !== generationId,
         );
         set({ iaGenerations: updatedGenerations });
       },
@@ -189,7 +193,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           GenerationsSelectionStore.getState();
 
         const updated = iaGenerations.filter(
-          (g) => !selectedGenerationIds.has(g.generationId)
+          (g) => !selectedGenerationIds.has(g.generationId),
         );
 
         set({ iaGenerations: updated });
@@ -205,7 +209,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
 
         Array.from(selectedGenerationIds).forEach((generationId) => {
           const iaGeneration = iaGenerations.find(
-            (g) => g.generationId === generationId
+            (g) => g.generationId === generationId,
           );
           if (!iaGeneration) return;
           selectedGenerations.push(iaGeneration);
@@ -232,7 +236,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
       executeIaGeneration: async (
         canGenerate,
         genCallback,
-        descriptionPrompt
+        descriptionPrompt,
       ): Promise<void> => {
         const { currentIaGeneration, updateIaGeneration } = get();
 
@@ -245,8 +249,9 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message:
-              "Tokens insuficientes para generar este recurso, recarga mas tokens.",
+            message: i18n.t(
+              "generations-translations.module-error-messages.insufficient-tokens-msg",
+            ),
           });
           return;
         }
@@ -263,7 +268,7 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           {
             isGenerating: true,
             canDelete: false,
-          }
+          },
         );
 
         const processName = setGenerationProcessName(data);
@@ -302,6 +307,6 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
         iaGenerations: state.iaGenerations,
         currentIaGeneration: state.currentIaGeneration,
       }),
-    }
-  )
+    },
+  ),
 );

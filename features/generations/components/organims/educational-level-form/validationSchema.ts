@@ -2,9 +2,18 @@ import { z } from "zod";
 
 import { TARGET_EDUCATIONAL_LEVELS } from "@/features/generations/constants";
 
+import { i18n, LanguageStore } from "@/core/store";
+
 export const educationalLevelFormSchema = z
   .object({
-    educationalLevelId: z.string().min(1, "El nivel educativo es obligatorio"),
+    educationalLevelId: z
+      .string()
+      .min(
+        1,
+        i18n.t(
+          "generations-translations.educational-level-template.form-error-messages.required-educational-level-msg"
+        )
+      ),
     gradeLevelId: z.string().optional(),
   })
   .superRefine((data, ctx) => {
@@ -14,15 +23,18 @@ export const educationalLevelFormSchema = z
       "educational_level_secondary",
     ];
 
-    const isGradeRequired: boolean = TARGET_EDUCATIONAL_LEVELS.some((level) =>
-      requiredGradeLevels.includes(level.educationalLevelId)
+    const { lang } = LanguageStore.getState();
+
+    const isGradeRequired: boolean = TARGET_EDUCATIONAL_LEVELS[lang].some(
+      (level) => requiredGradeLevels.includes(level.educationalLevelId)
     );
 
     if (isGradeRequired && !data.gradeLevelId) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message:
-          "El grado es obligatorio para el nivel preescolar, primaria y bachillerato",
+        message: i18n.t(
+          "generations-translations.educational-level-template.form-error-messages.required-grade-msg"
+        ),
         path: ["gradeLevelId"],
       });
     }

@@ -2,6 +2,7 @@ import { Image, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Typography } from "@/shared/components/atoms";
@@ -12,6 +13,9 @@ import { GenerationCardListStyle } from "./GenerationCardList.style";
 
 const GenerationEmpty = () => {
   const size = useScreenDimensionsStore();
+
+  const { t } = useTranslations();
+
   return (
     <View style={GenerationCardListStyle(size).EmptyContainer}>
       <Image
@@ -19,7 +23,9 @@ const GenerationEmpty = () => {
         style={{ transform: [{ scale: size === "mobile" ? 0.8 : 1 }] }}
       />
       <Typography
-        text="No hay generaciones iniciadas"
+        text={t(
+          "generations-translations.generation-list-labels.empty-list-label"
+        )}
         weight="regular"
         type="button"
         textAlign="center"

@@ -26,23 +26,29 @@ const EducationalLevelForm = () => {
       selectedGrade,
       isGradeRequired,
     },
+    lang,
+    t,
   } = useEducationalLevelFormLogic();
 
   return (
     <>
       <PopUp
         icon="school-outline"
-        title="Elije el nivel educativo objetivo"
+        title={t(
+          "generations-translations.educational-level-template.educational-level-popup-labels.title"
+        )}
         isPopUpMounted={educationalLevelPopUp.isPopUpMounted}
         gesture={educationalLevelPopUp.dragGesture}
         animatedPopUpStyle={educationalLevelPopUp.animatedPopUpStyle}
         onClosePopUp={educationalLevelPopUp.onClosePopUp}
       >
         <DropdownOptionList<EducationalLevel>
-          optionList={TARGET_EDUCATIONAL_LEVELS}
+          optionList={TARGET_EDUCATIONAL_LEVELS[lang]}
           optionIdkey="educationalLevelId"
           optionLabelKey="educationalLevelLabel"
-          searchInputPlaceholder="Buscar nivel educativo"
+          searchInputPlaceholder={t(
+            "generations-translations.educational-level-template.educational-level-popup-labels.search-input-placeholder"
+          )}
           selectedOption={selectedEducationalLevel}
           onSelectOption={(option) => {
             handleChange("educationalLevelId", option.educationalLevelId);
@@ -52,7 +58,9 @@ const EducationalLevelForm = () => {
       </PopUp>
       <PopUp
         icon="school-outline"
-        title="Elije el grado académico objetivo"
+        title={t(
+          "generations-translations.educational-level-template.target-grade-popup-labels.title"
+        )}
         isPopUpMounted={gradePopUp.isPopUpMounted}
         gesture={gradePopUp.dragGesture}
         animatedPopUpStyle={gradePopUp.animatedPopUpStyle}
@@ -62,7 +70,9 @@ const EducationalLevelForm = () => {
           optionList={grades}
           optionIdkey="gradeLevelId"
           optionLabelKey="gradeLevelLabel"
-          searchInputPlaceholder="Buscar grado académico"
+          searchInputPlaceholder={t(
+            "generations-translations.educational-level-template.target-grade-popup-labels.search-input-placeholder"
+          )}
           selectedOption={selectedGrade}
           onSelectOption={(option) => {
             handleChange("gradeLevelId", option.gradeLevelId);
@@ -78,8 +88,12 @@ const EducationalLevelForm = () => {
               <Form.Dropdown<EducationalLevelFormData, EducationalLevel>
                 name="educationalLevelId"
                 icon="school-outline"
-                label="Nivel académico objetivo (*)"
-                placeholder="Seleccione una opción"
+                label={t(
+                  "generations-translations.educational-level-template.form-labels.target-educational-level.label"
+                )}
+                placeholder={t(
+                  "generations-translations.educational-level-template.form-labels.target-educational-level.placeholder"
+                )}
                 selectedOption={selectedEducationalLevel}
                 optionValueKey="educationalLevelLabel"
                 displayDropdownOptions={educationalLevelPopUp.onOpenPopUp}
@@ -94,8 +108,12 @@ const EducationalLevelForm = () => {
                 <Form.Dropdown<EducationalLevelFormData, GradeLevel>
                   name="gradeLevelId"
                   icon="school-outline"
-                  label="Grado (*)"
-                  placeholder="Seleccione una opción"
+                  label={t(
+                    "generations-translations.educational-level-template.form-labels.grade.label"
+                  )}
+                  placeholder={t(
+                    "generations-translations.educational-level-template.form-labels.grade.placeholder"
+                  )}
                   selectedOption={selectedGrade}
                   optionValueKey="gradeLevelLabel"
                   displayDropdownOptions={gradePopUp.onOpenPopUp}
@@ -114,7 +132,9 @@ const EducationalLevelForm = () => {
               variant="neutral"
               width="100%"
               icon="chevron-back-outline"
-              label="Anterior"
+              label={t(
+                "generations-translations.educational-level-template.form-labels.btn-prev-step"
+              )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
@@ -129,7 +149,9 @@ const EducationalLevelForm = () => {
               variant="primary"
               width="100%"
               icon="chevron-forward-outline"
-              label="Siguiente"
+              label={t(
+                "generations-translations.educational-level-template.form-labels.btn-next-step"
+              )}
               onPress={handleSubmit}
             />
           </Form.Row.Item>

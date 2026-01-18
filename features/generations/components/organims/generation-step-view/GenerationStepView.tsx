@@ -8,6 +8,7 @@ import {
 } from "@/features/generations/types";
 
 import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useTranslations } from "@/shared/hooks/core";
 
 import { renderGenerationStepImage } from "@/features/generations/utils";
 
@@ -42,19 +43,22 @@ const GenerationStepView = ({
   currentIaGeneration,
 }: GenerationStepViewProps) => {
   const { setGenerationStep, clearSelectedGeneration } = useGenerationsStore();
+  const { t } = useTranslations();
 
   return (
     <View style={{ alignItems: "flex-end" }}>
       <Button
         icon="chevron-back-outline"
-        label="Volver"
+        label={t(
+          "generations-translations.generation-step-view-labels.btn-back",
+        )}
         variant="neutral"
         width="auto"
         onPress={clearSelectedGeneration}
       />
       <View style={GenerationStepViewStyles.StepContainer}>
         {renderGenerationStepImage(
-          currentIaGeneration.currentStep.illustration
+          currentIaGeneration.currentStep.illustration,
         )}
         <ScreenSection
           icon={currentIaGeneration.currentStep.icon}
@@ -71,7 +75,7 @@ const GenerationStepView = ({
         onActive={(stepId) =>
           setGenerationStep(
             currentIaGeneration.generationId,
-            stepId as GenerationStepNameType
+            stepId as GenerationStepNameType,
           )
         }
       />

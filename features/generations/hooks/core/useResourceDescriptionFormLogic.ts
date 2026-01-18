@@ -10,7 +10,11 @@ import {
 } from "../../components/organims/resource-description-form/validationSchema";
 
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useBackgroundTaskRunner, useForm } from "@/shared/hooks/core";
+import {
+  useBackgroundTaskRunner,
+  useForm,
+  useTranslations,
+} from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useGenerateResourceMutation } from "../mutations";
 import { useGenerationsStore } from "../store";
@@ -42,6 +46,8 @@ const useResourceDescriptionFormLogic = () => {
     refreshing: false,
   });
 
+  const { t } = useTranslations();
+
   const {
     data,
     getFieldErrors,
@@ -71,15 +77,23 @@ const useResourceDescriptionFormLogic = () => {
             },
             {
               successNotification: {
-                title: "¡Recurso generado!",
-                message: `Se ha generado tu recurso exitosamente: ${
+                title: t(
+                  "generations-translations.ia-response-card-labels.generation-process-labels.success.title"
+                ),
+                message: `${t(
+                  "generations-translations.ia-response-card-labels.generation-process-labels.success.message"
+                )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
                 }`,
               },
               errorNotification: {
-                title: "¡Error al generar recurso!",
-                message: `Ha ocurrido un error al generar tu recurso: ${
+                title: t(
+                  "generations-translations.ia-response-card-labels.generation-process-labels.error.title"
+                ),
+                message: `${t(
+                  "generations-translations.ia-response-card-labels.generation-process-labels.error.message"
+                )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
                 }`,
@@ -140,6 +154,7 @@ const useResourceDescriptionFormLogic = () => {
       selectPromptPopUp,
     },
     paginatedPrompts,
+    t,
   };
 };
 

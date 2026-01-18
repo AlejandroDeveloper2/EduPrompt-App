@@ -9,7 +9,7 @@ import {
   useGenerationsSelectionStore,
   useGenerationsStore,
 } from "@/features/generations/hooks/store";
-import { useSearchInput } from "@/shared/hooks/core";
+import { useSearchInput, useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -46,6 +46,8 @@ const GenerationCardList = () => {
     handleSearchChange,
     onClearSearchInput,
   } = useSearchInput(iaGenerations, "title");
+
+  const { t } = useTranslations();
 
   /** Emitimos el cambio de elementos seleccionados */
   useEffect(() => {
@@ -111,8 +113,12 @@ const GenerationCardList = () => {
           variant="primary"
           label={
             iaGenerations.length > 0
-              ? "Generar otro recurso"
-              : "Empezar a generar"
+              ? t(
+                  "generations-translations.generation-list-labels.btn-generate.label-1"
+                )
+              : t(
+                  "generations-translations.generation-list-labels.btn-generate.label-2"
+                )
           }
           width="100%"
           onPress={createIaGeneration}

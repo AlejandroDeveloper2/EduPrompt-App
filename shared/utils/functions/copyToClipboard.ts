@@ -1,5 +1,7 @@
 import { setStringAsync } from "expo-clipboard";
 
+import { i18n } from "@/core/store";
+
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 
@@ -21,14 +23,18 @@ export const copyToClipboard = async (textToCopy: string): Promise<void> => {
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: "Texo copiado exitosamente al portapapeles",
+      message: i18n.t(
+        "generations-translations.ia-response-card-labels.copy-resource-function-labels.success-msg",
+      ),
     });
   } catch (e) {
     console.log(e);
     showToast({
       key: generateToastKey(),
       variant: "danger",
-      message: "Ha ocurrido un error al copiar el texto",
+      message: i18n.t(
+        "generations-translations.ia-response-card-labels.copy-resource-function-labels.error-msg",
+      ),
     });
   }
 };
