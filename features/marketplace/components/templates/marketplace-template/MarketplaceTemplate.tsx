@@ -1,9 +1,13 @@
 import { ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 
-import { TokenPackage, TokenPackagePlan } from "@/features/marketplace/types";
+import { AppColors } from "@/shared/styles";
 
 import { useMarketplace } from "@/features/marketplace/hooks/core";
+import {
+  useSubscriptionPlansQuery,
+  useTokenPackagesQuery,
+} from "@/features/marketplace/hooks/query";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import {
@@ -13,44 +17,26 @@ import {
   ScreenSection,
   SubscriptionPlan,
 } from "@/shared/components/atoms";
+import { LoadingTextIndicator } from "@/shared/components/molecules";
 import { TokenPackageCard } from "../../organims";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { MarketplaceTemplateStyle } from "./MarketplaceTemplate.style";
 
-const packages: TokenPackage[] = [
-  {
-    packageId: "basic_package",
-    price: "2.99USD",
-    packageTitle: "Paquete Básico",
-    description: "¡Hasta 100 tokens instantáneos!",
-    tokensAmount: 100,
-  },
-  {
-    packageId: "pro_package",
-    price: "6.99USD",
-    packageTitle: "Paquete Pro",
-    description: "¡Hasta 300 tokens instantáneos!",
-    tokensAmount: 300,
-  },
-  {
-    packageId: "advanced_package",
-    price: "14.99USD",
-    packageTitle: "Paquete Avanzado",
-    description: "¡Hasta 1000 tokens instantáneos!",
-    tokensAmount: 1000,
-  },
-];
-
 const MarketplaceTemplate = () => {
   const size = useScreenDimensionsStore();
 
-  const { loading, createPurchase } = useMarketplace();
+  const { isProccesingOrder, createPurchase } = useMarketplace();
 
-  const PackageImage: Record<TokenPackagePlan, ReactNode> = {
-    basic_package: <BasicPackageToken />,
-    pro_package: <ProPackageToken />,
-    advanced_package: <AdvancePackageToken />,
+  const { data: plans, isLoading: isPlansLoading } =
+    useSubscriptionPlansQuery();
+  const { data: packages, isLoading: isPackagesLoading } =
+    useTokenPackagesQuery();
+
+  const PackageImage: Record<number, ReactNode> = {
+    0: <BasicPackageToken />,
+    1: <ProPackageToken />,
+    2: <AdvancePackageToken />,
   };
 
   return (
@@ -69,35 +55,72 @@ const MarketplaceTemplate = () => {
           horizontal
           contentContainerStyle={MarketplaceTemplateStyle(size).PackageList}
         >
-          {packages.map((pack) => (
-            <TokenPackageCard
-              key={pack.packageId}
-              packageId={pack.packageId}
-              price={pack.price}
-              packageTitle={pack.packageTitle}
-              description={pack.description}
-              SvgIcon={PackageImage[pack.packageId as TokenPackagePlan]}
-              loading={loading}
-              onBuyPackage={() => createPurchase(pack)}
+          {isPackagesLoading ? (
+            <LoadingTextIndicator
+              message="Cargando paquetes..."
+              color={AppColors.primary[400]}
             />
-          ))}
+          ) : packages ? (
+            packages.map((tokenPackage, i) => (
+              <TokenPackageCard
+                key={tokenPackage.packageId}
+                price={tokenPackage.price + "USD"}
+                packageTitle={tokenPackage.title}
+                description={tokenPackage.description}
+                SvgIcon={PackageImage[i]}
+                loading={{
+                  isLoading: isProccesingOrder,
+                  message: "Procesando compra...",
+                }}
+                onBuyPackage={() =>
+                  createPurchase({
+                    productId: tokenPackage.packageId,
+                    title: tokenPackage.title,
+                    description: tokenPackage.description,
+                    price: tokenPackage.price,
+                    productType: "token_package",
+                  })
+                }
+              />
+            ))
+          ) : null}
         </ScrollView>
         <ScreenSection
-          description="Si quieres generaciones y tokens ilimitados, ¡adquiere ahora Edu Prompt Pro por 3.99 USD por mes!"
+          description="Si quieres generaciones y tokens ilimitados, ¡adquiere ahora Edu Prompt Pro por 9.99 USD por mes!"
           title="Plan de suscripción"
           icon="star-outline"
         />
-        <TokenPackageCard
-          packageId="susbscription_plan"
-          price="3.99USD/Mes"
-          packageTitle="Plan Edu Prompt Pro"
-          description="Que se te terminen los tokens ya no será un problema. ¡Genera sin limites!"
-          SvgIcon={<SubscriptionPlan />}
-          full
-          loading={loading}
-          buttonText="Suscribirse 3.99USD/Mes"
-          onBuyPackage={() => {}}
-        />
+        {isPlansLoading ? (
+          <LoadingTextIndicator
+            message="Cargando planes de suscripción..."
+            color={AppColors.primary[400]}
+          />
+        ) : plans ? (
+          plans.map((plan) => (
+            <TokenPackageCard
+              key={plan.subscriptionPlanId}
+              price={`${plan.price}USD/Mes`}
+              packageTitle={plan.title}
+              description={plan.description}
+              SvgIcon={<SubscriptionPlan />}
+              full
+              loading={{
+                isLoading: isProccesingOrder,
+                message: "Procesando compra...",
+              }}
+              buttonText={`Suscribirse ${plan.price}USD/Mes`}
+              onBuyPackage={() =>
+                createPurchase({
+                  productId: plan.subscriptionPlanId,
+                  title: plan.title,
+                  description: plan.description,
+                  price: plan.price,
+                  productType: "subscription",
+                })
+              }
+            />
+          ))
+        ) : null}
       </ScrollView>
     </View>
   );

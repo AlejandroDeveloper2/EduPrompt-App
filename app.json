@@ -12,6 +12,14 @@
       "supportsTablet": true
     },
     "android": {
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [{ "scheme": "edupromptapp", "host": "payment" }],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ],
       "notification": {
         "icon": "./assets/notification-icon.png",
         "color": "#10B981"
@@ -21,7 +29,7 @@
         "backgroundColor": "#10B981"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.diazalejo.EduPrompt_App"
+      "package": "com.diazcore.eduprompt"
     },
     "web": {
       "bundler": "metro",

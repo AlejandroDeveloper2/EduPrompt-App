@@ -11,7 +11,6 @@ import { Button } from "@/shared/components/molecules";
 import { TokenPackageCardStyle } from "./TokenPackageCard.style";
 
 interface TokenPackageCardProps {
-  packageId: string;
   price: string;
   packageTitle: string;
   description: string;

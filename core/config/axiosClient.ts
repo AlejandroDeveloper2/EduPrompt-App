@@ -21,5 +21,5 @@ axiosClient.interceptors.request.use(axiosRequestInterceptor, (error) => {
 axiosClient.interceptors.response.use(
   async (response) => response,
   async (axiosError) =>
-    axiosResponseInterceptor(axiosError as AxiosError, axiosClient)
+    axiosResponseInterceptor(axiosError as AxiosError, axiosClient),
 );

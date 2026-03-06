@@ -13,7 +13,7 @@ let requestsQueue: ((tokens: {
 
 export const axiosResponseInterceptor = async (
   error: AxiosError,
-  axiosClient: AxiosInstance
+  axiosClient: AxiosInstance,
 ) => {
   const axiosError = error as AxiosError<ServerErrorResponse>;
 
@@ -27,8 +27,6 @@ export const axiosResponseInterceptor = async (
   const description = body.description;
   const isOperational = body.isOperational;
   const originalRequest = axiosError.config;
-
-  // console.log("axios error: " + JSON.stringify(error.request));
 
   /* Prevención de loops inifinitos */
   if ((originalRequest as any)?._retry) {
@@ -102,7 +100,7 @@ export const axiosResponseInterceptor = async (
     errorMessageCode,
     status,
     description,
-    isOperational
+    isOperational,
   );
 
   if (status >= 500) console.log("🚨 Error de servidor:", appError);

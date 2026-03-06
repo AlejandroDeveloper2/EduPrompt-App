@@ -4,14 +4,14 @@ import { i18n } from "@/core/store";
 
 export const SELECTION_MODE_ACTIONS = (
   deleteIaGeneration: () => void,
-  reinitGeneration: () => void
+  reinitGeneration: () => void,
 ): NavOption[] => [
   {
     navItemId: "action-1",
     icon: "trash-bin-outline",
     onPress: deleteIaGeneration,
     label: i18n.t(
-      "generations-translations.generation-list-labels.selection-options-labels.delete-generation"
+      "generations-translations.generation-list-labels.selection-options-labels.delete-generations",
     ),
   },
   {
@@ -19,7 +19,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "reload-outline",
     onPress: reinitGeneration,
     label: i18n.t(
-      "generations-translations.generation-list-labels.selection-options-labels.reinit-generations"
+      "generations-translations.generation-list-labels.selection-options-labels.reinit-generations",
     ),
   },
 ];
