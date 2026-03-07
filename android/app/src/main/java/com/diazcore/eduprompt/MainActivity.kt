@@ -1,4 +1,4 @@
-package com.diazalejo.EduPrompt_App
+package com.diazcore.eduprompt
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

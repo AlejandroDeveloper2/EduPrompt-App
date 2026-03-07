@@ -87,9 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.diazalejo.EduPrompt_App'
+    namespace 'com.diazcore.eduprompt'
     defaultConfig {
-        applicationId 'com.diazalejo.EduPrompt_App'
+        applicationId 'com.diazcore.eduprompt'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

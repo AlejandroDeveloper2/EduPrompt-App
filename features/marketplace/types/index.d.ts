@@ -1,8 +1,15 @@
-type TokenPackagePlan = "basic_package" | "pro_package" | "advanced_package";
 type PaymentFrecuency = "monthly" | "yearly";
 type SubscriptionStatus = "cancelled" | "active" | "inactive";
 
 type PayPalMessageType = "error" | "cancelled" | "success";
+
+type OrderStatus =
+  | "CREATED"
+  | "APPROVED"
+  | "COMPLETED"
+  | "CANCELLED"
+  | "PENDING"
+  | "SAVED";
 
 interface TokenPackage {
   packageId: string;
@@ -46,8 +53,15 @@ interface Subscription {
   currentHistoryId: string;
 }
 
+interface OrderStatusResponse {
+  orderId: string;
+  status: OrderStatus;
+}
+
 export type {
   CaptureProductOrderInput,
+  OrderStatus,
+  OrderStatusResponse,
   PaymentFrecuency,
   PayPalMessageType,
   Product,
@@ -55,5 +69,4 @@ export type {
   SubscriptionPlan,
   SubscriptionStatus,
   TokenPackage,
-  TokenPackagePlan,
 };

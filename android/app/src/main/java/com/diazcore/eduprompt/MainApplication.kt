@@ -1,4 +1,4 @@
-package com.diazalejo.EduPrompt_App
+package com.diazcore.eduprompt
 
 import android.app.Application
 import android.content.res.Configuration

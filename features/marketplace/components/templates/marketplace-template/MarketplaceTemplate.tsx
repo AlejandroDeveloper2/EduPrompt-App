@@ -79,6 +79,7 @@ const MarketplaceTemplate = () => {
                     description: tokenPackage.description,
                     price: tokenPackage.price,
                     productType: "token_package",
+                    tokenAmount: tokenPackage.tokenAmount,
                   })
                 }
               />
