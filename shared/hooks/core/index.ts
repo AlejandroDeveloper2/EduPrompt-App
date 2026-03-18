@@ -1,6 +1,7 @@
 export { default as useBackgroundTaskRunner } from "./useBackgroundTaskRunner";
 export { default as useBlockBackWhenSelection } from "./useBlockBackWhenSelection";
 export { default as useCheckNetwork } from "./useCheckNetwork";
+export { default as useCheckPremium } from "./useCheckPremium";
 export { default as useCodeInput } from "./useCodeInput";
 export { default as useForm } from "./useForm";
 export { default as useHeaderLogic } from "./useHeaderLogic";

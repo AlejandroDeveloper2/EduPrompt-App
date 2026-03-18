@@ -1,8 +1,10 @@
+import { Ionicons } from "@expo/vector-icons";
 import { ReactNode } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Typography } from "@/shared/components/atoms";
@@ -21,7 +23,8 @@ interface TokenPackageCardProps {
     isLoading: boolean;
     message: string | null;
   };
-
+  buttonDisabled?: boolean;
+  buttonIcon?: keyof typeof Ionicons.glyphMap;
   onBuyPackage: () => void;
 }
 
@@ -33,9 +36,12 @@ const TokenPackageCard = ({
   SvgIcon,
   loading,
   buttonText,
+  buttonIcon,
+  buttonDisabled,
   onBuyPackage,
 }: TokenPackageCardProps) => {
   const size = useScreenDimensionsStore();
+  const { t } = useTranslations();
 
   const tokenPackageCardStyle = TokenPackageCardStyle(size, full);
 
@@ -60,13 +66,18 @@ const TokenPackageCard = ({
           width="auto"
         />
         <Button
-          label={buttonText ? buttonText : `Comprar ${price}`}
-          icon="cart-outline"
+          label={
+            buttonText
+              ? buttonText
+              : `${t("marketplace-translations.product-card-buy-btn-label")} ${price}`
+          }
+          icon={buttonIcon ?? "cart-outline"}
           width="100%"
           variant="primary"
           loading={loading.isLoading}
           loadingMessage={loading.message ?? "..."}
           onPress={onBuyPackage}
+          disabled={buttonDisabled}
         />
       </View>
     </View>

@@ -5,7 +5,7 @@ import { AssistantResponse, GenerationData } from "../../types";
 import { eventBus } from "@/core/events/EventBus";
 import { showToast } from "@/shared/context";
 
-import { useTranslations } from "@/shared/hooks/core";
+import { useCheckPremium, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -19,6 +19,8 @@ const useGenerateResourceMutation = () => {
     useGenerationsStore();
 
   const { t } = useTranslations();
+
+  const isPremium = useCheckPremium();
 
   return useMutation({
     mutationFn: async (generationData: GenerationData) => {
@@ -74,10 +76,12 @@ const useGenerateResourceMutation = () => {
         currentIaGeneration.data.resourceFormat.formatKey,
       );
 
-      eventBus.emit("userProfile.updateTokeUserCoins.requested", {
-        amount,
-        mode: "substract",
-      });
+      // Si no cuenta con cuenta premium resta tokens
+      if (!isPremium)
+        eventBus.emit("userProfile.updateTokeUserCoins.requested", {
+          amount,
+          mode: "substract",
+        });
 
       eventBus.emit(
         "dashboard.setLastGeneratedResource",

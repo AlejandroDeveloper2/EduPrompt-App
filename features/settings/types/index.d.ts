@@ -12,6 +12,7 @@ interface User {
   email: string;
   tokenCoins: number;
   isPremiumUser: boolean;
+  hasSubscription: boolean;
   userPreferences: UserPreferences;
 }
 

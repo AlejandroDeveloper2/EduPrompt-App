@@ -35,6 +35,7 @@ const Header = () => {
     thereAreNewUnreadNotifications,
     /** Language */
     t,
+    isPremium,
   } = useHeaderLogic();
 
   const headerStyle = HeaderStyle(size, insets);
@@ -97,6 +98,7 @@ const Header = () => {
                         ? formatTokenAmount(userProfile.tokenCoins)
                         : "?"
                     }
+                    isPremium={isPremium}
                   />
                   <NavItem
                     icon="ellipsis-vertical-outline"
@@ -144,6 +146,7 @@ const Header = () => {
                   />
                   <TokenBadge
                     isLoading={loading}
+                    isPremium={isPremium}
                     tokenAmount={
                       userProfile
                         ? formatTokenAmount(userProfile.tokenCoins)

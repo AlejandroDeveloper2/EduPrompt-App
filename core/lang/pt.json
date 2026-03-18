@@ -1104,6 +1104,65 @@
     },
     "module-success-messages": {
       "resource-generated-msg": "Recurso gerado com sucesso"
+    },
+    "marketplace-translations": {
+      "product-card-buy-btn-label": "Comprar",
+      "packages-section": {
+        "title": "Pacotes",
+        "description": "Adquira seus tokens Edu Prompt para gerar seus recursos educacionais. Escolha o pacote que mais gostar.",
+        "loading-packages-msg": "Carregando pacotes...",
+        "processing-purchase-msg": "Processando compra..."
+      },
+      "plans-section": {
+        "title": "Plano de assinatura",
+        "description": "Se você quer gerações e tokens ilimitados, adquira agora o Edu Prompt Pro por $9,99 USD por mês!",
+        "loading-plans-msg": "Carregando planos de assinatura...",
+        "subscribe-btn-label": "Assinar",
+        "frecuency-label": "Mês",
+        "auth-popup-title": "Acessar o EduPrompt",
+        "manage-subscription-btn-label": "Gerenciar assinatura",
+        "wifi-connection-msg": "Conecte-se à internet para ver os planos de assinatura."
+      },
+      "auth-panel": {
+        "title": "Faça login ou crie uma conta",
+        "description": "Para se inscrever ou gerenciar um plano, você precisa fazer login ou criar uma conta no EduPrompt."
+      },
+      "manage-subscription-panel": {
+        "title": "Gerenciar assinatura",
+        "description": "Visualize e gerencie sua assinatura do Edu Prompt; cancele quando quiser. Esta assinatura é renovada automaticamente",
+        "actions-labels": {
+          "cancel-subscription-btn-label": "Cancelar assinatura",
+          "cancel-subscription-btn-loading-msg": "Cancelando assinatura...",
+          "reactive-subscription-btn-label": "Reativar assinatura",
+          "processing-payment-msg": "Processando pagamento...",
+          "retry-payment-btn-label": "Tentar novamente o pagamento"
+        },
+        "subscription-info-items": {
+          "start-date-label": "Data de início:",
+          "end-date-label": "Próxima renovação:",
+          "plan-label": "Plano:",
+          "payment-frecuency-label": "Frequência de cobrança:",
+          "payment-frecuencies": {
+            "monthly": "Mensal",
+            "annual": "Anual"
+          },
+          "subscription-status-label": "Condição:",
+          "subscription-states": {
+            "active": "Ativa",
+            "failed": "Falha",
+            "cancelled": "Cancelada"
+          }
+        }
+      },
+      "module-success-messages": {
+        "package-order-completed-msg": "Seu pagamento foi bem-sucedido, você adquiriu o pacote de %{amount} tokens.",
+        "plan-order-completed-msg": "Seu pagamento foi bem-sucedido, você assinou o plano %{planName}."
+      },
+      "module-error-messages": {
+        "cancel-payment-process-msg": "Você cancelou o processo de pagamento.",
+        "payment-error-msg": "Não foi possível concluir seu pagamento. Tente novamente.",
+        "no-internet-connection-msg": "Para efetuar a compra você deve estar conectado à internet."
+      }
     }
   },
 
@@ -1143,6 +1202,14 @@
     "indicator-not-found-msg": "Indicadores não foram encontrados",
     "user-indicator-already-created-msg": "O usuário já tem indicadores registrados",
     "tag-not-found-msg": "Etiqueta não encontrada",
-    "some-tag-not-found-msg": "Alguma das etiquetas não existe"
+    "some-tag-not-found-msg": "Alguma das etiquetas não existe",
+    "create-order-error-msg": "Ocorreu um erro ao criar o pedido de pagamento",
+    "capture-order-error-msg": "Ocorreu um erro ao concluir o pedido de pagamento",
+    "get-order-error-msg": "Ocorreu um erro ao obter o status do pedido",
+    "order-not-found-msg": "O pedido não foi encontrado",
+    "subscription-not-found-msg": "A assinatura não foi encontrada",
+    "subscription-history-item-not-found-msg": "O item do histórico de assinatura não foi encontrado",
+    "subscription-creation-error-msg": "O pagamento foi bem-sucedido, mas a criação da assinatura falhou. Nossa equipe resolverá isso em breve.",
+    "auth-required-msg": "É necessário fazer o login"
   }
 }

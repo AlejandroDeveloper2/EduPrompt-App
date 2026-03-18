@@ -14,7 +14,7 @@ import { NotificationList, SystemNotificationsList } from "../../organims";
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 const NotificationsTemplate = () => {
-  const [activeListTab, setActiveListTab] = useState<Tab>(LIST_TABS[0]);
+  const [activeListTab, setActiveListTab] = useState<Tab>(LIST_TABS()[0]);
 
   const NotificationsList: NotificationListComponentMap = {
     "tab-1": <NotificationList />,
@@ -30,7 +30,7 @@ const NotificationsTemplate = () => {
         ]}
       >
         <Tabulator
-          tabs={LIST_TABS}
+          tabs={LIST_TABS()}
           activeTab={activeListTab}
           onSwitchTab={(tab) => {
             setActiveListTab(tab);

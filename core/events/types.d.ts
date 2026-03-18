@@ -32,6 +32,7 @@ interface UserPreferences {
 }
 interface UserProfile {
   tokenCoins: number;
+  hasSubscription: boolean;
   isPremiumUser: boolean;
   userPreferences: UserPreferences;
 }

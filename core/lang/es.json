@@ -1114,6 +1114,67 @@
     }
   },
 
+  "marketplace-translations": {
+    "product-card-buy-btn-label": "Comprar",
+    "packages-section": {
+      "title": "Paquetes",
+      "description": "Adquiere tus tokens Edu Prompt para que generes tus recursos educativos. Elige el paquete que mas tu guste.",
+      "loading-packages-msg": "Cargando paquetes...",
+      "processing-purchase-msg": "Procesando compra..."
+    },
+    "plans-section": {
+      "title": "Plan de suscripción",
+      "description": "Si quieres generaciones y tokens ilimitados, ¡adquiere ahora Edu Prompt Pro por 9.99 USD por mes!",
+      "loading-plans-msg": "Cargando planes de suscripción...",
+      "subscribe-btn-label": "Suscribirse",
+      "frecuency-label": "Mes",
+      "auth-popup-title": "Ingresar a EduPrompt",
+      "manage-subscription-btn-label": "Gestionar suscripción",
+      "wifi-connection-msg": "Conectate a internet para visualizar los planes de suscripción."
+    },
+    "auth-panel": {
+      "title": "Inicia sesión o crear cuenta",
+      "description": "Para suscribirse o gestionar a un plan debes iniciar sesión o crear una cuenta en EduPrompt."
+    },
+    "manage-subscription-panel": {
+      "title": "Gestionar suscripción",
+      "description": "Visualiza y gestiona tu suscripción de Edu Prompt, cancela cuando quieras. Esta suscripción se renueva automaticamente",
+      "actions-labels": {
+        "cancel-subscription-btn-label": "Cancelar suscripción",
+        "cancel-subscription-btn-loading-msg": "Cancelando subscripción...",
+        "reactive-subscription-btn-label": "Reactivar suscripción",
+        "processing-payment-msg": "Procesando pago...",
+        "retry-payment-btn-label": "Reintentar pago"
+      },
+      "subscription-info-items": {
+        "start-date-label": "Fecha de inicio:",
+        "end-date-label": "Próxima renovación:",
+        "plan-label": "Plan:",
+        "payment-frecuency-label": "Frecuencia de cobro:",
+        "payment-frecuencies": {
+          "monthly": "Mensual",
+          "annual": "Anual"
+        },
+        "subscription-status-label": "Estado:",
+        "subscription-states": {
+          "active": "Activa",
+          "failed": "Fallida",
+          "cancelled": "Cancelada"
+        }
+      }
+    },
+
+    "module-success-messages": {
+      "package-order-completed-msg": "Tu pago fue éxitoso, has adquirido el paquete de %{amount} tokens.",
+      "plan-order-completed-msg": "Tu pago fue éxitoso, te has suscrito al plan %{planName}."
+    },
+    "module-error-messages": {
+      "cancel-payment-process-msg": "Cancelaste el proceso de pago.",
+      "payment-error-msg": "No pudimos completar tu pago. Intenta de nuevo.",
+      "no-internet-connection-msg": "Para efectuar la compra debes conectarte a internet."
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "Ha ocurrido un error interno en el servidor",
     "database-connection-error-msg": "Error al conectar con la base de datos",
@@ -1150,6 +1211,14 @@
     "indicator-not-found-msg": "Indicadores no fueron encontrados",
     "user-indicator-already-created-msg": "El usuario ya tiene indicadores registrados",
     "tag-not-found-msg": "Etiqueta no encontrada",
-    "some-tag-not-found-msg": "Alguna de las etiquetas no existe"
+    "some-tag-not-found-msg": "Alguna de las etiquetas no existe",
+    "create-order-error-msg": "Ha ocurrido un error al crear la orden de pago",
+    "capture-order-error-msg": "Ha ocurrido un error al completar la orden de pago",
+    "get-order-error-msg": "Ha ocurrido un error al obtener el estado de la orden",
+    "order-not-found-msg": "La orden no ha sido encontrada",
+    "subscription-not-found-msg": "La subscripción no ha sido encontrada",
+    "subscription-history-item-not-found-msg": "El elemento del historial de suscripción no ha sido encontrado",
+    "subscription-creation-error-msg": "El pago se ha realizado correctamente, pero no se ha podido crear la suscripción. Nuestro equipo lo solucionará en breve.",
+    "auth-required-msg": "Autenticación requerida"
   }
 }

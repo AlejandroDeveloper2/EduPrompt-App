@@ -6,8 +6,13 @@ import { showToast } from "@/shared/context";
 
 import { Product } from "../../types";
 
-import { useCheckNetwork } from "@/shared/hooks/core";
-import { useCaptureOrderMutation, useCreateOrderMutation } from "../mutations";
+import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
+import {
+  useCaptureOrderMutation,
+  useCreateOrderMutation,
+  useRetrySubscriptionPaymentMutation,
+} from "../mutations";
+import useSubscriptionByUserQuery from "../query/useSubscriptionByUserQuery";
 import useOrderStatusPolling from "./useOrderStatusPolling";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -19,9 +24,11 @@ const useMarketplace = () => {
 
   const selectedProductRef = useRef<Product | null>(null);
   const processingRef = useRef(false);
+  const retryPaymentRef = useRef(false);
 
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
+  const { t } = useTranslations();
 
   const createOrderMutation = useCreateOrderMutation((orderId) => {
     // Activar polling tan pronto como se crea la orden y se abre el browser
@@ -29,6 +36,9 @@ const useMarketplace = () => {
     setIsPollingEnabled(true);
   });
   const captureMutation = useCaptureOrderMutation();
+  const retrySubscriptionMutation = useRetrySubscriptionPaymentMutation();
+
+  const { data: subscription } = useSubscriptionByUserQuery();
 
   useEffect(() => {
     selectedProductRef.current = selectedProduct;
@@ -42,6 +52,26 @@ const useMarketplace = () => {
       processingRef.current = true;
       WebBrowser.dismissBrowser();
 
+      if (retryPaymentRef.current && subscription) {
+        return retrySubscriptionMutation.mutate(
+          { subscriptionId: subscription.subscriptionId, orderId },
+          {
+            onSettled: () => {
+              processingRef.current = false;
+              retryPaymentRef.current = false;
+              setActiveOrderId(null);
+              setIsPollingEnabled(false);
+              queryClient.invalidateQueries({
+                queryKey: ["user_profile"],
+              });
+              queryClient.invalidateQueries({
+                queryKey: ["subscription"],
+              });
+            },
+          },
+        );
+      }
+
       captureMutation.mutate(
         { orderId, productDetails: product },
         {
@@ -49,29 +79,40 @@ const useMarketplace = () => {
             processingRef.current = false;
             setActiveOrderId(null);
             setIsPollingEnabled(false);
-            queryClient.invalidateQueries({ queryKey: ["user_profile"] });
+            queryClient.invalidateQueries({
+              queryKey: ["user_profile"],
+            });
+            queryClient.invalidateQueries({
+              queryKey: ["subscription"],
+            });
           },
         },
       );
     },
-    [captureMutation, queryClient],
+    [captureMutation, queryClient, retrySubscriptionMutation, subscription],
   );
 
   const handlePaymentCancelled = useCallback(() => {
     if (processingRef.current) return;
+
     processingRef.current = false;
+    retryPaymentRef.current = false;
+
     setActiveOrderId(null);
     setIsPollingEnabled(false);
+
     WebBrowser.dismissBrowser();
     showToast({
       key: generateToastKey(),
       variant: "danger",
-      message: "Cancelaste el proceso de pago.",
+      message: t(
+        "marketplace-translations.module-error-messages.cancel-payment-process-msg",
+      ),
       toastDuration: 10000,
     });
-  }, []);
+  }, [t]);
 
-  useOrderStatusPolling({
+  const { isPolling } = useOrderStatusPolling({
     orderId: activeOrderId,
     enabled: isPollingEnabled,
     intervalMs: 2000,
@@ -87,23 +128,31 @@ const useMarketplace = () => {
       setIsPollingEnabled(false);
       setActiveOrderId(null);
       processingRef.current = false;
+      retryPaymentRef.current = false;
       showToast({
         key: generateToastKey(),
         variant: "danger",
-        message: "No pudimos completar tu pago. Intenta de nuevo.",
+        message: t(
+          "marketplace-translations.module-error-messages.payment-error-msg",
+        ),
         toastDuration: 10000,
       });
     },
   });
 
   const createPurchase = useCallback(
-    (product: Product): void => {
+    (product: Product, retryPayment: boolean): void => {
       if (!isConnected || isConnected === null)
         return showToast({
           key: generateToastKey(),
           variant: "danger",
-          message: "Para efectuar la compra debes conectarte a internet.",
+          message: t(
+            "marketplace-translations.module-error-messages.no-internet-connection-msg",
+          ),
         });
+
+      retryPaymentRef.current =
+        retryPayment && product.productType === "subscription";
 
       setSelectedProduct(product);
       selectedProductRef.current = product;
@@ -111,12 +160,14 @@ const useMarketplace = () => {
 
       createOrderMutation.mutate(product);
     },
-    [createOrderMutation, isConnected],
+    [createOrderMutation, isConnected, t],
   );
 
   return {
-    isProccesingOrder: createOrderMutation.isPending,
+    isProccesingOrder:
+      createOrderMutation.isPending || retrySubscriptionMutation.isPending,
     isCompletingOrder: captureMutation.isPending,
+    isPolling,
     createPurchase,
   };
 };

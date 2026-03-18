@@ -3,7 +3,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
-import { useTranslations } from "@/shared/hooks/core";
+import { useCheckPremium, useTranslations } from "@/shared/hooks/core";
 import { useAnimatedSubscriptionBar } from "../../../hooks/animations";
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
@@ -12,10 +12,11 @@ import { Typography } from "../../atoms";
 import { SubscriptionIndicatorBarStyle } from "./SubscriptionIndicatorBar.style";
 
 const SubscriptionIndicatorBar = () => {
-  const hasSubscription: boolean = false;
-
   const size = useScreenDimensionsStore();
-  const animatedBackgroundStyle = useAnimatedSubscriptionBar(hasSubscription);
+  const isPremium = useCheckPremium();
+
+  const animatedBackgroundStyle = useAnimatedSubscriptionBar(isPremium);
+
   const { t } = useTranslations();
 
   const subscriptionIndicatorBarStyle = SubscriptionIndicatorBarStyle(size);
@@ -34,15 +35,13 @@ const SubscriptionIndicatorBar = () => {
             weight="regular"
             type="button"
             textAlign="left"
-            color={
-              hasSubscription ? AppColors.basic.white : AppColors.neutral[900]
-            }
+            color={isPremium ? AppColors.basic.white : AppColors.neutral[900]}
             width="auto"
             icon="medal-outline"
           />
           <Typography
             text={
-              hasSubscription
+              isPremium
                 ? t(
                     "common-translations.subscription-indicator-labels.premium-plan",
                   )
@@ -53,9 +52,7 @@ const SubscriptionIndicatorBar = () => {
             weight="bold"
             type="button"
             textAlign="left"
-            color={
-              hasSubscription ? AppColors.basic.white : AppColors.neutral[900]
-            }
+            color={isPremium ? AppColors.basic.white : AppColors.neutral[900]}
             width="auto"
           />
         </View>

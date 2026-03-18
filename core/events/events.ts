@@ -1,3 +1,4 @@
+import { Product, Subscription } from "@/features/marketplace/types";
 import {
   ChangePassPayload,
   CreateResourcePayload,
@@ -57,8 +58,6 @@ export type AppEvents = {
   "userProfile.updateTokeUserCoins.failed": EventError;
 
   "userProfile.updateUserPreferences.requested": UserPreferences;
-
-  "userProfile.updateAcoountType.requested": boolean;
 
   /** Eventos Módulo de notificaciones */
   "notifications.systemNotifications.updated": SystemNotification[];
@@ -133,4 +132,22 @@ export type AppEvents = {
   "resources.createResource.started": undefined;
   "resources.createResource.completed": undefined;
   "resources.createResource.failed": EventError;
+
+  /** Eventos del módulo de tienda y suscripciones */
+  "marketplace.cancelSubscription.requested": {
+    subscriptionId: string;
+    currentHistoryId: string;
+  };
+  "marketplace.cancelSubscription.started": undefined;
+  "marketplace.cancelSubscription.completed": undefined;
+  "marketplace.cancelSubscription.failed": EventError;
+
+  "marketplace.createOrder.requested": {
+    product: Product;
+    retryPayment: boolean;
+  };
+  "marketplace.createOrder.loading": boolean;
+  "marketplace.orderStatus.loading": boolean;
+
+  "marketplace.subscription.updated": Subscription | null;
 };

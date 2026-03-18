@@ -10,5 +10,4 @@ export const ASYNC_STORAGE_KEYS = {
   generations: "generations",
   averageProcessDuration: "average_process_duration",
   panelIndicators: "panel_indicators",
-  subscriptionId: "subscription_id",
 };

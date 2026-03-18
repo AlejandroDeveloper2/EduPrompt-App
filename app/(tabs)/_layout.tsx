@@ -19,6 +19,7 @@ import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 /** Listeners */
 import { useDashboardEventListeners } from "@/features/dashboard/hooks/listeners";
 import { useResourceEventListeners } from "@/features/educational-resources/hooks/listeners";
+import { useMarketplaceEventsListener } from "@/features/marketplace/hooks/listeners";
 import { useUserNotificationsEventListener } from "@/features/notifications/hooks/listeners";
 import { usePromptEventListeners } from "@/features/prompts/hooks/listeners";
 import { useUserEventsListener } from "@/features/settings/hooks/listeners";
@@ -69,6 +70,9 @@ export default function TabLayout() {
 
   /** Listener para escuchar eventos del módulo de Recursos Académicos*/
   useResourceEventListeners();
+
+  /** Listener para escuchar eventos del módulo de Tienda */
+  useMarketplaceEventsListener();
 
   /** Detectar el back swipe del usuario */
   useBlockBackWhenSelection();

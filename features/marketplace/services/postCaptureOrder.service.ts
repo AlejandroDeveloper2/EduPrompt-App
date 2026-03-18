@@ -5,9 +5,9 @@ import { CaptureProductOrderInput } from "../types";
 
 export const postCaptureOrder = async (
   captureProductOrderInput: CaptureProductOrderInput,
-): Promise<{ subscriptionId: string | null }> => {
-  const { data } = await axiosClient.post<
-    ServerResponse<{ subscriptionId: string | null }>
-  >("/subscriptions/orders/capture", captureProductOrderInput);
-  return data.data;
+): Promise<void> => {
+  await axiosClient.post<ServerResponse<null>>(
+    "/subscriptions/orders/capture",
+    captureProductOrderInput,
+  );
 };

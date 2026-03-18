@@ -1,21 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
-import * as SecureStorage from "expo-secure-store";
-
-import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { eventBus } from "@/core/events/EventBus";
 import { showToast } from "@/shared/context";
 
-import { generateToastKey } from "@/shared/helpers";
+import { useTranslations } from "@/shared/hooks/core";
 
+import { generateToastKey } from "@/shared/helpers";
 import { postCaptureOrder } from "../../services";
 
 const useCaptureOrderMutation = () => {
+  const { t } = useTranslations();
+
   return useMutation({
     mutationFn: postCaptureOrder,
-    onSuccess: (data, variables) => {
+    onSuccess: (_data, variables) => {
       if (variables.productDetails.productType === "token_package") {
-        console.log(variables);
         eventBus.emit("userProfile.updateTokeUserCoins.requested", {
           amount: variables.productDetails.tokenAmount ?? 0,
           mode: "add",
@@ -24,22 +23,22 @@ const useCaptureOrderMutation = () => {
         showToast({
           key: generateToastKey(),
           variant: "primary",
-          message: `Tu pago fue éxitoso, has adquirido el paquete de ${variables.productDetails.tokenAmount ?? 0} tokens.`,
+          message: t(
+            "marketplace-translations.module-success-messages.package-order-completed-msg",
+            { amount: variables.productDetails.tokenAmount ?? 0 },
+          ),
           toastDuration: 10000,
         });
         return;
       }
 
-      if (data.subscriptionId)
-        SecureStorage.setItem(
-          ASYNC_STORAGE_KEYS.subscriptionId,
-          data.subscriptionId,
-        );
-
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: `Tu pago fue éxitoso, te has suscrito al plan ${variables.productDetails.title}.`,
+        message: t(
+          "marketplace-translations.module-success-messages.plan-order-completed-msg",
+          { planName: variables.productDetails.title },
+        ),
         toastDuration: 10000,
       });
     },

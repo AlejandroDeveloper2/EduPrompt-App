@@ -1,6 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
+import { eventBus } from "@/core/events/EventBus";
+
 import { getOrderStatus } from "../../services";
 
 import { OrderStatus } from "../../types";
@@ -45,6 +47,14 @@ const useOrderStatusPolling = ({
     retry: false,
     staleTime: 0,
   });
+
+  // Emitir evento de estado del polling
+  useEffect(() => {
+    eventBus.emit(
+      "marketplace.orderStatus.loading",
+      fetchStatus === "fetching",
+    );
+  }, [fetchStatus]);
 
   // Reaccionar a estado terminal
   useEffect(() => {

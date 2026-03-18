@@ -12,6 +12,7 @@ import {
 import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import {
   useBackgroundTaskRunner,
+  useCheckPremium,
   useForm,
   useTranslations,
 } from "@/shared/hooks/core";
@@ -46,6 +47,8 @@ const useResourceDescriptionFormLogic = () => {
     refreshing: false,
   });
 
+  const isPremium = useCheckPremium();
+
   const { t } = useTranslations();
 
   const {
@@ -62,7 +65,7 @@ const useResourceDescriptionFormLogic = () => {
       await executeIaGeneration(
         (formatKey) => {
           return userProfile
-            ? userProfile.tokenCoins >= getResourcePrice(formatKey)
+            ? userProfile.tokenCoins >= getResourcePrice(formatKey) || isPremium
             : false;
         },
         async (newTask, currentIaGeneration) => {
@@ -78,10 +81,10 @@ const useResourceDescriptionFormLogic = () => {
             {
               successNotification: {
                 title: t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.success.title"
+                  "generations-translations.ia-response-card-labels.generation-process-labels.success.title",
                 ),
                 message: `${t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.success.message"
+                  "generations-translations.ia-response-card-labels.generation-process-labels.success.message",
                 )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
@@ -89,19 +92,19 @@ const useResourceDescriptionFormLogic = () => {
               },
               errorNotification: {
                 title: t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.error.title"
+                  "generations-translations.ia-response-card-labels.generation-process-labels.error.title",
                 ),
                 message: `${t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.error.message"
+                  "generations-translations.ia-response-card-labels.generation-process-labels.error.message",
                 )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
                 }`,
               },
-            }
+            },
           );
         },
-        data.descriptionPrompt
+        data.descriptionPrompt,
       );
     },
     noReset: true,

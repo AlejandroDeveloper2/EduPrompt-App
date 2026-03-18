@@ -28,7 +28,11 @@ const SignupForm = () => {
     validationSchema: signupSchema,
     actionCallback: () => {
       const { userName, email, password } = data;
-      signup.mutate({ userName, email, password });
+      signup.mutate({
+        userName,
+        email,
+        password,
+      });
     },
   });
 
@@ -41,13 +45,13 @@ const SignupForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
               label={t(
-                "auth-translations.sign-up-template.form-labels.username.label"
+                "auth-translations.sign-up-template.form-labels.username.label",
               )}
               icon="person-outline"
               name="userName"
               value={data.userName}
               placeholder={t(
-                "auth-translations.sign-up-template.form-labels.username.placeholder"
+                "auth-translations.sign-up-template.form-labels.username.placeholder",
               )}
               errorMessage={getFieldErrors("userName")?.join(", ")}
               onChange={handleChange}
@@ -57,13 +61,13 @@ const SignupForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
               label={t(
-                "auth-translations.sign-up-template.form-labels.email.label"
+                "auth-translations.sign-up-template.form-labels.email.label",
               )}
               icon="at-outline"
               name="email"
               value={data.email}
               placeholder={t(
-                "auth-translations.sign-up-template.form-labels.email.placeholder"
+                "auth-translations.sign-up-template.form-labels.email.placeholder",
               )}
               errorMessage={getFieldErrors("email")?.join(", ")}
               onChange={handleChange}
@@ -75,13 +79,13 @@ const SignupForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
               label={t(
-                "auth-translations.sign-up-template.form-labels.password.label"
+                "auth-translations.sign-up-template.form-labels.password.label",
               )}
               icon="lock-closed-outline"
               name="password"
               value={data.password}
               placeholder={t(
-                "auth-translations.sign-up-template.form-labels.password.placeholder"
+                "auth-translations.sign-up-template.form-labels.password.placeholder",
               )}
               errorMessage={getFieldErrors("password")?.join(", ")}
               onChange={handleChange}
@@ -92,13 +96,13 @@ const SignupForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<SignupData>
               label={t(
-                "auth-translations.sign-up-template.form-labels.confirm-password.label"
+                "auth-translations.sign-up-template.form-labels.confirm-password.label",
               )}
               icon="lock-closed-outline"
               name="confirmPassword"
               value={data.confirmPassword}
               placeholder={t(
-                "auth-translations.sign-up-template.form-labels.confirm-password.placeholder"
+                "auth-translations.sign-up-template.form-labels.confirm-password.placeholder",
               )}
               errorMessage={getFieldErrors("confirmPassword")?.join(", ")}
               onChange={handleChange}
@@ -111,10 +115,10 @@ const SignupForm = () => {
           <Form.Row.Item>
             <Form.Link
               label={t(
-                "auth-translations.sign-up-template.form-labels.login-link.label"
+                "auth-translations.sign-up-template.form-labels.login-link.label",
               )}
               linkLabel={t(
-                "auth-translations.sign-up-template.form-labels.login-link.link-label"
+                "auth-translations.sign-up-template.form-labels.login-link.link-label",
               )}
               href="/auth"
             />
@@ -135,11 +139,11 @@ const SignupForm = () => {
             width="100%"
             icon="add-outline"
             label={t(
-              "auth-translations.sign-up-template.form-labels.btn-signup"
+              "auth-translations.sign-up-template.form-labels.btn-signup",
             )}
             loading={signup.isPending}
             loadingMessage={t(
-              "auth-translations.sign-up-template.form-loading-messages.creating-account-msg"
+              "auth-translations.sign-up-template.form-loading-messages.creating-account-msg",
             )}
             onPress={handleSubmit}
           />

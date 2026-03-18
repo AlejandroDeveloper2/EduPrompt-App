@@ -26,6 +26,8 @@ const queryErrorHandler = async (error: unknown) => {
       return;
     }
 
+    if (errorMessageCode === "SUBSCRIPTION_NOT_FOUND") return;
+
     showToast({
       variant: "danger",
       message: message ?? "Error desconocido",

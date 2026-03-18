@@ -1,5 +1,7 @@
+import { LangTag } from "@/core/types";
+
 type PaymentFrecuency = "monthly" | "yearly";
-type SubscriptionStatus = "cancelled" | "active" | "inactive";
+type SubscriptionStatus = "cancelled" | "active" | "failed";
 
 type PayPalMessageType = "error" | "cancelled" | "success";
 
@@ -13,16 +15,16 @@ type OrderStatus =
 
 interface TokenPackage {
   packageId: string;
-  title: string;
-  description: string;
+  title: { en: string; es: string; pt: string };
+  description: { en: string; es: string; pt: string };
   price: number;
   tokenAmount: number;
 }
 
 interface SubscriptionPlan {
   subscriptionPlanId: string;
-  title: string;
-  description: string;
+  title: { en: string; es: string; pt: string };
+  description: { en: string; es: string; pt: string };
   paymentFrecuency: PaymentFrecuency;
   price: number;
 }
@@ -33,6 +35,7 @@ interface Product {
   description: string;
   price: number;
   productType: "subscription" | "token_package";
+  language?: LangTag;
   tokenAmount?: number;
 }
 

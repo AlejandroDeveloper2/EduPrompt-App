@@ -1106,6 +1106,66 @@
     }
   },
 
+  "marketplace-translations": {
+    "product-card-buy-btn-label": "Buy",
+    "packages-section": {
+      "title": "Packages",
+      "description": "Get your Edu Prompt tokens to generate your educational resources. Choose the package you like the most.",
+      "loading-packages-msg": "Loading packages...",
+      "processing-purchase-msg": "Processing purchase..."
+    },
+    "plans-section": {
+      "title": "Subscription Plan",
+      "description": "If you want unlimited generations and tokens, get Edu Prompt Pro now for $9.99 USD per month!",
+      "loading-plans-msg": "Loading subscription plans...",
+      "subscribe-btn-label": "Subscribe",
+      "frecuency-label": "Month",
+      "auth-popup-title": "Log in to EduPrompt",
+      "manage-subscription-btn-label": "Manage subscription",
+      "wifi-connection-msg": "Go online to view the subscription plans.."
+    },
+    "auth-panel": {
+      "title": "Sign in or create an account",
+      "description": "To subscribe to or manage a plan, you must log in or create an account on EduPrompt."
+    },
+    "manage-subscription-panel": {
+      "title": "Manage Subscription",
+      "description": "View and manage your Edu Prompt subscription; cancel anytime. This subscription renews automatically",
+      "actions-labels": {
+        "cancel-subscription-btn-label": "Cancel Subscription",
+        "cancel-subscription-btn-loading-msg": "Canceling subscription...",
+        "reactive-subscription-btn-label": "Reactivate subscription",
+        "processing-payment-msg": "Processing payment...",
+        "retry-payment-btn-label": "Retry payment"
+      },
+      "subscription-info-items": {
+        "start-date-label": "Start date:",
+        "end-date-label": "Next renewal:",
+        "plan-label": "Plan:",
+        "payment-frecuency-label": "Billing frequency:",
+        "payment-frecuencies": {
+          "monthly": "Monthly",
+          "annual": "Annual"
+        },
+        "subscription-status-label": "Status:",
+        "subscription-states": {
+          "active": "Active",
+          "failed": "Failed",
+          "cancelled": "Canceled"
+        }
+      }
+    },
+    "module-success-messages": {
+      "package-order-completed-msg": "Your payment was successful, you have purchased the %{amount} token package.",
+      "plan-order-completed-msg": "Your payment was successful, you have subscribed to the %{planName} plan."
+    },
+    "module-error-messages": {
+      "cancel-payment-process-msg": "You cancelled the payment process.",
+      "payment-error-msg": "We could not complete your payment. Please try again.",
+      "no-internet-connection-msg": "To complete the purchase you must be connected to the internet."
+    }
+  },
+
   "server-error-messages": {
     "internal-server-error-msg": "An internal server error has occurred",
     "database-connection-error-msg": "Error connecting to the database",
@@ -1142,6 +1202,14 @@
     "indicator-not-found-msg": "Indicators were not found",
     "user-indicator-already-created-msg": "The user already has registered indicators",
     "tag-not-found-msg": "Tag not found",
-    "some-tag-not-found-msg": "Some of the tags do not exist"
+    "some-tag-not-found-msg": "Some of the tags do not exist",
+    "create-order-error-msg": "An error occurred while creating the payment order",
+    "capture-order-error-msg": "An error occurred while completing the payment order",
+    "get-order-error-msg": "An error occurred while retrieving the order status",
+    "order-not-found-msg": "The order was not found",
+    "subscription-not-found-msg": "The subscription was not found",
+    "subscription-history-item-not-found-msg": "The subscription history item was not found",
+    "subscription-creation-error-msg": "Payment successful but subscription creation failed. Our team will resolve this shortly.",
+    "auth-required-msg": "Authentication required"
   }
 }
