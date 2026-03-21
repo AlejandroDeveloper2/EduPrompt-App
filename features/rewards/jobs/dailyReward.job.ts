@@ -10,6 +10,11 @@ export const dailyRewardJob: Job = {
   id: "daily-reward",
   interval: "daily",
   run: async () => {
+    const userProfile = eventBus.getLast("userProfile.user.updated");
+
+    /** Si el usuario es premium no se entrega la recompenza de tokens gratis al usuario */
+    if (userProfile && userProfile.isPremiumUser) return;
+
     eventBus.emit("userProfile.updateTokeUserCoins.requested", {
       amount: parseInt(config.tokenDailyRewardAmount),
       mode: "add",

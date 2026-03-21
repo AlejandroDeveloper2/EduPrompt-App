@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { getSocketClient } from "@/core/config/socketClient";
 
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 
 import { Order } from "@/core/types";
@@ -12,6 +13,7 @@ import { SystemNotification } from "../../types";
 const useSystemNotificationSocket = (filters: Order) => {
   const queryClient = useQueryClient();
   const userProfile = useEventbusValue("userProfile.user.updated", null);
+  const { lang } = useTranslations();
 
   const notificationsPushAvailable = userProfile
     ? userProfile.userPreferences.pushNotifications
@@ -37,7 +39,10 @@ const useSystemNotificationSocket = (filters: Order) => {
         exact: false,
       });
       if (!notificationsPushAvailable) return;
-      sendPushNotification(newNotification.title, newNotification.message);
+      sendPushNotification(
+        newNotification.title[lang],
+        newNotification.message[lang],
+      );
     });
 
     /** Notificación modificada */
@@ -50,10 +55,10 @@ const useSystemNotificationSocket = (filters: Order) => {
         });
         if (!notificationsPushAvailable) return;
         sendPushNotification(
-          updatedNotification.title,
-          updatedNotification.message
+          updatedNotification.title[lang],
+          updatedNotification.message[lang],
         );
-      }
+      },
     );
 
     /** Notificaciones eliminadas */
@@ -64,7 +69,7 @@ const useSystemNotificationSocket = (filters: Order) => {
           queryKey: ["system_notifications"],
           exact: false,
         });
-      }
+      },
     );
 
     /** Notificaciones marcadas como leidas */
@@ -75,7 +80,7 @@ const useSystemNotificationSocket = (filters: Order) => {
           queryKey: ["system_notifications"],
           exact: false,
         });
-      }
+      },
     );
 
     return () => {
@@ -84,7 +89,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       socket.off("notifications:deleteMany");
       socket.off("notifications:markAsRead");
     };
-  }, [queryClient, notificationsPushAvailable, filters]);
+  }, [queryClient, notificationsPushAvailable, filters, lang]);
 };
 
 export default useSystemNotificationSocket;

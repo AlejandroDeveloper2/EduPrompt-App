@@ -4,6 +4,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import useSubscriptionSocket from "../listeners/useSubscriptionSocket";
 
 import { getSubscriptionByUser } from "../../services";
 
@@ -12,7 +13,7 @@ const useSubscriptionByUserQuery = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
   const { isConnected } = useCheckNetwork();
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["subscription"],
     queryFn: async () => {
       const subscription = await getSubscriptionByUser();
@@ -27,6 +28,11 @@ const useSubscriptionByUserQuery = () => {
       userProfile.hasSubscription,
     staleTime: Infinity,
   });
+
+  /** Actualización de suscripción en tiempo real */
+  useSubscriptionSocket();
+
+  return query;
 };
 
 export default useSubscriptionByUserQuery;

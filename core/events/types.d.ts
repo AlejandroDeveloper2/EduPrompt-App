@@ -51,8 +51,10 @@ interface Notification {
 }
 
 interface SystemNotification extends Notification {
+  title: { en: string; es: string; pt: string };
+  message: { en: string; es: string; pt: string };
   links?: {
-    label: string;
+    label: { en: string; es: string; pt: string };
     href: string;
   }[];
 }

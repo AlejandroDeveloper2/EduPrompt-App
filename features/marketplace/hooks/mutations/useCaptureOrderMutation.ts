@@ -27,7 +27,7 @@ const useCaptureOrderMutation = () => {
             "marketplace-translations.module-success-messages.package-order-completed-msg",
             { amount: variables.productDetails.tokenAmount ?? 0 },
           ),
-          toastDuration: 10000,
+          toastDuration: 6000,
         });
         return;
       }
@@ -37,9 +37,9 @@ const useCaptureOrderMutation = () => {
         variant: "primary",
         message: t(
           "marketplace-translations.module-success-messages.plan-order-completed-msg",
-          { planName: variables.productDetails.title },
+          { plan: variables.productDetails.title },
         ),
-        toastDuration: 10000,
+        toastDuration: 6000,
       });
     },
   });

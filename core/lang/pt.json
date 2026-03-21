@@ -1143,20 +1143,20 @@
           "plan-label": "Plano:",
           "payment-frecuency-label": "Frequência de cobrança:",
           "payment-frecuencies": {
-            "monthly": "Mensal",
-            "annual": "Anual"
+            "zero": "Mensal",
+            "one": "Anual"
           },
           "subscription-status-label": "Condição:",
           "subscription-states": {
-            "active": "Ativa",
-            "failed": "Falha",
-            "cancelled": "Cancelada"
+            "zero": "Ativa",
+            "one": "Falha",
+            "other": "Cancelada"
           }
         }
       },
       "module-success-messages": {
         "package-order-completed-msg": "Seu pagamento foi bem-sucedido, você adquiriu o pacote de %{amount} tokens.",
-        "plan-order-completed-msg": "Seu pagamento foi bem-sucedido, você assinou o plano %{planName}."
+        "plan-order-completed-msg": "Seu pagamento foi bem-sucedido, você assinou o plano %{plan}."
       },
       "module-error-messages": {
         "cancel-payment-process-msg": "Você cancelou o processo de pagamento.",
