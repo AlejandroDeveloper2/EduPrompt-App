@@ -4,44 +4,34 @@
     "appVersionSource": "remote"
   },
   "build": {
-    "base": {
-      "android": {
-        "buildType": "apk"
-      }
-    },
     "development": {
-      "extends": "base",
       "developmentClient": true,
       "distribution": "internal",
-      "prebuildCommand": "npx expo prebuild --clean",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleDebug"
       },
       "env": {
-        "APP_VARIANT": "development"
+        "APP_ENV": "development"
       }
     },
     "preview": {
-      "extends": "base",
       "distribution": "internal",
-      "prebuildCommand": "npx expo prebuild --clean",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
       },
       "env": {
-        "APP_VARIANT": "production"
+        "APP_ENV": "production"
       }
     },
     "production": {
       "distribution": "store",
-      "prebuildCommand": "npx expo prebuild --clean",
       "android": {
         "buildType": "app-bundle"
       },
       "env": {
-        "APP_VARIANT": "production"
+        "APP_ENV": "production"
       }
     }
   },
