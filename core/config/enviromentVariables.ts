@@ -23,5 +23,8 @@ export const config = {
     process.env.EXPO_PUBLIC_CHART_RESOURCE_PRICE || "2",
   ),
   paypalClientId: process.env.EXPO_PUBLIC_PAYPAL_CLIENT_ID || "",
-  nextjsUrl: process.env.EXPO_PUBLIC_NEXTJS_URL || "",
+  nextjsUrl:
+    process.env.NODE_ENV === "production"
+      ? process.env.EXPO_PUBLIC_PRODUCTION_NEXTJS_URL || ""
+      : process.env.EXPO_PUBLIC_NEXTJS_URL || "",
 };
