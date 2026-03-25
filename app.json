@@ -65,7 +65,6 @@
       ],
       "expo-localization",
       "expo-background-task",
-      "react-native-iap",
       [
         "expo-notifications",
         {
