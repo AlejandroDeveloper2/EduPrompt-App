@@ -31,7 +31,7 @@
         "gradleCommand": ":app:assembleRelease"
       },
       "env": {
-        "APP_VARIANT": "preview"
+        "APP_VARIANT": "production"
       }
     },
     "production": {
