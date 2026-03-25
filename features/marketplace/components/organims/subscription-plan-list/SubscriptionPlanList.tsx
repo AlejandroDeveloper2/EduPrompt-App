@@ -39,7 +39,7 @@ const SubscriptionPlanList = () => {
       {isPlansLoading ? (
         <LoadingTextIndicator
           message={t(
-            "marketplace-translations.plans-section.loading-plans-msg",
+        "marketplace_translations.plans_section.loading_plans_msg",
           )}
           color={AppColors.primary[400]}
         />
@@ -48,7 +48,7 @@ const SubscriptionPlanList = () => {
           <TokenPackageCard
             key={plan.subscriptionPlanId}
             price={`${plan.price}USD/${t(
-              "marketplace-translations.plans-section.frecuency-label",
+        "marketplace_translations.plans_section.frecuency_label",
             )}`}
             packageTitle={plan.title[lang]}
             description={plan.description[lang]}
@@ -64,19 +64,19 @@ const SubscriptionPlanList = () => {
             loading={{
               isLoading: isProccesingOrder,
               message: t(
-                "marketplace-translations.packages-section.processing-purchase-msg",
+        "marketplace_translations.packages_section.processing_purchase_msg",
               ),
             }}
             buttonText={
               currentPlan &&
               currentPlan.subscriptionPlanId === plan.subscriptionPlanId
                 ? t(
-                    "marketplace-translations.plans-section.manage-subscription-btn-label",
+        "marketplace_translations.plans_section.manage_subscription_btn_label",
                   )
                 : `${t(
-                    "marketplace-translations.plans-section.subscribe-btn-label",
+        "marketplace_translations.plans_section.subscribe_btn_label",
                   )} ${plan.price}USD/${t(
-                    "marketplace-translations.plans-section.frecuency-label",
+        "marketplace_translations.plans_section.frecuency_label",
                   )}`
             }
             onBuyPackage={() => handleSubscribeToPlan(plan)}
@@ -85,7 +85,7 @@ const SubscriptionPlanList = () => {
       ) : (
         <Empty
           message={t(
-            "marketplace-translations.plans-section.wifi-connection-msg",
+        "marketplace_translations.plans_section.wifi_connection_msg",
           )}
           icon="wifi-outline"
         />

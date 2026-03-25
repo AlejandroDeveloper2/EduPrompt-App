@@ -24,7 +24,7 @@ const useCaptureOrderMutation = () => {
           key: generateToastKey(),
           variant: "primary",
           message: t(
-            "marketplace-translations.module-success-messages.package-order-completed-msg",
+        "marketplace_translations.module_success_messages.package_order_completed_msg",
             { amount: variables.productDetails.tokenAmount ?? 0 },
           ),
           toastDuration: 6000,
@@ -36,7 +36,7 @@ const useCaptureOrderMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "marketplace-translations.module-success-messages.plan-order-completed-msg",
+        "marketplace_translations.module_success_messages.plan_order_completed_msg",
           { plan: variables.productDetails.title },
         ),
         toastDuration: 6000,

@@ -249,8 +249,8 @@ export const ResourceGenerationStore = create<ResourceGenerationStoreType>()(
           showToast({
             key: generateToastKey(),
             variant: "danger",
-            message: i18n.t(
-              "generations-translations.module-error-messages.insufficient-tokens-msg",
+            message: t(
+        "generations_translations.module_error_messages.insufficient_tokens_msg",
             ),
           });
           return;

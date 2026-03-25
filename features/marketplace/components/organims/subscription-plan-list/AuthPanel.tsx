@@ -26,7 +26,7 @@ const AuthPanel = () => {
       <Link
         label={t("settings_translations.user_profile_panel.signup_link.label")}
         linkLabel={t(
-          "settings-translations.user-profile-panel.signup-link.link-label",
+        "settings_translations.user_profile_panel.signup_link.link_label",
         )}
         href="/auth/signup_screen"
       />

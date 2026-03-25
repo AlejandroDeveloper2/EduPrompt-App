@@ -30,13 +30,13 @@ const LoginForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<LoginCredentials>
               label={t(
-                "auth-translations.login-template.form-labels.email.label",
+        "auth_translations.login_template.form_labels.email.label",
               )}
               icon="at-outline"
               name="email"
               value={data.email}
               placeholder={t(
-                "auth-translations.login-template.form-labels.email.placeholder",
+        "auth_translations.login_template.form_labels.email.placeholder",
               )}
               errorMessage={getFieldErrors("email")?.join(", ")}
               onChange={handleChange}
@@ -46,13 +46,13 @@ const LoginForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<LoginCredentials>
               label={t(
-                "auth-translations.login-template.form-labels.password.label",
+        "auth_translations.login_template.form_labels.password.label",
               )}
               icon="lock-closed-outline"
               name="password"
               value={data.password}
               placeholder={t(
-                "auth-translations.login-template.form-labels.password.placeholder",
+        "auth_translations.login_template.form_labels.password.placeholder",
               )}
               errorMessage={getFieldErrors("password")?.join(", ")}
               onChange={handleChange}
@@ -63,10 +63,10 @@ const LoginForm = () => {
           <Form.Row.Item>
             <Form.Link
               label={t(
-                "auth-translations.login-template.form-labels.recover-pass-link.label",
+        "auth_translations.login_template.form_labels.recover_pass_link.label",
               )}
               linkLabel={t(
-                "auth-translations.login-template.form-labels.recover-pass-link.link-label",
+        "auth_translations.login_template.form_labels.recover_pass_link.link_label",
               )}
               href="/auth/request_password_reset_screen"
             />
@@ -83,17 +83,17 @@ const LoginForm = () => {
             onPress={handleSubmit}
             loading={login.isPending}
             loadingMessage={t(
-              "auth-translations.login-template.form-loading-messages.logging-in-msg",
+        "auth_translations.login_template.form_loading_messages.logging_in_msg",
             )}
           />
         </Form.Row.Item>
         <Form.Row.Item span={1}>
           <Form.Link
             label={t(
-              "auth-translations.login-template.form-labels.sign-up-link.label",
+        "auth_translations.login_template.form_labels.sign_up_link.label",
             )}
             linkLabel={t(
-              "auth-translations.login-template.form-labels.sign-up-link.link-label",
+        "auth_translations.login_template.form_labels.sign_up_link.link_label",
             )}
             href="/auth/signup_screen"
           />

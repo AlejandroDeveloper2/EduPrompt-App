@@ -43,10 +43,10 @@ const SubscriptionIndicatorBar = () => {
             text={
               isPremium
                 ? t(
-                    "common-translations.subscription-indicator-labels.premium-plan",
+        "common_translations.subscription_indicator_labels.premium_plan",
                   )
                 : t(
-                    "common-translations.subscription-indicator-labels.free-plan",
+        "common_translations.subscription_indicator_labels.free_plan",
                   )
             }
             weight="bold"

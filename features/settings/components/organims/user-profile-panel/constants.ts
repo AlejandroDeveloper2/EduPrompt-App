@@ -7,19 +7,19 @@ export const FORM_TABS = (
     {
       tabId: "tab-1",
       label: t(
-        "settings-translations.user-profile-panel.form-tabulator-labels.tab-1",
+        "settings_translations.user_profile_panel.form_tabulator_labels.tab_1",
       ),
     },
     {
       tabId: "tab-2",
       label: t(
-        "settings-translations.user-profile-panel.form-tabulator-labels.tab-2",
+        "settings_translations.user_profile_panel.form_tabulator_labels.tab_2",
       ),
     },
     {
       tabId: "tab-3",
       label: t(
-        "settings-translations.user-profile-panel.form-tabulator-labels.tab-3",
+        "settings_translations.user_profile_panel.form_tabulator_labels.tab_3",
       ),
     },
   ] as const;

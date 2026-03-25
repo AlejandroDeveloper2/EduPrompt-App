@@ -50,7 +50,7 @@ const GenerationStepView = ({
       <Button
         icon="chevron-back-outline"
         label={t(
-          "generations-translations.generation-step-view-labels.btn-back",
+        "generations_translations.generation_step_view_labels.btn_back",
         )}
         variant="neutral"
         width="auto"

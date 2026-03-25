@@ -7,13 +7,13 @@ export const RESOURCE_PREVIEW_TABS = (
     {
       tabId: "tab-1",
       label: t(
-        "resources-translations.resources-list-labels.popups-tabulator-labels.tab-1",
+        "resources_translations.resources_list_labels.popups_tabulator_labels.tab_1",
       ),
     },
     {
       tabId: "tab-2",
       label: t(
-        "resources-translations.resources-list-labels.popups-tabulator-labels.tab-2",
+        "resources_translations.resources_list_labels.popups_tabulator_labels.tab_2",
       ),
     },
   ] as const;

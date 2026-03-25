@@ -41,7 +41,7 @@ const TokenPackageList = () => {
       {isPackagesLoading ? (
         <LoadingTextIndicator
           message={t(
-            "marketplace-translations.packages-section.loading-packages-msg",
+        "marketplace_translations.packages_section.loading_packages_msg",
           )}
           color={AppColors.primary[400]}
         />
@@ -56,7 +56,7 @@ const TokenPackageList = () => {
             loading={{
               isLoading: isProccesingOrder,
               message: t(
-                "marketplace-translations.packages-section.processing-purchase-msg",
+        "marketplace_translations.packages_section.processing_purchase_msg",
               ),
             }}
             onBuyPackage={() =>

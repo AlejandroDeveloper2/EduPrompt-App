@@ -95,7 +95,7 @@ const useGenerateResourceMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "generations-translations.module-success-messages.resource-generated-msg",
+        "generations_translations.module_success_messages.resource_generated_msg",
         ),
       });
     },

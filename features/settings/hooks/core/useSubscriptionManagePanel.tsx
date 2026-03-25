@@ -52,11 +52,11 @@ const useSubscriptionManagePanel = () => {
         variant="danger"
         width="100%"
         label={t(
-          "marketplace-translations.manage-subscription-panel.actions-labels.cancel-subscription-btn-label",
+        "marketplace_translations.manage_subscription_panel.actions_labels.cancel_subscription_btn_label",
         )}
         loading={isCancelling}
         loadingMessage={t(
-          "marketplace-translations.manage-subscription-panel.actions-labels.cancel-subscription-btn-loading-msg",
+        "marketplace_translations.manage_subscription_panel.actions_labels.cancel_subscription_btn_loading_msg",
         )}
         onPress={() => {
           if (!subscription || !currentHistory) return;
@@ -73,12 +73,12 @@ const useSubscriptionManagePanel = () => {
         variant="primary"
         width="100%"
         label={t(
-          "marketplace-translations.manage-subscription-panel.actions-labels.reactive-subscription-btn-label",
+        "marketplace_translations.manage_subscription_panel.actions_labels.reactive_subscription_btn_label",
         )}
         onPress={handleCreateOrder}
         loading={isRetrying}
         loadingMessage={t(
-          "marketplace-translations.manage-subscription-panel.actions-labels.processing-payment-msg",
+        "marketplace_translations.manage_subscription_panel.actions_labels.processing_payment_msg",
         )}
         disabled={isPolling}
       />
@@ -89,12 +89,12 @@ const useSubscriptionManagePanel = () => {
         variant="neutral"
         width="100%"
         label={t(
-          "marketplace-translations.manage-subscription-panel.actions-labels.retry-payment-btn-label",
+        "marketplace_translations.manage_subscription_panel.actions_labels.retry_payment_btn_label",
         )}
         onPress={handleCreateOrder}
         loading={isRetrying}
         loadingMessage={t(
-          "marketplace-translations.manage-subscription-panel.actions-labels.processing-payment-msg",
+        "marketplace_translations.manage_subscription_panel.actions_labels.processing_payment_msg",
         )}
         disabled={isPolling}
       />

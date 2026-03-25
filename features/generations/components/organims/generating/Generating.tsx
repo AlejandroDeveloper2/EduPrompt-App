@@ -32,7 +32,7 @@ const Generating = () => {
       <Button
         icon="chevron-back-outline"
         label={t(
-          "generations-translations.generating-indicator-labels.btn-back",
+        "generations_translations.generating_indicator_labels.btn_back",
         )}
         variant="neutral"
         width="auto"
@@ -48,7 +48,7 @@ const Generating = () => {
       <Loader
         title={t("generations_translations.generating_indicator_labels.title")}
         description={t(
-          "generations-translations.generating-indicator-labels.description",
+        "generations_translations.generating_indicator_labels.description",
         )}
         icon="settings-outline"
         progressConfig={{

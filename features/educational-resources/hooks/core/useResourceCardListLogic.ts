@@ -130,18 +130,18 @@ const useResourceCardListLogic = () => {
             {
               successNotification: {
                 title: t(
-                  "resources-translations.download-resources-notifications-labels.success.title",
+        "resources_translations.download_resources_notifications_labels.success.title",
                 ),
                 message: t(
-                  "resources-translations.download-resources-notifications-labels.success.message",
+        "resources_translations.download_resources_notifications_labels.success.message",
                 ),
               },
               errorNotification: {
                 title: t(
-                  "resources-translations.download-resources-notifications-labels.error.title",
+        "resources_translations.download_resources_notifications_labels.error.title",
                 ),
                 message: t(
-                  "resources-translations.download-resources-notifications-labels.error.message",
+        "resources_translations.download_resources_notifications_labels.error.message",
                 ),
               },
             },

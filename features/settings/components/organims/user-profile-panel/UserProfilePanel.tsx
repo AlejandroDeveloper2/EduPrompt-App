@@ -65,7 +65,7 @@ const UserProfilePanel = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "settings-translations.user-profile-panel.close-session-alert-labels.title",
+        "settings_translations.user_profile_panel.close_session_alert_labels.title",
         )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -75,14 +75,14 @@ const UserProfilePanel = () => {
         <Alert
           variant="danger"
           message={t(
-            "settings-translations.user-profile-panel.close-session-alert-labels.message",
+        "settings_translations.user_profile_panel.close_session_alert_labels.message",
           )}
           acceptButtonLabel={t(
-            "settings-translations.user-profile-panel.close-session-alert-labels.btn-accept",
+        "settings_translations.user_profile_panel.close_session_alert_labels.btn_accept",
           )}
           loading={loading}
           loadingMessage={t(
-            "settings-translations.user-profile-panel.close-session-alert-labels.closing-session-msg",
+        "settings_translations.user_profile_panel.close_session_alert_labels.closing_session_msg",
           )}
           acceptButtonIcon="power-outline"
           onCancel={onClosePopUp}
@@ -92,7 +92,7 @@ const UserProfilePanel = () => {
       <View style={UserProfilePanelStyles(size).PanelContainer}>
         <ScreenSection
           description={t(
-            "settings-translations.user-profile-panel.description",
+        "settings_translations.user_profile_panel.description",
           )}
           title={t("settings_translations.user_profile_panel.title")}
           icon="person-outline"
@@ -100,7 +100,7 @@ const UserProfilePanel = () => {
         {!isConnected ? (
           <NoConnectionIndicator
             message={t(
-              "settings-translations.user-profile-panel.no-connection-indicator-msg",
+        "settings_translations.user_profile_panel.no_connection_indicator_msg",
             )}
           />
         ) : (
@@ -123,7 +123,7 @@ const UserProfilePanel = () => {
                   width="100%"
                   onPress={onOpenPopUp}
                   label={t(
-                    "settings-translations.user-profile-panel.btn-close-session",
+        "settings_translations.user_profile_panel.btn_close_session",
                   )}
                 />
               </>
@@ -135,15 +135,15 @@ const UserProfilePanel = () => {
                   width={"100%"}
                   onPress={() => router.navigate("/auth")}
                   label={t(
-                    "settings-translations.user-profile-panel.btn-login",
+        "settings_translations.user_profile_panel.btn_login",
                   )}
                 />
                 <Link
                   label={t(
-                    "settings-translations.user-profile-panel.signup-link.label",
+        "settings_translations.user_profile_panel.signup_link.label",
                   )}
                   linkLabel={t(
-                    "settings-translations.user-profile-panel.signup-link.link-label",
+        "settings_translations.user_profile_panel.signup_link.link_label",
                   )}
                   href="/auth/signup_screen"
                 />

@@ -24,7 +24,7 @@ export const copyToClipboard = async (textToCopy: string): Promise<void> => {
       key: generateToastKey(),
       variant: "primary",
       message: i18n.t(
-        "generations-translations.ia-response-card-labels.copy-resource-function-labels.success-msg",
+        "generations_translations.ia_response_card_labels.copy_resource_function_labels.success_msg",
       ),
     });
   } catch (e) {
@@ -33,7 +33,7 @@ export const copyToClipboard = async (textToCopy: string): Promise<void> => {
       key: generateToastKey(),
       variant: "danger",
       message: i18n.t(
-        "generations-translations.ia-response-card-labels.copy-resource-function-labels.error-msg",
+        "generations_translations.ia_response_card_labels.copy_resource_function_labels.error_msg",
       ),
     });
   }

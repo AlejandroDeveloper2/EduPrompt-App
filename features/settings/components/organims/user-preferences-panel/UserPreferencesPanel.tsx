@@ -60,7 +60,7 @@ const UserPreferencesPanel = () => {
       <PopUp
         icon="language-outline"
         title={t(
-          "settings-translations.preferences-popups-labels.language.title",
+        "settings_translations.preferences_popups_labels.language.title",
         )}
         isPopUpMounted={languagePopUp.isPopUpMounted}
         gesture={languagePopUp.dragGesture}
@@ -72,7 +72,7 @@ const UserPreferencesPanel = () => {
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-            "settings-translations.preferences-popups-labels.language.list-search-placeholder",
+        "settings_translations.preferences_popups_labels.language.list_search_placeholder",
           )}
           selectedOption={
             preferences.language
@@ -88,7 +88,7 @@ const UserPreferencesPanel = () => {
       <PopUp
         icon="timer-outline"
         title={t(
-          "settings-translations.preferences-popups-labels.auto-clean-frecuency.title",
+        "settings_translations.preferences_popups_labels.auto_clean_frecuency.title",
         )}
         isPopUpMounted={frecuencyPopUp.isPopUpMounted}
         gesture={frecuencyPopUp.dragGesture}
@@ -100,7 +100,7 @@ const UserPreferencesPanel = () => {
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-            "settings-translations.preferences-popups-labels.auto-clean-frecuency.list-search-placeholder",
+        "settings_translations.preferences_popups_labels.auto_clean_frecuency.list_search_placeholder",
           )}
           selectedOption={
             preferences.cleanFrecuency
@@ -120,20 +120,20 @@ const UserPreferencesPanel = () => {
           isAuthenticated && (
             <InfoCard
               title={t(
-                "settings-translations.syncronization-card-labels.title",
+        "settings_translations.syncronization_card_labels.title",
               )}
               description={t(
-                "settings-translations.syncronization-card-labels.description",
+        "settings_translations.syncronization_card_labels.description",
               )}
               buttonData={{
                 onPress: syncUserProfile,
                 icon: "sync-outline",
                 label: t(
-                  "settings-translations.syncronization-card-labels.btn-sync",
+        "settings_translations.syncronization_card_labels.btn_sync",
                 ),
                 loading: isPending,
                 loadingMessage: t(
-                  "settings-translations.syncronization-card-labels.loading-text",
+        "settings_translations.syncronization_card_labels.loading_text",
                 ),
               }}
             />
@@ -146,7 +146,7 @@ const UserPreferencesPanel = () => {
         {isLoading ? (
           <LoadingTextIndicator
             message={t(
-              "settings-translations.module-loading-messages.loading-user-settings-msg",
+        "settings_translations.module_loading_messages.loading_user_settings_msg",
             )}
             color={AppColors.primary[400]}
           />
@@ -154,7 +154,7 @@ const UserPreferencesPanel = () => {
           <View style={UserPreferencesPanelStyles.OptionsList}>
             <Switch
               label={t(
-                "settings-translations.preferences-options-labels.auto-sync",
+        "settings_translations.preferences_options_labels.auto_sync",
               )}
               labelDirection="left"
               state={preferences.autoSync ? "on" : "off"}
@@ -164,7 +164,7 @@ const UserPreferencesPanel = () => {
             />
             <Switch
               label={t(
-                "settings-translations.preferences-options-labels.push-notifications",
+        "settings_translations.preferences_options_labels.push_notifications",
               )}
               labelDirection="left"
               state={preferences.pushNotifications ? "on" : "off"}
@@ -176,7 +176,7 @@ const UserPreferencesPanel = () => {
             />
             <Switch
               label={t(
-                "settings-translations.preferences-options-labels.auto-clean-notifications",
+        "settings_translations.preferences_options_labels.auto_clean_notifications",
               )}
               labelDirection="left"
               state={preferences.autoCleanNotifications ? "on" : "off"}
@@ -191,10 +191,10 @@ const UserPreferencesPanel = () => {
                 name="cleanFrecuency"
                 icon="timer-outline"
                 label={t(
-                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.label",
+        "settings_translations.preferences_options_labels.auto_clean_notifications_frecuency.label",
                 )}
                 placeholder={t(
-                  "settings-translations.preferences-options-labels.auto-clean-notifications-frecuency.placeholder",
+        "settings_translations.preferences_options_labels.auto_clean_notifications_frecuency.placeholder",
                 )}
                 selectedOption={
                   preferences.cleanFrecuency
@@ -214,10 +214,10 @@ const UserPreferencesPanel = () => {
               name="language"
               icon="language-outline"
               label={t(
-                "settings-translations.preferences-options-labels.app-language.label",
+        "settings_translations.preferences_options_labels.app_language.label",
               )}
               placeholder={t(
-                "settings-translations.preferences-options-labels.app-language.placeholder",
+        "settings_translations.preferences_options_labels.app_language.placeholder",
               )}
               selectedOption={
                 preferences.language

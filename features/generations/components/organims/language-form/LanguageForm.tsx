@@ -28,7 +28,7 @@ const LanguageForm = () => {
       <PopUp
         icon="language-outline"
         title={t(
-          "generations-translations.language-template.language-selection-popup-labels.title",
+        "generations_translations.language_template.language_selection_popup_labels.title",
         )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -40,7 +40,7 @@ const LanguageForm = () => {
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-            "generations-translations.language-template.language-selection-popup-labels.search-input-placeholder",
+        "generations_translations.language_template.language_selection_popup_labels.search_input_placeholder",
           )}
           selectedOption={selectedLanguage}
           onSelectOption={(option) => {
@@ -57,10 +57,10 @@ const LanguageForm = () => {
                 name="language"
                 icon="language-outline"
                 label={t(
-                  "generations-translations.language-template.form-labels.language.label",
+        "generations_translations.language_template.form_labels.language.label",
                 )}
                 placeholder={t(
-                  "generations-translations.language-template.form-labels.language.placeholder",
+        "generations_translations.language_template.form_labels.language.placeholder",
                 )}
                 selectedOption={selectedLanguage}
                 optionValueKey="label"
@@ -78,7 +78,7 @@ const LanguageForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations-translations.language-template.form-labels.btn-prev-step",
+        "generations_translations.language_template.form_labels.btn_prev_step",
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
@@ -95,7 +95,7 @@ const LanguageForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations-translations.language-template.form-labels.btn-next-step",
+        "generations_translations.language_template.form_labels.btn_next_step",
               )}
               onPress={handleSubmit}
             />

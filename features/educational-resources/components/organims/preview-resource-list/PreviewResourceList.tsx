@@ -104,7 +104,7 @@ const PreviewResourceList = () => {
     return (
       <FetchingErrorPanel
         message={t(
-          "resources-translations.resources-list-labels.fetch-resources-error-msg",
+        "resources_translations.resources_list_labels.fetch_resources_error_msg",
         )}
         refetch={refetch}
       />
@@ -114,7 +114,7 @@ const PreviewResourceList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "resources-translations.resources-list-labels.confirm-delete-alert-labels.title",
+        "resources_translations.resources_list_labels.confirm_delete_alert_labels.title",
         )}
         {...confirmDeletePopUp}
         gesture={confirmDeletePopUp.dragGesture}
@@ -122,10 +122,10 @@ const PreviewResourceList = () => {
         <Alert
           variant="danger"
           message={t(
-            "resources-translations.resources-list-labels.confirm-delete-alert-labels.message",
+        "resources_translations.resources_list_labels.confirm_delete_alert_labels.message",
           )}
           acceptButtonLabel={t(
-            "resources-translations.resources-list-labels.confirm-delete-alert-labels.btn-accept",
+        "resources_translations.resources_list_labels.confirm_delete_alert_labels.btn_accept",
           )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.onClosePopUp}
@@ -135,7 +135,7 @@ const PreviewResourceList = () => {
           }}
           loading={isDeleting}
           loadingMessage={t(
-            "resources-translations.resources-list-labels.confirm-delete-alert-labels.deleting-resources-msg",
+        "resources_translations.resources_list_labels.confirm_delete_alert_labels.deleting_resources_msg",
           )}
         />
       </PopUp>
@@ -143,10 +143,10 @@ const PreviewResourceList = () => {
         title={
           isTagSelection
             ? t(
-                "resources-translations.resources-list-labels.select-tags-popup-labels.title",
+        "resources_translations.resources_list_labels.select_tags_popup_labels.title",
               )
             : t(
-                "resources-translations.resources-list-labels.view-resource-popup-labels.title",
+        "resources_translations.resources_list_labels.view_resource_popup_labels.title",
               )
         }
         icon={isTagSelection ? "pricetag-outline" : "eye-outline"}
@@ -191,7 +191,7 @@ const PreviewResourceList = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-              "resources-translations.resources-list-labels.select-tags-popup-labels.search-input-placeholder",
+        "resources_translations.resources_list_labels.select_tags_popup_labels.search_input_placeholder",
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -201,7 +201,7 @@ const PreviewResourceList = () => {
             FooterComponent={
               <Button
                 label={t(
-                  "resources-translations.resources-list-labels.select-tags-popup-labels.btn-cancel-selection",
+        "resources_translations.resources_list_labels.select_tags_popup_labels.btn_cancel_selection",
                 )}
                 icon="close-outline"
                 width="100%"
@@ -257,7 +257,7 @@ const PreviewResourceList = () => {
         ListEmptyComponent={
           <Empty
             message={t(
-              "resources-translations.resources-list-labels.no-resources-msg",
+        "resources_translations.resources_list_labels.no_resources_msg",
             )}
             icon="book-outline"
           />
@@ -273,7 +273,7 @@ const PreviewResourceList = () => {
             <LoadingTextIndicator
               color={AppColors.primary[400]}
               message={t(
-                "resources-translations.resources-list-labels.loading-resources-msg",
+        "resources_translations.resources_list_labels.loading_resources_msg",
               )}
             />
           ) : null

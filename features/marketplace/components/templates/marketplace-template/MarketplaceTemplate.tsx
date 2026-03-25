@@ -19,7 +19,7 @@ const MarketplaceTemplate = () => {
       >
         <ScreenSection
           description={t(
-            "marketplace-translations.packages-section.description",
+        "marketplace_translations.packages_section.description",
           )}
           title={t("marketplace_translations.packages_section.title")}
           icon="bag-outline"

@@ -72,7 +72,7 @@ const FileFolder = ({
         <View style={fileFolderStyle.Metadata}>
           <Typography
             text={`${data.files.length} ${t(
-              "my-files-translations.folder-list-labels.files-count-label",
+        "my_files_translations.folder_list_labels.files_count_label",
             )}`}
             weight="bold"
             type="caption"

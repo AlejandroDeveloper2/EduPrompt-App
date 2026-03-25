@@ -17,7 +17,7 @@ const useRetrySubscriptionPaymentMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "marketplace-translations.module-success-messages.plan-order-completed-msg",
+        "marketplace_translations.module_success_messages.plan_order_completed_msg",
         ),
         toastDuration: 10000,
       });

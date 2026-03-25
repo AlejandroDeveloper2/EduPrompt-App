@@ -106,7 +106,7 @@ const useMarketplace = () => {
       key: generateToastKey(),
       variant: "danger",
       message: t(
-        "marketplace-translations.module-error-messages.cancel-payment-process-msg",
+        "marketplace_translations.module_error_messages.cancel_payment_process_msg",
       ),
       toastDuration: 10000,
     });
@@ -133,7 +133,7 @@ const useMarketplace = () => {
         key: generateToastKey(),
         variant: "danger",
         message: t(
-          "marketplace-translations.module-error-messages.payment-error-msg",
+        "marketplace_translations.module_error_messages.payment_error_msg",
         ),
         toastDuration: 10000,
       });
@@ -147,7 +147,7 @@ const useMarketplace = () => {
           key: generateToastKey(),
           variant: "danger",
           message: t(
-            "marketplace-translations.module-error-messages.no-internet-connection-msg",
+        "marketplace_translations.module_error_messages.no_internet_connection_msg",
           ),
         });
 

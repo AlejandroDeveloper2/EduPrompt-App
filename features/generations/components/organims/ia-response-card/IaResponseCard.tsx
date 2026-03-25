@@ -82,10 +82,10 @@ const IaResponseCard = ({
         title={
           isTagSelectionMode
             ? t(
-                "generations-translations.ia-response-card-labels.select-tag-popup-labels.title",
+        "generations_translations.ia_response_card_labels.select_tag_popup_labels.title",
               )
             : t(
-                "generations-translations.ia-response-card-labels.save-resource-popup-labels.title",
+        "generations_translations.ia_response_card_labels.save_resource_popup_labels.title",
               )
         }
         icon={isTagSelectionMode ? "pricetag-outline" : "add-outline"}
@@ -129,7 +129,7 @@ const IaResponseCard = ({
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-              "generations-translations.ia-response-card-labels.select-tag-popup-labels.search-input-placeholder",
+        "generations_translations.ia_response_card_labels.select_tag_popup_labels.search_input_placeholder",
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -139,7 +139,7 @@ const IaResponseCard = ({
             FooterComponent={
               <Button
                 label={t(
-                  "generations-translations.ia-response-card-labels.select-tag-popup-labels.btn-cancel",
+        "generations_translations.ia_response_card_labels.select_tag_popup_labels.btn_cancel",
                 )}
                 icon="close-outline"
                 width="100%"
@@ -169,7 +169,7 @@ const IaResponseCard = ({
         />
         <ScreenSection
           description={t(
-            "generations-translations.ia-response-card-labels.description",
+        "generations_translations.ia_response_card_labels.description",
           )}
           title={t("generations_translations.ia_response_card_labels.title")}
           icon="star-outline"
@@ -233,10 +233,10 @@ const IaResponseCard = ({
                       {
                         successNotification: {
                           title: t(
-                            "generations-translations.ia-response-card-labels.generation-process-labels.success.title",
+        "generations_translations.ia_response_card_labels.generation_process_labels.success.title",
                           ),
                           message: `${t(
-                            "generations-translations.ia-response-card-labels.generation-process-labels.success.message",
+        "generations_translations.ia_response_card_labels.generation_process_labels.success.message",
                           )} ${
                             currentIaGeneration.data.resourceType.other ??
                             currentIaGeneration.data.resourceType
@@ -245,10 +245,10 @@ const IaResponseCard = ({
                         },
                         errorNotification: {
                           title: t(
-                            "generations-translations.ia-response-card-labels.generation-process-labels.error.title",
+        "generations_translations.ia_response_card_labels.generation_process_labels.error.title",
                           ),
                           message: `${t(
-                            "generations-translations.ia-response-card-labels.generation-process-labels.error.message",
+        "generations_translations.ia_response_card_labels.generation_process_labels.error.message",
                           )} ${
                             currentIaGeneration.data.resourceType.other ??
                             currentIaGeneration.data.resourceType
@@ -273,7 +273,7 @@ const IaResponseCard = ({
         <Button
           icon="bulb-outline"
           label={t(
-            "generations-translations.ia-response-card-labels.btn-generate-other-resource",
+        "generations_translations.ia_response_card_labels.btn_generate_other_resource",
           )}
           variant="primary"
           width="100%"

@@ -81,10 +81,10 @@ const useResourceDescriptionFormLogic = () => {
             {
               successNotification: {
                 title: t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.success.title",
+        "generations_translations.ia_response_card_labels.generation_process_labels.success.title",
                 ),
                 message: `${t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.success.message",
+        "generations_translations.ia_response_card_labels.generation_process_labels.success.message",
                 )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
@@ -92,10 +92,10 @@ const useResourceDescriptionFormLogic = () => {
               },
               errorNotification: {
                 title: t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.error.title",
+        "generations_translations.ia_response_card_labels.generation_process_labels.error.title",
                 ),
                 message: `${t(
-                  "generations-translations.ia-response-card-labels.generation-process-labels.error.message",
+        "generations_translations.ia_response_card_labels.generation_process_labels.error.message",
                 )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel

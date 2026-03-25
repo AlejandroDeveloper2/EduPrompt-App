@@ -16,7 +16,7 @@ const SubscriptionManagePanel = () => {
     <View style={SubscriptionManagePanelStyle.PanelContainer}>
       <ScreenSection
         description={t(
-          "marketplace-translations.manage-subscription-panel.description",
+        "marketplace_translations.manage_subscription_panel.description",
         )}
         title={t("marketplace_translations.manage_subscription_panel.title")}
         icon="star-outline"
@@ -24,37 +24,37 @@ const SubscriptionManagePanel = () => {
       <View style={SubscriptionManagePanelStyle.DetailsList}>
         <SubscriptionDetail
           label={t(
-            "marketplace-translations.manage-subscription-panel.subscription-info-items.start-date-label",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.start_date_label",
           )}
           value={new Date(currentHistory.startDate).toLocaleDateString()}
           icon="calendar-outline"
         />
         <SubscriptionDetail
           label={t(
-            "marketplace-translations.manage-subscription-panel.subscription-info-items.end-date-label",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.end_date_label",
           )}
           value={new Date(currentHistory.endDate).toLocaleDateString()}
           icon="reload-outline"
         />
         <SubscriptionDetail
           label={t(
-            "marketplace-translations.manage-subscription-panel.subscription-info-items.plan-label",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.plan_label",
           )}
           value={currentHistory.plan.title["es"]}
           icon="star-outline"
         />
         <SubscriptionDetail
           label={t(
-            "marketplace-translations.manage-subscription-panel.subscription-info-items.payment-frecuency-label",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.payment_frecuency_label",
           )}
           value={
             currentHistory.plan.paymentFrecuency === "monthly"
               ? t(
-                  "marketplace-translations.manage-subscription-panel.subscription-info-items.payment-frecuencies",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.payment_frecuencies",
                   { count: 0 },
                 )
               : t(
-                  "marketplace-translations.manage-subscription-panel.subscription-info-items.payment-frecuencies",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.payment_frecuencies",
                   { count: 1 },
                 )
           }
@@ -62,21 +62,21 @@ const SubscriptionManagePanel = () => {
         />
         <SubscriptionDetail
           label={t(
-            "marketplace-translations.manage-subscription-panel.subscription-info-items.subscription-status-label",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.subscription_status_label",
           )}
           value={
             currentHistory.status === "active"
               ? t(
-                  "marketplace-translations.manage-subscription-panel.subscription-info-items.subscription-states",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.subscription_states",
                   { count: 0 },
                 )
               : currentHistory.status === "cancelled"
                 ? t(
-                    "marketplace-translations.manage-subscription-panel.subscription-info-items.subscription-states",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.subscription_states",
                     { count: 2 },
                   )
                 : t(
-                    "marketplace-translations.manage-subscription-panel.subscription-info-items.subscription-states",
+        "marketplace_translations.manage_subscription_panel.subscription_info_items.subscription_states",
                     { count: 1 },
                   )
           }
