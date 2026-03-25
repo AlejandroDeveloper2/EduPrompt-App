@@ -4,20 +4,53 @@
     "appVersionSource": "remote"
   },
   "build": {
+    "base": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "development": {
+      "extends": "base",
       "developmentClient": true,
       "distribution": "internal",
-      "autoIncrement": true
+      "prebuildCommand": "npx expo prebuild --clean",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "env": {
+        "APP_VARIANT": "development"
+      }
     },
     "preview": {
+      "extends": "base",
       "distribution": "internal",
-      "autoIncrement": true
+      "prebuildCommand": "npx expo prebuild --clean",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "env": {
+        "APP_VARIANT": "preview"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "distribution": "store",
+      "prebuildCommand": "npx expo prebuild --clean",
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "APP_VARIANT": "production"
+      }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./google-service-account.json",
+        "track": "internal"
+      }
+    }
   }
 }
