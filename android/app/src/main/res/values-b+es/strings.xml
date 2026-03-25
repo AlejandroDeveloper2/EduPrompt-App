@@ -11,5 +11,6 @@
   <string name="my-files-translations">"[object Object]"</string>
   <string name="resources-translations">"[object Object]"</string>
   <string name="generations-translations">"[object Object]"</string>
+  <string name="marketplace-translations">"[object Object]"</string>
   <string name="server-error-messages">"[object Object]"</string>
 </resources>
