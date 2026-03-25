@@ -25,13 +25,13 @@ const UpdateResourceForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<UpdateResourceFormData>
               label={t(
-                "resources-translations.update-resource-template.form-labels.title.label"
+                "resources_translations.update_resource_template.form_labels.title.label"
               )}
               icon="text-outline"
               name="title"
               value={data.title}
               placeholder={t(
-                "resources-translations.update-resource-template.form-labels.title.placeholder"
+                "resources_translations.update_resource_template.form_labels.title.placeholder"
               )}
               errorMessage={getFieldErrors("title")?.join(", ")}
               onChange={handleChange}
@@ -51,11 +51,11 @@ const UpdateResourceForm = ({
             >
               name="groupTag"
               label={t(
-                "resources-translations.update-resource-template.form-labels.tag.label"
+                "resources_translations.update_resource_template.form_labels.tag.label"
               )}
               icon="pricetag-outline"
               placeholder={t(
-                "resources-translations.update-resource-template.form-labels.tag.placeholder"
+                "resources_translations.update_resource_template.form_labels.tag.placeholder"
               )}
               selectedOption={selectedTag}
               optionValueKey="name"
@@ -73,11 +73,11 @@ const UpdateResourceForm = ({
             width="100%"
             icon="pencil-outline"
             label={t(
-              "resources-translations.update-resource-template.form-labels.btn-update-resource"
+              "resources_translations.update_resource_template.form_labels.btn_update_resource"
             )}
             loading={isLoading}
             loadingMessage={t(
-              "resources-translations.update-resource-template.form-loading-messages.updating-resource-msg"
+              "resources_translations.update_resource_template.form_loading_messages.updating_resource_msg"
             )}
             onPress={handleSubmit}
           />
@@ -88,7 +88,7 @@ const UpdateResourceForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-              "resources-translations.update-resource-template.form-labels.btn-cancel"
+              "resources_translations.update_resource_template.form_labels.btn_cancel"
             )}
             onPress={onClosePopUp}
           />

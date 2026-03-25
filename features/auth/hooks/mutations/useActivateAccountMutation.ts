@@ -20,7 +20,7 @@ const useActivateAccountMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.account-activated-msg"
+          "auth_translations.module_success_messages.account_activated_msg"
         ),
         toastDuration: 4000,
       });

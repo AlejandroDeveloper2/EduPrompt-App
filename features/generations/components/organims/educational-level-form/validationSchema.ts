@@ -11,7 +11,7 @@ export const educationalLevelFormSchema = z
       .min(
         1,
         i18n.t(
-          "generations-translations.educational-level-template.form-error-messages.required-educational-level-msg"
+          "generations_translations.educational_level_template.form_error_messages.required_educational_level_msg"
         )
       ),
     gradeLevelId: z.string().optional(),
@@ -33,7 +33,7 @@ export const educationalLevelFormSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18n.t(
-          "generations-translations.educational-level-template.form-error-messages.required-grade-msg"
+          "generations_translations.educational_level_template.form_error_messages.required_grade_msg"
         ),
         path: ["gradeLevelId"],
       });

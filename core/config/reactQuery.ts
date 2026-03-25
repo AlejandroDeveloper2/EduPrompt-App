@@ -1,6 +1,7 @@
 import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 
 import { showToast } from "@/shared/context";
+import { i18n } from "../store";
 
 import { generateToastKey } from "@/shared/helpers";
 import { AppError, ErrorCodeType, ErrorMessages } from "@/shared/utils";
@@ -20,7 +21,7 @@ const queryErrorHandler = async (error: unknown) => {
         toastDuration: 6000,
         link: {
           href: "/auth/account_activation_request_screen",
-          label: "Aquí",
+          label: i18n.t("common_translations.account_activation_link_label"),
         },
       });
       return;
@@ -30,7 +31,7 @@ const queryErrorHandler = async (error: unknown) => {
 
     showToast({
       variant: "danger",
-      message: message ?? "Error desconocido",
+      message: message ?? i18n.t("server_error_messages.unknown_error_msg"),
       key: generateToastKey(),
       toastDuration: 4000,
     });

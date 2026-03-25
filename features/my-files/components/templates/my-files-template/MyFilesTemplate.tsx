@@ -23,10 +23,10 @@ const MyFilesTemplate = () => {
           defaultDuration={6000}
           info={{
             title: t(
-              "my-files-translations.processes-labels.share-files-process.title"
+              "my_files_translations.processes_labels.share_files_process.title"
             ),
             description: t(
-              "my-files-translations.processes-labels.share-files-process.description"
+              "my_files_translations.processes_labels.share_files_process.description"
             ),
             icon: "document-outline",
           }}

@@ -9,7 +9,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "trash-bin-outline",
     onPress: deletePrompts,
     label: i18n.t(
-      "prompts-translations.prompt-list-labels.selection-options-labels.delete-prompts"
+      "prompts_translations.prompt_list_labels.selection_options_labels.delete_prompts"
     ),
   },
 ];

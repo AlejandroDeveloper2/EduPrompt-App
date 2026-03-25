@@ -139,8 +139,8 @@ const UserPreferencesPanel = () => {
             />
           )}
         <ScreenSection
-          description={t("settings-translations.screen-description")}
-          title={t("settings-translations.screen-title")}
+          description={t("settings_translations.screen_description")}
+          title={t("settings_translations.screen_title")}
           icon="settings-outline"
         />
         {isLoading ? (

@@ -45,7 +45,7 @@ const useUpdatePrompt = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "prompts-translations.module-success-messages.prompt-updated-msg"
+          "prompts_translations.module_success_messages.prompt_updated_msg"
         ),
       });
     },

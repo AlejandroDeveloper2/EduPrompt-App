@@ -45,7 +45,7 @@ const useUpdateResource = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "resources-translations.module-success-messages.resource-updated-msg"
+          "resources_translations.module_success_messages.resource_updated_msg"
         ),
       });
     },

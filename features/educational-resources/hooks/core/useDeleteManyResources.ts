@@ -45,7 +45,7 @@ const useDeleteManyResources = () => {
       key: generateToastKey(),
       variant: "primary",
       message: t(
-        "resources-translations.module-success-messages.resources-deleted-msg"
+        "resources_translations.module_success_messages.resources_deleted_msg"
       ),
     });
   }, [

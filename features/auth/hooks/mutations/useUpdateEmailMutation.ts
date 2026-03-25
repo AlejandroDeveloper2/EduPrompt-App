@@ -58,7 +58,7 @@ const useUpdateEmailMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.email-updated-msg"
+          "auth_translations.module_success_messages.email_updated_msg"
         ),
       });
     },

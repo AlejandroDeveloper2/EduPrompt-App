@@ -68,7 +68,7 @@ const NotificationCard = ({
             {isNew && (
               <Badge
                 label={t(
-                  "notifications-translations.notification-card-new-badge"
+                  "notifications_translations.notification_card_new_badge"
                 )}
                 variant="primary"
               />

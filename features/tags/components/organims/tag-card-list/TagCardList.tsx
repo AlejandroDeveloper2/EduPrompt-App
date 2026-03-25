@@ -50,7 +50,7 @@ const TagCardList = () => {
   if (isError)
     return (
       <FetchingErrorPanel
-        message={t("tags-translations.tag-list-labels.error-loading-tags-msg")}
+        message={t("tags_translations.tag_list_labels.error_loading_tags_msg")}
         refetch={refetch}
       />
     );
@@ -59,7 +59,7 @@ const TagCardList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "tags-translations.tag-list-labels.confirm-delete-alert-labels.title"
+          "tags_translations.tag_list_labels.confirm_delete_alert_labels.title"
         )}
         {...confirmTagDeletePopUp}
         gesture={confirmTagDeletePopUp.dragGesture}
@@ -67,10 +67,10 @@ const TagCardList = () => {
         <Alert
           variant="danger"
           message={t(
-            "tags-translations.tag-list-labels.confirm-delete-alert-labels.message"
+            "tags_translations.tag_list_labels.confirm_delete_alert_labels.message"
           )}
           acceptButtonLabel={t(
-            "tags-translations.tag-list-labels.confirm-delete-alert-labels.btn-accept"
+            "tags_translations.tag_list_labels.confirm_delete_alert_labels.btn_accept"
           )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmTagDeletePopUp.onClosePopUp}
@@ -80,13 +80,13 @@ const TagCardList = () => {
           }}
           loading={isPending}
           loadingMessage={t(
-            "tags-translations.tag-list-labels.confirm-delete-alert-labels.deleting-tag-msg"
+            "tags_translations.tag_list_labels.confirm_delete_alert_labels.deleting_tag_msg"
           )}
         />
       </PopUp>
       <PopUp
         title={t(
-          "tags-translations.tag-list-labels.update-tag-popup-labels.title"
+          "tags_translations.tag_list_labels.update_tag_popup_labels.title"
         )}
         icon="pencil-outline"
         isPopUpMounted={updateTagPopUp.isPopUpMounted}
@@ -127,7 +127,7 @@ const TagCardList = () => {
         keyExtractor={(item) => item.tagId}
         ListEmptyComponent={
           <Empty
-            message={t("tags-translations.tag-list-labels.no-tags-msg")}
+            message={t("tags_translations.tag_list_labels.no_tags_msg")}
             icon="pricetag-outline"
           />
         }
@@ -151,7 +151,7 @@ const TagCardList = () => {
           isFetchingNextPage ? (
             <LoadingTextIndicator
               color={AppColors.primary[400]}
-              message={t("tags-translations.tag-list-labels.loading-tags-msg")}
+              message={t("tags_translations.tag_list_labels.loading_tags_msg")}
             />
           ) : null
         }

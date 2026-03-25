@@ -74,7 +74,7 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
       }
       ListEmptyComponent={
         <Empty
-          message={t("my-files-translations.folder-list-labels.no-folders-msg")}
+          message={t("my_files_translations.folder_list_labels.no_folders_msg")}
           icon="folder-outline"
         />
       }
@@ -91,7 +91,7 @@ const MoveFilePanel = ({ originFolderId }: MoveFilePanelProps) => {
             variant="primary"
             width="100%"
             label={t(
-              "my-files-translations.file-list-labels.move-files-popup-labels.btn-move-files"
+              "my_files_translations.file_list_labels.move_files_popup_labels.btn_move_files"
             )}
             disabled={selectedFolderInfo === null}
             onPress={() =>

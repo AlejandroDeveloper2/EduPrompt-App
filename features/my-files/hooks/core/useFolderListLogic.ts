@@ -89,18 +89,18 @@ const useFolderListLogic = () => {
     await runBackgroundTask(task, shareManyFolders, {
       successNotification: {
         title: t(
-          "my-files-translations.shared-folders-notifications-labels.success.title"
+          "my_files_translations.shared_folders_notifications_labels.success.title"
         ),
         message: t(
-          "my-files-translations.shared-folders-notifications-labels.success.message"
+          "my_files_translations.shared_folders_notifications_labels.success.message"
         ),
       },
       errorNotification: {
         title: t(
-          "my-files-translations.shared-folders-notifications-labels.error.title"
+          "my_files_translations.shared_folders_notifications_labels.error.title"
         ),
         message: t(
-          "my-files-translations.shared-folders-notifications-labels.error.message"
+          "my_files_translations.shared_folders_notifications_labels.error.message"
         ),
       },
     });
@@ -131,7 +131,7 @@ const useFolderListLogic = () => {
   useEffect(() => {
     toggleLoading(
       true,
-      t("my-files-translations.folder-list-labels.loading-folders-msg")
+      t("my_files_translations.folder_list_labels.loading_folders_msg")
     );
     loadFolders(order);
     toggleLoading(false, null);

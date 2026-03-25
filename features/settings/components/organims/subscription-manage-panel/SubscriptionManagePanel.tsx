@@ -18,7 +18,7 @@ const SubscriptionManagePanel = () => {
         description={t(
           "marketplace-translations.manage-subscription-panel.description",
         )}
-        title={t("marketplace-translations.manage-subscription-panel.title")}
+        title={t("marketplace_translations.manage_subscription_panel.title")}
         icon="star-outline"
       />
       <View style={SubscriptionManagePanelStyle.DetailsList}>

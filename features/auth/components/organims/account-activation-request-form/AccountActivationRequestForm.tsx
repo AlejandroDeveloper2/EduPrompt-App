@@ -32,13 +32,13 @@ const AccountActivationRequestForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<AccountActivationRequestData>
               label={t(
-                "auth-translations.account-activation-request-template.form-labels.email.label"
+                "auth_translations.account_activation_request_template.form_labels.email.label"
               )}
               icon="at-outline"
               name="email"
               value={data.email}
               placeholder={t(
-                "auth-translations.account-activation-request-template.form-labels.email.placeholder"
+                "auth_translations.account_activation_request_template.form_labels.email.placeholder"
               )}
               errorMessage={getFieldErrors("email")?.join(", ")}
               onChange={handleChange}
@@ -54,11 +54,11 @@ const AccountActivationRequestForm = () => {
             width="100%"
             icon="send-outline"
             label={t(
-              "auth-translations.account-activation-request-template.form-labels.btn-send-activation-request"
+              "auth_translations.account_activation_request_template.form_labels.btn_send_activation_request"
             )}
             loading={isPending}
             loadingMessage={t(
-              "auth-translations.account-activation-request-template.form-loading-messages.sending-request-msg"
+              "auth_translations.account_activation_request_template.form_loading_messages.sending_request_msg"
             )}
             onPress={handleSubmit}
           />
@@ -66,10 +66,10 @@ const AccountActivationRequestForm = () => {
         <Form.Row.Item>
           <Form.Link
             label={t(
-              "auth-translations.account-activation-request-template.form-labels.login-link.label"
+              "auth_translations.account_activation_request_template.form_labels.login_link.label"
             )}
             linkLabel={t(
-              "auth-translations.account-activation-request-template.form-labels.login-link.link-label"
+              "auth_translations.account_activation_request_template.form_labels.login_link.link_label"
             )}
             href="/auth"
           />

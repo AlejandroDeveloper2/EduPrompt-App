@@ -7,7 +7,7 @@ export const updateResourceSchema = z.object({
     .string()
     .uuid(
       i18n.t(
-        "resources-translations.update-resource-template.form-error-messages.invalid-resource-id-msg"
+        "resources_translations.update_resource_template.form_error_messages.invalid_resource_id_msg"
       )
     ),
   title: z
@@ -15,7 +15,7 @@ export const updateResourceSchema = z.object({
     .min(
       1,
       i18n.t(
-        "resources-translations.update-resource-template.form-error-messages.required-title-msg"
+        "resources_translations.update_resource_template.form_error_messages.required_title_msg"
       )
     ),
   groupTag: z
@@ -23,7 +23,7 @@ export const updateResourceSchema = z.object({
     .min(
       1,
       i18n.t(
-        "resources-translations.update-resource-template.form-error-messages.required-tag-msg"
+        "resources_translations.update_resource_template.form_error_messages.required_tag_msg"
       )
     ),
 });

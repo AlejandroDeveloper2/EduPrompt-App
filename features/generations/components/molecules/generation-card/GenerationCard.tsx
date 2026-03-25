@@ -83,7 +83,7 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
         <View style={generationCardStyle.CardCurrentStepTitle}>
           <Typography
             text={t(
-              "generations-translations.generation-list-labels.generation-card-label"
+              "generations_translations.generation_list_labels.generation_card_label"
             )}
             weight="bold"
             type="caption"

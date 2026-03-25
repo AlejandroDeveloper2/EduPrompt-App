@@ -10,7 +10,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "trash-bin-outline",
     onPress: deleteSelectedNotifications,
     label: i18n.t(
-      "notifications-translations.selection-mode-actions-labels.delete"
+      "notifications_translations.selection_mode_actions_labels.delete"
     ),
   },
 ];

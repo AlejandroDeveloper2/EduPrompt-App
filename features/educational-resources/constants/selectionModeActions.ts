@@ -11,7 +11,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "trash-bin-outline",
     onPress: deleteResources,
     label: i18n.t(
-      "resources-translations.resources-list-labels.selection-options-labels.delete-resources"
+      "resources_translations.resources_list_labels.selection_options_labels.delete_resources"
     ),
   },
   {
@@ -19,7 +19,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "download-outline",
     onPress: downloadResources,
     label: i18n.t(
-      "resources-translations.resources-list-labels.selection-options-labels.download-resources"
+      "resources_translations.resources_list_labels.selection_options_labels.download_resources"
     ),
   },
 ];

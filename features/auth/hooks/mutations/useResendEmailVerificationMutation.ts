@@ -20,7 +20,7 @@ const useResendEmailVerificationMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.account-activation-request-sent-msg"
+          "auth_translations.module_success_messages.account_activation_request_sent_msg"
         ),
         toastDuration: 4000,
       });

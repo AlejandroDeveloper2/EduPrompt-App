@@ -1,70 +1,71 @@
 {
-  "common-translations": {
-    "alert-labels": {
-      "btn-cancel": "Cancelar"
+  "common_translations": {
+    "alert_labels": {
+      "btn_cancel": "Cancelar"
     },
-    "generate-button-label": "Generar",
-    "create-tag-form": {
-      "form-labels": {
+    "generate_button_label": "Generar",
+    "create_tag_form": {
+      "form_labels": {
         "name": {
           "label": "Nombre",
           "placeholder": "Nombre de la etiqueta"
         },
-        "btn-add-tag": "Agregar etiqueta"
+        "btn_add_tag": "Agregar etiqueta"
       },
-      "form-loading-messages": {
-        "adding-tag-msg": "Agregando..."
+      "form_loading_messages": {
+        "adding_tag_msg": "Agregando..."
       },
-      "form-error-messages": {
-        "invalid-tag-name-msg": "El nombre de la etiqueta es obligatorio"
+      "form_error_messages": {
+        "invalid_tag_name_msg": "El nombre de la etiqueta es obligatorio"
       }
     },
-    "dropdown-list-labels": {
-      "empty-list-msg": "No hay resultados"
+    "dropdown_list_labels": {
+      "empty_list_msg": "No hay resultados"
     },
-    "toolbar-labels": {
-      "selected-elements-label": "Elementos seleccionados"
+    "toolbar_labels": {
+      "selected_elements_label": "Elementos seleccionados"
     },
-    "tag-selection-panel-labels": {
-      "search-input-placeholder": "Buscar etiquetas por nombre"
+    "tag_selection_panel_labels": {
+      "search_input_placeholder": "Buscar etiquetas por nombre"
     },
-    "header-labels": {
+    "header_labels": {
       "notifications": "Notificaciones",
       "marketplace": "Tienda",
       "tags": "Etiquetas",
       "settings": "Configuraciones"
     },
-    "fetching-error-panel-labels": {
-      "btn-reload": "Reintentar"
+    "fetching_error_panel_labels": {
+      "btn_reload": "Reintentar"
     },
-    "in-progress-task-label": "En progreso:",
-    "sync-data-messages": {
-      "no-connected-msg": "Conectate a internet para sincronizar tus datos.",
-      "no-auth-msg": "Inicia sesión o crea una cuenta para poder sincronizar tus datos.",
-      "all-synced-msg": "Todo esta sincronizado"
+    "in_progress_task_label": "En progreso:",
+    "sync_data_messages": {
+      "no_connected_msg": "Conectate a internet para sincronizar tus datos.",
+      "no_auth_msg": "Inicia sesión o crea una cuenta para poder sincronizar tus datos.",
+      "all_synced_msg": "Todo esta sincronizado"
     },
-    "subscription-indicator-labels": {
+    "subscription_indicator_labels": {
       "label": "Plan Activo:",
-      "premium-plan": "Premium",
-      "free-plan": "Gratuito"
-    }
-  },
-  "onboarding-translations": {
-    "step-options-labels": {
-      "btn-back": "Anterior",
-      "btn-start": "Empezar",
-      "btn-next": "Siguiente"
+      "premium_plan": "Premium",
+      "free_plan": "Gratuito"
     },
-    "loading-messages": {
-      "completing-onboarding-msg": "Cargando..."
+    "account_activation_link_label": "Aquí"
+  },
+  "onboarding_translations": {
+    "step_options_labels": {
+      "btn_back": "Anterior",
+      "btn_start": "Empezar",
+      "btn_next": "Siguiente"
+    },
+    "loading_messages": {
+      "completing_onboarding_msg": "Cargando..."
     }
   },
-  "auth-translations": {
-    "btn-continue-without-account": "Continuar sin cuenta",
-    "separator-label": "Ó",
-    "login-template": {
+  "auth_translations": {
+    "btn_continue_without_account": "Continuar sin cuenta",
+    "separator_label": "Ó",
+    "login_template": {
       "title": "Iniciar sesión",
-      "form-labels": {
+      "form_labels": {
         "email": {
           "label": "Correo electrónico",
           "placeholder": "Correo electrónico"
@@ -73,47 +74,47 @@
           "label": "Contraseña",
           "placeholder": "Contraseña de acceso"
         },
-        "recover-pass-link": {
+        "recover_pass_link": {
           "label": "¿Has olvidado tu contraseña?",
-          "link-label": "Recuperar aquí"
+          "link_label": "Recuperar aquí"
         },
-        "sign-up-link": {
+        "sign_up_link": {
           "label": "¿Aún no tienes una cuenta?",
-          "link-label": "Registrate aquí"
+          "link_label": "Registrate aquí"
         },
-        "btn-login": "Iniciar sesión"
+        "btn_login": "Iniciar sesión"
       },
-      "form-loading-messages": {
-        "logging-in-msg": "Validando credenciales..."
+      "form_loading_messages": {
+        "logging_in_msg": "Validando credenciales..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Correo electrónico invalido",
-        "required-password-msg": "La contraseña es requerida"
+      "form_error_messages": {
+        "invalid_email_msg": "Correo electrónico invalido",
+        "required_password_msg": "La contraseña es requerida"
       }
     },
-    "request-pass-reset-template": {
+    "request_pass_reset_template": {
       "title": "Recuperar contraseña",
-      "form-labels": {
+      "form_labels": {
         "email": {
           "label": "Correo electrónico",
           "placeholder": "Correo electrónico"
         },
-        "login-link": {
+        "login_link": {
           "label": "¿Ya tienes una cuenta?",
-          "link-label": "Iniciar sesión"
+          "link_label": "Iniciar sesión"
         },
-        "btn-send-request": "Enviar solicitud"
+        "btn_send_request": "Enviar solicitud"
       },
-      "form-loading-messages": {
-        "sending-request-msg": "Enviando solicitud..."
+      "form_loading_messages": {
+        "sending_request_msg": "Enviando solicitud..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Correo electrónico invalido"
+      "form_error_messages": {
+        "invalid_email_msg": "Correo electrónico invalido"
       }
     },
-    "sign-up-template": {
+    "sign_up_template": {
       "title": "Crear cuenta",
-      "form-labels": {
+      "form_labels": {
         "username": {
           "label": "Nombre de usuario",
           "placeholder": "Nombre de usuario"
@@ -126,397 +127,390 @@
           "label": "Contraseña",
           "placeholder": "Contraseña de acceso"
         },
-        "confirm-password": {
+        "confirm_password": {
           "label": "Confirmar contraseña",
           "placeholder": "Confirmar contraseña"
         },
-        "login-link": {
+        "login_link": {
           "label": "¿Ya tienes una cuenta?",
-          "link-label": "Iniciar sesión"
+          "link_label": "Iniciar sesión"
         },
-        "terms-policies-links": {
+        "terms_policies_links": {
           "first": {
             "label": "Acepto la",
-            "link-label": "Política de Privacidad"
+            "link_label": "Política de Privacidad"
           },
           "second": {
             "label": "y los",
-            "link-label": "Condiciones de servicio"
+            "link_label": "Condiciones de servicio"
           }
         },
-        "btn-signup": "Crear cuenta"
+        "btn_signup": "Crear cuenta"
       },
-      "form-loading-messages": {
-        "creating-account-msg": "Creando cuenta..."
+      "form_loading_messages": {
+        "creating_account_msg": "Creando cuenta..."
       },
-      "form-error-messages": {
-        "invalid-username-msg": "El nombre de usuario debe tener almenos 3 caracteres",
-        "invalid-email-msg": "Correo electrónico invalido",
-        "invalid-password-msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
-        "required-password-confirm-msg": "La confirmación de contraseña es requerida",
-        "required-terms-msg": "Debes aceptar los términos y políticas",
-        "passwords-dismatch-msg": "Las contraseñas no coinciden"
+      "form_error_messages": {
+        "invalid_username_msg": "El nombre de usuario debe tener almenos 3 caracteres",
+        "invalid_email_msg": "Correo electrónico invalido",
+        "invalid_password_msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+        "required_password_confirm_msg": "La confirmación de contraseña es requerida",
+        "required_terms_msg": "Debes aceptar los términos y políticas",
+        "passwords_dismatch_msg": "Las contraseñas no coinciden"
       }
     },
-    "account-activation-template": {
+    "account_activation_template": {
       "title": "Activar cuenta",
-      "form-labels": {
+      "form_labels": {
         "code": {
           "label": "Código de activación"
         },
-        "login-link": {
+        "login_link": {
           "label": "¿Ya tienes una cuenta?",
-          "link-label": "Iniciar sesión"
+          "link_label": "Iniciar sesión"
         },
-        "btn-activate-account": "Activar cuenta"
+        "btn_activate_account": "Activar cuenta"
       },
-      "form-loading-messages": {
-        "activating-account-msg": "Activando cuenta..."
+      "form_loading_messages": {
+        "activating_account_msg": "Activando cuenta..."
       },
-      "form-error-messages": {
-        "invalid-code-min-length-msg": "El código de verificación debe tener al menos 4 caracteres",
-        "invalid-code-max-length-msg": "El código de verificación debe tener como máximo 4 caracteres"
+      "form_error_messages": {
+        "invalid_code_min_length_msg": "El código de verificación debe tener al menos 4 caracteres",
+        "invalid_code_max_length_msg": "El código de verificación debe tener como máximo 4 caracteres"
       }
     },
-    "account-activation-request-template": {
+    "account_activation_request_template": {
       "title": "Solicitar activación de cuenta",
-      "form-labels": {
+      "form_labels": {
         "email": {
           "label": "Correo electrónico",
           "placeholder": "Correo electrónico"
         },
-        "login-link": {
+        "login_link": {
           "label": "¿Ya tienes una cuenta?",
-          "link-label": "Iniciar sesión"
+          "link_label": "Iniciar sesión"
         },
-        "btn-send-activation-request": "Enviar solicitud"
+        "btn_send_activation_request": "Enviar solicitud"
       },
-      "form-loading-messages": {
-        "sending-request-msg": "Enviando solicitud..."
+      "form_loading_messages": {
+        "sending_request_msg": "Enviando solicitud..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Correo electrónico invalido"
+      "form_error_messages": {
+        "invalid_email_msg": "Correo electrónico invalido"
       }
     },
-    "reset-pass-verification-code-template": {
+    "reset_pass_verification_code_template": {
       "title": "Actualizar contraseña",
-      "form-labels": {
+      "form_labels": {
         "code": {
           "label": "Código de verificación"
         },
-        "login-link": {
+        "login_link": {
           "label": "¿Ya tienes una cuenta?",
-          "link-label": "Iniciar sesión"
+          "link_label": "Iniciar sesión"
         },
-        "btn-verify-code": "Verificar código"
+        "btn_verify_code": "Verificar código"
       },
-      "form-loading-messages": {
-        "verifying-code-msg": "Validando código..."
+      "form_loading_messages": {
+        "verifying_code_msg": "Validando código..."
       },
-      "form-error-messages": {
-        "invalid-code-min-length-msg": "El código de verificación debe tener al menos 4 caracteres",
-        "invalid-code-max-length-msg": "El código de verificación debe tener como máximo 4 caracteres"
+      "form_error_messages": {
+        "invalid_code_min_length_msg": "El código de verificación debe tener al menos 4 caracteres",
+        "invalid_code_max_length_msg": "El código de verificación debe tener como máximo 4 caracteres"
       }
     },
-    "reset-password-template": {
+    "reset_password_template": {
       "title": "Actualizar contraseña",
-      "form-labels": {
-        "new-password": {
+      "form_labels": {
+        "new_password": {
           "label": "Nueva contraseña",
           "placeholder": "Nueva contraseña de acceso"
         },
-        "confirm-password": {
+        "confirm_password": {
           "label": "Confirmar contraseña",
           "placeholder": "Confirmar nueva contraseña"
         },
-        "login-link": {
+        "login_link": {
           "label": "¿Ya tienes una cuenta?",
-          "link-label": "Iniciar sesión"
+          "link_label": "Iniciar sesión"
         },
-        "btn-reset-password": "Actualizar contraseña"
+        "btn_reset_password": "Actualizar contraseña"
       },
-      "form-loading-messages": {
-        "updating-password-msg": "Actualizando contraseña..."
+      "form_loading_messages": {
+        "updating_password_msg": "Actualizando contraseña..."
       },
-      "form-error-messages": {
-        "invalid-password-msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
-        "required-password-confirm-msg": "La confirmación de contraseña es requerida",
-        "passwords-dismatch-msg": "Las contraseñas no coinciden"
+      "form_error_messages": {
+        "invalid_password_msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+        "required_password_confirm_msg": "La confirmación de contraseña es requerida",
+        "passwords_dismatch_msg": "Las contraseñas no coinciden"
       }
     },
-    "module-success-messages": {
-      "reset-pass-request-sent-msg": "Se ha enviado un correo electrónico con las instrucciones, revisa tu bandeja de entrada.",
-      "account-created-msg": "Cuenta creada exitosamente, se ha enviado un código de verificación a su correo electrónico.",
-      "account-activated-msg": "Cuenta activada exitosamente, ya puedes iniciar sesión",
-      "account-activation-request-sent-msg": "Se ha enviado un nuevo código de activación a tu correo electrónico",
-      "verification-code-validated-msg": "Código de verificación valido, ya puedes actualizar tu contraseña",
-      "password-updated-msg": "Contraseña actualizada con éxito, ya puedes iniciar sesión",
-      "update-email-request-sent-msg": "Se ha enviado un código de verificación a la nueva dirección de correo electrónico. Revisa tu bandeja de entrada",
-      "email-updated-msg": "Correo electrónico actualizado con éxito",
-      "password-changed-msg": "Tu contraseña se ha cambiado con éxito. Inicia sesión de nuevo"
+    "module_success_messages": {
+      "reset_pass_request_sent_msg": "Se ha enviado un correo electrónico con las instrucciones, revisa tu bandeja de entrada.",
+      "account_created_msg": "Cuenta creada exitosamente, se ha enviado un código de verificación a su correo electrónico.",
+      "account_activated_msg": "Cuenta activada exitosamente, ya puedes iniciar sesión",
+      "account_activation_request_sent_msg": "Se ha enviado un nuevo código de activación a tu correo electrónico",
+      "verification_code_validated_msg": "Código de verificación valido, ya puedes actualizar tu contraseña",
+      "password_updated_msg": "Contraseña actualizada con éxito, ya puedes iniciar sesión",
+      "update_email_request_sent_msg": "Se ha enviado un código de verificación a la nueva dirección de correo electrónico. Revisa tu bandeja de entrada",
+      "email_updated_msg": "Correo electrónico actualizado con éxito",
+      "password_changed_msg": "Tu contraseña se ha cambiado con éxito. Inicia sesión de nuevo"
     },
-    "module-error-messages": {
-      "missing-user-id-msg": "No se encontró el Id de usuario necesario para actualizar la contraseña"
+    "module_error_messages": {
+      "missing_user_id_msg": "No se encontró el Id de usuario necesario para actualizar la contraseña"
     }
   },
-
-  "dashboard-translations": {
-    "screen-title": "Panel de control",
-    "screen-description": "Aquí puedes ver cómo has usado Edu Prompt: cuántos recursos has generado, cuántos tokens has usado y cómo vas con tus actividades. Todo lo que necesitas para tener el control, en un solo lugar.",
-    "dashboard-panel-labels": {
+  "dashboard_translations": {
+    "screen_title": "Panel de control",
+    "screen_description": "Aquí puedes ver cómo has usado Edu Prompt: cuántos recursos has generado, cuántos tokens has usado y cómo vas con tus actividades. Todo lo que necesitas para tener el control, en un solo lugar.",
+    "dashboard_panel_labels": {
       "title": "Indicadores",
       "description": "Monitorea tus estadísticas en Edu Prompt para un mejor control de tus actividades.",
-      "indicator-labels": {
-        "generated-resources": "Recursos generados",
-        "used-tokens": "Tokens usados",
-        "downloaded-resources": "Recursos descargados",
-        "saved-resources": "Recursos guardados",
-        "last-generated-resource": "Último recurso generado",
-        "not-last-generated-resource": "No se ha generado un recurso"
+      "indicator_labels": {
+        "generated_resources": "Recursos generados",
+        "used_tokens": "Tokens usados",
+        "downloaded_resources": "Recursos descargados",
+        "saved_resources": "Recursos guardados",
+        "last_generated_resource": "Último recurso generado",
+        "not_last_generated_resource": "No se ha generado un recurso"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Sincronización de datos",
         "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
-        "btn-sync": "Sincronizar indicadores",
-        "loading-text": "Sincronizando datos..."
+        "btn_sync": "Sincronizar indicadores",
+        "loading_text": "Sincronizando datos..."
       },
-      "background-processes-labels": {
+      "background_processes_labels": {
         "title": "Procesos activos",
-        "day-span": "Hoy",
-        "no-active-processes-msg": "¡No hay procesos activos ahora!"
+        "day_span": "Hoy",
+        "no_active_processes_msg": "¡No hay procesos activos ahora!"
       }
     }
   },
-
-  "settings-translations": {
-    "screen-title": "Preferencias de usuario",
-    "screen-description": "Ajusta tus preferencias como idioma principal de la app,  sincronización automática y notificaciones",
-    "syncronization-card-labels": {
+  "settings_translations": {
+    "screen_title": "Preferencias de usuario",
+    "screen_description": "Ajusta tus preferencias como idioma principal de la app,  sincronización automática y notificaciones",
+    "syncronization_card_labels": {
       "title": "Sincronización de datos",
       "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
-      "btn-sync": "Sincronizar",
-      "loading-text": "Sincronizando datos..."
+      "btn_sync": "Sincronizar",
+      "loading_text": "Sincronizando datos..."
     },
-    "preferences-options-labels": {
-      "auto-sync": "Sincronización automática de datos",
-      "push-notifications": "Notificaciones push",
-      "auto-clean-notifications": "Limpieza automática de notificaciones",
-      "auto-clean-notifications-frecuency": {
+    "preferences_options_labels": {
+      "auto_sync": "Sincronización automática de datos",
+      "push_notifications": "Notificaciones push",
+      "auto_clean_notifications": "Limpieza automática de notificaciones",
+      "auto_clean_notifications_frecuency": {
         "label": "Frecuencia de limpieza de notificaciones (Dias)",
         "placeholder": "Seleccione una opción"
       },
-      "app-language": {
+      "app_language": {
         "label": "Idioma",
         "placeholder": "Seleccione una opción"
       }
     },
-    "preferences-popups-labels": {
+    "preferences_popups_labels": {
       "language": {
         "title": "Elije el idioma de la app",
-        "list-search-placeholder": "Buscar idioma"
+        "list_search_placeholder": "Buscar idioma"
       },
-      "auto-clean-frecuency": {
+      "auto_clean_frecuency": {
         "title": "Elije la frecuencia de limpieza",
-        "list-search-placeholder": "Buscar frecuencia de limpieza"
+        "list_search_placeholder": "Buscar frecuencia de limpieza"
       }
     },
-    "languages-list-options-labels": {
+    "languages_list_options_labels": {
       "spanish": "Español",
       "english": "Inglés",
       "portuguese": "Portugués",
       "system": "Por defecto del sistema"
     },
-    "frecuency-list-options-labels": {
-      "2-days": "Cada 2 dias",
-      "5-days": "Cada 5 dias",
-      "15-days": "Cada 15 dias",
-      "30-days": "Cada 30 dias"
+    "frecuency_list_options_labels": {
+      "2_days": "Cada 2 dias",
+      "5_days": "Cada 5 dias",
+      "15_days": "Cada 15 dias",
+      "30_days": "Cada 30 dias"
     },
-    "user-profile-panel": {
+    "user_profile_panel": {
       "title": "Perfil de usuario",
       "description": "Edita y visualiza tu perfil de Edu Prompt  en un solo lugar",
-      "no-connection-indicator-msg": "No estas conectado a internet para acceder a tu perfil",
-      "form-tabulator-labels": {
-        "tab-1": "Usuario",
-        "tab-2": "Correo",
-        "tab-3": "Clave"
+      "no_connection_indicator_msg": "No estas conectado a internet para acceder a tu perfil",
+      "form_tabulator_labels": {
+        "tab_1": "Usuario",
+        "tab_2": "Correo",
+        "tab_3": "Clave"
       },
-      "btn-close-session": "Cerrar sesión",
-      "btn-login": "Iniciar sesión",
-      "signup-link": {
+      "btn_close_session": "Cerrar sesión",
+      "btn_login": "Iniciar sesión",
+      "signup_link": {
         "label": "¿No tienes una cuenta?",
-        "link-label": "Crea una aquí"
+        "link_label": "Crea una aquí"
       },
-      "close-session-alert-labels": {
+      "close_session_alert_labels": {
         "title": "Alerta",
         "message": "¿Seguro quieres cerrar sesión?",
-        "btn-accept": "Cerrar sesión",
-        "closing-session-msg": "Cerrando sesión..."
+        "btn_accept": "Cerrar sesión",
+        "closing_session_msg": "Cerrando sesión..."
       }
     },
-
-    "change-password-template": {
-      "form-labels": {
-        "current-password": {
+    "change_password_template": {
+      "form_labels": {
+        "current_password": {
           "label": "Contraseña actual",
           "placeholder": "Contraseña actual"
         },
-        "new-password": {
+        "new_password": {
           "label": "Nueva contraseña",
           "placeholder": "Nueva contraseña"
         },
-        "confirm-new-password": {
+        "confirm_new_password": {
           "label": "Confirmar nueva contraseña",
           "placeholder": "Confirmar contraseña"
         },
-        "btn-change-password": "Cambiar contraseña"
+        "btn_change_password": "Cambiar contraseña"
       },
-      "form-loading-messages": {
-        "changing-password-msg": "Cambiando contraseña..."
+      "form_loading_messages": {
+        "changing_password_msg": "Cambiando contraseña..."
       },
-      "form-error-messages": {
-        "required-current-password-msg": "La contraseña actual es requerida",
-        "invalid-password-msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
-        "required-password-confirm-msg": "La confirmación de contraseña es requerida",
-        "passwords-dismatch-msg": "Las contraseñas no coinciden"
+      "form_error_messages": {
+        "required_current_password_msg": "La contraseña actual es requerida",
+        "invalid_password_msg": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+        "required_password_confirm_msg": "La confirmación de contraseña es requerida",
+        "passwords_dismatch_msg": "Las contraseñas no coinciden"
       }
     },
-    "update-email-template": {
-      "form-labels": {
+    "update_email_template": {
+      "form_labels": {
         "code": {
           "label": "Código de verificación"
         },
-        "current-email": {
+        "current_email": {
           "label": "Correo electrónico actual",
           "placeholder": "Correo electrónico actual"
         },
-        "new-email": {
+        "new_email": {
           "label": "Nuevo correo electrónico",
           "placeholder": "Nuevo correo electrónico"
         },
-        "btn-verify-code": "Verificar código",
-        "btn-edit-email": "Editar correo electrónico"
+        "btn_verify_code": "Verificar código",
+        "btn_edit_email": "Editar correo electrónico"
       },
-      "form-loading-messages": {
-        "verifying-code-msg": "Verificando código...",
-        "editing-email-msg": "Enviando solicitud de cambio..."
+      "form_loading_messages": {
+        "verifying_code_msg": "Verificando código...",
+        "editing_email_msg": "Enviando solicitud de cambio..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Correo electrónico invalido",
-        "invalid-code-min-length-msg": "El código de verificación debe tener al menos 4 caracteres",
-        "invalid-code-max-length-msg": "El código de verificación debe tener como máximo 4 caracteres"
+      "form_error_messages": {
+        "invalid_email_msg": "Correo electrónico invalido",
+        "invalid_code_min_length_msg": "El código de verificación debe tener al menos 4 caracteres",
+        "invalid_code_max_length_msg": "El código de verificación debe tener como máximo 4 caracteres"
       }
     },
-    "update-username-template": {
-      "form-labels": {
+    "update_username_template": {
+      "form_labels": {
         "username": {
           "label": "Nombre de usuario",
           "placeholder": "Nombre de usuario"
         },
-        "btn-update-username": "Editar nombre de usuario"
+        "btn_update_username": "Editar nombre de usuario"
       },
-      "form-loading-messages": {
-        "updating-username-msg": "Actualizando usuario..."
+      "form_loading_messages": {
+        "updating_username_msg": "Actualizando usuario..."
       },
-      "form-error-messages": {
-        "invalid-username-msg": "El nombre de usuario debe tener almenos 3 caracteres"
+      "form_error_messages": {
+        "invalid_username_msg": "El nombre de usuario debe tener almenos 3 caracteres"
       }
     },
-
-    "module-loading-messages": {
-      "loading-user-settings-msg": "Cargando ajustes..."
+    "module_loading_messages": {
+      "loading_user_settings_msg": "Cargando ajustes..."
     },
-    "module-success-messages": {
-      "user-account-updated-msg": "Cuenta de usuario actualizada con éxito",
-      "username-updated-msg": "Nombre de usuario actualizado con éxito",
-      "user-profile-synced-msg": "Datos de perfil sincronizados con éxito"
+    "module_success_messages": {
+      "user_account_updated_msg": "Cuenta de usuario actualizada con éxito",
+      "username_updated_msg": "Nombre de usuario actualizado con éxito",
+      "user_profile_synced_msg": "Datos de perfil sincronizados con éxito"
     }
   },
-
-  "notifications-translations": {
-    "lists-tabulator-labels": {
-      "tab-1": "Notificaciones internas",
-      "tab-2": "Notificaciones sistema"
+  "notifications_translations": {
+    "lists_tabulator_labels": {
+      "tab_1": "Notificaciones internas",
+      "tab_2": "Notificaciones sistema"
     },
-    "user-notification-list": {
+    "user_notification_list": {
       "title": "Notificaciones",
       "description": "Encuentra aqui todas las notificaciones internas de tus actividades en Edu Prompt.",
-      "order-filters-labels": {
+      "order_filters_labels": {
         "title": "Listar en orden",
         "desc": "Descendente",
         "asc": "Ascendente"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alerta",
         "message": "¿Estas seguro que deseas eliminar las notificaciones?",
-        "btn-accept": "Eliminar"
+        "btn_accept": "Eliminar"
       },
-      "no-notifications-msg": "No hay notificaciones ahora mismo"
+      "no_notifications_msg": "No hay notificaciones ahora mismo"
     },
-    "system-notification-list": {
+    "system_notification_list": {
       "title": "Notificaciones del sistema",
       "description": "Encuentra aqui todas las notificaciones del sistema para enterarte de las novedades de Edu Prompt.",
-      "order-filters-labels": {
+      "order_filters_labels": {
         "title": "Listar en orden",
         "desc": "Descendente",
         "asc": "Ascendente"
       },
-      "loading-notifications-msg": "Cargando notificaciones...",
-      "no-notifications-msg": "No hay notificaciones ahora mismo"
+      "loading_notifications_msg": "Cargando notificaciones...",
+      "no_notifications_msg": "No hay notificaciones ahora mismo"
     },
-    "create-notifications-messages": {
-      "notifications-error-msg": "Ha ocurrido un error en el sistema de notificaciones del usuario."
+    "create_notifications_messages": {
+      "notifications_error_msg": "Ha ocurrido un error en el sistema de notificaciones del usuario."
     },
-    "load-notifications-messages": {
-      "loading-notifications-msg": "Cargando notificaciones de usuario..."
+    "load_notifications_messages": {
+      "loading_notifications_msg": "Cargando notificaciones de usuario..."
     },
-    "selection-mode-actions-labels": {
+    "selection_mode_actions_labels": {
       "delete": "Eliminar"
     },
-    "notification-card-new-badge": "Nuevo"
+    "notification_card_new_badge": "Nuevo"
   },
-
-  "rewards-translations": {
+  "rewards_translations": {
     "title": "Recompensa diaria",
-    "reward-notification-msg": "Has ganado 5 tokens gratis por ingresar diariamente a EduPrompt."
+    "reward_notification_msg": "Has ganado 5 tokens gratis por ingresar diariamente a EduPrompt."
   },
-
-  "tags-translations": {
-    "tag-list-labels": {
-      "selection-options-labels": {
-        "delete-tags": "Eliminar"
+  "tags_translations": {
+    "tag_list_labels": {
+      "selection_options_labels": {
+        "delete_tags": "Eliminar"
       },
-      "prompt-tag-badge": "Prompts",
-      "resource-tag-badge": "Recursos educativos",
+      "prompt_tag_badge": "Prompts",
+      "resource_tag_badge": "Recursos educativos",
       "title": "Etiquetas",
       "description": "Gestiona el conjunto de etiquetas para tus recursos educativos y prompts personalizados.",
-      "search-input-placeholder": "Buscar etiquetas por nombre",
-      "tag-type-filters-labels": {
+      "search_input_placeholder": "Buscar etiquetas por nombre",
+      "tag_type_filters_labels": {
         "title": "Filtrar por tipo",
         "resources": "Recursos educativos",
         "prompts": "Prompts"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Sincronización de datos",
         "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
-        "btn-sync": "Sincronizar",
-        "loading-text": "Sincronizando datos..."
+        "btn_sync": "Sincronizar",
+        "loading_text": "Sincronizando datos..."
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alerta",
         "message": "¿Estas seguro que deseas eliminar las etiquetas?",
-        "btn-accept": "Eliminar",
-        "deleting-tag-msg": "Eliminando..."
+        "btn_accept": "Eliminar",
+        "deleting_tag_msg": "Eliminando..."
       },
-      "update-tag-popup-labels": {
+      "update_tag_popup_labels": {
         "title": "Actualizar etiqueta"
       },
-      "loading-tags-msg": "Cargando mas etiquetas...",
-      "no-tags-msg": "No hay etiquetas ahora mismo",
-      "error-loading-tags-msg": "Ha ocurrido un error al cargar las etiquetas"
+      "loading_tags_msg": "Cargando mas etiquetas...",
+      "no_tags_msg": "No hay etiquetas ahora mismo",
+      "error_loading_tags_msg": "Ha ocurrido un error al cargar las etiquetas"
     },
-    "update-tag-template": {
-      "form-labels": {
+    "update_tag_template": {
+      "form_labels": {
         "name": {
           "label": "Nombre",
           "placeholder": "Nombre de la etiqueta"
@@ -528,71 +522,70 @@
             "resources": "Recurso educativo"
           }
         },
-        "btn-update-tag": "Actualizar etiqueta"
+        "btn_update_tag": "Actualizar etiqueta"
       },
-      "form-loading-messages": {
-        "updating-tag-msg": "Actualizando etiqueta..."
+      "form_loading_messages": {
+        "updating_tag_msg": "Actualizando etiqueta..."
       },
-      "form-error-messages": {
-        "invalid-tag-id-msg": "UUID invalido",
-        "required-name-msg": "El nombre de la etiqueta es requerido",
-        "invalid-tag-type-msg": "El tipo de etiqueta es invalido"
+      "form_error_messages": {
+        "invalid_tag_id_msg": "UUID invalido",
+        "required_name_msg": "El nombre de la etiqueta es requerido",
+        "invalid_tag_type_msg": "El tipo de etiqueta es invalido"
       }
     },
-    "module-error-messages": {
-      "tag-not-found-msg": "No se ha encontrado una etiqueta con el id:",
-      "some-tag-not-found-msg": "Alguna etiqueta de la lista no se existe en la base de datos"
+    "module_error_messages": {
+      "tag_not_found_msg": "No se ha encontrado una etiqueta con el id:",
+      "some_tag_not_found_msg": "Alguna etiqueta de la lista no se existe en la base de datos"
     },
-    "module-success-messages": {
-      "tag-created-msg": "Etiqueta creada correctamente",
-      "tags-deleted-msg": "Etiquetas eliminadas correctamente",
-      "tag-updated-msg": "Etiqueta actualizada correctamente",
-      "tags-synced-msg": "Info de etiquetas sincronizada con éxito"
+    "module_success_messages": {
+      "tag_created_msg": "Etiqueta creada correctamente",
+      "tags_deleted_msg": "Etiquetas eliminadas correctamente",
+      "tag_updated_msg": "Etiqueta actualizada correctamente",
+      "tags_synced_msg": "Info de etiquetas sincronizada con éxito"
     }
   },
-
-  "prompts-translations": {
-    "prompt-list-labels": {
-      "selection-options-labels": {
-        "delete-prompts": "Eliminar"
+  "prompts_translations": {
+    "prompt_list_labels": {
+      "selection_options_labels": {
+        "delete_prompts": "Eliminar"
       },
-      "no-tag-name-badge": "Sin etiqueta",
+      "no_tag_name_badge": "Sin etiqueta",
       "title": "Mis prompts",
       "description": "Revisa y gestiona fácilmente los prompts que has usado para generar tus recursos educativos.",
-      "search-input-placeholder": "Buscar prompts por titulo",
-      "prompt-tag-filters-labels": {
+      "search_input_placeholder": "Buscar prompts por titulo",
+      "prompt_tag_filters_labels": {
         "title": "Filtrar por etiqueta",
-        "all-filter": "Todos"
+        "all_filter": "Todos"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Sincronización de datos",
         "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
-        "btn-sync": "Sincronizar",
-        "loading-text": "Sincronizando datos..."
+        "btn_sync": "Sincronizar",
+        "loading_text": "Sincronizando datos..."
       },
-      "tag-list-labels-popup": {
+      "tag_list_labels_popup": {
         "title": "Etiquetas",
-        "search-input-placeholder": "Buscar etiqueta por nombre",
-        "btn-cancel-selection": "Cancelar selección"
+        "search_input_placeholder": "Buscar etiqueta por nombre",
+        "btn_cancel_selection": "Cancelar selección"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alerta",
         "message": "¿Estas seguro que deseas eliminar los prompts?",
-        "btn-accept": "Eliminar",
-        "deleting-prompt-msg": "Eliminando..."
+        "btn_accept": "Eliminar",
+        "deleting_prompt_msg": "Eliminando..."
       },
-      "loading-prompts-msg": "Cargando mas prompts...",
-      "no-prompts-msg": "No hay resultados",
-      "error-loading-prompts-msg": "Ha ocurrido un error al cargar los prompts"
+      "loading_prompts_msg": "Cargando mas prompts...",
+      "no_prompts_msg": "No hay resultados",
+      "error_loading_prompts_msg": "Ha ocurrido un error al cargar los prompts"
     },
-    "update-prompt-template": {
+    "update_prompt_template": {
       "title": "Actualizar prompt",
-      "form-labels": {
+      "form_labels": {
         "title": {
           "label": "Titulo (*)",
           "placeholder": "Digita el titulo del prompt"
         },
-        "prompt-text": {
+        "prompt_text": {
           "label": "Cuerpo del prompt (*)",
           "placeholder": "Describe tu recurso. Ejemplo: genera una guía para planificar mi clase de biología sobre animales invertebrados. Diseña la guía para una clase de 2 horas."
         },
@@ -600,91 +593,90 @@
           "label": "Etiqueta (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-update-prompt": "Actualizar prompt",
-        "btn-cancel": "Cancelar"
+        "btn_update_prompt": "Actualizar prompt",
+        "btn_cancel": "Cancelar"
       },
-      "form-loading-messages": {
-        "updating-prompt-msg": "Actualizando..."
+      "form_loading_messages": {
+        "updating_prompt_msg": "Actualizando..."
       },
-      "form-error-messages": {
-        "invalid-prompt-id-msg": "El ID del prompt no es valido",
-        "required-title-msg": "El titulo del prompt es obligatorio",
-        "required-prompt-text-msg": "El contenido del prompt es obligatorio",
-        "invalid-selected-tag-msg": "La etiqueta seleccionada no es valida"
+      "form_error_messages": {
+        "invalid_prompt_id_msg": "El ID del prompt no es valido",
+        "required_title_msg": "El titulo del prompt es obligatorio",
+        "required_prompt_text_msg": "El contenido del prompt es obligatorio",
+        "invalid_selected_tag_msg": "La etiqueta seleccionada no es valida"
       }
     },
-    "module-error-messages": {
-      "prompt-not-found-msg": "No se ha encontrado ningún prompt con el id:",
-      "some-prompt-not-found-msg": "Algun prompt de la lista no se existe en la base de datos"
+    "module_error_messages": {
+      "prompt_not_found_msg": "No se ha encontrado ningún prompt con el id:",
+      "some_prompt_not_found_msg": "Algun prompt de la lista no se existe en la base de datos"
     },
-    "module-success-messages": {
-      "prompt-created-msg": "Prompt creado correctamente",
-      "prompts-deleted-msg": "Prompts eliminados correctamente",
-      "prompt-updated-msg": "Prompt actualizado correctamente",
-      "prompts-synced-msg": "Info de prompts sincronizada con éxito"
+    "module_success_messages": {
+      "prompt_created_msg": "Prompt creado correctamente",
+      "prompts_deleted_msg": "Prompts eliminados correctamente",
+      "prompt_updated_msg": "Prompt actualizado correctamente",
+      "prompts_synced_msg": "Info de prompts sincronizada con éxito"
     }
   },
-
-  "my-files-translations": {
-    "file-navigator-labels": {
-      "folder-tab": "Mis Carpetas",
-      "file-tab": "Sin nombre"
+  "my_files_translations": {
+    "file_navigator_labels": {
+      "folder_tab": "Mis Carpetas",
+      "file_tab": "Sin nombre"
     },
-    "folder-list-labels": {
-      "selection-options-labels": {
-        "delete-folders": "Eliminar",
-        "share-folders": "Compartir"
+    "folder_list_labels": {
+      "selection_options_labels": {
+        "delete_folders": "Eliminar",
+        "share_folders": "Compartir"
       },
-      "files-count-label": "Archivos",
+      "files_count_label": "Archivos",
       "title": "Mis archivos descargados",
       "description": "Revisa y gestiona fácilmente los recursos que has descargado con Edu Prompt, todo en un solo lugar.",
-      "search-input-placeholder": "Buscar carpeta por nombre",
-      "order-filters-labels": {
+      "search_input_placeholder": "Buscar carpeta por nombre",
+      "order_filters_labels": {
         "title": "Listar en orden",
         "asc": "Ascendente",
         "desc": "Descendente"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alerta",
         "message": "¿Estas seguro que deseas eliminar las carpetas?",
-        "btn-accept": "Eliminar",
-        "deleting-folder-msg": "Eliminando..."
+        "btn_accept": "Eliminar",
+        "deleting_folder_msg": "Eliminando..."
       },
-      "update-folder-name-popup-labels": {
+      "update_folder_name_popup_labels": {
         "title": "Editar nombre de la carpeta"
       },
-      "loading-folders-msg": "Cargando carpetas...",
-      "no-folders-msg": "No hay carpetas ahora mismo"
+      "loading_folders_msg": "Cargando carpetas...",
+      "no_folders_msg": "No hay carpetas ahora mismo"
     },
-    "file-list-labels": {
-      "selection-options-labels": {
-        "delete-files": "Eliminar",
-        "share-files": "Compartir",
-        "move-files": "Mover"
+    "file_list_labels": {
+      "selection_options_labels": {
+        "delete_files": "Eliminar",
+        "share_files": "Compartir",
+        "move_files": "Mover"
       },
       "title": "Mis archivos descargados",
       "description": "Revisa y gestiona fácilmente los recursos que has descargado con Edu Prompt, todo en un solo lugar.",
-      "search-input-placeholder": "Buscar archivo por nombre",
-      "format-filters-labels": {
+      "search_input_placeholder": "Buscar archivo por nombre",
+      "format_filters_labels": {
         "title": "Filtrar por formato"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alerta",
         "message": "¿Estas seguro que deseas eliminar los archivos?",
-        "btn-accept": "Eliminar",
-        "deleting-file-msg": "Eliminando..."
+        "btn_accept": "Eliminar",
+        "deleting_file_msg": "Eliminando..."
       },
-      "update-file-name-popup-labels": {
+      "update_file_name_popup_labels": {
         "title": "Editar nombre del archivo"
       },
-      "move-files-popup-labels": {
+      "move_files_popup_labels": {
         "title": "Mover archivo a carpeta",
-        "btn-move-files": "Mover"
+        "btn_move_files": "Mover"
       },
-      "loading-files-msg": "Cargando archivos...",
-      "no-files-msg": "No hay archivos creados"
+      "loading_files_msg": "Cargando archivos...",
+      "no_files_msg": "No hay archivos creados"
     },
-    "shared-folders-notifications-labels": {
+    "shared_folders_notifications_labels": {
       "success": {
         "title": "¡Carpetas compartidas!",
         "message": "Se han comprimido y compartido tus carpetas exitosamente."
@@ -694,7 +686,7 @@
         "message": "Hubo un error al intentar compartir las carpetas."
       }
     },
-    "shared-files-notifications-labels": {
+    "shared_files_notifications_labels": {
       "success": {
         "title": "¡Archivos compartidos!",
         "message": "Se han comprimido y compartido tus archivos exitosamente."
@@ -704,121 +696,120 @@
         "message": "Hubo un error al intentar compartir los archivos."
       }
     },
-    "edit-file-name-template": {
-      "form-labels": {
+    "edit_file_name_template": {
+      "form_labels": {
         "name": {
           "label": "Nombre (*)",
           "placeholder": "Digita el nombre del archivo"
         },
-        "btn-edit-name": "Actualizar nombre",
-        "btn-cancel": "Cancelar"
+        "btn_edit_name": "Actualizar nombre",
+        "btn_cancel": "Cancelar"
       },
-      "form-error-messages": {
-        "required-file-name-msg": "El nombre del archivo es obligatorio"
+      "form_error_messages": {
+        "required_file_name_msg": "El nombre del archivo es obligatorio"
       }
     },
-    "edit-folder-name-template": {
-      "form-labels": {
+    "edit_folder_name_template": {
+      "form_labels": {
         "name": {
           "label": "Nombre (*)",
           "placeholder": "Digita el nombre de la carpeta"
         },
-        "btn-edit-name": "Actualizar nombre",
-        "btn-cancel": "Cancelar"
+        "btn_edit_name": "Actualizar nombre",
+        "btn_cancel": "Cancelar"
       },
-      "form-error-messages": {
-        "required-folder-name-msg": "El nombre de la carpeta es obligatorio"
+      "form_error_messages": {
+        "required_folder_name_msg": "El nombre de la carpeta es obligatorio"
       }
     },
-    "processes-labels": {
-      "share-folders-process": {
+    "processes_labels": {
+      "share_folders_process": {
         "title": "Preparando para compartir",
         "description": "Se estan preparando las carpetas a compartir, el proceso puede tomar unos segundos."
       },
-      "share-files-process": {
+      "share_files_process": {
         "title": "Preparando para compartir",
         "description": "Se estan preparando los archivos a compartir, el proceso puede tomar unos segundos."
       }
     },
-    "folder-sharing-dialog-title": "Compartir carpetas",
-    "file-sharing-dialog-title": "Compartir archivos",
-    "module-warning-messages": {
-      "no-selected-folders-msg": "No hay carpetas seleccionadas para compartir",
-      "preparing-folders-to-share-msg": "Preparando carpetas para compartir...",
-      "no-selected-files-msg": "No hay archivos seleccionados para compartir",
-      "preparing-files-to-share-msg": "Preparando archivos para compartir..."
+    "folder_sharing_dialog_title": "Compartir carpetas",
+    "file_sharing_dialog_title": "Compartir archivos",
+    "module_warning_messages": {
+      "no_selected_folders_msg": "No hay carpetas seleccionadas para compartir",
+      "preparing_folders_to_share_msg": "Preparando carpetas para compartir...",
+      "no_selected_files_msg": "No hay archivos seleccionados para compartir",
+      "preparing_files_to_share_msg": "Preparando archivos para compartir..."
     },
-    "module-error-messages": {
-      "share-function-no-available-msg": "La función de compartir no está disponible en este dispositivo",
-      "folder-sharing-error-msg": "Error al compartir carpetas",
-      "folder-not-found-msg": "Error: carpeta no encontrada",
-      "file-sharing-error-msg": "Error al compartir archivos"
+    "module_error_messages": {
+      "share_function_no_available_msg": "La función de compartir no está disponible en este dispositivo",
+      "folder_sharing_error_msg": "Error al compartir carpetas",
+      "folder_not_found_msg": "Error: carpeta no encontrada",
+      "file_sharing_error_msg": "Error al compartir archivos"
     },
-    "module-success-messages": {
-      "folders-deleted-msg": "¡Carpetas eliminadas exitosamente!",
-      "folder-name-updated-msg": "¡Nombre de la carpeta actualizado exitosamente!",
-      "file-name-updated-msg": "¡Nombre de archivo actualizado exitosamente!",
-      "files-deleted-msg": "¡Archivos eliminados exitosamente!",
-      "files-moved-msg": "¡Los archivos se han movido exitosamente!"
+    "module_success_messages": {
+      "folders_deleted_msg": "¡Carpetas eliminadas exitosamente!",
+      "folder_name_updated_msg": "¡Nombre de la carpeta actualizado exitosamente!",
+      "file_name_updated_msg": "¡Nombre de archivo actualizado exitosamente!",
+      "files_deleted_msg": "¡Archivos eliminados exitosamente!",
+      "files_moved_msg": "¡Los archivos se han movido exitosamente!"
     }
   },
-
-  "resources-translations": {
-    "resources-list-labels": {
-      "selection-options-labels": {
-        "delete-resources": "Eliminar",
-        "download-resources": "Descargar"
+  "resources_translations": {
+    "resources_list_labels": {
+      "selection_options_labels": {
+        "delete_resources": "Eliminar",
+        "download_resources": "Descargar"
       },
-      "no-resource-tag-label": "Sin etiqueta",
+      "no_resource_tag_label": "Sin etiqueta",
       "title": "Mis Recursos",
       "description": "Revisa y gestiona fácilmente las vistas previas de todos los recursos que has generado con Edu Prompt, todo en un solo lugar.",
-      "search-input-placeholder": "Buscar recurso por titulo",
-      "format-filters-labels": {
+      "search_input_placeholder": "Buscar recurso por titulo",
+      "format_filters_labels": {
         "title": "Filtrar por formato"
       },
-      "tag-filters-labels": {
+      "tag_filters_labels": {
         "title": "Filtrar por etiqueta",
-        "all-tags": "Todos"
+        "all_tags": "Todos"
       },
-      "tag-list-popup-labels": {
+      "tag_list_popup_labels": {
         "title": "Etiquetas",
-        "search-input-placeholder": "Buscar etiqueta por nombre"
+        "search_input_placeholder": "Buscar etiqueta por nombre"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Sincronización de datos",
         "description": "Hay datos sin sincronizar toca el siguiente botón para sincronizar tus datos",
-        "btn-sync": "Sincronizar",
-        "loading-text": "Sincronizando datos..."
+        "btn_sync": "Sincronizar",
+        "loading_text": "Sincronizando datos..."
       },
-      "fetch-resources-error-msg": "Ha ocurrido un error al cargar los recursos educativos",
-      "confirm-delete-alert-labels": {
+      "fetch_resources_error_msg": "Ha ocurrido un error al cargar los recursos educativos",
+      "confirm_delete_alert_labels": {
         "title": "Alerta",
         "message": "¿Estas seguro que deseas eliminar los recursos?",
-        "btn-accept": "Eliminar",
-        "deleting-resources-msg": "Eliminando..."
+        "btn_accept": "Eliminar",
+        "deleting_resources_msg": "Eliminando..."
       },
-      "popups-tabulator-labels": {
-        "tab-1": "Vista previa",
-        "tab-2": "Editar recurso"
+      "popups_tabulator_labels": {
+        "tab_1": "Vista previa",
+        "tab_2": "Editar recurso"
       },
-      "view-resource-popup-labels": {
+      "view_resource_popup_labels": {
         "title": "Visualizar recurso"
       },
-      "select-tags-popup-labels": {
+      "select_tags_popup_labels": {
         "title": "Seleccionar etiqueta",
-        "search-input-placeholder": "Buscar etiqueta por nombre",
-        "btn-cancel-selection": "Cancelar selección"
+        "search_input_placeholder": "Buscar etiqueta por nombre",
+        "btn_cancel_selection": "Cancelar selección"
       },
-      "loading-resources-msg": "Cargando mas recursos...",
-      "no-resources-msg": "No hay recursos guardados"
+      "loading_resources_msg": "Cargando mas recursos...",
+      "no_resources_msg": "No hay recursos guardados"
     },
-    "processes-labels": {
-      "download-resources-process": {
+    "processes_labels": {
+      "download_resources_process": {
         "title": "Descargando recursos...",
         "description": "Se están descargando tus recursos seleccionados, esto podria tomar unos segundos.."
       }
     },
-    "download-resources-notifications-labels": {
+    "download_resources_notifications_labels": {
       "success": {
         "title": "¡Recursos descargados!",
         "message": "Tus recursos se han descargado correctamente."
@@ -828,8 +819,8 @@
         "message": "No se pudo descargar tus recursos, intentalo de nuevo."
       }
     },
-    "update-resource-template": {
-      "form-labels": {
+    "update_resource_template": {
+      "form_labels": {
         "title": {
           "label": "Titulo (*)",
           "placeholder": "Digita el titulo del recurso"
@@ -838,74 +829,73 @@
           "label": "Etiqueta (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-update-resource": "Actualizar recurso",
-        "btn-cancel": "Cancelar"
+        "btn_update_resource": "Actualizar recurso",
+        "btn_cancel": "Cancelar"
       },
-      "form-loading-messages": {
-        "updating-resource-msg": "Actualizando..."
+      "form_loading_messages": {
+        "updating_resource_msg": "Actualizando..."
       },
-      "form-error-messages": {
-        "invalid-resource-id-msg": "El ID del recurso no es valido",
-        "required-title-msg": "El titulo del recurso es obligatorio",
-        "required-tag-msg": "La etiqueta del recurso es obligatoria"
+      "form_error_messages": {
+        "invalid_resource_id_msg": "El ID del recurso no es valido",
+        "required_title_msg": "El titulo del recurso es obligatorio",
+        "required_tag_msg": "La etiqueta del recurso es obligatoria"
       }
     },
-    "module-error-messages": {
-      "resource-not-found-msg": "No se ha encontrado ningún recurso con el id:",
-      "some-resource-not-found-msg": "Algún recurso de la lista no se existe en la base de datos"
+    "module_error_messages": {
+      "resource_not_found_msg": "No se ha encontrado ningún recurso con el id:",
+      "some_resource_not_found_msg": "Algún recurso de la lista no se existe en la base de datos"
     },
-    "module-success-messages": {
-      "resource-created-msg": "Recurso educativo guardado correctamente",
-      "resources-deleted-msg": "Recursos educativos eliminados correctamente",
-      "resource-updated-msg": "Recurso educativo actualizado correctamente",
-      "resources-synced-msg": "Info de los recursos sincronizada con éxito"
+    "module_success_messages": {
+      "resource_created_msg": "Recurso educativo guardado correctamente",
+      "resources_deleted_msg": "Recursos educativos eliminados correctamente",
+      "resource_updated_msg": "Recurso educativo actualizado correctamente",
+      "resources_synced_msg": "Info de los recursos sincronizada con éxito"
     }
   },
-
-  "generations-translations": {
-    "generation-list-labels": {
-      "generation-card-label": "Paso actual:",
+  "generations_translations": {
+    "generation_list_labels": {
+      "generation_card_label": "Paso actual:",
       "title": "Generar recurso",
       "description": "Genera tus recursos educativos aquí. Puedes generar varios recursos simultáneamente ahora mismo!. Toca el botón de abajo y comienza ahora.",
-      "selection-options-labels": {
-        "delete-generations": "Eliminar",
-        "reinit-generations": "Reiniciar"
+      "selection_options_labels": {
+        "delete_generations": "Eliminar",
+        "reinit_generations": "Reiniciar"
       },
-      "search-input-placeholder": "Buscar generaciones por titulo",
-      "empty-list-label": "No hay generaciones iniciadas",
-      "btn-generate": {
-        "label-1": "Generar otro recurso",
-        "label-2": "Empezar a generar"
+      "search_input_placeholder": "Buscar generaciones por titulo",
+      "empty_list_label": "No hay generaciones iniciadas",
+      "btn_generate": {
+        "label_1": "Generar otro recurso",
+        "label_2": "Empezar a generar"
       }
     },
-    "country-template": {
-      "countries-popup-labels": {
+    "country_template": {
+      "countries_popup_labels": {
         "title": "Selecciona un país",
-        "search-input-placeholder": "Buscar país"
+        "search_input_placeholder": "Buscar país"
       },
-      "form-labels": {
+      "form_labels": {
         "country": {
           "label": "País (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-prev-step": "Anterior",
-        "btn-next-step": "Siguiente"
+        "btn_prev_step": "Anterior",
+        "btn_next_step": "Siguiente"
       },
-      "form-error-messages": {
-        "required-country-msg": "EL país es obligatorio"
+      "form_error_messages": {
+        "required_country_msg": "EL país es obligatorio"
       }
     },
-    "educational-level-template": {
-      "educational-level-popup-labels": {
+    "educational_level_template": {
+      "educational_level_popup_labels": {
         "title": "Elije el nivel educativo objetivo",
-        "search-input-placeholder": "Buscar nivel educativo"
+        "search_input_placeholder": "Buscar nivel educativo"
       },
-      "target-grade-popup-labels": {
+      "target_grade_popup_labels": {
         "title": "Elije el grado académico objetivo",
-        "search-input-placeholder": "Buscar grado académico"
+        "search_input_placeholder": "Buscar grado académico"
       },
-      "form-labels": {
-        "target-educational-level": {
+      "form_labels": {
+        "target_educational_level": {
           "label": "Nivel académico objetivo (*)",
           "placeholder": "Seleccione una opción"
         },
@@ -913,57 +903,55 @@
           "label": "Grado (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-prev-step": "Anterior",
-        "btn-next-step": "Siguiente"
+        "btn_prev_step": "Anterior",
+        "btn_next_step": "Siguiente"
       },
-      "form-error-messages": {
-        "required-educational-level-msg": "El nivel educativo es obligatorio",
-        "required-grade-msg": "El grado es obligatorio para el nivel preescolar, primaria y bachillerato"
+      "form_error_messages": {
+        "required_educational_level_msg": "El nivel educativo es obligatorio",
+        "required_grade_msg": "El grado es obligatorio para el nivel preescolar, primaria y bachillerato"
       }
     },
-
-    "language-template": {
-      "language-selection-popup-labels": {
+    "language_template": {
+      "language_selection_popup_labels": {
         "title": "Selecciona el idioma",
-        "search-input-placeholder": "Buscar idioma"
+        "search_input_placeholder": "Buscar idioma"
       },
-      "form-labels": {
+      "form_labels": {
         "language": {
           "label": "Idioma (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-prev-step": "Anterior",
-        "btn-next-step": "Siguiente"
+        "btn_prev_step": "Anterior",
+        "btn_next_step": "Siguiente"
       },
-      "form-error-messages": {
-        "invalid-language-msg": "El idioma seleccionado es invalido"
+      "form_error_messages": {
+        "invalid_language_msg": "El idioma seleccionado es invalido"
       }
     },
-
-    "resource-format-template": {
-      "resource-format-popup-labels": {
+    "resource_format_template": {
+      "resource_format_popup_labels": {
         "title": "Selecciona el formato del recurso",
-        "search-input-placeholder": "Buscar formato"
+        "search_input_placeholder": "Buscar formato"
       },
-      "form-labels": {
+      "form_labels": {
         "format": {
           "label": "Formato del recurso (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-prev-step": "Anterior",
-        "btn-next-step": "Siguiente"
+        "btn_prev_step": "Anterior",
+        "btn_next_step": "Siguiente"
       },
-      "form-error-messages": {
-        "invalid-format-msg": "El formato seleccionado es invalido"
+      "form_error_messages": {
+        "invalid_format_msg": "El formato seleccionado es invalido"
       }
     },
-    "resource-type-template": {
-      "resource-type-popup-labels": {
+    "resource_type_template": {
+      "resource_type_popup_labels": {
         "title": "Elije el tipo de recurso académico",
-        "search-input-placeholder": "Buscar tipo de recurso"
+        "search_input_placeholder": "Buscar tipo de recurso"
       },
-      "form-labels": {
-        "resource-type": {
+      "form_labels": {
+        "resource_type": {
           "label": "Tipo de recurso académico (*)",
           "placeholder": "Seleccione una opción"
         },
@@ -971,64 +959,62 @@
           "label": "Especifique el tipo de recurso (*)",
           "placeholder": "Escriba el tipo de recurso"
         },
-        "btn-prev-step": "Anterior",
-        "btn-next-step": "Siguiente"
+        "btn_prev_step": "Anterior",
+        "btn_next_step": "Siguiente"
       },
-      "form-error-messages": {
-        "required-resource-type-msg": "El tipo de recurso es obligatorio",
-        "required-alternative-resource-msg": "El tipo de recurso alternativo es obligatorio"
+      "form_error_messages": {
+        "required_resource_type_msg": "El tipo de recurso es obligatorio",
+        "required_alternative_resource_msg": "El tipo de recurso alternativo es obligatorio"
       }
     },
-    "subject-template": {
-      "form-labels": {
+    "subject_template": {
+      "form_labels": {
         "subject": {
           "label": "Materia o asignatura (*)",
           "placeholder": "Digita la asignatura"
         },
-        "btn-prev-step": "Anterior",
-        "btn-next-step": "Siguiente"
+        "btn_prev_step": "Anterior",
+        "btn_next_step": "Siguiente"
       },
-      "form-error-messages": {
-        "required-subject-name-msg": "La materia es obligatoria"
+      "form_error_messages": {
+        "required_subject_name_msg": "La materia es obligatoria"
       }
     },
-
-    "resource-description-template": {
-      "select-tag-popup-labels": {
+    "resource_description_template": {
+      "select_tag_popup_labels": {
         "title": "Seleccionar etiqueta",
-        "search-input-placeholder": "Buscar etiqueta por nombre",
-        "btn-cancel": "Cancelar selección"
+        "search_input_placeholder": "Buscar etiqueta por nombre",
+        "btn_cancel": "Cancelar selección"
       },
-      "save-prompt-popup-labels": {
+      "save_prompt_popup_labels": {
         "title": "Guardar prompt"
       },
-      "select-prompt-popup-labels": {
+      "select_prompt_popup_labels": {
         "title": "Seleccionar prompt",
-        "search-input-placeholder": "Buscar prompt por titulo"
+        "search_input_placeholder": "Buscar prompt por titulo"
       },
-      "form-labels": {
-        "prompt-description": {
+      "form_labels": {
+        "prompt_description": {
           "label": "Describe tu recurso (*)",
           "placeholder": "Describe tu recurso. Ejemplo: genera una guía para planificar mi clase de biología sobre animales invertebrados. Diseña la guía para una clase de 2 horas."
         },
-        "btn-prev-step": "Anterior",
-        "btn-generate-resource": "Generar recurso"
+        "btn_prev_step": "Anterior",
+        "btn_generate_resource": "Generar recurso"
       },
-      "form-error-messages": {
-        "required-description-msg": "La descripción del recurso es obligatorio"
+      "form_error_messages": {
+        "required_description_msg": "La descripción del recurso es obligatorio"
       },
-      "form-loading-messages": {
-        "generating-resource-msg": "Generando recurso..."
+      "form_loading_messages": {
+        "generating_resource_msg": "Generando recurso..."
       }
     },
-
-    "save-prompt-template": {
-      "form-labels": {
-        "prompt-title": {
+    "save_prompt_template": {
+      "form_labels": {
+        "prompt_title": {
           "label": "Titulo (*)",
           "placeholder": "Digita el titulo del prompt"
         },
-        "prompt-body": {
+        "prompt_body": {
           "label": "Cuerpo del prompt (*)",
           "placeholder": "Describe tu recurso. Ejemplo: genera una guía para planificar mi clase de biología sobre animales invertebrados. Diseña la guía para una clase de 2 horas."
         },
@@ -1036,60 +1022,60 @@
           "label": "Etiqueta (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-save-prompt": "Guardar prompt",
-        "btn-cancel": "Cancelar"
+        "btn_save_prompt": "Guardar prompt",
+        "btn_cancel": "Cancelar"
       },
-      "form-error-messages": {
-        "required-prompt-title": "El titulo del prompt es obligatorio",
-        "required-prompt-body": "La descripción del prompt es obligatorio",
-        "required-prompt-tag": "La etriqueta del prompt es obligatoria"
+      "form_error_messages": {
+        "required_prompt_title": "El titulo del prompt es obligatorio",
+        "required_prompt_body": "La descripción del prompt es obligatorio",
+        "required_prompt_tag": "La etriqueta del prompt es obligatoria"
       },
-      "form-loading-messages": {
-        "saving-prompt-msg": "Guardando..."
+      "form_loading_messages": {
+        "saving_prompt_msg": "Guardando..."
       }
     },
-    "save-resource-form": {
-      "form-labels": {
-        "resource-title": {
+    "save_resource_form": {
+      "form_labels": {
+        "resource_title": {
           "label": "Titulo (*)",
           "placeholder": "Digita el titulo del recurso"
         },
-        "group-tag": {
+        "group_tag": {
           "label": "Etiqueta (*)",
           "placeholder": "Seleccione una opción"
         },
-        "btn-save-resource": "Guardar recurso",
-        "btn-cancel": "Cancelar"
+        "btn_save_resource": "Guardar recurso",
+        "btn_cancel": "Cancelar"
       },
-      "form-error-messages": {
-        "required-title-msg": "El titulo del recurso es obligatorio",
-        "required-group-tag-msg": "La etiqueta del recurso es obligatoria"
+      "form_error_messages": {
+        "required_title_msg": "El titulo del recurso es obligatorio",
+        "required_group_tag_msg": "La etiqueta del recurso es obligatoria"
       },
-      "form-loading-messages": {
-        "saving-resource-msg": "Guardando recurso..."
+      "form_loading_messages": {
+        "saving_resource_msg": "Guardando recurso..."
       }
     },
-    "generating-indicator-labels": {
-      "btn-back": "Volver",
+    "generating_indicator_labels": {
+      "btn_back": "Volver",
       "title": "Generando recurso...",
       "description": "Se esta generando el recurso educativo que ha solicitado. El proceso puede tomar unos segundos."
     },
-    "generation-step-view-labels": {
-      "btn-back": "Volver"
+    "generation_step_view_labels": {
+      "btn_back": "Volver"
     },
-    "ia-response-card-labels": {
-      "select-tag-popup-labels": {
+    "ia_response_card_labels": {
+      "select_tag_popup_labels": {
         "title": "Seleccionar etiqueta",
-        "search-input-placeholder": "Buscar etiqueta por nombre",
-        "btn-cancel": "Cancelar selección"
+        "search_input_placeholder": "Buscar etiqueta por nombre",
+        "btn_cancel": "Cancelar selección"
       },
-      "save-resource-popup-labels": {
+      "save_resource_popup_labels": {
         "title": "Guardar recurso"
       },
-      "btn-back": "Volver",
+      "btn_back": "Volver",
       "title": "Resultado",
       "description": "Aquí tienes el recurso solicitado, puedes guardar el recurso en vista previa, descargarlo,  generarlo de nuevo o ajustar la información para generar una mejor versión.",
-      "generation-process-labels": {
+      "generation_process_labels": {
         "success": {
           "title": "¡Recurso generado!",
           "message": "Se ha generado tu recurso exitosamente:"
@@ -1099,126 +1085,123 @@
           "message": "Ha ocurrido un error al generar tu recurso:"
         }
       },
-      "copy-resource-function-labels": {
-        "success-msg": "Texo copiado exitosamente al portapapeles",
-        "error-msg": "Ha ocurrido un error al copiar el texto"
+      "copy_resource_function_labels": {
+        "success_msg": "Texo copiado exitosamente al portapapeles",
+        "error_msg": "Ha ocurrido un error al copiar el texto"
       },
-      "btn-generate-other-resource": "Generar otro recurso"
+      "btn_generate_other_resource": "Generar otro recurso"
     },
-
-    "module-error-messages": {
-      "insufficient-tokens-msg": "Tokens insuficientes para generar este recurso, recarga mas tokens."
+    "module_error_messages": {
+      "insufficient_tokens_msg": "Tokens insuficientes para generar este recurso, recarga mas tokens."
     },
-    "module-success-messages": {
-      "resource-generated-msg": "Recurso generado correctamente"
+    "module_success_messages": {
+      "resource_generated_msg": "Recurso generado correctamente"
     }
   },
-
-  "marketplace-translations": {
-    "product-card-buy-btn-label": "Comprar",
-    "packages-section": {
+  "marketplace_translations": {
+    "product_card_buy_btn_label": "Comprar",
+    "packages_section": {
       "title": "Paquetes",
       "description": "Adquiere tus tokens Edu Prompt para que generes tus recursos educativos. Elige el paquete que mas tu guste.",
-      "loading-packages-msg": "Cargando paquetes...",
-      "processing-purchase-msg": "Procesando compra..."
+      "loading_packages_msg": "Cargando paquetes...",
+      "processing_purchase_msg": "Procesando compra..."
     },
-    "plans-section": {
+    "plans_section": {
       "title": "Plan de suscripción",
       "description": "Si quieres generaciones y tokens ilimitados, ¡adquiere ahora Edu Prompt Pro por 9.99 USD por mes!",
-      "loading-plans-msg": "Cargando planes de suscripción...",
-      "subscribe-btn-label": "Suscribirse",
-      "frecuency-label": "Mes",
-      "auth-popup-title": "Ingresar a EduPrompt",
-      "manage-subscription-btn-label": "Gestionar suscripción",
-      "wifi-connection-msg": "Conectate a internet para visualizar los planes de suscripción."
+      "loading_plans_msg": "Cargando planes de suscripción...",
+      "subscribe_btn_label": "Suscribirse",
+      "frecuency_label": "Mes",
+      "auth_popup_title": "Ingresar a EduPrompt",
+      "manage_subscription_btn_label": "Gestionar suscripción",
+      "wifi_connection_msg": "Conectate a internet para visualizar los planes de suscripción."
     },
-    "auth-panel": {
+    "auth_panel": {
       "title": "Inicia sesión o crear cuenta",
       "description": "Para suscribirse o gestionar a un plan debes iniciar sesión o crear una cuenta en EduPrompt."
     },
-    "manage-subscription-panel": {
+    "manage_subscription_panel": {
       "title": "Gestionar suscripción",
       "description": "Visualiza y gestiona tu suscripción de Edu Prompt, cancela cuando quieras. Esta suscripción se renueva automaticamente",
-      "actions-labels": {
-        "cancel-subscription-btn-label": "Cancelar suscripción",
-        "cancel-subscription-btn-loading-msg": "Cancelando subscripción...",
-        "reactive-subscription-btn-label": "Reactivar suscripción",
-        "processing-payment-msg": "Procesando pago...",
-        "retry-payment-btn-label": "Reintentar pago"
+      "actions_labels": {
+        "cancel_subscription_btn_label": "Cancelar suscripción",
+        "cancel_subscription_btn_loading_msg": "Cancelando subscripción...",
+        "reactive_subscription_btn_label": "Reactivar suscripción",
+        "processing_payment_msg": "Procesando pago...",
+        "retry_payment_btn_label": "Reintentar pago"
       },
-      "subscription-info-items": {
-        "start-date-label": "Fecha de inicio:",
-        "end-date-label": "Próxima renovación:",
-        "plan-label": "Plan:",
-        "payment-frecuency-label": "Frecuencia de cobro:",
-        "payment-frecuencies": {
+      "subscription_info_items": {
+        "start_date_label": "Fecha de inicio:",
+        "end_date_label": "Próxima renovación:",
+        "plan_label": "Plan:",
+        "payment_frecuency_label": "Frecuencia de cobro:",
+        "payment_frecuencies": {
           "zero": "Mensual",
           "one": "Anual"
         },
-        "subscription-status-label": "Estado:",
-        "subscription-states": {
+        "subscription_status_label": "Estado:",
+        "subscription_states": {
           "zero": "Activa",
           "one": "Fallida",
           "other": "Cancelada"
         }
       }
     },
-
-    "module-success-messages": {
-      "package-order-completed-msg": "Tu pago fue éxitoso, has adquirido el paquete de %{amount} tokens.",
-      "plan-order-completed-msg": "Tu pago fue éxitoso, te has suscrito al plan %{plan}."
+    "module_success_messages": {
+      "package_order_completed_msg": "Tu pago fue éxitoso, has adquirido el paquete de %{amount} tokens.",
+      "plan_order_completed_msg": "Tu pago fue éxitoso, te has suscrito al plan %{plan}."
     },
-    "module-error-messages": {
-      "cancel-payment-process-msg": "Cancelaste el proceso de pago.",
-      "payment-error-msg": "No pudimos completar tu pago. Intenta de nuevo.",
-      "no-internet-connection-msg": "Para efectuar la compra debes conectarte a internet."
+    "module_error_messages": {
+      "cancel_payment_process_msg": "Cancelaste el proceso de pago.",
+      "payment_error_msg": "No pudimos completar tu pago. Intenta de nuevo.",
+      "no_internet_connection_msg": "Para efectuar la compra debes conectarte a internet."
     }
   },
-
-  "server-error-messages": {
-    "internal-server-error-msg": "Ha ocurrido un error interno en el servidor",
-    "database-connection-error-msg": "Error al conectar con la base de datos",
-    "validation-error-msg": "Error de validación",
-    "email-sending-error-msg": "Ha ocurrido un error al enviar el correo electrónico",
-    "user-email-already-exists-msg": "Ya existe un usuario con ese correo electrónico",
-    "username-already-exists-msg": "El nombre de usuario ya ha sido tomado, elije otro",
-    "user-not-found-msg": "Usuario no encontrado",
-    "inactive-account-msg": "La cuenta esta inactiva, puedes solicitar un nuevo código de activación:",
-    "incorrect-password-msg": "La contraseña es incorrecta",
-    "invalid-session-msg": "La sesión es invalida",
-    "session-already-active-msg": "El usuario ya tiene una sesión activa",
-    "invalid-code-msg": "Código de verificación invalido",
-    "expired-code-msg": "Código de verificación expirado",
-    "required-token-msg": "Token de sesión requerido",
-    "expired-token-msg": "Token de sesión expirado",
-    "invalid-token-msg": "Token de sesión invalido o malformado",
-    "required-refresh-msg": "Refresh token de sesión requerido",
-    "missing-api-key-msg": "Clave de api EduPromt es requerida",
-    "inactive-api-key-msg": "Clave de api EduPromt inactiva",
-    "expired-api-key-msg": "Clave de api EduPromt expirada",
-    "invalid-api-key-msg": "Clave de api EduPromt invalida",
-    "insufficient-scopes-msg": "Clave de api no tiene EduPromt los permisos necesarios para acceder al recurso",
-    "api-key-validation-error-msg": "Ha ocurrido un error al validar la clave de api EduPrompt",
-    "missing-admin-auth-headers-msg": "Las credenciales de administrador son requeridas",
-    "unauthorized-msg": "Acceso no autorizado",
-    "resource-not-found-msg": "Recurso educativo no encontrado",
-    "some-resource-not-found-msg": "Alguno de los recursos educativos no existe",
-    "prompt-not-found-msg": "Prompt no encontrado",
-    "some-prompt-not-found-msg": "Alguno de los prompts no existe",
-    "notification-not-found-msg": "Notificación del sistema no encontrada",
-    "some-notification-not-found-msg": "Alguna de las notificaciones no existe",
-    "image-generation-not-completed-msg": "La generación de imagenes no se completo",
-    "indicator-not-found-msg": "Indicadores no fueron encontrados",
-    "user-indicator-already-created-msg": "El usuario ya tiene indicadores registrados",
-    "tag-not-found-msg": "Etiqueta no encontrada",
-    "some-tag-not-found-msg": "Alguna de las etiquetas no existe",
-    "create-order-error-msg": "Ha ocurrido un error al crear la orden de pago",
-    "capture-order-error-msg": "Ha ocurrido un error al completar la orden de pago",
-    "get-order-error-msg": "Ha ocurrido un error al obtener el estado de la orden",
-    "order-not-found-msg": "La orden no ha sido encontrada",
-    "subscription-not-found-msg": "La subscripción no ha sido encontrada",
-    "subscription-history-item-not-found-msg": "El elemento del historial de suscripción no ha sido encontrado",
-    "subscription-creation-error-msg": "El pago se ha realizado correctamente, pero no se ha podido crear la suscripción. Nuestro equipo lo solucionará en breve.",
-    "auth-required-msg": "Autenticación requerida"
+  "server_error_messages": {
+    "internal_server_error_msg": "Ha ocurrido un error interno en el servidor",
+    "database_connection_error_msg": "Error al conectar con la base de datos",
+    "validation_error_msg": "Error de validación",
+    "email_sending_error_msg": "Ha ocurrido un error al enviar el correo electrónico",
+    "user_email_already_exists_msg": "Ya existe un usuario con ese correo electrónico",
+    "username_already_exists_msg": "El nombre de usuario ya ha sido tomado, elije otro",
+    "user_not_found_msg": "Usuario no encontrado",
+    "inactive_account_msg": "La cuenta esta inactiva, puedes solicitar un nuevo código de activación:",
+    "incorrect_password_msg": "La contraseña es incorrecta",
+    "invalid_session_msg": "La sesión es invalida",
+    "session_already_active_msg": "El usuario ya tiene una sesión activa",
+    "invalid_code_msg": "Código de verificación invalido",
+    "expired_code_msg": "Código de verificación expirado",
+    "required_token_msg": "Token de sesión requerido",
+    "expired_token_msg": "Token de sesión expirado",
+    "invalid_token_msg": "Token de sesión invalido o malformado",
+    "required_refresh_msg": "Refresh token de sesión requerido",
+    "missing_api_key_msg": "Clave de api EduPromt es requerida",
+    "inactive_api_key_msg": "Clave de api EduPromt inactiva",
+    "expired_api_key_msg": "Clave de api EduPromt expirada",
+    "invalid_api_key_msg": "Clave de api EduPromt invalida",
+    "insufficient_scopes_msg": "Clave de api no tiene EduPromt los permisos necesarios para acceder al recurso",
+    "api_key_validation_error_msg": "Ha ocurrido un error al validar la clave de api EduPrompt",
+    "missing_admin_auth_headers_msg": "Las credenciales de administrador son requeridas",
+    "unauthorized_msg": "Acceso no autorizado",
+    "resource_not_found_msg": "Recurso educativo no encontrado",
+    "some_resource_not_found_msg": "Alguno de los recursos educativos no existe",
+    "prompt_not_found_msg": "Prompt no encontrado",
+    "some_prompt_not_found_msg": "Alguno de los prompts no existe",
+    "notification_not_found_msg": "Notificación del sistema no encontrada",
+    "some_notification_not_found_msg": "Alguna de las notificaciones no existe",
+    "image_generation_not_completed_msg": "La generación de imagenes no se completo",
+    "indicator_not_found_msg": "Indicadores no fueron encontrados",
+    "user_indicator_already_created_msg": "El usuario ya tiene indicadores registrados",
+    "tag_not_found_msg": "Etiqueta no encontrada",
+    "some_tag_not_found_msg": "Alguna de las etiquetas no existe",
+    "create_order_error_msg": "Ha ocurrido un error al crear la orden de pago",
+    "capture_order_error_msg": "Ha ocurrido un error al completar la orden de pago",
+    "get_order_error_msg": "Ha ocurrido un error al obtener el estado de la orden",
+    "order_not_found_msg": "La orden no ha sido encontrada",
+    "subscription_not_found_msg": "La subscripción no ha sido encontrada",
+    "subscription_history_item_not_found_msg": "El elemento del historial de suscripción no ha sido encontrado",
+    "subscription_creation_error_msg": "El pago se ha realizado correctamente, pero no se ha podido crear la suscripción. Nuestro equipo lo solucionará en breve.",
+    "auth_required_msg": "Autenticación requerida",
+    "unknown_error_msg": "Error desconocido"
   }
 }

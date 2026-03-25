@@ -39,8 +39,8 @@ const DownloadedFileListHeader = ({
   return (
     <View style={fileListStyle.ListHeaderContainer}>
       <ScreenSection
-        description={t("my-files-translations.file-list-labels.description")}
-        title={t("my-files-translations.file-list-labels.title")}
+        description={t("my_files_translations.file_list_labels.description")}
+        title={t("my_files_translations.file_list_labels.title")}
         icon="document-outline"
       />
       <FileNavigator />
@@ -49,7 +49,7 @@ const DownloadedFileListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "my-files-translations.file-list-labels.search-input-placeholder"
+          "my_files_translations.file_list_labels.search_input_placeholder"
         )}
         onChange={(_name, value) => onSearchValueChange(value)}
         onClearInput={onClearSearchInput}
@@ -57,7 +57,7 @@ const DownloadedFileListHeader = ({
       <View style={fileListStyle.FiltersContainer}>
         <Typography
           text={t(
-            "my-files-translations.file-list-labels.format-filters-labels.title"
+            "my_files_translations.file_list_labels.format_filters_labels.title"
           )}
           weight="bold"
           type="button"

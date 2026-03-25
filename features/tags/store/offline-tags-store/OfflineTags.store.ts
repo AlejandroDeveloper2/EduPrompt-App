@@ -67,7 +67,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "danger",
             message: `${i18n.t(
-              "tags-translations.module-error-messages.tag-not-found-msg"
+              "tags_translations.module_error_messages.tag_not_found_msg"
             )} ${tagId}`,
           });
           return null;
@@ -156,7 +156,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
 
         if (updatedTagRow.length === 0) {
           const errorMsg = `${i18n.t(
-            "tags-translations.module-error-messages.tag-not-found-msg"
+            "tags_translations.module_error_messages.tag_not_found_msg"
           )} ${tagId}`;
           showToast({
             key: generateToastKey(),
@@ -201,7 +201,7 @@ export const OfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "danger",
             message: i18n.t(
-              "tags-translations.module-error-messages.some-tag-not-found-msg"
+              "tags_translations.module_error_messages.some_tag_not_found_msg"
             ),
           });
           return;

@@ -30,7 +30,7 @@ const ResourceTypeForm = () => {
       <PopUp
         icon="shapes-outline"
         title={t(
-          "generations-translations.resource-type-template.resource-type-popup-labels.title"
+          "generations_translations.resource_type_template.resource_type_popup_labels.title"
         )}
         isPopUpMounted={chooseResourceTypePopUp.isPopUpMounted}
         gesture={chooseResourceTypePopUp.dragGesture}
@@ -42,7 +42,7 @@ const ResourceTypeForm = () => {
           optionIdkey="resourceTypeId"
           optionLabelKey="resourceTypeLabel"
           searchInputPlaceholder={t(
-            "generations-translations.resource-type-template.resource-type-popup-labels.search-input-placeholder"
+            "generations_translations.resource_type_template.resource_type_popup_labels.search_input_placeholder"
           )}
           selectedOption={selectedOption}
           onSelectOption={(option) => {
@@ -61,10 +61,10 @@ const ResourceTypeForm = () => {
                 name="resourceTypeId"
                 icon="book-outline"
                 label={t(
-                  "generations-translations.resource-type-template.form-labels.resource-type.label"
+                  "generations_translations.resource_type_template.form_labels.resource_type.label"
                 )}
                 placeholder={t(
-                  "generations-translations.resource-type-template.form-labels.resource-type.placeholder"
+                  "generations_translations.resource_type_template.form_labels.resource_type.placeholder"
                 )}
                 selectedOption={selectedOption}
                 optionValueKey="resourceTypeLabel"
@@ -77,13 +77,13 @@ const ResourceTypeForm = () => {
               <Form.Row.Item span={1}>
                 <Form.Input<ResourceTypeFormData>
                   label={t(
-                    "generations-translations.resource-type-template.form-labels.other.label"
+                    "generations_translations.resource_type_template.form_labels.other.label"
                   )}
                   icon="document-text-outline"
                   name="otherResourceType"
                   value={data.otherResourceType ?? ""}
                   placeholder={t(
-                    "generations-translations.resource-type-template.form-labels.other.placeholder"
+                    "generations_translations.resource_type_template.form_labels.other.placeholder"
                   )}
                   errorMessage={getFieldErrors("otherResourceType")?.join(", ")}
                   onChange={handleChange}
@@ -102,7 +102,7 @@ const ResourceTypeForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations-translations.resource-type-template.form-labels.btn-next-step"
+                "generations_translations.resource_type_template.form_labels.btn_next_step"
               )}
               onPress={handleSubmit}
             />

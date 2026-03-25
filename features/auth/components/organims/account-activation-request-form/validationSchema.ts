@@ -7,7 +7,7 @@ export const accountActivationRequestSchema = z.object({
     .string()
     .email({
       message: i18n.t(
-        "auth-translations.account-activation-request-template.form-error-messages.invalid-email-msg"
+        "auth_translations.account_activation_request_template.form_error_messages.invalid_email_msg"
       ),
     }),
 });

@@ -70,7 +70,7 @@ const PromptCard = ({
           <Badge
             label={
               tags.find((t) => t.tagId === promptData.tag)?.name ??
-              t("prompts-translations.prompt-list-labels.no-tag-name-badge")
+              t("prompts_translations.prompt_list_labels.no_tag_name_badge")
             }
             variant="primary"
           />

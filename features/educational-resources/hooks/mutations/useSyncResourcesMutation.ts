@@ -64,7 +64,7 @@ const useSyncResourcesMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "resources-translations.module-success-messages.resources-synced-msg"
+          "resources_translations.module_success_messages.resources_synced_msg"
         ),
       });
     },

@@ -49,27 +49,27 @@ const TagCardListHeader = ({
         isAuthenticated && (
           <InfoCard
             title={t(
-              "tags-translations.tag-list-labels.syncronization-card-labels.title"
+              "tags_translations.tag_list_labels.syncronization_card_labels.title"
             )}
             description={t(
-              "tags-translations.tag-list-labels.syncronization-card-labels.description"
+              "tags_translations.tag_list_labels.syncronization_card_labels.description"
             )}
             buttonData={{
               onPress: syncTags,
               icon: "sync-outline",
               label: t(
-                "tags-translations.tag-list-labels.syncronization-card-labels.btn-sync"
+                "tags_translations.tag_list_labels.syncronization_card_labels.btn_sync"
               ),
               loading: isPending,
               loadingMessage: t(
-                "tags-translations.tag-list-labels.syncronization-card-labels.loading-text"
+                "tags_translations.tag_list_labels.syncronization_card_labels.loading_text"
               ),
             }}
           />
         )}
       <ScreenSection
-        description={t("tags-translations.tag-list-labels.description")}
-        title={t("tags-translations.tag-list-labels.title")}
+        description={t("tags_translations.tag_list_labels.description")}
+        title={t("tags_translations.tag_list_labels.title")}
         icon="pricetag-outline"
       />
       <Input<{ searchValue: string }>
@@ -77,7 +77,7 @@ const TagCardListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "tags-translations.tag-list-labels.search-input-placeholder"
+          "tags_translations.tag_list_labels.search_input_placeholder"
         )}
         onChange={(_, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
@@ -85,7 +85,7 @@ const TagCardListHeader = ({
       <View style={tagCardListStyle.FiltersContainer}>
         <Typography
           text={t(
-            "tags-translations.tag-list-labels.tag-type-filters-labels.title"
+            "tags_translations.tag_list_labels.tag_type_filters_labels.title"
           )}
           weight="bold"
           type="button"
@@ -98,7 +98,7 @@ const TagCardListHeader = ({
           <FilterTag
             icon="book-outline"
             label={t(
-              "tags-translations.tag-list-labels.tag-type-filters-labels.resources"
+              "tags_translations.tag_list_labels.tag_type_filters_labels.resources"
             )}
             active={selectedFilter === "resource_tag"}
             onPressFilter={() => onChangeFilter("resource_tag")}
@@ -106,7 +106,7 @@ const TagCardListHeader = ({
           <FilterTag
             icon="chatbox-ellipses-outline"
             label={t(
-              "tags-translations.tag-list-labels.tag-type-filters-labels.prompts"
+              "tags_translations.tag_list_labels.tag_type_filters_labels.prompts"
             )}
             active={selectedFilter === "prompt_tag"}
             onPressFilter={() => onChangeFilter("prompt_tag")}

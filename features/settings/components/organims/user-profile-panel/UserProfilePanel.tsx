@@ -94,7 +94,7 @@ const UserProfilePanel = () => {
           description={t(
             "settings-translations.user-profile-panel.description",
           )}
-          title={t("settings-translations.user-profile-panel.title")}
+          title={t("settings_translations.user_profile_panel.title")}
           icon="person-outline"
         />
         {!isConnected ? (

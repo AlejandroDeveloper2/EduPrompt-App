@@ -54,13 +54,13 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
           <Form.Row.Item span={1}>
             <Form.Input<UpdateTagFormData>
               label={t(
-                "tags-translations.update-tag-template.form-labels.name.label"
+                "tags_translations.update_tag_template.form_labels.name.label"
               )}
               icon="pricetag-outline"
               name="name"
               value={data.name}
               placeholder={t(
-                "tags-translations.update-tag-template.form-labels.name.placeholder"
+                "tags_translations.update_tag_template.form_labels.name.placeholder"
               )}
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
@@ -70,7 +70,7 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
           <Form.Row.Item span={1}>
             <Form.MultiOptionInput<UpdateTagFormData, TagType>
               label={t(
-                "tags-translations.update-tag-template.form-labels.type.label"
+                "tags_translations.update_tag_template.form_labels.type.label"
               )}
               name="type"
               value={data.type}
@@ -79,14 +79,14 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
             >
               <Form.MultiOptionInput.Option
                 label={t(
-                  "tags-translations.update-tag-template.form-labels.type.options.prompts"
+                  "tags_translations.update_tag_template.form_labels.type.options.prompts"
                 )}
                 optionValue="prompt_tag"
                 isSelected={data.type === "prompt_tag"}
               />
               <Form.MultiOptionInput.Option
                 label={t(
-                  "tags-translations.update-tag-template.form-labels.type.options.resources"
+                  "tags_translations.update_tag_template.form_labels.type.options.resources"
                 )}
                 optionValue="resource_tag"
                 isSelected={data.type === "resource_tag"}
@@ -102,12 +102,12 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
             width="100%"
             icon="pencil-outline"
             label={t(
-              "tags-translations.update-tag-template.form-labels.btn-update-tag"
+              "tags_translations.update_tag_template.form_labels.btn_update_tag"
             )}
             onPress={handleSubmit}
             loading={isPending}
             loadingMessage={t(
-              "tags-translations.update-tag-template.form-loading-messages.updating-tag-msg"
+              "tags_translations.update_tag_template.form_loading_messages.updating_tag_msg"
             )}
           />
         </Form.Row.Item>

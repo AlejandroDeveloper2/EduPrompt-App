@@ -6,7 +6,7 @@ export default function ResetPasswordScreen() {
   const { t } = useTranslations();
   return (
     <AuthTemplate
-      title={t("auth-translations.reset-password-template.title")}
+      title={t("auth_translations.reset_password_template.title")}
       titleIcon="pencil-outline"
       form="reset-password"
     />

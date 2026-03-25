@@ -6,7 +6,7 @@ export default function AccountActivationScreen() {
   const { t } = useTranslations();
   return (
     <AuthTemplate
-      title={t("auth-translations.account-activation-template.title")}
+      title={t("auth_translations.account_activation_template.title")}
       titleIcon="bulb-outline"
       form="account-activation"
     />

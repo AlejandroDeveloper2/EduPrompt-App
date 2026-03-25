@@ -31,7 +31,7 @@ const SubscriptionIndicatorBar = () => {
       <View style={subscriptionIndicatorBarStyle.Content}>
         <View style={subscriptionIndicatorBarStyle.LabelContainer}>
           <Typography
-            text={t("common-translations.subscription-indicator-labels.label")}
+            text={t("common_translations.subscription_indicator_labels.label")}
             weight="regular"
             type="button"
             textAlign="left"

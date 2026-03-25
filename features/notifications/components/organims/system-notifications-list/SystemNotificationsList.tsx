@@ -39,15 +39,15 @@ const NotificationListHeader = ({
     <View style={systemNotificationListStyle.ListHeaderContainer}>
       <ScreenSection
         description={t(
-          "notifications-translations.system-notification-list.description"
+          "notifications_translations.system_notification_list.description"
         )}
-        title={t("notifications-translations.system-notification-list.title")}
+        title={t("notifications_translations.system_notification_list.title")}
         icon="notifications-outline"
       />
       <View style={systemNotificationListStyle.FiltersContainer}>
         <Typography
           text={t(
-            "notifications-translations.system-notification-list.order-filters-labels.title"
+            "notifications_translations.system_notification_list.order_filters_labels.title"
           )}
           weight="bold"
           type="button"
@@ -60,7 +60,7 @@ const NotificationListHeader = ({
           <FilterTag
             icon="calendar-outline"
             label={t(
-              "notifications-translations.system-notification-list.order-filters-labels.asc"
+              "notifications_translations.system_notification_list.order_filters_labels.asc"
             )}
             active={filter === "asc"}
             onPressFilter={() => updateFilter("asc")}
@@ -68,7 +68,7 @@ const NotificationListHeader = ({
           <FilterTag
             icon="calendar-outline"
             label={t(
-              "notifications-translations.system-notification-list.order-filters-labels.desc"
+              "notifications_translations.system_notification_list.order_filters_labels.desc"
             )}
             active={filter === "desc"}
             onPressFilter={() => updateFilter("desc")}
@@ -128,7 +128,7 @@ const SystemNotificationsList = () => {
       ListEmptyComponent={
         <Empty
           message={t(
-            "notifications-translations.system-notification-list.no-notifications-msg"
+            "notifications_translations.system_notification_list.no_notifications_msg"
           )}
           icon="notifications-off-outline"
         />
@@ -137,7 +137,7 @@ const SystemNotificationsList = () => {
         isLoading ? (
           <LoadingTextIndicator
             message={t(
-              "notifications-translations.system-notification-list.loading-notifications-msg"
+              "notifications_translations.system_notification_list.loading_notifications_msg"
             )}
             color={AppColors.primary[400]}
           />

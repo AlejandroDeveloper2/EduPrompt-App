@@ -114,10 +114,10 @@ const GenerationCardList = () => {
           label={
             iaGenerations.length > 0
               ? t(
-                  "generations-translations.generation-list-labels.btn-generate.label-1"
+                  "generations_translations.generation_list_labels.btn_generate.label_1"
                 )
               : t(
-                  "generations-translations.generation-list-labels.btn-generate.label-2"
+                  "generations_translations.generation_list_labels.btn_generate.label_2"
                 )
           }
           width="100%"

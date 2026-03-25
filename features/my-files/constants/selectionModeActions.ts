@@ -10,7 +10,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "trash-bin-outline",
     onPress: deleteSelectedNotifications,
     label: i18n.t(
-      "my-files-translations.folder-list-labels.selection-options-labels.delete-folders"
+      "my_files_translations.folder_list_labels.selection_options_labels.delete_folders"
     ),
   },
   {
@@ -18,7 +18,7 @@ export const SELECTION_MODE_ACTIONS = (
     icon: "share-outline",
     onPress: shareFolders,
     label: i18n.t(
-      "my-files-translations.folder-list-labels.selection-options-labels.share-folders"
+      "my_files_translations.folder_list_labels.selection_options_labels.share_folders"
     ),
   },
 ];
@@ -33,7 +33,7 @@ export const FILE_SELECTION_MODE_ACTIONS = (
     icon: "trash-bin-outline",
     onPress: deleteManyFiles,
     label: i18n.t(
-      "my-files-translations.file-list-labels.selection-options-labels.delete-files"
+      "my_files_translations.file_list_labels.selection_options_labels.delete_files"
     ),
   },
   {
@@ -41,7 +41,7 @@ export const FILE_SELECTION_MODE_ACTIONS = (
     icon: "share-outline",
     onPress: shareFiles,
     label: i18n.t(
-      "my-files-translations.file-list-labels.selection-options-labels.share-files"
+      "my_files_translations.file_list_labels.selection_options_labels.share_files"
     ),
   },
   {
@@ -49,7 +49,7 @@ export const FILE_SELECTION_MODE_ACTIONS = (
     icon: "move-outline",
     onPress: moveFiles,
     label: i18n.t(
-      "my-files-translations.file-list-labels.selection-options-labels.move-files"
+      "my_files_translations.file_list_labels.selection_options_labels.move_files"
     ),
   },
 ];

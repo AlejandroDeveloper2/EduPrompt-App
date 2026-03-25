@@ -57,8 +57,8 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
           <Badge
             label={
               data.type === "prompt_tag"
-                ? t("tags-translations.tag-list-labels.prompt-tag-badge")
-                : t("tags-translations.tag-list-labels.resource-tag-badge")
+                ? t("tags_translations.tag_list_labels.prompt_tag_badge")
+                : t("tags_translations.tag_list_labels.resource_tag_badge")
             }
             variant="primary"
           />

@@ -34,20 +34,20 @@ const TermsAndPolicies = ({
           <Link
             alignment="left"
             label={t(
-              "auth-translations.sign-up-template.form-labels.terms-policies-links.first.label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.first.label"
             )}
             linkLabel={t(
-              "auth-translations.sign-up-template.form-labels.terms-policies-links.first.link-label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.first.link_label"
             )}
             href="/auth"
           />
           <Link
             alignment="left"
             label={t(
-              "auth-translations.sign-up-template.form-labels.terms-policies-links.second.label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.second.label"
             )}
             linkLabel={t(
-              "auth-translations.sign-up-template.form-labels.terms-policies-links.second.link-label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.second.link_label"
             )}
             href="/auth"
           />

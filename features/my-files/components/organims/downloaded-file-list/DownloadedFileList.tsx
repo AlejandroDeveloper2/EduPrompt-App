@@ -51,7 +51,7 @@ const DownloadedFileList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "my-files-translations.file-list-labels.confirm-delete-alert-labels.title"
+          "my_files_translations.file_list_labels.confirm_delete_alert_labels.title"
         )}
         {...confirmFileDeletePopUp}
         gesture={confirmFileDeletePopUp.dragGesture}
@@ -59,10 +59,10 @@ const DownloadedFileList = () => {
         <Alert
           variant="danger"
           message={t(
-            "my-files-translations.file-list-labels.confirm-delete-alert-labels.message"
+            "my_files_translations.file_list_labels.confirm_delete_alert_labels.message"
           )}
           acceptButtonLabel={t(
-            "my-files-translations.file-list-labels.confirm-delete-alert-labels.btn-accept"
+            "my_files_translations.file_list_labels.confirm_delete_alert_labels.btn_accept"
           )}
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmFileDeletePopUp.onClosePopUp}
@@ -74,7 +74,7 @@ const DownloadedFileList = () => {
       </PopUp>
       <PopUp
         title={t(
-          "my-files-translations.file-list-labels.update-file-name-popup-labels.title"
+          "my_files_translations.file_list_labels.update_file_name_popup_labels.title"
         )}
         icon="pencil-outline"
         gesture={editFileNamePopUp.dragGesture}
@@ -91,7 +91,7 @@ const DownloadedFileList = () => {
       </PopUp>
       <PopUp
         title={t(
-          "my-files-translations.file-list-labels.move-files-popup-labels.title"
+          "my_files_translations.file_list_labels.move_files_popup_labels.title"
         )}
         icon="move-outline"
         gesture={moveFilesPopUp.dragGesture}
@@ -132,7 +132,7 @@ const DownloadedFileList = () => {
         }
         ListEmptyComponent={
           <Empty
-            message={t("my-files-translations.file-list-labels.no-files-msg")}
+            message={t("my_files_translations.file_list_labels.no_files_msg")}
             icon="document-outline"
           />
         }

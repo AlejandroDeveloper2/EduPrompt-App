@@ -21,8 +21,8 @@ const DashboardTemplate = () => {
       >
         <View style={{ gap: Spacing.spacing_xl }}>
           <ScreenSection
-            description={t("dashboard-translations.screen-description")}
-            title={t("dashboard-translations.screen-title")}
+            description={t("dashboard_translations.screen_description")}
+            title={t("dashboard_translations.screen_title")}
             icon="grid-outline"
           />
           <DashboardIndicatorPanel />

@@ -1,70 +1,71 @@
 {
-  "common-translations": {
-    "alert-labels": {
-      "btn-cancel": "Cancel"
+  "common_translations": {
+    "alert_labels": {
+      "btn_cancel": "Cancel"
     },
-    "generate-button-label": "Generate",
-    "create-tag-form": {
-      "form-labels": {
+    "generate_button_label": "Generate",
+    "create_tag_form": {
+      "form_labels": {
         "name": {
           "label": "Name",
           "placeholder": "Tag name"
         },
-        "btn-add-tag": "Add Tag"
+        "btn_add_tag": "Add Tag"
       },
-      "form-loading-messages": {
-        "adding-tag-msg": "Adding..."
+      "form_loading_messages": {
+        "adding_tag_msg": "Adding..."
       },
-      "form-error-messages": {
-        "invalid-tag-name-msg": "Tag name is required"
+      "form_error_messages": {
+        "invalid_tag_name_msg": "Tag name is required"
       }
     },
-    "dropdown-list-labels": {
-      "empty-list-msg": "No results"
+    "dropdown_list_labels": {
+      "empty_list_msg": "No results"
     },
-    "toolbar-labels": {
-      "selected-elements-label": "Selected items"
+    "toolbar_labels": {
+      "selected_elements_label": "Selected items"
     },
-    "tag-selection-panel-labels": {
-      "search-input-placeholder": "Search tags by name"
+    "tag_selection_panel_labels": {
+      "search_input_placeholder": "Search tags by name"
     },
-    "header-labels": {
+    "header_labels": {
       "notifications": "Notifications",
       "marketplace": "Marketplace",
       "tags": "Tags",
       "settings": "Settings"
     },
-    "fetching-error-panel-labels": {
-      "btn-reload": "Try again"
+    "fetching_error_panel_labels": {
+      "btn_reload": "Try again"
     },
-    "in-progress-task-label": "In progress:",
-    "sync-data-messages": {
-      "no-connected-msg": "Connect to the internet to synchronize your data.",
-      "no-auth-msg": "Log in or create an account to sync your data.",
-      "all-synced-msg": "Everything is synced"
+    "in_progress_task_label": "In progress:",
+    "sync_data_messages": {
+      "no_connected_msg": "Connect to the internet to synchronize your data.",
+      "no_auth_msg": "Log in or create an account to sync your data.",
+      "all_synced_msg": "Everything is synced"
     },
-    "subscription-indicator-labels": {
+    "subscription_indicator_labels": {
       "label": "Active Plan:",
-      "premium-plan": "Premium",
-      "free-plan": "Free"
-    }
-  },
-  "onboarding-translations": {
-    "step-options-labels": {
-      "btn-back": "Previous",
-      "btn-start": "Start",
-      "btn-next": "Next"
+      "premium_plan": "Premium",
+      "free_plan": "Free"
     },
-    "loading-messages": {
-      "completing-onboarding-msg": "Loading..."
+    "account_activation_link_label": "Here"
+  },
+  "onboarding_translations": {
+    "step_options_labels": {
+      "btn_back": "Previous",
+      "btn_start": "Start",
+      "btn_next": "Next"
+    },
+    "loading_messages": {
+      "completing_onboarding_msg": "Loading..."
     }
   },
-  "auth-translations": {
-    "btn-continue-without-account": "Continue without account",
-    "separator-label": "OR",
-    "login-template": {
+  "auth_translations": {
+    "btn_continue_without_account": "Continue without account",
+    "separator_label": "OR",
+    "login_template": {
       "title": "Login",
-      "form-labels": {
+      "form_labels": {
         "email": {
           "label": "Email",
           "placeholder": "Email"
@@ -73,47 +74,47 @@
           "label": "Password",
           "placeholder": "Access password"
         },
-        "recover-pass-link": {
+        "recover_pass_link": {
           "label": "have you forgotten your password?",
-          "link-label": "Recover it here"
+          "link_label": "Recover it here"
         },
-        "sign-up-link": {
+        "sign_up_link": {
           "label": "Don´t you have an account yet?",
-          "link-label": "Sign up here"
+          "link_label": "Sign up here"
         },
-        "btn-login": "Login"
+        "btn_login": "Login"
       },
-      "form-loading-messages": {
-        "logging-in-msg": "Checking credentials..."
+      "form_loading_messages": {
+        "logging_in_msg": "Checking credentials..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Invalid email address",
-        "required-password-msg": "Password is required"
+      "form_error_messages": {
+        "invalid_email_msg": "Invalid email address",
+        "required_password_msg": "Password is required"
       }
     },
-    "request-pass-reset-template": {
+    "request_pass_reset_template": {
       "title": "Recover password",
-      "form-labels": {
+      "form_labels": {
         "email": {
           "label": "Email",
           "placeholder": "Email"
         },
-        "login-link": {
+        "login_link": {
           "label": "Do you already have an account?",
-          "link-label": "Login"
+          "link_label": "Login"
         },
-        "btn-send-request": "Send request"
+        "btn_send_request": "Send request"
       },
-      "form-loading-messages": {
-        "sending-request-msg": "Sending request..."
+      "form_loading_messages": {
+        "sending_request_msg": "Sending request..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Invalid email address"
+      "form_error_messages": {
+        "invalid_email_msg": "Invalid email address"
       }
     },
-    "sign-up-template": {
+    "sign_up_template": {
       "title": "Create Account",
-      "form-labels": {
+      "form_labels": {
         "username": {
           "label": "Username",
           "placeholder": "Username"
@@ -126,395 +127,390 @@
           "label": "Password",
           "placeholder": "Access password"
         },
-        "confirm-password": {
+        "confirm_password": {
           "label": "Confirm Password",
           "placeholder": "Confirm password"
         },
-        "login-link": {
+        "login_link": {
           "label": "Already have an account?",
-          "link-label": "Log in"
+          "link_label": "Log in"
         },
-        "terms-policies-links": {
+        "terms_policies_links": {
           "first": {
             "label": "I accept the",
-            "link-label": "Privacy Policy"
+            "link_label": "Privacy Policy"
           },
           "second": {
             "label": "and the",
-            "link-label": "Terms of Service"
+            "link_label": "Terms of Service"
           }
         },
-        "btn-signup": "Create Account"
+        "btn_signup": "Create Account"
       },
-      "form-loading-messages": {
-        "creating-account-msg": "Creating account..."
+      "form_loading_messages": {
+        "creating_account_msg": "Creating account..."
       },
-      "form-error-messages": {
-        "invalid-username-msg": "Username must have at least 3 characters",
-        "invalid-email-msg": "Invalid email",
-        "invalid-password-msg": "Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
-        "required-password-confirm-msg": "Password confirmation is required",
-        "required-terms-msg": "You must accept the terms and policies",
-        "passwords-dismatch-msg": "Passwords do not match"
+      "form_error_messages": {
+        "invalid_username_msg": "Username must have at least 3 characters",
+        "invalid_email_msg": "Invalid email",
+        "invalid_password_msg": "Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character",
+        "required_password_confirm_msg": "Password confirmation is required",
+        "required_terms_msg": "You must accept the terms and policies",
+        "passwords_dismatch_msg": "Passwords do not match"
       }
     },
-    "account-activation-template": {
+    "account_activation_template": {
       "title": "Activate Account",
-      "form-labels": {
+      "form_labels": {
         "code": {
           "label": "Activation Code"
         },
-        "login-link": {
+        "login_link": {
           "label": "Already have an account?",
-          "link-label": "Sign in"
+          "link_label": "Sign in"
         },
-        "btn-activate-account": "Activate Account"
+        "btn_activate_account": "Activate Account"
       },
-      "form-loading-messages": {
-        "activating-account-msg": "Activating account..."
+      "form_loading_messages": {
+        "activating_account_msg": "Activating account..."
       },
-      "form-error-messages": {
-        "invalid-code-min-length-msg": "The verification code must be at least 4 characters long",
-        "invalid-code-max-length-msg": "The verification code must be at most 4 characters long"
+      "form_error_messages": {
+        "invalid_code_min_length_msg": "The verification code must be at least 4 characters long",
+        "invalid_code_max_length_msg": "The verification code must be at most 4 characters long"
       }
     },
-    "account-activation-request-template": {
+    "account_activation_request_template": {
       "title": "Request Account Activation",
-      "form-labels": {
+      "form_labels": {
         "email": {
           "label": "Email",
           "placeholder": "Email"
         },
-        "login-link": {
+        "login_link": {
           "label": "Already have an account?",
-          "link-label": "Sign in"
+          "link_label": "Sign in"
         },
-        "btn-send-activation-request": "Send Request"
+        "btn_send_activation_request": "Send Request"
       },
-      "form-loading-messages": {
-        "sending-request-msg": "Sending request..."
+      "form_loading_messages": {
+        "sending_request_msg": "Sending request..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Invalid email"
+      "form_error_messages": {
+        "invalid_email_msg": "Invalid email"
       }
     },
-    "reset-pass-verification-code-template": {
+    "reset_pass_verification_code_template": {
       "title": "Update Password",
-      "form-labels": {
+      "form_labels": {
         "code": {
           "label": "Verification Code"
         },
-        "login-link": {
+        "login_link": {
           "label": "Already have an account?",
-          "link-label": "Sign in"
+          "link_label": "Sign in"
         },
-        "btn-verify-code": "Verify Code"
+        "btn_verify_code": "Verify Code"
       },
-      "form-loading-messages": {
-        "verifying-code-msg": "Validating code..."
+      "form_loading_messages": {
+        "verifying_code_msg": "Validating code..."
       },
-      "form-error-messages": {
-        "invalid-code-min-length-msg": "The verification code must be at least 4 characters long",
-        "invalid-code-max-length-msg": "The verification code must be at most 4 characters long"
+      "form_error_messages": {
+        "invalid_code_min_length_msg": "The verification code must be at least 4 characters long",
+        "invalid_code_max_length_msg": "The verification code must be at most 4 characters long"
       }
     },
-
-    "reset-password-template": {
+    "reset_password_template": {
       "title": "Update Password",
-      "form-labels": {
-        "new-password": {
+      "form_labels": {
+        "new_password": {
           "label": "New Password",
           "placeholder": "New access password"
         },
-        "confirm-password": {
+        "confirm_password": {
           "label": "Confirm Password",
           "placeholder": "Confirm new password"
         },
-        "login-link": {
+        "login_link": {
           "label": "Already have an account?",
-          "link-label": "Sign in"
+          "link_label": "Sign in"
         },
-        "btn-reset-password": "Update Password"
+        "btn_reset_password": "Update Password"
       },
-      "form-loading-messages": {
-        "updating-password-msg": "Updating password..."
+      "form_loading_messages": {
+        "updating_password_msg": "Updating password..."
       },
-      "form-error-messages": {
-        "invalid-password-msg": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
-        "required-password-confirm-msg": "Password confirmation is required",
-        "passwords-dismatch-msg": "Passwords do not match"
+      "form_error_messages": {
+        "invalid_password_msg": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+        "required_password_confirm_msg": "Password confirmation is required",
+        "passwords_dismatch_msg": "Passwords do not match"
       }
     },
-    "module-success-messages": {
-      "reset-pass-request-sent-msg": "An email with instructions has been sent. Please check your inbox.",
-      "account-created-msg": "Account successfully created. A verification code has been sent to your email address.",
-      "account-activated-msg": "Account successfully activated, you can now log in.",
-      "account-activation-request-sent-msg": "A new activation code has been sent to your email address.",
-      "verification-code-validated-msg": "Verification code valid, you can now update your password",
-      "password-updated-msg": "Password successfully updated, you can now log in.",
-      "update-email-request-sent-msg": "A verification code has been sent to your new email address. Please check your inbox.",
-      "email-updated-msg": "Email successfully updated",
-      "password-changed-msg": "Your password has been successfully changed. Please log in again."
+    "module_success_messages": {
+      "reset_pass_request_sent_msg": "An email with instructions has been sent. Please check your inbox.",
+      "account_created_msg": "Account successfully created. A verification code has been sent to your email address.",
+      "account_activated_msg": "Account successfully activated, you can now log in.",
+      "account_activation_request_sent_msg": "A new activation code has been sent to your email address.",
+      "verification_code_validated_msg": "Verification code valid, you can now update your password",
+      "password_updated_msg": "Password successfully updated, you can now log in.",
+      "update_email_request_sent_msg": "A verification code has been sent to your new email address. Please check your inbox.",
+      "email_updated_msg": "Email successfully updated",
+      "password_changed_msg": "Your password has been successfully changed. Please log in again."
     },
-    "module-error-messages": {
-      "missing-user-id-msg": "The user ID required to update the password was not found."
+    "module_error_messages": {
+      "missing_user_id_msg": "The user ID required to update the password was not found."
     }
   },
-
-  "dashboard-translations": {
-    "screen-title": "Dashboard",
-    "screen-description": "Here you can see how you've used Edu Prompt: how many resources you've generated, how many tokens you've used, and how you're doing with your activities. Everything you need to stay in control, all in one place.",
-    "dashboard-panel-labels": {
+  "dashboard_translations": {
+    "screen_title": "Dashboard",
+    "screen_description": "Here you can see how you've used Edu Prompt: how many resources you've generated, how many tokens you've used, and how you're doing with your activities. Everything you need to stay in control, all in one place.",
+    "dashboard_panel_labels": {
       "title": "Indicators",
       "description": "Monitor your Edu Prompt statistics for better control of your activities.",
-      "indicator-labels": {
-        "generated-resources": "Generated Resources",
-        "used-tokens": "Tokens Used",
-        "downloaded-resources": "Downloaded Resources",
-        "saved-resources": "Saved Resources",
-        "last-generated-resource": "Last Generated Resource",
-        "not-last-generated-resource": "No resource has been generated."
+      "indicator_labels": {
+        "generated_resources": "Generated Resources",
+        "used_tokens": "Tokens Used",
+        "downloaded_resources": "Downloaded Resources",
+        "saved_resources": "Saved Resources",
+        "last_generated_resource": "Last Generated Resource",
+        "not_last_generated_resource": "No resource has been generated."
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Data Synchronization",
         "description": "There is unsynchronized data, tap the button below to sync your data",
-        "btn-sync": "Sync Indicators",
-        "loading-text": "Synchronizing data..."
+        "btn_sync": "Sync Indicators",
+        "loading_text": "Synchronizing data..."
       },
-      "background-processes-labels": {
+      "background_processes_labels": {
         "title": "Active processes",
-        "day-span": "Today",
-        "no-active-processes-msg": "There are no active processes right now!"
+        "day_span": "Today",
+        "no_active_processes_msg": "There are no active processes right now!"
       }
     }
   },
-  "settings-translations": {
-    "screen-title": "User Preferences",
-    "screen-description": "Adjust your preferences such as app language, automatic synchronization, and notifications",
-    "syncronization-card-labels": {
+  "settings_translations": {
+    "screen_title": "User Preferences",
+    "screen_description": "Adjust your preferences such as app language, automatic synchronization, and notifications",
+    "syncronization_card_labels": {
       "title": "Data Synchronization",
       "description": "There is unsynchronized data, tap the button below to sync your data",
-      "btn-sync": "Synchronize",
-      "loading-text": "Synchronizing data..."
+      "btn_sync": "Synchronize",
+      "loading_text": "Synchronizing data..."
     },
-    "preferences-options-labels": {
-      "auto-sync": "Automatic data synchronization",
-      "push-notifications": "Push notifications",
-      "auto-clean-notifications": "Automatic notification cleanup",
-      "auto-clean-notifications-frecuency": {
+    "preferences_options_labels": {
+      "auto_sync": "Automatic data synchronization",
+      "push_notifications": "Push notifications",
+      "auto_clean_notifications": "Automatic notification cleanup",
+      "auto_clean_notifications_frecuency": {
         "label": "Notification cleanup frequency (Days)",
         "placeholder": "Select an option"
       },
-      "app-language": {
+      "app_language": {
         "label": "Language",
         "placeholder": "Select an option"
       }
     },
-    "preferences-popups-labels": {
+    "preferences_popups_labels": {
       "language": {
         "title": "Choose the app language",
-        "list-search-placeholder": "Search language"
+        "list_search_placeholder": "Search language"
       },
-      "auto-clean-frecuency": {
+      "auto_clean_frecuency": {
         "title": "Choose cleanup frequency",
-        "list-search-placeholder": "Search cleanup frequency"
+        "list_search_placeholder": "Search cleanup frequency"
       }
     },
-    "languages-list-options-labels": {
+    "languages_list_options_labels": {
       "spanish": "Spanish",
       "english": "English",
       "portuguese": "Portuguese",
       "system": "System default"
     },
-    "frecuency-list-options-labels": {
-      "2-days": "Every 2 days",
-      "5-days": "Every 5 days",
-      "15-days": "Every 15 days",
-      "30-days": "Every 30 days"
+    "frecuency_list_options_labels": {
+      "2_days": "Every 2 days",
+      "5_days": "Every 5 days",
+      "15_days": "Every 15 days",
+      "30_days": "Every 30 days"
     },
-    "user-profile-panel": {
+    "user_profile_panel": {
       "title": "User Profile",
       "description": "Edit and view your Edu Prompt profile all in one place",
-      "no-connection-indicator-msg": "You are not connected to the internet to access your profile",
-      "form-tabulator-labels": {
-        "tab-1": "User",
-        "tab-2": "Email",
-        "tab-3": "Password"
+      "no_connection_indicator_msg": "You are not connected to the internet to access your profile",
+      "form_tabulator_labels": {
+        "tab_1": "User",
+        "tab_2": "Email",
+        "tab_3": "Password"
       },
-      "btn-close-session": "Sign out",
-      "btn-login": "Sign in",
-      "signup-link": {
+      "btn_close_session": "Sign out",
+      "btn_login": "Sign in",
+      "signup_link": {
         "label": "Don't have an account?",
-        "link-label": "Create one here"
+        "link_label": "Create one here"
       },
-      "close-session-alert-labels": {
+      "close_session_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to sign out?",
-        "btn-accept": "Sign out",
-        "closing-session-msg": "Signing out..."
+        "btn_accept": "Sign out",
+        "closing_session_msg": "Signing out..."
       }
     },
-    "change-password-template": {
-      "form-labels": {
-        "current-password": {
+    "change_password_template": {
+      "form_labels": {
+        "current_password": {
           "label": "Current Password",
           "placeholder": "Current password"
         },
-        "new-password": {
+        "new_password": {
           "label": "New Password",
           "placeholder": "New password"
         },
-        "confirm-new-password": {
+        "confirm_new_password": {
           "label": "Confirm New Password",
           "placeholder": "Confirm password"
         },
-        "btn-change-password": "Change Password"
+        "btn_change_password": "Change Password"
       },
-      "form-loading-messages": {
-        "changing-password-msg": "Changing password..."
+      "form_loading_messages": {
+        "changing_password_msg": "Changing password..."
       },
-      "form-error-messages": {
-        "required-current-password-msg": "Current password is required",
-        "invalid-password-msg": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
-        "required-password-confirm-msg": "Password confirmation is required",
-        "passwords-dismatch-msg": "Passwords do not match"
+      "form_error_messages": {
+        "required_current_password_msg": "Current password is required",
+        "invalid_password_msg": "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+        "required_password_confirm_msg": "Password confirmation is required",
+        "passwords_dismatch_msg": "Passwords do not match"
       }
     },
-    "update-email-template": {
-      "form-labels": {
+    "update_email_template": {
+      "form_labels": {
         "code": {
           "label": "Verification Code"
         },
-        "current-email": {
+        "current_email": {
           "label": "Current Email",
           "placeholder": "Current email"
         },
-        "new-email": {
+        "new_email": {
           "label": "New Email",
           "placeholder": "New email"
         },
-        "btn-verify-code": "Verify Code",
-        "btn-edit-email": "Update Email"
+        "btn_verify_code": "Verify Code",
+        "btn_edit_email": "Update Email"
       },
-      "form-loading-messages": {
-        "verifying-code-msg": "Verifying code...",
-        "editing-email-msg": "Sending change request..."
+      "form_loading_messages": {
+        "verifying_code_msg": "Verifying code...",
+        "editing_email_msg": "Sending change request..."
       },
-      "form-error-messages": {
-        "invalid-email-msg": "Invalid email",
-        "invalid-code-min-length-msg": "The verification code must be at least 4 characters long",
-        "invalid-code-max-length-msg": "The verification code must be at most 4 characters long"
+      "form_error_messages": {
+        "invalid_email_msg": "Invalid email",
+        "invalid_code_min_length_msg": "The verification code must be at least 4 characters long",
+        "invalid_code_max_length_msg": "The verification code must be at most 4 characters long"
       }
     },
-    "update-username-template": {
-      "form-labels": {
+    "update_username_template": {
+      "form_labels": {
         "username": {
           "label": "Username",
           "placeholder": "Username"
         },
-        "btn-update-username": "Update Username"
+        "btn_update_username": "Update Username"
       },
-      "form-loading-messages": {
-        "updating-username-msg": "Updating username..."
+      "form_loading_messages": {
+        "updating_username_msg": "Updating username..."
       },
-      "form-error-messages": {
-        "invalid-username-msg": "Username must be at least 3 characters long"
+      "form_error_messages": {
+        "invalid_username_msg": "Username must be at least 3 characters long"
       }
     },
-    "module-loading-messages": {
-      "loading-user-settings-msg": "Loading settings..."
+    "module_loading_messages": {
+      "loading_user_settings_msg": "Loading settings..."
     },
-    "module-success-messages": {
-      "user-account-updated-msg": "User account updated successfully",
-      "username-updated-msg": "Username updated successfully",
-      "user-profile-synced-msg": "Profile data synchronized successfully"
+    "module_success_messages": {
+      "user_account_updated_msg": "User account updated successfully",
+      "username_updated_msg": "Username updated successfully",
+      "user_profile_synced_msg": "Profile data synchronized successfully"
     }
   },
-
-  "notifications-translations": {
-    "lists-tabulator-labels": {
-      "tab-1": "Internal notifications",
-      "tab-2": "System notifications"
+  "notifications_translations": {
+    "lists_tabulator_labels": {
+      "tab_1": "Internal notifications",
+      "tab_2": "System notifications"
     },
-    "user-notification-list": {
+    "user_notification_list": {
       "title": "Notifications",
       "description": "Find here all internal notifications of your activities in Edu Prompt.",
-      "order-filters-labels": {
+      "order_filters_labels": {
         "title": "List in order",
         "desc": "Descending",
         "asc": "Ascending"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to delete the notifications?",
-        "btn-accept": "Delete"
+        "btn_accept": "Delete"
       },
-      "no-notifications-msg": "No notifications right now"
+      "no_notifications_msg": "No notifications right now"
     },
-    "system-notification-list": {
+    "system_notification_list": {
       "title": "System Notifications",
       "description": "Find here all system notifications to stay updated on Edu Prompt news.",
-      "order-filters-labels": {
+      "order_filters_labels": {
         "title": "List in order",
         "desc": "Descending",
         "asc": "Ascending"
       },
-      "loading-notifications-msg": "Loading notifications...",
-      "no-notifications-msg": "No notifications right now"
+      "loading_notifications_msg": "Loading notifications...",
+      "no_notifications_msg": "No notifications right now"
     },
-    "create-notifications-messages": {
-      "notifications-error-msg": "An error has occurred in the user notification system."
+    "create_notifications_messages": {
+      "notifications_error_msg": "An error has occurred in the user notification system."
     },
-    "load-notifications-messages": {
-      "loading-notifications-msg": "Loading user notifications..."
+    "load_notifications_messages": {
+      "loading_notifications_msg": "Loading user notifications..."
     },
-    "selection-mode-actions-labels": {
+    "selection_mode_actions_labels": {
       "delete": "Delete"
     },
-    "notification-card-new-badge": "New"
+    "notification_card_new_badge": "New"
   },
-
-  "rewards-translations": {
+  "rewards_translations": {
     "title": "Daily reward",
-    "reward-notification-msg": "You have earned 5 free tokens for logging into EduPrompt every day."
+    "reward_notification_msg": "You have earned 5 free tokens for logging into EduPrompt every day."
   },
-
-  "tags-translations": {
-    "tag-list-labels": {
-      "selection-options-labels": {
-        "delete-tags": "Delete"
+  "tags_translations": {
+    "tag_list_labels": {
+      "selection_options_labels": {
+        "delete_tags": "Delete"
       },
-      "prompt-tag-badge": "Prompts",
-      "resource-tag-badge": "Educational Resources",
+      "prompt_tag_badge": "Prompts",
+      "resource_tag_badge": "Educational Resources",
       "title": "Tags",
       "description": "Manage the set of tags for your educational resources and custom prompts.",
-      "search-input-placeholder": "Search tags by name",
-      "tag-type-filters-labels": {
+      "search_input_placeholder": "Search tags by name",
+      "tag_type_filters_labels": {
         "title": "Filter by type",
         "resources": "Educational Resources",
         "prompts": "Prompts"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Data Synchronization",
         "description": "There is unsynchronized data, tap the button below to sync your data",
-        "btn-sync": "Synchronize",
-        "loading-text": "Synchronizing data..."
+        "btn_sync": "Synchronize",
+        "loading_text": "Synchronizing data..."
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to delete the tags?",
-        "btn-accept": "Delete",
-        "deleting-tag-msg": "Deleting..."
+        "btn_accept": "Delete",
+        "deleting_tag_msg": "Deleting..."
       },
-      "update-tag-popup-labels": {
+      "update_tag_popup_labels": {
         "title": "Update Tag"
       },
-      "loading-tags-msg": "Loading more tags...",
-      "no-tags-msg": "No tags right now",
-      "error-loading-tags-msg": "An error occurred while loading the tags."
+      "loading_tags_msg": "Loading more tags...",
+      "no_tags_msg": "No tags right now",
+      "error_loading_tags_msg": "An error occurred while loading the tags."
     },
-    "update-tag-template": {
-      "form-labels": {
+    "update_tag_template": {
+      "form_labels": {
         "name": {
           "label": "Name",
           "placeholder": "Tag name"
@@ -526,70 +522,70 @@
             "resources": "Educational Resource"
           }
         },
-        "btn-update-tag": "Update Tag"
+        "btn_update_tag": "Update Tag"
       },
-      "form-loading-messages": {
-        "updating-tag-msg": "Updating tag..."
+      "form_loading_messages": {
+        "updating_tag_msg": "Updating tag..."
       },
-      "form-error-messages": {
-        "invalid-tag-id-msg": "Invalid UUID",
-        "required-name-msg": "Tag name is required",
-        "invalid-tag-type-msg": "Tag type is invalid"
+      "form_error_messages": {
+        "invalid_tag_id_msg": "Invalid UUID",
+        "required_name_msg": "Tag name is required",
+        "invalid_tag_type_msg": "Tag type is invalid"
       }
     },
-    "module-error-messages": {
-      "tag-not-found-msg": "A tag with the id has not been found:",
-      "some-tag-not-found-msg": "Some tag from the list does not exist in the database"
+    "module_error_messages": {
+      "tag_not_found_msg": "A tag with the id has not been found:",
+      "some_tag_not_found_msg": "Some tag from the list does not exist in the database"
     },
-    "module-success-messages": {
-      "tag-created-msg": "Tag created successfully",
-      "tags-deleted-msg": "Tags deleted successfully",
-      "tag-updated-msg": "Tag updated successfully",
-      "tags-synced-msg": "Tag info synchronized successfully"
+    "module_success_messages": {
+      "tag_created_msg": "Tag created successfully",
+      "tags_deleted_msg": "Tags deleted successfully",
+      "tag_updated_msg": "Tag updated successfully",
+      "tags_synced_msg": "Tag info synchronized successfully"
     }
   },
-  "prompts-translations": {
-    "prompt-list-labels": {
-      "selection-options-labels": {
-        "delete-prompts": "Delete"
+  "prompts_translations": {
+    "prompt_list_labels": {
+      "selection_options_labels": {
+        "delete_prompts": "Delete"
       },
-      "no-tag-name-badge": "No tag",
+      "no_tag_name_badge": "No tag",
       "title": "My Prompts",
       "description": "Easily review and manage the prompts you've used to generate your educational resources.",
-      "search-input-placeholder": "Search prompts by title",
-      "prompt-tag-filters-labels": {
+      "search_input_placeholder": "Search prompts by title",
+      "prompt_tag_filters_labels": {
         "title": "Filter by tag",
-        "all-filter": "All"
+        "all_filter": "All"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Data Synchronization",
         "description": "There is unsynchronized data, tap the button below to sync your data",
-        "btn-sync": "Synchronize",
-        "loading-text": "Synchronizing data..."
+        "btn_sync": "Synchronize",
+        "loading_text": "Synchronizing data..."
       },
-      "tag-list-labels-popup": {
+      "tag_list_labels_popup": {
         "title": "Tags",
-        "search-input-placeholder": "Search tag by name",
-        "btn-cancel-selection": "Cancel selection"
+        "search_input_placeholder": "Search tag by name",
+        "btn_cancel_selection": "Cancel selection"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to delete the prompts?",
-        "btn-accept": "Delete",
-        "deleting-prompt-msg": "Deleting..."
+        "btn_accept": "Delete",
+        "deleting_prompt_msg": "Deleting..."
       },
-      "loading-prompts-msg": "Loading more prompts...",
-      "no-prompts-msg": "No results",
-      "error-loading-prompts-msg": "An error occurred while loading the prompts"
+      "loading_prompts_msg": "Loading more prompts...",
+      "no_prompts_msg": "No results",
+      "error_loading_prompts_msg": "An error occurred while loading the prompts"
     },
-    "update-prompt-template": {
+    "update_prompt_template": {
       "title": "Update prompt",
-      "form-labels": {
+      "form_labels": {
         "title": {
           "label": "Title (*)",
           "placeholder": "Enter the prompt title"
         },
-        "prompt-text": {
+        "prompt_text": {
           "label": "Prompt body (*)",
           "placeholder": "Describe your resource. Example: generate a guide to plan my biology class about invertebrate animals. Design the guide for a 2-hour class."
         },
@@ -597,91 +593,90 @@
           "label": "Tag (*)",
           "placeholder": "Select an option"
         },
-        "btn-update-prompt": "Update Prompt",
-        "btn-cancel": "Cancel"
+        "btn_update_prompt": "Update Prompt",
+        "btn_cancel": "Cancel"
       },
-      "form-loading-messages": {
-        "updating-prompt-msg": "Updating..."
+      "form_loading_messages": {
+        "updating_prompt_msg": "Updating..."
       },
-      "form-error-messages": {
-        "invalid-prompt-id-msg": "The prompt ID is not valid",
-        "required-title-msg": "Prompt title is required",
-        "required-prompt-text-msg": "Prompt content is required",
-        "invalid-selected-tag-msg": "The selected tag is not valid"
+      "form_error_messages": {
+        "invalid_prompt_id_msg": "The prompt ID is not valid",
+        "required_title_msg": "Prompt title is required",
+        "required_prompt_text_msg": "Prompt content is required",
+        "invalid_selected_tag_msg": "The selected tag is not valid"
       }
     },
-    "module-error-messages": {
-      "prompt-not-found-msg": "No prompt found with the id:",
-      "some-prompt-not-found-msg": "Some prompt from the list does not exist in the database"
+    "module_error_messages": {
+      "prompt_not_found_msg": "No prompt found with the id:",
+      "some_prompt_not_found_msg": "Some prompt from the list does not exist in the database"
     },
-    "module-success-messages": {
-      "prompt-created-msg": "Prompt created successfully",
-      "prompts-deleted-msg": "Prompts deleted successfully",
-      "prompt-updated-msg": "Prompt updated successfully",
-      "prompts-synced-msg": "Prompt info synchronized successfully"
+    "module_success_messages": {
+      "prompt_created_msg": "Prompt created successfully",
+      "prompts_deleted_msg": "Prompts deleted successfully",
+      "prompt_updated_msg": "Prompt updated successfully",
+      "prompts_synced_msg": "Prompt info synchronized successfully"
     }
   },
-
-  "my-files-translations": {
-    "file-navigator-labels": {
-      "folder-tab": "My Folders",
-      "file-tab": "Unnamed"
+  "my_files_translations": {
+    "file_navigator_labels": {
+      "folder_tab": "My Folders",
+      "file_tab": "Unnamed"
     },
-    "folder-list-labels": {
-      "selection-options-labels": {
-        "delete-folders": "Delete",
-        "share-folders": "Share"
+    "folder_list_labels": {
+      "selection_options_labels": {
+        "delete_folders": "Delete",
+        "share_folders": "Share"
       },
-      "files-count-label": "Files",
+      "files_count_label": "Files",
       "title": "My Downloaded Files",
       "description": "Easily review and manage the resources you've downloaded with Edu Prompt, all in one place.",
-      "search-input-placeholder": "Search folder by name",
-      "order-filters-labels": {
+      "search_input_placeholder": "Search folder by name",
+      "order_filters_labels": {
         "title": "List in order",
         "asc": "Ascending",
         "desc": "Descending"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to delete the folders?",
-        "btn-accept": "Delete",
-        "deleting-folder-msg": "Deleting..."
+        "btn_accept": "Delete",
+        "deleting_folder_msg": "Deleting..."
       },
-      "update-folder-name-popup-labels": {
+      "update_folder_name_popup_labels": {
         "title": "Edit Folder Name"
       },
-      "loading-folders-msg": "Loading folders...",
-      "no-folders-msg": "No folders right now"
+      "loading_folders_msg": "Loading folders...",
+      "no_folders_msg": "No folders right now"
     },
-    "file-list-labels": {
-      "selection-options-labels": {
-        "delete-files": "Delete",
-        "share-files": "Share",
-        "move-files": "Move"
+    "file_list_labels": {
+      "selection_options_labels": {
+        "delete_files": "Delete",
+        "share_files": "Share",
+        "move_files": "Move"
       },
       "title": "My Downloaded Files",
       "description": "Easily review and manage the resources you've downloaded with Edu Prompt, all in one place.",
-      "search-input-placeholder": "Search file by name",
-      "format-filters-labels": {
+      "search_input_placeholder": "Search file by name",
+      "format_filters_labels": {
         "title": "Filter by format"
       },
-      "confirm-delete-alert-labels": {
+      "confirm_delete_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to delete the files?",
-        "btn-accept": "Delete",
-        "deleting-file-msg": "Deleting..."
+        "btn_accept": "Delete",
+        "deleting_file_msg": "Deleting..."
       },
-      "update-file-name-popup-labels": {
+      "update_file_name_popup_labels": {
         "title": "Edit File Name"
       },
-      "move-files-popup-labels": {
+      "move_files_popup_labels": {
         "title": "Move File to Folder",
-        "btn-move-files": "Move"
+        "btn_move_files": "Move"
       },
-      "loading-files-msg": "Loading files...",
-      "no-files-msg": "No files created"
+      "loading_files_msg": "Loading files...",
+      "no_files_msg": "No files created"
     },
-    "shared-folders-notifications-labels": {
+    "shared_folders_notifications_labels": {
       "success": {
         "title": "Folders Shared!",
         "message": "Your folders have been compressed and shared successfully."
@@ -691,7 +686,7 @@
         "message": "There was an error trying to share the folders."
       }
     },
-    "shared-files-notifications-labels": {
+    "shared_files_notifications_labels": {
       "success": {
         "title": "Files Shared!",
         "message": "Your files have been compressed and shared successfully."
@@ -701,121 +696,120 @@
         "message": "There was an error trying to share the files."
       }
     },
-    "edit-file-name-template": {
-      "form-labels": {
+    "edit_file_name_template": {
+      "form_labels": {
         "name": {
           "label": "Name (*)",
           "placeholder": "Enter the file name"
         },
-        "btn-edit-name": "Update Name",
-        "btn-cancel": "Cancel"
+        "btn_edit_name": "Update Name",
+        "btn_cancel": "Cancel"
       },
-      "form-error-messages": {
-        "required-file-name-msg": "File name is required"
+      "form_error_messages": {
+        "required_file_name_msg": "File name is required"
       }
     },
-    "edit-folder-name-template": {
-      "form-labels": {
+    "edit_folder_name_template": {
+      "form_labels": {
         "name": {
           "label": "Name (*)",
           "placeholder": "Enter the folder name"
         },
-        "btn-edit-name": "Update Name",
-        "btn-cancel": "Cancel"
+        "btn_edit_name": "Update Name",
+        "btn_cancel": "Cancel"
       },
-      "form-error-messages": {
-        "required-folder-name-msg": "Folder name is required"
+      "form_error_messages": {
+        "required_folder_name_msg": "Folder name is required"
       }
     },
-    "processes-labels": {
-      "share-folders-process": {
+    "processes_labels": {
+      "share_folders_process": {
         "title": "Preparing to Share",
         "description": "The folders to share are being prepared, the process may take a few seconds."
       },
-      "share-files-process": {
+      "share_files_process": {
         "title": "Preparing to Share",
         "description": "The files to share are being prepared, the process may take a few seconds."
       }
     },
-    "folder-sharing-dialog-title": "Share Folders",
-    "file-sharing-dialog-title": "Share Files",
-    "module-warning-messages": {
-      "no-selected-folders-msg": "No folders selected to share",
-      "preparing-folders-to-share-msg": "Preparing folders to share...",
-      "no-selected-files-msg": "No files selected to share",
-      "preparing-files-to-share-msg": "Preparing files to share..."
+    "folder_sharing_dialog_title": "Share Folders",
+    "file_sharing_dialog_title": "Share Files",
+    "module_warning_messages": {
+      "no_selected_folders_msg": "No folders selected to share",
+      "preparing_folders_to_share_msg": "Preparing folders to share...",
+      "no_selected_files_msg": "No files selected to share",
+      "preparing_files_to_share_msg": "Preparing files to share..."
     },
-    "module-error-messages": {
-      "share-function-no-available-msg": "The share function is not available on this device",
-      "folder-sharing-error-msg": "Error sharing folders",
-      "folder-not-found-msg": "Error: folder not found",
-      "file-sharing-error-msg": "Error sharing files"
+    "module_error_messages": {
+      "share_function_no_available_msg": "The share function is not available on this device",
+      "folder_sharing_error_msg": "Error sharing folders",
+      "folder_not_found_msg": "Error: folder not found",
+      "file_sharing_error_msg": "Error sharing files"
     },
-    "module-success-messages": {
-      "folders-deleted-msg": "Folders deleted successfully!",
-      "folder-name-updated-msg": "Folder name updated successfully!",
-      "file-name-updated-msg": "File name updated successfully!",
-      "files-deleted-msg": "Files deleted successfully!",
-      "files-moved-msg": "Files moved successfully!"
+    "module_success_messages": {
+      "folders_deleted_msg": "Folders deleted successfully!",
+      "folder_name_updated_msg": "Folder name updated successfully!",
+      "file_name_updated_msg": "File name updated successfully!",
+      "files_deleted_msg": "Files deleted successfully!",
+      "files_moved_msg": "Files moved successfully!"
     }
   },
-
-  "resources-translations": {
-    "resources-list-labels": {
-      "selection-options-labels": {
-        "delete-resources": "Delete",
-        "download-resources": "Download"
+  "resources_translations": {
+    "resources_list_labels": {
+      "selection_options_labels": {
+        "delete_resources": "Delete",
+        "download_resources": "Download"
       },
-      "no-resource-tag-label": "No tag",
+      "no_resource_tag_label": "No tag",
       "title": "My Resources",
       "description": "Easily review and manage previews of all the resources you've generated with Edu Prompt, all in one place.",
-      "search-input-placeholder": "Search resource by title",
-      "format-filters-labels": {
+      "search_input_placeholder": "Search resource by title",
+      "format_filters_labels": {
         "title": "Filter by format"
       },
-      "tag-filters-labels": {
+      "tag_filters_labels": {
         "title": "Filter by tag",
-        "all-tags": "All"
+        "all_tags": "All"
       },
-      "tag-list-popup-labels": {
+      "tag_list_popup_labels": {
         "title": "Tags",
-        "search-input-placeholder": "Search tag by name"
+        "search_input_placeholder": "Search tag by name"
       },
-      "syncronization-card-labels": {
+      "syncronization_card_labels": {
         "title": "Data Synchronization",
         "description": "There is unsynchronized data, tap the button below to sync your data",
-        "btn-sync": "Synchronize",
-        "loading-text": "Synchronizing data..."
+        "btn_sync": "Synchronize",
+        "loading_text": "Synchronizing data..."
       },
-      "fetch-resources-error-msg": "An error occurred while loading educational resources",
-      "confirm-delete-alert-labels": {
+      "fetch_resources_error_msg": "An error occurred while loading educational resources",
+      "confirm_delete_alert_labels": {
         "title": "Alert",
         "message": "Are you sure you want to delete the resources?",
-        "btn-accept": "Delete",
-        "deleting-resources-msg": "Deleting..."
+        "btn_accept": "Delete",
+        "deleting_resources_msg": "Deleting..."
       },
-      "popups-tabulator-labels": {
-        "tab-1": "Preview",
-        "tab-2": "Edit Resource"
+      "popups_tabulator_labels": {
+        "tab_1": "Preview",
+        "tab_2": "Edit Resource"
       },
-      "view-resource-popup-labels": {
+      "view_resource_popup_labels": {
         "title": "View Resource"
       },
-      "select-tags-popup-labels": {
+      "select_tags_popup_labels": {
         "title": "Select Tag",
-        "search-input-placeholder": "Search tag by name",
-        "btn-cancel-selection": "Cancel selection"
+        "search_input_placeholder": "Search tag by name",
+        "btn_cancel_selection": "Cancel selection"
       },
-      "loading-resources-msg": "Loading more resources...",
-      "no-resources-msg": "No saved resources"
+      "loading_resources_msg": "Loading more resources...",
+      "no_resources_msg": "No saved resources"
     },
-    "processes-labels": {
-      "download-resources-process": {
+    "processes_labels": {
+      "download_resources_process": {
         "title": "Downloading resources...",
         "description": "Your selected resources are being downloaded, this may take a few seconds."
       }
     },
-    "download-resources-notifications-labels": {
+    "download_resources_notifications_labels": {
       "success": {
         "title": "Resources Downloaded!",
         "message": "Your resources have been downloaded successfully."
@@ -825,8 +819,8 @@
         "message": "Could not download your resources, please try again."
       }
     },
-    "update-resource-template": {
-      "form-labels": {
+    "update_resource_template": {
+      "form_labels": {
         "title": {
           "label": "Title (*)",
           "placeholder": "Enter the resource title"
@@ -835,74 +829,73 @@
           "label": "Tag (*)",
           "placeholder": "Select an option"
         },
-        "btn-update-resource": "Update Resource",
-        "btn-cancel": "Cancel"
+        "btn_update_resource": "Update Resource",
+        "btn_cancel": "Cancel"
       },
-      "form-loading-messages": {
-        "updating-resource-msg": "Updating..."
+      "form_loading_messages": {
+        "updating_resource_msg": "Updating..."
       },
-      "form-error-messages": {
-        "invalid-resource-id-msg": "The resource ID is not valid",
-        "required-title-msg": "Resource title is required",
-        "required-tag-msg": "Resource tag is required"
+      "form_error_messages": {
+        "invalid_resource_id_msg": "The resource ID is not valid",
+        "required_title_msg": "Resource title is required",
+        "required_tag_msg": "Resource tag is required"
       }
     },
-    "module-error-messages": {
-      "resource-not-found-msg": "No resource found with the id:",
-      "some-resource-not-found-msg": "Some resource from the list does not exist in the database"
+    "module_error_messages": {
+      "resource_not_found_msg": "No resource found with the id:",
+      "some_resource_not_found_msg": "Some resource from the list does not exist in the database"
     },
-    "module-success-messages": {
-      "resource-created-msg": "Educational resource saved successfully",
-      "resources-deleted-msg": "Educational resources deleted successfully",
-      "resource-updated-msg": "Educational resource updated successfully",
-      "resources-synced-msg": "Resource info synchronized successfully"
+    "module_success_messages": {
+      "resource_created_msg": "Educational resource saved successfully",
+      "resources_deleted_msg": "Educational resources deleted successfully",
+      "resource_updated_msg": "Educational resource updated successfully",
+      "resources_synced_msg": "Resource info synchronized successfully"
     }
   },
-
-  "generations-translations": {
-    "generation-list-labels": {
-      "generation-card-label": "Current step:",
+  "generations_translations": {
+    "generation_list_labels": {
+      "generation_card_label": "Current step:",
       "title": "Generate Resource",
       "description": "Generate your educational resources here. You can generate multiple resources simultaneously right now! Tap the button below and start now.",
-      "selection-options-labels": {
-        "delete-generations": "Delete",
-        "reinit-generations": "Restart"
+      "selection_options_labels": {
+        "delete_generations": "Delete",
+        "reinit_generations": "Restart"
       },
-      "search-input-placeholder": "Search generations by title",
-      "empty-list-label": "No generations started",
-      "btn-generate": {
-        "label-1": "Generate Another Resource",
-        "label-2": "Start Generating"
+      "search_input_placeholder": "Search generations by title",
+      "empty_list_label": "No generations started",
+      "btn_generate": {
+        "label_1": "Generate Another Resource",
+        "label_2": "Start Generating"
       }
     },
-    "country-template": {
-      "countries-popup-labels": {
+    "country_template": {
+      "countries_popup_labels": {
         "title": "Select a Country",
-        "search-input-placeholder": "Search country"
+        "search_input_placeholder": "Search country"
       },
-      "form-labels": {
+      "form_labels": {
         "country": {
           "label": "Country (*)",
           "placeholder": "Select an option"
         },
-        "btn-prev-step": "Previous",
-        "btn-next-step": "Next"
+        "btn_prev_step": "Previous",
+        "btn_next_step": "Next"
       },
-      "form-error-messages": {
-        "required-country-msg": "Country is required"
+      "form_error_messages": {
+        "required_country_msg": "Country is required"
       }
     },
-    "educational-level-template": {
-      "educational-level-popup-labels": {
+    "educational_level_template": {
+      "educational_level_popup_labels": {
         "title": "Choose the Target Educational Level",
-        "search-input-placeholder": "Search educational level"
+        "search_input_placeholder": "Search educational level"
       },
-      "target-grade-popup-labels": {
+      "target_grade_popup_labels": {
         "title": "Choose the Target Grade",
-        "search-input-placeholder": "Search grade"
+        "search_input_placeholder": "Search grade"
       },
-      "form-labels": {
-        "target-educational-level": {
+      "form_labels": {
+        "target_educational_level": {
           "label": "Target Educational Level (*)",
           "placeholder": "Select an option"
         },
@@ -910,55 +903,55 @@
           "label": "Grade (*)",
           "placeholder": "Select an option"
         },
-        "btn-prev-step": "Previous",
-        "btn-next-step": "Next"
+        "btn_prev_step": "Previous",
+        "btn_next_step": "Next"
       },
-      "form-error-messages": {
-        "required-educational-level-msg": "Educational level is required",
-        "required-grade-msg": "Grade is required for preschool, elementary, and high school levels"
+      "form_error_messages": {
+        "required_educational_level_msg": "Educational level is required",
+        "required_grade_msg": "Grade is required for preschool, elementary, and high school levels"
       }
     },
-    "language-template": {
-      "language-selection-popup-labels": {
+    "language_template": {
+      "language_selection_popup_labels": {
         "title": "Select the Language",
-        "search-input-placeholder": "Search language"
+        "search_input_placeholder": "Search language"
       },
-      "form-labels": {
+      "form_labels": {
         "language": {
           "label": "Language (*)",
           "placeholder": "Select an option"
         },
-        "btn-prev-step": "Previous",
-        "btn-next-step": "Next"
+        "btn_prev_step": "Previous",
+        "btn_next_step": "Next"
       },
-      "form-error-messages": {
-        "invalid-language-msg": "The selected language is invalid"
+      "form_error_messages": {
+        "invalid_language_msg": "The selected language is invalid"
       }
     },
-    "resource-format-template": {
-      "resource-format-popup-labels": {
+    "resource_format_template": {
+      "resource_format_popup_labels": {
         "title": "Select the Resource Format",
-        "search-input-placeholder": "Search format"
+        "search_input_placeholder": "Search format"
       },
-      "form-labels": {
+      "form_labels": {
         "format": {
           "label": "Resource Format (*)",
           "placeholder": "Select an option"
         },
-        "btn-prev-step": "Previous",
-        "btn-next-step": "Next"
+        "btn_prev_step": "Previous",
+        "btn_next_step": "Next"
       },
-      "form-error-messages": {
-        "invalid-format-msg": "The selected format is invalid"
+      "form_error_messages": {
+        "invalid_format_msg": "The selected format is invalid"
       }
     },
-    "resource-type-template": {
-      "resource-type-popup-labels": {
+    "resource_type_template": {
+      "resource_type_popup_labels": {
         "title": "Choose the Academic Resource Type",
-        "search-input-placeholder": "Search resource type"
+        "search_input_placeholder": "Search resource type"
       },
-      "form-labels": {
-        "resource-type": {
+      "form_labels": {
+        "resource_type": {
           "label": "Academic Resource Type (*)",
           "placeholder": "Select an option"
         },
@@ -966,62 +959,62 @@
           "label": "Specify the Resource Type (*)",
           "placeholder": "Enter the resource type"
         },
-        "btn-prev-step": "Previous",
-        "btn-next-step": "Next"
+        "btn_prev_step": "Previous",
+        "btn_next_step": "Next"
       },
-      "form-error-messages": {
-        "required-resource-type-msg": "Resource type is required",
-        "required-alternative-resource-msg": "Alternative resource type is required"
+      "form_error_messages": {
+        "required_resource_type_msg": "Resource type is required",
+        "required_alternative_resource_msg": "Alternative resource type is required"
       }
     },
-    "subject-template": {
-      "form-labels": {
+    "subject_template": {
+      "form_labels": {
         "subject": {
           "label": "Subject (*)",
           "placeholder": "Enter the subject"
         },
-        "btn-prev-step": "Previous",
-        "btn-next-step": "Next"
+        "btn_prev_step": "Previous",
+        "btn_next_step": "Next"
       },
-      "form-error-messages": {
-        "required-subject-name-msg": "Subject is required"
+      "form_error_messages": {
+        "required_subject_name_msg": "Subject is required"
       }
     },
-    "resource-description-template": {
-      "select-tag-popup-labels": {
+    "resource_description_template": {
+      "select_tag_popup_labels": {
         "title": "Select Tag",
-        "search-input-placeholder": "Search tag by name",
-        "btn-cancel": "Cancel selection"
+        "search_input_placeholder": "Search tag by name",
+        "btn_cancel": "Cancel selection"
       },
-      "save-prompt-popup-labels": {
+      "save_prompt_popup_labels": {
         "title": "Save Prompt"
       },
-      "select-prompt-popup-labels": {
+      "select_prompt_popup_labels": {
         "title": "Select Prompt",
-        "search-input-placeholder": "Search prompt by title"
+        "search_input_placeholder": "Search prompt by title"
       },
-      "form-labels": {
-        "prompt-description": {
+      "form_labels": {
+        "prompt_description": {
           "label": "Describe Your Resource (*)",
           "placeholder": "Describe your resource. Example: generate a guide to plan my biology class on invertebrate animals. Design the guide for a 2-hour class."
         },
-        "btn-prev-step": "Previous",
-        "btn-generate-resource": "Generate Resource"
+        "btn_prev_step": "Previous",
+        "btn_generate_resource": "Generate Resource"
       },
-      "form-error-messages": {
-        "required-description-msg": "Resource description is required"
+      "form_error_messages": {
+        "required_description_msg": "Resource description is required"
       },
-      "form-loading-messages": {
-        "generating-resource-msg": "Generating resource..."
+      "form_loading_messages": {
+        "generating_resource_msg": "Generating resource..."
       }
     },
-    "save-prompt-template": {
-      "form-labels": {
-        "prompt-title": {
+    "save_prompt_template": {
+      "form_labels": {
+        "prompt_title": {
           "label": "Title (*)",
           "placeholder": "Enter the prompt title"
         },
-        "prompt-body": {
+        "prompt_body": {
           "label": "Prompt Body (*)",
           "placeholder": "Describe your resource. Example: generate a guide to plan my biology class on invertebrate animals. Design the guide for a 2-hour class."
         },
@@ -1029,60 +1022,60 @@
           "label": "Tag (*)",
           "placeholder": "Select an option"
         },
-        "btn-save-prompt": "Save Prompt",
-        "btn-cancel": "Cancel"
+        "btn_save_prompt": "Save Prompt",
+        "btn_cancel": "Cancel"
       },
-      "form-error-messages": {
-        "required-prompt-title": "Prompt title is required",
-        "required-prompt-body": "Prompt description is required",
-        "required-prompt-tag": "Prompt tag is required"
+      "form_error_messages": {
+        "required_prompt_title": "Prompt title is required",
+        "required_prompt_body": "Prompt description is required",
+        "required_prompt_tag": "Prompt tag is required"
       },
-      "form-loading-messages": {
-        "saving-prompt-msg": "Saving..."
+      "form_loading_messages": {
+        "saving_prompt_msg": "Saving..."
       }
     },
-    "save-resource-form": {
-      "form-labels": {
-        "resource-title": {
+    "save_resource_form": {
+      "form_labels": {
+        "resource_title": {
           "label": "Title (*)",
           "placeholder": "Enter the resource title"
         },
-        "group-tag": {
+        "group_tag": {
           "label": "Tag (*)",
           "placeholder": "Select an option"
         },
-        "btn-save-resource": "Save Resource",
-        "btn-cancel": "Cancel"
+        "btn_save_resource": "Save Resource",
+        "btn_cancel": "Cancel"
       },
-      "form-error-messages": {
-        "required-title-msg": "Resource title is required",
-        "required-group-tag-msg": "Resource tag is required"
+      "form_error_messages": {
+        "required_title_msg": "Resource title is required",
+        "required_group_tag_msg": "Resource tag is required"
       },
-      "form-loading-messages": {
-        "saving-resource-msg": "Saving resource..."
+      "form_loading_messages": {
+        "saving_resource_msg": "Saving resource..."
       }
     },
-    "generating-indicator-labels": {
-      "btn-back": "Back",
+    "generating_indicator_labels": {
+      "btn_back": "Back",
       "title": "Generating resource...",
       "description": "The educational resource you requested is being generated. The process may take a few seconds."
     },
-    "generation-step-view-labels": {
-      "btn-back": "Back"
+    "generation_step_view_labels": {
+      "btn_back": "Back"
     },
-    "ia-response-card-labels": {
-      "select-tag-popup-labels": {
+    "ia_response_card_labels": {
+      "select_tag_popup_labels": {
         "title": "Select Tag",
-        "search-input-placeholder": "Search tag by name",
-        "btn-cancel": "Cancel selection"
+        "search_input_placeholder": "Search tag by name",
+        "btn_cancel": "Cancel selection"
       },
-      "save-resource-popup-labels": {
+      "save_resource_popup_labels": {
         "title": "Save Resource"
       },
-      "btn-back": "Back",
+      "btn_back": "Back",
       "title": "Result",
       "description": "Here's the requested resource. You can save the resource preview, download it, regenerate it, or adjust the information to generate a better version.",
-      "generation-process-labels": {
+      "generation_process_labels": {
         "success": {
           "title": "Resource Generated!",
           "message": "Your resource has been generated successfully:"
@@ -1092,124 +1085,123 @@
           "message": "An error occurred while generating your resource:"
         }
       },
-      "copy-resource-function-labels": {
-        "success-msg": "Text copied successfully to clipboard",
-        "error-msg": "An error occurred while copying the text"
+      "copy_resource_function_labels": {
+        "success_msg": "Text copied successfully to clipboard",
+        "error_msg": "An error occurred while copying the text"
       },
-      "btn-generate-other-resource": "Generate Another Resource"
+      "btn_generate_other_resource": "Generate Another Resource"
     },
-    "module-error-messages": {
-      "insufficient-tokens-msg": "Insufficient tokens to generate this resource, reload more tokens."
+    "module_error_messages": {
+      "insufficient_tokens_msg": "Insufficient tokens to generate this resource, reload more tokens."
     },
-    "module-success-messages": {
-      "resource-generated-msg": "Resource generated successfully"
+    "module_success_messages": {
+      "resource_generated_msg": "Resource generated successfully"
     }
   },
-
-  "marketplace-translations": {
-    "product-card-buy-btn-label": "Buy",
-    "packages-section": {
+  "marketplace_translations": {
+    "product_card_buy_btn_label": "Buy",
+    "packages_section": {
       "title": "Packages",
       "description": "Get your Edu Prompt tokens to generate your educational resources. Choose the package you like the most.",
-      "loading-packages-msg": "Loading packages...",
-      "processing-purchase-msg": "Processing purchase..."
+      "loading_packages_msg": "Loading packages...",
+      "processing_purchase_msg": "Processing purchase..."
     },
-    "plans-section": {
+    "plans_section": {
       "title": "Subscription Plan",
       "description": "If you want unlimited generations and tokens, get Edu Prompt Pro now for $9.99 USD per month!",
-      "loading-plans-msg": "Loading subscription plans...",
-      "subscribe-btn-label": "Subscribe",
-      "frecuency-label": "Month",
-      "auth-popup-title": "Log in to EduPrompt",
-      "manage-subscription-btn-label": "Manage subscription",
-      "wifi-connection-msg": "Go online to view the subscription plans.."
+      "loading_plans_msg": "Loading subscription plans...",
+      "subscribe_btn_label": "Subscribe",
+      "frecuency_label": "Month",
+      "auth_popup_title": "Log in to EduPrompt",
+      "manage_subscription_btn_label": "Manage subscription",
+      "wifi_connection_msg": "Go online to view the subscription plans.."
     },
-    "auth-panel": {
+    "auth_panel": {
       "title": "Sign in or create an account",
       "description": "To subscribe to or manage a plan, you must log in or create an account on EduPrompt."
     },
-    "manage-subscription-panel": {
+    "manage_subscription_panel": {
       "title": "Manage Subscription",
       "description": "View and manage your Edu Prompt subscription; cancel anytime. This subscription renews automatically",
-      "actions-labels": {
-        "cancel-subscription-btn-label": "Cancel Subscription",
-        "cancel-subscription-btn-loading-msg": "Canceling subscription...",
-        "reactive-subscription-btn-label": "Reactivate subscription",
-        "processing-payment-msg": "Processing payment...",
-        "retry-payment-btn-label": "Retry payment"
+      "actions_labels": {
+        "cancel_subscription_btn_label": "Cancel Subscription",
+        "cancel_subscription_btn_loading_msg": "Canceling subscription...",
+        "reactive_subscription_btn_label": "Reactivate subscription",
+        "processing_payment_msg": "Processing payment...",
+        "retry_payment_btn_label": "Retry payment"
       },
-      "subscription-info-items": {
-        "start-date-label": "Start date:",
-        "end-date-label": "Next renewal:",
-        "plan-label": "Plan:",
-        "payment-frecuency-label": "Billing frequency:",
-        "payment-frecuencies": {
+      "subscription_info_items": {
+        "start_date_label": "Start date:",
+        "end_date_label": "Next renewal:",
+        "plan_label": "Plan:",
+        "payment_frecuency_label": "Billing frequency:",
+        "payment_frecuencies": {
           "zero": "Monthly",
           "one": "Annual"
         },
-        "subscription-status-label": "Status:",
-        "subscription-states": {
+        "subscription_status_label": "Status:",
+        "subscription_states": {
           "zero": "Active",
           "one": "Failed",
           "other": "Canceled"
         }
       }
     },
-    "module-success-messages": {
-      "package-order-completed-msg": "Your payment was successful, you have purchased the %{amount} token package.",
-      "plan-order-completed-msg": "Your payment was successful, you have subscribed to the %{plan} plan."
+    "module_success_messages": {
+      "package_order_completed_msg": "Your payment was successful, you have purchased the %{amount} token package.",
+      "plan_order_completed_msg": "Your payment was successful, you have subscribed to the %{plan} plan."
     },
-    "module-error-messages": {
-      "cancel-payment-process-msg": "You cancelled the payment process.",
-      "payment-error-msg": "We could not complete your payment. Please try again.",
-      "no-internet-connection-msg": "To complete the purchase you must be connected to the internet."
+    "module_error_messages": {
+      "cancel_payment_process_msg": "You cancelled the payment process.",
+      "payment_error_msg": "We could not complete your payment. Please try again.",
+      "no_internet_connection_msg": "To complete the purchase you must be connected to the internet."
     }
   },
-
-  "server-error-messages": {
-    "internal-server-error-msg": "An internal server error has occurred",
-    "database-connection-error-msg": "Error connecting to the database",
-    "validation-error-msg": "Validation error",
-    "email-sending-error-msg": "An error occurred while sending the email",
-    "user-email-already-exists-msg": "A user with that email already exists",
-    "username-already-exists-msg": "The username has already been taken, choose another one",
-    "user-not-found-msg": "User not found",
-    "inactive-account-msg": "The account is inactive, you can request a new activation code:",
-    "incorrect-password-msg": "The password is incorrect",
-    "invalid-session-msg": "The session is invalid",
-    "session-already-active-msg": "The user already has an active session",
-    "invalid-code-msg": "Invalid verification code",
-    "expired-code-msg": "Expired verification code",
-    "required-token-msg": "Session token required",
-    "expired-token-msg": "Session token expired",
-    "invalid-token-msg": "Invalid or malformed session token",
-    "required-refresh-msg": "Session refresh token required",
-    "missing-api-key-msg": "EduPromt API key is required",
-    "inactive-api-key-msg": "EduPromt API key inactive",
-    "expired-api-key-msg": "EduPromt API key expired",
-    "invalid-api-key-msg": "EduPromt API key invalid",
-    "insufficient-scopes-msg": "API key does not have the necessary permissions to access the resource",
-    "api-key-validation-error-msg": "An error occurred while validating the EduPrompt API key",
-    "missing-admin-auth-headers-msg": "Administrator credentials are required",
-    "unauthorized-msg": "Unauthorized access",
-    "resource-not-found-msg": "Educational resource not found",
-    "some-resource-not-found-msg": "Some of the educational resources do not exist",
-    "prompt-not-found-msg": "Prompt not found",
-    "some-prompt-not-found-msg": "Some of the prompts do not exist",
-    "notification-not-found-msg": "System notification not found",
-    "some-notification-not-found-msg": "Some of the notifications do not exist",
-    "image-generation-not-completed-msg": "Image generation was not completed",
-    "indicator-not-found-msg": "Indicators were not found",
-    "user-indicator-already-created-msg": "The user already has registered indicators",
-    "tag-not-found-msg": "Tag not found",
-    "some-tag-not-found-msg": "Some of the tags do not exist",
-    "create-order-error-msg": "An error occurred while creating the payment order",
-    "capture-order-error-msg": "An error occurred while completing the payment order",
-    "get-order-error-msg": "An error occurred while retrieving the order status",
-    "order-not-found-msg": "The order was not found",
-    "subscription-not-found-msg": "The subscription was not found",
-    "subscription-history-item-not-found-msg": "The subscription history item was not found",
-    "subscription-creation-error-msg": "Payment successful but subscription creation failed. Our team will resolve this shortly.",
-    "auth-required-msg": "Authentication required"
+  "server_error_messages": {
+    "internal_server_error_msg": "An internal server error has occurred",
+    "database_connection_error_msg": "Error connecting to the database",
+    "validation_error_msg": "Validation error",
+    "email_sending_error_msg": "An error occurred while sending the email",
+    "user_email_already_exists_msg": "A user with that email already exists",
+    "username_already_exists_msg": "The username has already been taken, choose another one",
+    "user_not_found_msg": "User not found",
+    "inactive_account_msg": "The account is inactive, you can request a new activation code:",
+    "incorrect_password_msg": "The password is incorrect",
+    "invalid_session_msg": "The session is invalid",
+    "session_already_active_msg": "The user already has an active session",
+    "invalid_code_msg": "Invalid verification code",
+    "expired_code_msg": "Expired verification code",
+    "required_token_msg": "Session token required",
+    "expired_token_msg": "Session token expired",
+    "invalid_token_msg": "Invalid or malformed session token",
+    "required_refresh_msg": "Session refresh token required",
+    "missing_api_key_msg": "EduPromt API key is required",
+    "inactive_api_key_msg": "EduPromt API key inactive",
+    "expired_api_key_msg": "EduPromt API key expired",
+    "invalid_api_key_msg": "EduPromt API key invalid",
+    "insufficient_scopes_msg": "API key does not have the necessary permissions to access the resource",
+    "api_key_validation_error_msg": "An error occurred while validating the EduPrompt API key",
+    "missing_admin_auth_headers_msg": "Administrator credentials are required",
+    "unauthorized_msg": "Unauthorized access",
+    "resource_not_found_msg": "Educational resource not found",
+    "some_resource_not_found_msg": "Some of the educational resources do not exist",
+    "prompt_not_found_msg": "Prompt not found",
+    "some_prompt_not_found_msg": "Some of the prompts do not exist",
+    "notification_not_found_msg": "System notification not found",
+    "some_notification_not_found_msg": "Some of the notifications do not exist",
+    "image_generation_not_completed_msg": "Image generation was not completed",
+    "indicator_not_found_msg": "Indicators were not found",
+    "user_indicator_already_created_msg": "The user already has registered indicators",
+    "tag_not_found_msg": "Tag not found",
+    "some_tag_not_found_msg": "Some of the tags do not exist",
+    "create_order_error_msg": "An error occurred while creating the payment order",
+    "capture_order_error_msg": "An error occurred while completing the payment order",
+    "get_order_error_msg": "An error occurred while retrieving the order status",
+    "order_not_found_msg": "The order was not found",
+    "subscription_not_found_msg": "The subscription was not found",
+    "subscription_history_item_not_found_msg": "The subscription history item was not found",
+    "subscription_creation_error_msg": "Payment successful but subscription creation failed. Our team will resolve this shortly.",
+    "auth_required_msg": "Authentication required",
+    "unknown_error_msg": "Unknown error"
   }
 }

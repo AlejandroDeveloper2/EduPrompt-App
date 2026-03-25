@@ -46,7 +46,7 @@ const Generating = () => {
         }}
       />
       <Loader
-        title={t("generations-translations.generating-indicator-labels.title")}
+        title={t("generations_translations.generating_indicator_labels.title")}
         description={t(
           "generations-translations.generating-indicator-labels.description",
         )}

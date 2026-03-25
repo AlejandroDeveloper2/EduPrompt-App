@@ -31,7 +31,7 @@ const AccountActivationForm = () => {
           <Form.Row.Item span={1}>
             <Form.InputCode<AccountActivationData>
               label={t(
-                "auth-translations.account-activation-template.form-labels.code.label"
+                "auth_translations.account_activation_template.form_labels.code.label"
               )}
               name="code"
               value={data.code}
@@ -54,11 +54,11 @@ const AccountActivationForm = () => {
             width="100%"
             icon="checkmark-done-outline"
             label={t(
-              "auth-translations.account-activation-template.form-labels.btn-activate-account"
+              "auth_translations.account_activation_template.form_labels.btn_activate_account"
             )}
             loading={activateAccount.isPending}
             loadingMessage={t(
-              "auth-translations.account-activation-template.form-loading-messages.activating-account-msg"
+              "auth_translations.account_activation_template.form_loading_messages.activating_account_msg"
             )}
             onPress={handleSubmit}
           />
@@ -66,10 +66,10 @@ const AccountActivationForm = () => {
         <Form.Row.Item span={1}>
           <Form.Link
             label={t(
-              "auth-translations.account-activation-template.form-labels.login-link.label"
+              "auth_translations.account_activation_template.form_labels.login_link.label"
             )}
             linkLabel={t(
-              "auth-translations.account-activation-template.form-labels.login-link.link-label"
+              "auth_translations.account_activation_template.form_labels.login_link.link_label"
             )}
             href="/auth"
           />

@@ -22,9 +22,9 @@ export const dailyRewardJob: Job = {
 
     eventBus.emit("notifications.createNotification.requested", {
       notificationId: uuid.v4(),
-      title: i18n.t("rewards-translations.title") ?? "title",
+      title: i18n.t("rewards_translations.title") ?? "title",
       creationDate: new Date(),
-      message: i18n.t("rewards-translations.reward-notification-msg"),
+      message: i18n.t("rewards_translations.reward_notification_msg"),
     });
   },
 };

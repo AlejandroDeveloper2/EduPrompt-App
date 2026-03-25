@@ -7,7 +7,7 @@ export default function AccountActivationRequestScreen() {
 
   return (
     <AuthTemplate
-      title={t("auth-translations.account-activation-request-template.title")}
+      title={t("auth_translations.account_activation_request_template.title")}
       titleIcon="bulb-outline"
       form="account-activation-request"
     />

@@ -58,13 +58,13 @@ const SavePromptForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<SavePromptFormData>
               label={t(
-                "generations-translations.save-prompt-template.form-labels.prompt-title.label"
+                "generations_translations.save_prompt_template.form_labels.prompt_title.label"
               )}
               icon="text-outline"
               name="promptTitle"
               value={data.promptTitle}
               placeholder={t(
-                "generations-translations.save-prompt-template.form-labels.prompt-title.placeholder"
+                "generations_translations.save_prompt_template.form_labels.prompt_title.placeholder"
               )}
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
@@ -76,13 +76,13 @@ const SavePromptForm = ({
           <Form.Row.Item span={1}>
             <Form.PromptInput<SavePromptFormData>
               label={t(
-                "generations-translations.save-prompt-template.form-labels.prompt-body.label"
+                "generations_translations.save_prompt_template.form_labels.prompt_body.label"
               )}
               icon="chatbox-ellipses-outline"
               name="promptText"
               value={data.promptText}
               placeholder={t(
-                "generations-translations.save-prompt-template.form-labels.prompt-body.placeholder"
+                "generations_translations.save_prompt_template.form_labels.prompt_body.placeholder"
               )}
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
@@ -102,11 +102,11 @@ const SavePromptForm = ({
             >
               name="tag"
               label={t(
-                "generations-translations.save-prompt-template.form-labels.tag.label"
+                "generations_translations.save_prompt_template.form_labels.tag.label"
               )}
               icon="pricetag-outline"
               placeholder={t(
-                "generations-translations.save-prompt-template.form-labels.tag.placeholder"
+                "generations_translations.save_prompt_template.form_labels.tag.placeholder"
               )}
               selectedOption={selectedTag}
               optionValueKey="name"
@@ -124,11 +124,11 @@ const SavePromptForm = ({
             width="100%"
             icon="add-outline"
             label={t(
-              "generations-translations.save-prompt-template.form-labels.btn-save-prompt"
+              "generations_translations.save_prompt_template.form_labels.btn_save_prompt"
             )}
             loading={isLoading}
             loadingMessage={t(
-              "generations-translations.save-prompt-template.form-loading-messages.saving-prompt-msg"
+              "generations_translations.save_prompt_template.form_loading_messages.saving_prompt_msg"
             )}
             onPress={handleSubmit}
           />
@@ -139,7 +139,7 @@ const SavePromptForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-              "generations-translations.save-prompt-template.form-labels.btn-cancel"
+              "generations_translations.save_prompt_template.form_labels.btn_cancel"
             )}
             onPress={onClosePopUp}
           />

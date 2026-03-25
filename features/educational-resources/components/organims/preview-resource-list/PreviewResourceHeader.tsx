@@ -70,7 +70,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
     <>
       <PopUp
         title={t(
-          "resources-translations.resources-list-labels.tag-list-popup-labels.title"
+          "resources_translations.resources_list_labels.tag_list_popup_labels.title"
         )}
         icon="pricetag-outline"
         isPopUpMounted={isPopUpMounted}
@@ -105,7 +105,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           optionIdkey="tagId"
           optionLabelKey="name"
           searchInputPlaceholder={t(
-            "resources-translations.resources-list-labels.tag-list-popup-labels.search-input-placeholder"
+            "resources_translations.resources_list_labels.tag_list_popup_labels.search_input_placeholder"
           )}
           selectedOption={tagFilter}
           onSelectOption={(option) => {
@@ -120,29 +120,29 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           isAuthenticated && (
             <InfoCard
               title={t(
-                "resources-translations.resources-list-labels.syncronization-card-labels.title"
+                "resources_translations.resources_list_labels.syncronization_card_labels.title"
               )}
               description={t(
-                "resources-translations.resources-list-labels.syncronization-card-labels.description"
+                "resources_translations.resources_list_labels.syncronization_card_labels.description"
               )}
               buttonData={{
                 onPress: syncResources,
                 icon: "sync-outline",
                 label: t(
-                  "resources-translations.resources-list-labels.syncronization-card-labels.btn-sync"
+                  "resources_translations.resources_list_labels.syncronization_card_labels.btn_sync"
                 ),
                 loading: isPending,
                 loadingMessage: t(
-                  "resources-translations.resources-list-labels.syncronization-card-labels.loading-text"
+                  "resources_translations.resources_list_labels.syncronization_card_labels.loading_text"
                 ),
               }}
             />
           )}
         <ScreenSection
           description={t(
-            "resources-translations.resources-list-labels.description"
+            "resources_translations.resources_list_labels.description"
           )}
-          title={t("resources-translations.resources-list-labels.title")}
+          title={t("resources_translations.resources_list_labels.title")}
           icon="book-outline"
         />
         <Input<{ searchResourceValue: string }>
@@ -150,7 +150,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           value={searchResourceValue}
           icon="search-outline"
           placeholder={t(
-            "resources-translations.resources-list-labels.search-input-placeholder"
+            "resources_translations.resources_list_labels.search_input_placeholder"
           )}
           onChange={(_, value) => onSearchResourceValueChange(value)}
           onClearInput={() => onSearchResourceValueChange("")}
@@ -158,7 +158,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
         <View style={previewResourceListStyle.FilterSection}>
           <Typography
             text={t(
-              "resources-translations.resources-list-labels.format-filters-labels.title"
+              "resources_translations.resources_list_labels.format_filters_labels.title"
             )}
             weight="medium"
             type="paragraph"
@@ -187,7 +187,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           <View style={previewResourceListStyle.FilterSection}>
             <Typography
               text={t(
-                "resources-translations.resources-list-labels.tag-filters-labels.title"
+                "resources_translations.resources_list_labels.tag_filters_labels.title"
               )}
               weight="medium"
               type="paragraph"
@@ -204,7 +204,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
               <FilterTag
                 icon="star-outline"
                 label={t(
-                  "resources-translations.resources-list-labels.tag-filters-labels.all-tags"
+                  "resources_translations.resources_list_labels.tag_filters_labels.all_tags"
                 )}
                 active={tagFilter === null}
                 onPressFilter={() => onTagFilterChange(null)}

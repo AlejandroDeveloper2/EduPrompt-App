@@ -7,7 +7,7 @@ export const updatePromptSchema = z.object({
     .string()
     .uuid(
       i18n.t(
-        "prompts-translations.update-prompt-template.form-error-messages.invalid-prompt-id-msg"
+        "prompts_translations.update_prompt_template.form_error_messages.invalid_prompt_id_msg"
       )
     ),
   promptTitle: z
@@ -15,7 +15,7 @@ export const updatePromptSchema = z.object({
     .min(
       1,
       i18n.t(
-        "prompts-translations.update-prompt-template.form-error-messages.required-title-msg"
+        "prompts_translations.update_prompt_template.form_error_messages.required_title_msg"
       )
     ),
   promptText: z
@@ -23,14 +23,14 @@ export const updatePromptSchema = z.object({
     .min(
       1,
       i18n.t(
-        "prompts-translations.update-prompt-template.form-error-messages.required-prompt-text-msg"
+        "prompts_translations.update_prompt_template.form_error_messages.required_prompt_text_msg"
       )
     ),
   tag: z
     .string()
     .uuid(
       i18n.t(
-        "prompts-translations.update-prompt-template.form-error-messages.invalid-selected-tag-msg"
+        "prompts_translations.update_prompt_template.form_error_messages.invalid_selected_tag_msg"
       )
     ),
 });

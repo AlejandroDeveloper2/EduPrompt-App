@@ -95,7 +95,7 @@ const AuthTemplate = ({
           {hasContiueWithoutAccount && (
             <>
               <Typography
-                text={t("auth-translations.separator-label")}
+                text={t("auth_translations.separator_label")}
                 weight="medium"
                 type="h1"
                 textAlign="center"
@@ -106,7 +106,7 @@ const AuthTemplate = ({
                 icon="chevron-forward-outline"
                 width="100%"
                 variant="primary"
-                label={t("auth-translations.btn-continue-without-account")}
+                label={t("auth_translations.btn_continue_without_account")}
                 onPress={() => router.navigate("/(tabs)")}
               />
             </>

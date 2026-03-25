@@ -41,13 +41,13 @@ const ChangePasswordForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<ChangePasswordData>
               label={t(
-                "settings-translations.change-password-template.form-labels.current-password.label"
+                "settings_translations.change_password_template.form_labels.current_password.label"
               )}
               icon="lock-closed-outline"
               name="currentPassword"
               value={data.currentPassword}
               placeholder={t(
-                "settings-translations.change-password-template.form-labels.current-password.placeholder"
+                "settings_translations.change_password_template.form_labels.current_password.placeholder"
               )}
               errorMessage={getFieldErrors("currentPassword")?.join(", ")}
               onChange={handleChange}
@@ -60,13 +60,13 @@ const ChangePasswordForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<ChangePasswordData>
               label={t(
-                "settings-translations.change-password-template.form-labels.new-password.label"
+                "settings_translations.change_password_template.form_labels.new_password.label"
               )}
               icon="lock-closed-outline"
               name="newPassword"
               value={data.newPassword}
               placeholder={t(
-                "settings-translations.change-password-template.form-labels.new-password.placeholder"
+                "settings_translations.change_password_template.form_labels.new_password.placeholder"
               )}
               errorMessage={getFieldErrors("newPassword")?.join(", ")}
               onChange={handleChange}
@@ -77,13 +77,13 @@ const ChangePasswordForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<ChangePasswordData>
               label={t(
-                "settings-translations.change-password-template.form-labels.confirm-new-password.label"
+                "settings_translations.change_password_template.form_labels.confirm_new_password.label"
               )}
               icon="lock-closed-outline"
               name="confirmPassword"
               value={data.confirmPassword}
               placeholder={t(
-                "settings-translations.change-password-template.form-labels.confirm-new-password.placeholder"
+                "settings_translations.change_password_template.form_labels.confirm_new_password.placeholder"
               )}
               errorMessage={getFieldErrors("confirmPassword")?.join(", ")}
               onChange={handleChange}
@@ -100,12 +100,12 @@ const ChangePasswordForm = () => {
             width="100%"
             icon="pencil-outline"
             label={t(
-              "settings-translations.change-password-template.form-labels.btn-change-password"
+              "settings_translations.change_password_template.form_labels.btn_change_password"
             )}
             onPress={handleSubmit}
             loading={loading}
             loadingMessage={t(
-              "settings-translations.change-password-template.form-loading-messages.changing-password-msg"
+              "settings_translations.change_password_template.form_loading_messages.changing_password_msg"
             )}
           />
         </Form.Row.Item>

@@ -61,7 +61,7 @@ const useCreateTag = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: t("tags-translations.module-success-messages.tag-created-msg"),
+        message: t("tags_translations.module_success_messages.tag_created_msg"),
       });
     },
     [

@@ -143,7 +143,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
               key: generateToastKey(),
               variant: "danger",
               message: `${i18n.t(
-                "resources-translations.module-error-messages.resource-not-found-msg"
+                "resources_translations.module_error_messages.resource_not_found_msg"
               )} ${resourceId}`,
             });
             return null;
@@ -181,7 +181,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
 
           if (updatedResourceRow.length === 0) {
             const errorMsg = `${i18n.t(
-              "resources-translations.module-error-messages.resource-not-found-msg"
+              "resources_translations.module_error_messages.resource_not_found_msg"
             )} ${resourceId}`;
             showToast({
               key: generateToastKey(),
@@ -228,7 +228,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
               key: generateToastKey(),
               variant: "danger",
               message: i18n.t(
-                "resources-translations.module-error-messages.some-resource-not-found-msg"
+                "resources_translations.module_error_messages.some_resource_not_found_msg"
               ),
             });
             return;

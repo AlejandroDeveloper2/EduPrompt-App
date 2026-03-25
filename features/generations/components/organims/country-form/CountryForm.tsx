@@ -30,7 +30,7 @@ const CountryForm = () => {
       <PopUp
         icon="flag-outline"
         title={t(
-          "generations-translations.country-template.countries-popup-labels.title"
+          "generations_translations.country_template.countries_popup_labels.title"
         )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -42,7 +42,7 @@ const CountryForm = () => {
           optionIdkey="countryId"
           optionLabelKey="countryName"
           searchInputPlaceholder={t(
-            "generations-translations.country-template.countries-popup-labels.search-input-placeholder"
+            "generations_translations.country_template.countries_popup_labels.search_input_placeholder"
           )}
           selectedOption={selectedCountry}
           onSelectOption={(option) => {
@@ -59,10 +59,10 @@ const CountryForm = () => {
                 name="country"
                 icon="flag-outline"
                 label={t(
-                  "generations-translations.country-template.form-labels.country.label"
+                  "generations_translations.country_template.form_labels.country.label"
                 )}
                 placeholder={t(
-                  "generations-translations.country-template.form-labels.country.placeholder"
+                  "generations_translations.country_template.form_labels.country.placeholder"
                 )}
                 selectedOption={selectedCountry}
                 optionValueKey="countryName"
@@ -80,7 +80,7 @@ const CountryForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations-translations.country-template.form-labels.btn-prev-step"
+                "generations_translations.country_template.form_labels.btn_prev_step"
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
@@ -97,7 +97,7 @@ const CountryForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations-translations.country-template.form-labels.btn-next-step"
+                "generations_translations.country_template.form_labels.btn_next_step"
               )}
               onPress={handleSubmit}
             />

@@ -28,7 +28,7 @@ const useValidateResetPassCodeMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.verification-code-validated-msg"
+          "auth_translations.module_success_messages.verification_code_validated_msg"
         ),
         toastDuration: 4000,
       });

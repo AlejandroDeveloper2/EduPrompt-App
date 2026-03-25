@@ -61,10 +61,10 @@ const ResourceDescriptionForm = () => {
         title={
           isTagSelection
             ? t(
-                "generations-translations.resource-description-template.select-tag-popup-labels.title"
+                "generations_translations.resource_description_template.select_tag_popup_labels.title"
               )
             : t(
-                "generations-translations.resource-description-template.save-prompt-popup-labels.title"
+                "generations_translations.resource_description_template.save_prompt_popup_labels.title"
               )
         }
         isPopUpMounted={savePromptPopUp.isPopUpMounted}
@@ -105,7 +105,7 @@ const ResourceDescriptionForm = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-              "generations-translations.resource-description-template.select-tag-popup-labels.search-input-placeholder"
+              "generations_translations.resource_description_template.select_tag_popup_labels.search_input_placeholder"
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -115,7 +115,7 @@ const ResourceDescriptionForm = () => {
             FooterComponent={
               <Button
                 label={t(
-                  "generations-translations.resource-description-template.select-tag-popup-labels.btn-cancel"
+                  "generations_translations.resource_description_template.select_tag_popup_labels.btn_cancel"
                 )}
                 icon="close-outline"
                 width="100%"
@@ -141,10 +141,10 @@ const ResourceDescriptionForm = () => {
         title={
           isTagSelection
             ? t(
-                "generations-translations.resource-description-template.select-tag-popup-labels.title"
+                "generations_translations.resource_description_template.select_tag_popup_labels.title"
               )
             : t(
-                "generations-translations.resource-description-template.select-prompt-popup-labels.title"
+                "generations_translations.resource_description_template.select_prompt_popup_labels.title"
               )
         }
         isPopUpMounted={selectPromptPopUp.isPopUpMounted}
@@ -184,7 +184,7 @@ const ResourceDescriptionForm = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-              "generations-translations.resource-description-template.select-tag-popup-labels.search-input-placeholder"
+              "generations_translations.resource_description_template.select_tag_popup_labels.search_input_placeholder"
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -194,7 +194,7 @@ const ResourceDescriptionForm = () => {
             FooterComponent={
               <Button
                 label={t(
-                  "generations-translations.resource-description-template.select-tag-popup-labels.btn-cancel"
+                  "generations_translations.resource_description_template.select_tag_popup_labels.btn_cancel"
                 )}
                 icon="close-outline"
                 width="100%"
@@ -228,7 +228,7 @@ const ResourceDescriptionForm = () => {
             optionIdkey="promptId"
             optionLabelKey="promptTitle"
             searchInputPlaceholder={t(
-              "generations-translations.resource-description-template.select-prompt-popup-labels.search-input-placeholder"
+              "generations_translations.resource_description_template.select_prompt_popup_labels.search_input_placeholder"
             )}
             selectedOption={selectedPrompt}
             onSelectOption={(option) => {
@@ -244,13 +244,13 @@ const ResourceDescriptionForm = () => {
             <Form.Row.Item span={1}>
               <Form.PromptInput<ResourceDescriptionFormData>
                 label={t(
-                  "generations-translations.resource-description-template.form-labels.prompt-description.label"
+                  "generations_translations.resource_description_template.form_labels.prompt_description.label"
                 )}
                 icon="chatbox-ellipses-outline"
                 name="descriptionPrompt"
                 value={data.descriptionPrompt}
                 placeholder={t(
-                  "generations-translations.resource-description-template.form-labels.prompt-description.placeholder"
+                  "generations_translations.resource_description_template.form_labels.prompt_description.placeholder"
                 )}
                 errorMessage={getFieldErrors("descriptionPrompt")?.join(", ")}
                 onChange={handleChange}
@@ -268,7 +268,7 @@ const ResourceDescriptionForm = () => {
               width="100%"
               icon="bulb-outline"
               label={t(
-                "generations-translations.resource-description-template.form-labels.btn-generate-resource"
+                "generations_translations.resource_description_template.form_labels.btn_generate_resource"
               )}
               loading={isPending}
               disabled={
@@ -277,7 +277,7 @@ const ResourceDescriptionForm = () => {
                   : true
               }
               loadingMessage={t(
-                "generations-translations.resource-description-template.form-loading-messages.generating-resource-msg"
+                "generations_translations.resource_description_template.form_loading_messages.generating_resource_msg"
               )}
               onPress={handleSubmit}
             />
@@ -288,7 +288,7 @@ const ResourceDescriptionForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations-translations.resource-description-template.form-labels.btn-prev-step"
+                "generations_translations.resource_description_template.form_labels.btn_prev_step"
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;

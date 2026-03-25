@@ -47,7 +47,7 @@ const useUpdateUsernameMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "settings-translations.module-success-messages.username-updated-msg"
+          "settings_translations.module_success_messages.username_updated_msg"
         ),
       });
     },

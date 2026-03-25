@@ -38,7 +38,7 @@ const DashboardIndicatorPanel = () => {
   return (
     <View style={PanelContainer}>
       <Typography
-        text={t("dashboard-translations.dashboard-panel-labels.title")}
+        text={t("dashboard_translations.dashboard_panel_labels.title")}
         weight="medium"
         type="button"
         textAlign="left"
@@ -47,7 +47,7 @@ const DashboardIndicatorPanel = () => {
         icon="bar-chart-outline"
       />
       <Typography
-        text={t("dashboard-translations.dashboard-panel-labels.description")}
+        text={t("dashboard_translations.dashboard_panel_labels.description")}
         weight="regular"
         type="paragraph"
         textAlign="left"
@@ -60,7 +60,7 @@ const DashboardIndicatorPanel = () => {
           icon="book-outline"
           value={`${indicators.generatedResources}`}
           label={t(
-            "dashboard-translations.dashboard-panel-labels.indicator-labels.generated-resources"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.generated_resources"
           )}
           type="numeric"
           loading={isLoading}
@@ -72,7 +72,7 @@ const DashboardIndicatorPanel = () => {
           icon="hardware-chip-outline"
           value={formatTokenAmount(indicators.usedTokens)}
           label={t(
-            "dashboard-translations.dashboard-panel-labels.indicator-labels.used-tokens"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.used_tokens"
           )}
           type="numeric"
           loading={isLoading}
@@ -85,7 +85,7 @@ const DashboardIndicatorPanel = () => {
           icon="download-outline"
           value={`${indicators.dowloadedResources}`}
           label={t(
-            "dashboard-translations.dashboard-panel-labels.indicator-labels.downloaded-resources"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.downloaded_resources"
           )}
           type="numeric"
           loading={isLoading}
@@ -97,7 +97,7 @@ const DashboardIndicatorPanel = () => {
           icon="save-outline"
           value={`${indicators.savedResources}`}
           label={t(
-            "dashboard-translations.dashboard-panel-labels.indicator-labels.saved-resources"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.saved_resources"
           )}
           type="numeric"
           loading={isLoading}
@@ -110,12 +110,12 @@ const DashboardIndicatorPanel = () => {
           value={
             !indicators.lastGeneratedResource
               ? t(
-                  "dashboard-translations.dashboard-panel-labels.indicator-labels.not-last-generated-resource"
+                  "dashboard_translations.dashboard_panel_labels.indicator_labels.not_last_generated_resource"
                 )
               : indicators.lastGeneratedResource
           }
           label={t(
-            "dashboard-translations.dashboard-panel-labels.indicator-labels.last-generated-resource"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.last_generated_resource"
           )}
           type="alphabetic"
           loading={isLoading}
@@ -130,20 +130,20 @@ const DashboardIndicatorPanel = () => {
       isAuthenticated ? (
         <InfoCard
           title={t(
-            "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.title"
+            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.title"
           )}
           description={t(
-            "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.description"
+            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.description"
           )}
           buttonData={{
             onPress: syncIndicators,
             icon: "sync-outline",
             label: t(
-              "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.btn-sync"
+              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.btn_sync"
             ),
             loading: isPending,
             loadingMessage: t(
-              "dashboard-translations.dashboard-panel-labels.syncronization-card-labels.loading-text"
+              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.loading_text"
             ),
           }}
         />

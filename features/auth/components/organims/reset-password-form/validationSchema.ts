@@ -9,18 +9,18 @@ export const resetPasswordSchema = z
   .object({
     newPassword: z.string().regex(passwordRegex, {
       message: i18n.t(
-        "auth-translations.reset-password-template.form-error-messages.invalid-password-msg"
+        "auth_translations.reset_password_template.form_error_messages.invalid_password_msg"
       ),
     }),
     confirmPassword: z.string().min(1, {
       message: i18n.t(
-        "auth-translations.reset-password-template.form-error-messages.required-password-confirm-msg"
+        "auth_translations.reset_password_template.form_error_messages.required_password_confirm_msg"
       ),
     }),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: i18n.t(
-      "auth-translations.reset-password-template.form-error-messages.passwords-dismatch-msg"
+      "auth_translations.reset_password_template.form_error_messages.passwords_dismatch_msg"
     ),
     path: ["confirmPassword"],
   });

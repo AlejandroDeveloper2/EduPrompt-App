@@ -48,7 +48,7 @@ const Header = () => {
         toggleDeploy={toggleDeploy}
       >
         <FloatMenu.Item
-          label={t("common-translations.header-labels.notifications")}
+          label={t("common_translations.header_labels.notifications")}
           icon="notifications-outline"
           active={pathname === "/notifications_screen"}
           Node={
@@ -64,19 +64,19 @@ const Header = () => {
           onPress={() => handleNavigate("/(tabs)/notifications_screen", true)}
         />
         <FloatMenu.Item
-          label={t("common-translations.header-labels.marketplace")}
+          label={t("common_translations.header_labels.marketplace")}
           icon="storefront-outline"
           active={pathname === "/marketplace_screen"}
           onPress={() => handleNavigate("/(tabs)/marketplace_screen", true)}
         />
         <FloatMenu.Item
-          label={t("common-translations.header-labels.tags")}
+          label={t("common_translations.header_labels.tags")}
           icon="pricetag-outline"
           active={pathname === "/tags_screen"}
           onPress={() => handleNavigate("/(tabs)/tags_screen", true)}
         />
         <FloatMenu.Item
-          label={t("common-translations.header-labels.settings")}
+          label={t("common_translations.header_labels.settings")}
           icon="settings-outline"
           active={pathname === "/settings_screen"}
           onPress={() => handleNavigate("/(tabs)/settings_screen", true)}

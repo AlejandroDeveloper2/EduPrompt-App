@@ -8,7 +8,7 @@ export const resourceDescriptionFormSchema = z.object({
     .min(
       1,
       i18n.t(
-        "generations-translations.resource-description-template.form-error-messages.required-description-msg"
+        "generations_translations.resource_description_template.form_error_messages.required_description_msg"
       )
     ),
 });
@@ -19,7 +19,7 @@ export const savePromptFormSchema = z.object({
     .min(
       1,
       i18n.t(
-        "generations-translations.save-prompt-template.form-error-messages.required-prompt-title"
+        "generations_translations.save_prompt_template.form_error_messages.required_prompt_title"
       )
     ),
   promptText: z
@@ -27,7 +27,7 @@ export const savePromptFormSchema = z.object({
     .min(
       1,
       i18n.t(
-        "generations-translations.save-prompt-template.form-error-messages.required-prompt-body"
+        "generations_translations.save_prompt_template.form_error_messages.required_prompt_body"
       )
     ),
   tag: z
@@ -35,7 +35,7 @@ export const savePromptFormSchema = z.object({
     .min(
       1,
       i18n.t(
-        "generations-translations.save-prompt-template.form-error-messages.required-prompt-tag"
+        "generations_translations.save_prompt_template.form_error_messages.required_prompt_tag"
       )
     ),
 });

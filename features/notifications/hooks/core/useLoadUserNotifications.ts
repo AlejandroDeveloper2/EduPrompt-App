@@ -67,7 +67,7 @@ const useLoadUserNotifications = () => {
       toggleLoading(
         true,
         t(
-          "notifications-translations.load-notifications-messages.loading-notifications-msg"
+          "notifications_translations.load_notifications_messages.loading_notifications_msg"
         )
       );
       getAllNotifications(filter);

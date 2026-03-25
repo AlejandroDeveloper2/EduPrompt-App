@@ -7,12 +7,12 @@ export const resetPassVerificationCodeSchema = z.object({
     .string()
     .min(4, {
       message: i18n.t(
-        "auth-translations.reset-pass-verification-code-template.form-error-messages.invalid-code-min-length-msg"
+        "auth_translations.reset_pass_verification_code_template.form_error_messages.invalid_code_min_length_msg"
       ),
     })
     .max(4, {
       message: i18n.t(
-        "auth-translations.reset-pass-verification-code-template.form-error-messages.invalid-code-max-length-msg"
+        "auth_translations.reset_pass_verification_code_template.form_error_messages.invalid_code_max_length_msg"
       ),
     }),
 });

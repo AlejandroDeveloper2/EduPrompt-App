@@ -74,7 +74,7 @@ const ResourceCard = ({
             label={
               tags.find((t) => t.tagId === groupTag)?.name ??
               t(
-                "resources-translations.resources-list-labels.no-resource-tag-label"
+                "resources_translations.resources_list_labels.no_resource_tag_label"
               )
             }
             variant="neutral"

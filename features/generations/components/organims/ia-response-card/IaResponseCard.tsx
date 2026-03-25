@@ -162,7 +162,7 @@ const IaResponseCard = ({
       <View style={{ alignItems: "flex-end", gap: Spacing.spacing_xl }}>
         <Button
           icon="chevron-back-outline"
-          label={t("generations-translations.ia-response-card-labels.btn-back")}
+          label={t("generations_translations.ia_response_card_labels.btn_back")}
           variant="neutral"
           width="auto"
           onPress={clearAndRemoveSelectedGeneration}
@@ -171,7 +171,7 @@ const IaResponseCard = ({
           description={t(
             "generations-translations.ia-response-card-labels.description",
           )}
-          title={t("generations-translations.ia-response-card-labels.title")}
+          title={t("generations_translations.ia_response_card_labels.title")}
           icon="star-outline"
         />
         <View style={iaResponseCardStyle.Container}>

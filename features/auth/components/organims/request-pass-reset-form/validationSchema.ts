@@ -7,7 +7,7 @@ export const requestPassResetSchema = z.object({
     .string()
     .email({
       message: i18n.t(
-        "auth-translations.request-pass-reset-template.form-error-messages.invalid-email-msg"
+        "auth_translations.request_pass_reset_template.form_error_messages.invalid_email_msg"
       ),
     }),
 });

@@ -57,13 +57,13 @@ const EditFileNameForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<FileNameFormData>
               label={t(
-                "my-files-translations.edit-file-name-template.form-labels.name.label"
+                "my_files_translations.edit_file_name_template.form_labels.name.label"
               )}
               icon="text-outline"
               name="name"
               value={data.name}
               placeholder={t(
-                "my-files-translations.edit-file-name-template.form-labels.name.placeholder"
+                "my_files_translations.edit_file_name_template.form_labels.name.placeholder"
               )}
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
@@ -79,7 +79,7 @@ const EditFileNameForm = ({
             width="100%"
             icon="pencil-outline"
             label={t(
-              "my-files-translations.edit-file-name-template.form-labels.btn-edit-name"
+              "my_files_translations.edit_file_name_template.form_labels.btn_edit_name"
             )}
             onPress={handleSubmit}
           />
@@ -90,7 +90,7 @@ const EditFileNameForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-              "my-files-translations.edit-file-name-template.form-labels.btn-cancel"
+              "my_files_translations.edit_file_name_template.form_labels.btn_cancel"
             )}
             onPress={onClosePopUp}
           />

@@ -21,7 +21,7 @@ const BackgroundProcessPanel = () => {
       <View style={BackgroundProcessPanelStyle.Header}>
         <Typography
           text={t(
-            "dashboard-translations.dashboard-panel-labels.background-processes-labels.title"
+            "dashboard_translations.dashboard_panel_labels.background_processes_labels.title"
           )}
           weight="medium"
           type="button"
@@ -32,7 +32,7 @@ const BackgroundProcessPanel = () => {
         />
         <Typography
           text={`${t(
-            "dashboard-translations.dashboard-panel-labels.background-processes-labels.day-span"
+            "dashboard_translations.dashboard_panel_labels.background_processes_labels.day_span"
           )}, ${new Date().toLocaleDateString()} `}
           weight="regular"
           type="caption"
@@ -45,7 +45,7 @@ const BackgroundProcessPanel = () => {
       {tasks.length === 0 ? (
         <Empty
           message={t(
-            "dashboard-translations.dashboard-panel-labels.background-processes-labels.no-active-processes-msg"
+            "dashboard_translations.dashboard_panel_labels.background_processes_labels.no_active_processes_msg"
           )}
           icon="settings-outline"
         />

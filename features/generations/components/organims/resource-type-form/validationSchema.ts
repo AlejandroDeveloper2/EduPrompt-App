@@ -13,7 +13,7 @@ export const resourceTypeFormSchema = z
       .min(
         1,
         i18n.t(
-          "generations-translations.resource-type-template.form-error-messages.required-resource-type-msg"
+          "generations_translations.resource_type_template.form_error_messages.required_resource_type_msg"
         )
       ),
     otherResourceType: z.string().optional(),
@@ -30,7 +30,7 @@ export const resourceTypeFormSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18n.t(
-          "generations-translations.resource-type-template.form-error-messages.required-alternative-resource-msg"
+          "generations_translations.resource_type_template.form_error_messages.required_alternative_resource_msg"
         ),
         path: ["otherResourceType"],
       });

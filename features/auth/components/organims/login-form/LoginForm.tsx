@@ -79,7 +79,7 @@ const LoginForm = () => {
             variant="primary"
             width="100%"
             icon="log-in-outline"
-            label={t("auth-translations.login-template.form-labels.btn-login")}
+            label={t("auth_translations.login_template.form_labels.btn_login")}
             onPress={handleSubmit}
             loading={login.isPending}
             loadingMessage={t(

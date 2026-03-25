@@ -15,7 +15,7 @@ export const syncData = (
       key: generateToastKey(),
       variant: "danger",
       message: i18n.t(
-        "common-translations.sync-data-messages.no-connected-msg"
+        "common_translations.sync_data_messages.no_connected_msg"
       ),
     });
     return;
@@ -25,7 +25,7 @@ export const syncData = (
     showToast({
       key: generateToastKey(),
       variant: "danger",
-      message: i18n.t("common-translations.sync-data-messages.no-auth-msg"),
+      message: i18n.t("common_translations.sync_data_messages.no_auth_msg"),
     });
     return;
   }
@@ -38,6 +38,6 @@ export const syncData = (
   showToast({
     key: generateToastKey(),
     variant: "primary",
-    message: i18n.t("common-translations.sync-data-messages.all-synced-msg"),
+    message: i18n.t("common_translations.sync_data_messages.all_synced_msg"),
   });
 };

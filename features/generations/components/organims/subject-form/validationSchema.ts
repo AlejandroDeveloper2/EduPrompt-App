@@ -8,7 +8,7 @@ export const subjectFormSchema = z.object({
     .min(
       1,
       i18n.t(
-        "generations-translations.subject-template.form-error-messages.required-subject-name-msg"
+        "generations_translations.subject_template.form_error_messages.required_subject_name_msg"
       )
     ),
 });

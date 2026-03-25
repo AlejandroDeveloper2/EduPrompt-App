@@ -7,7 +7,7 @@ export default function LoginScreen() {
 
   return (
     <AuthTemplate
-      title={t("auth-translations.login-template.title")}
+      title={t("auth_translations.login_template.title")}
       titleIcon="log-in-outline"
       form="login"
       hasContiueWithoutAccount

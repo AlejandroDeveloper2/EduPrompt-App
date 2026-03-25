@@ -23,7 +23,7 @@ const FetchingErrorPanel = ({ message, refetch }: FetchingErrorPanelProps) => {
         icon="reload-outline"
         variant="primary"
         width="auto"
-        label={t("common-translations.fetching-error-panel-labels.btn-reload")}
+        label={t("common_translations.fetching_error_panel_labels.btn_reload")}
         onPress={refetch}
       />
     </View>

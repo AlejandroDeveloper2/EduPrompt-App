@@ -59,7 +59,7 @@ const useBackgroundTaskRunner = () => {
           await scheduleNotificationAsync({
             content: {
               title: task.processName,
-              body: `${t("common-translations.in-progress-task-label")} ${
+              body: `${t("common_translations.in_progress_task_label")} ${
                 task.progress
               }%`,
             },

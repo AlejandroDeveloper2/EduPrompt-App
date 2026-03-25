@@ -36,8 +36,8 @@ const FolderListHeader = ({
   return (
     <View style={folderListStyle.ListHeaderContainer}>
       <ScreenSection
-        description={t("my-files-translations.folder-list-labels.description")}
-        title={t("my-files-translations.folder-list-labels.title")}
+        description={t("my_files_translations.folder_list_labels.description")}
+        title={t("my_files_translations.folder_list_labels.title")}
         icon="folder-open-outline"
       />
       <Input<{ searchValue: string }>
@@ -45,7 +45,7 @@ const FolderListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "my-files-translations.folder-list-labels.search-input-placeholder"
+          "my_files_translations.folder_list_labels.search_input_placeholder"
         )}
         onChange={(_name, value) => onSearchValueChange(value)}
         onClearInput={onClearSearchInput}
@@ -53,7 +53,7 @@ const FolderListHeader = ({
       <View style={folderListStyle.FiltersContainer}>
         <Typography
           text={t(
-            "my-files-translations.folder-list-labels.order-filters-labels.title"
+            "my_files_translations.folder_list_labels.order_filters_labels.title"
           )}
           weight="bold"
           type="button"
@@ -66,7 +66,7 @@ const FolderListHeader = ({
           <FilterTag
             icon="calendar-outline"
             label={t(
-              "my-files-translations.folder-list-labels.order-filters-labels.asc"
+              "my_files_translations.folder_list_labels.order_filters_labels.asc"
             )}
             active={order === "asc"}
             onPressFilter={() => onChangeOrder("asc")}
@@ -74,7 +74,7 @@ const FolderListHeader = ({
           <FilterTag
             icon="calendar-outline"
             label={t(
-              "my-files-translations.folder-list-labels.order-filters-labels.desc"
+              "my_files_translations.folder_list_labels.order_filters_labels.desc"
             )}
             active={order === "desc"}
             onPressFilter={() => onChangeOrder("desc")}

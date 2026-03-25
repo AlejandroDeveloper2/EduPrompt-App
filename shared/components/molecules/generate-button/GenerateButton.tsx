@@ -39,7 +39,7 @@ const GenerateButton = ({ active, onPress }: GenerateButtonProps) => {
         />
       </AnimatedPressable>
       <Typography
-        text={t("common-translations.generate-button-label")}
+        text={t("common_translations.generate_button_label")}
         weight="regular"
         type="caption"
         textAlign="center"

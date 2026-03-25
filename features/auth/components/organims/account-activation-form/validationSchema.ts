@@ -7,12 +7,12 @@ export const accountActivationSchema = z.object({
     .string()
     .min(4, {
       message: i18n.t(
-        "auth-translations.account-activation-template.form-error-messages.invalid-code-min-length-msg"
+        "auth_translations.account_activation_template.form_error_messages.invalid_code_min_length_msg"
       ),
     })
     .max(4, {
       message: i18n.t(
-        "auth-translations.account-activation-template.form-error-messages.invalid-code-max-length-msg"
+        "auth_translations.account_activation_template.form_error_messages.invalid_code_max_length_msg"
       ),
     }),
 });

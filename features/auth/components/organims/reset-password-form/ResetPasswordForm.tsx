@@ -30,13 +30,13 @@ const ResetPasswordForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<ResetPasswordData>
               label={t(
-                "auth-translations.reset-password-template.form-labels.new-password.label"
+                "auth_translations.reset_password_template.form_labels.new_password.label"
               )}
               icon="lock-closed-outline"
               name="newPassword"
               value={data.newPassword}
               placeholder={t(
-                "auth-translations.reset-password-template.form-labels.new-password.placeholder"
+                "auth_translations.reset_password_template.form_labels.new_password.placeholder"
               )}
               errorMessage={getFieldErrors("newPassword")?.join(", ")}
               onChange={handleChange}
@@ -47,13 +47,13 @@ const ResetPasswordForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<ResetPasswordData>
               label={t(
-                "auth-translations.reset-password-template.form-labels.confirm-password.label"
+                "auth_translations.reset_password_template.form_labels.confirm_password.label"
               )}
               icon="lock-closed-outline"
               name="confirmPassword"
               value={data.confirmPassword}
               placeholder={t(
-                "auth-translations.reset-password-template.form-labels.confirm-password.placeholder"
+                "auth_translations.reset_password_template.form_labels.confirm_password.placeholder"
               )}
               errorMessage={getFieldErrors("confirmPassword")?.join(", ")}
               onChange={handleChange}
@@ -70,11 +70,11 @@ const ResetPasswordForm = () => {
             width="100%"
             icon="pencil-outline"
             label={t(
-              "auth-translations.reset-password-template.form-labels.btn-reset-password"
+              "auth_translations.reset_password_template.form_labels.btn_reset_password"
             )}
             loading={isPending}
             loadingMessage={t(
-              "auth-translations.reset-password-template.form-loading-messages.updating-password-msg"
+              "auth_translations.reset_password_template.form_loading_messages.updating_password_msg"
             )}
             onPress={handleSubmit}
           />
@@ -82,10 +82,10 @@ const ResetPasswordForm = () => {
         <Form.Row.Item span={1}>
           <Form.Link
             label={t(
-              "auth-translations.reset-password-template.form-labels.login-link.label"
+              "auth_translations.reset_password_template.form_labels.login_link.label"
             )}
             linkLabel={t(
-              "auth-translations.reset-password-template.form-labels.login-link.link-label"
+              "auth_translations.reset_password_template.form_labels.login_link.link_label"
             )}
             href="/auth"
           />

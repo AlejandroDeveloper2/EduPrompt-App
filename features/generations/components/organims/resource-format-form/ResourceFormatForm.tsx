@@ -30,7 +30,7 @@ const ResourceFormatForm = () => {
       <PopUp
         icon="image-outline"
         title={t(
-          "generations-translations.resource-format-template.resource-format-popup-labels.title"
+          "generations_translations.resource_format_template.resource_format_popup_labels.title"
         )}
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}
@@ -42,7 +42,7 @@ const ResourceFormatForm = () => {
           optionIdkey="formatKey"
           optionLabelKey="formatLabel"
           searchInputPlaceholder={t(
-            "generations-translations.resource-format-template.resource-format-popup-labels.search-input-placeholder"
+            "generations_translations.resource_format_template.resource_format_popup_labels.search_input_placeholder"
           )}
           selectedOption={selectedFormat}
           onSelectOption={(option) => {
@@ -59,10 +59,10 @@ const ResourceFormatForm = () => {
                 name="formatKey"
                 icon="image-outline"
                 label={t(
-                  "generations-translations.resource-format-template.form-labels.format.label"
+                  "generations_translations.resource_format_template.form_labels.format.label"
                 )}
                 placeholder={t(
-                  "generations-translations.resource-format-template.form-labels.format.placeholder"
+                  "generations_translations.resource_format_template.form_labels.format.placeholder"
                 )}
                 selectedOption={selectedFormat}
                 optionValueKey="formatLabel"
@@ -80,7 +80,7 @@ const ResourceFormatForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations-translations.resource-format-template.form-labels.btn-prev-step"
+                "generations_translations.resource_format_template.form_labels.btn_prev_step"
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
@@ -97,7 +97,7 @@ const ResourceFormatForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations-translations.resource-format-template.form-labels.btn-next-step"
+                "generations_translations.resource_format_template.form_labels.btn_next_step"
               )}
               onPress={handleSubmit}
             />

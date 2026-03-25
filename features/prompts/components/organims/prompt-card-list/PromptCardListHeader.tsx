@@ -67,7 +67,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
     <>
       <PopUp
         title={t(
-          "prompts-translations.prompt-list-labels.tag-list-labels-popup.title"
+          "prompts_translations.prompt_list_labels.tag_list_labels_popup.title"
         )}
         icon="pricetag-outline"
         isPopUpMounted={isPopUpMounted}
@@ -102,7 +102,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           optionIdkey="tagId"
           optionLabelKey="name"
           searchInputPlaceholder={t(
-            "prompts-translations.prompt-list-labels.tag-list-labels-popup.search-input-placeholder"
+            "prompts_translations.prompt_list_labels.tag_list_labels_popup.search_input_placeholder"
           )}
           selectedOption={tagFilter}
           onSelectOption={(option) => {
@@ -117,27 +117,27 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           isAuthenticated && (
             <InfoCard
               title={t(
-                "prompts-translations.prompt-list-labels.syncronization-card-labels.title"
+                "prompts_translations.prompt_list_labels.syncronization_card_labels.title"
               )}
               description={t(
-                "prompts-translations.prompt-list-labels.syncronization-card-labels.description"
+                "prompts_translations.prompt_list_labels.syncronization_card_labels.description"
               )}
               buttonData={{
                 onPress: syncPrompts,
                 icon: "sync-outline",
                 label: t(
-                  "prompts-translations.prompt-list-labels.syncronization-card-labels.btn-sync"
+                  "prompts_translations.prompt_list_labels.syncronization_card_labels.btn_sync"
                 ),
                 loading: isPending,
                 loadingMessage: t(
-                  "prompts-translations.prompt-list-labels.syncronization-card-labels.loading-text"
+                  "prompts_translations.prompt_list_labels.syncronization_card_labels.loading_text"
                 ),
               }}
             />
           )}
         <ScreenSection
-          description={t("prompts-translations.prompt-list-labels.description")}
-          title={t("prompts-translations.prompt-list-labels.title")}
+          description={t("prompts_translations.prompt_list_labels.description")}
+          title={t("prompts_translations.prompt_list_labels.title")}
           icon="bulb-outline"
         />
         <Input<{ searchPromptValue: string }>
@@ -145,7 +145,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           value={searchPromptValue}
           icon="search-outline"
           placeholder={t(
-            "prompts-translations.prompt-list-labels.search-input-placeholder"
+            "prompts_translations.prompt_list_labels.search_input_placeholder"
           )}
           onChange={(_, value) => onSearchPromptValueChange(value)}
           onClearInput={() => onSearchPromptValueChange("")}
@@ -153,7 +153,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
         <View style={promptCardListStyle.FiltersContainer}>
           <Typography
             text={t(
-              "prompts-translations.prompt-list-labels.prompt-tag-filters-labels.title"
+              "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.title"
             )}
             weight="bold"
             type="button"
@@ -170,7 +170,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
             <FilterTag
               icon="star-outline"
               label={t(
-                "prompts-translations.prompt-list-labels.prompt-tag-filters-labels.all-filter"
+                "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.all_filter"
               )}
               active={tagFilter === null}
               onPressFilter={() => onTagFilterChange(null)}

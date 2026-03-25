@@ -32,7 +32,7 @@ const ResetPassVerificationCodeForm = () => {
           <Form.Row.Item span={1}>
             <Form.InputCode<ResetPassVerificationCodeData>
               label={t(
-                "auth-translations.reset-pass-verification-code-template.form-labels.code.label"
+                "auth_translations.reset_pass_verification_code_template.form_labels.code.label"
               )}
               name="code"
               value={data.code}
@@ -55,11 +55,11 @@ const ResetPassVerificationCodeForm = () => {
             width="100%"
             icon="checkmark-done-outline"
             label={t(
-              "auth-translations.reset-pass-verification-code-template.form-labels.btn-verify-code"
+              "auth_translations.reset_pass_verification_code_template.form_labels.btn_verify_code"
             )}
             loading={validateResetPassCode.isPending}
             loadingMessage={t(
-              "auth-translations.reset-pass-verification-code-template.form-loading-messages.verifying-code-msg"
+              "auth_translations.reset_pass_verification_code_template.form_loading_messages.verifying_code_msg"
             )}
             onPress={handleSubmit}
           />
@@ -67,10 +67,10 @@ const ResetPassVerificationCodeForm = () => {
         <Form.Row.Item span={1}>
           <Form.Link
             label={t(
-              "auth-translations.reset-pass-verification-code-template.form-labels.login-link.label"
+              "auth_translations.reset_pass_verification_code_template.form_labels.login_link.label"
             )}
             linkLabel={t(
-              "auth-translations.reset-pass-verification-code-template.form-labels.login-link.link-label"
+              "auth_translations.reset_pass_verification_code_template.form_labels.login_link.link_label"
             )}
             href="/auth"
           />

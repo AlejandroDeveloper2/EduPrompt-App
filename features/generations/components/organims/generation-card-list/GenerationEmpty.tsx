@@ -24,7 +24,7 @@ const GenerationEmpty = () => {
       />
       <Typography
         text={t(
-          "generations-translations.generation-list-labels.empty-list-label"
+          "generations_translations.generation_list_labels.empty_list_label"
         )}
         weight="regular"
         type="button"

@@ -12,8 +12,8 @@ const AuthPanel = () => {
   return (
     <>
       <ScreenSection
-        title={t("marketplace-translations.auth-panel.title")}
-        description={t("marketplace-translations.auth-panel.description")}
+        title={t("marketplace_translations.auth_panel.title")}
+        description={t("marketplace_translations.auth_panel.description")}
         icon="bulb-outline"
       />
       <Button
@@ -21,10 +21,10 @@ const AuthPanel = () => {
         variant="primary"
         width={"100%"}
         onPress={() => router.navigate("/auth")}
-        label={t("settings-translations.user-profile-panel.btn-login")}
+        label={t("settings_translations.user_profile_panel.btn_login")}
       />
       <Link
-        label={t("settings-translations.user-profile-panel.signup-link.label")}
+        label={t("settings_translations.user_profile_panel.signup_link.label")}
         linkLabel={t(
           "settings-translations.user-profile-panel.signup-link.link-label",
         )}

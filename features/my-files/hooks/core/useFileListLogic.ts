@@ -96,18 +96,18 @@ const useFileListLogic = () => {
     await runBackgroundTask(task, async () => await shareManyFiles(folderId), {
       successNotification: {
         title: t(
-          "my-files-translations.shared-files-notifications-labels.success.title"
+          "my_files_translations.shared_files_notifications_labels.success.title"
         ),
         message: t(
-          "my-files-translations.shared-files-notifications-labels.success.message"
+          "my_files_translations.shared_files_notifications_labels.success.message"
         ),
       },
       errorNotification: {
         title: t(
-          "my-files-translations.shared-files-notifications-labels.error.title"
+          "my_files_translations.shared_files_notifications_labels.error.title"
         ),
         message: t(
-          "my-files-translations.shared-files-notifications-labels.error.message"
+          "my_files_translations.shared_files_notifications_labels.error.message"
         ),
       },
     });
@@ -149,7 +149,7 @@ const useFileListLogic = () => {
   useEffect(() => {
     toggleLoading(
       true,
-      t("my-files-translations.file-list-labels.loading-files-msg")
+      t("my_files_translations.file_list_labels.loading_files_msg")
     );
     loadFilesByFormat(folderId, format ?? undefined);
     toggleLoading(false, null);

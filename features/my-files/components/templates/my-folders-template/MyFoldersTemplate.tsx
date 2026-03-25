@@ -23,10 +23,10 @@ const MyFoldersTemplate = () => {
           defaultDuration={6000}
           info={{
             title: t(
-              "my-files-translations.processes-labels.share-folders-process.title"
+              "my_files_translations.processes_labels.share_folders_process.title"
             ),
             description: t(
-              "my-files-translations.processes-labels.share-folders-process.description"
+              "my_files_translations.processes_labels.share_folders_process.description"
             ),
             icon: "folder-outline",
           }}

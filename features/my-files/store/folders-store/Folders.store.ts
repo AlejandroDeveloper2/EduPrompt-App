@@ -91,7 +91,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
       key: generateToastKey(),
       variant: "primary",
       message: i18n.t(
-        "my-files-translations.module-success-messages.folder-name-updated-msg"
+        "my_files_translations.module_success_messages.folder_name_updated_msg"
       ),
     });
   },
@@ -120,7 +120,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
       key: generateToastKey(),
       variant: "primary",
       message: i18n.t(
-        "my-files-translations.module-success-messages.folders-deleted-msg"
+        "my_files_translations.module_success_messages.folders_deleted_msg"
       ),
     });
 
@@ -144,7 +144,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "neutral",
             message: i18n.t(
-              "my-files-translations.module-warning-messages.no-selected-folders-msg"
+              "my_files_translations.module_warning_messages.no_selected_folders_msg"
             ),
           });
           return;
@@ -155,7 +155,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
           key: generateToastKey(),
           variant: "primary",
           message: i18n.t(
-            "my-files-translations.module-warning-messages.preparing-folders-to-share-msg"
+            "my_files_translations.module_warning_messages.preparing_folders_to_share_msg"
           ),
         });
 
@@ -176,7 +176,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "danger",
             message: i18n.t(
-              "my-files-translations.module-error-messages.share-function-no-available-msg"
+              "my_files_translations.module_error_messages.share_function_no_available_msg"
             ),
           });
           return;
@@ -186,7 +186,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
         await Sharing.shareAsync(zipPath, {
           mimeType: "application/zip",
           dialogTitle: i18n.t(
-            "my-files-translations.folder-sharing-dialog-title"
+            "my_files_translations.folder_sharing_dialog_title"
           ),
         });
 
@@ -204,7 +204,7 @@ export const FoldersStore = create<FolderStoreType>((set, get) => ({
           key: generateToastKey(),
           variant: "danger",
           message: i18n.t(
-            "my-files-translations.module-error-messages.folder-sharing-error-msg"
+            "my_files_translations.module_error_messages.folder_sharing_error_msg"
           ),
         });
       },

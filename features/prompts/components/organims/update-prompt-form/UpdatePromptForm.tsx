@@ -45,13 +45,13 @@ const UpdatePromptForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<UpdatePromptFormData>
               label={t(
-                "prompts-translations.update-prompt-template.form-labels.title.label"
+                "prompts_translations.update_prompt_template.form_labels.title.label"
               )}
               icon="text-outline"
               name="promptTitle"
               value={data.promptTitle}
               placeholder={t(
-                "prompts-translations.update-prompt-template.form-labels.title.placeholder"
+                "prompts_translations.update_prompt_template.form_labels.title.placeholder"
               )}
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
@@ -63,13 +63,13 @@ const UpdatePromptForm = ({
           <Form.Row.Item span={1}>
             <Form.PromptInput<UpdatePromptFormData>
               label={t(
-                "prompts-translations.update-prompt-template.form-labels.prompt-text.label"
+                "prompts_translations.update_prompt_template.form_labels.prompt_text.label"
               )}
               icon="chatbox-ellipses-outline"
               name="promptText"
               value={data.promptText}
               placeholder={t(
-                "prompts-translations.update-prompt-template.form-labels.prompt-text.placeholder"
+                "prompts_translations.update_prompt_template.form_labels.prompt_text.placeholder"
               )}
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
@@ -89,11 +89,11 @@ const UpdatePromptForm = ({
             >
               name="tag"
               label={t(
-                "prompts-translations.update-prompt-template.form-labels.tag.label"
+                "prompts_translations.update_prompt_template.form_labels.tag.label"
               )}
               icon="pricetag-outline"
               placeholder={t(
-                "prompts-translations.update-prompt-template.form-labels.tag.placeholder"
+                "prompts_translations.update_prompt_template.form_labels.tag.placeholder"
               )}
               selectedOption={selectedTag}
               optionValueKey="name"
@@ -111,11 +111,11 @@ const UpdatePromptForm = ({
             width="100%"
             icon="pencil-outline"
             label={t(
-              "prompts-translations.update-prompt-template.form-labels.btn-update-prompt"
+              "prompts_translations.update_prompt_template.form_labels.btn_update_prompt"
             )}
             loading={isLoading}
             loadingMessage={t(
-              "prompts-translations.update-prompt-template.form-loading-messages.updating-prompt-msg"
+              "prompts_translations.update_prompt_template.form_loading_messages.updating_prompt_msg"
             )}
             onPress={handleSubmit}
           />
@@ -126,7 +126,7 @@ const UpdatePromptForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-              "prompts-translations.update-prompt-template.form-labels.btn-cancel"
+              "prompts_translations.update_prompt_template.form_labels.btn_cancel"
             )}
             onPress={onClosePopUp}
           />

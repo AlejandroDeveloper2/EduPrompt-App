@@ -19,7 +19,7 @@ const useSendResetPassRequestMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.reset-pass-request-sent-msg"
+          "auth_translations.module_success_messages.reset_pass_request_sent_msg"
         ),
         toastDuration: 4000,
       });

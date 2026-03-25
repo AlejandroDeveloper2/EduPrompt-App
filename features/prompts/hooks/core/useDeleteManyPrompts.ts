@@ -45,7 +45,7 @@ const useDeleteManyPrompts = () => {
       key: generateToastKey(),
       variant: "primary",
       message: t(
-        "prompts-translations.module-success-messages.prompts-deleted-msg"
+        "prompts_translations.module_success_messages.prompts_deleted_msg"
       ),
     });
   }, [

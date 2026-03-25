@@ -8,7 +8,7 @@ export const createTagSchema = z.object({
     .min(
       1,
       i18n.t(
-        "common-translations.create-tag-form.form-error-messages.invalid-tag-name-msg"
+        "common_translations.create_tag_form.form_error_messages.invalid_tag_name_msg"
       )
     ),
 });

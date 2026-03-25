@@ -51,7 +51,7 @@ const FolderList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "my-files-translations.folder-list-labels.confirm-delete-alert-labels.title"
+          "my_files_translations.folder_list_labels.confirm_delete_alert_labels.title"
         )}
         {...confirmFolderDeletePopUp}
         gesture={confirmFolderDeletePopUp.dragGesture}
@@ -59,7 +59,7 @@ const FolderList = () => {
         <Alert
           variant="danger"
           message={t(
-            "my-files-translations.folder-list-labels.confirm-delete-alert-labels.message"
+            "my_files_translations.folder_list_labels.confirm_delete_alert_labels.message"
           )}
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
@@ -73,7 +73,7 @@ const FolderList = () => {
       <PopUp
         gesture={dragGesture}
         title={t(
-          "my-files-translations.folder-list-labels.update-folder-name-popup-labels.title"
+          "my_files_translations.folder_list_labels.update_folder_name_popup_labels.title"
         )}
         icon="pencil-outline"
         onClosePopUp={onClosePopUp}
@@ -126,7 +126,7 @@ const FolderList = () => {
         ListEmptyComponent={
           <Empty
             message={t(
-              "my-files-translations.folder-list-labels.no-folders-msg"
+              "my_files_translations.folder_list_labels.no_folders_msg"
             )}
             icon="folder-outline"
           />

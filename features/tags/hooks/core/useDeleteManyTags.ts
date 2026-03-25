@@ -44,7 +44,7 @@ const useDeleteManyTags = () => {
     showToast({
       key: generateToastKey(),
       variant: "primary",
-      message: t("tags-translations.module-success-messages.tags-deleted-msg"),
+      message: t("tags_translations.module_success_messages.tags_deleted_msg"),
     });
   }, [
     isAuthenticated,

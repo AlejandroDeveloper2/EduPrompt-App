@@ -67,7 +67,7 @@ const useCreateResource = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "resources-translations.module-success-messages.resource-created-msg"
+          "resources_translations.module_success_messages.resource_created_msg"
         ),
       });
     },

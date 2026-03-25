@@ -44,7 +44,7 @@ const useUpdateTag = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: t("tags-translations.module-success-messages.tag-updated-msg"),
+        message: t("tags_translations.module_success_messages.tag_updated_msg"),
       });
     },
     [

@@ -102,7 +102,7 @@ function DropdownOptionList<T>({
       }
       ListEmptyComponent={
         <Empty
-          message={t("common-translations.dropdown-list-labels.empty-list-msg")}
+          message={t("common_translations.dropdown_list_labels.empty_list_msg")}
           icon="close-circle-outline"
         />
       }

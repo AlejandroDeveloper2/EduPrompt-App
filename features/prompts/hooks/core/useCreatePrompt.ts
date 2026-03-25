@@ -65,7 +65,7 @@ const useCreatePrompt = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "prompts-translations.module-success-messages.prompt-created-msg"
+          "prompts_translations.module_success_messages.prompt_created_msg"
         ),
       });
     },

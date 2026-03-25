@@ -8,7 +8,7 @@ export const countryFormSchema = z.object({
     .min(
       1,
       i18n.t(
-        "generations-translations.country-template.form-error-messages.required-country-msg"
+        "generations_translations.country_template.form_error_messages.required_country_msg"
       )
     ),
 });

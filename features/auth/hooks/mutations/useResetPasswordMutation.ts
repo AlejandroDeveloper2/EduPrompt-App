@@ -24,7 +24,7 @@ const useResetPasswordMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.password-updated-msg"
+          "auth_translations.module_success_messages.password_updated_msg"
         ),
         toastDuration: 4000,
       });
@@ -41,7 +41,7 @@ const useResetPasswordMutation = () => {
         key: generateToastKey(),
         variant: "danger",
         message: t(
-          "auth-translations.module-error-messages.missing-user-id-msg"
+          "auth_translations.module_error_messages.missing_user_id_msg"
         ),
         toastDuration: 4000,
       });

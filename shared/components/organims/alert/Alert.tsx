@@ -84,7 +84,7 @@ const Alert = ({
             icon="close-outline"
             variant="neutral"
             width="100%"
-            label={t("common-translations.alert-labels.btn-cancel")}
+            label={t("common_translations.alert_labels.btn_cancel")}
             onPress={onCancel}
           />
         </View>

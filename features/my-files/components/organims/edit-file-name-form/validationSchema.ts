@@ -7,7 +7,7 @@ export const editFileSchema = z.object({
     .string()
     .min(1, {
       message: i18n.t(
-        "my-files-translations.edit-file-name-template.form-error-messages.required-file-name-msg"
+        "my_files_translations.edit_file_name_template.form_error_messages.required_file_name_msg"
       ),
     }),
 });

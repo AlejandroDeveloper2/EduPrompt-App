@@ -52,7 +52,7 @@ const Toolbar = () => {
 
       <Typography
         text={`${t(
-          "common-translations.toolbar-labels.selected-elements-label"
+          "common_translations.toolbar_labels.selected_elements_label"
         )} (${selectionCount})`}
         weight="regular"
         type="button"

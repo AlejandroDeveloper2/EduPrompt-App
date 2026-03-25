@@ -48,7 +48,7 @@ const useUserSyncMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "settings-translations.module-success-messages.user-profile-synced-msg"
+          "settings_translations.module_success_messages.user_profile_synced_msg"
         ),
       });
     },

@@ -81,7 +81,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
       key: generateToastKey(),
       variant: "primary",
       message: i18n.t(
-        "my-files-translations.module-success-messages.file-name-updated-msg"
+        "my_files_translations.module_success_messages.file_name_updated_msg"
       ),
     });
   },
@@ -130,7 +130,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
       key: generateToastKey(),
       variant: "primary",
       message: i18n.t(
-        "my-files-translations.module-success-messages.files-deleted-msg"
+        "my_files_translations.module_success_messages.files_deleted_msg"
       ),
     });
 
@@ -150,7 +150,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "danger",
             message: i18n.t(
-              "my-files-translations.module-error-messages.folder-not-found-msg"
+              "my_files_translations.module_error_messages.folder_not_found_msg"
             ),
           });
           return;
@@ -165,7 +165,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "neutral",
             message: i18n.t(
-              "my-files-translations.module-warning-messages.no-selected-files-msg"
+              "my_files_translations.module_warning_messages.no_selected_files_msg"
             ),
           });
           return;
@@ -175,7 +175,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
           key: generateToastKey(),
           variant: "primary",
           message: i18n.t(
-            "my-files-translations.module-warning-messages.preparing-files-to-share-msg"
+            "my_files_translations.module_warning_messages.preparing_files_to_share_msg"
           ),
         });
 
@@ -197,7 +197,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
             key: generateToastKey(),
             variant: "danger",
             message: i18n.t(
-              "my-files-translations.module-error-messages.share-function-no-available-msg"
+              "my_files_translations.module_error_messages.share_function_no_available_msg"
             ),
           });
           return;
@@ -206,7 +206,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
         await Sharing.shareAsync(zipPath, {
           mimeType: "application/zip",
           dialogTitle: i18n.t(
-            "my-files-translations.file-sharing-dialog-title"
+            "my_files_translations.file_sharing_dialog_title"
           ),
         });
 
@@ -222,7 +222,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
           key: generateToastKey(),
           variant: "danger",
           message: i18n.t(
-            "my-files-translations.module-error-messages.file-sharing-error-msg"
+            "my_files_translations.module_error_messages.file_sharing_error_msg"
           ),
         });
       },
@@ -309,7 +309,7 @@ export const FilesStore = create<FileStoreType>((set, get) => ({
       key: generateToastKey(),
       variant: "primary",
       message: i18n.t(
-        "my-files-translations.module-success-messages.files-moved-msg"
+        "my_files_translations.module_success_messages.files_moved_msg"
       ),
     });
 

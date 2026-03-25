@@ -66,7 +66,7 @@ const OnboardingDescription = ({
           {currentStep.stepId !== "1" && (
             <Button
               icon="chevron-back-outline"
-              label={t("onboarding-translations.step-options-labels.btn-back")}
+              label={t("onboarding_translations.step_options_labels.btn_back")}
               width="100%"
               variant="neutral"
               style={{ flex: size === "mobile" ? undefined : 1 }}
@@ -81,15 +81,15 @@ const OnboardingDescription = ({
             }
             label={
               currentStep.stepId === "5"
-                ? t("onboarding-translations.step-options-labels.btn-start")
-                : t("onboarding-translations.step-options-labels.btn-next")
+                ? t("onboarding_translations.step_options_labels.btn_start")
+                : t("onboarding_translations.step_options_labels.btn_next")
             }
             width="100%"
             variant="primary"
             style={{ flex: size === "mobile" ? undefined : 1 }}
             loading={isCompleting}
             loadingMessage={t(
-              "onboarding-translations.loading-messages.completing-onboarding-msg"
+              "onboarding_translations.loading_messages.completing_onboarding_msg"
             )}
             disabled={isCompleting}
             onPress={

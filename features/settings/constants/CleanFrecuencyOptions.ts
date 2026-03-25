@@ -8,21 +8,21 @@ export const CLEAN_FRECUENCY_OPTIONS = (
   {
     key: "2-days",
     frecuency: 2,
-    label: t("settings-translations.frecuency-list-options-labels.2-days"),
+    label: t("settings_translations.frecuency_list_options_labels.2_days"),
   },
   {
     key: "5-days",
     frecuency: 5,
-    label: t("settings-translations.frecuency-list-options-labels.5-days"),
+    label: t("settings_translations.frecuency_list_options_labels.5_days"),
   },
   {
     key: "15-days",
     frecuency: 15,
-    label: t("settings-translations.frecuency-list-options-labels.15-days"),
+    label: t("settings_translations.frecuency_list_options_labels.15_days"),
   },
   {
     key: "30-days",
     frecuency: 30,
-    label: t("settings-translations.frecuency-list-options-labels.30-days"),
+    label: t("settings_translations.frecuency_list_options_labels.30_days"),
   },
 ];

@@ -55,13 +55,13 @@ const SubjectForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<SubjectFormData>
               label={t(
-                "generations-translations.subject-template.form-labels.subject.label"
+                "generations_translations.subject_template.form_labels.subject.label"
               )}
               icon="book-outline"
               name="subjectName"
               value={data.subjectName}
               placeholder={t(
-                "generations-translations.subject-template.form-labels.subject.placeholder"
+                "generations_translations.subject_template.form_labels.subject.placeholder"
               )}
               errorMessage={getFieldErrors("subjectName")?.join(", ")}
               onChange={handleChange}
@@ -77,7 +77,7 @@ const SubjectForm = () => {
             width="100%"
             icon="chevron-back-outline"
             label={t(
-              "generations-translations.subject-template.form-labels.btn-prev-step"
+              "generations_translations.subject_template.form_labels.btn_prev_step"
             )}
             onPress={() => {
               if (!currentIaGeneration) return;
@@ -94,7 +94,7 @@ const SubjectForm = () => {
             width="100%"
             icon="chevron-forward-outline"
             label={t(
-              "generations-translations.subject-template.form-labels.btn-next-step"
+              "generations_translations.subject_template.form_labels.btn_next_step"
             )}
             onPress={handleSubmit}
           />

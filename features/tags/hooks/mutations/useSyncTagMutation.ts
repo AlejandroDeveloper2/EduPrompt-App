@@ -55,7 +55,7 @@ const useSyncTagMutation = () => {
       showToast({
         key: generateToastKey(),
         variant: "primary",
-        message: t("tags-translations.module-success-messages.tags-synced-msg"),
+        message: t("tags_translations.module_success_messages.tags_synced_msg"),
       });
     },
     onError: (error, _newTags, context) => {

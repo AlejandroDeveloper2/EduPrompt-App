@@ -55,7 +55,7 @@ export const UserNotificationsStore = create<UserNotificationStoreType>()(
         } catch (error: unknown) {
           showErrorToast(
             i18n.t(
-              "notifications-translations.create-notifications-messages.notifications-error-msg"
+              "notifications_translations.create_notifications_messages.notifications_error_msg"
             ),
             error
           );

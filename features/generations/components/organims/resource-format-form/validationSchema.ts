@@ -5,7 +5,7 @@ import { i18n } from "@/core/store";
 export const resourceFormatFormSchema = z.object({
   formatKey: z.enum(["text", "image", "chart", "table"], {
     message: i18n.t(
-      "generations-translations.resource-format-template.form-error-messages.invalid-format-msg"
+      "generations_translations.resource_format_template.form_error_messages.invalid_format_msg"
     ),
   }),
 });

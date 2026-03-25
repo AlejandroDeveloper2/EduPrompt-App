@@ -7,7 +7,7 @@ export const SELECTION_MODE_ACTIONS = (deleteTags: () => void): NavOption[] => [
     icon: "trash-bin-outline",
     onPress: deleteTags,
     label: i18n.t(
-      "tags-translations.tag-list-labels.selection-options-labels.delete-tags"
+      "tags_translations.tag_list_labels.selection_options_labels.delete_tags"
     ),
   },
 ];

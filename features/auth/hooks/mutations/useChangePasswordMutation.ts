@@ -21,7 +21,7 @@ const useChangePasswordMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth-translations.module-success-messages.password-changed-msg"
+          "auth_translations.module_success_messages.password_changed_msg"
         ),
       });
     },

@@ -21,13 +21,13 @@ const MarketplaceTemplate = () => {
           description={t(
             "marketplace-translations.packages-section.description",
           )}
-          title={t("marketplace-translations.packages-section.title")}
+          title={t("marketplace_translations.packages_section.title")}
           icon="bag-outline"
         />
         <TokenPackageList />
         <ScreenSection
-          description={t("marketplace-translations.plans-section.description")}
-          title={t("marketplace-translations.plans-section.title")}
+          description={t("marketplace_translations.plans_section.description")}
+          title={t("marketplace_translations.plans_section.title")}
           icon="star-outline"
         />
         <SubscriptionPlanList />

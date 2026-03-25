@@ -69,7 +69,7 @@ const TokenPackageCard = ({
           label={
             buttonText
               ? buttonText
-              : `${t("marketplace-translations.product-card-buy-btn-label")} ${price}`
+              : `${t("marketplace_translations.product_card_buy_btn_label")} ${price}`
           }
           icon={buttonIcon ?? "cart-outline"}
           width="100%"

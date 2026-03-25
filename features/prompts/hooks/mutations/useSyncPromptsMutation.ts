@@ -58,7 +58,7 @@ const useSyncPromptsMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "prompts-translations.module-success-messages.prompts-synced-msg"
+          "prompts_translations.module_success_messages.prompts_synced_msg"
         ),
       });
     },

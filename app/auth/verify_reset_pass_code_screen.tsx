@@ -7,7 +7,7 @@ export default function VerifyResetPassCodeScreen() {
 
   return (
     <AuthTemplate
-      title={t("auth-translations.reset-pass-verification-code-template.title")}
+      title={t("auth_translations.reset_pass_verification_code_template.title")}
       titleIcon="pencil-outline"
       form="reset-pass-verification-code"
     />

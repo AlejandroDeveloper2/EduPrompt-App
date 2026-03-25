@@ -119,7 +119,7 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
               key: generateToastKey(),
               variant: "danger",
               message: `${i18n.t(
-                "prompts-translations.module-error-messages.prompt-not-found-msg"
+                "prompts_translations.module_error_messages.prompt_not_found_msg"
               )} ${promptId}`,
             });
             return null;
@@ -156,7 +156,7 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
 
           if (updatedPromptRow.length === 0) {
             const errorMsg = `${i18n.t(
-              "prompts-translations.module-error-messages.prompt-not-found-msg"
+              "prompts_translations.module_error_messages.prompt_not_found_msg"
             )} ${promptId}`;
             showToast({
               key: generateToastKey(),
@@ -201,7 +201,7 @@ export const OfflinePromptsStore = create<OfflinePromptsStoreType>(
               key: generateToastKey(),
               variant: "danger",
               message: i18n.t(
-                "prompts-translations.module-error-messages.some-prompt-not-found-msg"
+                "prompts_translations.module_error_messages.some_prompt_not_found_msg"
               ),
             });
             return;

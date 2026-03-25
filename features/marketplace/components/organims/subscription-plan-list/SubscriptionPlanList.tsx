@@ -27,7 +27,7 @@ const SubscriptionPlanList = () => {
   return (
     <>
       <PopUp
-        title={t("marketplace-translations.plans-section.auth-popup-title")}
+        title={t("marketplace_translations.plans_section.auth_popup_title")}
         icon="log-in-outline"
         isPopUpMounted={isPopUpMounted}
         gesture={dragGesture}

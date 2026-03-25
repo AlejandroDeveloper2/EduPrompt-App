@@ -44,13 +44,13 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
           <Form.Row.Item span={1}>
             <Form.Input<CreateTagData>
               label={t(
-                "common-translations.create-tag-form.form-labels.name.label"
+                "common_translations.create_tag_form.form_labels.name.label"
               )}
               icon="pricetag-outline"
               name="name"
               value={data.name}
               placeholder={t(
-                "common-translations.create-tag-form.form-labels.name.placeholder"
+                "common_translations.create_tag_form.form_labels.name.placeholder"
               )}
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
@@ -69,10 +69,10 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
             onPress={handleSubmit}
             loading={isLoading}
             loadingMessage={t(
-              "common-translations.create-tag-form.form-loading-messages.adding-tag-msg"
+              "common_translations.create_tag_form.form_loading_messages.adding_tag_msg"
             )}
             label={t(
-              "common-translations.create-tag-form.form-labels.btn-add-tag"
+              "common_translations.create_tag_form.form_labels.btn_add_tag"
             )}
           />
         </Form.Row.Item>

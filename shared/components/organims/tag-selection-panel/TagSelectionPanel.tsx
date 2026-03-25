@@ -30,7 +30,7 @@ const TagSelectionPanel = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "common-translations.tag-selection-panel-labels.search-input-placeholder"
+          "common_translations.tag_selection_panel_labels.search_input_placeholder"
         )}
         onChange={(_, value) => onSearchChange(value)}
         onClearInput={() => onSearchChange("")}

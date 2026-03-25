@@ -26,10 +26,10 @@ const MyResourcesTemplate = () => {
             defaultDuration={6000}
             info={{
               title: t(
-                "resources-translations.processes-labels.download-resources-process.title"
+                "resources_translations.processes_labels.download_resources_process.title"
               ),
               description: t(
-                "resources-translations.processes-labels.download-resources-process.description"
+                "resources_translations.processes_labels.download_resources_process.description"
               ),
               icon: "download-outline",
             }}

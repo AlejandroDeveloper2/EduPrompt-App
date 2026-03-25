@@ -7,7 +7,7 @@ export const editFolderSchema = z.object({
     .string()
     .min(1, {
       message: i18n.t(
-        "my-files-translations.edit-folder-name-template.form-error-messages.required-folder-name-msg"
+        "my_files_translations.edit_folder_name_template.form_error_messages.required_folder_name_msg"
       ),
     }),
 });

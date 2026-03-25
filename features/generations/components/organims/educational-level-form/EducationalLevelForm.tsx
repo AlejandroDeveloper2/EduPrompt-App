@@ -35,7 +35,7 @@ const EducationalLevelForm = () => {
       <PopUp
         icon="school-outline"
         title={t(
-          "generations-translations.educational-level-template.educational-level-popup-labels.title"
+          "generations_translations.educational_level_template.educational_level_popup_labels.title"
         )}
         isPopUpMounted={educationalLevelPopUp.isPopUpMounted}
         gesture={educationalLevelPopUp.dragGesture}
@@ -47,7 +47,7 @@ const EducationalLevelForm = () => {
           optionIdkey="educationalLevelId"
           optionLabelKey="educationalLevelLabel"
           searchInputPlaceholder={t(
-            "generations-translations.educational-level-template.educational-level-popup-labels.search-input-placeholder"
+            "generations_translations.educational_level_template.educational_level_popup_labels.search_input_placeholder"
           )}
           selectedOption={selectedEducationalLevel}
           onSelectOption={(option) => {
@@ -59,7 +59,7 @@ const EducationalLevelForm = () => {
       <PopUp
         icon="school-outline"
         title={t(
-          "generations-translations.educational-level-template.target-grade-popup-labels.title"
+          "generations_translations.educational_level_template.target_grade_popup_labels.title"
         )}
         isPopUpMounted={gradePopUp.isPopUpMounted}
         gesture={gradePopUp.dragGesture}
@@ -71,7 +71,7 @@ const EducationalLevelForm = () => {
           optionIdkey="gradeLevelId"
           optionLabelKey="gradeLevelLabel"
           searchInputPlaceholder={t(
-            "generations-translations.educational-level-template.target-grade-popup-labels.search-input-placeholder"
+            "generations_translations.educational_level_template.target_grade_popup_labels.search_input_placeholder"
           )}
           selectedOption={selectedGrade}
           onSelectOption={(option) => {
@@ -89,10 +89,10 @@ const EducationalLevelForm = () => {
                 name="educationalLevelId"
                 icon="school-outline"
                 label={t(
-                  "generations-translations.educational-level-template.form-labels.target-educational-level.label"
+                  "generations_translations.educational_level_template.form_labels.target_educational_level.label"
                 )}
                 placeholder={t(
-                  "generations-translations.educational-level-template.form-labels.target-educational-level.placeholder"
+                  "generations_translations.educational_level_template.form_labels.target_educational_level.placeholder"
                 )}
                 selectedOption={selectedEducationalLevel}
                 optionValueKey="educationalLevelLabel"
@@ -109,10 +109,10 @@ const EducationalLevelForm = () => {
                   name="gradeLevelId"
                   icon="school-outline"
                   label={t(
-                    "generations-translations.educational-level-template.form-labels.grade.label"
+                    "generations_translations.educational_level_template.form_labels.grade.label"
                   )}
                   placeholder={t(
-                    "generations-translations.educational-level-template.form-labels.grade.placeholder"
+                    "generations_translations.educational_level_template.form_labels.grade.placeholder"
                   )}
                   selectedOption={selectedGrade}
                   optionValueKey="gradeLevelLabel"
@@ -133,7 +133,7 @@ const EducationalLevelForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations-translations.educational-level-template.form-labels.btn-prev-step"
+                "generations_translations.educational_level_template.form_labels.btn_prev_step"
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
@@ -150,7 +150,7 @@ const EducationalLevelForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations-translations.educational-level-template.form-labels.btn-next-step"
+                "generations_translations.educational_level_template.form_labels.btn_next_step"
               )}
               onPress={handleSubmit}
             />

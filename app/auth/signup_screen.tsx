@@ -7,7 +7,7 @@ export default function SignupScreen() {
 
   return (
     <AuthTemplate
-      title={t("auth-translations.sign-up-template.title")}
+      title={t("auth_translations.sign_up_template.title")}
       titleIcon="add-outline"
       form="signup"
       hasContiueWithoutAccount

@@ -39,7 +39,7 @@ const FileNavigator = () => {
         onPress={() => router.navigate("/(tabs)/files_screen")}
       >
         <Typography
-          text={t("my-files-translations.file-navigator-labels.folder-tab")}
+          text={t("my_files_translations.file_navigator_labels.folder_tab")}
           weight="regular"
           type="paragraph"
           textAlign="center"
@@ -56,7 +56,7 @@ const FileNavigator = () => {
         <Typography
           text={
             folder?.folderName ??
-            t("my-files-translations.file-navigator-labels.file-tab")
+            t("my_files_translations.file_navigator_labels.file_tab")
           }
           weight="regular"
           type="paragraph"

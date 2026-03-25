@@ -29,9 +29,9 @@ const GenerationListHeader = ({
     <View style={generationCardListStyle.ListHeaderContainer}>
       <ScreenSection
         description={t(
-          "generations-translations.generation-list-labels.description"
+          "generations_translations.generation_list_labels.description"
         )}
-        title={t("generations-translations.generation-list-labels.title")}
+        title={t("generations_translations.generation_list_labels.title")}
         icon="bulb-outline"
       />
       <Input<{ searchValue: string }>
@@ -39,7 +39,7 @@ const GenerationListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "generations-translations.generation-list-labels.search-input-placeholder"
+          "generations_translations.generation_list_labels.search_input_placeholder"
         )}
         onChange={(_, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
