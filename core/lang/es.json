@@ -1149,7 +1149,8 @@
     },
     "module_success_messages": {
       "package_order_completed_msg": "Tu pago fue éxitoso, has adquirido el paquete de %{amount} tokens.",
-      "plan_order_completed_msg": "Tu pago fue éxitoso, te has suscrito al plan %{plan}."
+      "plan_order_completed_msg": "Tu pago fue éxitoso, te has suscrito al plan %{plan}.",
+      "plan_cancelled_msg": "Tu suscripción ha sido cancelada, puedes reactivarla cuando quieras."
     },
     "module_error_messages": {
       "cancel_payment_process_msg": "Cancelaste el proceso de pago.",

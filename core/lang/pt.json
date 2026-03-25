@@ -1148,7 +1148,8 @@
       },
       "module_success_messages": {
         "package_order_completed_msg": "Seu pagamento foi bem-sucedido, você adquiriu o pacote de %{amount} tokens.",
-        "plan_order_completed_msg": "Seu pagamento foi bem-sucedido, você assinou o plano %{plan}."
+        "plan_order_completed_msg": "Seu pagamento foi bem-sucedido, você assinou o plano %{plan}.",
+        "plan_cancelled_msg": "Sua assinatura foi cancelada; você pode reativá-la quando quiser."
       },
       "module_error_messages": {
         "cancel_payment_process_msg": "Você cancelou o processo de pagamento.",

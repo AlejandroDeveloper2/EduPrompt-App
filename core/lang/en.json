@@ -1149,7 +1149,8 @@
     },
     "module_success_messages": {
       "package_order_completed_msg": "Your payment was successful, you have purchased the %{amount} token package.",
-      "plan_order_completed_msg": "Your payment was successful, you have subscribed to the %{plan} plan."
+      "plan_order_completed_msg": "Your payment was successful, you have subscribed to the %{plan} plan.",
+      "plan_cancelled_msg": "Your subscription has been canceled, but you can reactivate it at any time."
     },
     "module_error_messages": {
       "cancel_payment_process_msg": "You cancelled the payment process.",
