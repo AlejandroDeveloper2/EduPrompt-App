@@ -41,7 +41,7 @@ const TokenPackageList = () => {
       {isPackagesLoading ? (
         <LoadingTextIndicator
           message={t(
-        "marketplace_translations.packages_section.loading_packages_msg",
+            "marketplace_translations.packages_section.loading_packages_msg",
           )}
           color={AppColors.primary[400]}
         />
@@ -56,7 +56,7 @@ const TokenPackageList = () => {
             loading={{
               isLoading: isProccesingOrder,
               message: t(
-        "marketplace_translations.packages_section.processing_purchase_msg",
+                "marketplace_translations.packages_section.processing_purchase_msg",
               ),
             }}
             onBuyPackage={() =>
@@ -76,9 +76,9 @@ const TokenPackageList = () => {
         ))
       ) : (
         <Empty
-          message={
-            "Conectate a internet para visualizar los paquetes de tokens.."
-          }
+          message={t(
+            "marketplace_translations.packages_section.wifi_connection_msg",
+          )}
           icon="wifi-outline"
         />
       )}

@@ -76,7 +76,7 @@ class JobScheduler {
 
     for (const job of this.jobs.values()) {
       const lastRunRaw = AsyncStorage.getItemSync(
-        `${ASYNC_STORAGE_KEYS.jobLastRun}:${job.id}`
+        `${ASYNC_STORAGE_KEYS.jobLastRun}:${job.id}`,
       );
 
       const lastRun = lastRunRaw ? new Date(JSON.parse(lastRunRaw)) : null;
@@ -87,7 +87,7 @@ class JobScheduler {
         await job.run();
         AsyncStorage.setItemSync(
           `${ASYNC_STORAGE_KEYS.jobLastRun}:${job.id}`,
-          JSON.stringify(now)
+          JSON.stringify(now),
         );
       }
     }

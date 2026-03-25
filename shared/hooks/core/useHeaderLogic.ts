@@ -38,10 +38,11 @@ const useHeaderLogic = () => {
   const isPremium = useCheckPremium();
 
   const thereAreNewUnreadNotifications = useMemo(() => {
-    const mixedNotifications = systemNotifications.concat(userNotifications);
     return (
-      mixedNotifications.length > 0 &&
-      mixedNotifications.some((n) => n.read === false)
+      (systemNotifications.length > 0 &&
+        systemNotifications.some((n) => n.read === false)) ||
+      (userNotifications.length > 0 &&
+        userNotifications.some((n) => n.read === false))
     );
   }, [systemNotifications, userNotifications]);
 

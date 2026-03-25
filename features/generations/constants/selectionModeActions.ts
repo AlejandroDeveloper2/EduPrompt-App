@@ -10,16 +10,16 @@ export const SELECTION_MODE_ACTIONS = (
     navItemId: "action-1",
     icon: "trash-bin-outline",
     onPress: deleteIaGeneration,
-    label: t(
-        "generations_translations.generation_list_labels.selection_options_labels.delete_generations",
+    label: i18n.t(
+      "generations_translations.generation_list_labels.selection_options_labels.delete_generations",
     ),
   },
   {
     navItemId: "action-2",
     icon: "reload-outline",
     onPress: reinitGeneration,
-    label: t(
-        "generations_translations.generation_list_labels.selection_options_labels.reinit_generations",
+    label: i18n.t(
+      "generations_translations.generation_list_labels.selection_options_labels.reinit_generations",
     ),
   },
 ];

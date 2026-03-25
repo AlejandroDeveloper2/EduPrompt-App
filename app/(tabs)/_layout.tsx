@@ -82,8 +82,6 @@ export default function TabLayout() {
     registerJobs();
     jobScheduler.init();
 
-    if (!isFetched) return;
-
     const timer = setTimeout(() => {
       jobScheduler.start();
     }, 100);

@@ -14,4 +14,5 @@ export const initialState: UserStats = {
   sync: false,
   userName: "",
   email: "",
+  hasSubscription: false,
 };

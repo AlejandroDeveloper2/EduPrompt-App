@@ -7,7 +7,7 @@ export const createResourceSchema = z.object({
     .string()
     .min(
       1,
-      t(
+      i18n.t(
         "generations_translations.save_resource_form.form_error_messages.required_title_msg",
       ),
     ),
@@ -15,7 +15,7 @@ export const createResourceSchema = z.object({
     .string()
     .min(
       1,
-      t(
+      i18n.t(
         "generations_translations.save_resource_form.form_error_messages.required_group_tag_msg",
       ),
     ),

@@ -1104,7 +1104,8 @@
       "title": "Packages",
       "description": "Get your Edu Prompt tokens to generate your educational resources. Choose the package you like the most.",
       "loading_packages_msg": "Loading packages...",
-      "processing_purchase_msg": "Processing purchase..."
+      "processing_purchase_msg": "Processing purchase...",
+      "wifi_connection_msg": "Go online to view the token packages.."
     },
     "plans_section": {
       "title": "Subscription Plan",

@@ -1103,7 +1103,8 @@
         "title": "Pacotes",
         "description": "Adquira seus tokens Edu Prompt para gerar seus recursos educacionais. Escolha o pacote que mais gostar.",
         "loading_packages_msg": "Carregando pacotes...",
-        "processing_purchase_msg": "Processando compra..."
+        "processing_purchase_msg": "Processando compra...",
+        "wifi_connection_msg": "Conecte-se à internet para visualizar os pacotes de tokens."
       },
       "plans_section": {
         "title": "Plano de assinatura",
