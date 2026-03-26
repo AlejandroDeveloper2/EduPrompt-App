@@ -7,15 +7,11 @@
     "icon": "./assets/images/icon.png",
     "scheme": "edupromptapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "enableProguardInReleaseBuilds": true,
-      "build": {
-        "splitAbi": true
-      },
       "intentFilters": [
         {
           "action": "VIEW",

@@ -53,6 +53,7 @@
     "i18n-js": "^4.5.3",
     "jszip": "^3.10.1",
     "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-native": "0.81.5",
     "react-native-gesture-handler": "~2.28.0",
     "react-native-markdown-display": "^7.0.2",
