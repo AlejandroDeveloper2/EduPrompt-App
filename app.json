@@ -7,11 +7,15 @@
     "icon": "./assets/images/icon.png",
     "scheme": "edupromptapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "enableProguardInReleaseBuilds": true,
+      "build": {
+        "splitAbi": true
+      },
       "intentFilters": [
         {
           "action": "VIEW",
@@ -27,11 +31,7 @@
       "edgeToEdgeEnabled": true,
       "package": "com.diazcore.eduprompt"
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
+    "web": {},
     "plugins": [
       "expo-router",
       [
@@ -46,8 +46,8 @@
       [
         "expo-sqlite",
         {
-          "enableFTS": true,
-          "useSQLCipher": true,
+          "enableFTS": false,
+          "useSQLCipher": false,
           "android": {
             "enableFTS": false,
             "useSQLCipher": false
@@ -67,7 +67,7 @@
           "icon": "./assets/images/adaptive-icon.png",
           "color": "#10B981",
           "defaultChannel": "default",
-          "sounds": ["./assets/sounds/notification_sound.wav"],
+          "sounds": ["./assets/sounds/notification_sound.mp3"],
           "enableBackgroundRemoteNotifications": false
         }
       ],
