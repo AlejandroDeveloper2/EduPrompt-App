@@ -3,7 +3,7 @@ export { default as Checkbox } from "./checkbox/Checkbox";
 export { default as CustomStatusBar } from "./custom-statusbar/CustomStatusbar";
 export { default as ErrorMessage } from "./error-message/ErrorMessage";
 export { Ionicon, MaterialIcon } from "./icon/Icon";
-export { default as Link } from "./link/Link";
+export { ExternalLink, default as Link } from "./link/Link";
 export { default as LoadPercentage } from "./load-percentage/LoadPercentage";
 export { default as LoaderBar } from "./loader-bar/LoaderBar";
 export { default as Logo, LogoV2 } from "./logo/Logo";

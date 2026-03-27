@@ -1,19 +1,7 @@
-/** Configuración de variables de entorno */
-const ENV = process.env.APP_ENV || process.env.NODE_ENV || "development";
-const isProduction = ENV === "production";
-
 export const config = {
-  eduPromptApiUrl: isProduction
-    ? process.env.EXPO_PUBLIC_PRODUCTION_EDU_PROMPT_API || ""
-    : process.env.EXPO_PUBLIC_DEVELOPMENT_EDU_PROMPT_API || "",
-
-  eduPromptSocketUrl: isProduction
-    ? process.env.EXPO_PUBLIC_PRODUCTION_EDU_PROMPT_SOCKET || ""
-    : process.env.EXPO_PUBLIC_DEVELOPMENT_EDU_PROMPT_SOCKET || "",
-
-  nextjsUrl: isProduction
-    ? process.env.EXPO_PUBLIC_PRODUCTION_NEXTJS_URL || ""
-    : process.env.EXPO_PUBLIC_NEXTJS_URL || "",
+  eduPromptApiUrl: process.env.EXPO_PUBLIC_EDU_PROMPT_API || "",
+  eduPromptSocketUrl: process.env.EXPO_PUBLIC_EDU_PROMPT_SOCKET || "",
+  nextjsUrl: process.env.EXPO_PUBLIC_NEXTJS_URL || "",
 
   tokenDailyRewardAmount:
     process.env.EXPO_PUBLIC_TOKEN_DAILY_REWARD_AMOUNT || "0",
@@ -32,4 +20,7 @@ export const config = {
   ),
 
   paypalClientId: process.env.EXPO_PUBLIC_PAYPAL_CLIENT_ID || "",
+
+  isDevelopment: process.env.EXPO_PUBLIC_APP_ENV === "development",
+  isProduction: process.env.EXPO_PUBLIC_APP_ENV === "production",
 } as const;

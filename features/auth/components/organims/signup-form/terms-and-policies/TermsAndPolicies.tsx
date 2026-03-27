@@ -1,10 +1,16 @@
 import { View } from "react-native";
 
+import { config } from "@/core/config/enviromentVariables";
+
 import { useTranslations } from "@/shared/hooks/core";
 
 import { SignupData } from "../validationSchema";
 
-import { Checkbox, ErrorMessage, Link } from "@/shared/components/atoms";
+import {
+  Checkbox,
+  ErrorMessage,
+  ExternalLink,
+} from "@/shared/components/atoms";
 
 import { TermsAndPoliciesStyle } from "./TermsAndPolicies.style";
 
@@ -31,25 +37,25 @@ const TermsAndPolicies = ({
           }
         />
         <View>
-          <Link
+          <ExternalLink
             alignment="left"
             label={t(
-              "auth_translations.sign_up_template.form_labels.terms_policies_links.first.label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.first.label",
             )}
             linkLabel={t(
-              "auth_translations.sign_up_template.form_labels.terms_policies_links.first.link_label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.first.link_label",
             )}
-            href="/auth"
+            href={config.nextjsUrl + "/legal#privacy"}
           />
-          <Link
+          <ExternalLink
             alignment="left"
             label={t(
-              "auth_translations.sign_up_template.form_labels.terms_policies_links.second.label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.second.label",
             )}
             linkLabel={t(
-              "auth_translations.sign_up_template.form_labels.terms_policies_links.second.link_label"
+              "auth_translations.sign_up_template.form_labels.terms_policies_links.second.link_label",
             )}
-            href="/auth"
+            href={config.nextjsUrl + "/legal#terms"}
           />
         </View>
       </View>

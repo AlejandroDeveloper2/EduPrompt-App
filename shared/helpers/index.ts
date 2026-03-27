@@ -9,4 +9,5 @@ export * from "./getIsSelectedOption";
 export * from "./getMainNavigationRoutes";
 export * from "./getSubprocessIcon";
 export * from "./getToastIcon";
+export * from "./openLink";
 export * from "./renderHtmlPdf";

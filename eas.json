@@ -17,6 +17,7 @@
     },
     "preview": {
       "distribution": "internal",
+      "developmentClient": false,
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
@@ -26,21 +27,14 @@
       }
     },
     "production": {
-      "distribution": "store",
       "developmentClient": false,
+      "distribution": "internal",
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
       },
       "env": {
         "APP_ENV": "production"
-      }
-    }
-  },
-  "submit": {
-    "production": {
-      "android": {
-        "serviceAccountKeyPath": "./google-service-account.json",
-        "track": "internal"
       }
     }
   }
