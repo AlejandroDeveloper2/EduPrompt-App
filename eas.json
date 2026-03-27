@@ -29,6 +29,7 @@
     "production": {
       "developmentClient": false,
       "distribution": "internal",
+      "environment": "preview",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
