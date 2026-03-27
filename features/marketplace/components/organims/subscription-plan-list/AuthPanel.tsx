@@ -1,6 +1,9 @@
 import { useRouter } from "expo-router";
+import { View } from "react-native";
 
 import { useTranslations } from "@/shared/hooks/core";
+
+import { Spacing } from "@/shared/styles";
 
 import { Link, ScreenSection } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
@@ -10,9 +13,15 @@ const AuthPanel = () => {
   const { t } = useTranslations();
 
   return (
-    <>
+    <View
+      style={{
+        width: "100%",
+        gap: Spacing.spacing_lg,
+        justifyContent: "flex-start",
+        alignItems: "center",
+      }}
+    >
       <ScreenSection
-        title={t("marketplace_translations.auth_panel.title")}
         description={t("marketplace_translations.auth_panel.description")}
         icon="bulb-outline"
       />
@@ -26,11 +35,11 @@ const AuthPanel = () => {
       <Link
         label={t("settings_translations.user_profile_panel.signup_link.label")}
         linkLabel={t(
-        "settings_translations.user_profile_panel.signup_link.link_label",
+          "settings_translations.user_profile_panel.signup_link.link_label",
         )}
         href="/auth/signup_screen"
       />
-    </>
+    </View>
   );
 };
 

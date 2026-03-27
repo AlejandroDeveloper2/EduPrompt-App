@@ -24,8 +24,11 @@ const TokenPackageList = () => {
 
   const { isProccesingOrder, createPurchase } = useMarketplace();
 
-  const { data: packages, isLoading: isPackagesLoading } =
-    useTokenPackagesQuery();
+  const {
+    data: packages,
+    isLoading: isPackagesLoading,
+    isError,
+  } = useTokenPackagesQuery();
 
   const PackageImage: Record<number, ReactNode> = {
     0: <BasicPackageToken />,
@@ -76,10 +79,14 @@ const TokenPackageList = () => {
         ))
       ) : (
         <Empty
-          message={t(
-            "marketplace_translations.packages_section.wifi_connection_msg",
-          )}
-          icon="wifi-outline"
+          message={
+            isError
+              ? t("marketplace_translations.packages_section.error_msg")
+              : t(
+                  "marketplace_translations.packages_section.wifi_connection_msg",
+                )
+          }
+          icon={isError ? "close-outline" : "wifi-outline"}
         />
       )}
     </ScrollView>

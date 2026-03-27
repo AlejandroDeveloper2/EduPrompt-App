@@ -1105,7 +1105,8 @@
       "description": "Get your Edu Prompt tokens to generate your educational resources. Choose the package you like the most.",
       "loading_packages_msg": "Loading packages...",
       "processing_purchase_msg": "Processing purchase...",
-      "wifi_connection_msg": "Go online to view the token packages.."
+      "wifi_connection_msg": "Go online to view the token packages..",
+      "error_msg": "An error occurred while loading the token packages."
     },
     "plans_section": {
       "title": "Subscription Plan",
@@ -1115,7 +1116,8 @@
       "frecuency_label": "Month",
       "auth_popup_title": "Log in to EduPrompt",
       "manage_subscription_btn_label": "Manage subscription",
-      "wifi_connection_msg": "Go online to view the subscription plans.."
+      "wifi_connection_msg": "Go online to view the subscription plans..",
+      "error_msg": "An error occurred while loading the subscription plans."
     },
     "auth_panel": {
       "title": "Sign in or create an account",

@@ -1104,7 +1104,8 @@
         "description": "Adquira seus tokens Edu Prompt para gerar seus recursos educacionais. Escolha o pacote que mais gostar.",
         "loading_packages_msg": "Carregando pacotes...",
         "processing_purchase_msg": "Processando compra...",
-        "wifi_connection_msg": "Conecte-se à internet para visualizar os pacotes de tokens."
+        "wifi_connection_msg": "Conecte-se à internet para visualizar os pacotes de tokens.",
+        "error_msg": "Ocorreu um erro ao carregar os pacotes de tokens."
       },
       "plans_section": {
         "title": "Plano de assinatura",
@@ -1114,7 +1115,8 @@
         "frecuency_label": "Mês",
         "auth_popup_title": "Acessar o EduPrompt",
         "manage_subscription_btn_label": "Gerenciar assinatura",
-        "wifi_connection_msg": "Conecte-se à internet para ver os planos de assinatura."
+        "wifi_connection_msg": "Conecte-se à internet para ver os planos de assinatura.",
+        "error_msg": "Ocorreu um erro ao carregar os planos de assinatura."
       },
       "auth_panel": {
         "title": "Faça login ou crie uma conta",

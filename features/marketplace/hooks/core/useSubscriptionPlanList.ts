@@ -20,8 +20,11 @@ const useSubscriptionPlanList = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { isProccesingOrder, isPolling, createPurchase } = useMarketplace();
-  const { data: plans, isLoading: isPlansLoading } =
-    useSubscriptionPlansQuery();
+  const {
+    data: plans,
+    isLoading: isPlansLoading,
+    isError,
+  } = useSubscriptionPlansQuery();
 
   const {
     isPopUpMounted,
@@ -69,6 +72,7 @@ const useSubscriptionPlanList = () => {
     lang,
     isProccesingOrder,
     isPolling,
+    isError,
     plans,
     isPlansLoading,
     isPopUpMounted,

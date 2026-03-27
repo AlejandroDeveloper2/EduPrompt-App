@@ -14,6 +14,7 @@ const SubscriptionPlanList = () => {
     lang,
     isProccesingOrder,
     isPolling,
+    isError,
     plans,
     isPlansLoading,
     isPopUpMounted,
@@ -39,7 +40,7 @@ const SubscriptionPlanList = () => {
       {isPlansLoading ? (
         <LoadingTextIndicator
           message={t(
-        "marketplace_translations.plans_section.loading_plans_msg",
+            "marketplace_translations.plans_section.loading_plans_msg",
           )}
           color={AppColors.primary[400]}
         />
@@ -48,7 +49,7 @@ const SubscriptionPlanList = () => {
           <TokenPackageCard
             key={plan.subscriptionPlanId}
             price={`${plan.price}USD/${t(
-        "marketplace_translations.plans_section.frecuency_label",
+              "marketplace_translations.plans_section.frecuency_label",
             )}`}
             packageTitle={plan.title[lang]}
             description={plan.description[lang]}
@@ -64,19 +65,19 @@ const SubscriptionPlanList = () => {
             loading={{
               isLoading: isProccesingOrder,
               message: t(
-        "marketplace_translations.packages_section.processing_purchase_msg",
+                "marketplace_translations.packages_section.processing_purchase_msg",
               ),
             }}
             buttonText={
               currentPlan &&
               currentPlan.subscriptionPlanId === plan.subscriptionPlanId
                 ? t(
-        "marketplace_translations.plans_section.manage_subscription_btn_label",
+                    "marketplace_translations.plans_section.manage_subscription_btn_label",
                   )
                 : `${t(
-        "marketplace_translations.plans_section.subscribe_btn_label",
+                    "marketplace_translations.plans_section.subscribe_btn_label",
                   )} ${plan.price}USD/${t(
-        "marketplace_translations.plans_section.frecuency_label",
+                    "marketplace_translations.plans_section.frecuency_label",
                   )}`
             }
             onBuyPackage={() => handleSubscribeToPlan(plan)}
@@ -84,10 +85,12 @@ const SubscriptionPlanList = () => {
         ))
       ) : (
         <Empty
-          message={t(
-        "marketplace_translations.plans_section.wifi_connection_msg",
-          )}
-          icon="wifi-outline"
+          message={
+            isError
+              ? t("marketplace_translations.plans_section.error_msg")
+              : t("marketplace_translations.plans_section.wifi_connection_msg")
+          }
+          icon={isError ? "close-outline" : "wifi-outline"}
         />
       )}
     </>

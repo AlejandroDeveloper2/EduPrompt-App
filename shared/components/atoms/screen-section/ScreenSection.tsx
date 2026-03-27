@@ -14,7 +14,7 @@ import { ScreenSectionStyle } from "./ScreenSection.style";
 interface ScreenSectionProps {
   description: string;
   color?: string;
-  title: string;
+  title?: string;
   fullTitleWidth?: boolean;
   icon: keyof typeof Ionicons.glyphMap;
 }
@@ -32,15 +32,18 @@ const ScreenSection = ({
 
   return (
     <View style={ScreenSectionStyle("mobile").Container}>
-      <Typography
-        text={title}
-        weight="medium"
-        type="h1"
-        textAlign={textAlign}
-        color={color ? color : AppColors.neutral[1000]}
-        width={fullTitleWidth ? "100%" : "auto"}
-        icon={icon}
-      />
+      {title && (
+        <Typography
+          text={title}
+          weight="medium"
+          type="h1"
+          textAlign={textAlign}
+          color={color ? color : AppColors.neutral[1000]}
+          width={fullTitleWidth ? "100%" : "auto"}
+          icon={icon}
+        />
+      )}
+
       <Typography
         text={description}
         weight="regular"
