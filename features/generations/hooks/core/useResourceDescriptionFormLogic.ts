@@ -9,11 +9,11 @@ import {
   resourceDescriptionFormSchema,
 } from "../../components/organims/resource-description-form/validationSchema";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import {
   useBackgroundTaskRunner,
   useCheckPremium,
   useForm,
+  usePopUp,
   useTranslations,
 } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
@@ -81,10 +81,10 @@ const useResourceDescriptionFormLogic = () => {
             {
               successNotification: {
                 title: t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.success.title",
+                  "generations_translations.ia_response_card_labels.generation_process_labels.success.title",
                 ),
                 message: `${t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.success.message",
+                  "generations_translations.ia_response_card_labels.generation_process_labels.success.message",
                 )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
@@ -92,10 +92,10 @@ const useResourceDescriptionFormLogic = () => {
               },
               errorNotification: {
                 title: t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.error.title",
+                  "generations_translations.ia_response_card_labels.generation_process_labels.error.title",
                 ),
                 message: `${t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.error.message",
+                  "generations_translations.ia_response_card_labels.generation_process_labels.error.message",
                 )} ${
                   currentIaGeneration.data.resourceType.other ??
                   currentIaGeneration.data.resourceType.resourceTypeLabel
@@ -110,8 +110,8 @@ const useResourceDescriptionFormLogic = () => {
     noReset: true,
   });
 
-  const savePromptPopUp = useAnimatedPopUp();
-  const selectPromptPopUp = useAnimatedPopUp();
+  const savePromptPopUp = usePopUp();
+  const selectPromptPopUp = usePopUp();
 
   useEffect(() => {
     if (!currentIaGeneration) return;

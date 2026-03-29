@@ -1,17 +1,14 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { Indicator } from "../../types";
-
 import { useUpdateIndicators } from "../core";
+import { useIndicatorsQuery } from "../queries";
 
 const useDashboardEventListeners = () => {
-  const queryClient = useQueryClient();
   const { updateIndicators } = useUpdateIndicators();
 
-  const indicators = queryClient.getQueryData<Indicator>(["app_indicators"]);
+  const { indicators } = useIndicatorsQuery();
 
   useEffect(() => {
     const handler = (lastGeneratedResource: string | null) => {
@@ -50,10 +47,10 @@ const useDashboardEventListeners = () => {
   }, [updateIndicators, indicators]);
 
   useEffect(() => {
-    const handler = () => {
+    const handler = (downloadedResources: number) => {
       if (!indicators) return;
       updateIndicators({
-        dowloadedResources: indicators.dowloadedResources + 1,
+        dowloadedResources: indicators.dowloadedResources + downloadedResources,
       });
     };
     eventBus.on("dashboard.addDownloadedResources", handler);

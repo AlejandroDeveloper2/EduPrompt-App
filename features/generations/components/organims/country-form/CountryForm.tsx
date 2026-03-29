@@ -13,13 +13,7 @@ const CountryForm = () => {
     currentIaGeneration,
     setGenerationStep,
     form: { getFieldErrors, handleChange, handleClearInput, handleSubmit },
-    popUp: {
-      onOpenPopUp,
-      isPopUpMounted,
-      dragGesture,
-      animatedPopUpStyle,
-      onClosePopUp,
-    },
+    popUp: { closePopUp, isOpen, openPopUp },
     selectedCountry,
     t,
     lang,
@@ -30,24 +24,22 @@ const CountryForm = () => {
       <PopUp
         icon="flag-outline"
         title={t(
-          "generations_translations.country_template.countries_popup_labels.title"
+          "generations_translations.country_template.countries_popup_labels.title",
         )}
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <DropdownOptionList<Country>
           optionList={COUNTRIES[lang]}
           optionIdkey="countryId"
           optionLabelKey="countryName"
           searchInputPlaceholder={t(
-            "generations_translations.country_template.countries_popup_labels.search_input_placeholder"
+            "generations_translations.country_template.countries_popup_labels.search_input_placeholder",
           )}
           selectedOption={selectedCountry}
           onSelectOption={(option) => {
             handleChange("country", option.countryId);
-            onClosePopUp();
+            closePopUp();
           }}
         />
       </PopUp>
@@ -59,14 +51,14 @@ const CountryForm = () => {
                 name="country"
                 icon="flag-outline"
                 label={t(
-                  "generations_translations.country_template.form_labels.country.label"
+                  "generations_translations.country_template.form_labels.country.label",
                 )}
                 placeholder={t(
-                  "generations_translations.country_template.form_labels.country.placeholder"
+                  "generations_translations.country_template.form_labels.country.placeholder",
                 )}
                 selectedOption={selectedCountry}
                 optionValueKey="countryName"
-                displayDropdownOptions={onOpenPopUp}
+                displayDropdownOptions={openPopUp}
                 errorMessage={getFieldErrors("country")?.join(", ")}
                 clearSelectedOption={() => handleClearInput("country")}
               />
@@ -80,13 +72,13 @@ const CountryForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations_translations.country_template.form_labels.btn_prev_step"
+                "generations_translations.country_template.form_labels.btn_prev_step",
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
                   currentIaGeneration.generationId,
-                  "educational_level_selection"
+                  "educational_level_selection",
                 );
               }}
             />
@@ -97,7 +89,7 @@ const CountryForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations_translations.country_template.form_labels.btn_next_step"
+                "generations_translations.country_template.form_labels.btn_next_step",
               )}
               onPress={handleSubmit}
             />

@@ -10,8 +10,7 @@ import {
   createResourceSchema,
 } from "../../components/organims/save-resource-form/validationSchema";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm } from "@/shared/hooks/core";
+import { useForm, usePopUp } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 import { useTagFiltersContext } from "../context";
 import { useGenerationsStore } from "../store";
@@ -26,7 +25,7 @@ const initialValues: CreateResourceFormData = {
 const useSaveResourceFormLogic = () => {
   const [isTagSelectionMode, setIsTagSelectionMode] = useState<boolean>(false);
 
-  const saveResourcePopUp = useAnimatedPopUp();
+  const saveResourcePopUp = usePopUp();
 
   const { currentIaGeneration } = useGenerationsStore();
 
@@ -48,7 +47,7 @@ const useSaveResourceFormLogic = () => {
             groupTag: data.groupTag,
           });
         }
-        saveResourcePopUp.onClosePopUp();
+        saveResourcePopUp.closePopUp();
       },
     });
 
@@ -59,7 +58,7 @@ const useSaveResourceFormLogic = () => {
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.groupTag, "tagId"),
-    [data.groupTag]
+    [data.groupTag],
   ) as Tag | null;
 
   useEffect(() => {

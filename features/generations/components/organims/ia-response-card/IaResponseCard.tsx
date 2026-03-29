@@ -82,20 +82,18 @@ const IaResponseCard = ({
         title={
           isTagSelectionMode
             ? t(
-        "generations_translations.ia_response_card_labels.select_tag_popup_labels.title",
+                "generations_translations.ia_response_card_labels.select_tag_popup_labels.title",
               )
             : t(
-        "generations_translations.ia_response_card_labels.save_resource_popup_labels.title",
+                "generations_translations.ia_response_card_labels.save_resource_popup_labels.title",
               )
         }
         icon={isTagSelectionMode ? "pricetag-outline" : "add-outline"}
-        isPopUpMounted={saveResourcePopUp.isPopUpMounted}
-        gesture={saveResourcePopUp.dragGesture}
-        animatedPopUpStyle={saveResourcePopUp.animatedPopUpStyle}
-        style={{ maxHeight: "auto" }}
-        onClosePopUp={() => {
-          saveResourcePopUp.onClosePopUp();
+        isOpen={saveResourcePopUp.isOpen}
+        onClose={() => {
+          saveResourcePopUp.closePopUp();
         }}
+        scrollable={!isTagSelectionMode}
       >
         {isTagSelectionMode ? (
           <ComposedDropdownOptionList<{
@@ -129,7 +127,7 @@ const IaResponseCard = ({
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-        "generations_translations.ia_response_card_labels.select_tag_popup_labels.search_input_placeholder",
+              "generations_translations.ia_response_card_labels.select_tag_popup_labels.search_input_placeholder",
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -139,7 +137,7 @@ const IaResponseCard = ({
             FooterComponent={
               <Button
                 label={t(
-        "generations_translations.ia_response_card_labels.select_tag_popup_labels.btn_cancel",
+                  "generations_translations.ia_response_card_labels.select_tag_popup_labels.btn_cancel",
                 )}
                 icon="close-outline"
                 width="100%"
@@ -155,7 +153,7 @@ const IaResponseCard = ({
             selectedTag={selectedTag}
             form={form}
             onTagSelectionMode={() => setIsTagSelectionMode(true)}
-            onClosePopUp={saveResourcePopUp.onClosePopUp}
+            onClosePopUp={saveResourcePopUp.closePopUp}
           />
         )}
       </PopUp>
@@ -169,7 +167,7 @@ const IaResponseCard = ({
         />
         <ScreenSection
           description={t(
-        "generations_translations.ia_response_card_labels.description",
+            "generations_translations.ia_response_card_labels.description",
           )}
           title={t("generations_translations.ia_response_card_labels.title")}
           icon="star-outline"
@@ -204,7 +202,7 @@ const IaResponseCard = ({
               icon="save-outline"
               variant="neutral"
               width="auto"
-              onPress={saveResourcePopUp.onOpenPopUp}
+              onPress={saveResourcePopUp.openPopUp}
             />
             <Button
               icon="pencil-outline"
@@ -233,10 +231,10 @@ const IaResponseCard = ({
                       {
                         successNotification: {
                           title: t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.success.title",
+                            "generations_translations.ia_response_card_labels.generation_process_labels.success.title",
                           ),
                           message: `${t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.success.message",
+                            "generations_translations.ia_response_card_labels.generation_process_labels.success.message",
                           )} ${
                             currentIaGeneration.data.resourceType.other ??
                             currentIaGeneration.data.resourceType
@@ -245,10 +243,10 @@ const IaResponseCard = ({
                         },
                         errorNotification: {
                           title: t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.error.title",
+                            "generations_translations.ia_response_card_labels.generation_process_labels.error.title",
                           ),
                           message: `${t(
-        "generations_translations.ia_response_card_labels.generation_process_labels.error.message",
+                            "generations_translations.ia_response_card_labels.generation_process_labels.error.message",
                           )} ${
                             currentIaGeneration.data.resourceType.other ??
                             currentIaGeneration.data.resourceType
@@ -273,7 +271,7 @@ const IaResponseCard = ({
         <Button
           icon="bulb-outline"
           label={t(
-        "generations_translations.ia_response_card_labels.btn_generate_other_resource",
+            "generations_translations.ia_response_card_labels.btn_generate_other_resource",
           )}
           variant="primary"
           width="100%"

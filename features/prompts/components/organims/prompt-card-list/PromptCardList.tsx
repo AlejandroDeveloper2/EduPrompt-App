@@ -62,7 +62,7 @@ const PromptCardList = () => {
 
   const { isPending, selectedTag, form } = useUpdatePromptFormLogic(
     selectedPrompt,
-    updatePromptPopUp.onClosePopUp
+    updatePromptPopUp.closePopUp,
   );
 
   const promptCardListStyle = PromptCardListStyle(size);
@@ -71,7 +71,7 @@ const PromptCardList = () => {
     return (
       <FetchingErrorPanel
         message={t(
-          "prompts_translations.prompt_list_labels.error_loading_prompts_msg"
+          "prompts_translations.prompt_list_labels.error_loading_prompts_msg",
         )}
         refetch={refetch}
       />
@@ -82,28 +82,28 @@ const PromptCardList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.title"
+          "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.title",
         )}
-        {...confirmPromptDeletePopUp}
-        gesture={confirmPromptDeletePopUp.dragGesture}
+        isOpen={confirmPromptDeletePopUp.isOpen}
+        onClose={confirmPromptDeletePopUp.closePopUp}
       >
         <Alert
           variant="danger"
           message={t(
-            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.message"
+            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.message",
           )}
           acceptButtonLabel={t(
-            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.btn_accept"
+            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.btn_accept",
           )}
           acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmPromptDeletePopUp.onClosePopUp}
+          onCancel={confirmPromptDeletePopUp.closePopUp}
           onAccept={() => {
             removeManyPrompts();
-            confirmPromptDeletePopUp.onClosePopUp();
+            confirmPromptDeletePopUp.closePopUp();
           }}
           loading={isDeleting}
           loadingMessage={t(
-            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.deleting_prompt_msg"
+            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.deleting_prompt_msg",
           )}
         />
       </PopUp>
@@ -111,17 +111,15 @@ const PromptCardList = () => {
         title={
           isTagSelection
             ? t(
-                "prompts_translations.prompt_list_labels.tag_list_labels_popup.title"
+                "prompts_translations.prompt_list_labels.tag_list_labels_popup.title",
               )
             : t("prompts_translations.update_prompt_template.title")
         }
         icon={isTagSelection ? "pricetag-outline" : "pencil-outline"}
-        isPopUpMounted={updatePromptPopUp.isPopUpMounted}
-        gesture={updatePromptPopUp.dragGesture}
-        animatedPopUpStyle={updatePromptPopUp.animatedPopUpStyle}
-        style={{ maxHeight: "auto" }}
-        onClosePopUp={() => {
-          updatePromptPopUp.onClosePopUp();
+        isOpen={updatePromptPopUp.isOpen}
+        scrollable={!isTagSelection}
+        onClose={() => {
+          updatePromptPopUp.closePopUp();
           setSelectedPrompt(null);
         }}
       >
@@ -149,7 +147,7 @@ const PromptCardList = () => {
                 )
                   eventBus.emit(
                     "tags.promptType.fetchNextPage.requested",
-                    undefined
+                    undefined,
                   );
               },
             }}
@@ -157,7 +155,7 @@ const PromptCardList = () => {
             optionIdkey="tagId"
             optionLabelKey="name"
             searchInputPlaceholder={t(
-              "prompts_translations.prompt_list_labels.tag_list_labels_popup.search_input_placeholder"
+              "prompts_translations.prompt_list_labels.tag_list_labels_popup.search_input_placeholder",
             )}
             selectedOption={selectedTag}
             onSelectOption={(option) => {
@@ -167,7 +165,7 @@ const PromptCardList = () => {
             FooterComponent={
               <Button
                 label={t(
-                  "prompts_translations.prompt_list_labels.tag_list_labels_popup.btn_cancel_selection"
+                  "prompts_translations.prompt_list_labels.tag_list_labels_popup.btn_cancel_selection",
                 )}
                 icon="close-outline"
                 width="100%"
@@ -183,7 +181,7 @@ const PromptCardList = () => {
             selectedTag={selectedTag}
             form={form}
             onTagSelectionMode={() => setIsTagSelection(true)}
-            onClosePopUp={updatePromptPopUp.onClosePopUp}
+            onClosePopUp={updatePromptPopUp.closePopUp}
           />
         )}
       </PopUp>
@@ -200,7 +198,7 @@ const PromptCardList = () => {
             promptData={item}
             onEditPrompt={() => {
               setSelectedPrompt(item);
-              updatePromptPopUp.onOpenPopUp();
+              updatePromptPopUp.openPopUp();
             }}
             totalRecords={prompts.length}
           />
@@ -213,7 +211,7 @@ const PromptCardList = () => {
         ListEmptyComponent={
           <Empty
             message={t(
-              "prompts_translations.prompt_list_labels.no_prompts_msg"
+              "prompts_translations.prompt_list_labels.no_prompts_msg",
             )}
             icon="pricetag-outline"
           />
@@ -232,7 +230,7 @@ const PromptCardList = () => {
             <LoadingTextIndicator
               color={AppColors.primary[400]}
               message={t(
-                "prompts_translations.prompt_list_labels.loading_prompts_msg"
+                "prompts_translations.prompt_list_labels.loading_prompts_msg",
               )}
             />
           ) : null

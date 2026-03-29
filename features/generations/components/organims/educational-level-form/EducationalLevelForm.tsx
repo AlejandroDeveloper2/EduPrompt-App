@@ -35,48 +35,44 @@ const EducationalLevelForm = () => {
       <PopUp
         icon="school-outline"
         title={t(
-          "generations_translations.educational_level_template.educational_level_popup_labels.title"
+          "generations_translations.educational_level_template.educational_level_popup_labels.title",
         )}
-        isPopUpMounted={educationalLevelPopUp.isPopUpMounted}
-        gesture={educationalLevelPopUp.dragGesture}
-        animatedPopUpStyle={educationalLevelPopUp.animatedPopUpStyle}
-        onClosePopUp={educationalLevelPopUp.onClosePopUp}
+        isOpen={educationalLevelPopUp.isOpen}
+        onClose={educationalLevelPopUp.closePopUp}
       >
         <DropdownOptionList<EducationalLevel>
           optionList={TARGET_EDUCATIONAL_LEVELS[lang]}
           optionIdkey="educationalLevelId"
           optionLabelKey="educationalLevelLabel"
           searchInputPlaceholder={t(
-            "generations_translations.educational_level_template.educational_level_popup_labels.search_input_placeholder"
+            "generations_translations.educational_level_template.educational_level_popup_labels.search_input_placeholder",
           )}
           selectedOption={selectedEducationalLevel}
           onSelectOption={(option) => {
             handleChange("educationalLevelId", option.educationalLevelId);
-            educationalLevelPopUp.onClosePopUp();
+            educationalLevelPopUp.closePopUp();
           }}
         />
       </PopUp>
       <PopUp
         icon="school-outline"
         title={t(
-          "generations_translations.educational_level_template.target_grade_popup_labels.title"
+          "generations_translations.educational_level_template.target_grade_popup_labels.title",
         )}
-        isPopUpMounted={gradePopUp.isPopUpMounted}
-        gesture={gradePopUp.dragGesture}
-        animatedPopUpStyle={gradePopUp.animatedPopUpStyle}
-        onClosePopUp={gradePopUp.onClosePopUp}
+        isOpen={gradePopUp.isOpen}
+        onClose={gradePopUp.closePopUp}
       >
         <DropdownOptionList<GradeLevel>
           optionList={grades}
           optionIdkey="gradeLevelId"
           optionLabelKey="gradeLevelLabel"
           searchInputPlaceholder={t(
-            "generations_translations.educational_level_template.target_grade_popup_labels.search_input_placeholder"
+            "generations_translations.educational_level_template.target_grade_popup_labels.search_input_placeholder",
           )}
           selectedOption={selectedGrade}
           onSelectOption={(option) => {
             handleChange("gradeLevelId", option.gradeLevelId);
-            gradePopUp.onClosePopUp();
+            gradePopUp.closePopUp();
           }}
         />
       </PopUp>
@@ -89,14 +85,14 @@ const EducationalLevelForm = () => {
                 name="educationalLevelId"
                 icon="school-outline"
                 label={t(
-                  "generations_translations.educational_level_template.form_labels.target_educational_level.label"
+                  "generations_translations.educational_level_template.form_labels.target_educational_level.label",
                 )}
                 placeholder={t(
-                  "generations_translations.educational_level_template.form_labels.target_educational_level.placeholder"
+                  "generations_translations.educational_level_template.form_labels.target_educational_level.placeholder",
                 )}
                 selectedOption={selectedEducationalLevel}
                 optionValueKey="educationalLevelLabel"
-                displayDropdownOptions={educationalLevelPopUp.onOpenPopUp}
+                displayDropdownOptions={educationalLevelPopUp.openPopUp}
                 errorMessage={getFieldErrors("educationalLevelId")?.join(", ")}
                 clearSelectedOption={() =>
                   handleClearInput("educationalLevelId")
@@ -109,14 +105,14 @@ const EducationalLevelForm = () => {
                   name="gradeLevelId"
                   icon="school-outline"
                   label={t(
-                    "generations_translations.educational_level_template.form_labels.grade.label"
+                    "generations_translations.educational_level_template.form_labels.grade.label",
                   )}
                   placeholder={t(
-                    "generations_translations.educational_level_template.form_labels.grade.placeholder"
+                    "generations_translations.educational_level_template.form_labels.grade.placeholder",
                   )}
                   selectedOption={selectedGrade}
                   optionValueKey="gradeLevelLabel"
-                  displayDropdownOptions={gradePopUp.onOpenPopUp}
+                  displayDropdownOptions={gradePopUp.openPopUp}
                   errorMessage={getFieldErrors("gradeLevelId")?.join(", ")}
                   clearSelectedOption={() =>
                     handleClearOptionalInput("gradeLevelId")
@@ -133,13 +129,13 @@ const EducationalLevelForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations_translations.educational_level_template.form_labels.btn_prev_step"
+                "generations_translations.educational_level_template.form_labels.btn_prev_step",
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
                   currentIaGeneration.generationId,
-                  "subject_name"
+                  "subject_name",
                 );
               }}
             />
@@ -150,7 +146,7 @@ const EducationalLevelForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations_translations.educational_level_template.form_labels.btn_next_step"
+                "generations_translations.educational_level_template.form_labels.btn_next_step",
               )}
               onPress={handleSubmit}
             />

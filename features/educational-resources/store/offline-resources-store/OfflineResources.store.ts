@@ -8,6 +8,7 @@ import { PaginatedResponse } from "@/core/types";
 import { EducationalResource, ResourceFormatKey } from "../../types";
 import { OfflineResourcesStoreType } from "./store-types";
 
+import { eventBus } from "@/core/events/EventBus";
 import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
@@ -49,7 +50,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
         },
         () => {
           set({ isProcessing: false });
-        }
+        },
       );
     },
     findResources: async (filters) => {
@@ -70,30 +71,30 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
                 ? and(
                     eq(resourcesTable.formatKey, formatKey),
                     eq(resourcesTable.groupTag, tag),
-                    like(resourcesTable.title, `%${title}%`)
+                    like(resourcesTable.title, `%${title}%`),
                   )
                 : title
-                ? like(resourcesTable.title, `%${title}%`)
-                : formatKey
-                ? eq(resourcesTable.formatKey, formatKey)
-                : tag
-                ? eq(resourcesTable.groupTag, tag)
-                : title && formatKey
-                ? and(
-                    eq(resourcesTable.formatKey, formatKey),
-                    like(resourcesTable.title, `%${title}%`)
-                  )
-                : title && tag
-                ? and(
-                    eq(resourcesTable.groupTag, tag),
-                    like(resourcesTable.title, `%${title}%`)
-                  )
-                : formatKey && tag
-                ? and(
-                    eq(resourcesTable.groupTag, tag),
-                    eq(resourcesTable.formatKey, formatKey)
-                  )
-                : undefined
+                  ? like(resourcesTable.title, `%${title}%`)
+                  : formatKey
+                    ? eq(resourcesTable.formatKey, formatKey)
+                    : tag
+                      ? eq(resourcesTable.groupTag, tag)
+                      : title && formatKey
+                        ? and(
+                            eq(resourcesTable.formatKey, formatKey),
+                            like(resourcesTable.title, `%${title}%`),
+                          )
+                        : title && tag
+                          ? and(
+                              eq(resourcesTable.groupTag, tag),
+                              like(resourcesTable.title, `%${title}%`),
+                            )
+                          : formatKey && tag
+                            ? and(
+                                eq(resourcesTable.groupTag, tag),
+                                eq(resourcesTable.formatKey, formatKey),
+                              )
+                            : undefined,
             )
             .limit(parsedLimit)
             .offset((parsedPage - 1) * parsedLimit);
@@ -126,7 +127,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
         },
         () => {
           set({ isLoading: false });
-        }
+        },
       );
     },
     findResourceById: async (resourceId) => {
@@ -143,7 +144,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
               key: generateToastKey(),
               variant: "danger",
               message: `${i18n.t(
-                "resources_translations.module_error_messages.resource_not_found_msg"
+                "resources_translations.module_error_messages.resource_not_found_msg",
               )} ${resourceId}`,
             });
             return null;
@@ -165,7 +166,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
         },
         () => {
           set({ isLoading: false });
-        }
+        },
       );
     },
     updateResource: async (updateResourcePayload) => {
@@ -181,7 +182,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
 
           if (updatedResourceRow.length === 0) {
             const errorMsg = `${i18n.t(
-              "resources_translations.module_error_messages.resource_not_found_msg"
+              "resources_translations.module_error_messages.resource_not_found_msg",
             )} ${resourceId}`;
             showToast({
               key: generateToastKey(),
@@ -207,7 +208,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
         },
         () => {
           set({ isProcessing: false });
-        }
+        },
       );
     },
     deleteManyResources: async () => {
@@ -228,7 +229,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
               key: generateToastKey(),
               variant: "danger",
               message: i18n.t(
-                "resources_translations.module_error_messages.some_resource_not_found_msg"
+                "resources_translations.module_error_messages.some_resource_not_found_msg",
               ),
             });
             return;
@@ -244,7 +245,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
         },
         () => {
           set({ isProcessing: false });
-        }
+        },
       );
     },
     updateResourcesSyncStatus: async (sync, resourceId) => {
@@ -270,7 +271,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             variant: "danger",
             message: error.message,
           });
-        }
+        },
       );
     },
     findAllResources: async () => {
@@ -290,7 +291,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             variant: "danger",
             message: error.message,
           });
-        }
+        },
       );
     },
 
@@ -316,10 +317,15 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
               content,
               formatKey: formatKey as ResourceFormatKey,
               format,
-            })
+            }),
           );
           ResourceDownloadManager.downloadResourcesConcurrenly(
-            resourcesToDownload
+            resourcesToDownload,
+          );
+
+          eventBus.emit(
+            "dashboard.addDownloadedResources",
+            resourcesToDownload.length,
           );
 
           clearSelection();
@@ -331,8 +337,8 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             message: error.message,
           });
         },
-        () => set({ isDownloading: false })
+        () => set({ isDownloading: false }),
       );
     },
-  })
+  }),
 );

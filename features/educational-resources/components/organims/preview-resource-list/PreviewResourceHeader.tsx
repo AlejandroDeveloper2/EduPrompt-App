@@ -9,8 +9,7 @@ import { AppColors } from "@/shared/styles";
 
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useSyncResourcesMutation } from "@/features/educational-resources/hooks/mutations";
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
+import { usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -39,14 +38,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
   const userProfile = useEventbusValue("userProfile.user.updated", null);
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const {
-    isPopUpMounted,
-    isPopUpVisible,
-    animatedPopUpStyle,
-    dragGesture,
-    onOpenPopUp,
-    onClosePopUp,
-  } = useAnimatedPopUp();
+  const { isOpen, openPopUp, closePopUp } = usePopUp();
 
   const {
     searchResourceValue,
@@ -70,13 +62,11 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
     <>
       <PopUp
         title={t(
-          "resources_translations.resources_list_labels.tag_list_popup_labels.title"
+          "resources_translations.resources_list_labels.tag_list_popup_labels.title",
         )}
         icon="pricetag-outline"
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <ComposedDropdownOptionList<Tag>
           ControlPanelComponent={
@@ -97,7 +87,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
               )
                 eventBus.emit(
                   "tags.resourceType.fetchNextPage.requested",
-                  undefined
+                  undefined,
                 );
             },
           }}
@@ -105,7 +95,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           optionIdkey="tagId"
           optionLabelKey="name"
           searchInputPlaceholder={t(
-            "resources_translations.resources_list_labels.tag_list_popup_labels.search_input_placeholder"
+            "resources_translations.resources_list_labels.tag_list_popup_labels.search_input_placeholder",
           )}
           selectedOption={tagFilter}
           onSelectOption={(option) => {
@@ -120,27 +110,27 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           isAuthenticated && (
             <InfoCard
               title={t(
-                "resources_translations.resources_list_labels.syncronization_card_labels.title"
+                "resources_translations.resources_list_labels.syncronization_card_labels.title",
               )}
               description={t(
-                "resources_translations.resources_list_labels.syncronization_card_labels.description"
+                "resources_translations.resources_list_labels.syncronization_card_labels.description",
               )}
               buttonData={{
                 onPress: syncResources,
                 icon: "sync-outline",
                 label: t(
-                  "resources_translations.resources_list_labels.syncronization_card_labels.btn_sync"
+                  "resources_translations.resources_list_labels.syncronization_card_labels.btn_sync",
                 ),
                 loading: isPending,
                 loadingMessage: t(
-                  "resources_translations.resources_list_labels.syncronization_card_labels.loading_text"
+                  "resources_translations.resources_list_labels.syncronization_card_labels.loading_text",
                 ),
               }}
             />
           )}
         <ScreenSection
           description={t(
-            "resources_translations.resources_list_labels.description"
+            "resources_translations.resources_list_labels.description",
           )}
           title={t("resources_translations.resources_list_labels.title")}
           icon="book-outline"
@@ -150,7 +140,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           value={searchResourceValue}
           icon="search-outline"
           placeholder={t(
-            "resources_translations.resources_list_labels.search_input_placeholder"
+            "resources_translations.resources_list_labels.search_input_placeholder",
           )}
           onChange={(_, value) => onSearchResourceValueChange(value)}
           onClearInput={() => onSearchResourceValueChange("")}
@@ -158,7 +148,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
         <View style={previewResourceListStyle.FilterSection}>
           <Typography
             text={t(
-              "resources_translations.resources_list_labels.format_filters_labels.title"
+              "resources_translations.resources_list_labels.format_filters_labels.title",
             )}
             weight="medium"
             type="paragraph"
@@ -187,7 +177,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           <View style={previewResourceListStyle.FilterSection}>
             <Typography
               text={t(
-                "resources_translations.resources_list_labels.tag_filters_labels.title"
+                "resources_translations.resources_list_labels.tag_filters_labels.title",
               )}
               weight="medium"
               type="paragraph"
@@ -204,7 +194,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
               <FilterTag
                 icon="star-outline"
                 label={t(
-                  "resources_translations.resources_list_labels.tag_filters_labels.all_tags"
+                  "resources_translations.resources_list_labels.tag_filters_labels.all_tags",
                 )}
                 active={tagFilter === null}
                 onPressFilter={() => onTagFilterChange(null)}
@@ -219,9 +209,9 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
                 />
               ))}
               <NavItem
-                active={isPopUpVisible}
+                active={isOpen}
                 icon="search-outline"
-                onPress={onOpenPopUp}
+                onPress={openPopUp}
               />
             </ScrollView>
           </View>

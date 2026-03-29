@@ -1,81 +1,131 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode } from "react";
-import { StyleSheet, TouchableOpacity, View, ViewStyle } from "react-native";
 import {
-  GestureDetector,
-  GestureHandlerRootView,
-  PanGesture,
-} from "react-native-gesture-handler";
-import { Portal } from "react-native-portalize";
-import Animated from "react-native-reanimated";
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetModal,
+  BottomSheetScrollView,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
+import { View, ViewStyle, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-import { AppColors } from "../../../styles";
 
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
+import { AppColors } from "../../../styles";
 import { PopUpStyle } from "./PopUp.style";
 
-interface PopUpProps {
+export interface PopUpProps {
+  /** Título mostrado en el header del popup */
   title: string;
+  /** Icono de Ionicons junto al título */
   icon: keyof typeof Ionicons.glyphMap;
-  isPopUpMounted: boolean;
-  gesture: PanGesture;
-  animatedPopUpStyle: {
-    transform: {
-      translateY: number;
-    }[];
-  };
+  /** Controla si el popup está visible */
+  isOpen: boolean;
+
+  /**
+   * Activa BottomSheetScrollView interno.
+   * Úsalo cuando el contenido es un formulario o lista larga.
+   * @default false
+   */
+  scrollable?: boolean;
+  /** Estilos extra para el contenedor del contenido */
   style?: ViewStyle;
+  /** Callback al cerrar el popup (por gesto o backdrop) */
+  onClose: () => void;
   children: ReactNode | ReactNode[];
-  onClosePopUp: () => void;
 }
 
 const PopUp = ({
   title,
   icon,
-  isPopUpMounted,
-  gesture,
+  isOpen,
+  scrollable = false,
   style,
-  animatedPopUpStyle,
+  onClose,
   children,
-  onClosePopUp,
 }: PopUpProps) => {
+  const ref = useRef<BottomSheetModal>(null);
   const size = useScreenDimensionsStore();
   const insets = useSafeAreaInsets();
+  const { height: screenHeight } = useWindowDimensions();
 
-  const popUpStyle = PopUpStyle(size, insets);
+  const styles = PopUpStyle(size, insets, screenHeight);
 
-  if (!isPopUpMounted) return null;
+  useEffect(() => {
+    if (isOpen) {
+      ref.current?.present();
+    } else {
+      ref.current?.dismiss();
+    }
+  }, [isOpen]);
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        opacity={0.3}
+        pressBehavior="close"
+      />
+    ),
+    [],
+  );
+
+  const renderHandle = useCallback(
+    () => (
+      <View style={styles.HandleContainer}>
+        <View style={styles.ClosePopUpDragIndicator} />
+        <Typography
+          text={title}
+          weight="medium"
+          type="h2"
+          textAlign="center"
+          color={AppColors.neutral[1000]}
+          width="100%"
+          icon={icon}
+        />
+      </View>
+    ),
+    [title, icon, styles],
+  );
+
   return (
-    <Portal>
-      <GestureHandlerRootView>
-        <View style={popUpStyle.Overlay}>
-          <TouchableOpacity
-            style={{ ...StyleSheet.absoluteFillObject }}
-            activeOpacity={1}
-            onPress={onClosePopUp}
-          />
-          <GestureDetector gesture={gesture}>
-            <Animated.View style={[popUpStyle.PopUpWindow, animatedPopUpStyle]}>
-              <View style={popUpStyle.ClosePopUpDragIndicator} />
-              <Typography
-                text={title}
-                weight="medium"
-                type="h2"
-                textAlign="center"
-                color={AppColors.neutral[1000]}
-                width="100%"
-                icon={icon}
-              />
-              <View style={[popUpStyle.PopUpContent, style]}>{children}</View>
-            </Animated.View>
-          </GestureDetector>
-        </View>
-      </GestureHandlerRootView>
-    </Portal>
+    <BottomSheetModal
+      ref={ref}
+      // enableDynamicSizing
+      snapPoints={["50%", "90%"]}
+      // ── Gestos ───────────────────────────────────────────────────────────────
+      enablePanDownToClose // Reemplaza tu PanGesture manual
+      // ── Teclado ──────────────────────────────────────────────────────────────
+      keyboardBehavior="extend" // Sheet sube con el teclado
+      keyboardBlurBehavior="restore" // Restaura snap al cerrar teclado
+      android_keyboardInputMode="adjustPan"
+      // ── Estilos ──────────────────────────────────────────────────────────────
+      backgroundStyle={styles.PopUpWindow}
+      handleComponent={renderHandle}
+      backdropComponent={renderBackdrop}
+      // ── Callbacks ────────────────────────────────────────────────────────────
+      onDismiss={onClose}
+    >
+      {scrollable === true ? (
+        <BottomSheetScrollView
+          contentContainerStyle={[styles.PopUpContent, style]}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          {children}
+        </BottomSheetScrollView>
+      ) : (
+        <BottomSheetView style={[styles.PopUpContentNested, style]}>
+          {children}
+        </BottomSheetView>
+      )}
+    </BottomSheetModal>
   );
 };
 

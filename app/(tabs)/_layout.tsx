@@ -95,7 +95,7 @@ export default function TabLayout() {
   if (size === "laptop")
     return (
       <>
-        <CustomStatusBar backgroundColor={AppColors.basic.white} />
+        <CustomStatusBar backgroundColor={AppColors.basic.white} style="auto" />
         <Drawer
           screenOptions={{
             headerShown: true,
@@ -115,7 +115,7 @@ export default function TabLayout() {
 
   return (
     <>
-      <CustomStatusBar backgroundColor={AppColors.basic.white} />
+      <CustomStatusBar backgroundColor={AppColors.basic.white} style="auto" />
       <Tabs
         screenOptions={{
           headerShown: true,

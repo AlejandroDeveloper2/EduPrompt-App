@@ -17,10 +17,8 @@ const SubscriptionPlanList = () => {
     isError,
     plans,
     isPlansLoading,
-    isPopUpMounted,
-    animatedPopUpStyle,
-    dragGesture,
-    onClosePopUp,
+    isOpen,
+    closePopUp,
     currentPlan,
     handleSubscribeToPlan,
   } = useSubscriptionPlanList();
@@ -30,10 +28,8 @@ const SubscriptionPlanList = () => {
       <PopUp
         title={t("marketplace_translations.plans_section.auth_popup_title")}
         icon="log-in-outline"
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <AuthPanel />
       </PopUp>

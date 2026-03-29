@@ -13,8 +13,7 @@ import {
   educationalLevelFormSchema,
 } from "../../components/organims/educational-level-form/validationSchema";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm, useTranslations } from "@/shared/hooks/core";
+import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { getGrades, getSelectedOption } from "../../helpers";
@@ -46,7 +45,7 @@ const useEducationalLevelFormLogic = () => {
       const educationalLevel = getSelectedOption(
         TARGET_EDUCATIONAL_LEVELS[lang],
         data.educationalLevelId,
-        "educationalLevelId"
+        "educationalLevelId",
       );
       const grades = PRESCHOOL_GRADE_LEVELS[lang].concat([
         ...PRIMARY_GRADE_LEVELS[lang],
@@ -56,7 +55,7 @@ const useEducationalLevelFormLogic = () => {
       const grade = getSelectedOption(
         grades,
         data.gradeLevelId,
-        "gradeLevelId"
+        "gradeLevelId",
       );
 
       if (!educationalLevel) return;
@@ -67,7 +66,7 @@ const useEducationalLevelFormLogic = () => {
           educationalLevel: { ...educationalLevel, grade: grade ?? undefined },
         },
         { completed: true },
-        {}
+        {},
       );
 
       setGenerationStep(currentIaGeneration.generationId, "country_selection");
@@ -75,25 +74,25 @@ const useEducationalLevelFormLogic = () => {
     noReset: true,
   });
 
-  const educationalLevelPopUp = useAnimatedPopUp();
-  const gradePopUp = useAnimatedPopUp();
+  const educationalLevelPopUp = usePopUp();
+  const gradePopUp = usePopUp();
 
   const { selectedEducationalLevel } = useMemo(
     () => ({
       selectedEducationalLevel: getSelectedOption(
         TARGET_EDUCATIONAL_LEVELS[lang],
         data.educationalLevelId,
-        "educationalLevelId"
+        "educationalLevelId",
       ),
     }),
-    [data.educationalLevelId]
+    [data.educationalLevelId],
   );
 
   const { grades } = useMemo(
     () => ({
       grades: getGrades(data.educationalLevelId, lang),
     }),
-    [data.educationalLevelId, lang]
+    [data.educationalLevelId, lang],
   );
 
   const { selectedGrade } = useMemo(
@@ -101,10 +100,10 @@ const useEducationalLevelFormLogic = () => {
       selectedGrade: getSelectedOption(
         grades,
         data.gradeLevelId,
-        "gradeLevelId"
+        "gradeLevelId",
       ),
     }),
-    [data.gradeLevelId, grades]
+    [data.gradeLevelId, grades],
   );
 
   const isGradeRequired = useMemo(() => {

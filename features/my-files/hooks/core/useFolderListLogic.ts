@@ -13,10 +13,10 @@ import {
   SELECTION_MODE_ACTIONS,
 } from "../../constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import {
   useBackgroundTaskRunner,
   useLoading,
+  usePopUp,
   useSearchInput,
   useTranslations,
 } from "@/shared/hooks/core";
@@ -41,8 +41,8 @@ const useFolderListLogic = () => {
   const router = useRouter();
 
   const { isLoading, message, toggleLoading } = useLoading();
-  const editFolderNamePopUp = useAnimatedPopUp();
-  const confirmFolderDeletePopUp = useAnimatedPopUp();
+  const editFolderNamePopUp = usePopUp();
+  const confirmFolderDeletePopUp = usePopUp();
 
   const {
     selectionMode,
@@ -89,18 +89,18 @@ const useFolderListLogic = () => {
     await runBackgroundTask(task, shareManyFolders, {
       successNotification: {
         title: t(
-          "my_files_translations.shared_folders_notifications_labels.success.title"
+          "my_files_translations.shared_folders_notifications_labels.success.title",
         ),
         message: t(
-          "my_files_translations.shared_folders_notifications_labels.success.message"
+          "my_files_translations.shared_folders_notifications_labels.success.message",
         ),
       },
       errorNotification: {
         title: t(
-          "my_files_translations.shared_folders_notifications_labels.error.title"
+          "my_files_translations.shared_folders_notifications_labels.error.title",
         ),
         message: t(
-          "my_files_translations.shared_folders_notifications_labels.error.message"
+          "my_files_translations.shared_folders_notifications_labels.error.message",
         ),
       },
     });
@@ -121,9 +121,9 @@ const useFolderListLogic = () => {
     if (selectionCount > 0)
       enableSelectionMode(
         SELECTION_MODE_ACTIONS(
-          confirmFolderDeletePopUp.onOpenPopUp,
-          runShareFoldersTask
-        )
+          confirmFolderDeletePopUp.openPopUp,
+          runShareFoldersTask,
+        ),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -131,7 +131,7 @@ const useFolderListLogic = () => {
   useEffect(() => {
     toggleLoading(
       true,
-      t("my_files_translations.folder_list_labels.loading_folders_msg")
+      t("my_files_translations.folder_list_labels.loading_folders_msg"),
     );
     loadFolders(order);
     toggleLoading(false, null);

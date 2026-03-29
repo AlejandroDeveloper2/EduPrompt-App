@@ -7,8 +7,7 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
+import { usePopUp, useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -40,8 +39,8 @@ const usePromptCardListLogic = () => {
     onSearchTagValueChange,
   } = usePromptFiltersContext();
 
-  const confirmPromptDeletePopUp = useAnimatedPopUp();
-  const updatePromptPopUp = useAnimatedPopUp();
+  const confirmPromptDeletePopUp = usePopUp();
+  const updatePromptPopUp = usePopUp();
 
   const {
     data,
@@ -54,7 +53,7 @@ const usePromptCardListLogic = () => {
     isRefetching,
   } = usePromptsQuery(
     { title: searchPromptValue, tag: tagFilter?.tagId },
-    { limit: 10 }
+    { limit: 10 },
   );
 
   const { isPending, removeManyPrompts } = useDeleteManyPrompts();
@@ -63,7 +62,7 @@ const usePromptCardListLogic = () => {
 
   const prompts = useMemo(
     () => data?.pages.flatMap((p) => p.records) ?? [],
-    [data]
+    [data],
   );
 
   /** Emitimos el cambio de elementos seleccionados */
@@ -80,7 +79,7 @@ const usePromptCardListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmPromptDeletePopUp.onOpenPopUp)
+        SELECTION_MODE_ACTIONS(confirmPromptDeletePopUp.openPopUp),
       );
     else disableSelectionMode();
   }, [selectionCount]);

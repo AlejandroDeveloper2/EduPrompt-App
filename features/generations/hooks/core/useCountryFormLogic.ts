@@ -3,8 +3,7 @@ import { useEffect, useMemo } from "react";
 
 import { COUNTRIES } from "../../constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm, useTranslations } from "@/shared/hooks/core";
+import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import {
@@ -40,7 +39,7 @@ const useCountryFormLogic = () => {
       const country = getSelectedOption(
         COUNTRIES[lang],
         data.country,
-        "countryId"
+        "countryId",
       );
 
       if (!country) return;
@@ -49,28 +48,22 @@ const useCountryFormLogic = () => {
         currentIaGeneration.generationId,
         { country },
         { completed: true },
-        {}
+        {},
       );
 
       setGenerationStep(
         currentIaGeneration.generationId,
-        "resource_format_selection"
+        "resource_format_selection",
       );
     },
     noReset: true,
   });
 
-  const {
-    onOpenPopUp,
-    isPopUpMounted,
-    dragGesture,
-    animatedPopUpStyle,
-    onClosePopUp,
-  } = useAnimatedPopUp();
+  const popUp = usePopUp();
 
   const selectedCountry = useMemo(
     () => getSelectedOption(COUNTRIES[lang], data.country, "countryId"),
-    [data.country, lang]
+    [data.country, lang],
   );
 
   useEffect(() => {
@@ -90,13 +83,7 @@ const useCountryFormLogic = () => {
       handleClearInput,
       handleSubmit,
     },
-    popUp: {
-      onOpenPopUp,
-      isPopUpMounted,
-      dragGesture,
-      animatedPopUpStyle,
-      onClosePopUp,
-    },
+    popUp,
     selectedCountry,
     t,
     lang,

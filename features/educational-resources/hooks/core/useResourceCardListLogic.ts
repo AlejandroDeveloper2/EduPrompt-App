@@ -13,8 +13,11 @@ import {
   SELECTION_MODE_ACTIONS,
 } from "../../constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useBackgroundTaskRunner, useTranslations } from "@/shared/hooks/core";
+import {
+  useBackgroundTaskRunner,
+  usePopUp,
+  useTranslations,
+} from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
@@ -59,8 +62,8 @@ const useResourceCardListLogic = () => {
     onSearchTagValueChange,
   } = useResourcesFiltersContext();
 
-  const updateResourcePopUp = useAnimatedPopUp();
-  const confirmDeletePopUp = useAnimatedPopUp();
+  const updateResourcePopUp = usePopUp();
+  const confirmDeletePopUp = usePopUp();
 
   const {
     data,
@@ -111,7 +114,7 @@ const useResourceCardListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmDeletePopUp.onOpenPopUp, () => {
+        SELECTION_MODE_ACTIONS(confirmDeletePopUp.openPopUp, () => {
           const processName = BACKGROUND_PROCESS_NAMES.downloadProcess;
           runBackgroundTask(
             {
@@ -130,18 +133,18 @@ const useResourceCardListLogic = () => {
             {
               successNotification: {
                 title: t(
-        "resources_translations.download_resources_notifications_labels.success.title",
+                  "resources_translations.download_resources_notifications_labels.success.title",
                 ),
                 message: t(
-        "resources_translations.download_resources_notifications_labels.success.message",
+                  "resources_translations.download_resources_notifications_labels.success.message",
                 ),
               },
               errorNotification: {
                 title: t(
-        "resources_translations.download_resources_notifications_labels.error.title",
+                  "resources_translations.download_resources_notifications_labels.error.title",
                 ),
                 message: t(
-        "resources_translations.download_resources_notifications_labels.error.message",
+                  "resources_translations.download_resources_notifications_labels.error.message",
                 ),
               },
             },

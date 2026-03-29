@@ -51,51 +51,52 @@ const DownloadedFileList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "my_files_translations.file_list_labels.confirm_delete_alert_labels.title"
+          "my_files_translations.file_list_labels.confirm_delete_alert_labels.title",
         )}
-        {...confirmFileDeletePopUp}
-        gesture={confirmFileDeletePopUp.dragGesture}
+        isOpen={confirmFileDeletePopUp.isOpen}
+        onClose={confirmFileDeletePopUp.closePopUp}
       >
         <Alert
           variant="danger"
           message={t(
-            "my_files_translations.file_list_labels.confirm_delete_alert_labels.message"
+            "my_files_translations.file_list_labels.confirm_delete_alert_labels.message",
           )}
           acceptButtonLabel={t(
-            "my_files_translations.file_list_labels.confirm_delete_alert_labels.btn_accept"
+            "my_files_translations.file_list_labels.confirm_delete_alert_labels.btn_accept",
           )}
           acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmFileDeletePopUp.onClosePopUp}
+          onCancel={confirmFileDeletePopUp.closePopUp}
           onAccept={() => {
             deleteManyFiles(folderId);
-            confirmFileDeletePopUp.onClosePopUp();
+            confirmFileDeletePopUp.closePopUp();
           }}
         />
       </PopUp>
       <PopUp
         title={t(
-          "my_files_translations.file_list_labels.update_file_name_popup_labels.title"
+          "my_files_translations.file_list_labels.update_file_name_popup_labels.title",
         )}
         icon="pencil-outline"
-        gesture={editFileNamePopUp.dragGesture}
-        {...editFileNamePopUp}
+        isOpen={editFileNamePopUp.isOpen}
+        onClose={editFileNamePopUp.closePopUp}
+        scrollable
       >
         {selectedFileInfo && (
           <EditFileNameForm
             folderId={folderId}
             fileId={selectedFileInfo.fileId}
             fileName={selectedFileInfo.name}
-            onClosePopUp={editFileNamePopUp.onClosePopUp}
+            onClosePopUp={editFileNamePopUp.closePopUp}
           />
         )}
       </PopUp>
       <PopUp
         title={t(
-          "my_files_translations.file_list_labels.move_files_popup_labels.title"
+          "my_files_translations.file_list_labels.move_files_popup_labels.title",
         )}
         icon="move-outline"
-        gesture={moveFilesPopUp.dragGesture}
-        {...moveFilesPopUp}
+        isOpen={moveFilesPopUp.isOpen}
+        onClose={moveFilesPopUp.closePopUp}
       >
         <MoveFilePanel originFolderId={folderId} />
       </PopUp>
@@ -115,7 +116,7 @@ const DownloadedFileList = () => {
             totalRecords={folder?.files.length ?? 0}
             onEditFileName={() => {
               setSelectedFileInfo(item);
-              editFileNamePopUp.onOpenPopUp();
+              editFileNamePopUp.openPopUp();
             }}
           />
         )}

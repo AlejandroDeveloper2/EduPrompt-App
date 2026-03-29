@@ -38,7 +38,7 @@ const NotificationListHeader = ({
     <View style={notificationListStyle.ListHeaderContainer}>
       <ScreenSection
         description={t(
-          "notifications_translations.user_notification_list.description"
+          "notifications_translations.user_notification_list.description",
         )}
         title={t("notifications_translations.user_notification_list.title")}
         icon="notifications-outline"
@@ -46,7 +46,7 @@ const NotificationListHeader = ({
       <View style={notificationListStyle.FiltersContainer}>
         <Typography
           text={t(
-            "notifications_translations.user_notification_list.order_filters_labels.title"
+            "notifications_translations.user_notification_list.order_filters_labels.title",
           )}
           weight="bold"
           type="button"
@@ -59,7 +59,7 @@ const NotificationListHeader = ({
           <FilterTag
             icon="calendar-outline"
             label={t(
-              "notifications_translations.user_notification_list.order_filters_labels.asc"
+              "notifications_translations.user_notification_list.order_filters_labels.asc",
             )}
             active={filter === "asc"}
             onPressFilter={() => updateFilter("asc")}
@@ -67,7 +67,7 @@ const NotificationListHeader = ({
           <FilterTag
             icon="calendar-outline"
             label={t(
-              "notifications_translations.user_notification_list.order_filters_labels.desc"
+              "notifications_translations.user_notification_list.order_filters_labels.desc",
             )}
             active={filter === "desc"}
             onPressFilter={() => updateFilter("desc")}
@@ -99,24 +99,24 @@ const NotificationList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "notifications_translations.user_notification_list.confirm_delete_alert_labels.title"
+          "notifications_translations.user_notification_list.confirm_delete_alert_labels.title",
         )}
-        {...confirmDeletePopUp}
-        gesture={confirmDeletePopUp.dragGesture}
+        onClose={confirmDeletePopUp.closePopUp}
+        isOpen={confirmDeletePopUp.isOpen}
       >
         <Alert
           variant="danger"
           message={t(
-            "notifications_translations.user_notification_list.confirm_delete_alert_labels.message"
+            "notifications_translations.user_notification_list.confirm_delete_alert_labels.message",
           )}
           acceptButtonLabel={t(
-            "notifications_translations.user_notification_list.confirm_delete_alert_labels.btn_accept"
+            "notifications_translations.user_notification_list.confirm_delete_alert_labels.btn_accept",
           )}
           acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmDeletePopUp.onClosePopUp}
+          onCancel={confirmDeletePopUp.closePopUp}
           onAccept={() => {
             deleteSelectedNotifications();
-            confirmDeletePopUp.onClosePopUp();
+            confirmDeletePopUp.closePopUp();
           }}
         />
       </PopUp>
@@ -143,7 +143,7 @@ const NotificationList = () => {
         ListEmptyComponent={
           <Empty
             message={t(
-              "notifications_translations.user_notification_list.no_notifications_msg"
+              "notifications_translations.user_notification_list.no_notifications_msg",
             )}
             icon="notifications-off-outline"
           />

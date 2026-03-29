@@ -8,8 +8,7 @@ import { AppColors } from "@/shared/styles";
 
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
 import { useSyncPromptsMutation } from "@/features/prompts/hooks/mutations";
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
+import { usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
@@ -38,14 +37,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
   const userProfile = useEventbusValue("userProfile.user.updated", null);
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const {
-    isPopUpMounted,
-    isPopUpVisible,
-    animatedPopUpStyle,
-    dragGesture,
-    onOpenPopUp,
-    onClosePopUp,
-  } = useAnimatedPopUp();
+  const { isOpen, openPopUp, closePopUp } = usePopUp();
 
   const { isPending, syncPrompts } = useSyncPromptsMutation();
 
@@ -67,13 +59,11 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
     <>
       <PopUp
         title={t(
-          "prompts_translations.prompt_list_labels.tag_list_labels_popup.title"
+          "prompts_translations.prompt_list_labels.tag_list_labels_popup.title",
         )}
         icon="pricetag-outline"
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <ComposedDropdownOptionList<Tag>
           ControlPanelComponent={
@@ -94,7 +84,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
               )
                 eventBus.emit(
                   "tags.promptType.fetchNextPage.requested",
-                  undefined
+                  undefined,
                 );
             },
           }}
@@ -102,7 +92,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           optionIdkey="tagId"
           optionLabelKey="name"
           searchInputPlaceholder={t(
-            "prompts_translations.prompt_list_labels.tag_list_labels_popup.search_input_placeholder"
+            "prompts_translations.prompt_list_labels.tag_list_labels_popup.search_input_placeholder",
           )}
           selectedOption={tagFilter}
           onSelectOption={(option) => {
@@ -117,20 +107,20 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           isAuthenticated && (
             <InfoCard
               title={t(
-                "prompts_translations.prompt_list_labels.syncronization_card_labels.title"
+                "prompts_translations.prompt_list_labels.syncronization_card_labels.title",
               )}
               description={t(
-                "prompts_translations.prompt_list_labels.syncronization_card_labels.description"
+                "prompts_translations.prompt_list_labels.syncronization_card_labels.description",
               )}
               buttonData={{
                 onPress: syncPrompts,
                 icon: "sync-outline",
                 label: t(
-                  "prompts_translations.prompt_list_labels.syncronization_card_labels.btn_sync"
+                  "prompts_translations.prompt_list_labels.syncronization_card_labels.btn_sync",
                 ),
                 loading: isPending,
                 loadingMessage: t(
-                  "prompts_translations.prompt_list_labels.syncronization_card_labels.loading_text"
+                  "prompts_translations.prompt_list_labels.syncronization_card_labels.loading_text",
                 ),
               }}
             />
@@ -145,7 +135,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           value={searchPromptValue}
           icon="search-outline"
           placeholder={t(
-            "prompts_translations.prompt_list_labels.search_input_placeholder"
+            "prompts_translations.prompt_list_labels.search_input_placeholder",
           )}
           onChange={(_, value) => onSearchPromptValueChange(value)}
           onClearInput={() => onSearchPromptValueChange("")}
@@ -153,7 +143,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
         <View style={promptCardListStyle.FiltersContainer}>
           <Typography
             text={t(
-              "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.title"
+              "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.title",
             )}
             weight="bold"
             type="button"
@@ -170,7 +160,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
             <FilterTag
               icon="star-outline"
               label={t(
-                "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.all_filter"
+                "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.all_filter",
               )}
               active={tagFilter === null}
               onPressFilter={() => onTagFilterChange(null)}
@@ -185,9 +175,9 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
               />
             ))}
             <NavItem
-              active={isPopUpVisible}
+              active={isOpen}
               icon="search-outline"
-              onPress={onOpenPopUp}
+              onPress={openPopUp}
             />
           </ScrollView>
         </View>

@@ -3,8 +3,7 @@ import { useCallback, useMemo } from "react";
 
 import { SubscriptionPlan } from "../../types";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
+import { usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSubscriptionPlansQuery } from "../query";
 import useMarketplace from "./useMarketplace";
@@ -26,13 +25,7 @@ const useSubscriptionPlanList = () => {
     isError,
   } = useSubscriptionPlansQuery();
 
-  const {
-    isPopUpMounted,
-    animatedPopUpStyle,
-    dragGesture,
-    onClosePopUp,
-    onOpenPopUp,
-  } = useAnimatedPopUp();
+  const { isOpen, closePopUp, openPopUp } = usePopUp();
 
   const currentPlan = useMemo(
     () =>
@@ -44,7 +37,7 @@ const useSubscriptionPlanList = () => {
 
   const handleSubscribeToPlan = useCallback(
     (plan: SubscriptionPlan) => {
-      if (!isAuthenticated) return onOpenPopUp();
+      if (!isAuthenticated) return openPopUp();
       if (
         currentPlan &&
         currentPlan.subscriptionPlanId === plan.subscriptionPlanId
@@ -64,7 +57,7 @@ const useSubscriptionPlanList = () => {
         false,
       );
     },
-    [createPurchase, currentPlan, isAuthenticated, lang, onOpenPopUp, router],
+    [createPurchase, currentPlan, isAuthenticated, lang, openPopUp, router],
   );
 
   return {
@@ -75,10 +68,8 @@ const useSubscriptionPlanList = () => {
     isError,
     plans,
     isPlansLoading,
-    isPopUpMounted,
-    animatedPopUpStyle,
-    dragGesture,
-    onClosePopUp,
+    isOpen,
+    closePopUp,
     currentPlan,
     handleSubscribeToPlan,
   };

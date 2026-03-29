@@ -1,4 +1,10 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { Tag } from "@/features/tags/types";
 import { ProviderProps, TagFiltersContextType } from "./types";
@@ -8,14 +14,14 @@ import { eventBus } from "@/core/events/EventBus";
 import { useEventbusValue } from "@/shared/hooks/events";
 
 const TagFiltersContext = createContext<TagFiltersContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const TagFiltersProvider = ({ children }: ProviderProps) => {
   const [searchTagValue, setSearchTagValue] = useState<string>("");
   const [tagFilter, setTagFilter] = useState<Tag | null>(null);
-  const [tagType, setTagType] = useState<"promptType" | "resourceType">(
-    "promptType"
+  const [tagType, setTagTypeState] = useState<"promptType" | "resourceType">(
+    "promptType",
   );
 
   const onSearchTagValueChange = (value: string): void => {
@@ -26,23 +32,53 @@ export const TagFiltersProvider = ({ children }: ProviderProps) => {
     setTagFilter(selectedTag);
   };
 
-  const paginatedTags = useEventbusValue(`tags.list.${tagType}.updated`, {
+  const setTagType = useCallback(
+    (type: "promptType" | "resourceType"): void => {
+      if (type === tagType) return;
+      setTagTypeState(type);
+      setSearchTagValue("");
+      setTagFilter(null);
+    },
+    [tagType],
+  );
+
+  const paginatedPromptTags = useEventbusValue("tags.list.promptType.updated", {
     tags: [],
     hasNextPage: false,
     isFetchingNextPage: false,
     refreshing: false,
   });
 
-  const emitFetchTags = useCallback(() => {
-    eventBus.emit(`tags.${tagType}.fetch`, searchTagValue);
-  }, [searchTagValue, tagType]);
+  const paginatedResourceTags = useEventbusValue(
+    "tags.list.resourceType.updated",
+    {
+      tags: [],
+      hasNextPage: false,
+      isFetchingNextPage: false,
+      refreshing: false,
+    },
+  );
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      emitFetchTags();
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [emitFetchTags]);
+    const handleFetchTags = (): void => {
+      if (tagType === "promptType")
+        eventBus.emit("tags.promptType.fetch", searchTagValue);
+      else eventBus.emit("tags.resourceType.fetch", searchTagValue);
+    };
+
+    // Si hay texto de búsqueda aplicar debounce, si no, fetch inmediato
+    if (searchTagValue) {
+      const timeoutId = setTimeout(handleFetchTags, 300);
+      return () => clearTimeout(timeoutId);
+    }
+    handleFetchTags();
+  }, [searchTagValue, tagType]);
+
+  const paginatedTags = useMemo(
+    () =>
+      tagType === "promptType" ? paginatedPromptTags : paginatedResourceTags,
+    [tagType, paginatedPromptTags, paginatedResourceTags],
+  );
 
   return (
     <TagFiltersContext.Provider

@@ -3,8 +3,7 @@ import { useEffect, useMemo } from "react";
 
 import { APP_LANGUAGES } from "@/shared/constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm, useTranslations } from "@/shared/hooks/core";
+import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import {
@@ -56,13 +55,7 @@ const useLanguageFormLogic = () => {
     noReset: true,
   });
 
-  const {
-    onOpenPopUp,
-    isPopUpMounted,
-    dragGesture,
-    animatedPopUpStyle,
-    onClosePopUp,
-  } = useAnimatedPopUp();
+  const popUp = usePopUp();
 
   const selectedLanguage = useMemo(
     () => getSelectedOption(appLanguages, data.language, "key"),
@@ -86,13 +79,7 @@ const useLanguageFormLogic = () => {
       handleClearInput,
       handleSubmit,
     },
-    popUp: {
-      onOpenPopUp,
-      isPopUpMounted,
-      dragGesture,
-      animatedPopUpStyle,
-      onClosePopUp,
-    },
+    popUp,
     appLanguages,
     selectedLanguage,
     t,

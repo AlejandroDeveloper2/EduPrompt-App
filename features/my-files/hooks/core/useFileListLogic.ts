@@ -14,10 +14,10 @@ import {
   FILE_SELECTION_MODE_ACTIONS,
 } from "../../constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
 import {
   useBackgroundTaskRunner,
   useLoading,
+  usePopUp,
   useSearchInput,
   useTranslations,
 } from "@/shared/hooks/core";
@@ -46,9 +46,9 @@ const useFileListLogic = () => {
 
   const { isLoading, message, toggleLoading } = useLoading();
 
-  const editFileNamePopUp = useAnimatedPopUp();
-  const moveFilesPopUp = useAnimatedPopUp();
-  const confirmFileDeletePopUp = useAnimatedPopUp();
+  const editFileNamePopUp = usePopUp();
+  const moveFilesPopUp = usePopUp();
+  const confirmFileDeletePopUp = usePopUp();
 
   const {
     selectionMode,
@@ -96,18 +96,18 @@ const useFileListLogic = () => {
     await runBackgroundTask(task, async () => await shareManyFiles(folderId), {
       successNotification: {
         title: t(
-          "my_files_translations.shared_files_notifications_labels.success.title"
+          "my_files_translations.shared_files_notifications_labels.success.title",
         ),
         message: t(
-          "my_files_translations.shared_files_notifications_labels.success.message"
+          "my_files_translations.shared_files_notifications_labels.success.message",
         ),
       },
       errorNotification: {
         title: t(
-          "my_files_translations.shared_files_notifications_labels.error.title"
+          "my_files_translations.shared_files_notifications_labels.error.title",
         ),
         message: t(
-          "my_files_translations.shared_files_notifications_labels.error.message"
+          "my_files_translations.shared_files_notifications_labels.error.message",
         ),
       },
     });
@@ -138,10 +138,10 @@ const useFileListLogic = () => {
     if (selectionCount > 0)
       enableSelectionMode(
         FILE_SELECTION_MODE_ACTIONS(
-          confirmFileDeletePopUp.onOpenPopUp,
+          confirmFileDeletePopUp.openPopUp,
           runShareFilesTask,
-          moveFilesPopUp.onOpenPopUp
-        )
+          moveFilesPopUp.openPopUp,
+        ),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -149,7 +149,7 @@ const useFileListLogic = () => {
   useEffect(() => {
     toggleLoading(
       true,
-      t("my_files_translations.file_list_labels.loading_files_msg")
+      t("my_files_translations.file_list_labels.loading_files_msg"),
     );
     loadFilesByFormat(folderId, format ?? undefined);
     toggleLoading(false, null);

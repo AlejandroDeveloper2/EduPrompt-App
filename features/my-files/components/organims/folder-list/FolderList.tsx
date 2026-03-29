@@ -33,13 +33,7 @@ const FolderList = () => {
     setSelectedFolderInfo,
     /** Edit Folder name pop up */
     confirmFolderDeletePopUp,
-    editFolderNamePopUp: {
-      onClosePopUp,
-      dragGesture,
-      animatedPopUpStyle,
-      isPopUpMounted,
-      onOpenPopUp,
-    },
+    editFolderNamePopUp,
     deleteManyFolders,
     t,
   } = useFolderListLogic();
@@ -51,40 +45,39 @@ const FolderList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "my_files_translations.folder_list_labels.confirm_delete_alert_labels.title"
+          "my_files_translations.folder_list_labels.confirm_delete_alert_labels.title",
         )}
-        {...confirmFolderDeletePopUp}
-        gesture={confirmFolderDeletePopUp.dragGesture}
+        isOpen={confirmFolderDeletePopUp.isOpen}
+        onClose={confirmFolderDeletePopUp.closePopUp}
       >
         <Alert
           variant="danger"
           message={t(
-            "my_files_translations.folder_list_labels.confirm_delete_alert_labels.message"
+            "my_files_translations.folder_list_labels.confirm_delete_alert_labels.message",
           )}
           acceptButtonLabel="Eliminar"
           acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmFolderDeletePopUp.onClosePopUp}
+          onCancel={confirmFolderDeletePopUp.closePopUp}
           onAccept={() => {
             deleteManyFolders();
-            confirmFolderDeletePopUp.onClosePopUp();
+            confirmFolderDeletePopUp.closePopUp();
           }}
         />
       </PopUp>
       <PopUp
-        gesture={dragGesture}
         title={t(
-          "my_files_translations.folder_list_labels.update_folder_name_popup_labels.title"
+          "my_files_translations.folder_list_labels.update_folder_name_popup_labels.title",
         )}
         icon="pencil-outline"
-        onClosePopUp={onClosePopUp}
-        animatedPopUpStyle={animatedPopUpStyle}
-        isPopUpMounted={isPopUpMounted}
+        onClose={editFolderNamePopUp.closePopUp}
+        isOpen={editFolderNamePopUp.isOpen}
+        scrollable
       >
         {selectedFolderInfo && (
           <EditFolderNameForm
             folderId={selectedFolderInfo.folderId}
             folderName={selectedFolderInfo.folderName}
-            onClosePopUp={onClosePopUp}
+            onClosePopUp={editFolderNamePopUp.closePopUp}
           />
         )}
       </PopUp>
@@ -106,7 +99,7 @@ const FolderList = () => {
                 folderId: item.folderId,
                 folderName: item.folderName,
               });
-              onOpenPopUp();
+              editFolderNamePopUp.openPopUp();
             }}
             onOpenFolder={() =>
               router.navigate(`/(tabs)/files_screen/${item.folderId}`)
@@ -126,7 +119,7 @@ const FolderList = () => {
         ListEmptyComponent={
           <Empty
             message={t(
-              "my_files_translations.folder_list_labels.no_folders_msg"
+              "my_files_translations.folder_list_labels.no_folders_msg",
             )}
             icon="folder-outline"
           />

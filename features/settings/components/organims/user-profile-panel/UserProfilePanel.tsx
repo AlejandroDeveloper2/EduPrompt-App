@@ -9,8 +9,11 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { FORM_TABS } from "./constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
+import {
+  useCheckNetwork,
+  usePopUp,
+  useTranslations,
+} from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 import useEventBusValue from "@/shared/hooks/events/useEventbusValue";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
@@ -46,13 +49,7 @@ const UserProfilePanel = () => {
   const { isConnected } = useCheckNetwork();
   const size = useScreenDimensionsStore();
 
-  const {
-    isPopUpMounted,
-    dragGesture,
-    animatedPopUpStyle,
-    onClosePopUp,
-    onOpenPopUp,
-  } = useAnimatedPopUp();
+  const { isOpen, closePopUp, openPopUp } = usePopUp();
 
   const Form: FormSectionComponentMap = {
     "tab-1": <UpdateUsernameForm />,
@@ -65,34 +62,32 @@ const UserProfilePanel = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-        "settings_translations.user_profile_panel.close_session_alert_labels.title",
+          "settings_translations.user_profile_panel.close_session_alert_labels.title",
         )}
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <Alert
           variant="danger"
           message={t(
-        "settings_translations.user_profile_panel.close_session_alert_labels.message",
+            "settings_translations.user_profile_panel.close_session_alert_labels.message",
           )}
           acceptButtonLabel={t(
-        "settings_translations.user_profile_panel.close_session_alert_labels.btn_accept",
+            "settings_translations.user_profile_panel.close_session_alert_labels.btn_accept",
           )}
           loading={loading}
           loadingMessage={t(
-        "settings_translations.user_profile_panel.close_session_alert_labels.closing_session_msg",
+            "settings_translations.user_profile_panel.close_session_alert_labels.closing_session_msg",
           )}
           acceptButtonIcon="power-outline"
-          onCancel={onClosePopUp}
+          onCancel={closePopUp}
           onAccept={() => eventBus.emit("auth.logout.requested", undefined)}
         />
       </PopUp>
       <View style={UserProfilePanelStyles(size).PanelContainer}>
         <ScreenSection
           description={t(
-        "settings_translations.user_profile_panel.description",
+            "settings_translations.user_profile_panel.description",
           )}
           title={t("settings_translations.user_profile_panel.title")}
           icon="person-outline"
@@ -100,7 +95,7 @@ const UserProfilePanel = () => {
         {!isConnected ? (
           <NoConnectionIndicator
             message={t(
-        "settings_translations.user_profile_panel.no_connection_indicator_msg",
+              "settings_translations.user_profile_panel.no_connection_indicator_msg",
             )}
           />
         ) : (
@@ -121,9 +116,9 @@ const UserProfilePanel = () => {
                   icon="power-outline"
                   variant="neutral"
                   width="100%"
-                  onPress={onOpenPopUp}
+                  onPress={openPopUp}
                   label={t(
-        "settings_translations.user_profile_panel.btn_close_session",
+                    "settings_translations.user_profile_panel.btn_close_session",
                   )}
                 />
               </>
@@ -135,15 +130,15 @@ const UserProfilePanel = () => {
                   width={"100%"}
                   onPress={() => router.navigate("/auth")}
                   label={t(
-        "settings_translations.user_profile_panel.btn_login",
+                    "settings_translations.user_profile_panel.btn_login",
                   )}
                 />
                 <Link
                   label={t(
-        "settings_translations.user_profile_panel.signup_link.label",
+                    "settings_translations.user_profile_panel.signup_link.label",
                   )}
                   linkLabel={t(
-        "settings_translations.user_profile_panel.signup_link.link_label",
+                    "settings_translations.user_profile_panel.signup_link.link_label",
                   )}
                   href="/auth/signup_screen"
                 />

@@ -8,8 +8,7 @@ import {
   resourceFormatFormSchema,
 } from "../../components/organims/resource-format-form/validationSchema";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm, useTranslations } from "@/shared/hooks/core";
+import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { getSelectedOption } from "../../helpers";
@@ -39,7 +38,7 @@ const useFormatFormLogic = () => {
       const resourceFormat = getSelectedOption(
         RESOURCE_FORMATS[lang],
         data.formatKey,
-        "formatKey"
+        "formatKey",
       );
 
       if (!resourceFormat) return;
@@ -48,25 +47,19 @@ const useFormatFormLogic = () => {
         currentIaGeneration.generationId,
         { resourceFormat },
         { completed: true },
-        {}
+        {},
       );
       setGenerationStep(currentIaGeneration.generationId, "language_selection");
     },
     noReset: true,
   });
 
-  const {
-    onOpenPopUp,
-    isPopUpMounted,
-    dragGesture,
-    animatedPopUpStyle,
-    onClosePopUp,
-  } = useAnimatedPopUp();
+  const popUp = usePopUp();
 
   const selectedFormat = useMemo(
     () =>
       getSelectedOption(RESOURCE_FORMATS[lang], data.formatKey, "formatKey"),
-    [data.formatKey, lang]
+    [data.formatKey, lang],
   );
 
   useEffect(() => {
@@ -86,13 +79,7 @@ const useFormatFormLogic = () => {
       handleClearInput,
       handleSubmit,
     },
-    popUp: {
-      onOpenPopUp,
-      isPopUpMounted,
-      dragGesture,
-      animatedPopUpStyle,
-      onClosePopUp,
-    },
+    popUp,
     selectedFormat,
     lang,
     t,

@@ -59,47 +59,46 @@ const TagCardList = () => {
       <PopUp
         icon="information-circle-outline"
         title={t(
-          "tags_translations.tag_list_labels.confirm_delete_alert_labels.title"
+          "tags_translations.tag_list_labels.confirm_delete_alert_labels.title",
         )}
-        {...confirmTagDeletePopUp}
-        gesture={confirmTagDeletePopUp.dragGesture}
+        isOpen={confirmTagDeletePopUp.isOpen}
+        onClose={confirmTagDeletePopUp.closePopUp}
       >
         <Alert
           variant="danger"
           message={t(
-            "tags_translations.tag_list_labels.confirm_delete_alert_labels.message"
+            "tags_translations.tag_list_labels.confirm_delete_alert_labels.message",
           )}
           acceptButtonLabel={t(
-            "tags_translations.tag_list_labels.confirm_delete_alert_labels.btn_accept"
+            "tags_translations.tag_list_labels.confirm_delete_alert_labels.btn_accept",
           )}
           acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmTagDeletePopUp.onClosePopUp}
+          onCancel={confirmTagDeletePopUp.closePopUp}
           onAccept={() => {
             removeManyTags();
-            confirmTagDeletePopUp.onClosePopUp();
+            confirmTagDeletePopUp.closePopUp();
           }}
           loading={isPending}
           loadingMessage={t(
-            "tags_translations.tag_list_labels.confirm_delete_alert_labels.deleting_tag_msg"
+            "tags_translations.tag_list_labels.confirm_delete_alert_labels.deleting_tag_msg",
           )}
         />
       </PopUp>
       <PopUp
         title={t(
-          "tags_translations.tag_list_labels.update_tag_popup_labels.title"
+          "tags_translations.tag_list_labels.update_tag_popup_labels.title",
         )}
         icon="pencil-outline"
-        isPopUpMounted={updateTagPopUp.isPopUpMounted}
-        gesture={updateTagPopUp.dragGesture}
-        animatedPopUpStyle={updateTagPopUp.animatedPopUpStyle}
-        onClosePopUp={() => {
-          updateTagPopUp.onClosePopUp();
+        isOpen={updateTagPopUp.isOpen}
+        onClose={() => {
+          updateTagPopUp.closePopUp();
           setSelectedTag(null);
         }}
+        scrollable
       >
         <UpdateTagForm
           selectedTag={selectedTag}
-          onClosePopup={updateTagPopUp.onClosePopUp}
+          onClosePopup={updateTagPopUp.closePopUp}
         />
       </PopUp>
       <FlatList
@@ -115,7 +114,7 @@ const TagCardList = () => {
             data={item}
             onEdit={() => {
               setSelectedTag(item);
-              updateTagPopUp.onOpenPopUp();
+              updateTagPopUp.openPopUp();
             }}
             totalRecords={tags.length}
           />

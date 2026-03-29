@@ -12,8 +12,7 @@ import {
 } from "@/shared/hooks/store";
 import { useTagsSelectionStore } from "../store";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useListFilters, useTranslations } from "@/shared/hooks/core";
+import { useListFilters, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useTagsQuery } from "../queries";
 import useDeleteManyTags from "./useDeleteManyTags";
 
@@ -38,8 +37,8 @@ const useTagCardListLogic = () => {
     onFilterChange,
   } = useListFilters<TagType>("resource_tag");
 
-  const updateTagPopUp = useAnimatedPopUp();
-  const confirmTagDeletePopUp = useAnimatedPopUp();
+  const updateTagPopUp = usePopUp();
+  const confirmTagDeletePopUp = usePopUp();
 
   const {
     data,
@@ -58,7 +57,7 @@ const useTagCardListLogic = () => {
 
   const tags = useMemo(
     () => data?.pages.flatMap((p) => p.records) ?? [],
-    [data]
+    [data],
   );
 
   /** Emitimos el cambio de elementos seleccionados */
@@ -75,7 +74,7 @@ const useTagCardListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmTagDeletePopUp.onOpenPopUp)
+        SELECTION_MODE_ACTIONS(confirmTagDeletePopUp.openPopUp),
       );
     else disableSelectionMode();
   }, [selectionCount]);

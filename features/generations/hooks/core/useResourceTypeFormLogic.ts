@@ -10,8 +10,7 @@ import {
   resourceTypeFormSchema,
 } from "../../components/organims/resource-type-form/validationSchema";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useForm, useTranslations } from "@/shared/hooks/core";
+import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useGenerationsStore } from "../store";
 
 import { getSelectedOption, validateIsLastOptionSelected } from "../../helpers";
@@ -24,7 +23,7 @@ const handleSelectedOption = (resourceTypeId: string, lang: LangTag) => {
   return getSelectedOption(
     EDUCATIONAL_RESOURCE_TYPES[lang],
     resourceTypeId,
-    "resourceTypeId"
+    "resourceTypeId",
   );
 };
 
@@ -32,7 +31,7 @@ const handleIsLastSelectedOption = (resourceTypeId: string, lang: LangTag) => {
   return validateIsLastOptionSelected(
     EDUCATIONAL_RESOURCE_TYPES[lang],
     resourceTypeId,
-    "resourceTypeId"
+    "resourceTypeId",
   );
 };
 
@@ -61,7 +60,7 @@ const useResourceTypeFormLogic = () => {
 
       const isLastOptionSelected = handleIsLastSelectedOption(
         data.resourceTypeId,
-        lang
+        lang,
       );
 
       const { generationId } = currentIaGeneration;
@@ -76,30 +75,30 @@ const useResourceTypeFormLogic = () => {
         { completed: true },
         {
           title: data.otherResourceType ?? resourceType.resourceTypeLabel,
-        }
+        },
       );
       setGenerationStep(generationId, "subject_name");
     },
     noReset: true,
   });
 
-  const chooseResourceTypePopUp = useAnimatedPopUp();
+  const chooseResourceTypePopUp = usePopUp();
 
   const { isLastOptionSelected } = useMemo(
     () => ({
       isLastOptionSelected: handleIsLastSelectedOption(
         data.resourceTypeId,
-        lang
+        lang,
       ),
     }),
-    [data.resourceTypeId, lang]
+    [data.resourceTypeId, lang],
   );
 
   const { selectedOption } = useMemo(
     () => ({
       selectedOption: handleSelectedOption(data.resourceTypeId, lang),
     }),
-    [data.resourceTypeId, lang]
+    [data.resourceTypeId, lang],
   );
 
   useEffect(() => {

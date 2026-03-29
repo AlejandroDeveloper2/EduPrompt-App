@@ -11,13 +11,7 @@ const LanguageForm = () => {
     currentIaGeneration,
     setGenerationStep,
     form: { getFieldErrors, handleChange, handleClearInput, handleSubmit },
-    popUp: {
-      onOpenPopUp,
-      isPopUpMounted,
-      dragGesture,
-      animatedPopUpStyle,
-      onClosePopUp,
-    },
+    popUp: { openPopUp, isOpen, closePopUp },
     appLanguages,
     selectedLanguage,
     t,
@@ -28,24 +22,22 @@ const LanguageForm = () => {
       <PopUp
         icon="language-outline"
         title={t(
-        "generations_translations.language_template.language_selection_popup_labels.title",
+          "generations_translations.language_template.language_selection_popup_labels.title",
         )}
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <DropdownOptionList<AppLanguage>
           optionList={appLanguages}
           optionIdkey="key"
           optionLabelKey="label"
           searchInputPlaceholder={t(
-        "generations_translations.language_template.language_selection_popup_labels.search_input_placeholder",
+            "generations_translations.language_template.language_selection_popup_labels.search_input_placeholder",
           )}
           selectedOption={selectedLanguage}
           onSelectOption={(option) => {
             handleChange("language", option.key);
-            onClosePopUp();
+            closePopUp();
           }}
         />
       </PopUp>
@@ -57,14 +49,14 @@ const LanguageForm = () => {
                 name="language"
                 icon="language-outline"
                 label={t(
-        "generations_translations.language_template.form_labels.language.label",
+                  "generations_translations.language_template.form_labels.language.label",
                 )}
                 placeholder={t(
-        "generations_translations.language_template.form_labels.language.placeholder",
+                  "generations_translations.language_template.form_labels.language.placeholder",
                 )}
                 selectedOption={selectedLanguage}
                 optionValueKey="label"
-                displayDropdownOptions={onOpenPopUp}
+                displayDropdownOptions={openPopUp}
                 errorMessage={getFieldErrors("language")?.join(", ")}
                 clearSelectedOption={() => handleClearInput("language")}
               />
@@ -78,7 +70,7 @@ const LanguageForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-        "generations_translations.language_template.form_labels.btn_prev_step",
+                "generations_translations.language_template.form_labels.btn_prev_step",
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
@@ -95,7 +87,7 @@ const LanguageForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-        "generations_translations.language_template.form_labels.btn_next_step",
+                "generations_translations.language_template.form_labels.btn_next_step",
               )}
               onPress={handleSubmit}
             />

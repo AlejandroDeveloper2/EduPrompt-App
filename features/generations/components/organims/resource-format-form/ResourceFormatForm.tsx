@@ -13,13 +13,7 @@ const ResourceFormatForm = () => {
     currentIaGeneration,
     setGenerationStep,
     form: { getFieldErrors, handleChange, handleClearInput, handleSubmit },
-    popUp: {
-      onOpenPopUp,
-      isPopUpMounted,
-      dragGesture,
-      animatedPopUpStyle,
-      onClosePopUp,
-    },
+    popUp: { openPopUp, isOpen, closePopUp },
     selectedFormat,
     lang,
     t,
@@ -30,24 +24,22 @@ const ResourceFormatForm = () => {
       <PopUp
         icon="image-outline"
         title={t(
-          "generations_translations.resource_format_template.resource_format_popup_labels.title"
+          "generations_translations.resource_format_template.resource_format_popup_labels.title",
         )}
-        isPopUpMounted={isPopUpMounted}
-        gesture={dragGesture}
-        animatedPopUpStyle={animatedPopUpStyle}
-        onClosePopUp={onClosePopUp}
+        isOpen={isOpen}
+        onClose={closePopUp}
       >
         <DropdownOptionList<ResourceFormat>
           optionList={RESOURCE_FORMATS[lang]}
           optionIdkey="formatKey"
           optionLabelKey="formatLabel"
           searchInputPlaceholder={t(
-            "generations_translations.resource_format_template.resource_format_popup_labels.search_input_placeholder"
+            "generations_translations.resource_format_template.resource_format_popup_labels.search_input_placeholder",
           )}
           selectedOption={selectedFormat}
           onSelectOption={(option) => {
             handleChange("formatKey", option.formatKey);
-            onClosePopUp();
+            closePopUp();
           }}
         />
       </PopUp>
@@ -59,14 +51,14 @@ const ResourceFormatForm = () => {
                 name="formatKey"
                 icon="image-outline"
                 label={t(
-                  "generations_translations.resource_format_template.form_labels.format.label"
+                  "generations_translations.resource_format_template.form_labels.format.label",
                 )}
                 placeholder={t(
-                  "generations_translations.resource_format_template.form_labels.format.placeholder"
+                  "generations_translations.resource_format_template.form_labels.format.placeholder",
                 )}
                 selectedOption={selectedFormat}
                 optionValueKey="formatLabel"
-                displayDropdownOptions={onOpenPopUp}
+                displayDropdownOptions={openPopUp}
                 errorMessage={getFieldErrors("formatKey")?.join(", ")}
                 clearSelectedOption={() => handleClearInput("formatKey")}
               />
@@ -80,13 +72,13 @@ const ResourceFormatForm = () => {
               width="100%"
               icon="chevron-back-outline"
               label={t(
-                "generations_translations.resource_format_template.form_labels.btn_prev_step"
+                "generations_translations.resource_format_template.form_labels.btn_prev_step",
               )}
               onPress={() => {
                 if (!currentIaGeneration) return;
                 setGenerationStep(
                   currentIaGeneration.generationId,
-                  "country_selection"
+                  "country_selection",
                 );
               }}
             />
@@ -97,7 +89,7 @@ const ResourceFormatForm = () => {
               width="100%"
               icon="chevron-forward-outline"
               label={t(
-                "generations_translations.resource_format_template.form_labels.btn_next_step"
+                "generations_translations.resource_format_template.form_labels.btn_next_step",
               )}
               onPress={handleSubmit}
             />

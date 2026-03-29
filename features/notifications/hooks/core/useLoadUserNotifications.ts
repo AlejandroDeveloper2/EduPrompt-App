@@ -7,8 +7,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
-import { useAnimatedPopUp } from "@/shared/hooks/animations";
-import { useLoading, useTranslations } from "@/shared/hooks/core";
+import { useLoading, usePopUp, useTranslations } from "@/shared/hooks/core";
 import { useSelectionModeStore } from "@/shared/hooks/store";
 import {
   useNotificationsSelectionStore,
@@ -35,7 +34,7 @@ const useLoadUserNotifications = () => {
     deleteSelectedNotifications,
   } = useUserNotificationsStore();
 
-  const confirmDeletePopUp = useAnimatedPopUp();
+  const confirmDeletePopUp = usePopUp();
 
   const { t } = useTranslations();
 
@@ -56,9 +55,7 @@ const useLoadUserNotifications = () => {
   /** Validamos si hay elementos seleccionados */
   useEffect(() => {
     if (selectionCount > 0)
-      enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmDeletePopUp.onOpenPopUp)
-      );
+      enableSelectionMode(SELECTION_MODE_ACTIONS(confirmDeletePopUp.openPopUp));
     else disableSelectionMode();
   }, [selectionCount]);
 
@@ -67,8 +64,8 @@ const useLoadUserNotifications = () => {
       toggleLoading(
         true,
         t(
-          "notifications_translations.load_notifications_messages.loading_notifications_msg"
-        )
+          "notifications_translations.load_notifications_messages.loading_notifications_msg",
+        ),
       );
       getAllNotifications(filter);
       toggleLoading(false, null);

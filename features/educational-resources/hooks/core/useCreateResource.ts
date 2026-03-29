@@ -32,10 +32,11 @@ const useCreateResource = () => {
 
   const addResource = useCallback(
     async (
-      createResourcePayload: Omit<CreateResourcePayload, "resourceId">
+      createResourcePayload: Omit<CreateResourcePayload, "resourceId">,
     ) => {
       /** Creación  offline inmediata */
       const resourceId: string = uuid();
+
       const addedResource = await createResource({
         ...createResourcePayload,
         resourceId,
@@ -58,16 +59,18 @@ const useCreateResource = () => {
                 error: String(error),
               });
             },
-          }
+          },
         );
         await updateResourcesSyncStatus(true, addedResource.resourceId);
       }
+
+      eventBus.emit("dashboard.addSavedResources", undefined);
 
       showToast({
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "resources_translations.module_success_messages.resource_created_msg"
+          "resources_translations.module_success_messages.resource_created_msg",
         ),
       });
     },
@@ -79,7 +82,7 @@ const useCreateResource = () => {
       updateResourcesSyncStatus,
       queryClient,
       t,
-    ]
+    ],
   );
 
   return {
