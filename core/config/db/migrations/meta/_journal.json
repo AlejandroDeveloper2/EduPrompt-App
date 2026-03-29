@@ -50,6 +50,13 @@
       "when": 1767367231075,
       "tag": "0006_sturdy_lockjaw",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1774752154937,
+      "tag": "0007_boring_legion",
+      "breakpoints": true
     }
   ]
 }

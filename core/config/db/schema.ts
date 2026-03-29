@@ -22,6 +22,6 @@ export const resourcesTable = sqliteTable("resources", {
   format: text().notNull(),
   formatKey: text().notNull(),
   groupTag: text().notNull(),
-  creationDate: text().default(Date.now().toString()).notNull(),
+  creationDate: text().default(new Date().toISOString()).notNull(),
   sync: text().default("false").notNull(),
 });
