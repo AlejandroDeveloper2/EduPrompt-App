@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "edupromptapp",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
@@ -29,7 +28,6 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#10B981"
       },
-      "edgeToEdgeEnabled": true,
       "package": "com.diazcore.eduprompt"
     },
     "web": {},
@@ -89,7 +87,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "bec4c01c-fe04-42fe-9f3a-d92a6d96cc99"
+        "projectId": "b576e7a8-1913-4af7-80e9-0add5ed1690c"
       }
     }
   }

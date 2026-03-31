@@ -303,7 +303,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
 
       set({ isDownloading: true });
 
-      tryCatchWrapper(
+      await tryCatchWrapper(
         async () => {
           const resources = await db
             .select()
@@ -327,6 +327,12 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             "dashboard.addDownloadedResources",
             resourcesToDownload.length,
           );
+
+          showToast({
+            key: generateToastKey(),
+            variant: "primary",
+            message: "¡Recursos descargados correctamente!",
+          });
 
           clearSelection();
         },

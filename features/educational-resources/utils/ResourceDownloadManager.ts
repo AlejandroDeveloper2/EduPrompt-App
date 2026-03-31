@@ -41,8 +41,9 @@ export class ResourceDownloadManager {
 
     return result.find((r) => r.folderId === folderId);
   }
+
   private static createFolder(
-    createfolderInput: Pick<Folder, "folderId" | "folderName">
+    createfolderInput: Pick<Folder, "folderId" | "folderName">,
   ): Folder {
     const folderPath = `${BASE_DIRECTORY}/${createfolderInput.folderId}/`;
 
@@ -64,7 +65,7 @@ export class ResourceDownloadManager {
 
   private static getFilePath(
     folderId: string,
-    file: Omit<DownloadedFile, "fileUri" | "downloadDate">
+    file: Omit<DownloadedFile, "fileUri" | "downloadDate">,
   ): string {
     /** Ruta de la carpeta */
     const folderPath = `${BASE_DIRECTORY}/${folderId}/`;
@@ -75,7 +76,7 @@ export class ResourceDownloadManager {
   }
   private static saveFileMetadataInFolder(
     folderId: string,
-    file: DownloadedFile
+    file: DownloadedFile,
   ): void {
     const folderPath = `${BASE_DIRECTORY}/${folderId}/`;
     const metaPath = `${folderPath}${file.fileId}.meta.json`;
@@ -99,7 +100,7 @@ export class ResourceDownloadManager {
     resource: Pick<
       EducationalResource,
       "formatKey" | "content" | "groupTag" | "title" | "format"
-    >
+    >,
   ): void {
     const { formatKey, content, groupTag, title, format } = resource;
 
@@ -164,7 +165,7 @@ export class ResourceDownloadManager {
     resources: Pick<
       EducationalResource,
       "formatKey" | "content" | "groupTag" | "title" | "format"
-    >[]
+    >[],
   ): void {
     // Asegurar que el directorio base existe
     const baseDir = new Directory(BASE_DIRECTORY);
@@ -177,6 +178,9 @@ export class ResourceDownloadManager {
         this.downloadSingleResource(resource);
       } catch (error) {
         console.error(`Error descargando recurso ${resource.title}:`, error);
+        throw new Error(
+          "Ha ocurrido un error al descargar el archivo: " + resource.title,
+        );
       }
     }
   }
