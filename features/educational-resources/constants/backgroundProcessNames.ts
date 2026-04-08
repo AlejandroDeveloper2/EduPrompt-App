@@ -1,3 +1,3 @@
 export const BACKGROUND_PROCESS_NAMES = {
-  downloadProcess: "downloading_resources",
+  sharingProcess: "sharing_resources",
 };

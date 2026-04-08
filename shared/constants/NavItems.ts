@@ -23,8 +23,8 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-4",
-      label: "Files",
-      icon: "folder-outline",
+      label: "Tags",
+      icon: "pricetags-outline",
       onPress: () => {},
     },
     {
@@ -55,8 +55,8 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-4",
-      label: "Archivos",
-      icon: "folder-outline",
+      label: "Etiquetas",
+      icon: "pricetags-outline",
       onPress: () => {},
     },
     {
@@ -87,8 +87,8 @@ export const NAV_ITEMS: Lang<NavOption> = {
     },
     {
       navItemId: "item-nav-4",
-      label: "Arquivos",
-      icon: "folder-outline",
+      label: "Etiquetas",
+      icon: "pricetags-outline",
       onPress: () => {},
     },
     {

@@ -4,39 +4,44 @@ import { SizeType } from "@/core/types";
 
 import { Spacing } from "@/shared/styles";
 
-export const FolderListStyle = (size: SizeType) =>
+export const ShareResourceListStyle = (size: SizeType) =>
   StyleSheet.create({
     ListHeaderContainer: {
-      height: "auto",
-      flexDirection: "column",
-      justifyContent: "flex-start",
-      alignItems: "center",
-      gap: Spacing.spacing_xl,
-    },
-    FiltersContainer: {
       width: "100%",
       flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
+      gap: Spacing.spacing_xl,
+      alignItems: size === "laptop" ? "flex-start" : "center",
+      justifyContent: "flex-start",
       display: "flex",
+    },
+    FilterSection: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
       gap: Spacing.spacing_xs,
+      justifyContent: "center",
+      alignItems: "flex-start",
     },
     Filters: {
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
+      display: "flex",
+      justifyContent: "flex-start",
       gap: Spacing.spacing_2xs,
+      paddingVertical: Spacing.spacing_xs,
     },
     ListContainer: {
-      width: "90%",
+      width: "100%",
       gap: size === "mobile" ? Spacing.spacing_lg : Spacing.spacing_xl,
-      paddingTop: Spacing.spacing_3xl,
     },
     ListContent: {
       width: "100%",
       display: "flex",
       gap: size === "mobile" ? Spacing.spacing_lg : Spacing.spacing_xl,
-      paddingBottom: Spacing.spacing_4xl * 4.5,
       justifyContent: "flex-start",
+    },
+    ViewPreviewContainer: {
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: Spacing.spacing_xl,
     },
   });

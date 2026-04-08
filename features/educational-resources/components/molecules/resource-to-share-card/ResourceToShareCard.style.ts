@@ -2,7 +2,7 @@ import { StyleSheet, ViewStyle } from "react-native";
 
 import { SizeType } from "@/core/types";
 
-import { Radius, Spacing } from "@/shared/styles";
+import { AppColors, Radius, Spacing } from "@/shared/styles";
 
 const SharedStyle: ViewStyle = {
   width: "100%",
@@ -22,6 +22,8 @@ const ResourceCardStyle = (size: SizeType) =>
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "flex-start",
+      borderWidth: 1,
+      borderColor: AppColors.neutral[50],
       gap: size === "mobile" ? Spacing.spacing_sm : Spacing.spacing_md,
       paddingHorizontal:
         size === "mobile" ? Spacing.spacing_md : Spacing.spacing_lg,
@@ -41,7 +43,7 @@ const ResourceCardStyle = (size: SizeType) =>
     CardContent: SharedStyle,
   });
 
-export const FileCardStyle = (size: SizeType) =>
+export const ResourceToShareStyle = (size: SizeType) =>
   StyleSheet.create({
     ...ResourceCardStyle(size),
     FileMetadata: {

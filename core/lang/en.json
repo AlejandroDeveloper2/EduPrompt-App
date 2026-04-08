@@ -758,7 +758,7 @@
     "resources_list_labels": {
       "selection_options_labels": {
         "delete_resources": "Delete",
-        "download_resources": "Download"
+        "share_resources": "Share"
       },
       "no_resource_tag_label": "No tag",
       "title": "My Resources",
@@ -803,20 +803,14 @@
       "loading_resources_msg": "Loading more resources...",
       "no_resources_msg": "No saved resources"
     },
-    "processes_labels": {
-      "download_resources_process": {
-        "title": "Downloading resources...",
-        "description": "Your selected resources are being downloaded, this may take a few seconds."
-      }
-    },
-    "download_resources_notifications_labels": {
+    "share_resources_notifications_labels": {
       "success": {
-        "title": "Resources Downloaded!",
-        "message": "Your resources have been downloaded successfully."
+        "title": "Resources shared!",
+        "message": "Your resources have been shared successfully."
       },
       "error": {
-        "title": "Download Error!",
-        "message": "Could not download your resources, please try again."
+        "title": "Sharing Error!",
+        "message": "Could not share your resources, please try again."
       }
     },
     "update_resource_template": {
@@ -841,15 +835,43 @@
         "required_tag_msg": "Resource tag is required"
       }
     },
+    "name_group_template": {
+      "form_labels": {
+        "name": {
+          "label": "Group Name (*)",
+          "placeholder": "Enter the group name"
+        },
+        "btn_share_resources": "Share Resources",
+        "btn_back": "Back"
+      },
+      "form_error_messages": {
+        "required_name_msg": "Group name is required"
+      },
+      "form_loading_messages": {
+        "sharing_resources_msg": "Sharing resources..."
+      }
+    },
+    "file_sharing_dialog_title": "Share Resources",
+    "resources_to_share_list_labels": {
+      "search_input_placeholder": "Search resource by title",
+      "no_resources_msg": "No resources to share",
+      "next_button_label": "Next",
+      "no_resource_tag_label": "No tag"
+    },
+    "share_resource_popup_labels": {
+      "title": "Share educational resources"
+    },
     "module_error_messages": {
       "resource_not_found_msg": "No resource found with the id:",
-      "some_resource_not_found_msg": "Some resource from the list does not exist in the database"
+      "some_resource_not_found_msg": "Some resource from the list does not exist in the database",
+      "share_function_no_available_msg": "The share function is not available on this device"
     },
     "module_success_messages": {
       "resource_created_msg": "Educational resource saved successfully",
       "resources_deleted_msg": "Educational resources deleted successfully",
       "resource_updated_msg": "Educational resource updated successfully",
-      "resources_synced_msg": "Resource info synchronized successfully"
+      "resources_synced_msg": "Resource info synchronized successfully",
+      "resources_shared_successfully_msg": "Resources shared successfully!"
     }
   },
   "generations_translations": {

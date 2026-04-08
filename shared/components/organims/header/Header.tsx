@@ -70,12 +70,6 @@ const Header = () => {
           onPress={() => handleNavigate("/(tabs)/marketplace_screen", true)}
         />
         <FloatMenu.Item
-          label={t("common_translations.header_labels.tags")}
-          icon="pricetag-outline"
-          active={pathname === "/tags_screen"}
-          onPress={() => handleNavigate("/(tabs)/tags_screen", true)}
-        />
-        <FloatMenu.Item
           label={t("common_translations.header_labels.settings")}
           icon="settings-outline"
           active={pathname === "/settings_screen"}
@@ -131,11 +125,6 @@ const Header = () => {
                     onPress={() =>
                       handleNavigate("/(tabs)/marketplace_screen", false)
                     }
-                  />
-                  <NavItem
-                    active={pathname === "/tags_screen"}
-                    icon="pricetag-outline"
-                    onPress={() => handleNavigate("/(tabs)/tags_screen", false)}
                   />
                   <NavItem
                     active={pathname === "/settings_screen"}

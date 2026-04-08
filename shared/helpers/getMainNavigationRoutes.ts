@@ -8,12 +8,11 @@ export enum AppNavigationRoutes {
   settings_screen = "settings_screen",
   resources_screen = "resources_screen",
   marketplace_screen = "marketplace_screen",
-  files_screen = "files_screen",
   notifications_screen = "notifications_screen",
 }
 
 export const getMainNavigationRoutes = (
-  routes: NavigationRoute<ParamListBase, string>[]
+  routes: NavigationRoute<ParamListBase, string>[],
 ): {
   firstItemsSlice: NavigationRoute<ParamListBase, string>[];
   centerItemsSlice: NavigationRoute<ParamListBase, string>[];
@@ -24,26 +23,26 @@ export const getMainNavigationRoutes = (
   };
 
   const indexRoute = routes.filter(
-    (r) => r.name === AppNavigationRoutes.index
+    (r) => r.name === AppNavigationRoutes.index,
   )[0];
   const resourceRoute = routes.filter(
-    (r) => r.name === AppNavigationRoutes.resources_screen
+    (r) => r.name === AppNavigationRoutes.resources_screen,
   )[0];
 
   const generationRoute = routes.filter(
-    (r) => r.name === AppNavigationRoutes.generate_screen
+    (r) => r.name === AppNavigationRoutes.generate_screen,
   )[0];
 
-  const filesRoute = routes.filter(
-    (r) => formatName(r.name) === AppNavigationRoutes.files_screen
+  const tagsRoute = routes.filter(
+    (r) => formatName(r.name) === AppNavigationRoutes.tags_screen,
   )[0];
   const promptRoute = routes.filter(
-    (r) => r.name === AppNavigationRoutes.prompts_screen
+    (r) => r.name === AppNavigationRoutes.prompts_screen,
   )[0];
 
   return {
     firstItemsSlice: [indexRoute, resourceRoute],
     centerItemsSlice: [generationRoute],
-    secondItemsSlice: [filesRoute, promptRoute],
+    secondItemsSlice: [tagsRoute, promptRoute],
   };
 };

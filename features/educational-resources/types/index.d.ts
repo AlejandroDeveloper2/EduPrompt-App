@@ -31,10 +31,22 @@ interface ResourceFilters {
 
 type BaseFilters = Omit<ResourceFilters, "page" | "limit">;
 
+interface FileMetadata {
+  fileId: string;
+  name: string;
+  fileExtension: string;
+  fileUri: string;
+  format: string;
+  formatKey: ResourceFormatKey;
+  downloadDate: string;
+  fileSize: string;
+}
+
 export type {
   BaseFilters,
   CreateResourcePayload,
   EducationalResource,
+  FileMetadata,
   ResourceFilters,
   ResourceFormatKey,
   SyncResourcesPayload,

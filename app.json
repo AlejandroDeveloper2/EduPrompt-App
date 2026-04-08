@@ -79,7 +79,10 @@
         }
       ],
       "expo-web-browser",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-image",
+      "expo-sharing",
+      "expo-file-system"
     ],
     "experiments": {
       "typedRoutes": true

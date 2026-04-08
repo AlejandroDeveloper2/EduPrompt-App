@@ -17,11 +17,9 @@ import {
   Empty,
   LoadingTextIndicator,
   ResourceViewer,
+  Stepper,
   Tabulator,
 } from "@/shared/components/molecules";
-import { ResourceCard } from "../../molecules";
-import PreviewResourceHeader from "./PreviewResourceHeader";
-
 import {
   Alert,
   ComposedDropdownOptionList,
@@ -29,7 +27,11 @@ import {
   PopUp,
   TagSelectionPanel,
 } from "@/shared/components/organims";
+import { ResourceCard } from "../../molecules";
+import NameResourcesGroupForm from "../name-resources-group-form/NameResourcesGroupForm";
+import ShareResourcesPanel from "../share-resources-panel/ShareResourcesPanel";
 import UpdateResourceForm from "../update-resource-form/UpdateResourceForm";
+import PreviewResourceHeader from "./PreviewResourceHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { PreviewResourceListStyle } from "./PreviewResourceList.style";
@@ -57,6 +59,7 @@ const PreviewResourceList = () => {
     /** PopUp Controls */
     updateResourcePopUp,
     confirmDeletePopUp,
+    shareResourcePopUp,
     /** Resource Id  */
     selectedResource,
     setSelectedResource,
@@ -70,6 +73,10 @@ const PreviewResourceList = () => {
     removeManyResources,
     t,
     resourcePreviewTabs,
+    /** Sharing  */
+    sharingSteps,
+    currentSharingStep,
+    setCurrentSharingStep,
   } = useResourceCardListLogic();
 
   const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
@@ -111,6 +118,34 @@ const PreviewResourceList = () => {
     );
   return (
     <>
+      <PopUp
+        icon="share-outline"
+        title={t("resources_translations.share_resource_popup_labels.title")}
+        isOpen={shareResourcePopUp.isOpen}
+        onClose={() => {
+          shareResourcePopUp.closePopUp();
+          setCurrentSharingStep({ stepId: "step1" });
+        }}
+      >
+        {currentSharingStep.stepId === "step1" ? (
+          <ShareResourcesPanel
+            resources={resources}
+            goNext={() => setCurrentSharingStep({ stepId: "step2" })}
+          />
+        ) : (
+          <NameResourcesGroupForm
+            goBack={() => setCurrentSharingStep({ stepId: "step1" })}
+            closePopUp={shareResourcePopUp.closePopUp}
+            clearSteps={() => setCurrentSharingStep({ stepId: "step1" })}
+          />
+        )}
+        <Stepper
+          steps={sharingSteps}
+          currentStep={currentSharingStep}
+          onActive={(stepId) => setCurrentSharingStep({ stepId })}
+          stepIdKey="stepId"
+        />
+      </PopUp>
       <PopUp
         icon="information-circle-outline"
         title={t(

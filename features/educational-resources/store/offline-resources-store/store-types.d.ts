@@ -9,28 +9,28 @@ import {
 export interface StoreStateProps {
   isProcessing: boolean;
   isLoading: boolean;
-  isDownloading: boolean;
+  isSharing: boolean;
 }
 
 export interface StoreActions {
   createResource: (
     createResourcePayload: CreateResourcePayload,
-    toast?: boolean
+    toast?: boolean,
   ) => Promise<EducationalResource>;
   findResources: (
-    filters: ResourceFilters
+    filters: ResourceFilters,
   ) => Promise<PaginatedResponse<EducationalResource>>;
   findResourceById: (resourceId: string) => Promise<EducationalResource | null>;
   updateResource: (
-    updateResourcePayload: UpdateResourcePayload
+    updateResourcePayload: UpdateResourcePayload,
   ) => Promise<EducationalResource>;
   deleteManyResources: () => Promise<void>;
   updateResourcesSyncStatus: (
     sync: boolean,
-    resourceId?: string
+    resourceId?: string,
   ) => Promise<void>;
   findAllResources: () => Promise<EducationalResource[]>;
-  downloadManyResources: () => Promise<void>;
+  shareResources: (groupName: string) => Promise<void>;
 }
 
 export type OfflineResourcesStoreType = StoreStateProps & StoreActions;

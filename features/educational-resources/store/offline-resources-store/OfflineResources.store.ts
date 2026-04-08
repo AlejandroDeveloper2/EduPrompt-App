@@ -1,4 +1,5 @@
 import { and, eq, inArray, like } from "drizzle-orm";
+import * as Sharing from "expo-sharing";
 import { create } from "zustand";
 
 import { db } from "@/core/config/db/drizzleClient";
@@ -13,7 +14,7 @@ import { showToast } from "@/shared/context";
 
 import { generateToastKey } from "@/shared/helpers";
 import { tryCatchWrapper } from "@/shared/utils";
-import { ResourceDownloadManager } from "../../utils";
+import { ResourceManager } from "../../utils";
 
 import { i18n } from "@/core/store";
 import { ResourcesSelectionStore } from "../resources-selection-store/ResourcesSelection.store";
@@ -22,7 +23,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
   (set) => ({
     isProcessing: false,
     isLoading: false,
-    isDownloading: false,
+    isSharing: false,
     createResource: async (createResourcePayload, toast) => {
       const { title, resourceId, content, format, formatKey, groupTag } =
         createResourcePayload;
@@ -295,13 +296,13 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
       );
     },
 
-    downloadManyResources: async () => {
+    shareResources: async (groupName) => {
       const { selectedResourceIds, clearSelection } =
         ResourcesSelectionStore.getState();
 
       const selectedResources = Array.from(selectedResourceIds);
 
-      set({ isDownloading: true });
+      set({ isSharing: true });
 
       await tryCatchWrapper(
         async () => {
@@ -310,31 +311,63 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             .from(resourcesTable)
             .where(inArray(resourcesTable.resourceId, selectedResources));
 
-          const resourcesToDownload = resources.map(
-            ({ formatKey, content, groupTag, title, format }) => ({
-              title,
-              groupTag,
-              content,
-              formatKey: formatKey as ResourceFormatKey,
-              format,
-            }),
+          const resourcesToShare = resources.map((resource) => ({
+            ...resource,
+            formatKey: resource.formatKey as ResourceFormatKey,
+            creationDate: new Date(resource.creationDate),
+            sync: resource.sync === "false" ? false : true,
+          }));
+
+          const downloadedResources =
+            await ResourceManager.downloadResources(resourcesToShare);
+
+          const zipPath = await ResourceManager.zipMultipleFiles(
+            groupName,
+            downloadedResources.map((file) => ({
+              path: file.fileUri,
+              name: file.name,
+            })),
           );
-          ResourceDownloadManager.downloadResourcesConcurrenly(
-            resourcesToDownload,
-          );
+
+          const canShare = await Sharing.isAvailableAsync();
+
+          if (!canShare) {
+            showToast({
+              key: generateToastKey(),
+              variant: "danger",
+              message: i18n.t(
+                "resources_translations.module_error_messages.share_function_no_available_msg",
+              ),
+            });
+            return;
+          }
+
+          await Sharing.shareAsync(zipPath, {
+            mimeType: "application/zip",
+            dialogTitle: i18n.t(
+              "resources_translations.file_sharing_dialog_title",
+            ),
+          });
 
           eventBus.emit(
             "dashboard.addDownloadedResources",
-            resourcesToDownload.length,
+            resourcesToShare.length,
           );
 
           showToast({
             key: generateToastKey(),
             variant: "primary",
-            message: "¡Recursos descargados correctamente!",
+            message: i18n.t(
+              "resources_translations.module_success_messages.resources_shared_successfully_msg",
+            ),
           });
 
           clearSelection();
+
+          setTimeout(() => {
+            ResourceManager.clearTemporaryFiles();
+            ResourceManager.cleanupTempZips();
+          }, 5000);
         },
         (error) => {
           showToast({
@@ -343,7 +376,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
             message: error.message,
           });
         },
-        () => set({ isDownloading: false }),
+        () => set({ isSharing: false }),
       );
     },
   }),

@@ -758,7 +758,7 @@
     "resources_list_labels": {
       "selection_options_labels": {
         "delete_resources": "Excluir",
-        "download_resources": "Baixar"
+        "share_resources": "Compartilhar"
       },
       "no_resource_tag_label": "Sem etiqueta",
       "title": "Meus Recursos",
@@ -803,20 +803,14 @@
       "loading_resources_msg": "Carregando mais recursos...",
       "no_resources_msg": "Não há recursos salvos"
     },
-    "processes_labels": {
-      "download_resources_process": {
-        "title": "Baixando recursos...",
-        "description": "Seus recursos selecionados estão sendo baixados, isso pode levar alguns segundos."
-      }
-    },
-    "download_resources_notifications_labels": {
+    "share_resources_notifications_labels": {
       "success": {
-        "title": "Recursos Baixados!",
-        "message": "Seus recursos foram baixados com sucesso."
+        "title": "Recursos Compartilhados!",
+        "message": "Seus recursos foram compartilhados com sucesso."
       },
       "error": {
-        "title": "Erro ao Baixar!",
-        "message": "Não foi possível baixar seus recursos, tente novamente."
+        "title": "Erro ao Compartilhar!",
+        "message": "Não foi possível compartilhar seus recursos, tente novamente."
       }
     },
     "update_resource_template": {
@@ -841,15 +835,43 @@
         "required_tag_msg": "A etiqueta do recurso é obrigatória"
       }
     },
+    "name_group_template": {
+      "form_labels": {
+        "name": {
+          "label": "Nome do Grupo (*)",
+          "placeholder": "Digite um nome para o grupo de recursos"
+        },
+        "btn_share_resources": "Compartilhar Recursos",
+        "btn_back": "Voltar"
+      },
+      "form_error_messages": {
+        "required_name_msg": "O nome do grupo é obrigatório"
+      },
+      "form_loading_messages": {
+        "sharing_resources_msg": "Compartilhando recursos..."
+      }
+    },
+    "file_sharing_dialog_title": "Compartilhar Arquivos",
+    "resources_to_share_list_labels": {
+      "search_input_placeholder": "Pesquisar recurso por título",
+      "no_resources_msg": "Não há recursos para compartilhar",
+      "next_button_label": "Próximo",
+      "no_resource_tag_label": "Sem etiqueta"
+    },
+    "share_resource_popup_labels": {
+      "title": "Compartilhar recurso educacional"
+    },
     "module_error_messages": {
       "resource_not_found_msg": "Nenhum recurso foi encontrado com o id:",
-      "some_resource_not_found_msg": "Algum recurso da lista não existe no banco de dados"
+      "some_resource_not_found_msg": "Algum recurso da lista não existe no banco de dados",
+      "share_function_no_available_msg": "A função de compartilhar não está disponível neste dispositivo"
     },
     "module_success_messages": {
       "resource_created_msg": "Recurso educacional salvo com sucesso",
       "resources_deleted_msg": "Recursos educacionais excluídos com sucesso",
       "resource_updated_msg": "Recurso educacional atualizado com sucesso",
-      "resources_synced_msg": "Informações dos recursos sincronizadas com sucesso"
+      "resources_synced_msg": "Informações dos recursos sincronizadas com sucesso",
+      "resources_shared_successfully_msg": "Recursos compartilhados com sucesso!"
     }
   },
   "generations_translations": {

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
-import uuid from "react-native-uuid";
 
 import { Tab, ViewerType } from "@/core/types";
 import { EducationalResource } from "../../types";
@@ -8,26 +7,17 @@ import { EducationalResource } from "../../types";
 import { eventBus } from "@/core/events/EventBus";
 
 import { RESOURCE_PREVIEW_TABS } from "../../components/organims/preview-resource-list/constants";
-import {
-  BACKGROUND_PROCESS_NAMES,
-  SELECTION_MODE_ACTIONS,
-} from "../../constants";
+import { SELECTION_MODE_ACTIONS } from "../../constants";
 
-import {
-  useBackgroundTaskRunner,
-  usePopUp,
-  useTranslations,
-} from "@/shared/hooks/core";
+import { usePopUp, useTranslations } from "@/shared/hooks/core";
 import {
   useScreenDimensionsStore,
   useSelectionModeStore,
 } from "@/shared/hooks/store";
 import { useResourcesFiltersContext } from "../context";
 import { useResourcesQuery } from "../queries";
-import { useOfflineResourcesStore, useResourcesSelectionStore } from "../store";
+import { useResourcesSelectionStore } from "../store";
 import useDeleteManyResources from "./useDeleteManyResources";
-
-import { calcAvarageProcessDuration } from "@/shared/utils";
 
 const useResourceCardListLogic = () => {
   const { t } = useTranslations();
@@ -40,6 +30,15 @@ const useResourceCardListLogic = () => {
     resourcePreviewTabs[0],
   );
 
+  const [sharingSteps] = useState<{ stepId: string }[]>([
+    { stepId: "step1" },
+    { stepId: "step2" },
+  ]);
+
+  const [currentSharingStep, setCurrentSharingStep] = useState<{
+    stepId: string;
+  }>({ stepId: "step1" });
+
   const size = useScreenDimensionsStore();
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
     useResourcesSelectionStore();
@@ -49,9 +48,6 @@ const useResourceCardListLogic = () => {
     enableSelectionMode,
     disableSelectionMode,
   } = useSelectionModeStore();
-  const { downloadManyResources } = useOfflineResourcesStore();
-
-  const { runBackgroundTask } = useBackgroundTaskRunner();
 
   const {
     searchResourceValue,
@@ -64,6 +60,7 @@ const useResourceCardListLogic = () => {
 
   const updateResourcePopUp = usePopUp();
   const confirmDeletePopUp = usePopUp();
+  const shareResourcePopUp = usePopUp();
 
   const {
     data,
@@ -114,42 +111,10 @@ const useResourceCardListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmDeletePopUp.openPopUp, () => {
-          const processName = BACKGROUND_PROCESS_NAMES.downloadProcess;
-          runBackgroundTask(
-            {
-              processId: uuid.v4(),
-              type: "downloading",
-              processName,
-              progressConfig: {
-                mode: "duration-timer",
-                limit: calcAvarageProcessDuration(processName) ?? 6000,
-              },
-              progress: 0,
-              state: "in-progress",
-              startTime: Date.now(),
-            },
-            downloadManyResources,
-            {
-              successNotification: {
-                title: t(
-                  "resources_translations.download_resources_notifications_labels.success.title",
-                ),
-                message: t(
-                  "resources_translations.download_resources_notifications_labels.success.message",
-                ),
-              },
-              errorNotification: {
-                title: t(
-                  "resources_translations.download_resources_notifications_labels.error.title",
-                ),
-                message: t(
-                  "resources_translations.download_resources_notifications_labels.error.message",
-                ),
-              },
-            },
-          );
-        }),
+        SELECTION_MODE_ACTIONS(
+          confirmDeletePopUp.openPopUp,
+          shareResourcePopUp.openPopUp,
+        ),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -188,6 +153,7 @@ const useResourceCardListLogic = () => {
     /** PopUp Controls */
     updateResourcePopUp,
     confirmDeletePopUp,
+    shareResourcePopUp,
     /** Resource Id  */
     selectedResource,
     setSelectedResource,
@@ -201,6 +167,10 @@ const useResourceCardListLogic = () => {
     removeManyResources,
     t,
     resourcePreviewTabs,
+    /** Sharing  */
+    sharingSteps,
+    currentSharingStep,
+    setCurrentSharingStep,
   };
 };
 
