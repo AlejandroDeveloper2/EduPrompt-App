@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 
-import { UserStats } from "../../types";
+import { User, UserStats } from "../../types";
 
 import { showToast } from "@/shared/context";
 
@@ -44,11 +44,12 @@ const useUserSyncMutation = () => {
       return { previousUserStats };
     },
     onSuccess: () => {
+      markAsSynced();
       showToast({
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "settings_translations.module_success_messages.user_profile_synced_msg"
+          "settings_translations.module_success_messages.user_profile_synced_msg",
         ),
       });
     },
@@ -58,25 +59,31 @@ const useUserSyncMutation = () => {
       }
     },
     onSettled: () => {
-      markAsSynced();
       queryClient.invalidateQueries({ queryKey: ["user_profile"] });
     },
   });
 
+  const syncUserProfile = useCallback(() => {
+    const onlineUserStats = queryClient.getQueryData<User>(["user_profile"]);
+
+    if (!onlineUserStats) return;
+
+    const syncedUserStats: User = {
+      ...onlineUserStats,
+      tokenCoins: userStats.tokenCoins + onlineUserStats.tokenCoins,
+    };
+
+    syncData(isConnected, isAuthenticated, userStats.sync, () => {
+      mutation.mutate(syncedUserStats);
+    });
+  }, [isAuthenticated, isConnected, mutation, userStats, queryClient]);
+
   useEffect(() => {
     if (userStats.userPreferences.autoSync) {
-      syncData(isConnected, isAuthenticated, userStats.sync, () => {
-        mutation.mutate(userStats);
-      });
+      syncUserProfile();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, isAuthenticated, userStats]);
-
-  const syncUserProfile = useCallback(() => {
-    syncData(isConnected, isAuthenticated, userStats.sync, () => {
-      mutation.mutate(userStats);
-    });
-  }, [isAuthenticated, isConnected, mutation, userStats]);
 
   return {
     ...mutation,

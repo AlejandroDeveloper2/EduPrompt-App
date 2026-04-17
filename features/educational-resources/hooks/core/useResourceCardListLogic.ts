@@ -15,9 +15,9 @@ import {
   useSelectionModeStore,
 } from "@/shared/hooks/store";
 import { useResourcesFiltersContext } from "../context";
+import { useDeleteManyResourcesMutation } from "../mutations";
 import { useResourcesQuery } from "../queries";
 import { useResourcesSelectionStore } from "../store";
-import useDeleteManyResources from "./useDeleteManyResources";
 
 const useResourceCardListLogic = () => {
   const { t } = useTranslations();
@@ -40,8 +40,13 @@ const useResourceCardListLogic = () => {
   }>({ stepId: "step1" });
 
   const size = useScreenDimensionsStore();
-  const { selectionCount, isAllSelected, clearSelection, selectAll } =
-    useResourcesSelectionStore();
+  const {
+    selectionCount,
+    isAllSelected,
+    clearSelection,
+    selectAll,
+    selectedResourceIds,
+  } = useResourcesSelectionStore();
   const {
     selectionMode,
     allSelected,
@@ -80,7 +85,8 @@ const useResourceCardListLogic = () => {
     { limit: 10 },
   );
 
-  const { isPending, removeManyResources } = useDeleteManyResources();
+  const { isPending, mutate: removeManyResources } =
+    useDeleteManyResourcesMutation();
 
   const resources = useMemo(
     () => data?.pages.flatMap((r) => r.records) ?? [],
@@ -119,7 +125,7 @@ const useResourceCardListLogic = () => {
     else disableSelectionMode();
   }, [selectionCount]);
 
-  /** Validamos si el modo selección esta activo */
+  /** Validamos si el modo selección esta activo*/
   useEffect(() => {
     if (!selectionMode) clearSelection();
   }, [selectionMode]);
@@ -171,6 +177,8 @@ const useResourceCardListLogic = () => {
     sharingSteps,
     currentSharingStep,
     setCurrentSharingStep,
+
+    selectedResourceIds,
   };
 };
 

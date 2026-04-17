@@ -51,20 +51,20 @@ const useSyncTagMutation = () => {
       // Retornar el contexto para rollback en caso de error
       return { previousTags };
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await updateTagsSyncStatus(true);
       showToast({
         key: generateToastKey(),
         variant: "primary",
         message: t("tags_translations.module_success_messages.tags_synced_msg"),
       });
     },
-    onError: (error, _newTags, context) => {
+    onError: (_error, _newTags, context) => {
       if (context?.previousTags) {
         queryClient.setQueryData(["tags"], context.previousTags);
       }
     },
     onSettled: () => {
-      updateTagsSyncStatus(true);
       queryClient.invalidateQueries({ queryKey: ["tags"] });
     },
   });
@@ -79,7 +79,7 @@ const useSyncTagMutation = () => {
           tags.every((t) => t.sync),
           async () => {
             mutation.mutate({ tags });
-          }
+          },
         );
       }
     };
@@ -95,7 +95,7 @@ const useSyncTagMutation = () => {
       tags.every((t) => t.sync),
       () => {
         mutation.mutate({ tags });
-      }
+      },
     );
   }, [isAuthenticated, isConnected, mutation, findAllTags]);
 

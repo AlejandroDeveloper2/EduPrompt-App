@@ -14,7 +14,7 @@ import { getPromptsByUser } from "../../services";
 
 const usePromptsQuery = (
   baseFilters: BaseFilters | null,
-  options: InfiniteQueryOptions
+  options: InfiniteQueryOptions,
 ) => {
   const limit = options?.limit ?? 10;
 
@@ -31,7 +31,7 @@ const usePromptsQuery = (
       baseFilters?.title ?? null,
       limit,
     ],
-    [baseFilters?.tag, baseFilters?.title, limit]
+    [baseFilters?.tag, baseFilters?.title, limit],
   );
 
   const query = useInfiniteQuery<PaginatedResponse<Prompt>>({
@@ -49,32 +49,30 @@ const usePromptsQuery = (
       if (isConnected && isAuthenticated) {
         const paginatedPrompts = await getPromptsByUser(filters);
 
-        if (
-          paginatedPrompts.records.length === 0 &&
-          localPrompts.records.length > 0
-        ) {
-          return localPrompts;
-        }
         /** Sincronizamos los prompts online si no estan en el almacenamiento local */
         await Promise.all(
           paginatedPrompts.records.map(async (prompt) => {
             const localPrompt = localPrompts.records.find(
-              (p) => p.promptId === prompt.promptId
+              (p) => p.promptId === prompt.promptId,
             );
-            if (!localPrompt)
-              return await createPrompt({
+            if (!localPrompt) {
+              const addedPrompt = await createPrompt({
                 tag: prompt.tag,
                 promptId: prompt.promptId,
                 promptTitle: prompt.promptTitle,
                 promptText: prompt.promptText,
               });
-          })
+              await updatePromptsSyncStatus(true, addedPrompt.promptId);
+              return addedPrompt;
+            }
+          }),
         );
-        await updatePromptsSyncStatus(true);
 
         return {
           ...paginatedPrompts,
-          records: paginatedPrompts.records.map((r) => ({ ...r, sync: true })),
+          records: paginatedPrompts.records
+            .map((r) => ({ ...r, sync: true }))
+            .concat(localPrompts.records.filter((p) => !p.sync)),
         };
       }
       return localPrompts;

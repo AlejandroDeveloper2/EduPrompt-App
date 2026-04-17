@@ -12,7 +12,7 @@ import { getTags } from "../../services";
 
 const useTagsQuery = (
   baseFilters: BaseFilters | null,
-  options: InfiniteQueryOptions
+  options: InfiniteQueryOptions,
 ) => {
   const limit = options?.limit ?? 10;
 
@@ -23,7 +23,7 @@ const useTagsQuery = (
 
   const queryKey = useMemo(
     () => ["tags", baseFilters?.type ?? null, baseFilters?.name ?? null, limit],
-    [baseFilters?.type, baseFilters?.name, limit]
+    [baseFilters?.type, baseFilters?.name, limit],
   );
 
   const query = useInfiniteQuery<PaginatedResponse<Tag>>({
@@ -41,29 +41,30 @@ const useTagsQuery = (
       if (isConnected && isAuthenticated) {
         const paginatedTags = await getTags(filters);
 
-        if (
-          paginatedTags.records.length === 0 &&
-          localTags.records.length > 0
-        ) {
-          return localTags;
-        }
         /** Sincronizamos las etiquetas online si no estan en el almacenamiento local */
         await Promise.all(
           paginatedTags.records.map(async (tag) => {
             const localTag = localTags.records.find(
-              (t) => t.tagId === tag.tagId
+              (t) => t.tagId === tag.tagId,
             );
-            if (!localTag)
-              return await createTag({
+            if (!localTag) {
+              const addedTag = await createTag({
                 tagId: tag.tagId,
                 name: tag.name,
                 type: tag.type,
               });
-          })
+              await updateTagsSyncStatus(true, addedTag.tagId);
+              return addedTag;
+            }
+          }),
         );
-        await updateTagsSyncStatus(true);
 
-        return paginatedTags;
+        return {
+          ...paginatedTags,
+          records: paginatedTags.records
+            .map((t) => ({ ...t, sync: true }))
+            .concat(localTags.records.filter((t) => !t.sync)),
+        };
       }
       return localTags;
     },

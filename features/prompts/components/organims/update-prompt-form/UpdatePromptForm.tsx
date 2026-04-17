@@ -14,11 +14,11 @@ interface UpdatePromptFormProps {
     data: Omit<Prompt, "sync">;
     handleChange: (
       field: keyof Omit<Prompt, "sync">,
-      value: string | number
+      value: string | number,
     ) => void;
     handleClearInput: (name: keyof Omit<Prompt, "sync">) => void;
     getFieldErrors: (
-      fieldKey: keyof Omit<Prompt, "sync">
+      fieldKey: keyof Omit<Prompt, "sync">,
     ) => string[] | undefined;
     handleSubmit: () => void;
   };
@@ -45,17 +45,18 @@ const UpdatePromptForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<UpdatePromptFormData>
               label={t(
-                "prompts_translations.update_prompt_template.form_labels.title.label"
+                "prompts_translations.update_prompt_template.form_labels.title.label",
               )}
               icon="text-outline"
               name="promptTitle"
               value={data.promptTitle}
               placeholder={t(
-                "prompts_translations.update_prompt_template.form_labels.title.placeholder"
+                "prompts_translations.update_prompt_template.form_labels.title.placeholder",
               )}
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptTitle")}
+              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>
@@ -63,17 +64,18 @@ const UpdatePromptForm = ({
           <Form.Row.Item span={1}>
             <Form.PromptInput<UpdatePromptFormData>
               label={t(
-                "prompts_translations.update_prompt_template.form_labels.prompt_text.label"
+                "prompts_translations.update_prompt_template.form_labels.prompt_text.label",
               )}
               icon="chatbox-ellipses-outline"
               name="promptText"
               value={data.promptText}
               placeholder={t(
-                "prompts_translations.update_prompt_template.form_labels.prompt_text.placeholder"
+                "prompts_translations.update_prompt_template.form_labels.prompt_text.placeholder",
               )}
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptText")}
+              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>
@@ -89,11 +91,11 @@ const UpdatePromptForm = ({
             >
               name="tag"
               label={t(
-                "prompts_translations.update_prompt_template.form_labels.tag.label"
+                "prompts_translations.update_prompt_template.form_labels.tag.label",
               )}
               icon="pricetag-outline"
               placeholder={t(
-                "prompts_translations.update_prompt_template.form_labels.tag.placeholder"
+                "prompts_translations.update_prompt_template.form_labels.tag.placeholder",
               )}
               selectedOption={selectedTag}
               optionValueKey="name"
@@ -111,11 +113,11 @@ const UpdatePromptForm = ({
             width="100%"
             icon="pencil-outline"
             label={t(
-              "prompts_translations.update_prompt_template.form_labels.btn_update_prompt"
+              "prompts_translations.update_prompt_template.form_labels.btn_update_prompt",
             )}
             loading={isLoading}
             loadingMessage={t(
-              "prompts_translations.update_prompt_template.form_loading_messages.updating_prompt_msg"
+              "prompts_translations.update_prompt_template.form_loading_messages.updating_prompt_msg",
             )}
             onPress={handleSubmit}
           />
@@ -126,7 +128,7 @@ const UpdatePromptForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-              "prompts_translations.update_prompt_template.form_labels.btn_cancel"
+              "prompts_translations.update_prompt_template.form_labels.btn_cancel",
             )}
             onPress={onClosePopUp}
           />

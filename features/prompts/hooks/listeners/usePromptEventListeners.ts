@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "react-native-uuid/dist/v4";
 
 import { BaseFilters, CreatePromptPayload } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useCreatePrompt } from "../core";
+import { useCreatePromptMutation } from "../mutations";
 import { usePromptsQuery } from "../queries";
 
 const usePromptEventListeners = () => {
@@ -14,7 +15,8 @@ const usePromptEventListeners = () => {
   const [baseFilters, setBaseFilters] = useState<BaseFilters | null>(null);
 
   const query = usePromptsQuery(baseFilters, { limit: 10 });
-  const { addPrompt } = useCreatePrompt();
+
+  const { mutate } = useCreatePromptMutation();
 
   useEffect(() => {
     const fetchPrompts = (filters: BaseFilters) => {
@@ -32,7 +34,7 @@ const usePromptEventListeners = () => {
   useEffect(() => {
     const unsubscribe = eventBus.on(
       "prompts.fetchNextPage.requested",
-      query.fetchNextPage
+      query.fetchNextPage,
     );
     return unsubscribe;
   }, [query.fetchNextPage]);
@@ -43,17 +45,33 @@ const usePromptEventListeners = () => {
   }, [query.refetch]);
 
   useEffect(() => {
-    const handleAddPromptRequest = async (
-      payload: Omit<CreatePromptPayload, "promptId">
+    const handleAddPromptRequest = (
+      payload: Omit<CreatePromptPayload, "promptId">,
     ) => {
-      await addPrompt(payload);
+      const promptId: string = uuid();
+
+      eventBus.emit("prompts.savePrompt.started", undefined);
+
+      mutate(
+        { ...payload, promptId },
+        {
+          onSuccess: () => {
+            eventBus.emit("prompts.savePrompt.completed", undefined);
+          },
+          onError: (error) => {
+            eventBus.emit("prompts.savePrompt.failed", {
+              error: String(error),
+            });
+          },
+        },
+      );
     };
 
     eventBus.on("prompts.savePrompt.requested", handleAddPromptRequest);
     return () => {
       eventBus.off("prompts.savePrompt.requested", handleAddPromptRequest);
     };
-  }, [addPrompt]);
+  }, [mutate]);
 };
 
 export default usePromptEventListeners;

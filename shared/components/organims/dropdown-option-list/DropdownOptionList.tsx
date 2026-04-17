@@ -43,6 +43,7 @@ const SearchPanel = ({
         onChange={(name, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
         icon="search-outline"
+        isInPopUp
       />
     </View>
   );
@@ -81,16 +82,23 @@ function DropdownOptionList<T>({
       data={filteredElements}
       renderItem={({ item }) => (
         <DropdownOption
-          option={item}
+          option={item as T}
           optionLabelKey={optionLabelKey}
-          isSelected={getIsSelectedOption(item, selectedOption, optionIdkey)}
+          isSelected={getIsSelectedOption(
+            item as T,
+            selectedOption,
+            optionIdkey,
+          )}
           onSelectOption={onSelectOption}
         />
       )}
       windowSize={5}
       initialNumToRender={10}
       maxToRenderPerBatch={10}
-      keyExtractor={(item) => item[optionIdkey] as string}
+      keyExtractor={(item) => {
+        const i = item as T;
+        return i[optionIdkey] as string;
+      }}
       keyboardShouldPersistTaps="handled"
       ListHeaderComponent={
         <SearchPanel

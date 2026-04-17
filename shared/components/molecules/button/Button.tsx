@@ -49,7 +49,7 @@ const BaseButton = ({
   const size = useScreenDimensionsStore();
   const { animatedBackground, onPressIn, onPressOut } = useAnimatedButton(
     variant,
-    disabled
+    disabled,
   );
   const { animatedCircleStyles } = useAnimatedSpinner();
 
@@ -63,7 +63,7 @@ const BaseButton = ({
       onPressOut={onPressOut}
       disabled={loading ? true : disabled}
     >
-      {loading && loadingMessage ? (
+      {loading === true && loadingMessage ? (
         <>
           <Spinner
             color={labelColor}
@@ -78,6 +78,11 @@ const BaseButton = ({
             width="auto"
           />
         </>
+      ) : loading ? (
+        <Spinner
+          color={labelColor}
+          animatedCircleStyles={animatedCircleStyles}
+        />
       ) : (
         children
       )}

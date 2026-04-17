@@ -38,6 +38,7 @@ const TagCardList = () => {
     /** Tag Id  */
     selectedTag,
     setSelectedTag,
+    selectedTagIds,
     /** Actions */
     isPending,
     removeManyTags,
@@ -75,8 +76,10 @@ const TagCardList = () => {
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmTagDeletePopUp.closePopUp}
           onAccept={() => {
-            removeManyTags();
-            confirmTagDeletePopUp.closePopUp();
+            const tagsToDelete = Array.from(selectedTagIds);
+            removeManyTags(tagsToDelete, {
+              onSuccess: () => confirmTagDeletePopUp.closePopUp(),
+            });
           }}
           loading={isPending}
           loadingMessage={t(

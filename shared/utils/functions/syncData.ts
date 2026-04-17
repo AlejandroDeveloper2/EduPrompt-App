@@ -8,14 +8,14 @@ export const syncData = (
   isConnected: boolean | null,
   isAuthenticated: boolean,
   isDataSynced: boolean,
-  mutationCallback: () => void
+  mutationCallback: () => void,
 ) => {
   if (isConnected === false) {
     showToast({
       key: generateToastKey(),
       variant: "danger",
       message: i18n.t(
-        "common_translations.sync_data_messages.no_connected_msg"
+        "common_translations.sync_data_messages.no_connected_msg",
       ),
     });
     return;
@@ -34,10 +34,4 @@ export const syncData = (
     mutationCallback();
     return;
   }
-
-  showToast({
-    key: generateToastKey(),
-    variant: "primary",
-    message: i18n.t("common_translations.sync_data_messages.all_synced_msg"),
-  });
 };

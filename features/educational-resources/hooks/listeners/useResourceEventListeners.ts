@@ -1,29 +1,44 @@
 import { useEffect } from "react";
+import { v4 as uuid } from "react-native-uuid/dist/v4";
 
 import { eventBus } from "@/core/events/EventBus";
 
 import { CreateResourcePayload } from "../../types";
 
-import { useCreateResource } from "../core";
+import { useCreateResourceMutation } from "../mutations";
 
 const useResourceEventListeners = () => {
-  const { addResource } = useCreateResource();
+  const { mutate } = useCreateResourceMutation();
 
   useEffect(() => {
-    const handleAddResourceRequest = async (
-      payload: Omit<CreateResourcePayload, "resourceId">
+    const handleAddResourceRequest = (
+      payload: Omit<CreateResourcePayload, "resourceId">,
     ) => {
-      await addResource(payload);
+      eventBus.emit("resources.createResource.started", undefined);
+      const resourceId: string = uuid();
+      mutate(
+        { ...payload, resourceId },
+        {
+          onSuccess: () => {
+            eventBus.emit("resources.createResource.completed", undefined);
+          },
+          onError: (error) => {
+            eventBus.emit("resources.createResource.failed", {
+              error: String(error),
+            });
+          },
+        },
+      );
     };
 
     eventBus.on("resources.createResource.requested", handleAddResourceRequest);
     return () => {
       eventBus.off(
         "resources.createResource.requested",
-        handleAddResourceRequest
+        handleAddResourceRequest,
       );
     };
-  }, [addResource]);
+  }, [mutate]);
 };
 
 export default useResourceEventListeners;

@@ -32,7 +32,7 @@ const DashboardIndicatorPanel = () => {
   const { PanelContainer, IndicatorsGrid } = DashboardIndicatorPanelStyle(size);
   const { firstWidth, secondWidth, thirdWidth } = getIndicatorPanelGrid(
     size,
-    width
+    width,
   );
 
   return (
@@ -60,7 +60,7 @@ const DashboardIndicatorPanel = () => {
           icon="book-outline"
           value={`${indicators.generatedResources}`}
           label={t(
-            "dashboard_translations.dashboard_panel_labels.indicator_labels.generated_resources"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.generated_resources",
           )}
           type="numeric"
           loading={isLoading}
@@ -72,7 +72,7 @@ const DashboardIndicatorPanel = () => {
           icon="hardware-chip-outline"
           value={formatTokenAmount(indicators.usedTokens)}
           label={t(
-            "dashboard_translations.dashboard_panel_labels.indicator_labels.used_tokens"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.used_tokens",
           )}
           type="numeric"
           loading={isLoading}
@@ -85,7 +85,7 @@ const DashboardIndicatorPanel = () => {
           icon="download-outline"
           value={`${indicators.dowloadedResources}`}
           label={t(
-            "dashboard_translations.dashboard_panel_labels.indicator_labels.downloaded_resources"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.downloaded_resources",
           )}
           type="numeric"
           loading={isLoading}
@@ -97,7 +97,7 @@ const DashboardIndicatorPanel = () => {
           icon="save-outline"
           value={`${indicators.savedResources}`}
           label={t(
-            "dashboard_translations.dashboard_panel_labels.indicator_labels.saved_resources"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.saved_resources",
           )}
           type="numeric"
           loading={isLoading}
@@ -110,12 +110,12 @@ const DashboardIndicatorPanel = () => {
           value={
             !indicators.lastGeneratedResource
               ? t(
-                  "dashboard_translations.dashboard_panel_labels.indicator_labels.not_last_generated_resource"
+                  "dashboard_translations.dashboard_panel_labels.indicator_labels.not_last_generated_resource",
                 )
               : indicators.lastGeneratedResource
           }
           label={t(
-            "dashboard_translations.dashboard_panel_labels.indicator_labels.last_generated_resource"
+            "dashboard_translations.dashboard_panel_labels.indicator_labels.last_generated_resource",
           )}
           type="alphabetic"
           loading={isLoading}
@@ -130,20 +130,20 @@ const DashboardIndicatorPanel = () => {
       isAuthenticated ? (
         <InfoCard
           title={t(
-            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.title"
+            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.title",
           )}
           description={t(
-            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.description"
+            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.description",
           )}
           buttonData={{
             onPress: syncIndicators,
             icon: "sync-outline",
             label: t(
-              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.btn_sync"
+              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.btn_sync",
             ),
             loading: isPending,
             loadingMessage: t(
-              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.loading_text"
+              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.loading_text",
             ),
           }}
         />

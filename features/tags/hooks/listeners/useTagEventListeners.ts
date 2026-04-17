@@ -1,11 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { v4 as uuid } from "react-native-uuid/dist/v4";
 
 import { eventBus } from "@/core/events/EventBus";
 
 import { BaseFilters, CreateTagPayload } from "../../types";
 
-import { useCreateTag } from "../core";
+import { useCreateTagMutation } from "../mutations";
 import { usePromptTagsQuery, useResourceTagsQuery } from "../queries";
 
 const useTagEventListeners = () => {
@@ -23,7 +24,7 @@ const useTagEventListeners = () => {
     limit: 10,
   });
 
-  const { addTag } = useCreateTag();
+  const { mutate } = useCreateTagMutation();
 
   useEffect(() => {
     const fetchResourceTags = (name?: string | undefined) => {
@@ -41,6 +42,7 @@ const useTagEventListeners = () => {
       queryClient.invalidateQueries({
         queryKey: ["tags", name, "prompt_tag"],
       });
+
       setPromptBaseFilters({ name, type: "prompt_tag" });
     };
 
@@ -51,7 +53,7 @@ const useTagEventListeners = () => {
   useEffect(() => {
     const unsubscribe = eventBus.on(
       "tags.resourceType.fetchNextPage.requested",
-      query.fetchNextPage
+      query.fetchNextPage,
     );
     return unsubscribe;
   }, [query.fetchNextPage]);
@@ -59,7 +61,7 @@ const useTagEventListeners = () => {
   useEffect(() => {
     const unsubscribe = eventBus.on(
       "tags.resourceType.refetch.requested",
-      query.refetch
+      query.refetch,
     );
     return unsubscribe;
   }, [query.refetch]);
@@ -67,7 +69,7 @@ const useTagEventListeners = () => {
   useEffect(() => {
     const unsubscribe = eventBus.on(
       "tags.promptType.fetchNextPage.requested",
-      promptTagsQuery.fetchNextPage
+      promptTagsQuery.fetchNextPage,
     );
     return unsubscribe;
   }, [promptTagsQuery.fetchNextPage]);
@@ -75,23 +77,37 @@ const useTagEventListeners = () => {
   useEffect(() => {
     const unsubscribe = eventBus.on(
       "tags.promptType.refetch.requested",
-      promptTagsQuery.refetch
+      promptTagsQuery.refetch,
     );
     return unsubscribe;
   }, [promptTagsQuery.refetch]);
 
   useEffect(() => {
-    const handleAddTagRequest = async (
-      payload: Omit<CreateTagPayload, "tagId">
-    ) => {
-      await addTag(payload);
+    const handleAddTagRequest = (payload: Omit<CreateTagPayload, "tagId">) => {
+      const tagId: string = uuid();
+
+      eventBus.emit("tags.createTag.started", undefined);
+
+      mutate(
+        { ...payload, tagId },
+        {
+          onSuccess: () => {
+            eventBus.emit("tags.createTag.completed", undefined);
+          },
+          onError: (error) => {
+            eventBus.emit("tags.createTag.failed", {
+              error: String(error),
+            });
+          },
+        },
+      );
     };
 
     eventBus.on("tags.createTag.requested", handleAddTagRequest);
     return () => {
       eventBus.off("tags.createTag.requested", handleAddTagRequest);
     };
-  }, [addTag]);
+  }, [mutate]);
 };
 
 export default useTagEventListeners;

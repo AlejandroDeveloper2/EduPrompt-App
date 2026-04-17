@@ -10,7 +10,7 @@ export const ResourcesSelectionStore = create<ResourcesSelectionStoreType>(
 
     toggleSelection: (
       resourceId: string,
-      totalResourceIdsCount: number
+      totalResourceIdsCount: number,
     ): void => {
       const { selectedResourceIds } = get();
       const selectedElements = new Set(selectedResourceIds);
@@ -45,5 +45,5 @@ export const ResourcesSelectionStore = create<ResourcesSelectionStoreType>(
         isAllSelected: false,
       });
     },
-  })
+  }),
 );

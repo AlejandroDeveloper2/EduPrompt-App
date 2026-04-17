@@ -49,10 +49,8 @@ const ResourceDescriptionForm = () => {
     onSearchTagValueChange,
     selectedTag,
     form,
-  } = useSavePromptFormLogic(
-    data.descriptionPrompt,
-    savePromptPopUp.closePopUp,
-  );
+    setTagType,
+  } = useSavePromptFormLogic(savePromptPopUp.closePopUp);
 
   return (
     <>
@@ -87,7 +85,7 @@ const ResourceDescriptionForm = () => {
             infinitePaginationOptions={{
               ...paginatedTags,
               onRefetch: () =>
-                eventBus.emit("tags.promptType.fetch", undefined),
+                eventBus.emit("tags.promptType.refetch.requested", undefined),
               onEndReached: () => {
                 if (
                   paginatedTags.hasNextPage &&
@@ -130,6 +128,7 @@ const ResourceDescriptionForm = () => {
             form={form}
             onTagSelectionMode={() => setIsTagSelection(true)}
             onClosePopUp={savePromptPopUp.closePopUp}
+            setTagType={setTagType}
           />
         )}
       </PopUp>
@@ -251,7 +250,10 @@ const ResourceDescriptionForm = () => {
                 errorMessage={getFieldErrors("descriptionPrompt")?.join(", ")}
                 onChange={handleChange}
                 onClearInput={() => handleClearInput("descriptionPrompt")}
-                onSavePrompt={savePromptPopUp.openPopUp}
+                onSavePrompt={() => {
+                  form.setValues({ promptText: data.descriptionPrompt });
+                  savePromptPopUp.openPopUp();
+                }}
                 onSearchPrompt={selectPromptPopUp.openPopUp}
               />
             </Form.Row.Item>

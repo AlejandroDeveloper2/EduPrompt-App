@@ -77,6 +77,7 @@ const PreviewResourceList = () => {
     sharingSteps,
     currentSharingStep,
     setCurrentSharingStep,
+    selectedResourceIds,
   } = useResourceCardListLogic();
 
   const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
@@ -165,8 +166,10 @@ const PreviewResourceList = () => {
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmDeletePopUp.closePopUp}
           onAccept={() => {
-            removeManyResources();
-            confirmDeletePopUp.closePopUp();
+            const selectedResources = Array.from(selectedResourceIds);
+            removeManyResources(selectedResources, {
+              onSuccess: () => confirmDeletePopUp.closePopUp(),
+            });
           }}
           loading={isDeleting}
           loadingMessage={t(
@@ -190,7 +193,7 @@ const PreviewResourceList = () => {
           updateResourcePopUp.closePopUp();
           setSelectedResource(null);
         }}
-        scrollable={!isTagSelection || activePreviewTab.tabId === "tab-2"}
+        scrollable={isTagSelection ? false : true}
       >
         {isTagSelection ? (
           <ComposedDropdownOptionList<{

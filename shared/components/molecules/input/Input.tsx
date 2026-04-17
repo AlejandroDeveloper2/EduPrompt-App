@@ -10,16 +10,20 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Ionicon } from "../../atoms";
 import BaseInput, { BaseInputProps } from "./BaseInput";
 
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import { InputStyle } from "./Input.style";
 
-export interface InputProps<T>
-  extends Omit<BaseInputProps, "children" | "animatedInputStyle"> {
+export interface InputProps<T> extends Omit<
+  BaseInputProps,
+  "children" | "animatedInputStyle"
+> {
   name: keyof T;
   value: string;
   icon: keyof typeof Ionicons.glyphMap;
   placeholder: string;
   password?: boolean;
   children?: ReactNode | ReactNode[];
+  isInPopUp?: boolean;
   onChange: (name: keyof T, value: string) => void;
   onClearInput: () => void;
 }
@@ -32,6 +36,7 @@ function Input<T>({
   children,
   onChange,
   onClearInput,
+  isInPopUp,
   ...props
 }: InputProps<T>) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -58,23 +63,44 @@ function Input<T>({
             color={AppColors.neutral[props.disabled ? 500 : 1000]}
           />
         </View>
-        <TextInput
-          id={name as string}
-          value={value}
-          secureTextEntry={password ? !showPassword : false}
-          onChangeText={(e) => onChange(name, e)}
-          editable={props.disabled === undefined}
-          placeholder={placeholder}
-          placeholderTextColor={AppColors.neutral[500]}
-          style={inputStyle.Input}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          {...(props.textArea && {
-            multiline: true,
-            numberOfLines: 20,
-            maxLength: 2000,
-          })}
-        />
+        {isInPopUp ? (
+          <BottomSheetTextInput
+            id={name as string}
+            value={value}
+            secureTextEntry={password ? !showPassword : false}
+            onChangeText={(e) => onChange(name, e)}
+            editable={props.disabled === undefined}
+            placeholder={placeholder}
+            placeholderTextColor={AppColors.neutral[500]}
+            style={inputStyle.Input}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            {...(props.textArea && {
+              multiline: true,
+              numberOfLines: 20,
+              maxLength: 2000,
+            })}
+          />
+        ) : (
+          <TextInput
+            id={name as string}
+            value={value}
+            secureTextEntry={password ? !showPassword : false}
+            onChangeText={(e) => onChange(name, e)}
+            editable={props.disabled === undefined}
+            placeholder={placeholder}
+            placeholderTextColor={AppColors.neutral[500]}
+            style={inputStyle.Input}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            {...(props.textArea && {
+              multiline: true,
+              numberOfLines: 20,
+              maxLength: 2000,
+            })}
+          />
+        )}
+
         <View style={inputStyle.Tools}>
           {value.length > 0 && !props.disabled && (
             <Ionicon

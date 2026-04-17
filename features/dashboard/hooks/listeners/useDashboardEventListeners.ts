@@ -2,28 +2,28 @@ import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useUpdateIndicators } from "../core";
+import { useUpdateIndicatorsMutation } from "../mutations";
 import { useIndicatorsQuery } from "../queries";
 
 const useDashboardEventListeners = () => {
-  const { updateIndicators } = useUpdateIndicators();
+  const { mutate } = useUpdateIndicatorsMutation();
 
   const { indicators } = useIndicatorsQuery();
 
   useEffect(() => {
     const handler = (lastGeneratedResource: string | null) => {
-      updateIndicators({ lastGeneratedResource });
+      mutate({ lastGeneratedResource });
     };
     eventBus.on("dashboard.setLastGeneratedResource", handler);
     return () => {
       eventBus.off("dashboard.setLastGeneratedResource", handler);
     };
-  }, [updateIndicators]);
+  }, [mutate]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      updateIndicators({
+      mutate({
         generatedResources: indicators.generatedResources + 1,
       });
     };
@@ -31,12 +31,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addGeneratedResource", handler);
     };
-  }, [updateIndicators, indicators]);
+  }, [mutate, indicators]);
 
   useEffect(() => {
     const handler = (amount: number) => {
       if (!indicators) return;
-      updateIndicators({
+      mutate({
         usedTokens: indicators.usedTokens + amount,
       });
     };
@@ -44,12 +44,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addUsedTokens", handler);
     };
-  }, [updateIndicators, indicators]);
+  }, [mutate, indicators]);
 
   useEffect(() => {
     const handler = (downloadedResources: number) => {
       if (!indicators) return;
-      updateIndicators({
+      mutate({
         dowloadedResources: indicators.dowloadedResources + downloadedResources,
       });
     };
@@ -57,12 +57,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addDownloadedResources", handler);
     };
-  }, [updateIndicators, indicators]);
+  }, [mutate, indicators]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      updateIndicators({
+      mutate({
         savedResources: indicators.savedResources + 1,
       });
     };
@@ -70,7 +70,7 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addSavedResources", handler);
     };
-  }, [updateIndicators, indicators]);
+  }, [mutate, indicators]);
 };
 
 export default useDashboardEventListeners;

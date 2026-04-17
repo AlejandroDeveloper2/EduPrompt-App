@@ -12,7 +12,7 @@ import { getUserProfile } from "../../services";
 
 const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
-  const { setUserStats, loadLocalUserStats } = useUserOfflineStore();
+  const { loadLocalUserStats } = useUserOfflineStore();
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
@@ -22,11 +22,8 @@ const useUserProfileQuery = () => {
       isConnected !== null && isConnected !== undefined && isAuthenticated,
     queryFn: async () => {
       const userProfile = await getUserProfile();
-      setUserStats({
-        ...userProfile,
-        sync: true,
-      });
-      return { ...userProfile, sync: true };
+      const sync = loadLocalUserStats().sync;
+      return { ...userProfile, sync };
     },
     staleTime: Infinity,
     // gcTime: 1000 * 60 * 5,

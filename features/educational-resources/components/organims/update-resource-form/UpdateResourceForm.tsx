@@ -25,17 +25,18 @@ const UpdateResourceForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<UpdateResourceFormData>
               label={t(
-                "resources_translations.update_resource_template.form_labels.title.label"
+                "resources_translations.update_resource_template.form_labels.title.label",
               )}
               icon="text-outline"
               name="title"
               value={data.title}
               placeholder={t(
-                "resources_translations.update_resource_template.form_labels.title.placeholder"
+                "resources_translations.update_resource_template.form_labels.title.placeholder",
               )}
               errorMessage={getFieldErrors("title")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("title")}
+              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>
@@ -51,11 +52,11 @@ const UpdateResourceForm = ({
             >
               name="groupTag"
               label={t(
-                "resources_translations.update_resource_template.form_labels.tag.label"
+                "resources_translations.update_resource_template.form_labels.tag.label",
               )}
               icon="pricetag-outline"
               placeholder={t(
-                "resources_translations.update_resource_template.form_labels.tag.placeholder"
+                "resources_translations.update_resource_template.form_labels.tag.placeholder",
               )}
               selectedOption={selectedTag}
               optionValueKey="name"
@@ -73,11 +74,11 @@ const UpdateResourceForm = ({
             width="100%"
             icon="pencil-outline"
             label={t(
-              "resources_translations.update_resource_template.form_labels.btn_update_resource"
+              "resources_translations.update_resource_template.form_labels.btn_update_resource",
             )}
             loading={isLoading}
             loadingMessage={t(
-              "resources_translations.update_resource_template.form_loading_messages.updating_resource_msg"
+              "resources_translations.update_resource_template.form_loading_messages.updating_resource_msg",
             )}
             onPress={handleSubmit}
           />
@@ -88,7 +89,7 @@ const UpdateResourceForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-              "resources_translations.update_resource_template.form_labels.btn_cancel"
+              "resources_translations.update_resource_template.form_labels.btn_cancel",
             )}
             onPress={onClosePopUp}
           />

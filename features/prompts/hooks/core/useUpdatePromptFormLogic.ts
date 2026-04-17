@@ -6,7 +6,7 @@ import { Prompt } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
 import { usePromptFiltersContext } from "../context";
-import useUpdatePrompt from "./useUpdatePrompt";
+import { useUpdatePromptMutation } from "../mutations";
 
 import {
   UpdatePromptFormData,
@@ -24,9 +24,9 @@ const initialValues: UpdatePromptFormData = {
 
 const useUpdatePromptFormLogic = (
   selectedPrompt: Prompt | null,
-  onClosePopUp: () => void
+  onClosePopUp: () => void,
 ) => {
-  const { isPending, editPrompt } = useUpdatePrompt();
+  const { isPending, mutate } = useUpdatePromptMutation();
   const {
     data,
     handleChange,
@@ -37,9 +37,8 @@ const useUpdatePromptFormLogic = (
   } = useForm({
     initialValues,
     validationSchema: updatePromptSchema,
-    actionCallback: async () => {
-      await editPrompt(data);
-      onClosePopUp();
+    actionCallback: () => {
+      mutate(data, { onSuccess: () => onClosePopUp() });
     },
     noReset: true,
   });
@@ -48,7 +47,7 @@ const useUpdatePromptFormLogic = (
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.tag, "tagId"),
-    [data.tag]
+    [data.tag],
   ) as Tag | null;
 
   useEffect(() => {

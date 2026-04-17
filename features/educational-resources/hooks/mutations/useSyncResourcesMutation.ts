@@ -34,7 +34,7 @@ const useSyncResourcesMutation = () => {
 
       // Obtener el estado actual
       const previousResources = queryClient.getQueryData<EducationalResource[]>(
-        ["resources"]
+        ["resources"],
       );
 
       // Actualizar cache de manera optimista
@@ -44,7 +44,7 @@ const useSyncResourcesMutation = () => {
         ];
         resources.forEach((resource) => {
           const prevResource = previousResources.find(
-            (r) => r.resourceId === r.resourceId
+            (r) => r.resourceId === r.resourceId,
           );
           if (!prevResource) return updatedResources.push(resource);
           return (updatedResources = updatedResources.map((r) => {
@@ -59,12 +59,13 @@ const useSyncResourcesMutation = () => {
       // Retornar el contexto para rollback en caso de error
       return { previousResources };
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await updateResourcesSyncStatus(true);
       showToast({
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "resources_translations.module_success_messages.resources_synced_msg"
+          "resources_translations.module_success_messages.resources_synced_msg",
         ),
       });
     },
@@ -74,7 +75,6 @@ const useSyncResourcesMutation = () => {
       }
     },
     onSettled: () => {
-      updateResourcesSyncStatus(true);
       queryClient.invalidateQueries({ queryKey: ["resources"] });
     },
   });
@@ -89,7 +89,7 @@ const useSyncResourcesMutation = () => {
           resources.every((r) => r.sync),
           async () => {
             mutation.mutate({ resources });
-          }
+          },
         );
       }
     };
@@ -105,7 +105,7 @@ const useSyncResourcesMutation = () => {
       resources.every((r) => r.sync),
       () => {
         mutation.mutate({ resources });
-      }
+      },
     );
   }, [isAuthenticated, isConnected, mutation, findAllResources]);
 

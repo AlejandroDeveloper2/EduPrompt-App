@@ -32,11 +32,16 @@ const useSaveResourceFormLogic = () => {
   const { paginatedTags, searchTagValue, onSearchTagValueChange, setTagType } =
     useTagFiltersContext();
 
+  const isLoading = useEventBusToggle("resources.createResource.started", [
+    "resources.createResource.completed",
+    "resources.createResource.failed",
+  ]);
+
   const { data, handleChange, handleClearInput, getFieldErrors, handleSubmit } =
     useForm({
       initialValues,
       validationSchema: createResourceSchema,
-      actionCallback: async () => {
+      actionCallback: () => {
         if (currentIaGeneration) {
           const { result, data: generationData } = currentIaGeneration;
           eventBus.emit("resources.createResource.requested", {
@@ -50,11 +55,6 @@ const useSaveResourceFormLogic = () => {
         saveResourcePopUp.closePopUp();
       },
     });
-
-  const isLoading = useEventBusToggle("resources.createResource.started", [
-    "resources.createResource.completed",
-    "resources.createResource.failed",
-  ]);
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.groupTag, "tagId"),

@@ -23,13 +23,13 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Host>
-        <BottomSheetModalProvider>
-          <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <BottomSheetModalProvider>
             <ToastProvider>
               <InnerApp loaded={loaded} db={db} />
             </ToastProvider>
-          </QueryClientProvider>
-        </BottomSheetModalProvider>
+          </BottomSheetModalProvider>
+        </QueryClientProvider>
       </Host>
     </GestureHandlerRootView>
   );

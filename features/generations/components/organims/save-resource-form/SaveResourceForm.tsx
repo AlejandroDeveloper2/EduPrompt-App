@@ -49,17 +49,18 @@ const SaveResourceForm = ({
           <Form.Row.Item span={1}>
             <Form.Input<CreateResourceFormData>
               label={t(
-        "generations_translations.save_resource_form.form_labels.resource_title.label",
+                "generations_translations.save_resource_form.form_labels.resource_title.label",
               )}
               icon="text-outline"
               name="title"
               value={formData.title}
               placeholder={t(
-        "generations_translations.save_resource_form.form_labels.resource_title.placeholder",
+                "generations_translations.save_resource_form.form_labels.resource_title.placeholder",
               )}
               errorMessage={getFieldErrors("title")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("title")}
+              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>
@@ -75,11 +76,11 @@ const SaveResourceForm = ({
             >
               name="groupTag"
               label={t(
-        "generations_translations.save_resource_form.form_labels.group_tag.label",
+                "generations_translations.save_resource_form.form_labels.group_tag.label",
               )}
               icon="pricetag-outline"
               placeholder={t(
-        "generations_translations.save_resource_form.form_labels.group_tag.placeholder",
+                "generations_translations.save_resource_form.form_labels.group_tag.placeholder",
               )}
               selectedOption={selectedTag}
               optionValueKey="name"
@@ -97,11 +98,11 @@ const SaveResourceForm = ({
             width="100%"
             icon="add-outline"
             label={t(
-        "generations_translations.save_resource_form.form_labels.btn_save_resource",
+              "generations_translations.save_resource_form.form_labels.btn_save_resource",
             )}
             loading={isLoading}
             loadingMessage={t(
-        "generations_translations.save_resource_form.form_loading_messages.saving_resource_msg",
+              "generations_translations.save_resource_form.form_loading_messages.saving_resource_msg",
             )}
             onPress={handleSubmit}
           />
@@ -112,7 +113,7 @@ const SaveResourceForm = ({
             width="100%"
             icon="close-outline"
             label={t(
-        "generations_translations.save_resource_form.form_labels.btn_cancel",
+              "generations_translations.save_resource_form.form_labels.btn_cancel",
             )}
             onPress={onClosePopUp}
           />

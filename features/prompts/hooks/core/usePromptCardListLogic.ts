@@ -13,17 +13,22 @@ import {
   useSelectionModeStore,
 } from "@/shared/hooks/store";
 import { usePromptFiltersContext } from "../context";
+import { useDeleteManyPromptsMutation } from "../mutations";
 import { usePromptsQuery } from "../queries";
 import { usePromptsSelectionStore } from "../store";
-import useDeleteManyPrompts from "./useDeleteManyPrompts";
 
 const usePromptCardListLogic = () => {
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
 
   const size = useScreenDimensionsStore();
-  const { selectionCount, isAllSelected, clearSelection, selectAll } =
-    usePromptsSelectionStore();
+  const {
+    selectionCount,
+    isAllSelected,
+    clearSelection,
+    selectAll,
+    selectedPromptIds,
+  } = usePromptsSelectionStore();
   const {
     selectionMode,
     allSelected,
@@ -56,7 +61,8 @@ const usePromptCardListLogic = () => {
     { limit: 10 },
   );
 
-  const { isPending, removeManyPrompts } = useDeleteManyPrompts();
+  const { isPending, mutate: removeManyPrompts } =
+    useDeleteManyPromptsMutation();
 
   const { t } = useTranslations();
 
@@ -125,6 +131,7 @@ const usePromptCardListLogic = () => {
     removeManyPrompts,
     /** Translations */
     t,
+    selectedPromptIds,
   };
 };
 

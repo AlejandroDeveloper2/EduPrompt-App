@@ -6,7 +6,7 @@ import { EducationalResource } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
 import { useResourcesFiltersContext } from "../context";
-import useUpdateResource from "./useUpdateResource";
+import { useUpdateResourceMutation } from "../mutations";
 
 import { getSelectedOption } from "@/features/generations/helpers";
 
@@ -23,9 +23,9 @@ const initialValues: UpdateResourceFormData = {
 
 const useUpdateResourceFormLogic = (
   selectedResource: EducationalResource | null,
-  onClosePopUp: () => void
+  onClosePopUp: () => void,
 ) => {
-  const { isPending, editResource } = useUpdateResource();
+  const { isPending, mutate } = useUpdateResourceMutation();
   const {
     data,
     handleChange,
@@ -36,9 +36,8 @@ const useUpdateResourceFormLogic = (
   } = useForm({
     initialValues,
     validationSchema: updateResourceSchema,
-    actionCallback: async () => {
-      await editResource(data);
-      onClosePopUp();
+    actionCallback: () => {
+      mutate(data, { onSuccess: () => onClosePopUp() });
     },
     noReset: true,
   });
@@ -47,7 +46,7 @@ const useUpdateResourceFormLogic = (
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.groupTag, "tagId"),
-    [data.groupTag]
+    [data.groupTag],
   ) as Tag | null;
 
   useEffect(() => {

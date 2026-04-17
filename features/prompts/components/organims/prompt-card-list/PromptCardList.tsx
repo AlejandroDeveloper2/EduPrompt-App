@@ -58,6 +58,7 @@ const PromptCardList = () => {
     isPending: isDeleting,
     removeManyPrompts,
     t,
+    selectedPromptIds,
   } = usePromptCardListLogic();
 
   const { isPending, selectedTag, form } = useUpdatePromptFormLogic(
@@ -98,8 +99,10 @@ const PromptCardList = () => {
           acceptButtonIcon="trash-bin-outline"
           onCancel={confirmPromptDeletePopUp.closePopUp}
           onAccept={() => {
-            removeManyPrompts();
-            confirmPromptDeletePopUp.closePopUp();
+            const selectedPrompts = Array.from(selectedPromptIds);
+            removeManyPrompts(selectedPrompts, {
+              onSuccess: () => confirmPromptDeletePopUp.closePopUp(),
+            });
           }}
           loading={isDeleting}
           loadingMessage={t(

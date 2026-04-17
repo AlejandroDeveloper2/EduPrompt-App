@@ -1,14 +1,39 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useCheckNetwork } from "@/shared/hooks/core";
+import { useEventbusValue } from "@/shared/hooks/events";
+import { useUserOfflineStore } from "../store";
+
 import { patchUserTokenCoins } from "../../services";
 
 const useUpdateTokenCoinsMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: patchUserTokenCoins,
+  const { isConnected } = useCheckNetwork();
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-    onMutate: async (amount: number) => {
+  /** Offline */
+  const { addLocalTokenCoins, subtractLocalTokenCoins, markAsSynced } =
+    useUserOfflineStore();
+
+  return useMutation({
+    mutationFn: async (config: {
+      amount: number;
+      mode: "add" | "substract";
+    }) => {
+      let updatedTokenAmount: number;
+
+      if (config.mode === "add")
+        updatedTokenAmount = addLocalTokenCoins(config.amount, false);
+      else updatedTokenAmount = subtractLocalTokenCoins(config.amount, false);
+
+      if (isConnected && isAuthenticated) {
+        await patchUserTokenCoins(updatedTokenAmount);
+        markAsSynced();
+      }
+    },
+
+    onMutate: async ({ amount }) => {
       await queryClient.cancelQueries({ queryKey: ["user_profile"] });
 
       // Obtener el estado actual
@@ -27,7 +52,7 @@ const useUpdateTokenCoinsMutation = () => {
       // Retornar el contexto para rollback en caso de error
       return { previousUser };
     },
-    onError: (error, _newConfig, context) => {
+    onError: (_error, _newConfig, context) => {
       if (context?.previousUser) {
         queryClient.setQueryData(["user_profile"], context.previousUser);
       }

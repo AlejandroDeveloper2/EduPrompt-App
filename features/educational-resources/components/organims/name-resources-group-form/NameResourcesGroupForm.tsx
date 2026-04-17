@@ -1,15 +1,5 @@
-import { v4 as uuid } from "react-native-uuid/dist/v4";
-
-import { BACKGROUND_PROCESS_NAMES } from "@/features/educational-resources/constants";
-
 import { useOfflineResourcesStore } from "@/features/educational-resources/hooks/store";
-import {
-  useBackgroundTaskRunner,
-  useForm,
-  useTranslations,
-} from "@/shared/hooks/core";
-
-import { calcAvarageProcessDuration } from "@/shared/utils";
+import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import {
   NameResourcesGroupFormData,
@@ -33,51 +23,14 @@ const NameResourcesGroupForm = ({
   closePopUp,
 }: NameResourcesGroupFormProps) => {
   const { shareResources, isSharing } = useOfflineResourcesStore();
-  const { runBackgroundTask } = useBackgroundTaskRunner();
 
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       validationSchema: nameResourcesGroupSchema,
       initialValues,
       actionCallback: async () => {
-        const processName = BACKGROUND_PROCESS_NAMES.sharingProcess;
-        runBackgroundTask(
-          {
-            processId: uuid(),
-            type: "sharing",
-            processName,
-            progressConfig: {
-              mode: "duration-timer",
-              limit: calcAvarageProcessDuration(processName) ?? 6000,
-            },
-            progress: 0,
-            state: "in-progress",
-            startTime: Date.now(),
-          },
-          async () => {
-            await shareResources(data.groupName);
-
-            closePopUp();
-          },
-          {
-            successNotification: {
-              title: t(
-                "resources_translations.share_resources_notifications_labels.success.title",
-              ),
-              message: t(
-                "resources_translations.share_resources_notifications_labels.success.message",
-              ),
-            },
-            errorNotification: {
-              title: t(
-                "resources_translations.share_resources_notifications_labels.error.title",
-              ),
-              message: t(
-                "resources_translations.share_resources_notifications_labels.error.message",
-              ),
-            },
-          },
-        );
+        await shareResources(data.groupName);
+        closePopUp();
       },
     });
 
@@ -101,6 +54,7 @@ const NameResourcesGroupForm = ({
               errorMessage={getFieldErrors("groupName")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("groupName")}
+              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>

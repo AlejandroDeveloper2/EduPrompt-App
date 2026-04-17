@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import { Tag } from "@/features/tags/types";
 
@@ -22,10 +22,12 @@ const initialValues: SavePromptFormData = {
   tag: "",
 };
 
-const useSavePromptFormLogic = (
-  promptText: string,
-  onClosePopUp: () => void
-) => {
+const useSavePromptFormLogic = (onClosePopUp: () => void) => {
+  const isLoading = useEventBusToggle("prompts.savePrompt.started", [
+    "prompts.savePrompt.completed",
+    "prompts.savePrompt.failed",
+  ]);
+
   const {
     data,
     handleChange,
@@ -38,26 +40,17 @@ const useSavePromptFormLogic = (
     validationSchema: savePromptFormSchema,
     actionCallback: () => {
       eventBus.emit("prompts.savePrompt.requested", data);
-      onClosePopUp();
+      if (!isLoading) onClosePopUp();
     },
   });
 
-  const isLoading = useEventBusToggle("prompts.savePrompt.started", [
-    "prompts.savePrompt.completed",
-    "prompts.savePrompt.failed",
-  ]);
-
-  const { paginatedTags, searchTagValue, onSearchTagValueChange } =
+  const { paginatedTags, searchTagValue, onSearchTagValueChange, setTagType } =
     useTagFiltersContext();
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.tag, "tagId"),
-    [data.tag]
+    [data.tag],
   ) as Tag | null;
-
-  useEffect(() => {
-    setValues({ promptText });
-  }, [promptText]);
 
   return {
     isLoading,
@@ -65,12 +58,14 @@ const useSavePromptFormLogic = (
     paginatedTags,
     searchTagValue,
     onSearchTagValueChange,
+    setTagType,
     form: {
       data,
       handleChange,
       handleClearInput,
       getFieldErrors,
       handleSubmit,
+      setValues,
     },
   };
 };

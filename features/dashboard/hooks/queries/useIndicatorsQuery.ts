@@ -9,9 +9,14 @@ import { getIndicators } from "../../services";
 const useIndicatorsQuery = () => {
   const { isConnected } = useCheckNetwork();
 
-  const { setIndicators, loadIndicators } = useIndicatorPanelStore();
+  const { loadIndicators } = useIndicatorPanelStore();
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
+
+  const loadOfflineIndicators = () => {
+    const indicators = loadIndicators();
+    return { indicators, isLoading: false };
+  };
 
   const query = useQuery({
     queryKey: ["app_indicators"],
@@ -21,16 +26,11 @@ const useIndicatorsQuery = () => {
       isAuthenticated === true,
     queryFn: async () => {
       const indicators = await getIndicators();
-      setIndicators({ ...indicators, sync: true });
-      return { ...indicators, sync: true };
+      const sync = loadOfflineIndicators().indicators.sync;
+      return { ...indicators, sync };
     },
     staleTime: Infinity,
   });
-
-  const loadOfflineIndicators = () => {
-    const indicators = loadIndicators();
-    return { indicators, isLoading: false };
-  };
 
   if (query.data) return { indicators: query.data, isLoading: query.isLoading };
 

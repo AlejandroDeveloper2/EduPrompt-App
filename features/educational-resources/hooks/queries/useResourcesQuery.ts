@@ -12,7 +12,7 @@ import { getEducationalResourcesByUser } from "../../services";
 
 const useResourcesQuery = (
   baseFilters: BaseFilters | null,
-  options: InfiniteQueryOptions
+  options: InfiniteQueryOptions,
 ) => {
   const limit = options?.limit ?? 10;
 
@@ -30,7 +30,7 @@ const useResourcesQuery = (
       baseFilters?.formatKey ?? null,
       limit,
     ],
-    [baseFilters?.tag, baseFilters?.title, baseFilters?.formatKey, limit]
+    [baseFilters?.tag, baseFilters?.title, baseFilters?.formatKey, limit],
   );
 
   const query = useInfiniteQuery<PaginatedResponse<EducationalResource>>({
@@ -48,20 +48,14 @@ const useResourcesQuery = (
       if (isConnected && isAuthenticated) {
         const paginatedResources = await getEducationalResourcesByUser(filters);
 
-        if (
-          paginatedResources.records.length === 0 &&
-          localResources.records.length > 0
-        ) {
-          return localResources;
-        }
         /** Sincronizamos los recursos online si no estan en el almacenamiento local */
         await Promise.all(
           paginatedResources.records.map(async (resource) => {
             const localResource = localResources.records.find(
-              (r) => r.resourceId === resource.resourceId
+              (r) => r.resourceId === resource.resourceId,
             );
-            if (!localResource)
-              return await createResource({
+            if (!localResource) {
+              const addedLocalResource = await createResource({
                 formatKey: resource.formatKey,
                 title: resource.title,
                 resourceId: resource.resourceId,
@@ -69,16 +63,23 @@ const useResourcesQuery = (
                 format: resource.format,
                 groupTag: resource.groupTag,
               });
-          })
+              await updateResourcesSyncStatus(
+                true,
+                addedLocalResource.resourceId,
+              );
+              return addedLocalResource;
+            }
+          }),
         );
-        await updateResourcesSyncStatus(true);
 
         return {
           ...paginatedResources,
-          records: paginatedResources.records.map((r) => ({
-            ...r,
-            sync: true,
-          })),
+          records: paginatedResources.records
+            .map((r) => ({
+              ...r,
+              sync: true,
+            }))
+            .concat(localResources.records.filter((r) => !r.sync)),
         };
       }
       return localResources;

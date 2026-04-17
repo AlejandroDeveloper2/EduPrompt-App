@@ -173,6 +173,7 @@ export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
     updateResource: async (updateResourcePayload) => {
       const { title, groupTag, resourceId } = updateResourcePayload;
       set({ isProcessing: true });
+
       return await tryCatchWrapper(
         async () => {
           const updatedResourceRow = await db

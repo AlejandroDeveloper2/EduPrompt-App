@@ -13,15 +13,20 @@ import {
 import { useTagsSelectionStore } from "../store";
 
 import { useListFilters, usePopUp, useTranslations } from "@/shared/hooks/core";
+import { useDeleteManyTagsMutation } from "../mutations";
 import { useTagsQuery } from "../queries";
-import useDeleteManyTags from "./useDeleteManyTags";
 
 const useTagCardListLogic = () => {
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
 
   const size = useScreenDimensionsStore();
-  const { selectionCount, isAllSelected, clearSelection, selectAll } =
-    useTagsSelectionStore();
+  const {
+    selectionCount,
+    isAllSelected,
+    clearSelection,
+    selectAll,
+    selectedTagIds,
+  } = useTagsSelectionStore();
   const {
     selectionMode,
     allSelected,
@@ -51,7 +56,7 @@ const useTagCardListLogic = () => {
     isRefetching,
   } = useTagsQuery({ name: searchValue, type: selectedFilter }, { limit: 10 });
 
-  const { isPending, removeManyTags } = useDeleteManyTags();
+  const { isPending, mutate: removeManyTags } = useDeleteManyTagsMutation();
 
   const { t } = useTranslations();
 
@@ -114,6 +119,7 @@ const useTagCardListLogic = () => {
     /** Tag Id  */
     selectedTag,
     setSelectedTag,
+    selectedTagIds,
     /** Actions */
     isPending,
     removeManyTags,

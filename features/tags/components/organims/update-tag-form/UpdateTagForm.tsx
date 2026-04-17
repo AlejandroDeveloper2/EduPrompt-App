@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { Tag, TagType } from "@/features/tags/types";
 
-import { useUpdateTag } from "@/features/tags/hooks/core";
+import { useUpdateTagMutation } from "@/features/tags/hooks/mutations";
 import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import { UpdateTagFormData, updateTagSchema } from "./validationSchema";
@@ -21,7 +21,7 @@ const initialValues: UpdateTagFormData = {
 };
 
 const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
-  const { isPending, editTag } = useUpdateTag();
+  const { isPending, mutate } = useUpdateTagMutation();
 
   const {
     data,
@@ -33,9 +33,8 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
   } = useForm({
     initialValues,
     validationSchema: updateTagSchema,
-    actionCallback: async () => {
-      await editTag(data);
-      onClosePopup();
+    actionCallback: () => {
+      mutate(data, { onSuccess: () => onClosePopup() });
     },
     noReset: true,
   });
@@ -54,23 +53,24 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
           <Form.Row.Item span={1}>
             <Form.Input<UpdateTagFormData>
               label={t(
-                "tags_translations.update_tag_template.form_labels.name.label"
+                "tags_translations.update_tag_template.form_labels.name.label",
               )}
               icon="pricetag-outline"
               name="name"
               value={data.name}
               placeholder={t(
-                "tags_translations.update_tag_template.form_labels.name.placeholder"
+                "tags_translations.update_tag_template.form_labels.name.placeholder",
               )}
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("name")}
+              isInPopUp
             />
           </Form.Row.Item>
           <Form.Row.Item span={1}>
             <Form.MultiOptionInput<UpdateTagFormData, TagType>
               label={t(
-                "tags_translations.update_tag_template.form_labels.type.label"
+                "tags_translations.update_tag_template.form_labels.type.label",
               )}
               name="type"
               value={data.type}
@@ -79,14 +79,14 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
             >
               <Form.MultiOptionInput.Option
                 label={t(
-                  "tags_translations.update_tag_template.form_labels.type.options.prompts"
+                  "tags_translations.update_tag_template.form_labels.type.options.prompts",
                 )}
                 optionValue="prompt_tag"
                 isSelected={data.type === "prompt_tag"}
               />
               <Form.MultiOptionInput.Option
                 label={t(
-                  "tags_translations.update_tag_template.form_labels.type.options.resources"
+                  "tags_translations.update_tag_template.form_labels.type.options.resources",
                 )}
                 optionValue="resource_tag"
                 isSelected={data.type === "resource_tag"}
@@ -102,12 +102,12 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
             width="100%"
             icon="pencil-outline"
             label={t(
-              "tags_translations.update_tag_template.form_labels.btn_update_tag"
+              "tags_translations.update_tag_template.form_labels.btn_update_tag",
             )}
             onPress={handleSubmit}
             loading={isPending}
             loadingMessage={t(
-              "tags_translations.update_tag_template.form_loading_messages.updating_tag_msg"
+              "tags_translations.update_tag_template.form_loading_messages.updating_tag_msg",
             )}
           />
         </Form.Row.Item>

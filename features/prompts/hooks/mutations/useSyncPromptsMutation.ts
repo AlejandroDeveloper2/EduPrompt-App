@@ -39,7 +39,7 @@ const useSyncPromptsMutation = () => {
         let updatedPrompts: Omit<Prompt, "sync">[] = [...previousPrompts];
         prompts.forEach((prompt) => {
           const prevPrompt = previousPrompts.find(
-            (p) => p.promptId === prompt.promptId
+            (p) => p.promptId === prompt.promptId,
           );
           if (!prevPrompt) return updatedPrompts.push(prompt);
           return (updatedPrompts = updatedPrompts.map((p) => {
@@ -53,12 +53,13 @@ const useSyncPromptsMutation = () => {
       // Retornar el contexto para rollback en caso de error
       return { previousPrompts };
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await updatePromptsSyncStatus(true);
       showToast({
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "prompts_translations.module_success_messages.prompts_synced_msg"
+          "prompts_translations.module_success_messages.prompts_synced_msg",
         ),
       });
     },
@@ -68,7 +69,6 @@ const useSyncPromptsMutation = () => {
       }
     },
     onSettled: () => {
-      updatePromptsSyncStatus(true);
       queryClient.invalidateQueries({ queryKey: ["prompts"] });
     },
   });
@@ -83,7 +83,7 @@ const useSyncPromptsMutation = () => {
           prompts.every((p) => p.sync),
           async () => {
             mutation.mutate({ prompts });
-          }
+          },
         );
       }
     };
@@ -99,7 +99,7 @@ const useSyncPromptsMutation = () => {
       prompts.every((p) => p.sync),
       () => {
         mutation.mutate({ prompts });
-      }
+      },
     );
   }, [isAuthenticated, isConnected, mutation, findAllPrompts]);
 
