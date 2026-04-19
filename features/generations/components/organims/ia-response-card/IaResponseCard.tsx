@@ -25,7 +25,7 @@ import {
 } from "@/shared/components/organims";
 import SaveResourceForm from "../save-resource-form/SaveResourceForm";
 
-import { IaResponseCardStyle } from "./IaResponseCard.style";
+import { dynamicStyles } from "./IaResponseCard.style";
 
 interface IaResponseCardProps {
   format: ResourceFormat;
@@ -74,7 +74,7 @@ const IaResponseCard = ({
     [format],
   );
 
-  const iaResponseCardStyle = IaResponseCardStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <>
@@ -172,8 +172,8 @@ const IaResponseCard = ({
           title={t("generations_translations.ia_response_card_labels.title")}
           icon="star-outline"
         />
-        <View style={iaResponseCardStyle.Container}>
-          <View style={iaResponseCardStyle.Header}>
+        <View style={styles.Container}>
+          <View style={styles.Header}>
             <Badge label={format.formatLabel} variant="primary" />
             <Typography
               text={
@@ -194,10 +194,7 @@ const IaResponseCard = ({
             content={iaGeneratedContent}
             scroll={false}
           />
-          <ScrollView
-            horizontal
-            contentContainerStyle={iaResponseCardStyle.Options}
-          >
+          <ScrollView horizontal contentContainerStyle={styles.Options}>
             <Button
               icon="save-outline"
               variant="neutral"

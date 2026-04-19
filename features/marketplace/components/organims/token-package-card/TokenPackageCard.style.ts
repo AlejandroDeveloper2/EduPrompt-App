@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "@/shared/styles";
 
-export const TokenPackageCardStyle = (size: SizeType, full?: boolean) =>
+export const dynamicStyles = (size: SizeType, full?: boolean) =>
   StyleSheet.create({
     CardContainer: {
       width: full ? "100%" : size === "laptop" ? 350 : 300,

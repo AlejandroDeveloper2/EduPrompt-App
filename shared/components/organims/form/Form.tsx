@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
 
 import { FormProps } from "./types";
@@ -22,7 +22,7 @@ import Fields from "./form-components/Fields";
 import Row from "./form-components/Row";
 import RowItem from "./form-components/RowItem";
 
-import { FormStyle } from "./Form.style";
+import { dynamicStyles } from "./Form.style";
 
 const Form = ({ children }: FormProps) => {
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -30,7 +30,12 @@ const Form = ({ children }: FormProps) => {
   const size = useScreenDimensionsStore();
 
   // gap en px (usa tus tokens de spacing)
-  const gap = size === "mobile" ? Spacing.spacing_sm : Spacing.spacing_md;
+  const gap = useMemo(
+    () => (size === "mobile" ? Spacing.spacing_sm : Spacing.spacing_md),
+    [size],
+  );
+
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   const handleLayout = (e: LayoutChangeEvent) => {
     const width = Math.round(e.nativeEvent.layout.width);
@@ -39,7 +44,7 @@ const Form = ({ children }: FormProps) => {
 
   return (
     <FormContext.Provider value={{ size, containerWidth, gap }}>
-      <View style={FormStyle(size).FormBody} onLayout={handleLayout}>
+      <View style={styles.FormBody} onLayout={handleLayout}>
         {children}
       </View>
     </FormContext.Provider>

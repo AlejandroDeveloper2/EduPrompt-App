@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode, useState } from "react";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
+import { ReactNode, useMemo, useState } from "react";
 import { TextInput, View } from "react-native";
 
 import { AppColors, Spacing } from "../../../styles";
@@ -10,8 +11,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Ionicon } from "../../atoms";
 import BaseInput, { BaseInputProps } from "./BaseInput";
 
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { InputStyle } from "./Input.style";
+import { dynamicStyles } from "./Input.style";
 
 export interface InputProps<T> extends Omit<
   BaseInputProps,
@@ -42,15 +42,16 @@ function Input<T>({
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const size = useScreenDimensionsStore();
-  const error = props.errorMessage !== undefined;
 
-  const { onBlur, onFocus, animatedInputStyle } = useAnimatedInput(error);
+  const { onBlur, onFocus, animatedInputStyle } = useAnimatedInput(
+    props.errorMessage !== undefined,
+  );
 
-  const inputStyle = InputStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <BaseInput {...props} animatedInputStyle={animatedInputStyle}>
-      <View style={inputStyle.Body}>
+      <View style={styles.Body}>
         <View
           style={{
             paddingVertical:
@@ -72,7 +73,7 @@ function Input<T>({
             editable={props.disabled === undefined}
             placeholder={placeholder}
             placeholderTextColor={AppColors.neutral[500]}
-            style={inputStyle.Input}
+            style={styles.Input}
             onFocus={onFocus}
             onBlur={onBlur}
             {...(props.textArea && {
@@ -90,7 +91,7 @@ function Input<T>({
             editable={props.disabled === undefined}
             placeholder={placeholder}
             placeholderTextColor={AppColors.neutral[500]}
-            style={inputStyle.Input}
+            style={styles.Input}
             onFocus={onFocus}
             onBlur={onBlur}
             {...(props.textArea && {
@@ -101,7 +102,7 @@ function Input<T>({
           />
         )}
 
-        <View style={inputStyle.Tools}>
+        <View style={styles.Tools}>
           {value.length > 0 && !props.disabled && (
             <Ionicon
               name="close-outline"

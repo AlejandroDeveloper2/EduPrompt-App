@@ -6,10 +6,10 @@ import { AppColors, FontSizes, Radius, Spacing } from "../../../styles";
 
 import { getFontFamily } from "../../../helpers";
 
-export const BaseInputStyle = (
+export const baseInputStyle = (
   size: SizeType,
   disabled?: boolean,
-  textArea?: boolean
+  textArea?: boolean,
 ) =>
   StyleSheet.create({
     Container: {
@@ -36,7 +36,7 @@ export const BaseInputStyle = (
     },
   });
 
-export const InputStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     Body: {
       display: "flex",

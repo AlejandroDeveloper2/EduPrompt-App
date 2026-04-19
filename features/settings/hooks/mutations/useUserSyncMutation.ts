@@ -1,26 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { User, UserStats } from "../../types";
 
-import { showToast } from "@/shared/context";
-
-import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useUserOfflineStore } from "../store";
 
-import { generateToastKey } from "@/shared/helpers";
-import { syncData } from "@/shared/utils";
+import { eventBus } from "@/core/events/EventBus";
 import { putUserStats } from "../../services";
 
 const useUserSyncMutation = () => {
   const queryClient = useQueryClient();
-  const { isConnected } = useCheckNetwork();
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { userStats, markAsSynced } = useUserOfflineStore();
-
-  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: putUserStats,
@@ -45,13 +36,6 @@ const useUserSyncMutation = () => {
     },
     onSuccess: () => {
       markAsSynced();
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: t(
-          "settings_translations.module_success_messages.user_profile_synced_msg",
-        ),
-      });
     },
     onError: (error, _newUserStats, context) => {
       if (context?.previousUserStats) {
@@ -68,22 +52,20 @@ const useUserSyncMutation = () => {
 
     if (!onlineUserStats) return;
 
+    eventBus.emit("userProfile.syncData.started", undefined);
+
     const syncedUserStats: User = {
       ...onlineUserStats,
       tokenCoins: userStats.tokenCoins + onlineUserStats.tokenCoins,
     };
 
-    syncData(isConnected, isAuthenticated, userStats.sync, () => {
-      mutation.mutate(syncedUserStats);
+    mutation.mutate(syncedUserStats, {
+      onSuccess: () =>
+        eventBus.emit("userProfile.syncData.completed", undefined),
+      onError: (error) =>
+        eventBus.emit("userProfile.syncData.failed", { error: error.message }),
     });
-  }, [isAuthenticated, isConnected, mutation, userStats, queryClient]);
-
-  useEffect(() => {
-    if (userStats.userPreferences.autoSync) {
-      syncUserProfile();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, isAuthenticated, userStats]);
+  }, [mutation, userStats, queryClient]);
 
   return {
     ...mutation,

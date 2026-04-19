@@ -31,7 +31,7 @@ const SubscriptionPlanList = () => {
         isOpen={isOpen}
         onClose={closePopUp}
       >
-        <AuthPanel />
+        <AuthPanel closePopUp={closePopUp} />
       </PopUp>
       {isPlansLoading ? (
         <LoadingTextIndicator

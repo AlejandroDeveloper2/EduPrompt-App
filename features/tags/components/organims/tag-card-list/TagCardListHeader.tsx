@@ -1,17 +1,16 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { TagType } from "@/features/tags/types";
 import { AppColors } from "@/shared/styles";
 
-import { useSyncTagMutation } from "@/features/tags/hooks/mutations";
 import { useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
-import { FilterTag, InfoCard, Input } from "@/shared/components/molecules";
+import { FilterTag, Input } from "@/shared/components/molecules";
 
-import { TagCardListStyle } from "./TagCardList.style";
+import { dynamicStyles } from "./TagCardList.style";
 
 interface TagListHeaderProps {
   isDataSync: boolean;
@@ -32,41 +31,12 @@ const TagCardListHeader = ({
 }: TagListHeaderProps) => {
   const size = useScreenDimensionsStore();
 
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-
-  const { isPending, syncTags } = useSyncTagMutation();
-
   const { t } = useTranslations();
 
-  const tagCardListStyle = TagCardListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={tagCardListStyle.ListHeaderContainer}>
-      {userProfile &&
-        !isDataSync &&
-        !userProfile.userPreferences.autoSync &&
-        isAuthenticated && (
-          <InfoCard
-            title={t(
-              "tags_translations.tag_list_labels.syncronization_card_labels.title"
-            )}
-            description={t(
-              "tags_translations.tag_list_labels.syncronization_card_labels.description"
-            )}
-            buttonData={{
-              onPress: syncTags,
-              icon: "sync-outline",
-              label: t(
-                "tags_translations.tag_list_labels.syncronization_card_labels.btn_sync"
-              ),
-              loading: isPending,
-              loadingMessage: t(
-                "tags_translations.tag_list_labels.syncronization_card_labels.loading_text"
-              ),
-            }}
-          />
-        )}
+    <View style={styles.ListHeaderContainer}>
       <ScreenSection
         description={t("tags_translations.tag_list_labels.description")}
         title={t("tags_translations.tag_list_labels.title")}
@@ -77,15 +47,15 @@ const TagCardListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "tags_translations.tag_list_labels.search_input_placeholder"
+          "tags_translations.tag_list_labels.search_input_placeholder",
         )}
         onChange={(_, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
       />
-      <View style={tagCardListStyle.FiltersContainer}>
+      <View style={styles.FiltersContainer}>
         <Typography
           text={t(
-            "tags_translations.tag_list_labels.tag_type_filters_labels.title"
+            "tags_translations.tag_list_labels.tag_type_filters_labels.title",
           )}
           weight="bold"
           type="button"
@@ -94,11 +64,11 @@ const TagCardListHeader = ({
           width="auto"
           icon="filter-outline"
         />
-        <View style={tagCardListStyle.FiltersRow}>
+        <View style={styles.FiltersRow}>
           <FilterTag
             icon="book-outline"
             label={t(
-              "tags_translations.tag_list_labels.tag_type_filters_labels.resources"
+              "tags_translations.tag_list_labels.tag_type_filters_labels.resources",
             )}
             active={selectedFilter === "resource_tag"}
             onPressFilter={() => onChangeFilter("resource_tag")}
@@ -106,7 +76,7 @@ const TagCardListHeader = ({
           <FilterTag
             icon="chatbox-ellipses-outline"
             label={t(
-              "tags_translations.tag_list_labels.tag_type_filters_labels.prompts"
+              "tags_translations.tag_list_labels.tag_type_filters_labels.prompts",
             )}
             active={selectedFilter === "prompt_tag"}
             onPressFilter={() => onChangeFilter("prompt_tag")}

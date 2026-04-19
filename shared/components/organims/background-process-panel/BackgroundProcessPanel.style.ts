@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "../../../styles";
 
-export const BackgroundProcessPanelStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   Container: {
     width: "100%",
     display: "flex",

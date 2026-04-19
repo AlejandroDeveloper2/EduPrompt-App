@@ -24,7 +24,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
-import { ResourceCardStyle } from "./ResourceCard.style";
+import { dynamicStyles } from "./ResourceCard.style";
 
 interface ResourceCardProps {
   resourceData: EducationalResource;
@@ -53,28 +53,28 @@ const ResourceCard = ({
 
   const isSelected: boolean = useMemo(
     () => selectedResourceIds.has(resourceData.resourceId),
-    [resourceData.resourceId, selectedResourceIds]
+    [resourceData.resourceId, selectedResourceIds],
   );
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
   const { t } = useTranslations();
 
-  const resourceCardStyle = ResourceCardStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <AnimatedPressable
-      style={[resourceCardStyle.CardContainer, animatedCardStyle]}
+      style={[styles.CardContainer, animatedCardStyle]}
       onPress={onViewResource && !selectionMode ? onViewResource : () => {}}
     >
-      <View style={resourceCardStyle.CardHeader}>
-        <View style={resourceCardStyle.CardTags}>
+      <View style={styles.CardHeader}>
+        <View style={styles.CardTags}>
           <Badge label={format} variant="primary" />
           <Badge
             label={
               tags.find((t) => t.tagId === groupTag)?.name ??
               t(
-                "resources_translations.resources_list_labels.no_resource_tag_label"
+                "resources_translations.resources_list_labels.no_resource_tag_label",
               )
             }
             variant="neutral"
@@ -90,7 +90,7 @@ const ResourceCard = ({
           />
         )}
       </View>
-      <View style={resourceCardStyle.CardContent}>
+      <View style={styles.CardContent}>
         <Typography
           text={title}
           weight="medium"

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -8,7 +8,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { ErrorMessage, Typography } from "../../atoms";
 
-import { BaseInputStyle } from "./Input.style";
+import { baseInputStyle } from "./Input.style";
 
 export interface BaseInputProps {
   label?: string;
@@ -31,11 +31,13 @@ const BaseInput = ({
   animatedInputStyle,
 }: BaseInputProps) => {
   const size = useScreenDimensionsStore();
-
-  const baseInputStyle = BaseInputStyle(size, disabled, textArea);
+  const styles = useMemo(
+    () => baseInputStyle(size, disabled, textArea),
+    [disabled, size, textArea],
+  );
 
   return (
-    <View style={baseInputStyle.Container}>
+    <View style={styles.Container}>
       {label && (
         <Typography
           text={label}
@@ -46,7 +48,7 @@ const BaseInput = ({
           width="auto"
         />
       )}
-      <Animated.View style={[animatedInputStyle, baseInputStyle.InputBox]}>
+      <Animated.View style={[animatedInputStyle, styles.InputBox]}>
         {children}
       </Animated.View>
       {errorMessage && <ErrorMessage message={errorMessage} />}

@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Spacing } from "../../../styles";
 
-export const FormStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     FormBody: {
       width: "100%",
@@ -17,7 +17,7 @@ export const FormStyle = (size: SizeType) =>
     },
   });
 
-export const FormFieldsStyle = (size: SizeType) =>
+export const formFieldsStyles = (size: SizeType) =>
   StyleSheet.create({
     FieldsSet: {
       width: "100%",
@@ -29,7 +29,7 @@ export const FormFieldsStyle = (size: SizeType) =>
     },
   });
 
-export const FormRowStyle = (gap: number) =>
+export const formRowStyles = (gap: number) =>
   StyleSheet.create({
     FormRow: {
       flexDirection: "row",
@@ -39,7 +39,7 @@ export const FormRowStyle = (gap: number) =>
     },
   });
 
-export const FormActionsStyle = StyleSheet.create({
+export const formActionsStyles = StyleSheet.create({
   FormActions: {
     width: "100%",
     display: "flex",

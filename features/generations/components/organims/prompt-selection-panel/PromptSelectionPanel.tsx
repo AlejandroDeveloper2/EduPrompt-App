@@ -13,7 +13,7 @@ import { useEventbusValue } from "@/shared/hooks/events";
 import { Typography } from "@/shared/components/atoms";
 import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
 
-import { PromptSelectionPanelStyle } from "./PromptSelectionPanel.style";
+import { styles } from "./PromptSelectionPanel.style";
 
 interface PromptSelectionPanelProps {
   isTagSelection: boolean;
@@ -48,10 +48,8 @@ const PromptSelectionPanel = ({
     return () => clearTimeout(timeoutId);
   }, [emitFetchPrompts]);
 
-  const { Container, FiltersContainer, FilterList } = PromptSelectionPanelStyle;
-
   return (
-    <View style={Container}>
+    <View style={styles.Container}>
       <Input<{ searchValue: string }>
         name="searchValue"
         value={searchValue}
@@ -61,7 +59,7 @@ const PromptSelectionPanel = ({
         onClearInput={() => setSearchValue("")}
         isInPopUp
       />
-      <View style={FiltersContainer}>
+      <View style={styles.FiltersContainer}>
         <Typography
           text="Filtrar por etiqueta"
           weight="bold"
@@ -73,7 +71,7 @@ const PromptSelectionPanel = ({
         />
         <ScrollView
           horizontal
-          contentContainerStyle={FilterList}
+          contentContainerStyle={styles.FilterList}
           showsHorizontalScrollIndicator={false}
           nestedScrollEnabled={true}
         >

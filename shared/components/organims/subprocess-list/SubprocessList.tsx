@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { Process } from "@/core/types";
@@ -6,7 +7,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Subprocess } from "../../molecules";
 
-import { SubprocessListStyle } from "./SubprocessList.style";
+import { dynamicStyles } from "./SubprocessList.style";
 
 interface SubprocessListProps {
   subprocesses: Process[];
@@ -14,9 +15,10 @@ interface SubprocessListProps {
 
 const SubprocessList = ({ subprocesses }: SubprocessListProps) => {
   const size = useScreenDimensionsStore();
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={SubprocessListStyle(size).List}>
+    <View style={styles.List}>
       {subprocesses.map((subProcess) => (
         <Subprocess
           key={subProcess.processId}

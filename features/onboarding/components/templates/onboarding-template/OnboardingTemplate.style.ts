@@ -5,7 +5,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "@/shared/styles";
 
-export const OnboardingTemplateStyle = (size: SizeType, insets: EdgeInsets) =>
+export const dynamicStyles = (size: SizeType, insets: EdgeInsets) =>
   StyleSheet.create({
     Container: {
       width: "100%",

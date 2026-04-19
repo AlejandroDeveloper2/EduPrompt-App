@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "@/shared/styles";
 
-export const TagSelectionPanelStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   Container: {
     width: "100%",
     flexDirection: "column",

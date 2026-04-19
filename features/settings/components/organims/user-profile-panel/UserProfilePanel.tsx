@@ -29,7 +29,7 @@ import ChangePasswordForm from "./forms/ChangePasswordForm";
 import UserEmailForm from "./forms/UpdateEmailForm";
 import UpdateUsernameForm from "./forms/UpdateUsernameForm";
 
-import { UserProfilePanelStyles } from "./UserProfilePanel.style";
+import { dynamicStyles } from "./UserProfilePanel.style";
 
 const UserProfilePanel = () => {
   const { t } = useTranslations();
@@ -50,6 +50,8 @@ const UserProfilePanel = () => {
   const size = useScreenDimensionsStore();
 
   const { isOpen, closePopUp, openPopUp } = usePopUp();
+
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   const Form: FormSectionComponentMap = {
     "tab-1": <UpdateUsernameForm />,
@@ -84,7 +86,7 @@ const UserProfilePanel = () => {
           onAccept={() => eventBus.emit("auth.logout.requested", undefined)}
         />
       </PopUp>
-      <View style={UserProfilePanelStyles(size).PanelContainer}>
+      <View style={styles.PanelContainer}>
         <ScreenSection
           description={t(
             "settings_translations.user_profile_panel.description",
@@ -99,7 +101,7 @@ const UserProfilePanel = () => {
             )}
           />
         ) : (
-          <View style={UserProfilePanelStyles(size).AuthSection}>
+          <View style={styles.AuthSection}>
             {isAuth ? (
               <>
                 <Tabulator
@@ -109,7 +111,7 @@ const UserProfilePanel = () => {
                     setActiveFormTab(tab);
                   }}
                 />
-                <View style={UserProfilePanelStyles(size).FormCard}>
+                <View style={styles.FormCard}>
                   {Form[activeFormTab.tabId as FormSectionId]}
                 </View>
                 <Button

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "../../../styles";
 
-export const PromptInputStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   OptionList: {
     flexDirection: "row",
     justifyContent: "flex-start",

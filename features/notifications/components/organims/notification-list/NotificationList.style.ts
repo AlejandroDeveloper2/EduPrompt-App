@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Spacing } from "@/shared/styles";
 
-export const NotificationListStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     ListHeaderContainer: {
       height: "auto",

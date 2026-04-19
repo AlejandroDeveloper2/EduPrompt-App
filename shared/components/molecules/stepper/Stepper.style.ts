@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "../../../styles";
 
-export const StepperStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   StepList: {
     width: "auto",
     height: "auto",

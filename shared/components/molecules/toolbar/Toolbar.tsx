@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -13,7 +14,7 @@ import {
 
 import { Ionicon, Typography } from "../../atoms";
 
-import { ToolbarStyle } from "./ToolBar.style";
+import { dynamicStyles } from "./ToolBar.style";
 
 const Toolbar = () => {
   const size = useScreenDimensionsStore();
@@ -23,22 +24,24 @@ const Toolbar = () => {
 
   const isAllSelected: boolean = useEventbusValue(
     "selectionMode.isAllSelected.updated",
-    false
+    false,
   );
   const selectionCount: number = useEventbusValue(
     "selectionMode.selectedElements.updated",
-    0
+    0,
   );
 
   const animatedTranslate = useAnimatedToolbar(
     selectionMode,
-    disableSelectionMode
+    disableSelectionMode,
   );
 
   const { t } = useTranslations();
 
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+
   return (
-    <Animated.View style={[ToolbarStyle(size).Container, animatedTranslate]}>
+    <Animated.View style={[styles.Container, animatedTranslate]}>
       <Pressable
         style={{ padding: Spacing.spacing_sm }}
         onPress={disableSelectionMode}
@@ -52,7 +55,7 @@ const Toolbar = () => {
 
       <Typography
         text={`${t(
-          "common_translations.toolbar_labels.selected_elements_label"
+          "common_translations.toolbar_labels.selected_elements_label",
         )} (${selectionCount})`}
         weight="regular"
         type="button"

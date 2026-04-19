@@ -4,7 +4,7 @@ import { EdgeInsets } from "react-native-safe-area-context";
 import { SizeType } from "@/core/types";
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const PopUpStyle = (
+export const dynamicStyles = (
   size: SizeType,
   insets: EdgeInsets,
   screenHeight: number,

@@ -59,6 +59,11 @@ export type AppEvents = {
 
   "userProfile.updateUserPreferences.requested": UserPreferences;
 
+  "userProfile.syncData.requested": undefined;
+  "userProfile.syncData.started": undefined;
+  "userProfile.syncData.completed": undefined;
+  "userProfile.syncData.failed": EventError;
+
   /** Eventos Módulo de notificaciones */
   "notifications.systemNotifications.updated": SystemNotification[];
   "notifications.userNotifications.updated": Notification[];
@@ -87,12 +92,22 @@ export type AppEvents = {
   "prompts.savePrompt.completed": undefined;
   "prompts.savePrompt.failed": EventError;
 
+  "prompts.syncData.requested": undefined;
+  "prompts.syncData.started": undefined;
+  "prompts.syncData.completed": undefined;
+  "prompts.syncData.failed": EventError;
+
   /** Eventos Módulo de dashboard */
   "dashboard.setLastGeneratedResource": string;
   "dashboard.addGeneratedResource": undefined;
   "dashboard.addUsedTokens": number;
   "dashboard.addDownloadedResources": number;
   "dashboard.addSavedResources": undefined;
+
+  "dashboard.syncData.requested": undefined;
+  "dashboard.syncData.started": undefined;
+  "dashboard.syncData.completed": undefined;
+  "dashboard.syncData.failed": EventError;
 
   /** Eventos modo seleccion */
   "selectionMode.selectedElements.updated": number;
@@ -127,11 +142,21 @@ export type AppEvents = {
   "tags.createTag.completed": undefined;
   "tags.createTag.failed": EventError;
 
+  "tags.syncData.requested": undefined;
+  "tags.syncData.started": undefined;
+  "tags.syncData.completed": undefined;
+  "tags.syncData.failed": EventError;
+
   /** Eventos del módulo de recursos educativos */
   "resources.createResource.requested": CreateResourcePayload;
   "resources.createResource.started": undefined;
   "resources.createResource.completed": undefined;
   "resources.createResource.failed": EventError;
+
+  "resources.syncData.requested": undefined;
+  "resources.syncData.started": undefined;
+  "resources.syncData.completed": undefined;
+  "resources.syncData.failed": EventError;
 
   /** Eventos del módulo de tienda y suscripciones */
   "marketplace.cancelSubscription.requested": {

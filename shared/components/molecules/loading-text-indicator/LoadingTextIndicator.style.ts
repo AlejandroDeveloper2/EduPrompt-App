@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "../../../styles";
 
-export const LoadingTextIndicatorStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   Container: {
     flexDirection: "row",
     display: "flex",

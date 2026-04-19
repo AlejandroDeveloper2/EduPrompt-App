@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
@@ -9,7 +10,7 @@ import { Typography } from "../../atoms";
 
 import Button from "../button/Button";
 
-import { InfoCardStyle } from "./InfoCard.style";
+import { dynamicStyles } from "./InfoCard.style";
 
 interface InfoCardProps {
   title: string;
@@ -25,9 +26,10 @@ interface InfoCardProps {
 
 const InfoCard = ({ title, description, buttonData }: InfoCardProps) => {
   const size = useScreenDimensionsStore();
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={InfoCardStyle(size).CardContainer}>
+    <View style={styles.CardContainer}>
       <Typography
         text={title}
         weight="bold"

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "@/shared/styles";
 
-export const SubscriptionManagePanelStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   PanelContainer: {
     width: "100%",
     flexDirection: "column",

@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const LoadPercentageStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     CircleContainer: {
       flex: 1,

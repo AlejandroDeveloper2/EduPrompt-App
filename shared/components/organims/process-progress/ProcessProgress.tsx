@@ -6,7 +6,7 @@ import { calcAvarageProcessDuration } from "@/shared/utils";
 
 import Loader from "@/shared/components/organims/loader/Loader";
 
-import { ProcessProgressStyle } from "./ProcessProgress.style";
+import { styles } from "./ProcessProgress.style";
 
 type ProcessProgressInfo = {
   title: string;
@@ -35,10 +35,8 @@ const ProcessProgress = ({
     return calcAvarageProcessDuration(processName);
   }, [processName]);
 
-  const { Container } = ProcessProgressStyle;
-
   return (
-    <View style={[Container, style]}>
+    <View style={[styles.Container, style]}>
       {Component}
       <Loader
         title={title}

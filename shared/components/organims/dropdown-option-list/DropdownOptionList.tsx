@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useAnimatedRef } from "react-native-reanimated";
@@ -8,7 +9,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { DropdownOption, Empty, Input } from "../../molecules";
 
-import { DropdownOptionListStyle } from "./DropdownOptionList.style";
+import { dynamicStyles } from "./DropdownOptionList.style";
 
 export interface DropdownOptionListProps<T> {
   optionList: T[];
@@ -33,9 +34,10 @@ const SearchPanel = ({
   onClearSearchInput,
 }: SearchPanelProps) => {
   const size = useScreenDimensionsStore();
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={DropdownOptionListStyle(size).PanelContainer}>
+    <View style={styles.PanelContainer}>
       <Input<{ searchValue: string }>
         name="searchValue"
         value={searchValue}
@@ -70,15 +72,15 @@ function DropdownOptionList<T>({
 
   const { t } = useTranslations();
 
-  const dropdownOptionListStyle = DropdownOptionListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <FlatList
       ref={listRef}
       scrollEventThrottle={16}
       simultaneousHandlers={listRef}
-      style={dropdownOptionListStyle.ListContainer}
-      contentContainerStyle={dropdownOptionListStyle.ListContent}
+      style={styles.ListContainer}
+      contentContainerStyle={styles.ListContent}
       data={filteredElements}
       renderItem={({ item }) => (
         <DropdownOption

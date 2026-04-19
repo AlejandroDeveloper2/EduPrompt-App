@@ -4,7 +4,7 @@ import { useTranslations } from "@/shared/hooks/core";
 
 import { Button, Empty } from "../../molecules";
 
-import { FetchingErrorPanelStyle } from "./FetchingErrorPanel.style";
+import { styles } from "./FetchingErrorPanel.style";
 
 interface FetchingErrorPanelProps {
   message: string;
@@ -12,12 +12,10 @@ interface FetchingErrorPanelProps {
 }
 
 const FetchingErrorPanel = ({ message, refetch }: FetchingErrorPanelProps) => {
-  const { Container } = FetchingErrorPanelStyle;
-
   const { t } = useTranslations();
 
   return (
-    <View style={Container}>
+    <View style={styles.Container}>
       <Empty message={message} icon="close-outline" />
       <Button
         icon="reload-outline"

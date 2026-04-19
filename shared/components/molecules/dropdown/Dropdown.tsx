@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import { AppColors } from "../../../styles";
@@ -9,10 +10,12 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Ionicon, Typography } from "../../atoms";
 import BaseInput, { BaseInputProps } from "../input/BaseInput";
 
-import { DropdownStyle } from "./Dropdown.style";
+import { dynamicStyles } from "./Dropdown.style";
 
-interface DropdownProps<T, D>
-  extends Omit<BaseInputProps, "children" | "textArea" | "animatedInputStyle"> {
+interface DropdownProps<T, D> extends Omit<
+  BaseInputProps,
+  "children" | "textArea" | "animatedInputStyle"
+> {
   name: keyof T;
   icon: keyof typeof Ionicons.glyphMap;
   placeholder: string;
@@ -37,7 +40,7 @@ function Dropdown<T, D>({
   const size = useScreenDimensionsStore();
   const { onBlur, onFocus, animatedInputStyle } = useAnimatedInput(error);
 
-  const dropdownStyle = DropdownStyle(size);
+  const dropdownStyle = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <BaseInput {...props} animatedInputStyle={animatedInputStyle}>

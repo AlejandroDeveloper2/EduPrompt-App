@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { ScrollView } from "react-native";
 
 import { AppColors } from "@/shared/styles";
@@ -16,7 +16,7 @@ import {
 import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
 import TokenPackageCard from "../token-package-card/TokenPackageCard";
 
-import { TokenPackageListStyle } from "./TokenPackageList.style";
+import { dynamicStyles } from "./TokenPackageList.style";
 
 const TokenPackageList = () => {
   const size = useScreenDimensionsStore();
@@ -36,11 +36,10 @@ const TokenPackageList = () => {
     2: <AdvancePackageToken />,
   };
 
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+
   return (
-    <ScrollView
-      horizontal
-      contentContainerStyle={TokenPackageListStyle(size).PackageList}
-    >
+    <ScrollView horizontal contentContainerStyle={styles.PackageList}>
       {isPackagesLoading ? (
         <LoadingTextIndicator
           message={t(

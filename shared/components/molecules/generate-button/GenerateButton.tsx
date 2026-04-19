@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -9,7 +10,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
-import { GenerateButtonStyle } from "./GenerateButton.style";
+import { dynamicStyles } from "./GenerateButton.style";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -23,14 +24,13 @@ const GenerateButton = ({ active, onPress }: GenerateButtonProps) => {
   const animatedBackgroundStyle = useAnimatedNavItem(active);
 
   const { t } = useTranslations();
-
-  const generateButtonStyle = GenerateButtonStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={generateButtonStyle.Container}>
+    <View style={styles.Container}>
       <AnimatedPressable
         onPress={onPress}
-        style={[generateButtonStyle.NavItemPressable, animatedBackgroundStyle]}
+        style={[styles.NavItemPressable, animatedBackgroundStyle]}
       >
         <Ionicon
           name="bulb-outline"

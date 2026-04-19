@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ScrollView, View } from "react-native";
 
 import { Tag } from "@/features/tags/types";
@@ -7,25 +8,18 @@ import { eventBus } from "@/core/events/EventBus";
 import { AppColors } from "@/shared/styles";
 
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
-import { useSyncPromptsMutation } from "@/features/prompts/hooks/mutations";
 import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
-import {
-  FilterTag,
-  InfoCard,
-  Input,
-  NavItem,
-} from "@/shared/components/molecules";
+import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
 import {
   ComposedDropdownOptionList,
   PopUp,
   TagSelectionPanel,
 } from "@/shared/components/organims";
 
-import { PromptCardListStyle } from "./PromptCardList.style";
+import { dynamicStyles } from "./PromptCardList.style";
 
 interface PromptCardListHeaderProps {
   isDataSync: boolean;
@@ -34,12 +28,7 @@ interface PromptCardListHeaderProps {
 const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
   const size = useScreenDimensionsStore();
 
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-
   const { isOpen, openPopUp, closePopUp } = usePopUp();
-
-  const { isPending, syncPrompts } = useSyncPromptsMutation();
 
   const {
     searchPromptValue,
@@ -53,7 +42,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
 
   const { t } = useTranslations();
 
-  const promptCardListStyle = PromptCardListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <>
@@ -100,31 +89,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           }}
         />
       </PopUp>
-      <View style={promptCardListStyle.ListHeaderContainer}>
-        {userProfile &&
-          !isDataSync &&
-          !userProfile.userPreferences.autoSync &&
-          isAuthenticated && (
-            <InfoCard
-              title={t(
-                "prompts_translations.prompt_list_labels.syncronization_card_labels.title",
-              )}
-              description={t(
-                "prompts_translations.prompt_list_labels.syncronization_card_labels.description",
-              )}
-              buttonData={{
-                onPress: syncPrompts,
-                icon: "sync-outline",
-                label: t(
-                  "prompts_translations.prompt_list_labels.syncronization_card_labels.btn_sync",
-                ),
-                loading: isPending,
-                loadingMessage: t(
-                  "prompts_translations.prompt_list_labels.syncronization_card_labels.loading_text",
-                ),
-              }}
-            />
-          )}
+      <View style={styles.ListHeaderContainer}>
         <ScreenSection
           description={t("prompts_translations.prompt_list_labels.description")}
           title={t("prompts_translations.prompt_list_labels.title")}
@@ -140,7 +105,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           onChange={(_, value) => onSearchPromptValueChange(value)}
           onClearInput={() => onSearchPromptValueChange("")}
         />
-        <View style={promptCardListStyle.FiltersContainer}>
+        <View style={styles.FiltersContainer}>
           <Typography
             text={t(
               "prompts_translations.prompt_list_labels.prompt_tag_filters_labels.title",
@@ -154,7 +119,7 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
           />
           <ScrollView
             horizontal
-            contentContainerStyle={promptCardListStyle.FiltersRow}
+            contentContainerStyle={styles.FiltersRow}
             showsHorizontalScrollIndicator={false}
           >
             <FilterTag

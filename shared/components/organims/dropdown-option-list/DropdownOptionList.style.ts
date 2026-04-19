@@ -6,7 +6,7 @@ import { SizeType } from "@/core/types";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
-export const DropdownOptionListStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     ListContainer: {
       borderTopLeftRadius: Radius.radius_lg,

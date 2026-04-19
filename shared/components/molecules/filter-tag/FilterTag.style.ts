@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Radius, Spacing } from "../../../styles";
 
-export const FilterTagStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     PressableBox: {
       width: "auto",

@@ -12,7 +12,7 @@ const SharedStyle: ViewStyle = {
   alignItems: "center",
 };
 
-export const TagCardStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     CardContainer: {
       width: "100%",

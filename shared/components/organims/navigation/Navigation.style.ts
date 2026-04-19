@@ -5,7 +5,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const NavigationStyle = (size: SizeType, insets: EdgeInsets) =>
+export const dynamicStyles = (size: SizeType, insets: EdgeInsets) =>
   StyleSheet.create({
     NavigationContainer: {
       width: size === "laptop" ? "auto" : "100%",

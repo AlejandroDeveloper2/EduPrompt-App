@@ -4,7 +4,7 @@ import { SizeType, ToastVariantType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const ToastStyle = (size: SizeType, variant: ToastVariantType) =>
+export const dynamicStyles = (size: SizeType, variant: ToastVariantType) =>
   StyleSheet.create({
     Container: {
       width: "auto",

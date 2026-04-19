@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Spacing } from "../../../styles";
 
-export const DropdownStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     Body: {
       display: "flex",

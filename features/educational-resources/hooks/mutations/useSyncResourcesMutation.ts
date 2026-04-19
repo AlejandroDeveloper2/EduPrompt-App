@@ -1,30 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { EducationalResource } from "../../types";
 
-import { showToast } from "@/shared/context";
-
-import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflineResourcesStore } from "../store";
 
-import { generateToastKey } from "@/shared/helpers";
-import { syncData } from "@/shared/utils";
-
+import { eventBus } from "@/core/events/EventBus";
 import { postSyncResources } from "../../services";
 
 const useSyncResourcesMutation = () => {
   const queryClient = useQueryClient();
-  const { isConnected } = useCheckNetwork();
-
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { updateResourcesSyncStatus, findAllResources } =
     useOfflineResourcesStore();
-
-  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: postSyncResources,
@@ -61,13 +49,6 @@ const useSyncResourcesMutation = () => {
     },
     onSuccess: async () => {
       await updateResourcesSyncStatus(true);
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: t(
-          "resources_translations.module_success_messages.resources_synced_msg",
-        ),
-      });
     },
     onError: (error, _newResources, context) => {
       if (context?.previousResources) {
@@ -79,35 +60,20 @@ const useSyncResourcesMutation = () => {
     },
   });
 
-  useEffect(() => {
-    const handleSync = async () => {
-      if (userProfile && userProfile.userPreferences.autoSync) {
-        const resources = await findAllResources();
-        syncData(
-          isConnected,
-          isAuthenticated,
-          resources.every((r) => r.sync),
-          async () => {
-            mutation.mutate({ resources });
-          },
-        );
-      }
-    };
-    handleSync();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, isAuthenticated, userProfile]);
-
   const syncResources = useCallback(async () => {
+    eventBus.emit("resources.syncData.started", undefined);
+
     const resources = await findAllResources();
-    syncData(
-      isConnected,
-      isAuthenticated,
-      resources.every((r) => r.sync),
-      () => {
-        mutation.mutate({ resources });
+    mutation.mutate(
+      { resources },
+      {
+        onSuccess: () =>
+          eventBus.emit("resources.syncData.completed", undefined),
+        onError: (error) =>
+          eventBus.emit("resources.syncData.failed", { error: error.message }),
       },
     );
-  }, [isAuthenticated, isConnected, mutation, findAllResources]);
+  }, [mutation, findAllResources]);
 
   return {
     ...mutation,

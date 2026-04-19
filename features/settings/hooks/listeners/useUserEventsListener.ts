@@ -7,11 +7,13 @@ import { UserPreferences } from "../../types";
 import {
   useUpdatePreferencesMutation,
   useUpdateTokenCoinsMutation,
+  useUserSyncMutation,
 } from "../mutations";
 
 const useUserEventListener = () => {
-  const { mutate: mutateTokenCoins } = useUpdateTokenCoinsMutation();
-  const { mutate } = useUpdatePreferencesMutation();
+  const updateTokenCoinsMutation = useUpdateTokenCoinsMutation();
+  const updateMutation = useUpdatePreferencesMutation();
+  const syncMutation = useUserSyncMutation();
 
   useEffect(() => {
     const handleUpdateTokenCoinsRequest = (payload: {
@@ -19,7 +21,7 @@ const useUserEventListener = () => {
       mode: "add" | "substract";
     }) => {
       eventBus.emit("userProfile.updateTokeUserCoins.started", undefined);
-      mutateTokenCoins(payload, {
+      updateTokenCoinsMutation.mutate(payload, {
         onSuccess: () => {
           eventBus.emit("userProfile.updateTokeUserCoins.completed", undefined);
         },
@@ -41,13 +43,13 @@ const useUserEventListener = () => {
         handleUpdateTokenCoinsRequest,
       );
     };
-  }, [mutateTokenCoins]);
+  }, [updateTokenCoinsMutation]);
 
   useEffect(() => {
     const handleUpdatePreferencesRequest = (
       userPreferences: Partial<UserPreferences>,
     ) => {
-      mutate(userPreferences);
+      updateMutation.mutate(userPreferences);
     };
 
     eventBus.on(
@@ -60,6 +62,16 @@ const useUserEventListener = () => {
         handleUpdatePreferencesRequest,
       );
     };
-  }, [mutate]);
+  }, [updateMutation]);
+
+  useEffect(() => {
+    const handler = () => {
+      syncMutation.syncUserProfile();
+    };
+    eventBus.on("userProfile.syncData.requested", handler);
+    return () => {
+      eventBus.off("userProfile.syncData.requested", handler);
+    };
+  }, [syncMutation]);
 };
 export default useUserEventListener;

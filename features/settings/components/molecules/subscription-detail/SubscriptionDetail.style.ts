@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const SubscriptionDetailPanelStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   Container: {
     width: "100%",
     display: "flex",

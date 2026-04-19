@@ -1,29 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { Tag } from "../../types";
 
-import { showToast } from "@/shared/context";
-
-import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflineTagsStore } from "../store";
 
+import { eventBus } from "@/core/events/EventBus";
 import { postSyncTags } from "../../services";
-
-import { generateToastKey } from "@/shared/helpers";
-import { syncData } from "@/shared/utils";
 
 const useSyncTagMutation = () => {
   const queryClient = useQueryClient();
-  const { isConnected } = useCheckNetwork();
-
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { updateTagsSyncStatus, findAllTags } = useOfflineTagsStore();
-
-  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: postSyncTags,
@@ -53,11 +41,6 @@ const useSyncTagMutation = () => {
     },
     onSuccess: async () => {
       await updateTagsSyncStatus(true);
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: t("tags_translations.module_success_messages.tags_synced_msg"),
-      });
     },
     onError: (_error, _newTags, context) => {
       if (context?.previousTags) {
@@ -69,35 +52,18 @@ const useSyncTagMutation = () => {
     },
   });
 
-  useEffect(() => {
-    const handleSync = async () => {
-      if (userProfile && userProfile.userPreferences.autoSync) {
-        const tags = await findAllTags();
-        syncData(
-          isConnected,
-          isAuthenticated,
-          tags.every((t) => t.sync),
-          async () => {
-            mutation.mutate({ tags });
-          },
-        );
-      }
-    };
-    handleSync();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, isAuthenticated, userProfile]);
-
   const syncTags = useCallback(async () => {
     const tags = await findAllTags();
-    syncData(
-      isConnected,
-      isAuthenticated,
-      tags.every((t) => t.sync),
-      () => {
-        mutation.mutate({ tags });
+    eventBus.emit("tags.syncData.started", undefined);
+    mutation.mutate(
+      { tags },
+      {
+        onSuccess: () => eventBus.emit("tags.syncData.completed", undefined),
+        onError: (error) =>
+          eventBus.emit("tags.syncData.failed", { error: error.message }),
       },
     );
-  }, [isAuthenticated, isConnected, mutation, findAllTags]);
+  }, [mutation, findAllTags]);
 
   return {
     ...mutation,

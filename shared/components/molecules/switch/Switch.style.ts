@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const SwitchStyle = (size: SizeType, labelDirection: "right" | "left") =>
+export const dynamicStyles = (size: SizeType, labelDirection: "right" | "left") =>
   StyleSheet.create({
     SwitchContainer: {
       width: "100%",

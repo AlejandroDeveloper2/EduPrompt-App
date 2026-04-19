@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
@@ -6,7 +7,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import Typography from "../typography/Typography";
 
-import { LoadPercentageStyle } from "./LoadPercentage.style";
+import { dynamicStyles } from "./LoadPercentage.style";
 
 interface LoadPercentageProps {
   progressPercentage: number;
@@ -14,9 +15,10 @@ interface LoadPercentageProps {
 
 const LoadPercentage = ({ progressPercentage }: LoadPercentageProps) => {
   const size = useScreenDimensionsStore();
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={LoadPercentageStyle(size).CircleContainer}>
+    <View style={styles.CircleContainer}>
       <Typography
         text={`${progressPercentage}%`}
         weight="regular"

@@ -6,7 +6,7 @@ import { BaseFilters, CreatePromptPayload } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useCreatePromptMutation } from "../mutations";
+import { useCreatePromptMutation, useSyncPromptsMutation } from "../mutations";
 import { usePromptsQuery } from "../queries";
 
 const usePromptEventListeners = () => {
@@ -16,7 +16,8 @@ const usePromptEventListeners = () => {
 
   const query = usePromptsQuery(baseFilters, { limit: 10 });
 
-  const { mutate } = useCreatePromptMutation();
+  const createMutation = useCreatePromptMutation();
+  const syncMutation = useSyncPromptsMutation();
 
   useEffect(() => {
     const fetchPrompts = (filters: BaseFilters) => {
@@ -52,7 +53,7 @@ const usePromptEventListeners = () => {
 
       eventBus.emit("prompts.savePrompt.started", undefined);
 
-      mutate(
+      createMutation.mutate(
         { ...payload, promptId },
         {
           onSuccess: () => {
@@ -71,7 +72,17 @@ const usePromptEventListeners = () => {
     return () => {
       eventBus.off("prompts.savePrompt.requested", handleAddPromptRequest);
     };
-  }, [mutate]);
+  }, [createMutation]);
+
+  useEffect(() => {
+    const handler = () => {
+      syncMutation.syncPrompts();
+    };
+    eventBus.on("prompts.syncData.requested", handler);
+    return () => {
+      eventBus.off("prompts.syncData.requested", handler);
+    };
+  }, [syncMutation]);
 };
 
 export default usePromptEventListeners;

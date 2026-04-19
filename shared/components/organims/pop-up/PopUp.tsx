@@ -6,7 +6,7 @@ import {
   BottomSheetScrollView,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { ReactNode, useCallback, useEffect, useRef } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 import { View, ViewStyle, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -15,7 +15,8 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Typography } from "../../atoms";
 
 import { AppColors } from "../../../styles";
-import { PopUpStyle } from "./PopUp.style";
+
+import { dynamicStyles } from "./PopUp.style";
 
 export interface PopUpProps {
   /** Título mostrado en el header del popup */
@@ -52,7 +53,10 @@ const PopUp = ({
   const insets = useSafeAreaInsets();
   const { height: screenHeight } = useWindowDimensions();
 
-  const styles = PopUpStyle(size, insets, screenHeight);
+  const styles = useMemo(
+    () => dynamicStyles(size, insets, screenHeight),
+    [size, insets, screenHeight],
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -97,7 +101,7 @@ const PopUp = ({
     <BottomSheetModal
       ref={ref}
       // enableDynamicSizing
-      snapPoints={["50%", "90%"]}
+      snapPoints={["50%", "95%"]}
       // ── Gestos ───────────────────────────────────────────────────────────────
       enablePanDownToClose // Reemplaza tu PanGesture manual
       // ── Teclado ──────────────────────────────────────────────────────────────

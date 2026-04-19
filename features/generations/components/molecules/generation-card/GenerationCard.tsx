@@ -20,7 +20,7 @@ import {
 import { Checkbox, Typography } from "@/shared/components/atoms";
 import { ProgressBar } from "@/shared/components/molecules";
 
-import { GenerationCardStyle } from "./GenerationCard.style";
+import { dynamicStyles } from "./GenerationCard.style";
 
 interface GenerationCardProps {
   data: IaGeneration;
@@ -38,30 +38,30 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
 
   const generationProgress = useMemo(() => {
     const completedSteps = data.steps.filter(
-      (step) => step.completed === true
+      (step) => step.completed === true,
     ).length;
     return Math.floor((completedSteps * 100) / data.steps.length);
   }, [data.steps]);
 
   const isSelected: boolean = useMemo(
     () => selectedGenerationIds.has(data.generationId),
-    [data.generationId, selectedGenerationIds]
+    [data.generationId, selectedGenerationIds],
   );
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
   const { t } = useTranslations();
 
-  const generationCardStyle = GenerationCardStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <AnimatedPressable
-      style={[generationCardStyle.CardContainer, animatedCardStyle]}
+      style={[styles.CardContainer, animatedCardStyle]}
       onPress={
         !selectionMode ? () => getIaGeneration(data.generationId) : () => {}
       }
     >
-      <View style={generationCardStyle.CardHeader}>
+      <View style={styles.CardHeader}>
         <Typography
           text={data.title}
           weight="bold"
@@ -71,7 +71,7 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
           width={220}
           icon="text-outline"
         />
-        <View style={generationCardStyle.CardActions}>
+        <View style={styles.CardActions}>
           <Checkbox
             checked={isSelected}
             disabled={!data.canDelete}
@@ -79,11 +79,11 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
           />
         </View>
       </View>
-      <View style={generationCardStyle.CardBody}>
-        <View style={generationCardStyle.CardCurrentStepTitle}>
+      <View style={styles.CardBody}>
+        <View style={styles.CardCurrentStepTitle}>
           <Typography
             text={t(
-              "generations_translations.generation_list_labels.generation_card_label"
+              "generations_translations.generation_list_labels.generation_card_label",
             )}
             weight="bold"
             type="caption"

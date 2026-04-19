@@ -6,7 +6,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { BaseFilters, CreateTagPayload } from "../../types";
 
-import { useCreateTagMutation } from "../mutations";
+import { useCreateTagMutation, useSyncTagMutation } from "../mutations";
 import { usePromptTagsQuery, useResourceTagsQuery } from "../queries";
 
 const useTagEventListeners = () => {
@@ -24,7 +24,8 @@ const useTagEventListeners = () => {
     limit: 10,
   });
 
-  const { mutate } = useCreateTagMutation();
+  const createMutation = useCreateTagMutation();
+  const syncMutation = useSyncTagMutation();
 
   useEffect(() => {
     const fetchResourceTags = (name?: string | undefined) => {
@@ -88,7 +89,7 @@ const useTagEventListeners = () => {
 
       eventBus.emit("tags.createTag.started", undefined);
 
-      mutate(
+      createMutation.mutate(
         { ...payload, tagId },
         {
           onSuccess: () => {
@@ -107,7 +108,17 @@ const useTagEventListeners = () => {
     return () => {
       eventBus.off("tags.createTag.requested", handleAddTagRequest);
     };
-  }, [mutate]);
+  }, [createMutation]);
+
+  useEffect(() => {
+    const handler = () => {
+      syncMutation.syncTags();
+    };
+    eventBus.on("tags.syncData.requested", handler);
+    return () => {
+      eventBus.off("tags.syncData.requested", handler);
+    };
+  }, [syncMutation]);
 };
 
 export default useTagEventListeners;

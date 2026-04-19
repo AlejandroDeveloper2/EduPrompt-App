@@ -10,31 +10,24 @@ import { CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
-import {
-  useUpdatePreferencesMutation,
-  useUserSyncMutation,
-} from "../../../hooks/mutations";
+import { useUpdatePreferencesMutation } from "../../../hooks/mutations";
 
 import { getFormattedPreferences } from "../../../helpers";
 
 import { ScreenSection } from "@/shared/components/atoms";
 import {
   Dropdown,
-  InfoCard,
   LoadingTextIndicator,
   Switch,
 } from "@/shared/components/molecules";
 import { DropdownOptionList, PopUp } from "@/shared/components/organims";
 
-import { UserPreferencesPanelStyles } from "./UserPreferencesPanel.style";
+import { styles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
   const { userProfile, isLoading } = useUserProfileQuery();
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { mutate } = useUpdatePreferencesMutation();
-  const { syncUserProfile, isPending } = useUserSyncMutation();
 
   const frecuencyPopUp = usePopUp();
   const languagePopUp = usePopUp();
@@ -108,31 +101,7 @@ const UserPreferencesPanel = () => {
         />
       </PopUp>
 
-      <View style={UserPreferencesPanelStyles.PanelContainer}>
-        {userProfile &&
-          !userProfile.sync &&
-          !userProfile.userPreferences.autoSync &&
-          isAuthenticated && (
-            <InfoCard
-              title={t(
-                "settings_translations.syncronization_card_labels.title",
-              )}
-              description={t(
-                "settings_translations.syncronization_card_labels.description",
-              )}
-              buttonData={{
-                onPress: syncUserProfile,
-                icon: "sync-outline",
-                label: t(
-                  "settings_translations.syncronization_card_labels.btn_sync",
-                ),
-                loading: isPending,
-                loadingMessage: t(
-                  "settings_translations.syncronization_card_labels.loading_text",
-                ),
-              }}
-            />
-          )}
+      <View style={styles.PanelContainer}>
         <ScreenSection
           description={t("settings_translations.screen_description")}
           title={t("settings_translations.screen_title")}
@@ -146,7 +115,7 @@ const UserPreferencesPanel = () => {
             color={AppColors.primary[400]}
           />
         ) : (
-          <View style={UserPreferencesPanelStyles.OptionsList}>
+          <View style={styles.OptionsList}>
             <Switch
               label={t(
                 "settings_translations.preferences_options_labels.auto_sync",

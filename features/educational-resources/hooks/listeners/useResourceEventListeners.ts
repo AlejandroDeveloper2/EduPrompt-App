@@ -5,10 +5,14 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { CreateResourcePayload } from "../../types";
 
-import { useCreateResourceMutation } from "../mutations";
+import {
+  useCreateResourceMutation,
+  useSyncResourcesMutation,
+} from "../mutations";
 
 const useResourceEventListeners = () => {
-  const { mutate } = useCreateResourceMutation();
+  const createMutation = useCreateResourceMutation();
+  const syncMutation = useSyncResourcesMutation();
 
   useEffect(() => {
     const handleAddResourceRequest = (
@@ -16,7 +20,7 @@ const useResourceEventListeners = () => {
     ) => {
       eventBus.emit("resources.createResource.started", undefined);
       const resourceId: string = uuid();
-      mutate(
+      createMutation.mutate(
         { ...payload, resourceId },
         {
           onSuccess: () => {
@@ -38,7 +42,17 @@ const useResourceEventListeners = () => {
         handleAddResourceRequest,
       );
     };
-  }, [mutate]);
+  }, [createMutation]);
+
+  useEffect(() => {
+    const handler = () => {
+      syncMutation.syncResources();
+    };
+    eventBus.on("resources.syncData.requested", handler);
+    return () => {
+      eventBus.off("resources.syncData.requested", handler);
+    };
+  }, [syncMutation]);
 };
 
 export default useResourceEventListeners;

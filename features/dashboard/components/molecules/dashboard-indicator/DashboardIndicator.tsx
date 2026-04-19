@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View, ViewStyle } from "react-native";
 
 import { AppColors } from "@/shared/styles";
@@ -8,7 +9,7 @@ import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Ionicon, Spinner, Typography } from "@/shared/components/atoms";
 
-import { DashboardIndicatorStyle } from "./DashboardIndicator.style";
+import { dynamicStyles } from "./DashboardIndicator.style";
 
 interface DashboardIndicatorProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -31,11 +32,11 @@ const DashboardIndicator = ({
 
   const { animatedCircleStyles } = useAnimatedSpinner();
 
-  const dashboardIndicatorStyle = DashboardIndicatorStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={[dashboardIndicatorStyle.IndicatorContainer, style]}>
-      <View style={dashboardIndicatorStyle.ValueIndicator}>
+    <View style={[styles.IndicatorContainer, style]}>
+      <View style={styles.ValueIndicator}>
         <Ionicon
           name={icon}
           size={size === "mobile" ? 22 : 24}

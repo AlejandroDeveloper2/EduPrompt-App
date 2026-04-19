@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -8,7 +9,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
-import { SwitchStyle } from "./Switch.style";
+import { dynamicStyles } from "./Switch.style";
 
 interface SwitchProps {
   label?: string;
@@ -29,16 +30,18 @@ const Switch = ({
   const { animatedIndicatorStyle, animatedSwitchStyle } =
     useAnimatedSwitch(state);
 
-  const switchStyle = SwitchStyle(size, labelDirection);
+  const styles = useMemo(
+    () => dynamicStyles(size, labelDirection),
+    [size, labelDirection],
+  );
+
   return (
-    <View style={switchStyle.SwitchContainer}>
+    <View style={styles.SwitchContainer}>
       <AnimatedPressable
-        style={[switchStyle.SwitchPressable, animatedSwitchStyle]}
+        style={[styles.SwitchPressable, animatedSwitchStyle]}
         onPress={onToggleSwitch}
       >
-        <Animated.View
-          style={[switchStyle.Indicator, animatedIndicatorStyle]}
-        />
+        <Animated.View style={[styles.Indicator, animatedIndicatorStyle]} />
       </AnimatedPressable>
       {label && (
         <Typography

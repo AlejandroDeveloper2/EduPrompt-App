@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useSyncDataStore } from "@/shared/hooks/store";
 import { useIndicatorPanelStore } from "../store";
 
 import { getIndicators } from "../../services";
@@ -10,6 +11,8 @@ const useIndicatorsQuery = () => {
   const { isConnected } = useCheckNetwork();
 
   const { loadIndicators } = useIndicatorPanelStore();
+
+  const { updateModuleSyncMapState } = useSyncDataStore();
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
@@ -27,6 +30,9 @@ const useIndicatorsQuery = () => {
     queryFn: async () => {
       const indicators = await getIndicators();
       const sync = loadOfflineIndicators().indicators.sync;
+
+      updateModuleSyncMapState("dashboard", { isDataSynced: sync });
+
       return { ...indicators, sync };
     },
     staleTime: Infinity,

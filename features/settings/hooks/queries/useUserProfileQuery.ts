@@ -6,6 +6,7 @@ import { EventKey } from "@/core/events/types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useSyncDataStore } from "@/shared/hooks/store";
 import { useUserOfflineStore } from "../store";
 
 import { getUserProfile } from "../../services";
@@ -13,6 +14,8 @@ import { getUserProfile } from "../../services";
 const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
   const { loadLocalUserStats } = useUserOfflineStore();
+
+  const { updateModuleSyncMapState } = useSyncDataStore();
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
@@ -23,6 +26,9 @@ const useUserProfileQuery = () => {
     queryFn: async () => {
       const userProfile = await getUserProfile();
       const sync = loadLocalUserStats().sync;
+
+      updateModuleSyncMapState("settings", { isDataSynced: sync });
+
       return { ...userProfile, sync };
     },
     staleTime: Infinity,

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Href } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Animated from "react-native-reanimated";
 
 import { ToastVariantType } from "@/core/types";
@@ -16,7 +16,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { ToastLink, ToastLoadBar, Typography } from "../../atoms";
 
-import { ToastStyle } from "./Toast.style";
+import { dynamicStyles } from "./Toast.style";
 
 interface ToastProps {
   variant: ToastVariantType;
@@ -50,12 +50,11 @@ const Toast = ({
     return () => clearTimeout(timer);
   }, []);
 
-  const icon = getToastIcon(variant);
+  const icon = useMemo(() => getToastIcon(variant), [variant]);
+  const styles = useMemo(() => dynamicStyles(size, variant), [size, variant]);
 
   return (
-    <Animated.View
-      style={[ToastStyle(size, variant).Container, animatedTranslate]}
-    >
+    <Animated.View style={[styles.Container, animatedTranslate]}>
       <Typography
         text={message}
         weight="medium"

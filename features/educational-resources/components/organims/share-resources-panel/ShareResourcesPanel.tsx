@@ -11,7 +11,8 @@ import { Button, Empty, Input } from "@/shared/components/molecules";
 import { ResourceToShareCard } from "../../molecules";
 
 import { ResourcesFiltersProvider } from "@/features/educational-resources/context";
-import { ShareResourceListStyle } from "./ShareResourcePanel.style";
+
+import { dynamicStyles } from "./ShareResourcePanel.style";
 
 interface ShareResourcesPanelProps {
   resources: EducationalResource[];
@@ -39,13 +40,13 @@ const ShareResourcesPanel = ({
     handleSearchChange,
   } = useSearchInput(selectedResources, "title");
 
-  const shareResourceListStyle = ShareResourceListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <ResourcesFiltersProvider>
       <FlatList
-        style={[shareResourceListStyle.ListContainer]}
-        contentContainerStyle={[shareResourceListStyle.ListContent]}
+        style={[styles.ListContainer]}
+        contentContainerStyle={[styles.ListContent]}
         numColumns={size === "laptop" ? 2 : 1}
         windowSize={5}
         initialNumToRender={10}

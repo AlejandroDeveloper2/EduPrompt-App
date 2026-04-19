@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "@/shared/styles";
 
-const SharedStyle: ViewStyle = {
+const sharedStyle: ViewStyle = {
   width: "100%",
   flexDirection: "row",
   display: "flex",
@@ -12,7 +12,7 @@ const SharedStyle: ViewStyle = {
   alignItems: "center",
 };
 
-const ResourceCardStyle = (size: SizeType) =>
+const resourceCardStyle = (size: SizeType) =>
   StyleSheet.create({
     CardContainer: {
       width: "100%",
@@ -32,7 +32,7 @@ const ResourceCardStyle = (size: SizeType) =>
         size === "mobile" ? Spacing.spacing_md : Spacing.spacing_xl,
       borderStyle: "solid",
     },
-    CardHeader: SharedStyle,
+    CardHeader: sharedStyle,
     CardTags: {
       flexDirection: "row",
       display: "flex",
@@ -40,12 +40,12 @@ const ResourceCardStyle = (size: SizeType) =>
       justifyContent: "flex-start",
       alignItems: "center",
     },
-    CardContent: SharedStyle,
+    CardContent: sharedStyle,
   });
 
-export const ResourceToShareStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
-    ...ResourceCardStyle(size),
+    ...resourceCardStyle(size),
     FileMetadata: {
       flexDirection: "row",
       display: "flex",

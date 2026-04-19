@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { SizeType } from "@/core/types";
 import { AppColors, Radius } from "@/shared/styles";
 
-export const SyncronizationIndicatorStyle = (size: SizeType, synced: boolean) =>
+export const dynamicStyles = (size: SizeType, synced: boolean) =>
   StyleSheet.create({
     Container: {
       width: size === "mobile" ? 25 : 30,

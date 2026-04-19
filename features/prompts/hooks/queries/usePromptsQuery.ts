@@ -8,6 +8,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useSyncDataStore } from "@/shared/hooks/store";
 import { useOfflinePromptsStore } from "../store";
 
 import { getPromptsByUser } from "../../services";
@@ -23,6 +24,8 @@ const usePromptsQuery = (
 
   const { findPrompts, updatePromptsSyncStatus, createPrompt } =
     useOfflinePromptsStore();
+
+  const { updateModuleSyncMapState } = useSyncDataStore();
 
   const queryKey = useMemo(
     () => [
@@ -67,6 +70,10 @@ const usePromptsQuery = (
             }
           }),
         );
+
+        const isAllSynced = localPrompts.records.every((r) => r.sync);
+
+        updateModuleSyncMapState("prompts", { isDataSynced: isAllSynced });
 
         return {
           ...paginatedPrompts,

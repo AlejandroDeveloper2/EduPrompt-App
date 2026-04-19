@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AlignTextType } from "@/core/types";
@@ -9,7 +10,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import Typography from "../typography/Typography";
 
-import { ScreenSectionStyle } from "./ScreenSection.style";
+import { dynamicStyles } from "./ScreenSection.style";
 
 interface ScreenSectionProps {
   description: string;
@@ -28,10 +29,14 @@ const ScreenSection = ({
 }: ScreenSectionProps) => {
   const size = useScreenDimensionsStore();
 
-  const textAlign: AlignTextType = size === "laptop" ? "left" : "center";
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const textAlign: AlignTextType = useMemo(
+    () => (size === "laptop" ? "left" : "center"),
+    [size],
+  );
 
   return (
-    <View style={ScreenSectionStyle("mobile").Container}>
+    <View style={styles.Container}>
       {title && (
         <Typography
           text={title}

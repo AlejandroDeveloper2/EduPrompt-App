@@ -6,7 +6,7 @@ import { useAnimatedProgressBar } from "../../../hooks/animations";
 
 import { LoaderBar, LoadPercentage } from "../../atoms";
 
-import { ProgressBarStyle } from "./ProgressBar.style";
+import { styles } from "./ProgressBar.style";
 
 interface ProgressBarProps {
   progressConfig: ProgressConfig;
@@ -19,11 +19,11 @@ const ProgressBar = ({
 }: ProgressBarProps) => {
   const animatedProgressStyle = useAnimatedProgressBar(
     progressConfig,
-    progressPercentage
+    progressPercentage,
   );
 
   return (
-    <View style={ProgressBarStyle.Container}>
+    <View style={styles.Container}>
       <LoaderBar animatedProgressStyle={animatedProgressStyle} />
       <LoadPercentage progressPercentage={progressPercentage} />
     </View>

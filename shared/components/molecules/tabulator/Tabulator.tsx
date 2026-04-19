@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import { Tab } from "@/core/types";
@@ -8,7 +9,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
-import { TabulatorStyle } from "./Tabulator.style";
+import { dynamicStyles } from "./Tabulator.style";
 
 interface TabulatorProps {
   tabs: readonly Tab[];
@@ -19,10 +20,10 @@ interface TabulatorProps {
 const Tabulator = ({ tabs, activeTab, onSwitchTab }: TabulatorProps) => {
   const size = useScreenDimensionsStore();
 
-  const tabulatorStyle = TabulatorStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={tabulatorStyle.TabulatorContainer}>
+    <View style={styles.TabulatorContainer}>
       {tabs.map((tab) => (
         <Pressable
           key={tab.tabId}
@@ -34,7 +35,7 @@ const Tabulator = ({ tabs, activeTab, onSwitchTab }: TabulatorProps) => {
                   ? AppColors.primary[400]
                   : AppColors.basic.white,
             },
-            tabulatorStyle.TabPressable,
+            styles.TabPressable,
           ]}
         >
           <Typography

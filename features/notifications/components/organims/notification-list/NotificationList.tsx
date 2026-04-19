@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 
 import { Order } from "@/core/types";
@@ -17,7 +18,7 @@ import {
 import { Alert, PopUp } from "@/shared/components/organims";
 import { NotificationCard } from "../../molecules";
 
-import { NotificationListStyle } from "./NotificationList.style";
+import { dynamicStyles } from "./NotificationList.style";
 
 interface NotificationHeaderProps {
   filter: Order;
@@ -32,10 +33,10 @@ const NotificationListHeader = ({
 
   const { t } = useTranslations();
 
-  const notificationListStyle = NotificationListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={notificationListStyle.ListHeaderContainer}>
+    <View style={styles.ListHeaderContainer}>
       <ScreenSection
         description={t(
           "notifications_translations.user_notification_list.description",
@@ -43,7 +44,7 @@ const NotificationListHeader = ({
         title={t("notifications_translations.user_notification_list.title")}
         icon="notifications-outline"
       />
-      <View style={notificationListStyle.FiltersContainer}>
+      <View style={styles.FiltersContainer}>
         <Typography
           text={t(
             "notifications_translations.user_notification_list.order_filters_labels.title",
@@ -55,7 +56,7 @@ const NotificationListHeader = ({
           width="auto"
           icon="filter-outline"
         />
-        <View style={notificationListStyle.Filters}>
+        <View style={styles.Filters}>
           <FilterTag
             icon="calendar-outline"
             label={t(
@@ -92,7 +93,7 @@ const NotificationList = () => {
 
   const { t } = useTranslations();
 
-  const notificationListStyle = NotificationListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <>
@@ -121,8 +122,8 @@ const NotificationList = () => {
         />
       </PopUp>
       <FlatList
-        style={notificationListStyle.ListContainer}
-        contentContainerStyle={notificationListStyle.ListContent}
+        style={styles.ListContainer}
+        contentContainerStyle={styles.ListContent}
         data={notifications}
         horizontal={false}
         windowSize={5}

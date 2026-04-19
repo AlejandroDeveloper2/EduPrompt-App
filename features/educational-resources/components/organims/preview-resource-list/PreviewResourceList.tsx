@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -34,7 +35,7 @@ import UpdateResourceForm from "../update-resource-form/UpdateResourceForm";
 import PreviewResourceHeader from "./PreviewResourceHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
-import { PreviewResourceListStyle } from "./PreviewResourceList.style";
+import { dynamicStyles } from "./PreviewResourceList.style";
 
 const PreviewResourceList = () => {
   const {
@@ -106,7 +107,7 @@ const PreviewResourceList = () => {
     ),
   };
 
-  const previewResourceListStyle = PreviewResourceListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   if (isError)
     return (
@@ -248,7 +249,7 @@ const PreviewResourceList = () => {
             }
           />
         ) : (
-          <View style={previewResourceListStyle.ViewPreviewContainer}>
+          <View style={styles.ViewPreviewContainer}>
             <Tabulator
               tabs={resourcePreviewTabs}
               activeTab={activePreviewTab}
@@ -261,14 +262,8 @@ const PreviewResourceList = () => {
         )}
       </PopUp>
       <FlatList
-        style={[
-          previewResourceListStyle.ListContainer,
-          GlobalStyles.PageDimensions,
-        ]}
-        contentContainerStyle={[
-          previewResourceListStyle.ListContent,
-          GlobalStyles.PageContent,
-        ]}
+        style={[styles.ListContainer, GlobalStyles.PageDimensions]}
+        contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
         numColumns={size === "laptop" ? 2 : 1}
         windowSize={5}
         initialNumToRender={10}

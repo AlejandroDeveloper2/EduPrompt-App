@@ -46,7 +46,7 @@ export const GlobalStyles = StyleSheet.create({
     flex: 1,
   },
   OpacityLayer: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: "rgba(16,185,129,0.8)",
   },
   ToastsQueueContainer: {

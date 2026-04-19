@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
@@ -7,7 +8,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
-import { EmptyStyle } from "./Empty.style";
+import { dynamicStyles } from "./Empty.style";
 
 interface EmptyProps {
   message: string;
@@ -16,8 +17,10 @@ interface EmptyProps {
 
 const Empty = ({ message, icon }: EmptyProps) => {
   const size = useScreenDimensionsStore();
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+
   return (
-    <View style={EmptyStyle(size).Container}>
+    <View style={styles.Container}>
       <Ionicon
         name={icon}
         size={size === "mobile" ? 50 : 80}

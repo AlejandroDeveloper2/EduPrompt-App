@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ImageBackground, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -13,7 +14,7 @@ import { Button, Stepper } from "@/shared/components/molecules";
 import { OnboardingDescription } from "../../organims";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
-import { OnboardingTemplateStyle } from "./OnboardingTemplate.style";
+import { dynamicStyles } from "./OnboardingTemplate.style";
 
 import EduPromptBackground from "@/assets/images/eduprompt-background.png";
 
@@ -29,19 +30,14 @@ const OnboardingTemplate = () => {
     runReverseAnimation,
   } = useAnimatedOnboarding();
 
-  const onBoardingTemplateStyle = OnboardingTemplateStyle(size, insets);
+  const styles = useMemo(() => dynamicStyles(size, insets), [size, insets]);
 
   return (
     <View style={GlobalStyles.RootContainer}>
-      <ImageBackground
-        style={onBoardingTemplateStyle.Container}
-        source={EduPromptBackground}
-      >
-        <View style={onBoardingTemplateStyle.OpacityLayer} />
+      <ImageBackground style={styles.Container} source={EduPromptBackground}>
+        <View style={styles.OpacityLayer} />
         <LogoV2 style={animatedLogoStyle} />
-        <Animated.View
-          style={[onBoardingTemplateStyle.StepContainerBox, animatedBoxStyle]}
-        >
+        <Animated.View style={[styles.StepContainerBox, animatedBoxStyle]}>
           <Button
             icon="play-skip-forward-outline"
             width="auto"
@@ -50,7 +46,7 @@ const OnboardingTemplate = () => {
             disabled={currentStep.stepId === "5"}
             onPress={() =>
               runReverseAnimation(() =>
-                goToExactStep(steps[steps.length - 1].stepId)
+                goToExactStep(steps[steps.length - 1].stepId),
               )
             }
           />

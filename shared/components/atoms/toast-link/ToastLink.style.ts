@@ -4,7 +4,7 @@ import { AppColors, Radius, Spacing } from "../../../styles";
 
 import { SizeType } from "@/core/types";
 
-export const ToastLinkStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     Container: {
       maxWidth: 100,

@@ -9,7 +9,7 @@ import { Typography } from "../../atoms";
 import { Empty } from "../../molecules";
 import SubprocessList from "../subprocess-list/SubprocessList";
 
-import { BackgroundProcessPanelStyle } from "./BackgroundProcessPanel.style";
+import { styles } from "./BackgroundProcessPanel.style";
 
 const BackgroundProcessPanel = () => {
   const { tasks } = useBackgroundTasksStore();
@@ -17,11 +17,11 @@ const BackgroundProcessPanel = () => {
   const { t } = useTranslations();
 
   return (
-    <View style={BackgroundProcessPanelStyle.Container}>
-      <View style={BackgroundProcessPanelStyle.Header}>
+    <View style={styles.Container}>
+      <View style={styles.Header}>
         <Typography
           text={t(
-            "dashboard_translations.dashboard_panel_labels.background_processes_labels.title"
+            "dashboard_translations.dashboard_panel_labels.background_processes_labels.title",
           )}
           weight="medium"
           type="button"
@@ -32,7 +32,7 @@ const BackgroundProcessPanel = () => {
         />
         <Typography
           text={`${t(
-            "dashboard_translations.dashboard_panel_labels.background_processes_labels.day_span"
+            "dashboard_translations.dashboard_panel_labels.background_processes_labels.day_span",
           )}, ${new Date().toLocaleDateString()} `}
           weight="regular"
           type="caption"
@@ -45,7 +45,7 @@ const BackgroundProcessPanel = () => {
       {tasks.length === 0 ? (
         <Empty
           message={t(
-            "dashboard_translations.dashboard_panel_labels.background_processes_labels.no_active_processes_msg"
+            "dashboard_translations.dashboard_panel_labels.background_processes_labels.no_active_processes_msg",
           )}
           icon="settings-outline"
         />

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { useTranslations } from "@/shared/hooks/core";
@@ -6,7 +7,7 @@ import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { ScreenSection } from "@/shared/components/atoms";
 import { Input } from "@/shared/components/molecules";
 
-import { GenerationCardListStyle } from "./GenerationCardList.style";
+import { dynamicStyles } from "./GenerationCardList.style";
 
 interface GenerationListHeaderProps {
   searchValue: string;
@@ -23,13 +24,13 @@ const GenerationListHeader = ({
 
   const { t } = useTranslations();
 
-  const generationCardListStyle = GenerationCardListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={generationCardListStyle.ListHeaderContainer}>
+    <View style={styles.ListHeaderContainer}>
       <ScreenSection
         description={t(
-          "generations_translations.generation_list_labels.description"
+          "generations_translations.generation_list_labels.description",
         )}
         title={t("generations_translations.generation_list_labels.title")}
         icon="bulb-outline"
@@ -39,7 +40,7 @@ const GenerationListHeader = ({
         value={searchValue}
         icon="search-outline"
         placeholder={t(
-          "generations_translations.generation_list_labels.search_input_placeholder"
+          "generations_translations.generation_list_labels.search_input_placeholder",
         )}
         onChange={(_, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}

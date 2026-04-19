@@ -6,7 +6,7 @@ import { AppColors } from "@/shared/styles";
 import { Badge, Typography } from "@/shared/components/atoms";
 
 import { SubscriptionStatus } from "@/features/marketplace/types";
-import { SubscriptionDetailPanelStyle } from "./SubscriptionDetail.style";
+import { styles } from "./SubscriptionDetail.style";
 
 interface SubscriptionDetailProps {
   label: string;
@@ -24,7 +24,7 @@ const SubscriptionDetail = ({
   status,
 }: SubscriptionDetailProps) => {
   return (
-    <View style={SubscriptionDetailPanelStyle.Container}>
+    <View style={styles.Container}>
       <Typography
         text={label}
         weight="regular"

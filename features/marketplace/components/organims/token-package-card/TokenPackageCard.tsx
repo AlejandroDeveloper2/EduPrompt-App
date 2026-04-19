@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
@@ -10,7 +10,7 @@ import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { Typography } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
 
-import { TokenPackageCardStyle } from "./TokenPackageCard.style";
+import { dynamicStyles } from "./TokenPackageCard.style";
 
 interface TokenPackageCardProps {
   price: string;
@@ -43,12 +43,12 @@ const TokenPackageCard = ({
   const size = useScreenDimensionsStore();
   const { t } = useTranslations();
 
-  const tokenPackageCardStyle = TokenPackageCardStyle(size, full);
+  const styles = useMemo(() => dynamicStyles(size, full), [size, full]);
 
   return (
-    <View style={tokenPackageCardStyle.CardContainer}>
-      <View style={tokenPackageCardStyle.PriceSection}>{SvgIcon}</View>
-      <View style={tokenPackageCardStyle.CardBody}>
+    <View style={styles.CardContainer}>
+      <View style={styles.PriceSection}>{SvgIcon}</View>
+      <View style={styles.CardBody}>
         <Typography
           text={packageTitle}
           weight="bold"

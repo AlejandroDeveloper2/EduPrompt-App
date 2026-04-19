@@ -1,26 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { Indicator } from "../../types";
 
-import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
+import { eventBus } from "@/core/events/EventBus";
+
 import { useIndicatorPanelStore } from "../store";
 
-import { syncData } from "@/shared/utils";
 import { putIndicators } from "../../services";
-
-import { showToast } from "@/shared/context";
-import { generateToastKey } from "@/shared/helpers";
 
 const useSyncIndicatorsMutation = () => {
   const queryClient = useQueryClient();
-
-  const { t } = useTranslations();
-
-  const { isConnected } = useCheckNetwork();
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { setIndicators, indicators } = useIndicatorPanelStore();
 
@@ -51,11 +41,6 @@ const useSyncIndicatorsMutation = () => {
     },
     onSuccess: () => {
       setIndicators({ sync: true });
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: t("common_translations.sync_data_messages.all_synced_msg"),
-      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["app_indicators"] });
@@ -67,6 +52,7 @@ const useSyncIndicatorsMutation = () => {
       "app_indicators",
     ]);
     if (!onlineIndicators) return;
+    eventBus.emit("dashboard.syncData.started", undefined);
     const syncedIndicators: Indicator = {
       generatedResources:
         indicators.generatedResources + onlineIndicators.generatedResources,
@@ -79,17 +65,14 @@ const useSyncIndicatorsMutation = () => {
       savedResources:
         indicators.savedResources + onlineIndicators.savedResources,
     };
-    syncData(isConnected, isAuthenticated, indicators.sync, () => {
-      mutation.mutate(syncedIndicators);
+    mutation.mutate(syncedIndicators, {
+      onSuccess: () => eventBus.emit("dashboard.syncData.completed", undefined),
+      onError: (error) =>
+        eventBus.emit("dashboard.syncData.failed", {
+          error: error.message,
+        }),
     });
-  }, [indicators, isAuthenticated, isConnected, mutation, queryClient]);
-
-  useEffect(() => {
-    if (userProfile && userProfile.userPreferences.autoSync) {
-      syncIndicators();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProfile, indicators, isConnected, isAuthenticated]);
+  }, [indicators, mutation, queryClient]);
 
   return {
     ...mutation,

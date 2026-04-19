@@ -10,7 +10,7 @@ interface StyleProps {
   flex?: number;
 }
 
-export const ButtonStyle = ({ width, size }: StyleProps) =>
+export const dynamicStyles = ({ width, size }: StyleProps) =>
   StyleSheet.create({
     Button: {
       width,

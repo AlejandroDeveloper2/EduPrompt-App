@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { Text, View } from "react-native";
 
 import { AlignTextType, FontWeigthType, TypographyType } from "@/core/types";
@@ -9,7 +10,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon } from "../icon/Icon";
 
-import { TypographyStyle } from "./Typography.style";
+import { dynamicStyles } from "./Typography.style";
 
 interface TypographyProps {
   text: string;
@@ -32,21 +33,17 @@ const Typography = ({
 }: TypographyProps) => {
   const size = useScreenDimensionsStore();
 
-  const typographyStyle = TypographyStyle({
-    size,
-    color,
-    weight,
-    type,
-    textAlign,
-    width,
-  });
+  const styles = useMemo(
+    () => dynamicStyles({ size, color, weight, type, textAlign, width }),
+    [color, size, textAlign, type, weight, width],
+  );
 
   return (
-    <View style={typographyStyle.TextContainer}>
+    <View style={styles.TextContainer}>
       {icon && (
         <Ionicon name={icon} size={FontIconSizes[size][type]} color={color} />
       )}
-      <Text style={typographyStyle.Text}>{text}</Text>
+      <Text style={styles.Text}>{text}</Text>
     </View>
   );
 };

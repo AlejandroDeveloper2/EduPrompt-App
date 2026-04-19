@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { Pressable, useWindowDimensions, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -14,7 +14,7 @@ import { getIndicatorPanelGrid } from "@/shared/utils";
 
 import { ErrorMessage, Typography } from "../../atoms";
 
-import { MultiOptionInputStyle } from "./MultiOptionInput.style";
+import { dynamicStyles } from "./MultiOptionInput.style";
 
 interface MultiOptionInputProps<T, K> {
   label: string;
@@ -41,9 +41,12 @@ const Option = ({ label, optionValue, isSelected }: OptionProps) => {
   const { onSelectOption } = useMultiOptionContext();
   const animatedStyled = useAnimatedNavItem(isSelected);
 
-  const { firstWidth } = getIndicatorPanelGrid(size, width);
+  const { firstWidth } = useMemo(
+    () => getIndicatorPanelGrid(size, width),
+    [size, width],
+  );
 
-  const { OptionContainer } = MultiOptionInputStyle(size);
+  const { OptionContainer } = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <AnimatedPressable
@@ -77,7 +80,10 @@ function MultiOptionInput<T, K>({
 }: MultiOptionInputProps<T, K>) {
   const size = useScreenDimensionsStore();
 
-  const { InputContainer, OptionsGrid } = MultiOptionInputStyle(size);
+  const { InputContainer, OptionsGrid } = useMemo(
+    () => dynamicStyles(size),
+    [size],
+  );
 
   return (
     <MultiOptionInputProvider<T, K> {...props}>

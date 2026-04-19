@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius } from "../../../styles";
 
-export const CheckboxStyle = (
+export const dynamicStyles = (
   size: SizeType,
   checked: boolean,
   disabled?: boolean

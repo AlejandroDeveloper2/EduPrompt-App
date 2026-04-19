@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Spacing } from "../../../styles";
 
-export const AlertStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     AlertContainer: {
       width: "100%",

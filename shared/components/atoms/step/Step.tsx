@@ -1,8 +1,9 @@
+import { useMemo } from "react";
 import { Pressable } from "react-native";
 
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
-import { StepStyle } from "./Step.style";
+import { dynamicStyles } from "./Step.style";
 
 interface StepProps {
   active: boolean;
@@ -11,12 +12,10 @@ interface StepProps {
 
 const Step = ({ active, onActive }: StepProps) => {
   const size = useScreenDimensionsStore();
+  const styles = useMemo(() => dynamicStyles(active, size), [active, size]);
 
   return (
-    <Pressable
-      onPress={onActive}
-      style={StepStyle(active, size).PressableStep}
-    ></Pressable>
+    <Pressable onPress={onActive} style={styles.PressableStep}></Pressable>
   );
 };
 

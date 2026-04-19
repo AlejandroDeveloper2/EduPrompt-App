@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Spacing } from "../../../styles";
 
-export const DropdownOptionStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     OptionBox: {
       width: "100%",

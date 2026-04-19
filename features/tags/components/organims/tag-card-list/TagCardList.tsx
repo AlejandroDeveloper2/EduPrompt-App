@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FlatList } from "react-native";
 
 import { AppColors } from "@/shared/styles";
@@ -11,7 +12,7 @@ import UpdateTagForm from "../update-tag-form/UpdateTagForm";
 import TagCardListHeader from "./TagCardListHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
-import { TagCardListStyle } from "./TagCardList.style";
+import { dynamicStyles } from "./TagCardList.style";
 
 const TagCardList = () => {
   const {
@@ -46,7 +47,7 @@ const TagCardList = () => {
     t,
   } = useTagCardListLogic();
 
-  const tagCardListStyle = TagCardListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   if (isError)
     return (
@@ -105,11 +106,8 @@ const TagCardList = () => {
         />
       </PopUp>
       <FlatList
-        style={[tagCardListStyle.ListContainer, GlobalStyles.PageDimensions]}
-        contentContainerStyle={[
-          tagCardListStyle.ListContent,
-          GlobalStyles.PageContent,
-        ]}
+        style={[styles.ListContainer, GlobalStyles.PageDimensions]}
+        contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
         numColumns={size === "laptop" ? 2 : 1}
         data={tags}
         renderItem={({ item }) => (

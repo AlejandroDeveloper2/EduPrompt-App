@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ScrollView, View } from "react-native";
 
 import { Tag } from "@/features/tags/types";
@@ -8,25 +9,18 @@ import { FORMAT_FILTERS } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
 
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
-import { useSyncResourcesMutation } from "@/features/educational-resources/hooks/mutations";
 import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
-import {
-  FilterTag,
-  InfoCard,
-  Input,
-  NavItem,
-} from "@/shared/components/molecules";
+import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
 import {
   ComposedDropdownOptionList,
   PopUp,
   TagSelectionPanel,
 } from "@/shared/components/organims";
 
-import { PreviewResourceListStyle } from "./PreviewResourceList.style";
+import { dynamicStyles } from "./PreviewResourceList.style";
 
 interface PreviewResourceHeaderProps {
   isDataSync: boolean;
@@ -34,9 +28,6 @@ interface PreviewResourceHeaderProps {
 
 const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
   const size = useScreenDimensionsStore();
-
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { isOpen, openPopUp, closePopUp } = usePopUp();
 
@@ -52,11 +43,9 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
     onFormatFilterChange,
   } = useResourcesFiltersContext();
 
-  const { isPending, syncResources } = useSyncResourcesMutation();
-
   const { t, lang } = useTranslations();
 
-  const previewResourceListStyle = PreviewResourceListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <>
@@ -103,31 +92,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           }}
         />
       </PopUp>
-      <View style={previewResourceListStyle.ListHeaderContainer}>
-        {userProfile &&
-          !isDataSync &&
-          !userProfile.userPreferences.autoSync &&
-          isAuthenticated && (
-            <InfoCard
-              title={t(
-                "resources_translations.resources_list_labels.syncronization_card_labels.title",
-              )}
-              description={t(
-                "resources_translations.resources_list_labels.syncronization_card_labels.description",
-              )}
-              buttonData={{
-                onPress: syncResources,
-                icon: "sync-outline",
-                label: t(
-                  "resources_translations.resources_list_labels.syncronization_card_labels.btn_sync",
-                ),
-                loading: isPending,
-                loadingMessage: t(
-                  "resources_translations.resources_list_labels.syncronization_card_labels.loading_text",
-                ),
-              }}
-            />
-          )}
+      <View style={styles.ListHeaderContainer}>
         <ScreenSection
           description={t(
             "resources_translations.resources_list_labels.description",
@@ -145,7 +110,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           onChange={(_, value) => onSearchResourceValueChange(value)}
           onClearInput={() => onSearchResourceValueChange("")}
         />
-        <View style={previewResourceListStyle.FilterSection}>
+        <View style={styles.FilterSection}>
           <Typography
             text={t(
               "resources_translations.resources_list_labels.format_filters_labels.title",
@@ -158,7 +123,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
             icon="filter-outline"
           />
           <ScrollView
-            contentContainerStyle={previewResourceListStyle.Filters}
+            contentContainerStyle={styles.Filters}
             horizontal
             showsHorizontalScrollIndicator={false}
           >
@@ -174,7 +139,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
           </ScrollView>
         </View>
         {paginatedTags.tags.length > 0 && (
-          <View style={previewResourceListStyle.FilterSection}>
+          <View style={styles.FilterSection}>
             <Typography
               text={t(
                 "resources_translations.resources_list_labels.tag_filters_labels.title",
@@ -187,7 +152,7 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
               icon="filter-outline"
             />
             <ScrollView
-              contentContainerStyle={previewResourceListStyle.Filters}
+              contentContainerStyle={styles.Filters}
               horizontal
               showsHorizontalScrollIndicator={false}
             >

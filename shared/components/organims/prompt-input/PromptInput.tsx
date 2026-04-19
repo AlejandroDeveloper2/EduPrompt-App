@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 import { Button, Input, InputProps } from "../../molecules";
 
-import { PromptInputStyle } from "./PromptInput.style";
+import { styles } from "./PromptInput.style";
 
 interface PromptInputProps<T> extends Omit<InputProps<T>, "textArea"> {
   onSavePrompt?: () => void;
@@ -16,7 +16,7 @@ function PromptInput<T>({
 }: PromptInputProps<T>) {
   return (
     <Input {...props} textArea>
-      <View style={PromptInputStyle.OptionList}>
+      <View style={styles.OptionList}>
         {onSavePrompt && (
           <Button
             icon="add-outline"

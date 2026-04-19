@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { ProgressConfig } from "@/core/types";
@@ -11,7 +12,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Typography } from "../../atoms";
 import { ProgressBar } from "../../molecules";
 
-import { LoaderStyle } from "./Loader.style";
+import { dynamicStyles } from "./Loader.style";
 
 interface LoaderProps {
   title: string;
@@ -31,8 +32,10 @@ const Loader = ({
   const size = useScreenDimensionsStore();
   const progressPercentage = useProgressBar(progressConfig, tasksDone);
 
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+
   return (
-    <View style={LoaderStyle(size).LoaderContainer}>
+    <View style={styles.LoaderContainer}>
       <Typography
         text={title}
         weight="bold"

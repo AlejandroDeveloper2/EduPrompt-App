@@ -8,7 +8,11 @@ import { Spacing } from "@/shared/styles";
 import { Link, ScreenSection } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
 
-const AuthPanel = () => {
+interface AuthPanelProps {
+  closePopUp: () => void;
+}
+
+const AuthPanel = ({ closePopUp }: AuthPanelProps) => {
   const router = useRouter();
   const { t } = useTranslations();
 
@@ -29,7 +33,10 @@ const AuthPanel = () => {
         icon="log-in-outline"
         variant="primary"
         width={"100%"}
-        onPress={() => router.navigate("/auth")}
+        onPress={() => {
+          closePopUp();
+          router.navigate("/auth");
+        }}
         label={t("settings_translations.user_profile_panel.btn_login")}
       />
       <Link

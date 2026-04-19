@@ -21,7 +21,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
-import { TagCardStyle } from "./TagCard.style";
+import { dynamicStyles } from "./TagCard.style";
 
 interface TagCardProps {
   data: Tag;
@@ -38,22 +38,22 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
 
   const isSelected: boolean = useMemo(
     () => selectedTagIds.has(data.tagId),
-    [data.tagId, selectedTagIds]
+    [data.tagId, selectedTagIds],
   );
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
   const { t } = useTranslations();
 
-  const tagCardStyle = TagCardStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <AnimatedPressable
-      style={[animatedCardStyle, tagCardStyle.CardContainer]}
+      style={[animatedCardStyle, styles.CardContainer]}
       onPress={onEdit && !selectionMode ? onEdit : () => {}}
     >
-      <View style={tagCardStyle.CardHeader}>
-        <View style={tagCardStyle.CardTags}>
+      <View style={styles.CardHeader}>
+        <View style={styles.CardTags}>
           <Badge
             label={
               data.type === "prompt_tag"
@@ -73,7 +73,7 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
           />
         )}
       </View>
-      <View style={tagCardStyle.CardContent}>
+      <View style={styles.CardContent}>
         <Typography
           text={data.name}
           weight="medium"

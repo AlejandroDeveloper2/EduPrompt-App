@@ -4,7 +4,7 @@ import { BadgeVariantType, SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const BadgeStyle = (size: SizeType, variant: BadgeVariantType) =>
+export const dynamicStyles = (size: SizeType, variant: BadgeVariantType) =>
   StyleSheet.create({
     badgeBox: {
       width: "auto",

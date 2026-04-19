@@ -6,6 +6,7 @@ import { BaseFilters, EducationalResource, ResourceFilters } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useSyncDataStore } from "@/shared/hooks/store";
 import { useOfflineResourcesStore } from "../store";
 
 import { getEducationalResourcesByUser } from "../../services";
@@ -21,6 +22,8 @@ const useResourcesQuery = (
 
   const { findResources, updateResourcesSyncStatus, createResource } =
     useOfflineResourcesStore();
+
+  const { updateModuleSyncMapState } = useSyncDataStore();
 
   const queryKey = useMemo(
     () => [
@@ -71,6 +74,10 @@ const useResourcesQuery = (
             }
           }),
         );
+
+        const isAllSynced = localResources.records.every((r) => r.sync);
+
+        updateModuleSyncMapState("resources", { isDataSynced: isAllSynced });
 
         return {
           ...paginatedResources,

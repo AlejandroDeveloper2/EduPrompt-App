@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AlertVariantType } from "@/core/types";
@@ -11,7 +12,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Typography } from "../../atoms";
 import { Button } from "../../molecules";
 
-import { AlertStyle } from "./Alert.style";
+import { dynamicStyles } from "./Alert.style";
 
 interface AlertProps {
   variant: AlertVariantType;
@@ -37,23 +38,30 @@ const Alert = ({
   const size = useScreenDimensionsStore();
   const { t } = useTranslations();
 
-  const alertStyle = AlertStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
-  const btnVariant =
-    variant === "success"
-      ? "primary"
-      : variant === "info"
-      ? "neutral"
-      : "danger";
-  const alertIcon: keyof typeof Ionicons.glyphMap =
-    variant === "danger"
-      ? "warning-outline"
-      : variant === "info"
-      ? "information-outline"
-      : "checkmark-outline";
+  const btnVariant = useMemo(
+    () =>
+      variant === "success"
+        ? "primary"
+        : variant === "info"
+          ? "neutral"
+          : "danger",
+    [variant],
+  );
+
+  const alertIcon: keyof typeof Ionicons.glyphMap = useMemo(
+    () =>
+      variant === "danger"
+        ? "warning-outline"
+        : variant === "info"
+          ? "information-outline"
+          : "checkmark-outline",
+    [variant],
+  );
 
   return (
-    <View style={alertStyle.AlertContainer}>
+    <View style={styles.AlertContainer}>
       <Typography
         text={message}
         weight="regular"
@@ -67,7 +75,7 @@ const Alert = ({
         width="100%"
         icon={alertIcon}
       />
-      <View style={alertStyle.Options}>
+      <View style={styles.Options}>
         <View style={size !== "mobile" ? { flex: 1 } : { width: "100%" }}>
           <Button
             icon={acceptButtonIcon}

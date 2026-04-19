@@ -6,7 +6,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, FontSizes, Radius, Spacing } from "../../../styles";
 
-export const InputCodeStyle = (size: SizeType, disabled?: boolean) =>
+export const dynamicStyles = (size: SizeType, disabled?: boolean) =>
   StyleSheet.create({
     Container: {
       width: "100%",

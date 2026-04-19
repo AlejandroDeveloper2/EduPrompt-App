@@ -7,7 +7,7 @@ import { useTranslations } from "@/shared/hooks/core";
 import { Input } from "../../molecules";
 import CreateTagForm from "../create-tag-form/CreateTagForm";
 
-import { TagSelectionPanelStyle } from "./TagSelectionPanel.style";
+import { styles } from "./TagSelectionPanel.style";
 
 interface TagSelectionPanelProps {
   tagType: TagType;
@@ -23,7 +23,7 @@ const TagSelectionPanel = ({
   const { t } = useTranslations();
 
   return (
-    <View style={TagSelectionPanelStyle.Container}>
+    <View style={styles.Container}>
       <CreateTagForm tagType={tagType} />
       <Input<{ searchValue: string }>
         name="searchValue"

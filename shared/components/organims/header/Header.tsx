@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { useHeaderLogic } from "@/shared/hooks/core";
@@ -8,12 +9,13 @@ import { Logo } from "@/shared/components/atoms";
 import {
   NavItem,
   SubscriptionIndicator,
+  SyncronizationIndicatorBar,
   TokenBadge,
   Toolbar,
 } from "@/shared/components/molecules";
 import FloatMenu from "../float-menu/FloatMenu";
 
-import { HeaderStyle } from "./Header.style";
+import { dynamicStyles } from "./Header.style";
 
 const Header = () => {
   const {
@@ -36,9 +38,11 @@ const Header = () => {
     /** Language */
     t,
     isPremium,
+    /** Auth  */
+    isAuthenticated,
   } = useHeaderLogic();
 
-  const headerStyle = HeaderStyle(size, insets);
+  const styles = useMemo(() => dynamicStyles(size, insets), [size, insets]);
 
   return (
     <>
@@ -54,10 +58,7 @@ const Header = () => {
           Node={
             thereAreNewUnreadNotifications ? (
               <View
-                style={[
-                  headerStyle.NotificationIndicator,
-                  { position: "relative" },
-                ]}
+                style={[styles.NotificationIndicator, { position: "relative" }]}
               />
             ) : undefined
           }
@@ -76,13 +77,13 @@ const Header = () => {
           onPress={() => handleNavigate("/(tabs)/settings_screen", true)}
         />
       </FloatMenu>
-      <View style={headerStyle.HeaderContainer}>
+      <View style={styles.HeaderContainer}>
         {selectionMode ? (
           <Toolbar />
         ) : (
-          <View style={headerStyle.NavItemListContainer}>
+          <View style={styles.NavItemListContainer}>
             <Logo />
-            <View style={headerStyle.NavItems}>
+            <View style={styles.NavItems}>
               {size === "mobile" ? (
                 <>
                   <TokenBadge
@@ -100,7 +101,7 @@ const Header = () => {
                     onPress={toggleDeploy}
                     Node={
                       thereAreNewUnreadNotifications ? (
-                        <View style={headerStyle.NotificationIndicator} />
+                        <View style={styles.NotificationIndicator} />
                       ) : undefined
                     }
                   />
@@ -112,7 +113,7 @@ const Header = () => {
                     icon={"notifications-outline"}
                     Node={
                       thereAreNewUnreadNotifications ? (
-                        <View style={headerStyle.NotificationIndicator} />
+                        <View style={styles.NotificationIndicator} />
                       ) : undefined
                     }
                     onPress={() =>
@@ -148,6 +149,7 @@ const Header = () => {
           </View>
         )}
         <SubscriptionIndicator />
+        {isAuthenticated && <SyncronizationIndicatorBar />}
       </View>
     </>
   );

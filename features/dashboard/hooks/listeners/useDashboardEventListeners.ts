@@ -2,28 +2,32 @@ import { useEffect } from "react";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useUpdateIndicatorsMutation } from "../mutations";
+import {
+  useSyncIndicatorsMutation,
+  useUpdateIndicatorsMutation,
+} from "../mutations";
 import { useIndicatorsQuery } from "../queries";
 
 const useDashboardEventListeners = () => {
-  const { mutate } = useUpdateIndicatorsMutation();
+  const updateMutation = useUpdateIndicatorsMutation();
+  const syncMutation = useSyncIndicatorsMutation();
 
   const { indicators } = useIndicatorsQuery();
 
   useEffect(() => {
     const handler = (lastGeneratedResource: string | null) => {
-      mutate({ lastGeneratedResource });
+      updateMutation.mutate({ lastGeneratedResource });
     };
     eventBus.on("dashboard.setLastGeneratedResource", handler);
     return () => {
       eventBus.off("dashboard.setLastGeneratedResource", handler);
     };
-  }, [mutate]);
+  }, [updateMutation]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      mutate({
+      updateMutation.mutate({
         generatedResources: indicators.generatedResources + 1,
       });
     };
@@ -31,12 +35,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addGeneratedResource", handler);
     };
-  }, [mutate, indicators]);
+  }, [updateMutation, indicators]);
 
   useEffect(() => {
     const handler = (amount: number) => {
       if (!indicators) return;
-      mutate({
+      updateMutation.mutate({
         usedTokens: indicators.usedTokens + amount,
       });
     };
@@ -44,12 +48,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addUsedTokens", handler);
     };
-  }, [mutate, indicators]);
+  }, [updateMutation, indicators]);
 
   useEffect(() => {
     const handler = (downloadedResources: number) => {
       if (!indicators) return;
-      mutate({
+      updateMutation.mutate({
         dowloadedResources: indicators.dowloadedResources + downloadedResources,
       });
     };
@@ -57,12 +61,12 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addDownloadedResources", handler);
     };
-  }, [mutate, indicators]);
+  }, [updateMutation, indicators]);
 
   useEffect(() => {
     const handler = () => {
       if (!indicators) return;
-      mutate({
+      updateMutation.mutate({
         savedResources: indicators.savedResources + 1,
       });
     };
@@ -70,7 +74,17 @@ const useDashboardEventListeners = () => {
     return () => {
       eventBus.off("dashboard.addSavedResources", handler);
     };
-  }, [mutate, indicators]);
+  }, [updateMutation, indicators]);
+
+  useEffect(() => {
+    const handler = () => {
+      syncMutation.syncIndicators();
+    };
+    eventBus.on("dashboard.syncData.requested", handler);
+    return () => {
+      eventBus.off("dashboard.syncData.requested", handler);
+    };
+  }, [syncMutation]);
 };
 
 export default useDashboardEventListeners;

@@ -20,7 +20,7 @@ interface StyleProps {
   width: "auto" | "100%" | number;
 }
 
-export const TypographyStyle = ({
+export const dynamicStyles = ({
   weight,
   color,
   textAlign,

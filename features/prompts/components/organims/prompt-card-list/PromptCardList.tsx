@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { FlatList } from "react-native";
 
 import { AppColors, Spacing } from "@/shared/styles";
@@ -26,7 +27,7 @@ import UpdatePromptForm from "../update-prompt-form/UpdatePromptForm";
 import PromptCardListHeader from "./PromptCardListHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
-import { PromptCardListStyle } from "./PromptCardList.style";
+import { dynamicStyles } from "./PromptCardList.style";
 
 const PromptCardList = () => {
   const {
@@ -66,7 +67,7 @@ const PromptCardList = () => {
     updatePromptPopUp.closePopUp,
   );
 
-  const promptCardListStyle = PromptCardListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   if (isError)
     return (
@@ -189,11 +190,8 @@ const PromptCardList = () => {
         )}
       </PopUp>
       <FlatList
-        style={[promptCardListStyle.ListContainer, GlobalStyles.PageDimensions]}
-        contentContainerStyle={[
-          promptCardListStyle.ListContent,
-          GlobalStyles.PageContent,
-        ]}
+        style={[styles.ListContainer, GlobalStyles.PageDimensions]}
+        contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
         numColumns={size === "laptop" ? 2 : 1}
         data={prompts}
         renderItem={({ item }) => (

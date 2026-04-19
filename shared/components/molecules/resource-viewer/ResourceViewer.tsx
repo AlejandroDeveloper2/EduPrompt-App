@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Image, View } from "react-native";
 import Markdown from "react-native-markdown-display";
 import { WebView } from "react-native-webview";
@@ -8,7 +9,7 @@ import { renderHtmlPdf } from "@/shared/helpers";
 
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
-import { MarkdownStyle, ResourceViewerStyle } from "./ResourceViewer.style";
+import { dynamicStyles, markdownStyles } from "./ResourceViewer.style";
 
 interface ResourceViewerProps {
   viewerType: ViewerType;
@@ -22,7 +23,9 @@ const ResourceViewer = ({
   scroll,
 }: ResourceViewerProps) => {
   const size = useScreenDimensionsStore();
-  const resourceViewerStyle = ResourceViewerStyle(scroll);
+
+  const resourceViewerStyle = useMemo(() => dynamicStyles(scroll), [scroll]);
+  const markdownStyle = useMemo(() => markdownStyles(size), [size]);
 
   return (
     <View style={resourceViewerStyle.ViewerContainer}>
@@ -33,7 +36,7 @@ const ResourceViewer = ({
           source={{ uri: content }}
         />
       ) : viewerType === "text" ? (
-        <Markdown style={MarkdownStyle(size)}>{content}</Markdown>
+        <Markdown style={markdownStyle}>{content}</Markdown>
       ) : (
         <WebView
           nestedScrollEnabled

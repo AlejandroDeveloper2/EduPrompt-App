@@ -4,7 +4,7 @@ import { useAnimatedSpinner } from "../../../hooks/animations";
 
 import { Spinner, Typography } from "../../atoms";
 
-import { LoadingTextIndicatorStyle } from "./LoadingTextIndicator.style";
+import { styles } from "./LoadingTextIndicator.style";
 
 interface LoadingTextIndicatorProps {
   message: string;
@@ -18,7 +18,7 @@ const LoadingTextIndicator = ({
   const { animatedCircleStyles } = useAnimatedSpinner();
 
   return (
-    <View style={LoadingTextIndicatorStyle.Container}>
+    <View style={styles.Container}>
       <Spinner color={color} animatedCircleStyles={animatedCircleStyles} />
       <Typography
         text={message}

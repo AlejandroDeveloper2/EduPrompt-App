@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Spacing } from "../../../styles";
 
-export const ToolbarStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     Container: {
       width: size === "laptop" ? "100%" : "90%",

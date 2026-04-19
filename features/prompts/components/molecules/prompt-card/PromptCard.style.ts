@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Radius, Spacing } from "@/shared/styles";
 
-const SharedStyle: ViewStyle = {
+const sharedStyle: ViewStyle = {
   width: "100%",
   flexDirection: "row",
   display: "flex",
@@ -12,7 +12,7 @@ const SharedStyle: ViewStyle = {
   alignItems: "center",
 };
 
-export const PromptCardStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     CardContainer: {
       width: "100%",
@@ -30,7 +30,7 @@ export const PromptCardStyle = (size: SizeType) =>
         size === "mobile" ? Spacing.spacing_md : Spacing.spacing_xl,
       borderStyle: "solid",
     },
-    CardHeader: SharedStyle,
+    CardHeader: sharedStyle,
     CardTags: {
       flexDirection: "row",
       display: "flex",
@@ -38,5 +38,5 @@ export const PromptCardStyle = (size: SizeType) =>
       justifyContent: "flex-start",
       alignItems: "center",
     },
-    CardContent: SharedStyle,
+    CardContent: sharedStyle,
   });

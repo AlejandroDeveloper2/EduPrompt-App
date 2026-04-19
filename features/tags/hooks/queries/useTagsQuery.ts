@@ -6,6 +6,7 @@ import { BaseFilters, Tag, TagFilters } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useSyncDataStore } from "@/shared/hooks/store";
 import { useOfflineTagsStore } from "../store";
 
 import { getTags } from "../../services";
@@ -20,6 +21,8 @@ const useTagsQuery = (
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { findTags, updateTagsSyncStatus, createTag } = useOfflineTagsStore();
+
+  const { updateModuleSyncMapState } = useSyncDataStore();
 
   const queryKey = useMemo(
     () => ["tags", baseFilters?.type ?? null, baseFilters?.name ?? null, limit],
@@ -58,6 +61,10 @@ const useTagsQuery = (
             }
           }),
         );
+
+        const isAllSynced = localTags.records.every((r) => r.sync);
+
+        updateModuleSyncMapState("tags", { isDataSynced: isAllSynced });
 
         return {
           ...paginatedTags,

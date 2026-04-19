@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { SizeType } from "@/core/types";
 import { Spacing } from "@/shared/styles";
 
-export const FloatMenuItemStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     ItemContainer: {
       width: "100%",

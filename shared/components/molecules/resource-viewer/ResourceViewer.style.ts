@@ -6,7 +6,7 @@ import { AppColors, FontSizes } from "@/shared/styles";
 
 import { getFontFamily } from "@/shared/helpers";
 
-export const ResourceViewerStyle = (scroll: boolean) =>
+export const dynamicStyles = (scroll: boolean) =>
   StyleSheet.create({
     ViewerContainer: {
       width: "100%",
@@ -22,7 +22,7 @@ export const ResourceViewerStyle = (scroll: boolean) =>
     },
   });
 
-export const MarkdownStyle = (size: SizeType) =>
+export const markdownStyles = (size: SizeType) =>
   StyleSheet.create({
     heading1: {
       fontSize: FontSizes[size]["display"],

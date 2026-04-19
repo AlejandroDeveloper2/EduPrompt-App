@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { Radius, Spacing } from "../../../styles";
 
-export const SpinnerStyle = (size: SizeType, color: string) =>
+export const dynamicStyles = (size: SizeType, color: string) =>
   StyleSheet.create({
     Box: {
       width: "auto",

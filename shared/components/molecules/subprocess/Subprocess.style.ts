@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
-export const SubprocessStyle = (
+export const dynamicStyles = (
   size: SizeType,
   subprocessWidth: DimensionValue
 ) =>

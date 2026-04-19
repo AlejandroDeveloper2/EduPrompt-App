@@ -15,7 +15,7 @@ import { renderGenerationStepImage } from "@/features/generations/utils";
 import { ScreenSection } from "@/shared/components/atoms";
 import { Button, Stepper } from "@/shared/components/molecules";
 
-import { GenerationStepViewStyles } from "./GenerationStepView.style";
+import { styles } from "./GenerationStepView.style";
 
 import CountryForm from "../country-form/CountryForm";
 import EducationalLevelForm from "../educational-level-form/EducationalLevelForm";
@@ -50,13 +50,13 @@ const GenerationStepView = ({
       <Button
         icon="chevron-back-outline"
         label={t(
-        "generations_translations.generation_step_view_labels.btn_back",
+          "generations_translations.generation_step_view_labels.btn_back",
         )}
         variant="neutral"
         width="auto"
         onPress={clearSelectedGeneration}
       />
-      <View style={GenerationStepViewStyles.StepContainer}>
+      <View style={styles.StepContainer}>
         {renderGenerationStepImage(
           currentIaGeneration.currentStep.illustration,
         )}

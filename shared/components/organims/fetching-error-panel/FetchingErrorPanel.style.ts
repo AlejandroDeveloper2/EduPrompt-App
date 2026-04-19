@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "@/shared/styles";
 
-export const FetchingErrorPanelStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   Container: {
     marginTop: Spacing.spacing_xl,
     alignItems: "center",

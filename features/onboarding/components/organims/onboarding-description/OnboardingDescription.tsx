@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -12,7 +13,8 @@ import { ScreenSection } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
 
 import { useTranslations } from "@/shared/hooks/core";
-import { OnboardingDescriptionStyle } from "./OnboardingDescription.style";
+
+import { dynamicStyles } from "./OnboardingDescription.style";
 
 interface OnboardingDescriptionProps {
   runReverseAnimation: (callback: () => void) => void;
@@ -39,13 +41,17 @@ const OnboardingDescription = ({
 
   const { t } = useTranslations();
 
-  const onboardingDescriptionStyle = OnboardingDescriptionStyle(size);
-  const Illustration = renderOnboardingStepImage(currentStep.stepIllustration);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+
+  const Illustration = useMemo(
+    () => renderOnboardingStepImage(currentStep.stepIllustration),
+    [currentStep.stepIllustration],
+  );
 
   return (
     <Animated.ScrollView
       key={currentStep.stepId}
-      style={[onboardingDescriptionStyle.StepContent, animatedOnboardingStyle]}
+      style={[styles.StepContent, animatedOnboardingStyle]}
       contentContainerStyle={{
         justifyContent: "center",
         alignItems: "center",
@@ -54,7 +60,7 @@ const OnboardingDescription = ({
       }}
     >
       {Illustration}
-      <View style={onboardingDescriptionStyle.StepDescription}>
+      <View style={styles.StepDescription}>
         <ScreenSection
           description={currentStep.description}
           title={currentStep.stepTitle}
@@ -62,7 +68,7 @@ const OnboardingDescription = ({
           color={AppColors.primary[400]}
           fullTitleWidth
         />
-        <View style={onboardingDescriptionStyle.StepOptions}>
+        <View style={styles.StepOptions}>
           {currentStep.stepId !== "1" && (
             <Button
               icon="chevron-back-outline"
@@ -89,7 +95,7 @@ const OnboardingDescription = ({
             style={{ flex: size === "mobile" ? undefined : 1 }}
             loading={isCompleting}
             loadingMessage={t(
-              "onboarding_translations.loading_messages.completing_onboarding_msg"
+              "onboarding_translations.loading_messages.completing_onboarding_msg",
             )}
             disabled={isCompleting}
             onPress={

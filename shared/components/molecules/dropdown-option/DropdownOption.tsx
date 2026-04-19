@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -8,7 +9,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
-import { DropdownOptionStyle } from "./DropdownOption.style";
+import { dynamicStyles } from "./DropdownOption.style";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -28,10 +29,12 @@ function DropdownOption<T>({
   const size = useScreenDimensionsStore();
   const animatedBackground = useAnimatedDropdownOption(isSelected);
 
+  const styles = useMemo(() => dynamicStyles(size), [size]);
+
   return (
     <AnimatedPressable
       onPress={() => onSelectOption(option)}
-      style={[DropdownOptionStyle(size).OptionBox, animatedBackground]}
+      style={[styles.OptionBox, animatedBackground]}
     >
       <Typography
         text={option[optionLabelKey] as string}

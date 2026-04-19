@@ -1,29 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { Prompt } from "../../types";
 
-import { showToast } from "@/shared/context";
-
-import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflinePromptsStore } from "../store";
 
 import { postSyncPrompts } from "../../services";
 
-import { generateToastKey } from "@/shared/helpers";
-import { syncData } from "@/shared/utils";
+import { eventBus } from "@/core/events/EventBus";
 
 const useSyncPromptsMutation = () => {
   const queryClient = useQueryClient();
-  const { isConnected } = useCheckNetwork();
-
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
 
   const { updatePromptsSyncStatus, findAllPrompts } = useOfflinePromptsStore();
-
-  const { t } = useTranslations();
 
   const mutation = useMutation({
     mutationFn: postSyncPrompts,
@@ -55,13 +44,6 @@ const useSyncPromptsMutation = () => {
     },
     onSuccess: async () => {
       await updatePromptsSyncStatus(true);
-      showToast({
-        key: generateToastKey(),
-        variant: "primary",
-        message: t(
-          "prompts_translations.module_success_messages.prompts_synced_msg",
-        ),
-      });
     },
     onError: (error, _newPrompts, context) => {
       if (context?.previousPrompts) {
@@ -73,35 +55,18 @@ const useSyncPromptsMutation = () => {
     },
   });
 
-  useEffect(() => {
-    const handleSync = async () => {
-      if (userProfile && userProfile.userPreferences.autoSync) {
-        const prompts = await findAllPrompts();
-        syncData(
-          isConnected,
-          isAuthenticated,
-          prompts.every((p) => p.sync),
-          async () => {
-            mutation.mutate({ prompts });
-          },
-        );
-      }
-    };
-    handleSync();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, isAuthenticated, userProfile]);
-
   const syncPrompts = useCallback(async () => {
     const prompts = await findAllPrompts();
-    syncData(
-      isConnected,
-      isAuthenticated,
-      prompts.every((p) => p.sync),
-      () => {
-        mutation.mutate({ prompts });
+    eventBus.emit("prompts.syncData.started", undefined);
+    mutation.mutate(
+      { prompts },
+      {
+        onSuccess: () => eventBus.emit("prompts.syncData.completed", undefined),
+        onError: (error) =>
+          eventBus.emit("prompts.syncData.failed", { error: error.message }),
       },
     );
-  }, [isAuthenticated, isConnected, mutation, findAllPrompts]);
+  }, [mutation, findAllPrompts]);
 
   return {
     ...mutation,

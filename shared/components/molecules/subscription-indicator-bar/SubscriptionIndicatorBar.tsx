@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -9,7 +10,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
-import { SubscriptionIndicatorBarStyle } from "./SubscriptionIndicatorBar.style";
+import { dynamicStyles } from "./SubscriptionIndicatorBar.style";
 
 const SubscriptionIndicatorBar = () => {
   const size = useScreenDimensionsStore();
@@ -19,17 +20,12 @@ const SubscriptionIndicatorBar = () => {
 
   const { t } = useTranslations();
 
-  const subscriptionIndicatorBarStyle = SubscriptionIndicatorBarStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <Animated.View
-      style={[
-        subscriptionIndicatorBarStyle.BarContainer,
-        animatedBackgroundStyle,
-      ]}
-    >
-      <View style={subscriptionIndicatorBarStyle.Content}>
-        <View style={subscriptionIndicatorBarStyle.LabelContainer}>
+    <Animated.View style={[styles.BarContainer, animatedBackgroundStyle]}>
+      <View style={styles.Content}>
+        <View style={styles.LabelContainer}>
           <Typography
             text={t("common_translations.subscription_indicator_labels.label")}
             weight="regular"
@@ -43,10 +39,10 @@ const SubscriptionIndicatorBar = () => {
             text={
               isPremium
                 ? t(
-        "common_translations.subscription_indicator_labels.premium_plan",
+                    "common_translations.subscription_indicator_labels.premium_plan",
                   )
                 : t(
-        "common_translations.subscription_indicator_labels.free_plan",
+                    "common_translations.subscription_indicator_labels.free_plan",
                   )
             }
             weight="bold"

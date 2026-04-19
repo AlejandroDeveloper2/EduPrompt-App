@@ -1,9 +1,10 @@
+import { useMemo } from "react";
 import { DimensionValue } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { ToastVariantType } from "@/core/types";
 
-import { ToastLoadBarStyle } from "./ToastLoadBar.style";
+import { dynamicStyles } from "./ToastLoadBar.style";
 
 interface ToastLoadBarProps {
   variant: ToastVariantType;
@@ -13,9 +14,10 @@ interface ToastLoadBarProps {
 }
 
 const ToastLoadBar = ({ variant, animatedWidth }: ToastLoadBarProps) => {
+  const styles = useMemo(() => dynamicStyles(variant), [variant]);
   return (
     <Animated.View
-      style={[ToastLoadBarStyle(variant).LoadIndicator, animatedWidth]}
+      style={[styles.LoadIndicator, animatedWidth]}
     ></Animated.View>
   );
 };

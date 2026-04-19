@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useWindowDimensions } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -12,7 +13,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 import { Typography } from "../../atoms";
 import ProgressBar from "../progress-bar/ProgressBar";
 
-import { SubprocessStyle } from "./Subprocess.style";
+import { dynamicStyles } from "./Subprocess.style";
 
 interface SubprocessProps {
   processType: ProcessType;
@@ -31,22 +32,35 @@ const Subprocess = ({
   const { width } = useWindowDimensions();
   const progressPercentage = useProgressBar(progressConfig, tasksDone);
 
-  const gap: number =
-    size === "mobile" ? Spacing.spacing_xs : Spacing.spacing_sm;
-
-  const subprocessWidth = calculateGridElementWidth(
-    size,
-    { mobile: 1, tablet: 1, laptop: 2 },
-    gap,
-    size === "laptop" ? 190 : 48,
-    width
+  const gap: number = useMemo(
+    () => (size === "mobile" ? Spacing.spacing_xs : Spacing.spacing_sm),
+    [size],
   );
-  const iconProcess = getSubprocessIcon(processType);
+
+  const subprocessWidth = useMemo(
+    () =>
+      calculateGridElementWidth(
+        size,
+        { mobile: 1, tablet: 1, laptop: 2 },
+        gap,
+        size === "laptop" ? 190 : 48,
+        width,
+      ),
+    [gap, size, width],
+  );
+
+  const iconProcess = useMemo(
+    () => getSubprocessIcon(processType),
+    [processType],
+  );
+
+  const styles = useMemo(
+    () => dynamicStyles(size, subprocessWidth),
+    [size, subprocessWidth],
+  );
 
   return (
-    <Animated.View
-      style={[SubprocessStyle(size, subprocessWidth).SubprocessContainer]}
-    >
+    <Animated.View style={[styles.SubprocessContainer]}>
       <Typography
         text={processName}
         weight="regular"

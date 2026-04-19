@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
@@ -6,7 +7,7 @@ import { Ionicon } from "../icon/Icon";
 
 import { AppColors } from "@/shared/styles";
 
-import { SyncronizationIndicatorStyle } from "./SyncronizationIndicator.style";
+import { dynamicStyles } from "./SyncronizationIndicator.style";
 
 interface SyncronizationIndicatorProps {
   synced: boolean;
@@ -15,7 +16,10 @@ interface SyncronizationIndicatorProps {
 const SyncronizationIndicator = ({ synced }: SyncronizationIndicatorProps) => {
   const size = useScreenDimensionsStore();
 
-  const { Container } = SyncronizationIndicatorStyle(size, synced);
+  const { Container } = useMemo(
+    () => dynamicStyles(size, synced),
+    [size, synced],
+  );
 
   return (
     <View style={Container}>

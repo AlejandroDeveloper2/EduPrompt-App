@@ -1,38 +1,34 @@
+import { useMemo } from "react";
 import { useWindowDimensions, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { useSyncIndicatorsMutation } from "@/features/dashboard/hooks/mutations";
 import { useIndicatorsQuery } from "@/features/dashboard/hooks/queries";
 import { useTranslations } from "@/shared/hooks/core";
-import { useEventbusValue } from "@/shared/hooks/events";
 import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { formatTokenAmount, getIndicatorPanelGrid } from "@/shared/utils";
 
 import { Typography } from "@/shared/components/atoms";
-import { InfoCard } from "@/shared/components/molecules";
 import { DashboardIndicator } from "../../molecules";
 
-import { DashboardIndicatorPanelStyle } from "./DashboardIndicatorPanel.style";
+import { dynamicStyles } from "./DashboardIndicatorPanel.style";
 
 const DashboardIndicatorPanel = () => {
   const size = useScreenDimensionsStore();
   const { width } = useWindowDimensions();
 
-  const isAuthenticated = useEventbusValue("auth.authenticated", false);
-
   const { indicators, isLoading } = useIndicatorsQuery();
-  const { syncIndicators, isPending } = useSyncIndicatorsMutation();
-
-  const userProfile = useEventbusValue("userProfile.user.updated", null);
-
   const { t } = useTranslations();
 
-  const { PanelContainer, IndicatorsGrid } = DashboardIndicatorPanelStyle(size);
-  const { firstWidth, secondWidth, thirdWidth } = getIndicatorPanelGrid(
-    size,
-    width,
+  const { firstWidth, secondWidth, thirdWidth } = useMemo(
+    () => getIndicatorPanelGrid(size, width),
+    [size, width],
+  );
+
+  const { PanelContainer, IndicatorsGrid } = useMemo(
+    () => dynamicStyles(size),
+    [size],
   );
 
   return (
@@ -124,30 +120,6 @@ const DashboardIndicatorPanel = () => {
           }}
         />
       </View>
-      {userProfile &&
-      !userProfile.userPreferences.autoSync &&
-      !indicators.sync &&
-      isAuthenticated ? (
-        <InfoCard
-          title={t(
-            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.title",
-          )}
-          description={t(
-            "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.description",
-          )}
-          buttonData={{
-            onPress: syncIndicators,
-            icon: "sync-outline",
-            label: t(
-              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.btn_sync",
-            ),
-            loading: isPending,
-            loadingMessage: t(
-              "dashboard_translations.dashboard_panel_labels.syncronization_card_labels.loading_text",
-            ),
-          }}
-        />
-      ) : null}
     </View>
   );
 };

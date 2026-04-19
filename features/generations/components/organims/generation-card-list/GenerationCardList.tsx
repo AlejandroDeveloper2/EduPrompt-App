@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { FlatList } from "react-native";
 
 import { eventBus } from "@/core/events/EventBus";
@@ -21,7 +21,7 @@ import GenerationEmpty from "./GenerationEmpty";
 import GenerationListHeader from "./GenerationListHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
-import { GenerationCardListStyle } from "./GenerationCardList.style";
+import { dynamicStyles } from "./GenerationCardList.style";
 
 const GenerationCardList = () => {
   const size = useScreenDimensionsStore();
@@ -65,8 +65,8 @@ const GenerationCardList = () => {
       enableSelectionMode(
         SELECTION_MODE_ACTIONS(
           deleteSelectedGenerations,
-          reinitSelectedGenerations
-        )
+          reinitSelectedGenerations,
+        ),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -80,15 +80,12 @@ const GenerationCardList = () => {
     else if (!allSelected && isAllSelected) clearSelection();
   }, [allSelected]);
 
-  const generationListStyle = GenerationCardListStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <FlatList
-      style={[generationListStyle.ListContainer, GlobalStyles.PageDimensions]}
-      contentContainerStyle={[
-        generationListStyle.ListContent,
-        GlobalStyles.PageContent,
-      ]}
+      style={[styles.ListContainer, GlobalStyles.PageDimensions]}
+      contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
       numColumns={size === "laptop" ? 2 : 1}
       data={filteredElements}
       renderItem={({ item }) => (
@@ -114,10 +111,10 @@ const GenerationCardList = () => {
           label={
             iaGenerations.length > 0
               ? t(
-                  "generations_translations.generation_list_labels.btn_generate.label_1"
+                  "generations_translations.generation_list_labels.btn_generate.label_1",
                 )
               : t(
-                  "generations_translations.generation_list_labels.btn_generate.label_2"
+                  "generations_translations.generation_list_labels.btn_generate.label_2",
                 )
           }
           width="100%"

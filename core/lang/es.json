@@ -43,6 +43,13 @@
       "no_auth_msg": "Inicia sesión o crea una cuenta para poder sincronizar tus datos.",
       "all_synced_msg": "Todo esta sincronizado"
     },
+    "syncronization_indicator_labels": {
+      "pending_msg": "Hay datos por sincronizar!",
+      "success_msg": "Todo esta sincronizado!",
+      "failed_msg": "Error al sincronizar datos!",
+      "syncing_msg": "Sincronizando datos...",
+      "btn_sync_label": "Sincronizar"
+    },
     "subscription_indicator_labels": {
       "label": "Plan Activo:",
       "premium_plan": "Premium",

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "@/shared/styles";
 
-export const ProcessProgressStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   Container: {
     flex: 1,
     width: "100%",

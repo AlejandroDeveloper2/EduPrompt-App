@@ -16,7 +16,7 @@ import { openExternalLink } from "@/features/notifications/helpers";
 
 import { Badge, Checkbox, Typography } from "@/shared/components/atoms";
 
-import { NotificationCardStyle } from "./NotificationCard.style";
+import { dynamicStyles } from "./NotificationCard.style";
 
 interface NotificationCardProps {
   data: Notification;
@@ -37,7 +37,7 @@ const NotificationCard = ({
 
   const isSelected: boolean = useMemo(
     () => selectedNotificationIds.has(data.notificationId),
-    [data.notificationId, selectedNotificationIds]
+    [data.notificationId, selectedNotificationIds],
   );
 
   const animatedCardStyle = useAnimatedCard(isSelected);
@@ -45,14 +45,12 @@ const NotificationCard = ({
 
   const { t, lang } = useTranslations();
 
-  const notificationCardStyle = NotificationCardStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <Animated.View
-      style={[notificationCardStyle.NotificationContainer, animatedCardStyle]}
-    >
-      <View style={notificationCardStyle.Header}>
-        <View style={notificationCardStyle.TitleContainer}>
+    <Animated.View style={[styles.NotificationContainer, animatedCardStyle]}>
+      <View style={styles.Header}>
+        <View style={styles.TitleContainer}>
           <View style={{ flex: 1 }}>
             <Typography
               text={data.title}
@@ -64,11 +62,11 @@ const NotificationCard = ({
               icon="notifications-outline"
             />
           </View>
-          <View style={[notificationCardStyle.Tools]}>
+          <View style={[styles.Tools]}>
             {isNew && (
               <Badge
                 label={t(
-                  "notifications_translations.notification_card_new_badge"
+                  "notifications_translations.notification_card_new_badge",
                 )}
                 variant="primary"
               />
@@ -101,11 +99,11 @@ const NotificationCard = ({
         width="100%"
       />
       {links && (
-        <View style={notificationCardStyle.LinksContainer}>
+        <View style={styles.LinksContainer}>
           {links.map((link, i) => (
             <Pressable
               key={`${link.href}-{i}`}
-              style={notificationCardStyle.LinkPressable}
+              style={styles.LinkPressable}
               onPress={() => openExternalLink(link.href)}
             >
               <Typography

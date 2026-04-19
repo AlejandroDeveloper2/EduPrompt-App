@@ -4,7 +4,7 @@ import { SizeType } from "@/core/types";
 
 import { AppColors, Radius } from "../../../styles";
 
-export const StepStyle = (active: boolean, size: SizeType) =>
+export const dynamicStyles = (active: boolean, size: SizeType) =>
   StyleSheet.create({
     PressableStep: {
       width: size === "mobile" ? 30 : 40,

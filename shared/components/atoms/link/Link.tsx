@@ -1,4 +1,5 @@
 import { Href, useRouter } from "expo-router";
+import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import { AppColors } from "../../../styles";
@@ -7,7 +8,7 @@ import { openLink } from "@/shared/helpers";
 
 import Typography from "../typography/Typography";
 
-import { LinkStyle } from "./Link.style";
+import { dynamicStyles } from "./Link.style";
 
 interface LinkProps {
   label: string;
@@ -26,8 +27,10 @@ export const ExternalLink = ({
   href,
   alignment,
 }: ExternalLinkProps) => {
+  const styles = useMemo(() => dynamicStyles(alignment), [alignment]);
+
   return (
-    <View style={LinkStyle(alignment).LinkContainer}>
+    <View style={styles.LinkContainer}>
       <Typography
         text={label}
         weight="regular"
@@ -54,7 +57,7 @@ const Link = ({ label, linkLabel, href, alignment }: LinkProps) => {
   const router = useRouter();
 
   return (
-    <View style={LinkStyle(alignment).LinkContainer}>
+    <View style={dynamicStyles(alignment).LinkContainer}>
       <Typography
         text={label}
         weight="regular"

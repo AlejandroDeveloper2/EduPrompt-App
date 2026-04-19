@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -9,7 +10,7 @@ import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
-import { FilterTagStyle } from "./FilterTag.style";
+import { dynamicStyles } from "./FilterTag.style";
 
 interface FilterTagProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -23,10 +24,11 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const FilterTag = ({ icon, label, active, onPressFilter }: FilterTagProps) => {
   const size = useScreenDimensionsStore();
   const animatedBackgroundStyle = useAnimatedFilterTag(active, true);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <AnimatedPressable
-      style={[FilterTagStyle(size).PressableBox, animatedBackgroundStyle]}
+      style={[styles.PressableBox, animatedBackgroundStyle]}
       onPress={onPressFilter}
     >
       <Typography

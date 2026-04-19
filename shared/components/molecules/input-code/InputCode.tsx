@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -9,7 +10,7 @@ import { AppColors } from "../../../styles";
 
 import { ErrorMessage, Typography } from "../../atoms";
 
-import { InputCodeStyle } from "./InputCode.style";
+import { dynamicStyles } from "./InputCode.style";
 
 interface InputCodeProps<T> {
   label: string;
@@ -45,13 +46,12 @@ function InputCode<T>({
     name as string,
     value,
     onChange as (name: string, value: string) => void,
-    errorMessage
+    errorMessage,
   );
-
-  const inputCodeStyle = InputCodeStyle(size, disabled);
+  const styles = useMemo(() => dynamicStyles(size, disabled), [size, disabled]);
 
   return (
-    <View style={inputCodeStyle.Container}>
+    <View style={styles.Container}>
       <Typography
         text={label}
         weight="regular"
@@ -60,7 +60,7 @@ function InputCode<T>({
         color={AppColors.neutral[1000]}
         width="auto"
       />
-      <View style={inputCodeStyle.InputBoxList}>
+      <View style={styles.InputBoxList}>
         {codeArray.map((char, index) => (
           <AnimatedTextInput
             key={`code-input-${index}`}
@@ -71,11 +71,11 @@ function InputCode<T>({
               placeholders[`character${index + 1}` as keyof CodeValue]
             }
             placeholderTextColor={AppColors.neutral[500]}
-            style={[inputCodeStyle.CodeInputField, animatedInputStyle]}
+            style={[styles.CodeInputField, animatedInputStyle]}
             onFocus={onFocus}
             onBlur={onBlur}
             maxLength={1}
-            ref={(ref) => {
+            ref={(ref: unknown) => {
               // Forzamos el cast: AnimatedTextInput en runtime sí es un TextInput
               inputsRef.current[index] = ref as unknown as TextInputInstance;
             }}

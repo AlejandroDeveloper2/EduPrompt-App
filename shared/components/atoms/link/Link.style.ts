@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "../../../styles";
 
-export const LinkStyle = (alignment?: "left" | "center" | "right") =>
+export const dynamicStyles = (alignment?: "left" | "center" | "right") =>
   StyleSheet.create({
     LinkContainer: {
       width: "100%",

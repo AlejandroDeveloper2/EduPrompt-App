@@ -4,7 +4,7 @@ import { AppColors, Spacing } from "@/shared/styles";
 
 import { SizeType } from "@/core/types";
 
-export const UserProfilePanelStyles = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     PanelContainer: {
       width: "100%",

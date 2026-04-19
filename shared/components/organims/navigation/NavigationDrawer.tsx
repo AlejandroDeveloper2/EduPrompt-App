@@ -1,4 +1,5 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
+import { useMemo } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -14,7 +15,7 @@ import { renderDrawerItem } from "../../../utils";
 import { GenerateButton } from "../../molecules";
 import { NavActions } from "./NavActions";
 
-import { NavigationStyle } from "./Navigation.style";
+import { dynamicStyles } from "./Navigation.style";
 
 type NavigationDrawerProps = DrawerContentComponentProps & NavigationPropsBase;
 
@@ -28,20 +29,22 @@ const NavigationDrawer = ({
   const size = useScreenDimensionsStore();
   const insets = useSafeAreaInsets();
 
-  const navigationStyle = NavigationStyle(size, insets);
+  const styles = useMemo(() => dynamicStyles(size, insets), [size, insets]);
 
-  const { firstItemsSlice, secondItemsSlice, centerItemsSlice } =
-    getMainNavigationRoutes(state.routes);
+  const { firstItemsSlice, secondItemsSlice, centerItemsSlice } = useMemo(
+    () => getMainNavigationRoutes(state.routes),
+    [state.routes],
+  );
 
-  const isActionsVisible = actions.length > 0;
+  const isActionsVisible = useMemo(() => actions.length > 0, [actions.length]);
 
   return (
-    <View style={navigationStyle.NavigationContainer}>
+    <View style={styles.NavigationContainer}>
       {isActionsVisible ? (
         <NavActions actions={actions} />
       ) : (
         <>
-          <View style={navigationStyle.NavSlice}>
+          <View style={styles.NavSlice}>
             {firstItemsSlice.map((navOption, index) => {
               const NavItem = renderDrawerItem(lang, index, navOption, {
                 ...props,
@@ -55,7 +58,7 @@ const NavigationDrawer = ({
             active={getActiveDrawerItem(centerItemsSlice[0], state)}
             onPress={() => navigation.navigate(centerItemsSlice[0].name)}
           />
-          <View style={navigationStyle.NavSlice}>
+          <View style={styles.NavSlice}>
             {secondItemsSlice.map((navOption, index) => {
               const NavItem = renderDrawerItem(
                 lang,
@@ -65,7 +68,7 @@ const NavigationDrawer = ({
                   ...props,
                   state,
                   navigation,
-                }
+                },
               );
               return NavItem;
             })}

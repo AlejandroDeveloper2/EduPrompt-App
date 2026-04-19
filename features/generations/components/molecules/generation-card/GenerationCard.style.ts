@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { SizeType } from "@/core/types";
 import { AppColors, Radius, Spacing } from "@/shared/styles";
 
-export const GenerationCardStyle = (size: SizeType) =>
+export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
     CardContainer: {
       width: "100%",

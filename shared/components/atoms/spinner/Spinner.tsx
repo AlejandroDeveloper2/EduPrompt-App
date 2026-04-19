@@ -1,9 +1,10 @@
+import { useMemo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
-import { SpinnerStyle } from "./Spinner.style";
+import { dynamicStyles } from "./Spinner.style";
 
 interface SpinnerProps {
   color: string;
@@ -17,7 +18,7 @@ interface SpinnerProps {
 const Spinner = ({ color, animatedCircleStyles }: SpinnerProps) => {
   const size = useScreenDimensionsStore();
 
-  const spinnerStyle = SpinnerStyle(size, color);
+  const spinnerStyle = useMemo(() => dynamicStyles(size, color), [size, color]);
 
   const [animatedCircleStyle1, animatedCircleStyle2, animatedCircleStyle3] =
     animatedCircleStyles;

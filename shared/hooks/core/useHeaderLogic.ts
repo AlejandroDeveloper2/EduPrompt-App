@@ -19,6 +19,8 @@ const useHeaderLogic = () => {
 
   const { selectionMode } = useSelectionModeStore();
 
+  const isAuthenticated = useEventbusValue("auth.authenticated", false);
+
   const userProfile = useEventbusValue("userProfile.user.updated", null);
   const systemNotifications = useEventbusValue(
     "notifications.systemNotifications.updated",
@@ -72,6 +74,8 @@ const useHeaderLogic = () => {
     t,
     /** Premium status */
     isPremium,
+    /** Auth  */
+    isAuthenticated,
   };
 };
 

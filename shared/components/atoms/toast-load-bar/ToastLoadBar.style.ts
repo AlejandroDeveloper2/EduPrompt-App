@@ -4,7 +4,7 @@ import { ToastVariantType } from "@/core/types";
 
 import { AppColors, Radius } from "../../../styles";
 
-export const ToastLoadBarStyle = (variant: ToastVariantType) =>
+export const dynamicStyles = (variant: ToastVariantType) =>
   StyleSheet.create({
     LoadIndicator: {
       height: 8,

@@ -1,9 +1,10 @@
+import { useMemo } from "react";
 import { DimensionValue, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { useScreenDimensionsStore } from "../../../hooks/store";
 
-import { LoaderBarStyle } from "./LoaderBar.style";
+import { dynamicStyles } from "./LoaderBar.style";
 
 interface LoaderBarProps {
   animatedProgressStyle: { width: DimensionValue };
@@ -11,13 +12,12 @@ interface LoaderBarProps {
 
 const LoaderBar = ({ animatedProgressStyle }: LoaderBarProps) => {
   const size = useScreenDimensionsStore();
-
-  const loaderBarStyle = LoaderBarStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={loaderBarStyle.BarTrack}>
+    <View style={styles.BarTrack}>
       <Animated.View
-        style={[loaderBarStyle.BarProgressIndicator, animatedProgressStyle]}
+        style={[styles.BarProgressIndicator, animatedProgressStyle]}
       ></Animated.View>
     </View>
   );

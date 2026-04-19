@@ -2,7 +2,7 @@ import { View, ViewStyle } from "react-native";
 
 import { Step } from "../../atoms";
 
-import { StepperStyle } from "./Stepper.style";
+import { styles } from "./Stepper.style";
 
 interface StepperProps<T> {
   steps: T[];
@@ -20,7 +20,7 @@ function Stepper<T>({
   onActive,
 }: StepperProps<T>) {
   return (
-    <View style={[StepperStyle.StepList, style]}>
+    <View style={[styles.StepList, style]}>
       {steps.map((step) => (
         <Step
           key={step[stepIdKey] as string}

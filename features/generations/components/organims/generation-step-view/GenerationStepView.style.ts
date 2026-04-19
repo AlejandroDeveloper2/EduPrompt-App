@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { Spacing } from "@/shared/styles";
 
-export const GenerationStepViewStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
   StepContainer: {
     display: "flex",
     flexDirection: "column",

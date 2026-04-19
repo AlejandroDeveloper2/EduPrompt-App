@@ -23,7 +23,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
-import { PromptCardStyle } from "./PromptCard.style";
+import { dynamicStyles } from "./PromptCard.style";
 
 interface PromptCardProps {
   promptData: Prompt;
@@ -51,22 +51,22 @@ const PromptCard = ({
 
   const isSelected: boolean = useMemo(
     () => selectedPromptIds.has(promptData.promptId),
-    [promptData.promptId, selectedPromptIds]
+    [promptData.promptId, selectedPromptIds],
   );
 
   const animatedCardStyle = useAnimatedCard(isSelected);
 
   const { t } = useTranslations();
 
-  const promptCardStyle = PromptCardStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
     <AnimatedPressable
-      style={[promptCardStyle.CardContainer, animatedCardStyle]}
+      style={[styles.CardContainer, animatedCardStyle]}
       onPress={onEditPrompt && !selectionMode ? onEditPrompt : () => {}}
     >
-      <View style={promptCardStyle.CardHeader}>
-        <View style={promptCardStyle.CardTags}>
+      <View style={styles.CardHeader}>
+        <View style={styles.CardTags}>
           <Badge
             label={
               tags.find((t) => t.tagId === promptData.tag)?.name ??
@@ -85,7 +85,7 @@ const PromptCard = ({
           />
         )}
       </View>
-      <View style={promptCardStyle.CardContent}>
+      <View style={styles.CardContent}>
         <Typography
           text={promptTitle}
           weight="medium"

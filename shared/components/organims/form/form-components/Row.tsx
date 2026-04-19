@@ -7,7 +7,7 @@ import { FormContext } from "../formContext";
 
 import RowItem from "./RowItem";
 
-import { FormRowStyle } from "../Form.style";
+import { formRowStyles } from "../Form.style";
 
 const Row = ({ children, configRows }: RowProps) => {
   const { size, containerWidth, gap } = useContext(FormContext);
@@ -20,16 +20,20 @@ const Row = ({ children, configRows }: RowProps) => {
   }, [size, configRows]);
 
   // ancho por columna en px (cuando conocemos containerWidth)
-  const colBasePx =
-    containerWidth > 0
-      ? Math.floor((containerWidth - gap * (columns - 1)) / columns)
-      : 0;
+  const colBasePx = useMemo(
+    () =>
+      containerWidth > 0
+        ? Math.floor((containerWidth - gap * (columns - 1)) / columns)
+        : 0,
+    [columns, containerWidth, gap],
+  );
 
   // convertimos children en array y leemos span si viene de Row.Item
-  const items = Children.toArray(children);
+  const items = useMemo(() => Children.toArray(children), [children]);
+  const styles = useMemo(() => formRowStyles(gap), [gap]);
 
   return (
-    <View style={FormRowStyle(gap).FormRow}>
+    <View style={styles.FormRow}>
       {items.map((child, idx) => {
         // detectar si el child es nuestro RowItem para extraer span
         let span = 1;

@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
 import { View } from "react-native";
 
 import { EducationalResource } from "@/features/educational-resources/types";
@@ -11,7 +12,8 @@ import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { Badge, MaterialIcon, Typography } from "@/shared/components/atoms";
 
 import { AppColors } from "@/shared/styles";
-import { ResourceToShareStyle } from "./ResourceToShareCard.style";
+
+import { dynamicStyles } from "./ResourceToShareCard.style";
 
 interface ResourceToShareCardProps {
   resourceData: EducationalResource;
@@ -35,12 +37,12 @@ const ResourceToShareCard = ({
     paginatedTags: { tags },
   } = useResourcesFiltersContext();
 
-  const fileCardStyle = ResourceToShareStyle(size);
+  const styles = useMemo(() => dynamicStyles(size), [size]);
 
   return (
-    <View style={fileCardStyle.CardContainer}>
-      <View style={fileCardStyle.CardHeader}>
-        <View style={fileCardStyle.CardTags}>
+    <View style={styles.CardContainer}>
+      <View style={styles.CardHeader}>
+        <View style={styles.CardTags}>
           <Badge label={format} variant="primary" />
           <Badge
             label={
@@ -68,7 +70,7 @@ const ResourceToShareCard = ({
         width={250}
         icon={icon}
       />
-      <View style={fileCardStyle.FileMetadata}>
+      <View style={styles.FileMetadata}>
         <Typography
           text={new Date(creationDate).toLocaleDateString()}
           weight="light"
