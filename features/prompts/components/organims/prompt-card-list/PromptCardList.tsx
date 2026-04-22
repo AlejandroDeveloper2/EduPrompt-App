@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { FlatList } from "react-native";
 
 import { AppColors, Spacing } from "@/shared/styles";
@@ -67,7 +66,7 @@ const PromptCardList = () => {
     updatePromptPopUp.closePopUp,
   );
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   if (isError)
     return (

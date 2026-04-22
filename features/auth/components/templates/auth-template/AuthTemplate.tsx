@@ -3,8 +3,7 @@ import { useRouter } from "expo-router";
 import { ImageBackground, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { AppColors } from "@/shared/styles";
 
@@ -56,10 +55,9 @@ const AuthTemplate = ({
 }: AuthTemplateProps) => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-
   const { t } = useTranslations();
+  const size = useResponsive();
 
-  const size = useScreenDimensionsStore();
   return (
     <ImageBackground
       source={EduPromptBackground}
@@ -107,7 +105,7 @@ const AuthTemplate = ({
                 width="100%"
                 variant="primary"
                 label={t("auth_translations.btn_continue_without_account")}
-                onPress={() => router.navigate("/(tabs)")}
+                onPress={() => router.navigate("/(app)/(tabs)")}
               />
             </>
           )}

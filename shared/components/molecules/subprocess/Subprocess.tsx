@@ -7,8 +7,8 @@ import { ProcessType, ProgressConfig } from "@/core/types";
 import { AppColors, Spacing } from "../../../styles";
 
 import { calculateGridElementWidth, getSubprocessIcon } from "../../../helpers";
-import { useProgressBar } from "../../../hooks/core";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+
+import { useProgressBar, useResponsive } from "../../../hooks/core";
 
 import { Typography } from "../../atoms";
 import ProgressBar from "../progress-bar/ProgressBar";
@@ -28,14 +28,12 @@ const Subprocess = ({
   progressConfig,
   tasksDone,
 }: SubprocessProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { width } = useWindowDimensions();
   const progressPercentage = useProgressBar(progressConfig, tasksDone);
 
-  const gap: number = useMemo(
-    () => (size === "mobile" ? Spacing.spacing_xs : Spacing.spacing_sm),
-    [size],
-  );
+  const gap: number =
+    size === "mobile" ? Spacing.spacing_xs : Spacing.spacing_sm;
 
   const subprocessWidth = useMemo(
     () =>
@@ -49,15 +47,8 @@ const Subprocess = ({
     [gap, size, width],
   );
 
-  const iconProcess = useMemo(
-    () => getSubprocessIcon(processType),
-    [processType],
-  );
-
-  const styles = useMemo(
-    () => dynamicStyles(size, subprocessWidth),
-    [size, subprocessWidth],
-  );
+  const iconProcess = getSubprocessIcon(processType);
+  const styles = dynamicStyles(size, subprocessWidth);
 
   return (
     <Animated.View style={[styles.SubprocessContainer]}>

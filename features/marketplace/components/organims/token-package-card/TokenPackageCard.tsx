@@ -1,11 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { Typography } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
@@ -40,10 +39,10 @@ const TokenPackageCard = ({
   buttonDisabled,
   onBuyPackage,
 }: TokenPackageCardProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size, full), [size, full]);
+  const styles = dynamicStyles(size, full);
 
   return (
     <View style={styles.CardContainer}>

@@ -1,10 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Typography } from "../../atoms";
 
@@ -25,8 +24,9 @@ interface InfoCardProps {
 }
 
 const InfoCard = ({ title, description, buttonData }: InfoCardProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.CardContainer}>

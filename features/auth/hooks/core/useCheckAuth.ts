@@ -8,7 +8,7 @@ const useCheckAuth = (): void => {
   const { isAuthenticated } = useAuthStore();
 
   useEffect(() => {
-    if (isAuthenticated) router.replace("/(tabs)");
+    if (isAuthenticated) router.replace("/(app)/(tabs)");
   }, [isAuthenticated, router]);
 };
 

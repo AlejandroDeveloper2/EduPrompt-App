@@ -1,12 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedNavItem } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
@@ -31,10 +31,10 @@ const NavItem = ({
   label,
   onPress,
 }: NavItemProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const animatedBackground = useAnimatedNavItem(active);
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.Container}>

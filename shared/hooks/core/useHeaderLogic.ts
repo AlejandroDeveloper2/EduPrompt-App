@@ -4,16 +4,19 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useAnimatedFloatMenu } from "../animations";
 import { useEventBusToggle, useEventbusValue } from "../events";
-import { useScreenDimensionsStore, useSelectionModeStore } from "../store";
+import { useSelectionModeStore } from "../store";
 import useCheckPremium from "./useCheckPremium";
+import useResponsive from "./useResponsive";
 import useTranslations from "./useTranslations";
+
+/** TODO: optimizar logica de este hook separando responsabilidades */
 
 const useHeaderLogic = () => {
   const router = useRouter();
   const pathname = usePathname();
 
   const insets = useSafeAreaInsets();
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
   const { isMounted, animatedStyle, toggleDeploy } = useAnimatedFloatMenu();
 

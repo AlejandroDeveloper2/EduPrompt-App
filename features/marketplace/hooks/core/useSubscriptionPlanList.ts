@@ -42,7 +42,7 @@ const useSubscriptionPlanList = () => {
         currentPlan &&
         currentPlan.subscriptionPlanId === plan.subscriptionPlanId
       ) {
-        router.navigate("/(tabs)/settings_screen");
+        router.navigate("/(app)/(tabs)/settings_screen");
         return;
       }
       createPurchase(

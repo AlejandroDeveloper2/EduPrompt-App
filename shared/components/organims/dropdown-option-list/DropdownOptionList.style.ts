@@ -1,10 +1,8 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { AppColors, Radius, Spacing } from "../../../styles";
 
 import { SizeType } from "@/core/types";
-
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
@@ -13,7 +11,6 @@ export const dynamicStyles = (size: SizeType) =>
       borderTopRightRadius: Radius.radius_lg,
       width: "100%",
       backgroundColor: AppColors.basic.white,
-      maxHeight: SCREEN_HEIGHT * 0.8,
     },
     ListContent: {
       width: "100%",

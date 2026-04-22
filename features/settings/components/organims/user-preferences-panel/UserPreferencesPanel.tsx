@@ -1,18 +1,11 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppLanguage } from "@/core/types";
 import { CleanFrecuencyOption } from "../../../types";
 
-import { APP_LANGUAGES } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
-import { CLEAN_FRECUENCY_OPTIONS } from "../../../constants";
 
-import { useUserProfileQuery } from "@/features/settings/hooks/queries";
-import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useUpdatePreferencesMutation } from "../../../hooks/mutations";
-
-import { getFormattedPreferences } from "../../../helpers";
+import { useUserPreferencesLogic } from "@/features/settings/hooks/core";
 
 import { ScreenSection } from "@/shared/components/atoms";
 import {
@@ -20,182 +13,125 @@ import {
   LoadingTextIndicator,
   Switch,
 } from "@/shared/components/molecules";
-import { DropdownOptionList, PopUp } from "@/shared/components/organims";
 
 import { styles } from "./UserPreferencesPanel.style";
 
 const UserPreferencesPanel = () => {
-  const { userProfile, isLoading } = useUserProfileQuery();
-
-  const { mutate } = useUpdatePreferencesMutation();
-
-  const frecuencyPopUp = usePopUp();
-  const languagePopUp = usePopUp();
-
-  const { t, setLanguage } = useTranslations();
-
-  const appLanguages = useMemo(() => APP_LANGUAGES(t), [t]);
-  const cleanFrecuencyOptions = useMemo(() => CLEAN_FRECUENCY_OPTIONS(t), [t]);
-
-  const preferences = getFormattedPreferences(userProfile);
-
-  const getSelectedFrecuency = (cleanFrecuency: string) => {
-    return cleanFrecuencyOptions.filter(
-      (frecuency) => frecuency.key === cleanFrecuency,
-    )[0];
-  };
-
-  const getSelectedLanguage = (language: string) => {
-    return appLanguages.filter((lang) => lang.key === language)[0];
-  };
+  const {
+    /** Routing */
+    router,
+    /** Language */
+    t,
+    /** Queries */
+    isLoading,
+    mutate,
+    /** Data */
+    preferences,
+    cleanFrecuencyOptions,
+    appLanguages,
+    getSelectedFrecuency,
+    getSelectedLanguage,
+  } = useUserPreferencesLogic();
 
   return (
-    <>
-      <PopUp
-        icon="language-outline"
-        title={t(
-          "settings_translations.preferences_popups_labels.language.title",
-        )}
-        isOpen={languagePopUp.isOpen}
-        onClose={languagePopUp.closePopUp}
-      >
-        <DropdownOptionList<AppLanguage>
-          optionList={appLanguages}
-          optionIdkey="key"
-          optionLabelKey="label"
-          searchInputPlaceholder={t(
-            "settings_translations.preferences_popups_labels.language.list_search_placeholder",
+    <View style={styles.PanelContainer}>
+      <ScreenSection
+        description={t("settings_translations.screen_description")}
+        title={t("settings_translations.screen_title")}
+        icon="settings-outline"
+      />
+      {isLoading ? (
+        <LoadingTextIndicator
+          message={t(
+            "settings_translations.module_loading_messages.loading_user_settings_msg",
           )}
-          selectedOption={
-            preferences.language
-              ? getSelectedLanguage(preferences.language)
-              : appLanguages[0]
-          }
-          onSelectOption={(option) => {
-            setLanguage(option.key);
-            mutate({ language: option.key });
-          }}
+          color={AppColors.primary[400]}
         />
-      </PopUp>
-      <PopUp
-        icon="timer-outline"
-        title={t(
-          "settings_translations.preferences_popups_labels.auto_clean_frecuency.title",
-        )}
-        isOpen={frecuencyPopUp.isOpen}
-        onClose={frecuencyPopUp.closePopUp}
-      >
-        <DropdownOptionList<CleanFrecuencyOption>
-          optionList={cleanFrecuencyOptions}
-          optionIdkey="key"
-          optionLabelKey="label"
-          searchInputPlaceholder={t(
-            "settings_translations.preferences_popups_labels.auto_clean_frecuency.list_search_placeholder",
-          )}
-          selectedOption={
-            preferences.cleanFrecuency
-              ? getSelectedFrecuency(preferences.cleanFrecuency)
-              : cleanFrecuencyOptions[0]
-          }
-          onSelectOption={(option) => mutate({ cleanFrecuency: option.key })}
-        />
-      </PopUp>
-
-      <View style={styles.PanelContainer}>
-        <ScreenSection
-          description={t("settings_translations.screen_description")}
-          title={t("settings_translations.screen_title")}
-          icon="settings-outline"
-        />
-        {isLoading ? (
-          <LoadingTextIndicator
-            message={t(
-              "settings_translations.module_loading_messages.loading_user_settings_msg",
+      ) : (
+        <View style={styles.OptionsList}>
+          <Switch
+            label={t(
+              "settings_translations.preferences_options_labels.auto_sync",
             )}
-            color={AppColors.primary[400]}
+            labelDirection="left"
+            state={preferences.autoSync ? "on" : "off"}
+            onToggleSwitch={() => mutate({ autoSync: !preferences.autoSync })}
           />
-        ) : (
-          <View style={styles.OptionsList}>
-            <Switch
-              label={t(
-                "settings_translations.preferences_options_labels.auto_sync",
-              )}
-              labelDirection="left"
-              state={preferences.autoSync ? "on" : "off"}
-              onToggleSwitch={() => mutate({ autoSync: !preferences.autoSync })}
-            />
-            <Switch
-              label={t(
-                "settings_translations.preferences_options_labels.push_notifications",
-              )}
-              labelDirection="left"
-              state={preferences.pushNotifications ? "on" : "off"}
-              onToggleSwitch={() =>
-                mutate({
-                  pushNotifications: !preferences.pushNotifications,
-                })
-              }
-            />
-            <Switch
-              label={t(
-                "settings_translations.preferences_options_labels.auto_clean_notifications",
-              )}
-              labelDirection="left"
-              state={preferences.autoCleanNotifications ? "on" : "off"}
-              onToggleSwitch={() =>
-                mutate({
-                  autoCleanNotifications: !preferences.autoCleanNotifications,
-                })
-              }
-            />
-            {preferences.autoCleanNotifications && (
-              <Dropdown<{ cleanFrecuency: string }, CleanFrecuencyOption>
-                name="cleanFrecuency"
-                icon="timer-outline"
-                label={t(
-                  "settings_translations.preferences_options_labels.auto_clean_notifications_frecuency.label",
-                )}
-                placeholder={t(
-                  "settings_translations.preferences_options_labels.auto_clean_notifications_frecuency.placeholder",
-                )}
-                selectedOption={
-                  preferences.cleanFrecuency
-                    ? getSelectedFrecuency(preferences.cleanFrecuency)
-                    : cleanFrecuencyOptions[0]
-                }
-                optionValueKey="label"
-                displayDropdownOptions={frecuencyPopUp.openPopUp}
-                clearSelectedOption={() =>
-                  mutate({
-                    cleanFrecuency: cleanFrecuencyOptions[0].key,
-                  })
-                }
-              />
+          <Switch
+            label={t(
+              "settings_translations.preferences_options_labels.push_notifications",
             )}
-            <Dropdown<{ language: string }, AppLanguage>
-              name="language"
-              icon="language-outline"
+            labelDirection="left"
+            state={preferences.pushNotifications ? "on" : "off"}
+            onToggleSwitch={() =>
+              mutate({
+                pushNotifications: !preferences.pushNotifications,
+              })
+            }
+          />
+          <Switch
+            label={t(
+              "settings_translations.preferences_options_labels.auto_clean_notifications",
+            )}
+            labelDirection="left"
+            state={preferences.autoCleanNotifications ? "on" : "off"}
+            onToggleSwitch={() =>
+              mutate({
+                autoCleanNotifications: !preferences.autoCleanNotifications,
+              })
+            }
+          />
+          {preferences.autoCleanNotifications && (
+            <Dropdown<{ cleanFrecuency: string }, CleanFrecuencyOption>
+              name="cleanFrecuency"
+              icon="timer-outline"
               label={t(
-                "settings_translations.preferences_options_labels.app_language.label",
+                "settings_translations.preferences_options_labels.auto_clean_notifications_frecuency.label",
               )}
               placeholder={t(
-                "settings_translations.preferences_options_labels.app_language.placeholder",
+                "settings_translations.preferences_options_labels.auto_clean_notifications_frecuency.placeholder",
               )}
               selectedOption={
-                preferences.language
-                  ? getSelectedLanguage(preferences.language)
-                  : appLanguages[0]
+                preferences.cleanFrecuency
+                  ? getSelectedFrecuency(preferences.cleanFrecuency)
+                  : cleanFrecuencyOptions[0]
               }
               optionValueKey="label"
-              displayDropdownOptions={languagePopUp.openPopUp}
+              displayDropdownOptions={() =>
+                router.navigate("/(app)/set_clean_frecuency_sheet")
+              }
               clearSelectedOption={() =>
-                mutate({ language: appLanguages[0].key })
+                mutate({
+                  cleanFrecuency: cleanFrecuencyOptions[0].key,
+                })
               }
             />
-          </View>
-        )}
-      </View>
-    </>
+          )}
+          <Dropdown<{ language: string }, AppLanguage>
+            name="language"
+            icon="language-outline"
+            label={t(
+              "settings_translations.preferences_options_labels.app_language.label",
+            )}
+            placeholder={t(
+              "settings_translations.preferences_options_labels.app_language.placeholder",
+            )}
+            selectedOption={
+              preferences.language
+                ? getSelectedLanguage(preferences.language)
+                : appLanguages[0]
+            }
+            optionValueKey="label"
+            displayDropdownOptions={() =>
+              router.navigate("/(app)/set_language_sheet")
+            }
+            clearSelectedOption={() =>
+              mutate({ language: appLanguages[0].key })
+            }
+          />
+        </View>
+      )}
+    </View>
   );
 };
 

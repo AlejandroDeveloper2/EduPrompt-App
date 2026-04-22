@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { ScrollView, View } from "react-native";
 
 import { ResourceFormat } from "../../../types";
@@ -9,9 +8,12 @@ import { AppColors, Spacing } from "@/shared/styles";
 import { useSaveResourceFormLogic } from "@/features/generations/hooks/core";
 import { useGenerateResourceMutation } from "@/features/generations/hooks/mutations";
 import { useGenerationsStore } from "@/features/generations/hooks/store";
-import { useBackgroundTaskRunner, useTranslations } from "@/shared/hooks/core";
+import {
+  useBackgroundTaskRunner,
+  useResponsive,
+  useTranslations,
+} from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { getResourcePrice } from "@/features/generations/helpers";
 import { copyToClipboard } from "@/shared/utils";
@@ -36,20 +38,16 @@ const IaResponseCard = ({
   format,
   iaGeneratedContent,
 }: IaResponseCardProps) => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const {
     createAndSelectNewGeneration,
     editSelectedGeneration,
     clearAndRemoveSelectedGeneration,
     executeIaGeneration,
   } = useGenerationsStore();
-
   const { mutateAsync, isPending, data } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
-
   const userProfile = useEventbusValue("userProfile.user.updated", null);
-
   const {
     isLoading,
     selectedTag,
@@ -61,20 +59,15 @@ const IaResponseCard = ({
     isTagSelectionMode,
     setIsTagSelectionMode,
   } = useSaveResourceFormLogic();
-
   const { t } = useTranslations();
 
-  const viewerType = useMemo(
-    () =>
-      format.formatKey === "text"
-        ? "text"
-        : format.formatKey === "image"
-          ? "image"
-          : "table/chart",
-    [format],
-  );
-
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const viewerType =
+    format.formatKey === "text"
+      ? "text"
+      : format.formatKey === "image"
+        ? "image"
+        : "table/chart";
+  const styles = dynamicStyles(size);
 
   return (
     <>

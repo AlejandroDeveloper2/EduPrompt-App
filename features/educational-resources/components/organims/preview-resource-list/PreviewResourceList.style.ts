@@ -38,10 +38,4 @@ export const dynamicStyles = (size: SizeType) =>
       gap: size === "mobile" ? Spacing.spacing_lg : Spacing.spacing_xl,
       justifyContent: "flex-start",
     },
-    ViewPreviewContainer: {
-      width: "100%",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: Spacing.spacing_xl,
-    },
   });

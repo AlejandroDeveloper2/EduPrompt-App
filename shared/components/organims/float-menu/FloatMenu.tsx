@@ -1,9 +1,9 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Portal } from "react-native-portalize";
 import Animated from "react-native-reanimated";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { FloatMenuItem } from "../../molecules";
 
@@ -26,8 +26,9 @@ const FloatMenu = ({
   children,
   toggleDeploy,
 }: FloatMenuProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+
+  const styles = dynamicStyles(size);
 
   if (!isMounted) return null;
   return (

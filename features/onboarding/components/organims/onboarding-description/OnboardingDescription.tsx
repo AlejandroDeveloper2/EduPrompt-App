@@ -1,10 +1,8 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
 import { useOnboardingStore } from "../../../hooks/store";
 
 import { renderOnboardingStepImage } from "../../../utils";
@@ -12,7 +10,7 @@ import { renderOnboardingStepImage } from "../../../utils";
 import { ScreenSection } from "@/shared/components/atoms";
 import { Button } from "@/shared/components/molecules";
 
-import { useTranslations } from "@/shared/hooks/core";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { dynamicStyles } from "./OnboardingDescription.style";
 
@@ -30,7 +28,7 @@ const OnboardingDescription = ({
   runReverseAnimation,
   animatedOnboardingStyle,
 }: OnboardingDescriptionProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const {
     isCompleting,
     currentStep,
@@ -38,15 +36,10 @@ const OnboardingDescription = ({
     handlePreviousStep,
     completeOnboarding,
   } = useOnboardingStore();
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
-
-  const Illustration = useMemo(
-    () => renderOnboardingStepImage(currentStep.stepIllustration),
-    [currentStep.stepIllustration],
-  );
+  const styles = dynamicStyles(size);
+  const Illustration = renderOnboardingStepImage(currentStep.stepIllustration);
 
   return (
     <Animated.ScrollView

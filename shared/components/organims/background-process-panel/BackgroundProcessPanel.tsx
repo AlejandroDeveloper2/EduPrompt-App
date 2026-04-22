@@ -13,7 +13,6 @@ import { styles } from "./BackgroundProcessPanel.style";
 
 const BackgroundProcessPanel = () => {
   const { tasks } = useBackgroundTasksStore();
-
   const { t } = useTranslations();
 
   return (

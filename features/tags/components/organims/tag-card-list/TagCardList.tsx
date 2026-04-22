@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { FlatList } from "react-native";
 
 import { AppColors } from "@/shared/styles";
@@ -47,7 +46,7 @@ const TagCardList = () => {
     t,
   } = useTagCardListLogic();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   if (isError)
     return (

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { FlatList } from "react-native";
 
 import { eventBus } from "@/core/events/EventBus";
@@ -9,11 +9,12 @@ import {
   useGenerationsSelectionStore,
   useGenerationsStore,
 } from "@/features/generations/hooks/store";
-import { useSearchInput, useTranslations } from "@/shared/hooks/core";
 import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+  useResponsive,
+  useSearchInput,
+  useTranslations,
+} from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import { Button } from "@/shared/components/molecules";
 import { GenerationCard } from "../../molecules";
@@ -24,7 +25,7 @@ import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { dynamicStyles } from "./GenerationCardList.style";
 
 const GenerationCardList = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
     useGenerationsSelectionStore();
   const {
@@ -80,7 +81,7 @@ const GenerationCardList = () => {
     else if (!allSelected && isAllSelected) clearSelection();
   }, [allSelected]);
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <FlatList

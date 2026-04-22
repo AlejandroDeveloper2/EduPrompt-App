@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { Pressable, ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -7,12 +7,12 @@ import { ButtonVariantType, ButtonWidthType } from "@/core/types";
 
 import { FontIconSizes } from "../../../styles";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { getButtonColorLabel } from "../../../helpers";
 import {
   useAnimatedButton,
   useAnimatedSpinner,
 } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Spinner, Typography } from "../../atoms";
 
@@ -46,15 +46,15 @@ const BaseButton = ({
   style,
   onPress,
 }: BaseButtonProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { animatedBackground, onPressIn, onPressOut } = useAnimatedButton(
     variant,
     disabled,
   );
   const { animatedCircleStyles } = useAnimatedSpinner();
 
-  const labelColor = useMemo(() => getButtonColorLabel(variant), [variant]);
-  const styles = useMemo(() => dynamicStyles({ width, size }), [width, size]);
+  const labelColor = getButtonColorLabel(variant);
+  const styles = dynamicStyles({ width, size });
 
   return (
     <AnimatedPressable
@@ -92,12 +92,9 @@ const BaseButton = ({
 };
 
 const Button = ({ label, icon, ...props }: ButtonProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const labelColor = useMemo(
-    () => getButtonColorLabel(props.variant, props.disabled),
-    [props.disabled, props.variant],
-  );
+  const labelColor = getButtonColorLabel(props.variant, props.disabled);
 
   return (
     <BaseButton {...props}>

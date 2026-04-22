@@ -1,13 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AlertVariantType } from "@/core/types";
 
 import { AppColors } from "../../../styles";
 
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { Typography } from "../../atoms";
 import { Button } from "../../molecules";
@@ -35,30 +33,22 @@ const Alert = ({
   onCancel,
   onAccept,
 }: AlertProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
-
-  const btnVariant = useMemo(
-    () =>
-      variant === "success"
-        ? "primary"
-        : variant === "info"
-          ? "neutral"
-          : "danger",
-    [variant],
-  );
-
-  const alertIcon: keyof typeof Ionicons.glyphMap = useMemo(
-    () =>
-      variant === "danger"
-        ? "warning-outline"
-        : variant === "info"
-          ? "information-outline"
-          : "checkmark-outline",
-    [variant],
-  );
+  const styles = dynamicStyles(size);
+  const btnVariant =
+    variant === "success"
+      ? "primary"
+      : variant === "info"
+        ? "neutral"
+        : "danger";
+  const alertIcon: keyof typeof Ionicons.glyphMap =
+    variant === "danger"
+      ? "warning-outline"
+      : variant === "info"
+        ? "information-outline"
+        : "checkmark-outline";
 
   return (
     <View style={styles.AlertContainer}>

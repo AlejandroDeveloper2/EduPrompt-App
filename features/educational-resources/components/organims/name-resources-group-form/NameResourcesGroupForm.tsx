@@ -23,7 +23,6 @@ const NameResourcesGroupForm = ({
   closePopUp,
 }: NameResourcesGroupFormProps) => {
   const { shareResources, isSharing } = useOfflineResourcesStore();
-
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       validationSchema: nameResourcesGroupSchema,
@@ -33,7 +32,6 @@ const NameResourcesGroupForm = ({
         closePopUp();
       },
     });
-
   const { t } = useTranslations();
 
   return (
@@ -54,7 +52,6 @@ const NameResourcesGroupForm = ({
               errorMessage={getFieldErrors("groupName")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("groupName")}
-              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>

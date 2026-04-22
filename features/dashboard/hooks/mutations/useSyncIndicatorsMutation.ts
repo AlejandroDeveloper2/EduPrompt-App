@@ -1,18 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Indicator } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useIndicatorPanelStore } from "../store";
+import { useIndicatorPanelStore } from "../../store";
 
 import { putIndicators } from "../../services";
 
 const useSyncIndicatorsMutation = () => {
   const queryClient = useQueryClient();
 
-  const { setIndicators, indicators } = useIndicatorPanelStore();
+  const { setIndicators, indicators } = useIndicatorPanelStore(
+    useShallow((state) => ({
+      setIndicators: state.setIndicators,
+      indicators: state.indicators,
+    })),
+  );
 
   const mutation = useMutation({
     mutationFn: putIndicators,

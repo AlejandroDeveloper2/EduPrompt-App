@@ -9,8 +9,7 @@ import { Notification, NotificationLink } from "@/features/notifications/types";
 import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
 import { useNotificationsSelectionStore } from "@/features/notifications/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { openExternalLink } from "@/features/notifications/helpers";
 
@@ -31,21 +30,18 @@ const NotificationCard = ({
   links,
   canSelect,
 }: NotificationCardProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { selectedNotificationIds, toggleSelection } =
     useNotificationsSelectionStore();
-
   const isSelected: boolean = useMemo(
     () => selectedNotificationIds.has(data.notificationId),
     [data.notificationId, selectedNotificationIds],
   );
-
   const animatedCardStyle = useAnimatedCard(isSelected);
   const { isNew, formattedDate } = useCheckIsNewNotification(data.creationDate);
-
   const { t, lang } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <Animated.View style={[styles.NotificationContainer, animatedCardStyle]}>

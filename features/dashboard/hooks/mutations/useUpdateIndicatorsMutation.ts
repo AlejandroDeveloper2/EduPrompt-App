@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { Indicator } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useIndicatorPanelStore } from "../store";
+import { useIndicatorPanelStore } from "../../store";
 
 import { patchIndicators } from "../../services";
 
@@ -14,7 +15,9 @@ const useUpdateIndicatorsMutation = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   /** Offline */
-  const { setIndicators } = useIndicatorPanelStore();
+  const setIndicators = useIndicatorPanelStore(
+    useShallow((state) => state.setIndicators),
+  );
 
   return useMutation({
     mutationFn: async (indicators) => {

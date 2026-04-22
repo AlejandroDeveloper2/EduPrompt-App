@@ -12,11 +12,11 @@ import { FORM_TABS } from "./constants";
 import {
   useCheckNetwork,
   usePopUp,
+  useResponsive,
   useTranslations,
 } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
 import useEventBusValue from "@/shared/hooks/events/useEventbusValue";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Link, ScreenSection } from "@/shared/components/atoms";
 import {
@@ -33,26 +33,21 @@ import { dynamicStyles } from "./UserProfilePanel.style";
 
 const UserProfilePanel = () => {
   const { t } = useTranslations();
-
   const tabs = useMemo(() => FORM_TABS(t), [t]);
 
   const [activeFormTab, setActiveFormTab] = useState<Tab>(tabs[0]);
 
   const router = useRouter();
-
   const isAuth = useEventBusValue("auth.authenticated", false);
   const loading = useEventBusToggle("auth.logout.started", [
     "auth.logout.completed",
     "auth.logout.failed",
   ]);
-
   const { isConnected } = useCheckNetwork();
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { isOpen, closePopUp, openPopUp } = usePopUp();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
-
+  const styles = dynamicStyles(size);
   const Form: FormSectionComponentMap = {
     "tab-1": <UpdateUsernameForm />,
     "tab-2": <UserEmailForm />,

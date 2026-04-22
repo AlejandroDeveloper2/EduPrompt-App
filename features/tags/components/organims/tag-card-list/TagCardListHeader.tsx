@@ -1,11 +1,9 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { TagType } from "@/features/tags/types";
 import { AppColors } from "@/shared/styles";
 
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input } from "@/shared/components/molecules";
@@ -29,11 +27,10 @@ const TagCardListHeader = ({
   onClearSearchInput,
   onChangeFilter,
 }: TagListHeaderProps) => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.ListHeaderContainer}>

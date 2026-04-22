@@ -1,12 +1,11 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { ScrollView } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
 import { useMarketplace } from "@/features/marketplace/hooks/core";
 import { useTokenPackagesQuery } from "@/features/marketplace/hooks/query";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import {
   AdvancePackageToken,
@@ -19,11 +18,9 @@ import TokenPackageCard from "../token-package-card/TokenPackageCard";
 import { dynamicStyles } from "./TokenPackageList.style";
 
 const TokenPackageList = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { t, lang } = useTranslations();
-
   const { isProccesingOrder, createPurchase } = useMarketplace();
-
   const {
     data: packages,
     isLoading: isPackagesLoading,
@@ -35,8 +32,7 @@ const TokenPackageList = () => {
     1: <ProPackageToken />,
     2: <AdvancePackageToken />,
   };
-
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <ScrollView horizontal contentContainerStyle={styles.PackageList}>

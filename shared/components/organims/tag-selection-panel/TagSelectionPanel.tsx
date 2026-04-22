@@ -34,7 +34,6 @@ const TagSelectionPanel = ({
         )}
         onChange={(_, value) => onSearchChange(value)}
         onClearInput={() => onSearchChange("")}
-        isInPopUp
       />
     </View>
   );

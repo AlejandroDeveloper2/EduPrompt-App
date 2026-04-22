@@ -10,6 +10,7 @@ export { default as useListFilters } from "./useListFilters";
 export { default as useLoading } from "./useLoading";
 export { default as usePopUp } from "./usePopUp";
 export { default as useProgressBar } from "./useProgressBar";
+export { default as useResponsive } from "./useResponsive";
 export { default as useSearchInput } from "./useSearchInput";
 export { default as useSetupApp } from "./useSetupApp";
 export { default as useToolbar } from "./useToolbar";

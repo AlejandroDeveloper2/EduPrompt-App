@@ -60,7 +60,6 @@ const SaveResourceForm = ({
               errorMessage={getFieldErrors("title")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("title")}
-              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>

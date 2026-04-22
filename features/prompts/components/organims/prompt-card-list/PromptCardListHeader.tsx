@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { ScrollView, View } from "react-native";
 
 import { Tag } from "@/features/tags/types";
@@ -8,8 +7,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { AppColors } from "@/shared/styles";
 
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
-import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { usePopUp, useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
@@ -26,10 +24,9 @@ interface PromptCardListHeaderProps {
 }
 
 const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
   const { isOpen, openPopUp, closePopUp } = usePopUp();
-
   const {
     searchPromptValue,
     searchTagValue,
@@ -39,10 +36,9 @@ const PromptCardListHeader = ({ isDataSync }: PromptCardListHeaderProps) => {
     paginatedTags,
     onTagFilterChange,
   } = usePromptFiltersContext();
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <>

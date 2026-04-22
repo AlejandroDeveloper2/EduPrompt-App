@@ -1,11 +1,10 @@
-import { useMemo } from "react";
 import { ViewStyle } from "react-native";
 import Animated from "react-native-reanimated";
 import Svg, { Path } from "react-native-svg";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { dynamicStyles } from "./Logo.style";
 
@@ -16,8 +15,8 @@ interface LogoV2Props {
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
 const Logo = () => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+  const styles = dynamicStyles(size);
 
   return (
     <Svg style={styles.logoSvg} fill="none">
@@ -34,8 +33,8 @@ const Logo = () => {
 };
 
 export const LogoV2 = ({ style }: LogoV2Props) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedSvg style={[styles.logoV2Svg, style]} fill="none">

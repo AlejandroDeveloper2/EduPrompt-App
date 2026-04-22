@@ -1,5 +1,4 @@
 import { Href, useRouter } from "expo-router";
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import { AppColors } from "../../../styles";
@@ -27,8 +26,7 @@ export const ExternalLink = ({
   href,
   alignment,
 }: ExternalLinkProps) => {
-  const styles = useMemo(() => dynamicStyles(alignment), [alignment]);
-
+  const styles = dynamicStyles(alignment);
   return (
     <View style={styles.LinkContainer}>
       <Typography

@@ -4,13 +4,13 @@ import { NativeSyntheticEvent, TextInputKeyPressEventData } from "react-native";
 import { TextInputInstance } from "@/core/types";
 
 import { useAnimatedInput } from "../animations";
-import { useScreenDimensionsStore } from "../store";
+import useResponsive from "./useResponsive";
 
 const useCodeInput = (
   name: string,
   value: string,
   onChange: (name: string, value: string) => void,
-  errorMessage?: string
+  errorMessage?: string,
 ) => {
   const codeArray = [
     value.charAt(0) ?? "",
@@ -19,7 +19,7 @@ const useCodeInput = (
     value.charAt(3) ?? "",
   ];
 
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const error = errorMessage !== undefined;
 
   const { onBlur, onFocus, animatedInputStyle } = useAnimatedInput(error);
@@ -40,7 +40,7 @@ const useCodeInput = (
 
   const handleKeyPress = (
     e: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    index: number
+    index: number,
   ) => {
     if (e.nativeEvent.key === "Backspace" && !codeArray[index] && index > 0) {
       const newCodeArray = [...codeArray];

@@ -1,13 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { ProgressConfig } from "@/core/types";
 
 import { AppColors } from "../../../styles";
 
-import { useProgressBar } from "../../../hooks/core";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useProgressBar, useResponsive } from "../../../hooks/core";
 
 import { Typography } from "../../atoms";
 import { ProgressBar } from "../../molecules";
@@ -29,10 +27,10 @@ const Loader = ({
   progressConfig,
   tasksDone,
 }: LoaderProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const progressPercentage = useProgressBar(progressConfig, tasksDone);
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.LoaderContainer}>

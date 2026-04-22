@@ -1,12 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useState } from "react";
 import { TextInput, View } from "react-native";
 
 import { AppColors, Spacing } from "../../../styles";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedInput } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon } from "../../atoms";
 import BaseInput, { BaseInputProps } from "./BaseInput";
@@ -23,7 +22,6 @@ export interface InputProps<T> extends Omit<
   placeholder: string;
   password?: boolean;
   children?: ReactNode | ReactNode[];
-  isInPopUp?: boolean;
   onChange: (name: keyof T, value: string) => void;
   onClearInput: () => void;
 }
@@ -36,18 +34,16 @@ function Input<T>({
   children,
   onChange,
   onClearInput,
-  isInPopUp,
   ...props
 }: InputProps<T>) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { onBlur, onFocus, animatedInputStyle } = useAnimatedInput(
     props.errorMessage !== undefined,
   );
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <BaseInput {...props} animatedInputStyle={animatedInputStyle}>
@@ -64,43 +60,23 @@ function Input<T>({
             color={AppColors.neutral[props.disabled ? 500 : 1000]}
           />
         </View>
-        {isInPopUp ? (
-          <BottomSheetTextInput
-            id={name as string}
-            value={value}
-            secureTextEntry={password ? !showPassword : false}
-            onChangeText={(e) => onChange(name, e)}
-            editable={props.disabled === undefined}
-            placeholder={placeholder}
-            placeholderTextColor={AppColors.neutral[500]}
-            style={styles.Input}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            {...(props.textArea && {
-              multiline: true,
-              numberOfLines: 20,
-              maxLength: 2000,
-            })}
-          />
-        ) : (
-          <TextInput
-            id={name as string}
-            value={value}
-            secureTextEntry={password ? !showPassword : false}
-            onChangeText={(e) => onChange(name, e)}
-            editable={props.disabled === undefined}
-            placeholder={placeholder}
-            placeholderTextColor={AppColors.neutral[500]}
-            style={styles.Input}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            {...(props.textArea && {
-              multiline: true,
-              numberOfLines: 20,
-              maxLength: 2000,
-            })}
-          />
-        )}
+        <TextInput
+          id={name as string}
+          value={value}
+          secureTextEntry={password ? !showPassword : false}
+          onChangeText={(e) => onChange(name, e)}
+          editable={props.disabled === undefined}
+          placeholder={placeholder}
+          placeholderTextColor={AppColors.neutral[500]}
+          style={styles.Input}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          {...(props.textArea && {
+            multiline: true,
+            numberOfLines: 20,
+            maxLength: 2000,
+          })}
+        />
 
         <View style={styles.Tools}>
           {value.length > 0 && !props.disabled && (

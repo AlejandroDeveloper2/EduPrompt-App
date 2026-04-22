@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { Pressable } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Ionicon } from "../icon/Icon";
 
@@ -16,12 +15,9 @@ interface CheckboxProps {
 }
 
 const Checkbox = ({ checked, onCheck, disabled }: CheckboxProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const styles = useMemo(
-    () => dynamicStyles(size, checked, disabled),
-    [checked, disabled, size],
-  );
+  const styles = dynamicStyles(size, checked, disabled);
 
   return (
     <Pressable disabled={disabled} onPress={onCheck} style={styles.checkbox}>

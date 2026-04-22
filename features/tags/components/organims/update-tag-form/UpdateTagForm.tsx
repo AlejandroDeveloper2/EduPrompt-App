@@ -64,7 +64,6 @@ const UpdateTagForm = ({ selectedTag, onClosePopup }: UpdateTagFormProps) => {
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("name")}
-              isInPopUp
             />
           </Form.Row.Item>
           <Form.Row.Item span={1}>

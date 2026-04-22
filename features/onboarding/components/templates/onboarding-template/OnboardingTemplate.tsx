@@ -1,11 +1,10 @@
-import { useMemo } from "react";
 import { ImageBackground, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { OnboardingStep } from "@/features/onboarding/types";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedOnboarding } from "../../../hooks/animations";
 import { useOnboardingStore } from "../../../hooks/store";
 
@@ -20,8 +19,7 @@ import EduPromptBackground from "@/assets/images/eduprompt-background.png";
 
 const OnboardingTemplate = () => {
   const insets = useSafeAreaInsets();
-
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { currentStep, steps, goToExactStep } = useOnboardingStore();
   const {
     animatedOnboardingStyle,
@@ -30,7 +28,7 @@ const OnboardingTemplate = () => {
     runReverseAnimation,
   } = useAnimatedOnboarding();
 
-  const styles = useMemo(() => dynamicStyles(size, insets), [size, insets]);
+  const styles = dynamicStyles(size, insets);
 
   return (
     <View style={GlobalStyles.RootContainer}>

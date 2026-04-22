@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { DimensionValue } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -14,7 +13,7 @@ interface ToastLoadBarProps {
 }
 
 const ToastLoadBar = ({ variant, animatedWidth }: ToastLoadBarProps) => {
-  const styles = useMemo(() => dynamicStyles(variant), [variant]);
+  const styles = dynamicStyles(variant);
   return (
     <Animated.View
       style={[styles.LoadIndicator, animatedWidth]}

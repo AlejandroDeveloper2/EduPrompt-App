@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { useHeaderLogic } from "@/shared/hooks/core";
@@ -42,7 +41,7 @@ const Header = () => {
     isAuthenticated,
   } = useHeaderLogic();
 
-  const styles = useMemo(() => dynamicStyles(size, insets), [size, insets]);
+  const styles = dynamicStyles(size, insets);
 
   return (
     <>
@@ -62,19 +61,23 @@ const Header = () => {
               />
             ) : undefined
           }
-          onPress={() => handleNavigate("/(tabs)/notifications_screen", true)}
+          onPress={() =>
+            handleNavigate("/(app)/(tabs)/notifications_screen", true)
+          }
         />
         <FloatMenu.Item
           label={t("common_translations.header_labels.marketplace")}
           icon="storefront-outline"
           active={pathname === "/marketplace_screen"}
-          onPress={() => handleNavigate("/(tabs)/marketplace_screen", true)}
+          onPress={() =>
+            handleNavigate("/(app)/(tabs)/marketplace_screen", true)
+          }
         />
         <FloatMenu.Item
           label={t("common_translations.header_labels.settings")}
           icon="settings-outline"
           active={pathname === "/settings_screen"}
-          onPress={() => handleNavigate("/(tabs)/settings_screen", true)}
+          onPress={() => handleNavigate("/(app)/(tabs)/settings_screen", true)}
         />
       </FloatMenu>
       <View style={styles.HeaderContainer}>
@@ -117,21 +120,24 @@ const Header = () => {
                       ) : undefined
                     }
                     onPress={() =>
-                      handleNavigate("/(tabs)/notifications_screen", false)
+                      handleNavigate(
+                        "/(app)/(tabs)/notifications_screen",
+                        false,
+                      )
                     }
                   />
                   <NavItem
                     active={pathname === "/marketplace_screen"}
                     icon="storefront-outline"
                     onPress={() =>
-                      handleNavigate("/(tabs)/marketplace_screen", false)
+                      handleNavigate("/(app)/(tabs)/marketplace_screen", false)
                     }
                   />
                   <NavItem
                     active={pathname === "/settings_screen"}
                     icon="settings-outline"
                     onPress={() =>
-                      handleNavigate("/(tabs)/settings_screen", false)
+                      handleNavigate("/(app)/(tabs)/settings_screen", false)
                     }
                   />
                   <TokenBadge

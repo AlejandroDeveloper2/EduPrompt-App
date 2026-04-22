@@ -1,23 +1,19 @@
-import { useMemo } from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors, Spacing } from "../../../styles";
 
-import { useTranslations } from "@/shared/hooks/core";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useAnimatedToolbar } from "../../../hooks/animations";
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "../../../hooks/store";
+import { useSelectionModeStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
 import { dynamicStyles } from "./ToolBar.style";
 
 const Toolbar = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
   const { selectionMode, disableSelectionMode, toggleSelectAll } =
     useSelectionModeStore();
@@ -30,15 +26,13 @@ const Toolbar = () => {
     "selectionMode.selectedElements.updated",
     0,
   );
-
   const animatedTranslate = useAnimatedToolbar(
     selectionMode,
     disableSelectionMode,
   );
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <Animated.View style={[styles.Container, animatedTranslate]}>

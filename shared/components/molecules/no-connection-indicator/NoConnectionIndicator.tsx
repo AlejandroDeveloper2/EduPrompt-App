@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { MaterialIcon, Typography } from "../../atoms";
 
@@ -14,8 +13,9 @@ interface NoConnectionIndicatorProps {
 }
 
 const NoConnectionIndicator = ({ message }: NoConnectionIndicatorProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.Container}>

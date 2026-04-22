@@ -9,11 +9,8 @@ import { AppColors } from "@/shared/styles";
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
 import { usePromptsSelectionStore } from "@/features/prompts/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import {
   Badge,
@@ -40,25 +37,20 @@ const PromptCard = ({
 }: PromptCardProps) => {
   const { promptTitle } = promptData;
 
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { selectedPromptIds, toggleSelection } = usePromptsSelectionStore();
   const { selectionMode } = useSelectionModeStore();
-
   const {
     paginatedTags: { tags },
   } = usePromptFiltersContext();
-
   const isSelected: boolean = useMemo(
     () => selectedPromptIds.has(promptData.promptId),
     [promptData.promptId, selectedPromptIds],
   );
-
   const animatedCardStyle = useAnimatedCard(isSelected);
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedPressable

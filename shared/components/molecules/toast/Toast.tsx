@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Href } from "expo-router";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import Animated from "react-native-reanimated";
 
 import { ToastVariantType } from "@/core/types";
@@ -8,11 +8,12 @@ import { ToastVariantType } from "@/core/types";
 import { AppColors } from "../../../styles";
 
 import { getToastIcon } from "../../../helpers";
+
+import { useResponsive } from "@/shared/hooks/core";
 import {
   useAnimatedToast,
   useAnimatedToastLoadBar,
 } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { ToastLink, ToastLoadBar, Typography } from "../../atoms";
 
@@ -36,7 +37,7 @@ const Toast = ({
   link,
   duration = 5000,
 }: ToastProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const animatedWidth = useAnimatedToastLoadBar(duration);
   const { animatedTranslate, animateExit } = useAnimatedToast();
 
@@ -50,8 +51,8 @@ const Toast = ({
     return () => clearTimeout(timer);
   }, []);
 
-  const icon = useMemo(() => getToastIcon(variant), [variant]);
-  const styles = useMemo(() => dynamicStyles(size, variant), [size, variant]);
+  const icon = getToastIcon(variant);
+  const styles = dynamicStyles(size, variant);
 
   return (
     <Animated.View style={[styles.Container, animatedTranslate]}>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { FlatList, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
@@ -7,8 +7,7 @@ import { Order } from "@/core/types";
 
 import { useMarkAsReadNotificationsMutation } from "@/features/notifications/hooks/mutations";
 import { useSystemNotificationsQuery } from "@/features/notifications/hooks/queries";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import {
@@ -29,11 +28,10 @@ const NotificationListHeader = ({
   filter,
   updateFilter,
 }: NotificationListHeaderProps) => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => systemNotificationListStyles(size), [size]);
+  const styles = systemNotificationListStyles(size);
 
   return (
     <View style={styles.ListHeaderContainer}>
@@ -80,17 +78,14 @@ const NotificationListHeader = ({
 };
 
 const SystemNotificationsList = () => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const {
     data: notifications,
     isLoading,
     filter,
     updateFilter,
   } = useSystemNotificationsQuery();
-
   const { mutate } = useMarkAsReadNotificationsMutation();
-
   const { t, lang } = useTranslations();
 
   useEffect(() => {
@@ -101,7 +96,7 @@ const SystemNotificationsList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
-  const styles = useMemo(() => systemNotificationListStyles(size), [size]);
+  const styles = systemNotificationListStyles(size);
 
   return (
     <FlatList

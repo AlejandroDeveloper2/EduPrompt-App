@@ -1,10 +1,9 @@
 import { Href, useRouter } from "expo-router";
-import { useMemo } from "react";
 import { Pressable } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import Typography from "../typography/Typography";
 
@@ -17,9 +16,9 @@ interface ToastLinkProps {
 
 const ToastLink = ({ href, label }: ToastLinkProps) => {
   const router = useRouter();
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <Pressable style={styles.Container} onPress={() => router.replace(href)}>

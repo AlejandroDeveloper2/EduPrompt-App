@@ -7,11 +7,8 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+import { usePopUp, useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 import { usePromptFiltersContext } from "../context";
 import { useDeleteManyPromptsMutation } from "../mutations";
 import { usePromptsQuery } from "../queries";
@@ -21,7 +18,7 @@ const usePromptCardListLogic = () => {
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
 
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const {
     selectionCount,
     isAllSelected,

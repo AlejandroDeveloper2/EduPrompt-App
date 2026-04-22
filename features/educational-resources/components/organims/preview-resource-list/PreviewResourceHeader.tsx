@@ -1,24 +1,14 @@
-import { useMemo } from "react";
+import { useRouter } from "expo-router";
 import { ScrollView, View } from "react-native";
-
-import { Tag } from "@/features/tags/types";
-
-import { eventBus } from "@/core/events/EventBus";
 
 import { FORMAT_FILTERS } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
 
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
-import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
-import {
-  ComposedDropdownOptionList,
-  PopUp,
-  TagSelectionPanel,
-} from "@/shared/components/organims";
 
 import { dynamicStyles } from "./PreviewResourceList.style";
 
@@ -27,71 +17,23 @@ interface PreviewResourceHeaderProps {
 }
 
 const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
-  const size = useScreenDimensionsStore();
-
-  const { isOpen, openPopUp, closePopUp } = usePopUp();
-
+  const size = useResponsive();
+  const router = useRouter();
   const {
     searchResourceValue,
-    searchTagValue,
     tagFilter,
     formatFilter,
     onSearchResourceValueChange,
-    onSearchTagValueChange,
     paginatedTags,
     onTagFilterChange,
     onFormatFilterChange,
   } = useResourcesFiltersContext();
-
   const { t, lang } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <>
-      <PopUp
-        title={t(
-          "resources_translations.resources_list_labels.tag_list_popup_labels.title",
-        )}
-        icon="pricetag-outline"
-        isOpen={isOpen}
-        onClose={closePopUp}
-      >
-        <ComposedDropdownOptionList<Tag>
-          ControlPanelComponent={
-            <TagSelectionPanel
-              tagType="resource_tag"
-              searchValue={searchTagValue}
-              onSearchChange={(value) => onSearchTagValueChange(value)}
-            />
-          }
-          infinitePaginationOptions={{
-            ...paginatedTags,
-            onRefetch: () =>
-              eventBus.emit("tags.resourceType.refetch.requested", undefined),
-            onEndReached: () => {
-              if (
-                paginatedTags.hasNextPage &&
-                !paginatedTags.isFetchingNextPage
-              )
-                eventBus.emit(
-                  "tags.resourceType.fetchNextPage.requested",
-                  undefined,
-                );
-            },
-          }}
-          optionList={paginatedTags.tags}
-          optionIdkey="tagId"
-          optionLabelKey="name"
-          searchInputPlaceholder={t(
-            "resources_translations.resources_list_labels.tag_list_popup_labels.search_input_placeholder",
-          )}
-          selectedOption={tagFilter}
-          onSelectOption={(option) => {
-            onTagFilterChange(option);
-          }}
-        />
-      </PopUp>
       <View style={styles.ListHeaderContainer}>
         <ScreenSection
           description={t(
@@ -174,9 +116,9 @@ const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
                 />
               ))}
               <NavItem
-                active={isOpen}
+                active={false}
                 icon="search-outline"
-                onPress={openPopUp}
+                onPress={() => router.navigate("/(app)/resource_tags_sheet")}
               />
             </ScrollView>
           </View>

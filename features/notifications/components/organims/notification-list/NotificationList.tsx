@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 
 import { Order } from "@/core/types";
@@ -6,8 +5,7 @@ import { Order } from "@/core/types";
 import { AppColors } from "@/shared/styles";
 
 import { useLoadUserNotifications } from "@/features/notifications/hooks/core";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import {
@@ -29,11 +27,10 @@ const NotificationListHeader = ({
   filter,
   updateFilter,
 }: NotificationHeaderProps) => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.ListHeaderContainer}>
@@ -80,7 +77,7 @@ const NotificationListHeader = ({
 };
 
 const NotificationList = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const {
     isLoading,
     loadingMessage,
@@ -90,10 +87,9 @@ const NotificationList = () => {
     confirmDeletePopUp,
     deleteSelectedNotifications,
   } = useLoadUserNotifications();
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <>

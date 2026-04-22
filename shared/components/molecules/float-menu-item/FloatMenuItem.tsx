@@ -1,12 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "@/shared/styles";
 
 import { useAnimatedNavItem } from "@/shared/hooks/animations";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Typography } from "../../atoms";
 
@@ -29,10 +29,10 @@ const FloatMenuItem = ({
   Node,
   onPress,
 }: FloatMenuItemProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const animatedBackground = useAnimatedNavItem(active);
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedPressable

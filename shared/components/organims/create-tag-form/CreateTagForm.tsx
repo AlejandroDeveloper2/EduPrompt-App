@@ -22,7 +22,6 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
     "tags.createTag.completed",
     "tags.createTag.failed",
   ]);
-
   const { data, handleSubmit, handleChange, handleClearInput, getFieldErrors } =
     useForm({
       initialValues,
@@ -34,7 +33,6 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
         });
       },
     });
-
   const { t } = useTranslations();
 
   return (
@@ -55,7 +53,6 @@ const CreateTagForm = ({ tagType }: CreateTagFormProps) => {
               errorMessage={getFieldErrors("name")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("name")}
-              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>

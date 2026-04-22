@@ -3,14 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSyncDataStore } from "@/shared/hooks/store";
-import { useIndicatorPanelStore } from "../store";
+import { useIndicatorPanelStore } from "../../store";
 
 import { getIndicators } from "../../services";
 
 const useIndicatorsQuery = () => {
   const { isConnected } = useCheckNetwork();
 
-  const { loadIndicators } = useIndicatorPanelStore();
+  const loadIndicators = useIndicatorPanelStore(
+    (state) => state.loadIndicators,
+  );
 
   const { updateModuleSyncMapState } = useSyncDataStore();
 

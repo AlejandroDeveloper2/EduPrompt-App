@@ -1,26 +1,26 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
-import { useCheckPremium, useTranslations } from "@/shared/hooks/core";
+import {
+  useCheckPremium,
+  useResponsive,
+  useTranslations,
+} from "@/shared/hooks/core";
 import { useAnimatedSubscriptionBar } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
 import { dynamicStyles } from "./SubscriptionIndicatorBar.style";
 
 const SubscriptionIndicatorBar = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const isPremium = useCheckPremium();
-
   const animatedBackgroundStyle = useAnimatedSubscriptionBar(isPremium);
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <Animated.View style={[styles.BarContainer, animatedBackgroundStyle]}>

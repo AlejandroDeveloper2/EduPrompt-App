@@ -4,8 +4,11 @@ import { FlatList } from "react-native";
 import { EducationalResource } from "@/features/educational-resources/types";
 
 import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
-import { useSearchInput, useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import {
+  useResponsive,
+  useSearchInput,
+  useTranslations,
+} from "@/shared/hooks/core";
 
 import { Button, Empty, Input } from "@/shared/components/molecules";
 import { ResourceToShareCard } from "../../molecules";
@@ -23,16 +26,13 @@ const ShareResourcesPanel = ({
   resources,
   goNext,
 }: ShareResourcesPanelProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { selectedResourceIds } = useResourcesSelectionStore();
-
   const { t } = useTranslations();
-
   const selectedResources = useMemo(
     () => resources.filter((r) => selectedResourceIds.has(r.resourceId)),
     [resources, selectedResourceIds],
   );
-
   const {
     searchValue,
     filteredElements,
@@ -40,7 +40,7 @@ const ShareResourcesPanel = ({
     handleSearchChange,
   } = useSearchInput(selectedResources, "title");
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <ResourcesFiltersProvider>

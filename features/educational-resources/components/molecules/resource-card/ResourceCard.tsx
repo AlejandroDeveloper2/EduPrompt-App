@@ -10,11 +10,8 @@ import { AppColors } from "@/shared/styles";
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import {
   Badge,
@@ -43,10 +40,9 @@ const ResourceCard = ({
 }: ResourceCardProps) => {
   const { title, format, groupTag, creationDate } = resourceData;
 
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { selectedResourceIds, toggleSelection } = useResourcesSelectionStore();
   const { selectionMode } = useSelectionModeStore();
-
   const {
     paginatedTags: { tags },
   } = useResourcesFiltersContext();
@@ -55,12 +51,10 @@ const ResourceCard = ({
     () => selectedResourceIds.has(resourceData.resourceId),
     [resourceData.resourceId, selectedResourceIds],
   );
-
   const animatedCardStyle = useAnimatedCard(isSelected);
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedPressable

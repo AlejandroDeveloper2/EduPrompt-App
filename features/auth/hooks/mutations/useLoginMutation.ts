@@ -15,7 +15,7 @@ const useLoginMutation = () => {
     onSuccess: (data) => {
       const { token, refreshToken } = data;
       setAuthTokens(token, refreshToken);
-      router.replace("/(tabs)");
+      router.replace("/(app)/(tabs)");
     },
   });
 };

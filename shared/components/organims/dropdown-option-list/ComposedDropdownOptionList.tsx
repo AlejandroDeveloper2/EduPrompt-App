@@ -1,10 +1,10 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { FlatList } from "react-native-gesture-handler";
 import { useAnimatedRef } from "react-native-reanimated";
 
 import { AppColors } from "@/shared/styles";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { DropdownOption, Empty, LoadingTextIndicator } from "../../molecules";
 import { DropdownOptionListProps } from "./DropdownOptionList";
@@ -41,9 +41,9 @@ function ComposedDropdownOptionList<T>({
     infinitePaginationOptions;
 
   const listRef = useAnimatedRef<FlatList<T>>();
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <FlatList

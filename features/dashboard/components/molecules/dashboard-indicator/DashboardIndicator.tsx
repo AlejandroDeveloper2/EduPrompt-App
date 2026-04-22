@@ -1,14 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { View, ViewStyle } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
 import { useAnimatedSpinner } from "@/shared/hooks/animations";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
 
 import { Ionicon, Spinner, Typography } from "@/shared/components/atoms";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { dynamicStyles } from "./DashboardIndicator.style";
 
 interface DashboardIndicatorProps {
@@ -28,11 +27,10 @@ const DashboardIndicator = ({
   loading,
   style,
 }: DashboardIndicatorProps) => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { animatedCircleStyles } = useAnimatedSpinner();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={[styles.IndicatorContainer, style]}>

@@ -56,7 +56,6 @@ const UpdatePromptForm = ({
               errorMessage={getFieldErrors("promptTitle")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptTitle")}
-              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>
@@ -75,7 +74,6 @@ const UpdatePromptForm = ({
               errorMessage={getFieldErrors("promptText")?.join(", ")}
               onChange={handleChange}
               onClearInput={() => handleClearInput("promptText")}
-              isInPopUp
             />
           </Form.Row.Item>
         </Form.Row>

@@ -1,12 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedNavItem as useAnimatedFilterTag } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
@@ -22,9 +21,10 @@ interface FilterTagProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const FilterTag = ({ icon, label, active, onPressFilter }: FilterTagProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const animatedBackgroundStyle = useAnimatedFilterTag(active, true);
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedPressable

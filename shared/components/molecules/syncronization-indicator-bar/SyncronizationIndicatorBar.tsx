@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -8,29 +7,28 @@ import {
   useAnimatedSpinner,
   useAnimatedSyncronizationBar,
 } from "@/shared/hooks/animations";
-import { useDataSyncronization, useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import {
+  useDataSyncronization,
+  useResponsive,
+  useTranslations,
+} from "@/shared/hooks/core";
 
 import { dynamicStyles, styles } from "./SyncronizationIndicatorBar.style";
 
 import { Spinner, Typography } from "../../atoms";
 
-/** TODO: Ajustar en todos los componentes la forma en que se llaman los estilos */
 const SyncronizationIndicatorBar = () => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { syncronize, isAllSynced, isSyncing, isError } =
     useDataSyncronization();
-
   const animatedBackgroundStyle = useAnimatedSyncronizationBar(
     isAllSynced,
     isError,
   );
-
   const { animatedCircleStyles } = useAnimatedSpinner();
   const { t } = useTranslations();
 
-  const dynamicStyle = useMemo(() => dynamicStyles(size), [size]);
+  const dynamicStyle = dynamicStyles(size);
 
   return (
     <Animated.View

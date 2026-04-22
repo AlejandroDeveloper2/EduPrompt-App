@@ -1,12 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { Text, View } from "react-native";
 
 import { AlignTextType, FontWeigthType, TypographyType } from "@/core/types";
 
 import { FontIconSizes } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Ionicon } from "../icon/Icon";
 
@@ -31,12 +30,9 @@ const Typography = ({
   textAlign,
   width,
 }: TypographyProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const styles = useMemo(
-    () => dynamicStyles({ size, color, weight, type, textAlign, width }),
-    [color, size, textAlign, type, weight, width],
-  );
+  const styles = dynamicStyles({ size, color, weight, type, textAlign, width });
 
   return (
     <View style={styles.TextContainer}>

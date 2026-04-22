@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import Typography from "../typography/Typography";
 
@@ -14,8 +13,9 @@ interface LoadPercentageProps {
 }
 
 const LoadPercentage = ({ progressPercentage }: LoadPercentageProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.CircleContainer}>

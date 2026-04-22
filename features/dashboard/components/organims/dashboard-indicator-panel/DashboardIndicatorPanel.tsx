@@ -4,8 +4,7 @@ import { useWindowDimensions, View } from "react-native";
 import { AppColors } from "@/shared/styles";
 
 import { useIndicatorsQuery } from "@/features/dashboard/hooks/queries";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { formatTokenAmount, getIndicatorPanelGrid } from "@/shared/utils";
 
@@ -15,9 +14,8 @@ import { DashboardIndicator } from "../../molecules";
 import { dynamicStyles } from "./DashboardIndicatorPanel.style";
 
 const DashboardIndicatorPanel = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { width } = useWindowDimensions();
-
   const { indicators, isLoading } = useIndicatorsQuery();
   const { t } = useTranslations();
 
@@ -26,10 +24,7 @@ const DashboardIndicatorPanel = () => {
     [size, width],
   );
 
-  const { PanelContainer, IndicatorsGrid } = useMemo(
-    () => dynamicStyles(size),
-    [size],
-  );
+  const { PanelContainer, IndicatorsGrid } = dynamicStyles(size);
 
   return (
     <View style={PanelContainer}>

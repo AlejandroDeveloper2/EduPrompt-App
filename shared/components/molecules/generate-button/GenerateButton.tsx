@@ -1,12 +1,10 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
-import { useTranslations } from "@/shared/hooks/core";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 import { useAnimatedNavItem } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
@@ -20,11 +18,11 @@ interface GenerateButtonProps {
 }
 
 const GenerateButton = ({ active, onPress }: GenerateButtonProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const animatedBackgroundStyle = useAnimatedNavItem(active);
-
   const { t } = useTranslations();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.Container}>

@@ -57,7 +57,6 @@ const PromptSelectionPanel = ({
         placeholder="Buscar prompts por titulo"
         onChange={(_, value) => setSearchValue(value)}
         onClearInput={() => setSearchValue("")}
-        isInPopUp
       />
       <View style={styles.FiltersContainer}>
         <Typography

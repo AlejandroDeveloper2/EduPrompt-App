@@ -1,10 +1,8 @@
-import { useMemo } from "react";
 import { Image, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { Typography } from "@/shared/components/atoms";
 
@@ -13,11 +11,10 @@ import EmptyGenerationImage from "@/assets/images/empty-generations-list.png";
 import { dynamicStyles } from "./GenerationCardList.style";
 
 const GenerationEmpty = () => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.EmptyContainer}>

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { LayoutChangeEvent, View } from "react-native";
 
 import { FormProps } from "./types";
@@ -6,7 +6,7 @@ import { FormProps } from "./types";
 import { Spacing } from "../../../styles";
 import { FormContext } from "./formContext";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Link } from "@/shared/components/atoms";
 import {
@@ -27,15 +27,10 @@ import { dynamicStyles } from "./Form.style";
 const Form = ({ children }: FormProps) => {
   const [containerWidth, setContainerWidth] = useState<number>(0);
 
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  // gap en px (usa tus tokens de spacing)
-  const gap = useMemo(
-    () => (size === "mobile" ? Spacing.spacing_sm : Spacing.spacing_md),
-    [size],
-  );
-
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const gap = size === "mobile" ? Spacing.spacing_sm : Spacing.spacing_md;
+  const styles = dynamicStyles(size);
 
   const handleLayout = (e: LayoutChangeEvent) => {
     const width = Math.round(e.nativeEvent.layout.width);

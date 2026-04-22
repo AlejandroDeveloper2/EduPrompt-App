@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Ionicon, TokenCoin, Typography } from "../../atoms";
 
@@ -16,28 +15,24 @@ interface TokenBadgeProps {
 }
 
 const TokenBadge = ({ tokenAmount, isLoading, isPremium }: TokenBadgeProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
 
-  const TokenValue = useMemo(
-    () =>
-      isPremium ? (
-        <Ionicon
-          name="infinite-outline"
-          color={AppColors.neutral[1000]}
-          size={32}
-        />
-      ) : (
-        <Typography
-          text={tokenAmount}
-          weight="regular"
-          type="paragraph"
-          textAlign="center"
-          color={AppColors.primary[400]}
-          width="auto"
-        />
-      ),
-    [isPremium, tokenAmount],
+  const styles = dynamicStyles(size);
+  const TokenValue = isPremium ? (
+    <Ionicon
+      name="infinite-outline"
+      color={AppColors.neutral[1000]}
+      size={32}
+    />
+  ) : (
+    <Typography
+      text={tokenAmount}
+      weight="regular"
+      type="paragraph"
+      textAlign="center"
+      color={AppColors.primary[400]}
+      width="auto"
+    />
   );
 
   return (

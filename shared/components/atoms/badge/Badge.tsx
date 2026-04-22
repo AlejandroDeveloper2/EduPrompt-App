@@ -1,14 +1,12 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { BadgeVariantType } from "@/core/types";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
-
 import Typography from "../typography/Typography";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { dynamicStyles } from "./Badge.style";
 
 interface BadgeProps {
@@ -17,15 +15,11 @@ interface BadgeProps {
 }
 
 const Badge = ({ label, variant }: BadgeProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const badgeTextColor: string = useMemo(
-    () =>
-      variant === "neutral" ? AppColors.neutral[1000] : AppColors.basic.white,
-    [variant],
-  );
-
-  const styles = useMemo(() => dynamicStyles(size, variant), [size, variant]);
+  const badgeTextColor: string =
+    variant === "neutral" ? AppColors.neutral[1000] : AppColors.basic.white;
+  const styles = dynamicStyles(size, variant);
 
   return (
     <View style={styles.badgeBox}>

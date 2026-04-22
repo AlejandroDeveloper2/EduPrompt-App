@@ -1,11 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedInput } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 import BaseInput, { BaseInputProps } from "../input/BaseInput";
@@ -37,10 +36,10 @@ function Dropdown<T, D>({
 }: DropdownProps<T, D>) {
   const error = props.errorMessage !== undefined;
 
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { onBlur, onFocus, animatedInputStyle } = useAnimatedInput(error);
 
-  const dropdownStyle = useMemo(() => dynamicStyles(size), [size]);
+  const dropdownStyle = dynamicStyles(size);
 
   return (
     <BaseInput {...props} animatedInputStyle={animatedInputStyle}>

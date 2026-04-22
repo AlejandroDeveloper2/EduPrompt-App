@@ -6,11 +6,11 @@ import {
   BottomSheetScrollView,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
+import { ReactNode, useCallback, useEffect, useRef } from "react";
 import { View, ViewStyle, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { Typography } from "../../atoms";
 
@@ -49,14 +49,11 @@ const PopUp = ({
   children,
 }: PopUpProps) => {
   const ref = useRef<BottomSheetModal>(null);
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const insets = useSafeAreaInsets();
   const { height: screenHeight } = useWindowDimensions();
 
-  const styles = useMemo(
-    () => dynamicStyles(size, insets, screenHeight),
-    [size, insets, screenHeight],
-  );
+  const styles = dynamicStyles(size, insets, screenHeight);
 
   useEffect(() => {
     if (isOpen) {

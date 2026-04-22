@@ -7,19 +7,20 @@ import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
-import { useTagsSelectionStore } from "../store";
-
-import { useListFilters, usePopUp, useTranslations } from "@/shared/hooks/core";
+  useListFilters,
+  usePopUp,
+  useResponsive,
+  useTranslations,
+} from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 import { useDeleteManyTagsMutation } from "../mutations";
 import { useTagsQuery } from "../queries";
+import { useTagsSelectionStore } from "../store";
 
 const useTagCardListLogic = () => {
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
 
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const {
     selectionCount,
     isAllSelected,

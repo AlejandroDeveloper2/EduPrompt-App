@@ -29,7 +29,7 @@ export default function CustomStatusBar({
           zIndex: 1,
         }}
       />
-      <StatusBar translucent style={style} />
+      <StatusBar style={style} />
     </>
   );
 }

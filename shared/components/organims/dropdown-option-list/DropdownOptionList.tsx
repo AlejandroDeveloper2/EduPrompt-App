@@ -1,11 +1,13 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useAnimatedRef } from "react-native-reanimated";
 
 import { getIsSelectedOption } from "../../../helpers";
-import { useSearchInput, useTranslations } from "../../../hooks/core";
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import {
+  useResponsive,
+  useSearchInput,
+  useTranslations,
+} from "../../../hooks/core";
 
 import { DropdownOption, Empty, Input } from "../../molecules";
 
@@ -33,8 +35,9 @@ const SearchPanel = ({
   handleSearchChange,
   onClearSearchInput,
 }: SearchPanelProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const size = useResponsive();
+
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.PanelContainer}>
@@ -45,7 +48,6 @@ const SearchPanel = ({
         onChange={(name, value) => handleSearchChange(value)}
         onClearInput={onClearSearchInput}
         icon="search-outline"
-        isInPopUp
       />
     </View>
   );
@@ -61,18 +63,16 @@ function DropdownOptionList<T>({
 }: DropdownOptionListProps<T>) {
   const listRef = useAnimatedRef<FlatList<T>>();
 
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const {
     searchValue,
     filteredElements,
     handleSearchChange,
     onClearSearchInput,
   } = useSearchInput<T>(optionList, optionLabelKey);
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <FlatList

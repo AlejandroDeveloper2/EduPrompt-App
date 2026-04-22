@@ -2,8 +2,7 @@ import { useMemo } from "react";
 import { Image, View } from "react-native";
 
 import { useGenerationsStore } from "@/features/generations/hooks/store";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { setGenerationProcessName } from "@/features/generations/helpers";
 import { calcAvarageProcessDuration } from "@/shared/utils";
@@ -14,12 +13,10 @@ import { Loader } from "@/shared/components/organims";
 import GeneratingImage from "@/assets/images/generating-image.png";
 
 const Generating = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { clearSelectedGeneration, currentIaGeneration } =
     useGenerationsStore();
-
   const { t } = useTranslations();
-
   const processDuration = useMemo(() => {
     if (!currentIaGeneration) return null;
     const { data } = currentIaGeneration;
@@ -32,7 +29,7 @@ const Generating = () => {
       <Button
         icon="chevron-back-outline"
         label={t(
-        "generations_translations.generating_indicator_labels.btn_back",
+          "generations_translations.generating_indicator_labels.btn_back",
         )}
         variant="neutral"
         width="auto"
@@ -48,7 +45,7 @@ const Generating = () => {
       <Loader
         title={t("generations_translations.generating_indicator_labels.title")}
         description={t(
-        "generations_translations.generating_indicator_labels.description",
+          "generations_translations.generating_indicator_labels.description",
         )}
         icon="settings-outline"
         progressConfig={{

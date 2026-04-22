@@ -7,7 +7,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 import { LocalIndicator } from "../../types";
 import { IndicatorPanelStoreType, StoreStateProps } from "./store-types";
 
-export const IndicatorPanelStore = create<IndicatorPanelStoreType>()(
+export const useIndicatorPanelStore = create<IndicatorPanelStoreType>()(
   persist<IndicatorPanelStoreType, [], [], StoreStateProps>(
     (set, get) => ({
       indicators: {
@@ -45,6 +45,6 @@ export const IndicatorPanelStore = create<IndicatorPanelStoreType>()(
       partialize: (state) => ({
         indicators: state.indicators,
       }),
-    }
-  )
+    },
+  ),
 );

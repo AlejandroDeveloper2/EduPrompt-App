@@ -1,8 +1,6 @@
-import { useMemo } from "react";
 import { View } from "react-native";
 
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection } from "@/shared/components/atoms";
 import { Input } from "@/shared/components/molecules";
@@ -20,11 +18,10 @@ const GenerationListHeader = ({
   handleSearchChange,
   onClearSearchInput,
 }: GenerationListHeaderProps) => {
-  const size = useScreenDimensionsStore();
-
+  const size = useResponsive();
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.ListHeaderContainer}>

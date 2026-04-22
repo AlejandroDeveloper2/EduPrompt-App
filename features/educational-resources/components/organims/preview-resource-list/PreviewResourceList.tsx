@@ -1,54 +1,21 @@
-import { useMemo } from "react";
-import { FlatList, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native";
 
-import { SectionComponentMap, SectionId } from "./types";
+import { AppColors } from "@/shared/styles";
 
-import { AppColors, Spacing } from "@/shared/styles";
+import { useResourceListLogic } from "@/features/educational-resources/hooks/core";
+import { useResponsive } from "@/shared/hooks/core";
 
-import { eventBus } from "@/core/events/EventBus";
-
-import {
-  useResourceCardListLogic,
-  useUpdateResourceFormLogic,
-} from "@/features/educational-resources/hooks/core";
-
-import {
-  Button,
-  Empty,
-  LoadingTextIndicator,
-  ResourceViewer,
-  Stepper,
-  Tabulator,
-} from "@/shared/components/molecules";
-import {
-  Alert,
-  ComposedDropdownOptionList,
-  FetchingErrorPanel,
-  PopUp,
-  TagSelectionPanel,
-} from "@/shared/components/organims";
+import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
+import { Alert, FetchingErrorPanel, PopUp } from "@/shared/components/organims";
 import { ResourceCard } from "../../molecules";
-import NameResourcesGroupForm from "../name-resources-group-form/NameResourcesGroupForm";
-import ShareResourcesPanel from "../share-resources-panel/ShareResourcesPanel";
-import UpdateResourceForm from "../update-resource-form/UpdateResourceForm";
 import PreviewResourceHeader from "./PreviewResourceHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { dynamicStyles } from "./PreviewResourceList.style";
 
 const PreviewResourceList = () => {
+  const size = useResponsive();
   const {
-    /** Size */
-    size,
-    /**Tag selection */
-    isTagSelection,
-    setIsTagSelection,
-    /** Search filters */
-    searchTagValue,
-    paginatedTags,
-    onSearchTagValueChange,
-    /** Query */
     resources,
     isLoading,
     isError,
@@ -57,57 +24,15 @@ const PreviewResourceList = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    /** PopUp Controls */
-    updateResourcePopUp,
     confirmDeletePopUp,
-    shareResourcePopUp,
-    /** Resource Id  */
-    selectedResource,
-    setSelectedResource,
-    /** Resources preview popup tabs */
-    activePreviewTab,
-    setActivePreviewTab,
-    /** Preview viewer */
-    viewerType,
-    /**Actions */
     isPending: isDeleting,
     removeManyResources,
-    t,
-    resourcePreviewTabs,
-    /** Sharing  */
-    sharingSteps,
-    currentSharingStep,
-    setCurrentSharingStep,
     selectedResourceIds,
-  } = useResourceCardListLogic();
+    handleViewResource,
+    t,
+  } = useResourceListLogic();
 
-  const { isPending, selectedTag, form } = useUpdateResourceFormLogic(
-    selectedResource,
-    updateResourcePopUp.closePopUp,
-  );
-
-  const Section: SectionComponentMap = {
-    "tab-1": (
-      <ScrollView style={{ width: "100%", maxHeight: 500 }}>
-        <ResourceViewer
-          viewerType={viewerType}
-          content={selectedResource ? selectedResource.content : "..."}
-          scroll={false}
-        />
-      </ScrollView>
-    ),
-    "tab-2": (
-      <UpdateResourceForm
-        selectedTag={selectedTag}
-        isLoading={isPending}
-        form={form}
-        onTagSelectionMode={() => setIsTagSelection(true)}
-        onClosePopUp={updateResourcePopUp.closePopUp}
-      />
-    ),
-  };
-
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   if (isError)
     return (
@@ -120,34 +45,6 @@ const PreviewResourceList = () => {
     );
   return (
     <>
-      <PopUp
-        icon="share-outline"
-        title={t("resources_translations.share_resource_popup_labels.title")}
-        isOpen={shareResourcePopUp.isOpen}
-        onClose={() => {
-          shareResourcePopUp.closePopUp();
-          setCurrentSharingStep({ stepId: "step1" });
-        }}
-      >
-        {currentSharingStep.stepId === "step1" ? (
-          <ShareResourcesPanel
-            resources={resources}
-            goNext={() => setCurrentSharingStep({ stepId: "step2" })}
-          />
-        ) : (
-          <NameResourcesGroupForm
-            goBack={() => setCurrentSharingStep({ stepId: "step1" })}
-            closePopUp={shareResourcePopUp.closePopUp}
-            clearSteps={() => setCurrentSharingStep({ stepId: "step1" })}
-          />
-        )}
-        <Stepper
-          steps={sharingSteps}
-          currentStep={currentSharingStep}
-          onActive={(stepId) => setCurrentSharingStep({ stepId })}
-          stepIdKey="stepId"
-        />
-      </PopUp>
       <PopUp
         icon="information-circle-outline"
         title={t(
@@ -178,89 +75,6 @@ const PreviewResourceList = () => {
           )}
         />
       </PopUp>
-      <PopUp
-        title={
-          isTagSelection
-            ? t(
-                "resources_translations.resources_list_labels.select_tags_popup_labels.title",
-              )
-            : t(
-                "resources_translations.resources_list_labels.view_resource_popup_labels.title",
-              )
-        }
-        icon={isTagSelection ? "pricetag-outline" : "eye-outline"}
-        isOpen={updateResourcePopUp.isOpen}
-        onClose={() => {
-          updateResourcePopUp.closePopUp();
-          setSelectedResource(null);
-        }}
-        scrollable={isTagSelection ? false : true}
-      >
-        {isTagSelection ? (
-          <ComposedDropdownOptionList<{
-            tagId: string;
-            type: "prompt_tag" | "resource_tag";
-            name: string;
-          }>
-            ControlPanelComponent={
-              <TagSelectionPanel
-                tagType="resource_tag"
-                searchValue={searchTagValue}
-                onSearchChange={onSearchTagValueChange}
-              />
-            }
-            infinitePaginationOptions={{
-              ...paginatedTags,
-              onRefetch: () =>
-                eventBus.emit("tags.resourceType.refetch.requested", undefined),
-              onEndReached: () => {
-                if (
-                  paginatedTags.hasNextPage &&
-                  !paginatedTags.isFetchingNextPage
-                )
-                  eventBus.emit(
-                    "tags.resourceType.fetchNextPage.requested",
-                    undefined,
-                  );
-              },
-            }}
-            optionList={paginatedTags.tags}
-            optionIdkey="tagId"
-            optionLabelKey="name"
-            searchInputPlaceholder={t(
-              "resources_translations.resources_list_labels.select_tags_popup_labels.search_input_placeholder",
-            )}
-            selectedOption={selectedTag}
-            onSelectOption={(option) => {
-              form.handleChange("groupTag", option.tagId);
-              setIsTagSelection(false);
-            }}
-            FooterComponent={
-              <Button
-                label={t(
-                  "resources_translations.resources_list_labels.select_tags_popup_labels.btn_cancel_selection",
-                )}
-                icon="close-outline"
-                width="100%"
-                variant="neutral"
-                onPress={() => setIsTagSelection(false)}
-                style={{ marginVertical: Spacing.spacing_xl }}
-              />
-            }
-          />
-        ) : (
-          <View style={styles.ViewPreviewContainer}>
-            <Tabulator
-              tabs={resourcePreviewTabs}
-              activeTab={activePreviewTab}
-              onSwitchTab={(tab) => {
-                setActivePreviewTab(tab);
-              }}
-            />
-            {Section[activePreviewTab.tabId as SectionId]}
-          </View>
-        )}
-      </PopUp>
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}
         contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
@@ -274,10 +88,7 @@ const PreviewResourceList = () => {
             resourceData={item}
             icon="add"
             totalRecords={resources.length}
-            onViewResource={() => {
-              setSelectedResource(item);
-              updateResourcePopUp.openPopUp();
-            }}
+            onViewResource={() => handleViewResource(item)}
           />
         )}
         showsVerticalScrollIndicator={false}

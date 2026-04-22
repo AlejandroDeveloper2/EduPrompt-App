@@ -1,10 +1,10 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
-import { useScreenDimensionsStore } from "../../../hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { ErrorMessage, Typography } from "../../atoms";
 
@@ -30,11 +30,9 @@ const BaseInput = ({
   textArea,
   animatedInputStyle,
 }: BaseInputProps) => {
-  const size = useScreenDimensionsStore();
-  const styles = useMemo(
-    () => baseInputStyle(size, disabled, textArea),
-    [disabled, size, textArea],
-  );
+  const size = useResponsive();
+
+  const styles = baseInputStyle(size, disabled, textArea);
 
   return (
     <View style={styles.Container}>

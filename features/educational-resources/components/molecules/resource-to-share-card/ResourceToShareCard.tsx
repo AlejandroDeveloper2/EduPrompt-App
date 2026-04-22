@@ -1,13 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { View } from "react-native";
 
 import { EducationalResource } from "@/features/educational-resources/types";
 
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
-import { useTranslations } from "@/shared/hooks/core";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { Badge, MaterialIcon, Typography } from "@/shared/components/atoms";
 
@@ -29,15 +27,13 @@ const ResourceToShareCard = ({
   const { title, format, creationDate, groupTag } = resourceData;
 
   const { t } = useTranslations();
-
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { toggleSelection } = useResourcesSelectionStore();
-
   const {
     paginatedTags: { tags },
   } = useResourcesFiltersContext();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <View style={styles.CardContainer}>

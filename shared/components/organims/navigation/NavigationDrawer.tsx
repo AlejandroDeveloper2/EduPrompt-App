@@ -1,16 +1,14 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { useMemo } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { NavigationPropsBase } from "@/core/types";
 
 import { getActiveDrawerItem, getMainNavigationRoutes } from "../../../helpers";
-import {
-  useLanguageStore,
-  useScreenDimensionsStore,
-} from "../../../hooks/store";
 import { renderDrawerItem } from "../../../utils";
+
+import { useResponsive } from "@/shared/hooks/core";
+import { useLanguageStore } from "../../../hooks/store";
 
 import { GenerateButton } from "../../molecules";
 import { NavActions } from "./NavActions";
@@ -26,17 +24,13 @@ const NavigationDrawer = ({
   ...props
 }: NavigationDrawerProps) => {
   const { lang } = useLanguageStore();
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const insets = useSafeAreaInsets();
 
-  const styles = useMemo(() => dynamicStyles(size, insets), [size, insets]);
-
-  const { firstItemsSlice, secondItemsSlice, centerItemsSlice } = useMemo(
-    () => getMainNavigationRoutes(state.routes),
-    [state.routes],
-  );
-
-  const isActionsVisible = useMemo(() => actions.length > 0, [actions.length]);
+  const styles = dynamicStyles(size, insets);
+  const { firstItemsSlice, secondItemsSlice, centerItemsSlice } =
+    getMainNavigationRoutes(state.routes);
+  const isActionsVisible = actions.length > 0;
 
   return (
     <View style={styles.NavigationContainer}>

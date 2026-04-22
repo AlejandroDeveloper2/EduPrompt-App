@@ -5,7 +5,6 @@ import { ResourceFormatKey } from "../../types";
 import { ProviderProps, ResourcesFiltersContextType } from "./types";
 
 import { eventBus } from "@/core/events/EventBus";
-
 import { useEventbusValue } from "@/shared/hooks/events";
 
 const ResourcesFiltersContext = createContext<
@@ -13,30 +12,31 @@ const ResourcesFiltersContext = createContext<
 >(undefined);
 
 export const ResourcesFiltersProvider = ({ children }: ProviderProps) => {
-  const [searchResourceValue, setSearchResourceValue] = useState<string>("");
-  const [searchTagValue, setSearchTagValue] = useState<string>("");
+  const [searchResourceValue, setSearchResourceValue] = useState("");
+  const [searchTagValue, setSearchTagValue] = useState("");
   const [formatFilter, setFormatFilter] = useState<ResourceFormatKey | null>(
-    null
+    null,
   );
   const [tagFilter, setTagFilter] = useState<Tag | null>(null);
 
-  const onSearchResourceValueChange = (value: string): void => {
+  const onSearchResourceValueChange = useCallback((value: string) => {
     setSearchResourceValue(value);
-  };
+  }, []);
 
-  const onSearchTagValueChange = (value: string): void => {
+  const onSearchTagValueChange = useCallback((value: string) => {
     setSearchTagValue(value);
-  };
+  }, []);
 
-  const onFormatFilterChange = (
-    selectedFormat: ResourceFormatKey | null
-  ): void => {
-    setFormatFilter(selectedFormat);
-  };
+  const onFormatFilterChange = useCallback(
+    (format: ResourceFormatKey | null) => {
+      setFormatFilter(format);
+    },
+    [],
+  );
 
-  const onTagFilterChange = (selectedTag: Tag | null): void => {
-    setTagFilter(selectedTag);
-  };
+  const onTagFilterChange = useCallback((tag: Tag | null) => {
+    setTagFilter(tag);
+  }, []);
 
   const paginatedTags = useEventbusValue("tags.list.resourceType.updated", {
     tags: [],
@@ -45,16 +45,12 @@ export const ResourcesFiltersProvider = ({ children }: ProviderProps) => {
     refreshing: false,
   });
 
-  const emitFetchTags = useCallback(() => {
-    eventBus.emit("tags.resourceType.fetch", searchTagValue);
-  }, [searchTagValue]);
-
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      emitFetchTags();
+    const id = setTimeout(() => {
+      eventBus.emit("tags.resourceType.fetch", searchTagValue);
     }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [emitFetchTags]);
+    return () => clearTimeout(id);
+  }, [searchTagValue]);
 
   return (
     <ResourcesFiltersContext.Provider

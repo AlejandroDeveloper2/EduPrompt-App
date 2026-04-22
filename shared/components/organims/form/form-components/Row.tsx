@@ -29,8 +29,8 @@ const Row = ({ children, configRows }: RowProps) => {
   );
 
   // convertimos children en array y leemos span si viene de Row.Item
-  const items = useMemo(() => Children.toArray(children), [children]);
-  const styles = useMemo(() => formRowStyles(gap), [gap]);
+  const items = Children.toArray(children);
+  const styles = formRowStyles(gap);
 
   return (
     <View style={styles.FormRow}>

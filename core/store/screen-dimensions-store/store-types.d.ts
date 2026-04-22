@@ -1,4 +1,4 @@
-import { SizeType } from "@/lib/types";
+import { SizeType } from "@/core/types";
 
 export interface ScreenDimensionsStoreType {
   screenSize: SizeType;

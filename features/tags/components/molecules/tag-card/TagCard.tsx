@@ -7,11 +7,8 @@ import { AppColors } from "@/shared/styles";
 
 import { useTagsSelectionStore } from "@/features/tags/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import {
   Badge,
@@ -32,7 +29,7 @@ interface TagCardProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { selectedTagIds, toggleSelection } = useTagsSelectionStore();
   const { selectionMode } = useSelectionModeStore();
 
@@ -40,12 +37,10 @@ const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
     () => selectedTagIds.has(data.tagId),
     [data.tagId, selectedTagIds],
   );
-
   const animatedCardStyle = useAnimatedCard(isSelected);
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedPressable

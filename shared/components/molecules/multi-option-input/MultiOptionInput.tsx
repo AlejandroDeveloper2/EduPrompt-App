@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { Pressable, useWindowDimensions, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -8,7 +8,7 @@ import { MultiOptionInputProvider } from "@/shared/context";
 
 import { useAnimatedNavItem } from "@/shared/hooks/animations";
 import { useMultiOptionContext } from "@/shared/hooks/context";
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { getIndicatorPanelGrid } from "@/shared/utils";
 
@@ -35,18 +35,14 @@ interface OptionProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const Option = ({ label, optionValue, isSelected }: OptionProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { width } = useWindowDimensions();
 
   const { onSelectOption } = useMultiOptionContext();
   const animatedStyled = useAnimatedNavItem(isSelected);
 
-  const { firstWidth } = useMemo(
-    () => getIndicatorPanelGrid(size, width),
-    [size, width],
-  );
-
-  const { OptionContainer } = useMemo(() => dynamicStyles(size), [size]);
+  const { firstWidth } = getIndicatorPanelGrid(size, width);
+  const { OptionContainer } = dynamicStyles(size);
 
   return (
     <AnimatedPressable
@@ -78,12 +74,9 @@ function MultiOptionInput<T, K>({
   children,
   ...props
 }: MultiOptionInputProps<T, K>) {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const { InputContainer, OptionsGrid } = useMemo(
-    () => dynamicStyles(size),
-    [size],
-  );
+  const { InputContainer, OptionsGrid } = dynamicStyles(size);
 
   return (
     <MultiOptionInputProvider<T, K> {...props}>

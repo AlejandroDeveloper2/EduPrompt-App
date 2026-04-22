@@ -17,7 +17,7 @@ import { tryCatchWrapper } from "@/shared/utils";
 import { ResourceManager } from "../../utils";
 
 import { i18n } from "@/core/store";
-import { ResourcesSelectionStore } from "../resources-selection-store/ResourcesSelection.store";
+import { ResourcesSelectionStore } from "../resources-selection-store/ResourceSelectionStore";
 
 export const OfflineResourcesStore = create<OfflineResourcesStoreType>(
   (set) => ({

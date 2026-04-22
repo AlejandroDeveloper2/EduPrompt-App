@@ -60,4 +60,28 @@ export const GlobalStyles = StyleSheet.create({
     right: 20,
     zIndex: 10000,
   },
+
+  /** Botoom Sheet Modal styles  */
+  SheetContent: {
+    backgroundColor: AppColors.basic.white,
+    gap: Spacing.spacing_md,
+    paddingHorizontal: Spacing.spacing_xl,
+    paddingTop: Spacing.spacing_md,
+    alignItems: "center",
+  },
+  ClosePopUpDragIndicator: {
+    width: 180,
+    height: 10,
+    backgroundColor: AppColors.neutral[100],
+    borderRadius: Radius.radius_pilled,
+    alignSelf: "center",
+  },
+  SheetHeaderContainer: {
+    width: "100%",
+    alignItems: "center",
+    paddingTop: Spacing.spacing_md,
+    paddingHorizontal: Spacing.spacing_xl,
+    paddingBottom: Spacing.spacing_md,
+    gap: Spacing.spacing_md,
+  },
 });

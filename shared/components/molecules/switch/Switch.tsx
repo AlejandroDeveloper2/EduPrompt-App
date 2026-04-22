@@ -1,11 +1,10 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
+import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedSwitch } from "../../../hooks/animations";
-import { useScreenDimensionsStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 
@@ -26,15 +25,11 @@ const Switch = ({
   state,
   onToggleSwitch,
 }: SwitchProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { animatedIndicatorStyle, animatedSwitchStyle } =
     useAnimatedSwitch(state);
 
-  const styles = useMemo(
-    () => dynamicStyles(size, labelDirection),
-    [size, labelDirection],
-  );
-
+  const styles = dynamicStyles(size, labelDirection);
   return (
     <View style={styles.SwitchContainer}>
       <AnimatedPressable

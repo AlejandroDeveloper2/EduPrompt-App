@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { TextInput, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -48,7 +47,7 @@ function InputCode<T>({
     onChange as (name: string, value: string) => void,
     errorMessage,
   );
-  const styles = useMemo(() => dynamicStyles(size, disabled), [size, disabled]);
+  const styles = dynamicStyles(size, disabled);
 
   return (
     <View style={styles.Container}>

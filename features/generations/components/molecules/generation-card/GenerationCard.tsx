@@ -11,11 +11,8 @@ import {
   useGenerationsStore,
 } from "@/features/generations/hooks/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useTranslations } from "@/shared/hooks/core";
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import { Checkbox, Typography } from "@/shared/components/atoms";
 import { ProgressBar } from "@/shared/components/molecules";
@@ -30,12 +27,11 @@ interface GenerationCardProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   const { selectedGenerationIds, toggleSelection } =
     useGenerationsSelectionStore();
   const { selectionMode } = useSelectionModeStore();
   const { getIaGeneration } = useGenerationsStore();
-
   const generationProgress = useMemo(() => {
     const completedSteps = data.steps.filter(
       (step) => step.completed === true,
@@ -47,12 +43,10 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
     () => selectedGenerationIds.has(data.generationId),
     [data.generationId, selectedGenerationIds],
   );
-
   const animatedCardStyle = useAnimatedCard(isSelected);
-
   const { t } = useTranslations();
 
-  const styles = useMemo(() => dynamicStyles(size), [size]);
+  const styles = dynamicStyles(size);
 
   return (
     <AnimatedPressable

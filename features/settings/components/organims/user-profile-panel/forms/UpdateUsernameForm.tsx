@@ -15,9 +15,6 @@ const initialValues: UpdateUsernameData = {
 const UpdateUsernameForm = () => {
   const { mutate, isPending } = useUpdateUsernameMutation();
   const { userProfile } = useUserProfileQuery();
-
-  // useEmitUserProfileUpdated(isSuccess, userProfile);
-
   const {
     data,
     getFieldErrors,
@@ -33,7 +30,6 @@ const UpdateUsernameForm = () => {
     },
     noReset: true,
   });
-
   const { t } = useTranslations();
 
   useEffect(() => {
@@ -48,13 +44,13 @@ const UpdateUsernameForm = () => {
           <Form.Row.Item span={1}>
             <Form.Input<UpdateUsernameData>
               label={t(
-                "settings_translations.update_username_template.form_labels.username.label"
+                "settings_translations.update_username_template.form_labels.username.label",
               )}
               icon="person-outline"
               name="userName"
               value={data.userName}
               placeholder={t(
-                "settings_translations.update_username_template.form_labels.username.placeholder"
+                "settings_translations.update_username_template.form_labels.username.placeholder",
               )}
               errorMessage={getFieldErrors("userName")?.join(", ")}
               onChange={handleChange}
@@ -70,12 +66,12 @@ const UpdateUsernameForm = () => {
             width="100%"
             icon="pencil-outline"
             label={t(
-              "settings_translations.update_username_template.form_labels.btn_update_username"
+              "settings_translations.update_username_template.form_labels.btn_update_username",
             )}
             onPress={handleSubmit}
             loading={isPending}
             loadingMessage={t(
-              "settings_translations.update_username_template.form_loading_messages.updating_username_msg"
+              "settings_translations.update_username_template.form_loading_messages.updating_username_msg",
             )}
           />
         </Form.Row.Item>
