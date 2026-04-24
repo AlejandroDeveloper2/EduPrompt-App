@@ -6,7 +6,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { showToast } from "@/shared/context";
 
 import { useCheckPremium, useTranslations } from "@/shared/hooks/core";
-import { useGenerationsStore } from "../store";
+import { useResourceGenerationStore } from "../../store";
 
 import { generateToastKey } from "@/shared/helpers";
 import { formatGenerationData, getResourcePrice } from "../../helpers";
@@ -16,7 +16,11 @@ import { postGenerateEducationalResource } from "../../services";
 
 const useGenerateResourceMutation = () => {
   const { currentIaGeneration, updateIaGeneration, getIaGeneration } =
-    useGenerationsStore();
+    useResourceGenerationStore((state) => ({
+      currentIaGeneration: state.currentIaGeneration,
+      updateIaGeneration: state.updateIaGeneration,
+      getIaGeneration: state.getIaGeneration,
+    }));
 
   const { t } = useTranslations();
 
@@ -95,7 +99,7 @@ const useGenerateResourceMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-        "generations_translations.module_success_messages.resource_generated_msg",
+          "generations_translations.module_success_messages.resource_generated_msg",
         ),
       });
     },

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import AsyncStorage from "expo-sqlite/kv-store";
+import { useShallow } from "zustand/react/shallow";
 
 import { EmailUpdatePayload, UserStats } from "../../types";
 
@@ -8,7 +9,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 import { showToast } from "@/shared/context";
 
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
-import { useAuthStore } from "../store";
+import { useAuthStore } from "../../store";
 
 import { generateToastKey } from "@/shared/helpers";
 
@@ -17,7 +18,7 @@ import { patchUserEmail } from "../../services";
 const useUpdateEmailMutation = () => {
   const queryClient = useQueryClient();
   const { isConnected } = useCheckNetwork();
-  const { token } = useAuthStore();
+  const token = useAuthStore(useShallow((state) => state.token));
 
   const { t } = useTranslations();
 
@@ -58,7 +59,7 @@ const useUpdateEmailMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth_translations.module_success_messages.email_updated_msg"
+          "auth_translations.module_success_messages.email_updated_msg",
         ),
       });
     },

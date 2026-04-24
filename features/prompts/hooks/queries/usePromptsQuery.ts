@@ -1,15 +1,16 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { InfiniteQueryOptions, PaginatedResponse } from "@/core/types";
 import { BaseFilters, Prompt, PromptFilters } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
+import { useSyncDataStore } from "@/core/store";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSyncDataStore } from "@/shared/hooks/store";
-import { useOfflinePromptsStore } from "../store";
+import { useOfflinePromptsStore } from "../../store";
 
 import { getPromptsByUser } from "../../services";
 
@@ -23,9 +24,17 @@ const usePromptsQuery = (
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { findPrompts, updatePromptsSyncStatus, createPrompt } =
-    useOfflinePromptsStore();
+    useOfflinePromptsStore(
+      useShallow((state) => ({
+        findPrompts: state.findPrompts,
+        updatePromptsSyncStatus: state.updatePromptsSyncStatus,
+        createPrompt: state.createPrompt,
+      })),
+    );
 
-  const { updateModuleSyncMapState } = useSyncDataStore();
+  const updateModuleSyncMapState = useSyncDataStore(
+    (state) => state.updateModuleSyncMapState,
+  );
 
   const queryKey = useMemo(
     () => [

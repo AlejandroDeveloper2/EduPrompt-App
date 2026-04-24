@@ -1,10 +1,13 @@
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 
-import { useOnboardingStore } from "../store";
+import { useOnboardingStore } from "../../store";
 
 const useCheckOnboarding = () => {
-  const { checkIfOnboardingDone } = useOnboardingStore();
+  const checkIfOnboardingDone = useOnboardingStore(
+    useShallow((state) => state.checkIfOnboardingDone),
+  );
 
   const router = useRouter();
 

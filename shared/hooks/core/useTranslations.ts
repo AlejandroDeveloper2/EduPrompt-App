@@ -1,7 +1,6 @@
 import { TranslateOptions } from "i18n-js";
 
-import { i18n } from "@/core/store";
-import { useLanguageStore } from "../store";
+import { i18n, useLanguageStore } from "@/core/store";
 
 const useTranslations = () => {
   const t = (key: string, options?: TranslateOptions) => i18n.t(key, options);

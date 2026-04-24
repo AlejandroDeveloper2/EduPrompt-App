@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 
-import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useResourceGenerationStore } from "@/features/generations/store";
 
 import { TagFiltersProvider } from "@/features/generations/context";
 
@@ -14,7 +14,9 @@ import {
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 const ResourceGenerationTemplate = () => {
-  const { currentIaGeneration } = useGenerationsStore();
+  const currentIaGeneration = useResourceGenerationStore(
+    (state) => state.currentIaGeneration,
+  );
 
   return (
     <TagFiltersProvider>

@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { Prompt, UpdatePromptPayload } from "../../types";
 
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflinePromptsStore } from "../store";
+import { useOfflinePromptsStore } from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -18,7 +19,12 @@ const useUpdatePromptMutation = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   /** Offline */
-  const { updatePrompt, updatePromptsSyncStatus } = useOfflinePromptsStore();
+  const { updatePrompt, updatePromptsSyncStatus } = useOfflinePromptsStore(
+    useShallow((state) => ({
+      updatePrompt: state.updatePrompt,
+      updatePromptsSyncStatus: state.updatePromptsSyncStatus,
+    })),
+  );
 
   return useMutation({
     mutationFn: async (payload) => {

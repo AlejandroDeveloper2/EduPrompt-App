@@ -38,7 +38,7 @@ const ValidateChangeEmailCodeForm = ({
     validationSchema: updateEmailVerificationCodeSchema,
     actionCallback: async () => {
       const updatedEmail = await AsyncStorage.getItem(
-        ASYNC_STORAGE_KEYS.userUpdatedEmail
+        ASYNC_STORAGE_KEYS.userUpdatedEmail,
       );
       if (!updatedEmail) return;
       eventBus.emit("auth.updateEmail.requested", {
@@ -59,7 +59,7 @@ const ValidateChangeEmailCodeForm = ({
             <Form.InputCode<UpdateEmailVerificationCodeData>
               name="code"
               label={t(
-                "settings_translations.update_email_template.form_labels.code.label"
+                "settings_translations.update_email_template.form_labels.code.label",
               )}
               value={data.code}
               errorMessage={getFieldErrors("code")?.join(", ")}
@@ -81,12 +81,12 @@ const ValidateChangeEmailCodeForm = ({
             width="100%"
             icon="pencil-outline"
             label={t(
-              "settings_translations.update_email_template.form_labels.btn_verify_code"
+              "settings_translations.update_email_template.form_labels.btn_verify_code",
             )}
             onPress={handleSubmit}
             loading={loading}
             loadingMessage={t(
-              "settings_translations.update_email_template.form_loading_messages.verifying_code_msg"
+              "settings_translations.update_email_template.form_loading_messages.verifying_code_msg",
             )}
           />
         </Form.Row.Item>
@@ -141,13 +141,13 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
           <Form.Row.Item span={1}>
             <Form.Input<UpdateEmailRequestData>
               label={t(
-                "settings_translations.update_email_template.form_labels.current_email.label"
+                "settings_translations.update_email_template.form_labels.current_email.label",
               )}
               icon="at-outline"
               name="currentEmail"
               value={data.currentEmail}
               placeholder={t(
-                "settings_translations.update_email_template.form_labels.current_email.placeholder"
+                "settings_translations.update_email_template.form_labels.current_email.placeholder",
               )}
               errorMessage={getFieldErrors("currentEmail")?.join(", ")}
               onChange={handleChange}
@@ -158,13 +158,13 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
           <Form.Row.Item span={1}>
             <Form.Input<UpdateEmailRequestData>
               label={t(
-                "settings_translations.update_email_template.form_labels.new_email.label"
+                "settings_translations.update_email_template.form_labels.new_email.label",
               )}
               icon="at-outline"
               name="updatedEmail"
               value={data.updatedEmail}
               placeholder={t(
-                "settings_translations.update_email_template.form_labels.new_email.placeholder"
+                "settings_translations.update_email_template.form_labels.new_email.placeholder",
               )}
               errorMessage={getFieldErrors("updatedEmail")?.join(", ")}
               onChange={handleChange}
@@ -180,12 +180,12 @@ const UpdateEmailForm = ({ toggleFormState }: UserEmailFormProps) => {
             width="100%"
             icon="pencil-outline"
             label={t(
-              "settings_translations.update_email_template.form_labels.btn_edit_email"
+              "settings_translations.update_email_template.form_labels.btn_edit_email",
             )}
             onPress={handleSubmit}
             loading={loading}
             loadingMessage={t(
-              "settings_translations.update_email_template.form_loading_messages.editing_email_msg"
+              "settings_translations.update_email_template.form_loading_messages.editing_email_msg",
             )}
           />
         </Form.Row.Item>

@@ -93,9 +93,7 @@ const PreviewResourceList = () => {
         )}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.resourceId}
-        ListHeaderComponent={
-          <PreviewResourceHeader isDataSync={resources.every((r) => r.sync)} />
-        }
+        ListHeaderComponent={<PreviewResourceHeader />}
         ListEmptyComponent={
           <Empty
             message={t(

@@ -1,16 +1,17 @@
 import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { dynamicStyles } from "./PromptCard.style";
 
 import { Prompt } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useSelectionModeStore } from "@/core/store";
 import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
-import { usePromptsSelectionStore } from "@/features/prompts/hooks/store";
+import { usePromptsSelectionStore } from "@/features/prompts/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import {
   Badge,
@@ -20,7 +21,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
-import { dynamicStyles } from "./PromptCard.style";
+import { useShallow } from "zustand/react/shallow";
 
 interface PromptCardProps {
   promptData: Prompt;
@@ -38,8 +39,15 @@ const PromptCard = ({
   const { promptTitle } = promptData;
 
   const size = useResponsive();
-  const { selectedPromptIds, toggleSelection } = usePromptsSelectionStore();
-  const { selectionMode } = useSelectionModeStore();
+  const { selectedPromptIds, toggleSelection } = usePromptsSelectionStore(
+    useShallow((state) => ({
+      selectedPromptIds: state.selectedPromptIds,
+      toggleSelection: state.toggleSelection,
+    })),
+  );
+  const selectionMode = useSelectionModeStore(
+    useShallow((state) => state.selectionMode),
+  );
   const {
     paginatedTags: { tags },
   } = usePromptFiltersContext();

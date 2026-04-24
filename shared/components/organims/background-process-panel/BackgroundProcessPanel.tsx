@@ -2,8 +2,8 @@ import { View } from "react-native";
 
 import { AppColors } from "../../../styles";
 
+import { useBackgroundTasksStore } from "@/core/store";
 import { useTranslations } from "@/shared/hooks/core";
-import { useBackgroundTasksStore } from "../../../hooks/store";
 
 import { Typography } from "../../atoms";
 import { Empty } from "../../molecules";
@@ -12,7 +12,7 @@ import SubprocessList from "../subprocess-list/SubprocessList";
 import { styles } from "./BackgroundProcessPanel.style";
 
 const BackgroundProcessPanel = () => {
-  const { tasks } = useBackgroundTasksStore();
+  const tasks = useBackgroundTasksStore((state) => state.tasks);
   const { t } = useTranslations();
 
   return (

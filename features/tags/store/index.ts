@@ -1,2 +1,2 @@
-export * from "./offline-tags-store/OfflineTags.store";
-export * from "./tags-selection-store/TagsSelection.store";
+export * from "./offline-tags-store/useOfflineTagsStore";
+export * from "./tags-selection-store/useTagsSelectionStore";

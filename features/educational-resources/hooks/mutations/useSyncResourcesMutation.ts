@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../types";
 
-import { useOfflineResourcesStore } from "../store";
+import { useOfflineResourcesStore } from "../../store";
 
 import { eventBus } from "@/core/events/EventBus";
 import { postSyncResources } from "../../services";
@@ -12,7 +13,12 @@ const useSyncResourcesMutation = () => {
   const queryClient = useQueryClient();
 
   const { updateResourcesSyncStatus, findAllResources } =
-    useOfflineResourcesStore();
+    useOfflineResourcesStore(
+      useShallow(({ updateResourcesSyncStatus, findAllResources }) => ({
+        updateResourcesSyncStatus,
+        findAllResources,
+      })),
+    );
 
   const mutation = useMutation({
     mutationFn: postSyncResources,

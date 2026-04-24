@@ -12,11 +12,7 @@ import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
 
 import { dynamicStyles } from "./PreviewResourceList.style";
 
-interface PreviewResourceHeaderProps {
-  isDataSync: boolean;
-}
-
-const PreviewResourceHeader = ({ isDataSync }: PreviewResourceHeaderProps) => {
+const PreviewResourceHeader = () => {
   const size = useResponsive();
   const router = useRouter();
   const {

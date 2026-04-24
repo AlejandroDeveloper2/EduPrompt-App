@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 
-import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useResourceGenerationStore } from "@/features/generations/store";
 import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import { SubjectFormData, subjectFormSchema } from "./validationSchema";
@@ -14,7 +15,14 @@ const initialValues: SubjectFormData = {
 
 const SubjectForm = () => {
   const { currentIaGeneration, updateIaGeneration, setGenerationStep } =
-    useGenerationsStore();
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        updateIaGeneration: state.updateIaGeneration,
+        setGenerationStep: state.setGenerationStep,
+      })),
+    );
+
   const {
     data,
     getFieldErrors,

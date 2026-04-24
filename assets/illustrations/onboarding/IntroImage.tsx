@@ -1,11 +1,11 @@
 import { Image } from "react-native";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
+import { useResponsive } from "@/shared/hooks/core";
 
 import Illustration from "../../images/welcome-onboarding-image.png";
 
 const IntroImage = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
   return (
     <Image
       source={Illustration}

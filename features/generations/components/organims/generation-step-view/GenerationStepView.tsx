@@ -7,7 +7,7 @@ import {
   IaGeneration,
 } from "@/features/generations/types";
 
-import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useResourceGenerationStore } from "@/features/generations/store";
 import { useTranslations } from "@/shared/hooks/core";
 
 import { renderGenerationStepImage } from "@/features/generations/utils";
@@ -42,7 +42,11 @@ const stepForms: Record<GenerationStepNameType, ReactNode> = {
 const GenerationStepView = ({
   currentIaGeneration,
 }: GenerationStepViewProps) => {
-  const { setGenerationStep, clearSelectedGeneration } = useGenerationsStore();
+  const { setGenerationStep, clearSelectedGeneration } =
+    useResourceGenerationStore((state) => ({
+      setGenerationStep: state.setGenerationStep,
+      clearSelectedGeneration: state.clearSelectedGeneration,
+    }));
   const { t } = useTranslations();
 
   return (

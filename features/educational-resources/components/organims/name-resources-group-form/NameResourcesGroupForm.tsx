@@ -1,4 +1,4 @@
-import { useOfflineResourcesStore } from "@/features/educational-resources/hooks/store";
+import { useOfflineResourcesStore } from "@/features/educational-resources/store";
 import { useForm, useTranslations } from "@/shared/hooks/core";
 
 import {
@@ -22,14 +22,15 @@ const NameResourcesGroupForm = ({
   goBack,
   closePopUp,
 }: NameResourcesGroupFormProps) => {
-  const { shareResources, isSharing } = useOfflineResourcesStore();
+  const { shareResources, isSharing } = useOfflineResourcesStore(
+    ({ shareResources, isSharing }) => ({ shareResources, isSharing }),
+  );
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
       validationSchema: nameResourcesGroupSchema,
       initialValues,
       actionCallback: async () => {
-        await shareResources(data.groupName);
-        closePopUp();
+        await shareResources(data.groupName).then(() => closePopUp());
       },
     });
   const { t } = useTranslations();

@@ -1,11 +1,14 @@
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 
-import { useAuthStore } from "../store";
+import { useAuthStore } from "../../store";
 
 const useCheckAuth = (): void => {
   const router = useRouter();
-  const { isAuthenticated } = useAuthStore();
+  const isAuthenticated = useAuthStore(
+    useShallow((state) => state.isAuthenticated),
+  );
 
   useEffect(() => {
     if (isAuthenticated) router.replace("/(app)/(tabs)");

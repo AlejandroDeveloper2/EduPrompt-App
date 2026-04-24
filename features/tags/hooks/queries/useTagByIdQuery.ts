@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Tag } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflineTagsStore } from "../store";
+import { useOfflineTagsStore } from "../../store";
 
 import { getTagById } from "../../services";
 
@@ -14,8 +15,13 @@ const useTagByIdQuery = (tagId: string) => {
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { isLoading, findTagById, updateTagsSyncStatus } =
-    useOfflineTagsStore();
+  const { isLoading, findTagById, updateTagsSyncStatus } = useOfflineTagsStore(
+    useShallow((state) => ({
+      isLoading: state.isLoading,
+      findTagById: state.findTagById,
+      updateTagsSyncStatus: state.updateTagsSyncStatus,
+    })),
+  );
 
   const query = useQuery({
     queryKey: ["tag", tagId],

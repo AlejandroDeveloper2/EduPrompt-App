@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   PRESCHOOL_GRADE_LEVELS,
@@ -14,7 +15,7 @@ import {
 } from "../../components/organims/educational-level-form/validationSchema";
 
 import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useGenerationsStore } from "../store";
+import { useResourceGenerationStore } from "../../store";
 
 import { getGrades, getSelectedOption } from "../../helpers";
 
@@ -24,7 +25,13 @@ const initialValues: EducationalLevelFormData = {
 
 const useEducationalLevelFormLogic = () => {
   const { currentIaGeneration, updateIaGeneration, setGenerationStep } =
-    useGenerationsStore();
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        updateIaGeneration: state.updateIaGeneration,
+        setGenerationStep: state.setGenerationStep,
+      })),
+    );
 
   const { t, lang } = useTranslations();
 

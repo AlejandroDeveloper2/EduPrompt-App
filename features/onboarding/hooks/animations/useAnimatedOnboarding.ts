@@ -7,15 +7,14 @@ import {
   withTiming,
 } from "react-native-reanimated";
 
-import { useScreenDimensionsStore } from "@/shared/hooks/store";
-
-import { useOnboardingStore } from "../store";
+import { useResponsive } from "@/shared/hooks/core";
+import { useOnboardingStore } from "../../store";
 
 const positionX = Dimensions.get("screen").width;
 const positionY = Dimensions.get("screen").height;
 
 const useAnimatedOnboarding = () => {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
   const opacity = useSharedValue(0);
   const translateX = useSharedValue(-positionX);
@@ -23,13 +22,13 @@ const useAnimatedOnboarding = () => {
   const logoScale = useSharedValue(size === "mobile" ? 0.6 : 1);
   const boxTranslateY = useSharedValue(positionY);
 
-  const { currentStep } = useOnboardingStore();
+  const currentStep = useOnboardingStore((state) => state.currentStep);
 
   useEffect(() => {
     logoTranslateY.value = withDelay(1000, withTiming(20, { duration: 1000 }));
     logoScale.value = withDelay(
       1000,
-      withTiming(size === "mobile" ? 0.5 : 0.8, { duration: 300 })
+      withTiming(size === "mobile" ? 0.5 : 0.8, { duration: 300 }),
     );
     boxTranslateY.value = withDelay(1000, withTiming(0, { duration: 1000 }));
   }, [boxTranslateY, logoScale, logoTranslateY, size]);

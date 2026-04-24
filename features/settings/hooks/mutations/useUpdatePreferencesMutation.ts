@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { UserPreferences } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useUserOfflineStore } from "../store";
+import { useUserOfflineStore } from "../../store";
 
 import { patchUserPreferences } from "../../services";
 
@@ -15,7 +16,12 @@ const useUpdatePreferencesMutation = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   /** Offline */
-  const { updateLocalUserPreferences, markAsSynced } = useUserOfflineStore();
+  const { updateLocalUserPreferences, markAsSynced } = useUserOfflineStore(
+    useShallow((state) => ({
+      updateLocalUserPreferences: state.updateLocalUserPreferences,
+      markAsSynced: state.markAsSynced,
+    })),
+  );
 
   return useMutation({
     mutationFn: async (payload) => {

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { COUNTRIES } from "../../constants";
 
 import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useGenerationsStore } from "../store";
+import { useResourceGenerationStore } from "../../store";
 
 import {
   CountryFormData,
@@ -19,7 +20,13 @@ const initialValues: CountryFormData = {
 
 const useCountryFormLogic = () => {
   const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
-    useGenerationsStore();
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        setGenerationStep: state.setGenerationStep,
+        updateIaGeneration: state.updateIaGeneration,
+      })),
+    );
 
   const { t, lang } = useTranslations();
 

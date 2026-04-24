@@ -3,7 +3,7 @@ import { FlatList } from "react-native";
 
 import { EducationalResource } from "@/features/educational-resources/types";
 
-import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
+import { useResourcesSelectionStore } from "@/features/educational-resources/store";
 import {
   useResponsive,
   useSearchInput,
@@ -27,7 +27,9 @@ const ShareResourcesPanel = ({
   goNext,
 }: ShareResourcesPanelProps) => {
   const size = useResponsive();
-  const { selectedResourceIds } = useResourcesSelectionStore();
+  const selectedResourceIds = useResourcesSelectionStore(
+    (state) => state.selectedResourceIds,
+  );
   const { t } = useTranslations();
   const selectedResources = useMemo(
     () => resources.filter((r) => selectedResourceIds.has(r.resourceId)),

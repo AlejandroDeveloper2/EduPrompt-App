@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { FlatList } from "react-native";
+import { useShallow } from "zustand/react/shallow";
 
 import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "@/features/generations/constants";
 
+import { useSelectionModeStore } from "@/core/store";
 import {
   useGenerationsSelectionStore,
-  useGenerationsStore,
-} from "@/features/generations/hooks/store";
+  useResourceGenerationStore,
+} from "@/features/generations/store";
 import {
   useResponsive,
   useSearchInput,
   useTranslations,
 } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import { Button } from "@/shared/components/molecules";
 import { GenerationCard } from "../../molecules";
@@ -27,19 +28,49 @@ import { dynamicStyles } from "./GenerationCardList.style";
 const GenerationCardList = () => {
   const size = useResponsive();
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
-    useGenerationsSelectionStore();
+    useGenerationsSelectionStore(
+      useShallow(
+        ({ selectionCount, isAllSelected, clearSelection, selectAll }) => ({
+          selectionCount,
+          isAllSelected,
+          clearSelection,
+          selectAll,
+        }),
+      ),
+    );
   const {
     selectionMode,
     allSelected,
     enableSelectionMode,
     disableSelectionMode,
-  } = useSelectionModeStore();
+  } = useSelectionModeStore(
+    useShallow(
+      ({
+        selectionMode,
+        allSelected,
+        enableSelectionMode,
+        disableSelectionMode,
+      }) => ({
+        selectionMode,
+        allSelected,
+        enableSelectionMode,
+        disableSelectionMode,
+      }),
+    ),
+  );
   const {
     iaGenerations,
     createIaGeneration,
     deleteSelectedGenerations,
     reinitSelectedGenerations,
-  } = useGenerationsStore();
+  } = useResourceGenerationStore(
+    useShallow((state) => ({
+      iaGenerations: state.iaGenerations,
+      createIaGeneration: state.createIaGeneration,
+      deleteSelectedGenerations: state.deleteSelectedGenerations,
+      reinitSelectedGenerations: state.reinitSelectedGenerations,
+    })),
+  );
 
   const {
     searchValue,

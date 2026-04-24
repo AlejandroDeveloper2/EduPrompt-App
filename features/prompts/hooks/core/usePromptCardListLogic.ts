@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Prompt } from "../../types";
 
@@ -7,12 +8,12 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { eventBus } from "@/core/events/EventBus";
 
+import { useSelectionModeStore } from "@/core/store";
 import { usePopUp, useResponsive, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
+import { usePromptsSelectionStore } from "../../store";
 import { usePromptFiltersContext } from "../context";
 import { useDeleteManyPromptsMutation } from "../mutations";
 import { usePromptsQuery } from "../queries";
-import { usePromptsSelectionStore } from "../store";
 
 const usePromptCardListLogic = () => {
   const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
@@ -25,13 +26,28 @@ const usePromptCardListLogic = () => {
     clearSelection,
     selectAll,
     selectedPromptIds,
-  } = usePromptsSelectionStore();
+  } = usePromptsSelectionStore(
+    useShallow((state) => ({
+      selectionCount: state.selectionCount,
+      isAllSelected: state.isAllSelected,
+      clearSelection: state.clearSelection,
+      selectAll: state.selectAll,
+      selectedPromptIds: state.selectedPromptIds,
+    })),
+  );
   const {
     selectionMode,
     allSelected,
     enableSelectionMode,
     disableSelectionMode,
-  } = useSelectionModeStore();
+  } = useSelectionModeStore(
+    useShallow((state) => ({
+      selectionMode: state.selectionMode,
+      allSelected: state.allSelected,
+      enableSelectionMode: state.enableSelectionMode,
+      disableSelectionMode: state.disableSelectionMode,
+    })),
+  );
 
   const {
     searchPromptValue,

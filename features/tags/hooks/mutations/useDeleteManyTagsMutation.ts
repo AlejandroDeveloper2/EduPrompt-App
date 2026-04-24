@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { Tag } from "../../types";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSelectionModeStore } from "@/shared/hooks/store";
-import { useOfflineTagsStore } from "../store";
+import { useOfflineTagsStore } from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -18,10 +19,14 @@ const useDeleteManyTagsMutation = () => {
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { disableSelectionMode } = useSelectionModeStore();
+  const disableSelectionMode = useSelectionModeStore(
+    useShallow((state) => state.disableSelectionMode),
+  );
 
   /** Offline */
-  const { deleteManyTags: deleteManyTagsOffline } = useOfflineTagsStore();
+  const deleteManyTagsOffline = useOfflineTagsStore(
+    useShallow((state) => state.deleteManyTags),
+  );
 
   return useMutation({
     mutationFn: async (payload) => {

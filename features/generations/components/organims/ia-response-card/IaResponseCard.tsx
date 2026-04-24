@@ -7,7 +7,7 @@ import { AppColors, Spacing } from "@/shared/styles";
 
 import { useSaveResourceFormLogic } from "@/features/generations/hooks/core";
 import { useGenerateResourceMutation } from "@/features/generations/hooks/mutations";
-import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useResourceGenerationStore } from "@/features/generations/store";
 import {
   useBackgroundTaskRunner,
   useResponsive,
@@ -44,7 +44,12 @@ const IaResponseCard = ({
     editSelectedGeneration,
     clearAndRemoveSelectedGeneration,
     executeIaGeneration,
-  } = useGenerationsStore();
+  } = useResourceGenerationStore((state) => ({
+    createAndSelectNewGeneration: state.createAndSelectNewGeneration,
+    editSelectedGeneration: state.editSelectedGeneration,
+    clearAndRemoveSelectedGeneration: state.clearAndRemoveSelectedGeneration,
+    executeIaGeneration: state.executeIaGeneration,
+  }));
   const { mutateAsync, isPending, data } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
   const userProfile = useEventbusValue("userProfile.user.updated", null);

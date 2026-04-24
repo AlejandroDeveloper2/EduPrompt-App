@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { User, UserStats } from "../../types";
 
-import { useUserOfflineStore } from "../store";
+import { useUserOfflineStore } from "../../store";
 
 import { eventBus } from "@/core/events/EventBus";
 import { putUserStats } from "../../services";
@@ -11,7 +12,12 @@ import { putUserStats } from "../../services";
 const useUserSyncMutation = () => {
   const queryClient = useQueryClient();
 
-  const { userStats, markAsSynced } = useUserOfflineStore();
+  const { userStats, markAsSynced } = useUserOfflineStore(
+    useShallow((state) => ({
+      userStats: state.userStats,
+      markAsSynced: state.markAsSynced,
+    })),
+  );
 
   const mutation = useMutation({
     mutationFn: putUserStats,

@@ -1,13 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { InfiniteQueryOptions, PaginatedResponse } from "@/core/types";
 import { BaseFilters, Tag, TagFilters } from "../../types";
 
+import { useSyncDataStore } from "@/core/store";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSyncDataStore } from "@/shared/hooks/store";
-import { useOfflineTagsStore } from "../store";
+import { useOfflineTagsStore } from "../../store";
 
 import { getTags } from "../../services";
 
@@ -20,9 +21,17 @@ const useTagsQuery = (
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { findTags, updateTagsSyncStatus, createTag } = useOfflineTagsStore();
+  const { findTags, updateTagsSyncStatus, createTag } = useOfflineTagsStore(
+    useShallow((state) => ({
+      findTags: state.findTags,
+      updateTagsSyncStatus: state.updateTagsSyncStatus,
+      createTag: state.createTag,
+    })),
+  );
 
-  const { updateModuleSyncMapState } = useSyncDataStore();
+  const updateModuleSyncMapState = useSyncDataStore(
+    (state) => state.updateModuleSyncMapState,
+  );
 
   const queryKey = useMemo(
     () => ["tags", baseFilters?.type ?? null, baseFilters?.name ?? null, limit],

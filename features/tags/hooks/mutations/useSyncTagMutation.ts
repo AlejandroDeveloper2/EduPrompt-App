@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Tag } from "../../types";
 
-import { useOfflineTagsStore } from "../store";
+import { useOfflineTagsStore } from "../../store";
 
 import { eventBus } from "@/core/events/EventBus";
 import { postSyncTags } from "../../services";
@@ -11,7 +12,12 @@ import { postSyncTags } from "../../services";
 const useSyncTagMutation = () => {
   const queryClient = useQueryClient();
 
-  const { updateTagsSyncStatus, findAllTags } = useOfflineTagsStore();
+  const { updateTagsSyncStatus, findAllTags } = useOfflineTagsStore(
+    useShallow((state) => ({
+      updateTagsSyncStatus: state.updateTagsSyncStatus,
+      findAllTags: state.findAllTags,
+    })),
+  );
 
   const mutation = useMutation({
     mutationFn: postSyncTags,

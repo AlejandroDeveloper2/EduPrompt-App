@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { useSyncDataStore } from "@/core/store";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSyncDataStore } from "@/shared/hooks/store";
 import { useIndicatorPanelStore } from "../../store";
 
 import { getIndicators } from "../../services";
@@ -14,7 +14,9 @@ const useIndicatorsQuery = () => {
     (state) => state.loadIndicators,
   );
 
-  const { updateModuleSyncMapState } = useSyncDataStore();
+  const updateModuleSyncMapState = useSyncDataStore(
+    (state) => state.updateModuleSyncMapState,
+  );
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 

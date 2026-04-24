@@ -1,3 +1,5 @@
+import { Ionicons } from "@expo/vector-icons";
+
 type IllustrationType =
   | "FirstStepImage"
   | "SecondStepImage"

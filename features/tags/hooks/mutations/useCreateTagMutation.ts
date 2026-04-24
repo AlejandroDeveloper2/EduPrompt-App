@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { CreateTagPayload, Tag } from "../../types";
 
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflineTagsStore } from "../store";
+import { useOfflineTagsStore } from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -18,7 +19,12 @@ const useCreateTagMutation = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   /** Offline */
-  const { createTag, updateTagsSyncStatus } = useOfflineTagsStore();
+  const { createTag, updateTagsSyncStatus } = useOfflineTagsStore(
+    useShallow((state) => ({
+      createTag: state.createTag,
+      updateTagsSyncStatus: state.updateTagsSyncStatus,
+    })),
+  );
 
   return useMutation({
     mutationFn: async (createTagPayload) => {

@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useUserOfflineStore } from "../store";
+import { useUserOfflineStore } from "../../store";
 
 import { patchUserTokenCoins } from "../../services";
 
@@ -14,7 +15,13 @@ const useUpdateTokenCoinsMutation = () => {
 
   /** Offline */
   const { addLocalTokenCoins, subtractLocalTokenCoins, markAsSynced } =
-    useUserOfflineStore();
+    useUserOfflineStore(
+      useShallow((state) => ({
+        addLocalTokenCoins: state.addLocalTokenCoins,
+        subtractLocalTokenCoins: state.subtractLocalTokenCoins,
+        markAsSynced: state.markAsSynced,
+      })),
+    );
 
   return useMutation({
     mutationFn: async (config: {

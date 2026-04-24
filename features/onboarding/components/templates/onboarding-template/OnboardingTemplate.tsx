@@ -6,7 +6,7 @@ import { OnboardingStep } from "@/features/onboarding/types";
 
 import { useResponsive } from "@/shared/hooks/core";
 import { useAnimatedOnboarding } from "../../../hooks/animations";
-import { useOnboardingStore } from "../../../hooks/store";
+import { useOnboardingStore } from "../../../store";
 
 import { LogoV2 } from "@/shared/components/atoms";
 import { Button, Stepper } from "@/shared/components/molecules";
@@ -20,7 +20,11 @@ import EduPromptBackground from "@/assets/images/eduprompt-background.png";
 const OnboardingTemplate = () => {
   const insets = useSafeAreaInsets();
   const size = useResponsive();
-  const { currentStep, steps, goToExactStep } = useOnboardingStore();
+  const { currentStep, steps, goToExactStep } = useOnboardingStore((state) => ({
+    currentStep: state.currentStep,
+    steps: state.steps,
+    goToExactStep: state.goToExactStep,
+  }));
   const {
     animatedOnboardingStyle,
     animatedLogoStyle,

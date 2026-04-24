@@ -1,21 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Tag, TagType } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
+import { useSelectionModeStore } from "@/core/store";
 import {
   useListFilters,
   usePopUp,
   useResponsive,
   useTranslations,
 } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
+import { useTagsSelectionStore } from "../../store";
 import { useDeleteManyTagsMutation } from "../mutations";
 import { useTagsQuery } from "../queries";
-import { useTagsSelectionStore } from "../store";
 
 const useTagCardListLogic = () => {
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
@@ -27,13 +28,28 @@ const useTagCardListLogic = () => {
     clearSelection,
     selectAll,
     selectedTagIds,
-  } = useTagsSelectionStore();
+  } = useTagsSelectionStore(
+    useShallow((state) => ({
+      selectionCount: state.selectionCount,
+      isAllSelected: state.isAllSelected,
+      clearSelection: state.clearSelection,
+      selectAll: state.selectAll,
+      selectedTagIds: state.selectedTagIds,
+    })),
+  );
   const {
     selectionMode,
     allSelected,
     enableSelectionMode,
     disableSelectionMode,
-  } = useSelectionModeStore();
+  } = useSelectionModeStore(
+    useShallow((state) => ({
+      selectionMode: state.selectionMode,
+      allSelected: state.allSelected,
+      enableSelectionMode: state.enableSelectionMode,
+      disableSelectionMode: state.disableSelectionMode,
+    })),
+  );
 
   const {
     searchValue,

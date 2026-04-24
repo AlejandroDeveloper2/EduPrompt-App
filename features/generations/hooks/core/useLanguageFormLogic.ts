@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { APP_LANGUAGES } from "@/shared/constants";
 
 import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useGenerationsStore } from "../store";
+import { useResourceGenerationStore } from "../../store";
 
 import {
   LanguageFormData,
@@ -18,8 +19,14 @@ const initialValues: LanguageFormData = {
 };
 
 const useLanguageFormLogic = () => {
-  const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
-    useGenerationsStore();
+  const { currentIaGeneration, updateIaGeneration, setGenerationStep } =
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        updateIaGeneration: state.updateIaGeneration,
+        setGenerationStep: state.setGenerationStep,
+      })),
+    );
 
   const { t } = useTranslations();
 

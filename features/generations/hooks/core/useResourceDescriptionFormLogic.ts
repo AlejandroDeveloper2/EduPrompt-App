@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Prompt } from "@/features/prompts/types";
 import { GenerationData } from "../../types";
@@ -17,8 +18,8 @@ import {
   useTranslations,
 } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
+import { useResourceGenerationStore } from "../../store";
 import { useGenerateResourceMutation } from "../mutations";
-import { useGenerationsStore } from "../store";
 
 import { getResourcePrice } from "../../helpers";
 
@@ -35,7 +36,14 @@ const useResourceDescriptionFormLogic = () => {
     setGenerationStep,
     executeIaGeneration,
     updateIaGeneration,
-  } = useGenerationsStore();
+  } = useResourceGenerationStore(
+    useShallow((state) => ({
+      currentIaGeneration: state.currentIaGeneration,
+      setGenerationStep: state.setGenerationStep,
+      executeIaGeneration: state.executeIaGeneration,
+      updateIaGeneration: state.updateIaGeneration,
+    })),
+  );
 
   const { mutateAsync, isPending } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();

@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { CreateResourcePayload, EducationalResource } from "../../types";
 
@@ -8,7 +9,7 @@ import { showToast } from "@/shared/context";
 
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflineResourcesStore } from "../store";
+import { useOfflineResourcesStore } from "../../store";
 
 import { eventBus } from "@/core/events/EventBus";
 import { generateToastKey } from "@/shared/helpers";
@@ -22,7 +23,12 @@ const useCreateResourceMutation = () => {
 
   /** Offline */
   const { createResource, updateResourcesSyncStatus } =
-    useOfflineResourcesStore();
+    useOfflineResourcesStore(
+      useShallow(({ createResource, updateResourcesSyncStatus }) => ({
+        createResource,
+        updateResourcesSyncStatus,
+      })),
+    );
 
   return useMutation({
     mutationFn: async (payload) => {

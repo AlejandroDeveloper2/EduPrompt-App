@@ -12,8 +12,8 @@ import {
 
 import { useForm, usePopUp } from "@/shared/hooks/core";
 import { useEventBusToggle } from "@/shared/hooks/events";
+import { useResourceGenerationStore } from "../../store";
 import { useTagFiltersContext } from "../context";
-import { useGenerationsStore } from "../store";
 
 import { getSelectedOption } from "../../helpers";
 
@@ -27,7 +27,9 @@ const useSaveResourceFormLogic = () => {
 
   const saveResourcePopUp = usePopUp();
 
-  const { currentIaGeneration } = useGenerationsStore();
+  const currentIaGeneration = useResourceGenerationStore(
+    (state) => state.currentIaGeneration,
+  );
 
   const { paginatedTags, searchTagValue, onSearchTagValueChange, setTagType } =
     useTagFiltersContext();

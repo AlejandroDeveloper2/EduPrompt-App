@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../types";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSelectionModeStore } from "@/shared/hooks/store";
-import { useOfflineResourcesStore } from "../store";
+import { useOfflineResourcesStore } from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -19,10 +20,14 @@ const useDeleteManyResourcesMutation = () => {
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { disableSelectionMode } = useSelectionModeStore();
+  const disableSelectionMode = useSelectionModeStore(
+    useShallow((state) => state.disableSelectionMode),
+  );
 
   /** Offline */
-  const { deleteManyResources: deleteManyOffline } = useOfflineResourcesStore();
+  const deleteManyOffline = useOfflineResourcesStore(
+    useShallow((state) => state.deleteManyResources),
+  );
 
   return useMutation({
     mutationFn: async (payload) => {

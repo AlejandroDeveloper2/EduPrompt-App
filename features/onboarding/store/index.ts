@@ -1,1 +1,1 @@
-export { OnboardingStore } from "./onboarding-store/Onboarding.store";
+export { useOnboardingStore } from "./onboarding-store/useOnboardingStore";

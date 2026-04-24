@@ -3,6 +3,7 @@ import AsyncStorage from "expo-sqlite/kv-store";
 import { useEffect, useRef } from "react";
 import { AppState, AppStateStatus } from "react-native";
 import uuid from "react-native-uuid";
+import { useShallow } from "zustand/react/shallow";
 
 import { Process } from "@/core/types";
 
@@ -10,7 +11,7 @@ import { ASYNC_STORAGE_KEYS } from "@/shared/constants";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useBackgroundTasksStore } from "../store";
+import { useBackgroundTasksStore } from "@/core/store";
 import useTranslations from "./useTranslations";
 
 import { calcAvarageProcessDuration } from "@/shared/utils";
@@ -23,14 +24,21 @@ const useBackgroundTaskRunner = () => {
     createBackgroundTask,
     updateBackgroundTask,
     removeBackgroundTask,
-  } = useBackgroundTasksStore();
+  } = useBackgroundTasksStore(
+    useShallow((state) => ({
+      tasks: state.tasks,
+      createBackgroundTask: state.createBackgroundTask,
+      updateBackgroundTask: state.updateBackgroundTask,
+      removeBackgroundTask: state.removeBackgroundTask,
+    })),
+  );
 
   const { t } = useTranslations();
 
   useEffect(() => {
     const interval = setInterval(async () => {
       const inProgressTasks = tasks.filter(
-        (task) => task.state === "in-progress"
+        (task) => task.state === "in-progress",
       );
 
       for (const task of inProgressTasks) {
@@ -52,7 +60,7 @@ const useBackgroundTaskRunner = () => {
       appState.current = next;
       if (next !== "active") {
         const inProgressTasks = tasks.filter(
-          (task) => task.state === "in-progress"
+          (task) => task.state === "in-progress",
         );
 
         for (const task of inProgressTasks) {
@@ -74,10 +82,10 @@ const useBackgroundTaskRunner = () => {
 
   const saveAverageProcessesDurations = (
     newTask: Process,
-    duration: number
+    duration: number,
   ): void => {
     const data = AsyncStorage.getItemSync(
-      ASYNC_STORAGE_KEYS.averageProcessDuration
+      ASYNC_STORAGE_KEYS.averageProcessDuration,
     );
 
     const parsedData: Record<string, number[]> | null = data
@@ -92,7 +100,7 @@ const useBackgroundTaskRunner = () => {
 
     AsyncStorage.setItemSync(
       ASYNC_STORAGE_KEYS.averageProcessDuration,
-      JSON.stringify({ ...parsedData, [key]: [...durations, duration] })
+      JSON.stringify({ ...parsedData, [key]: [...durations, duration] }),
     );
   };
 
@@ -108,7 +116,7 @@ const useBackgroundTaskRunner = () => {
         title: string;
         message: string;
       };
-    }
+    },
   ): Promise<void> => {
     try {
       /** Create a new task */

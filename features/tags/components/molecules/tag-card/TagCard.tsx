@@ -5,10 +5,10 @@ import Animated from "react-native-reanimated";
 import { Tag } from "@/features/tags/types";
 import { AppColors } from "@/shared/styles";
 
-import { useTagsSelectionStore } from "@/features/tags/hooks/store";
+import { useSelectionModeStore } from "@/core/store";
+import { useTagsSelectionStore } from "@/features/tags/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import {
   Badge,
@@ -18,6 +18,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
+import { useShallow } from "zustand/react/shallow";
 import { dynamicStyles } from "./TagCard.style";
 
 interface TagCardProps {
@@ -30,8 +31,15 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const TagCard = ({ data, totalRecords, onEdit }: TagCardProps) => {
   const size = useResponsive();
-  const { selectedTagIds, toggleSelection } = useTagsSelectionStore();
-  const { selectionMode } = useSelectionModeStore();
+  const { selectedTagIds, toggleSelection } = useTagsSelectionStore(
+    useShallow((state) => ({
+      selectedTagIds: state.selectedTagIds,
+      toggleSelection: state.toggleSelection,
+    })),
+  );
+  const selectionMode = useSelectionModeStore(
+    useShallow((state) => state.selectionMode),
+  );
 
   const isSelected: boolean = useMemo(
     () => selectedTagIds.has(data.tagId),

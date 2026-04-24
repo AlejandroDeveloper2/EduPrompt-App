@@ -3,13 +3,13 @@ import { BackgroundTaskResult, registerTaskAsync } from "expo-background-task";
 import * as TaskManager from "expo-task-manager";
 import { useEffect } from "react";
 import { AppState } from "react-native";
+import { useShallow } from "zustand/react/shallow";
 
 import { eventBus } from "@/core/events/EventBus";
 
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useUserNotificationsStore } from "../store";
+import { useUserNotificationsStore } from "../../store";
 
-import { UserNotificationsStore } from "../../store";
 import { shouldPerformClean } from "../../utils";
 
 const CLEAN_TASK_NAME = "clean_notifications_task";
@@ -21,7 +21,7 @@ TaskManager.defineTask(CLEAN_TASK_NAME, async () => {
     const should = shouldPerformClean(userProfile);
     if (!should) return BackgroundTaskResult.Failed;
 
-    UserNotificationsStore.getState().removeAllNotifications();
+    useUserNotificationsStore.getState().removeAllNotifications();
 
     if (userProfile)
       eventBus.emit("userProfile.updateUserPreferences.requested", {
@@ -38,7 +38,9 @@ TaskManager.defineTask(CLEAN_TASK_NAME, async () => {
 
 const useCleanNotificationsJob = () => {
   const userProfile = useEventbusValue("userProfile.user.updated", null);
-  const { removeAllNotifications } = useUserNotificationsStore();
+  const removeAllNotifications = useUserNotificationsStore(
+    useShallow((state) => state.removeAllNotifications),
+  );
 
   const performClean = (): void => {
     removeAllNotifications();
@@ -54,7 +56,7 @@ const useCleanNotificationsJob = () => {
       if (userProfile && userProfile.userPreferences.autoCleanNotifications) {
         const frecuency = userProfile.userPreferences.cleanFrecuency
           ? parseInt(
-              userProfile.userPreferences.cleanFrecuency.split("-")[0] ?? 2
+              userProfile.userPreferences.cleanFrecuency.split("-")[0] ?? 2,
             )
           : 2;
 

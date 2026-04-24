@@ -2,16 +2,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
-import { useResourcesSelectionStore } from "@/features/educational-resources/hooks/store";
+import { useResourcesSelectionStore } from "@/features/educational-resources/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
 
 import {
   Badge,
@@ -41,8 +42,15 @@ const ResourceCard = ({
   const { title, format, groupTag, creationDate } = resourceData;
 
   const size = useResponsive();
-  const { selectedResourceIds, toggleSelection } = useResourcesSelectionStore();
-  const { selectionMode } = useSelectionModeStore();
+  const { selectedResourceIds, toggleSelection } = useResourcesSelectionStore(
+    useShallow(({ selectedResourceIds, toggleSelection }) => ({
+      selectedResourceIds,
+      toggleSelection,
+    })),
+  );
+  const selectionMode = useSelectionModeStore(
+    useShallow((state) => state.selectionMode),
+  );
   const {
     paginatedTags: { tags },
   } = useResourcesFiltersContext();

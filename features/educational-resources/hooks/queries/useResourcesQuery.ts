@@ -1,13 +1,14 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { InfiniteQueryOptions, PaginatedResponse } from "@/core/types";
 import { BaseFilters, EducationalResource, ResourceFilters } from "../../types";
 
+import { useSyncDataStore } from "@/core/store";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSyncDataStore } from "@/shared/hooks/store";
-import { useOfflineResourcesStore } from "../store";
+import { useOfflineResourcesStore } from "../../store";
 
 import { getEducationalResourcesByUser } from "../../services";
 
@@ -21,9 +22,19 @@ const useResourcesQuery = (
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { findResources, updateResourcesSyncStatus, createResource } =
-    useOfflineResourcesStore();
+    useOfflineResourcesStore(
+      useShallow(
+        ({ findResources, updateResourcesSyncStatus, createResource }) => ({
+          findResources,
+          updateResourcesSyncStatus,
+          createResource,
+        }),
+      ),
+    );
 
-  const { updateModuleSyncMapState } = useSyncDataStore();
+  const updateModuleSyncMapState = useSyncDataStore(
+    (state) => state.updateModuleSyncMapState,
+  );
 
   const queryKey = useMemo(
     () => [

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { LangTag } from "@/core/types";
 
@@ -11,7 +12,7 @@ import {
 } from "../../components/organims/resource-type-form/validationSchema";
 
 import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useGenerationsStore } from "../store";
+import { useResourceGenerationStore } from "../../store";
 
 import { getSelectedOption, validateIsLastOptionSelected } from "../../helpers";
 
@@ -36,8 +37,14 @@ const handleIsLastSelectedOption = (resourceTypeId: string, lang: LangTag) => {
 };
 
 const useResourceTypeFormLogic = () => {
-  const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
-    useGenerationsStore();
+  const { currentIaGeneration, updateIaGeneration, setGenerationStep } =
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        updateIaGeneration: state.updateIaGeneration,
+        setGenerationStep: state.setGenerationStep,
+      })),
+    );
 
   const { t, lang } = useTranslations();
 

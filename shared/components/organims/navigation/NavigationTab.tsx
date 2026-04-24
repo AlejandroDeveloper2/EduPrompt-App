@@ -7,8 +7,8 @@ import { NavigationPropsBase } from "@/core/types";
 import { getActiveNavItem, getMainNavigationRoutes } from "../../../helpers";
 import { renderNavItem } from "../../../utils";
 
+import { useLanguageStore } from "@/core/store";
 import { useResponsive } from "@/shared/hooks/core";
-import { useLanguageStore } from "../../../hooks/store";
 
 import { GenerateButton } from "../../molecules";
 import { NavActions } from "./NavActions";
@@ -23,7 +23,7 @@ const NavigationTab = ({
   navigation,
   ...props
 }: NavigationTabProps) => {
-  const { lang } = useLanguageStore();
+  const lang = useLanguageStore((state) => state.lang);
   const size = useResponsive();
   const insets = useSafeAreaInsets();
 

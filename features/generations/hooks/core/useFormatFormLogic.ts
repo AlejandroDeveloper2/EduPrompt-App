@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { RESOURCE_FORMATS } from "../../constants";
 
@@ -9,7 +10,7 @@ import {
 } from "../../components/organims/resource-format-form/validationSchema";
 
 import { useForm, usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useGenerationsStore } from "../store";
+import { useResourceGenerationStore } from "../../store";
 
 import { getSelectedOption } from "../../helpers";
 
@@ -19,7 +20,13 @@ const initialValues: ResourceFormatFormData = {
 
 const useFormatFormLogic = () => {
   const { currentIaGeneration, setGenerationStep, updateIaGeneration } =
-    useGenerationsStore();
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        setGenerationStep: state.setGenerationStep,
+        updateIaGeneration: state.updateIaGeneration,
+      })),
+    );
 
   const { t, lang } = useTranslations();
 

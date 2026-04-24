@@ -1,9 +1,9 @@
-import { Step } from "@/core/types";
+import { OnboardingStep } from "../../types";
 
 export interface OnboardingStoreType {
   isCompleting: boolean;
-  steps: Step[];
-  currentStep: Step;
+  steps: OnboardingStep[];
+  currentStep: OnboardingStep;
   handleNextStep: () => void;
   handlePreviousStep: () => void;
   goToExactStep: (stepId: string) => void;

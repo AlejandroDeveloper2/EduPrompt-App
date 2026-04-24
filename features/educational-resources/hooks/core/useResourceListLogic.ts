@@ -5,13 +5,16 @@ import { useCallback, useEffect, useMemo, useRef } from "react";
 import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
+import { useSelectionModeStore } from "@/core/store";
 import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
-import { useResourcePreviewStore } from "../../store";
+import { useShallow } from "zustand/react/shallow";
+import {
+  useResourcePreviewStore,
+  useResourcesSelectionStore,
+} from "../../store";
 import { useResourcesFiltersContext } from "../context";
 import { useDeleteManyResourcesMutation } from "../mutations";
 import { useResourcesQuery } from "../queries";
-import { useResourcesSelectionStore } from "../store";
 
 const useResourceListLogic = () => {
   const router = useRouter();
@@ -26,14 +29,44 @@ const useResourceListLogic = () => {
     clearSelection,
     selectAll,
     selectedResourceIds,
-  } = useResourcesSelectionStore();
+  } = useResourcesSelectionStore(
+    useShallow(
+      ({
+        selectionCount,
+        isAllSelected,
+        clearSelection,
+        selectAll,
+        selectedResourceIds,
+      }) => ({
+        selectionCount,
+        isAllSelected,
+        clearSelection,
+        selectAll,
+        selectedResourceIds,
+      }),
+    ),
+  );
 
   const {
     selectionMode,
     allSelected,
     enableSelectionMode,
     disableSelectionMode,
-  } = useSelectionModeStore();
+  } = useSelectionModeStore(
+    useShallow(
+      ({
+        selectionMode,
+        allSelected,
+        enableSelectionMode,
+        disableSelectionMode,
+      }) => ({
+        selectionMode,
+        allSelected,
+        enableSelectionMode,
+        disableSelectionMode,
+      }),
+    ),
+  );
 
   const confirmDeletePopUp = usePopUp();
 
@@ -63,8 +96,8 @@ const useResourceListLogic = () => {
     [data],
   );
 
-  // ✅ Ref para evitar que resources sea dependencia del efecto de selección
   const resourceIdsRef = useRef<string[]>([]);
+
   useEffect(() => {
     resourceIdsRef.current = resources.map((r) => r.resourceId);
   }, [resources]);
@@ -93,7 +126,6 @@ const useResourceListLogic = () => {
     if (!selectionMode) clearSelection();
   }, [selectionMode]);
 
-  // ✅ Corregido: usa ref en lugar de resources directamente
   useEffect(() => {
     if (allSelected) {
       selectAll(resourceIdsRef.current);
@@ -102,7 +134,6 @@ const useResourceListLogic = () => {
     }
   }, [allSelected]);
 
-  // ✅ Acción sin suscripción reactiva al preview store
   const handleViewResource = useCallback(
     (resource: (typeof resources)[number]) => {
       useResourcePreviewStore.getState().setSelectedResource(resource);

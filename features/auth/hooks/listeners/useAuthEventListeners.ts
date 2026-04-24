@@ -5,6 +5,7 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { ChangePassPayload } from "../../types";
 
+import { useAuthStore } from "../../store";
 import {
   useChangePasswordMutation,
   useLogoutMutation,
@@ -12,7 +13,6 @@ import {
   useSendUpdateEmailRequestMutation,
   useUpdateEmailMutation,
 } from "../mutations";
-import { useAuthStore } from "../store";
 
 const useAuthEventListeners = () => {
   const router = useRouter();
@@ -30,10 +30,6 @@ const useAuthEventListeners = () => {
   const sendEmailUpdateMutation = useSendUpdateEmailRequestMutation();
   const updatedEmailMutation = useUpdateEmailMutation();
   const refreshSessionMutation = useRefreshSessionMutation();
-
-  // useEffect(() => {
-  //   console.log("Tokens desde listener de auth :", { token, refreshToken });
-  // }, [token, refreshToken]);
 
   useEffect(() => {
     eventBus.emit("auth.tokens.getted", { token, refreshToken });
@@ -138,12 +134,12 @@ const useAuthEventListeners = () => {
 
     eventBus.on(
       "auth.sendEmailUpdateRequest.requested",
-      handleSendEmailChangeRequest
+      handleSendEmailChangeRequest,
     );
     return () => {
       eventBus.off(
         "auth.sendEmailUpdateRequest.requested",
-        handleSendEmailChangeRequest
+        handleSendEmailChangeRequest,
       );
     };
   }, [sendEmailUpdateMutation]);
@@ -172,7 +168,7 @@ const useAuthEventListeners = () => {
               error: String(error),
             });
           },
-        }
+        },
       );
     };
 

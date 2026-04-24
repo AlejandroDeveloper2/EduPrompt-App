@@ -1,2 +1,2 @@
-export * from "./generations-selection-store/GenerationsSelection.store";
-export * from "./resource-generation-store/ResourceGeneration.store";
+export * from "./generations-selection-store/useGenerationsSelectionStore";
+export * from "./resource-generation-store/useResourceGenerationStore";

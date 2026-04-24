@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Image, View } from "react-native";
 
-import { useGenerationsStore } from "@/features/generations/hooks/store";
+import { useResourceGenerationStore } from "@/features/generations/store";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { setGenerationProcessName } from "@/features/generations/helpers";
@@ -15,7 +15,10 @@ import GeneratingImage from "@/assets/images/generating-image.png";
 const Generating = () => {
   const size = useResponsive();
   const { clearSelectedGeneration, currentIaGeneration } =
-    useGenerationsStore();
+    useResourceGenerationStore((state) => ({
+      clearSelectedGeneration: state.clearSelectedGeneration,
+      currentIaGeneration: state.currentIaGeneration,
+    }));
   const { t } = useTranslations();
   const processDuration = useMemo(() => {
     if (!currentIaGeneration) return null;

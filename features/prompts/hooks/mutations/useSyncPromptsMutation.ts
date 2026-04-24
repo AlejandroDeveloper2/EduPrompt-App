@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Prompt } from "../../types";
 
-import { useOfflinePromptsStore } from "../store";
+import { useOfflinePromptsStore } from "../../store";
 
 import { postSyncPrompts } from "../../services";
 
@@ -12,7 +13,12 @@ import { eventBus } from "@/core/events/EventBus";
 const useSyncPromptsMutation = () => {
   const queryClient = useQueryClient();
 
-  const { updatePromptsSyncStatus, findAllPrompts } = useOfflinePromptsStore();
+  const { updatePromptsSyncStatus, findAllPrompts } = useOfflinePromptsStore(
+    useShallow((state) => ({
+      updatePromptsSyncStatus: state.updatePromptsSyncStatus,
+      findAllPrompts: state.findAllPrompts,
+    })),
+  );
 
   const mutation = useMutation({
     mutationFn: postSyncPrompts,

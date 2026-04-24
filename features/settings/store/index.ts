@@ -1,1 +1,1 @@
-export { UserOfflineStore } from "./user-offline-store/UserOffline.store";
+export * from "./user-offline-store/useUserOfflineStore";

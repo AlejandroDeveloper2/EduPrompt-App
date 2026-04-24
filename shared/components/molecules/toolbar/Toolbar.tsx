@@ -1,12 +1,13 @@
 import { Pressable } from "react-native";
 import Animated from "react-native-reanimated";
+import { useShallow } from "zustand/react/shallow";
 
 import { AppColors, Spacing } from "../../../styles";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useAnimatedToolbar } from "../../../hooks/animations";
-import { useSelectionModeStore } from "../../../hooks/store";
 
 import { Ionicon, Typography } from "../../atoms";
 
@@ -16,7 +17,13 @@ const Toolbar = () => {
   const size = useResponsive();
 
   const { selectionMode, disableSelectionMode, toggleSelectAll } =
-    useSelectionModeStore();
+    useSelectionModeStore(
+      useShallow((state) => ({
+        selectionMode: state.selectionMode,
+        disableSelectionMode: state.disableSelectionMode,
+        toggleSelectAll: state.toggleSelectAll,
+      })),
+    );
 
   const isAllSelected: boolean = useEventbusValue(
     "selectionMode.isAllSelected.updated",

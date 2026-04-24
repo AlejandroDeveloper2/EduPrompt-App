@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { NativeSyntheticEvent, TextInputKeyPressEventData } from "react-native";
+import { NativeSyntheticEvent, TextInputKeyPressEvent } from "react-native";
 
 import { TextInputInstance } from "@/core/types";
 
@@ -39,10 +39,14 @@ const useCodeInput = (
   };
 
   const handleKeyPress = (
-    e: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    e: NativeSyntheticEvent<TextInputKeyPressEvent>,
     index: number,
   ) => {
-    if (e.nativeEvent.key === "Backspace" && !codeArray[index] && index > 0) {
+    if (
+      e.nativeEvent.nativeEvent.key === "Backspace" &&
+      !codeArray[index] &&
+      index > 0
+    ) {
       const newCodeArray = [...codeArray];
       newCodeArray[index - 1] = "";
       onChange(name, newCodeArray.join(""));

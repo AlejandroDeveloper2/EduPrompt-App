@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Prompt } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflinePromptsStore } from "../store";
+import { useOfflinePromptsStore } from "../../store";
 
 import { getPromptById } from "../../services";
 
@@ -16,7 +17,13 @@ const usePromptByIdQuery = (promptId: string) => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { isLoading, findPromptById, updatePromptsSyncStatus } =
-    useOfflinePromptsStore();
+    useOfflinePromptsStore(
+      useShallow((state) => ({
+        isLoading: state.isLoading,
+        findPromptById: state.findPromptById,
+        updatePromptsSyncStatus: state.updatePromptsSyncStatus,
+      })),
+    );
 
   const query = useQuery({
     queryKey: ["prompt", promptId],

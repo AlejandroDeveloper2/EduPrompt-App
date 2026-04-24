@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { AppColors } from "@/shared/styles";
 
@@ -8,10 +9,7 @@ import { jobScheduler } from "@/core/jobs/JobScheduler";
 import { registerJobs } from "@/core/jobs/registerJobs";
 
 /** Stores */
-import {
-  useScreenDimensionsStore,
-  useSelectionModeStore,
-} from "@/shared/hooks/store";
+import { useSelectionModeStore } from "@/core/store";
 
 /** Queries */
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
@@ -30,7 +28,7 @@ import {
   useCleanNotificationsJob,
   useNotificationCheckerJob,
 } from "@/features/notifications/hooks/core";
-import { useBlockBackWhenSelection } from "@/shared/hooks/core";
+import { useBlockBackWhenSelection, useResponsive } from "@/shared/hooks/core";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
 import {
@@ -40,9 +38,9 @@ import {
 } from "@/shared/components/organims";
 
 export default function TabLayout() {
-  const size = useScreenDimensionsStore();
+  const size = useResponsive();
 
-  const { actions } = useSelectionModeStore();
+  const actions = useSelectionModeStore(useShallow((state) => state.actions));
 
   /** Cargar perfil de usuario */
   const { isFetched } = useUserProfileQuery();

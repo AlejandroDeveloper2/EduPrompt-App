@@ -1,3 +1,3 @@
-export * from "./offline-resources-store/OfflineResourcesStore";
+export * from "./offline-resources-store/useOfflineResourcesStore";
 export * from "./resource-preview-store/useResourcePreviewStore";
-export * from "./resources-selection-store/ResourceSelectionStore";
+export * from "./resources-selection-store/useResourceSelectionStore";

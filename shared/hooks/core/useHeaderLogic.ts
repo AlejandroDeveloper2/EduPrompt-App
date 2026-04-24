@@ -2,9 +2,9 @@ import { Href, usePathname, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useAnimatedFloatMenu } from "../animations";
 import { useEventBusToggle, useEventbusValue } from "../events";
-import { useSelectionModeStore } from "../store";
 import useCheckPremium from "./useCheckPremium";
 import useResponsive from "./useResponsive";
 import useTranslations from "./useTranslations";
@@ -20,7 +20,7 @@ const useHeaderLogic = () => {
 
   const { isMounted, animatedStyle, toggleDeploy } = useAnimatedFloatMenu();
 
-  const { selectionMode } = useSelectionModeStore();
+  const selectionMode = useSelectionModeStore((state) => state.selectionMode);
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 

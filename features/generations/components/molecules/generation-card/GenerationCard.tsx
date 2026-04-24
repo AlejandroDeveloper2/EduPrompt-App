@@ -6,17 +6,18 @@ import { IaGeneration } from "@/features/generations/types";
 
 import { AppColors } from "@/shared/styles";
 
-import {
-  useGenerationsSelectionStore,
-  useGenerationsStore,
-} from "@/features/generations/hooks/store";
+import { useSelectionModeStore } from "@/core/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
+import {
+  useGenerationsSelectionStore,
+  useResourceGenerationStore,
+} from "../../../store";
 
 import { Checkbox, Typography } from "@/shared/components/atoms";
 import { ProgressBar } from "@/shared/components/molecules";
 
+import { useShallow } from "zustand/react/shallow";
 import { dynamicStyles } from "./GenerationCard.style";
 
 interface GenerationCardProps {
@@ -29,9 +30,18 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
   const size = useResponsive();
   const { selectedGenerationIds, toggleSelection } =
-    useGenerationsSelectionStore();
-  const { selectionMode } = useSelectionModeStore();
-  const { getIaGeneration } = useGenerationsStore();
+    useGenerationsSelectionStore(
+      useShallow(({ selectedGenerationIds, toggleSelection }) => ({
+        selectedGenerationIds,
+        toggleSelection,
+      })),
+    );
+  const selectionMode = useSelectionModeStore(
+    useShallow((state) => state.selectionMode),
+  );
+  const getIaGeneration = useResourceGenerationStore(
+    (state) => state.getIaGeneration,
+  );
   const generationProgress = useMemo(() => {
     const completedSteps = data.steps.filter(
       (step) => step.completed === true,

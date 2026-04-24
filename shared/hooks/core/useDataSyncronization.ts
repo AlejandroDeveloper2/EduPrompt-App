@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { AppModules } from "@/core/store/sync-data-store/store-types";
 
+import { useSyncDataStore } from "@/core/store";
 import { useEventbusValue } from "../events";
-import { useSyncDataStore } from "../store";
 import useCheckNetwork from "./useCheckNetwork";
 import useTranslations from "./useTranslations";
 
@@ -11,8 +12,12 @@ import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 
 const useDataSyncronization = () => {
-  const { moduleSyncMap, runDataSyncronization } = useSyncDataStore();
-
+  const { moduleSyncMap, runDataSyncronization } = useSyncDataStore(
+    useShallow(({ moduleSyncMap, runDataSyncronization }) => ({
+      moduleSyncMap,
+      runDataSyncronization,
+    })),
+  );
   const { t } = useTranslations();
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);

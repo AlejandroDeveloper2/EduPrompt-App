@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { useShallow } from "zustand/react/shallow";
 
 import { AppColors } from "@/shared/styles";
 
 import { Notification, NotificationLink } from "@/features/notifications/types";
 
 import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
-import { useNotificationsSelectionStore } from "@/features/notifications/hooks/store";
+import { useNotificationsSelectionStore } from "@/features/notifications/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
@@ -32,7 +33,12 @@ const NotificationCard = ({
 }: NotificationCardProps) => {
   const size = useResponsive();
   const { selectedNotificationIds, toggleSelection } =
-    useNotificationsSelectionStore();
+    useNotificationsSelectionStore(
+      useShallow((state) => ({
+        selectedNotificationIds: state.selectedNotificationIds,
+        toggleSelection: state.toggleSelection,
+      })),
+    );
   const isSelected: boolean = useMemo(
     () => selectedNotificationIds.has(data.notificationId),
     [data.notificationId, selectedNotificationIds],

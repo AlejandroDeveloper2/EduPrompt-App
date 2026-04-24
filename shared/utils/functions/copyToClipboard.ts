@@ -2,7 +2,7 @@ import { setStringAsync } from "expo-clipboard";
 
 import { i18n } from "@/core/store";
 
-import { showToast } from "@/shared/context";
+import { showToast } from "@/shared/context/toast-context/showToast";
 import { generateToastKey } from "@/shared/helpers";
 
 /**

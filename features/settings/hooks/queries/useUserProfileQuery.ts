@@ -4,18 +4,22 @@ import { useEffect } from "react";
 import { eventBus } from "@/core/events/EventBus";
 import { EventKey } from "@/core/events/types";
 
+import { useSyncDataStore } from "@/core/store";
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSyncDataStore } from "@/shared/hooks/store";
-import { useUserOfflineStore } from "../store";
+import { useUserOfflineStore } from "../../store";
 
 import { getUserProfile } from "../../services";
 
 const useUserProfileQuery = () => {
   const { isConnected } = useCheckNetwork();
-  const { loadLocalUserStats } = useUserOfflineStore();
+  const loadLocalUserStats = useUserOfflineStore(
+    (state) => state.loadLocalUserStats,
+  );
 
-  const { updateModuleSyncMapState } = useSyncDataStore();
+  const updateModuleSyncMapState = useSyncDataStore(
+    (state) => state.updateModuleSyncMapState,
+  );
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 

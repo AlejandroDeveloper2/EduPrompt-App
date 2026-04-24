@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { Order } from "@/core/types";
 
@@ -7,12 +8,12 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useLoading, usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useSelectionModeStore } from "@/shared/hooks/store";
 import {
   useNotificationsSelectionStore,
   useUserNotificationsStore,
-} from "../store";
+} from "../../store";
 
 const useLoadUserNotifications = () => {
   const [filter, setFilter] = useState<Order>("desc");
@@ -23,16 +24,37 @@ const useLoadUserNotifications = () => {
     allSelected,
     enableSelectionMode,
     disableSelectionMode,
-  } = useSelectionModeStore();
+  } = useSelectionModeStore(
+    useShallow((state) => ({
+      selectionMode: state.selectionMode,
+      allSelected: state.allSelected,
+      enableSelectionMode: state.enableSelectionMode,
+      disableSelectionMode: state.disableSelectionMode,
+    })),
+  );
   const { selectionCount, isAllSelected, clearSelection, selectAll } =
-    useNotificationsSelectionStore();
+    useNotificationsSelectionStore(
+      useShallow((state) => ({
+        selectionCount: state.selectionCount,
+        isAllSelected: state.isAllSelected,
+        clearSelection: state.clearSelection,
+        selectAll: state.selectAll,
+      })),
+    );
 
   const {
     notifications,
     getAllNotifications,
     markAllNotificationsAsRead,
     deleteSelectedNotifications,
-  } = useUserNotificationsStore();
+  } = useUserNotificationsStore(
+    useShallow((state) => ({
+      notifications: state.notifications,
+      getAllNotifications: state.getAllNotifications,
+      markAllNotificationsAsRead: state.markAllNotificationsAsRead,
+      deleteSelectedNotifications: state.deleteSelectedNotifications,
+    })),
+  );
 
   const confirmDeletePopUp = usePopUp();
 

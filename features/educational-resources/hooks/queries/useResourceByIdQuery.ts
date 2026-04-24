@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../types";
 
 import { useCheckNetwork } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflineResourcesStore } from "../store";
+import { useOfflineResourcesStore } from "../../store";
 
 import { getEducationalResourceById } from "../../services";
 
@@ -17,7 +18,15 @@ const useResourceByIdQuery = (resourceId: string) => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const { isLoading, findResourceById, updateResourcesSyncStatus } =
-    useOfflineResourcesStore();
+    useOfflineResourcesStore(
+      useShallow(
+        ({ isLoading, findResourceById, updateResourcesSyncStatus }) => ({
+          isLoading,
+          findResourceById,
+          updateResourcesSyncStatus,
+        }),
+      ),
+    );
 
   const query = useQuery({
     queryKey: ["resource", resourceId],

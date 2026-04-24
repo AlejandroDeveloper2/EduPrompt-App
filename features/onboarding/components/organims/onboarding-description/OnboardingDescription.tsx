@@ -3,7 +3,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
-import { useOnboardingStore } from "../../../hooks/store";
+import { useOnboardingStore } from "../../../store";
 
 import { renderOnboardingStepImage } from "../../../utils";
 
@@ -35,7 +35,13 @@ const OnboardingDescription = ({
     handleNextStep,
     handlePreviousStep,
     completeOnboarding,
-  } = useOnboardingStore();
+  } = useOnboardingStore((state) => ({
+    isCompleting: state.isCompleting,
+    currentStep: state.currentStep,
+    handleNextStep: state.handleNextStep,
+    handlePreviousStep: state.handlePreviousStep,
+    completeOnboarding: state.completeOnboarding,
+  }));
   const { t } = useTranslations();
 
   const styles = dynamicStyles(size);

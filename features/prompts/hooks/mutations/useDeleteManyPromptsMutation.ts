@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { Prompt } from "../../types";
 
+import { useSelectionModeStore } from "@/core/store";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useSelectionModeStore } from "@/shared/hooks/store";
-import { useOfflinePromptsStore } from "../store";
+import { useOfflinePromptsStore } from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -18,10 +19,14 @@ const useDeleteManyPromptsMutation = () => {
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const { disableSelectionMode } = useSelectionModeStore();
+  const disableSelectionMode = useSelectionModeStore(
+    useShallow((state) => state.disableSelectionMode),
+  );
 
   /** Offline */
-  const { deleteManyPrompts: deleteOfflinePrompts } = useOfflinePromptsStore();
+  const deleteOfflinePrompts = useOfflinePromptsStore(
+    useShallow((state) => state.deleteManyPrompts),
+  );
 
   return useMutation({
     mutationFn: async (selectedPromptIds) => {
