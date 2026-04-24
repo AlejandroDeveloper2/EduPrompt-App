@@ -5,7 +5,7 @@ import Animated from "react-native-reanimated";
 
 import { AppColors } from "../../../styles";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 import { useAnimatedNavItem } from "../../../hooks/animations";
 
 import { Ionicon, Typography } from "../../atoms";

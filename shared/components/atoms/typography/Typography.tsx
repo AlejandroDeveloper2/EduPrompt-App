@@ -5,7 +5,7 @@ import { AlignTextType, FontWeigthType, TypographyType } from "@/core/types";
 
 import { FontIconSizes } from "../../../styles";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 
 import { Ionicon } from "../icon/Icon";
 

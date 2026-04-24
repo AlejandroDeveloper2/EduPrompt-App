@@ -6,7 +6,7 @@ import { AppColors } from "../../../styles";
 
 import Typography from "../typography/Typography";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 import { dynamicStyles } from "./Badge.style";
 
 interface BadgeProps {

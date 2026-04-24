@@ -8,7 +8,7 @@ import { useEventbusValue } from "../events";
 import useCheckNetwork from "./useCheckNetwork";
 import useTranslations from "./useTranslations";
 
-import { showToast } from "@/shared/context";
+import { showToast } from "@/shared/context/toast-context/showToast";
 import { generateToastKey } from "@/shared/helpers";
 
 const useDataSyncronization = () => {

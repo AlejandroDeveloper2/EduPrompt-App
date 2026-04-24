@@ -9,7 +9,7 @@ import { AppColors } from "../../../styles";
 
 import { getToastIcon } from "../../../helpers";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 import {
   useAnimatedToast,
   useAnimatedToastLoadBar,

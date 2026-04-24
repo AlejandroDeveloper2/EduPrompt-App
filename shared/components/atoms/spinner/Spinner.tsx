@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 
 import { dynamicStyles } from "./Spinner.style";
 

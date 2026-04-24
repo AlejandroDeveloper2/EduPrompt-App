@@ -93,7 +93,7 @@ const Header = () => {
                     isLoading={loading}
                     tokenAmount={
                       userProfile
-                        ? formatTokenAmount(userProfile.tokenCoins)
+                        ? formatTokenAmount(userProfile.tokenCoins ?? 0)
                         : "?"
                     }
                     isPremium={isPremium}

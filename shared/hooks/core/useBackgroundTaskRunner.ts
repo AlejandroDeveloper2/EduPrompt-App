@@ -14,7 +14,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { useBackgroundTasksStore } from "@/core/store";
 import useTranslations from "./useTranslations";
 
-import { calcAvarageProcessDuration } from "@/shared/utils";
+import { calcAvarageProcessDuration } from "@/shared/utils/functions/calcAverageProcessDuration";
 
 const useBackgroundTaskRunner = () => {
   const appState = useRef<AppStateStatus>(AppState.currentState);

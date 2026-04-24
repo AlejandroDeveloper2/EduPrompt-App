@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg";
 
 import { AppColors } from "../../../styles";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 
 import { dynamicStyles } from "./Logo.style";
 

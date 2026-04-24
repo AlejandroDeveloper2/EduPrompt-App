@@ -38,10 +38,10 @@ export const formatTokenAmount = (amount: number): string => {
   }
 
   const hasUnitOfThousand =
-    amount.toString().length >= 5 && amount.toString().length <= 6;
-  const hasUnitOfMillion = amount.toString().length >= 6;
+    amount?.toString().length >= 5 && amount?.toString().length <= 6;
+  const hasUnitOfMillion = amount?.toString().length >= 6;
 
-  const parsedAmount = amount.toLocaleString();
+  const parsedAmount = amount?.toLocaleString();
 
   if (hasUnitOfThousand) {
     const unitsOfThousand = parsedAmount.split(".")[0];

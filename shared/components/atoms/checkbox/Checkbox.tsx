@@ -2,7 +2,7 @@ import { Pressable } from "react-native";
 
 import { AppColors } from "../../../styles";
 
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 
 import { Ionicon } from "../icon/Icon";
 

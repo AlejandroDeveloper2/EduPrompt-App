@@ -5,10 +5,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { NavigationPropsBase } from "@/core/types";
 
 import { getActiveNavItem, getMainNavigationRoutes } from "../../../helpers";
-import { renderNavItem } from "../../../utils";
+import { renderNavItem } from "../../../utils/functions/renderNavItem";
 
 import { useLanguageStore } from "@/core/store";
-import { useResponsive } from "@/shared/hooks/core";
+import useResponsive from "@/shared/hooks/core/useResponsive";
 
 import { GenerateButton } from "../../molecules";
 import { NavActions } from "./NavActions";
