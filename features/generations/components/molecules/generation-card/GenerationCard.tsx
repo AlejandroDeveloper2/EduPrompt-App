@@ -40,7 +40,7 @@ const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
     useShallow((state) => state.selectionMode),
   );
   const getIaGeneration = useResourceGenerationStore(
-    (state) => state.getIaGeneration,
+    useShallow((state) => state.getIaGeneration),
   );
   const generationProgress = useMemo(() => {
     const completedSteps = data.steps.filter(

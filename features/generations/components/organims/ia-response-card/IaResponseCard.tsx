@@ -1,4 +1,5 @@
 import { ScrollView, View } from "react-native";
+import { useShallow } from "zustand/react/shallow";
 
 import { ResourceFormat } from "../../../types";
 
@@ -44,12 +45,14 @@ const IaResponseCard = ({
     editSelectedGeneration,
     clearAndRemoveSelectedGeneration,
     executeIaGeneration,
-  } = useResourceGenerationStore((state) => ({
-    createAndSelectNewGeneration: state.createAndSelectNewGeneration,
-    editSelectedGeneration: state.editSelectedGeneration,
-    clearAndRemoveSelectedGeneration: state.clearAndRemoveSelectedGeneration,
-    executeIaGeneration: state.executeIaGeneration,
-  }));
+  } = useResourceGenerationStore(
+    useShallow((state) => ({
+      createAndSelectNewGeneration: state.createAndSelectNewGeneration,
+      editSelectedGeneration: state.editSelectedGeneration,
+      clearAndRemoveSelectedGeneration: state.clearAndRemoveSelectedGeneration,
+      executeIaGeneration: state.executeIaGeneration,
+    })),
+  );
   const { mutateAsync, isPending, data } = useGenerateResourceMutation();
   const { runBackgroundTask } = useBackgroundTaskRunner();
   const userProfile = useEventbusValue("userProfile.user.updated", null);

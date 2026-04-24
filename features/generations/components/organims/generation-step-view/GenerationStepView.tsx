@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { View } from "react-native";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   GenerationStep,
@@ -43,10 +44,12 @@ const GenerationStepView = ({
   currentIaGeneration,
 }: GenerationStepViewProps) => {
   const { setGenerationStep, clearSelectedGeneration } =
-    useResourceGenerationStore((state) => ({
-      setGenerationStep: state.setGenerationStep,
-      clearSelectedGeneration: state.clearSelectedGeneration,
-    }));
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        setGenerationStep: state.setGenerationStep,
+        clearSelectedGeneration: state.clearSelectedGeneration,
+      })),
+    );
   const { t } = useTranslations();
 
   return (

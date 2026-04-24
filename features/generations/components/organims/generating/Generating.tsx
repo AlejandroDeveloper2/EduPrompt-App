@@ -11,14 +11,17 @@ import { Button } from "@/shared/components/molecules";
 import { Loader } from "@/shared/components/organims";
 
 import GeneratingImage from "@/assets/images/generating-image.png";
+import { useShallow } from "zustand/react/shallow";
 
 const Generating = () => {
   const size = useResponsive();
   const { clearSelectedGeneration, currentIaGeneration } =
-    useResourceGenerationStore((state) => ({
-      clearSelectedGeneration: state.clearSelectedGeneration,
-      currentIaGeneration: state.currentIaGeneration,
-    }));
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        clearSelectedGeneration: state.clearSelectedGeneration,
+        currentIaGeneration: state.currentIaGeneration,
+      })),
+    );
   const { t } = useTranslations();
   const processDuration = useMemo(() => {
     if (!currentIaGeneration) return null;

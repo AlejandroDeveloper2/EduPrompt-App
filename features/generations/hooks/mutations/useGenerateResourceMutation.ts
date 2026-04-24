@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { AssistantResponse, GenerationData } from "../../types";
 
@@ -16,11 +17,13 @@ import { postGenerateEducationalResource } from "../../services";
 
 const useGenerateResourceMutation = () => {
   const { currentIaGeneration, updateIaGeneration, getIaGeneration } =
-    useResourceGenerationStore((state) => ({
-      currentIaGeneration: state.currentIaGeneration,
-      updateIaGeneration: state.updateIaGeneration,
-      getIaGeneration: state.getIaGeneration,
-    }));
+    useResourceGenerationStore(
+      useShallow((state) => ({
+        currentIaGeneration: state.currentIaGeneration,
+        updateIaGeneration: state.updateIaGeneration,
+        getIaGeneration: state.getIaGeneration,
+      })),
+    );
 
   const { t } = useTranslations();
 
