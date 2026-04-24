@@ -9,7 +9,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { useSelectionModeStore } from "@/core/store";
-import { useLoading, usePopUp, useTranslations } from "@/shared/hooks/core";
+import { useAlert, useLoading, useTranslations } from "@/shared/hooks/core";
 import {
   useNotificationsSelectionStore,
   useUserNotificationsStore,
@@ -56,7 +56,7 @@ const useLoadUserNotifications = () => {
     })),
   );
 
-  const confirmDeletePopUp = usePopUp();
+  const confirmDeleteDialog = useAlert();
 
   const { t } = useTranslations();
 
@@ -77,7 +77,9 @@ const useLoadUserNotifications = () => {
   /** Validamos si hay elementos seleccionados */
   useEffect(() => {
     if (selectionCount > 0)
-      enableSelectionMode(SELECTION_MODE_ACTIONS(confirmDeletePopUp.openPopUp));
+      enableSelectionMode(
+        SELECTION_MODE_ACTIONS(confirmDeleteDialog.openAlert),
+      );
     else disableSelectionMode();
   }, [selectionCount]);
 
@@ -114,7 +116,7 @@ const useLoadUserNotifications = () => {
     notifications,
     filter,
     updateFilter,
-    confirmDeletePopUp,
+    confirmDeleteDialog,
     deleteSelectedNotifications,
   };
 };

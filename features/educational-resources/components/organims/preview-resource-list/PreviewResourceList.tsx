@@ -6,7 +6,7 @@ import { useResourceListLogic } from "@/features/educational-resources/hooks/cor
 import { useResponsive } from "@/shared/hooks/core";
 
 import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
-import { Alert, FetchingErrorPanel, PopUp } from "@/shared/components/organims";
+import { Alert, FetchingErrorPanel } from "@/shared/components/organims";
 import { ResourceCard } from "../../molecules";
 import PreviewResourceHeader from "./PreviewResourceHeader";
 
@@ -24,7 +24,7 @@ const PreviewResourceList = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    confirmDeletePopUp,
+    confirmDeleteDialog,
     isPending: isDeleting,
     removeManyResources,
     selectedResourceIds,
@@ -45,36 +45,32 @@ const PreviewResourceList = () => {
     );
   return (
     <>
-      <PopUp
-        icon="information-circle-outline"
+      <Alert
         title={t(
           "resources_translations.resources_list_labels.confirm_delete_alert_labels.title",
         )}
-        onClose={confirmDeletePopUp.closePopUp}
-        isOpen={confirmDeletePopUp.isOpen}
-      >
-        <Alert
-          variant="danger"
-          message={t(
-            "resources_translations.resources_list_labels.confirm_delete_alert_labels.message",
-          )}
-          acceptButtonLabel={t(
-            "resources_translations.resources_list_labels.confirm_delete_alert_labels.btn_accept",
-          )}
-          acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmDeletePopUp.closePopUp}
-          onAccept={() => {
-            const selectedResources = Array.from(selectedResourceIds);
-            removeManyResources(selectedResources, {
-              onSuccess: () => confirmDeletePopUp.closePopUp(),
-            });
-          }}
-          loading={isDeleting}
-          loadingMessage={t(
-            "resources_translations.resources_list_labels.confirm_delete_alert_labels.deleting_resources_msg",
-          )}
-        />
-      </PopUp>
+        variant="danger"
+        message={t(
+          "resources_translations.resources_list_labels.confirm_delete_alert_labels.message",
+        )}
+        acceptButtonLabel={t(
+          "resources_translations.resources_list_labels.confirm_delete_alert_labels.btn_accept",
+        )}
+        acceptButtonIcon="trash-bin-outline"
+        onCancel={confirmDeleteDialog.closeAlert}
+        onAccept={() => {
+          const selectedResources = Array.from(selectedResourceIds);
+          removeManyResources(selectedResources, {
+            onSuccess: () => confirmDeleteDialog.closeAlert(),
+          });
+        }}
+        loading={isDeleting}
+        loadingMessage={t(
+          "resources_translations.resources_list_labels.confirm_delete_alert_labels.deleting_resources_msg",
+        )}
+        isOpen={confirmDeleteDialog.isOpen}
+        closeAlert={confirmDeleteDialog.closeAlert}
+      />
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}
         contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}

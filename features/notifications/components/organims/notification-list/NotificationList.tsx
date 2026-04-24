@@ -13,7 +13,7 @@ import {
   FilterTag,
   LoadingTextIndicator,
 } from "@/shared/components/molecules";
-import { Alert, PopUp } from "@/shared/components/organims";
+import { Alert } from "@/shared/components/organims";
 import { NotificationCard } from "../../molecules";
 
 import { dynamicStyles } from "./NotificationList.style";
@@ -84,7 +84,7 @@ const NotificationList = () => {
     updateFilter,
     notifications,
     filter,
-    confirmDeletePopUp,
+    confirmDeleteDialog,
     deleteSelectedNotifications,
   } = useLoadUserNotifications();
   const { t } = useTranslations();
@@ -93,30 +93,27 @@ const NotificationList = () => {
 
   return (
     <>
-      <PopUp
-        icon="information-circle-outline"
+      <Alert
         title={t(
           "notifications_translations.user_notification_list.confirm_delete_alert_labels.title",
         )}
-        onClose={confirmDeletePopUp.closePopUp}
-        isOpen={confirmDeletePopUp.isOpen}
-      >
-        <Alert
-          variant="danger"
-          message={t(
-            "notifications_translations.user_notification_list.confirm_delete_alert_labels.message",
-          )}
-          acceptButtonLabel={t(
-            "notifications_translations.user_notification_list.confirm_delete_alert_labels.btn_accept",
-          )}
-          acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmDeletePopUp.closePopUp}
-          onAccept={() => {
-            deleteSelectedNotifications();
-            confirmDeletePopUp.closePopUp();
-          }}
-        />
-      </PopUp>
+        isOpen={confirmDeleteDialog.isOpen}
+        closeAlert={confirmDeleteDialog.closeAlert}
+        variant="danger"
+        message={t(
+          "notifications_translations.user_notification_list.confirm_delete_alert_labels.message",
+        )}
+        acceptButtonLabel={t(
+          "notifications_translations.user_notification_list.confirm_delete_alert_labels.btn_accept",
+        )}
+        acceptButtonIcon="trash-bin-outline"
+        onCancel={confirmDeleteDialog.closeAlert}
+        onAccept={() => {
+          deleteSelectedNotifications();
+          confirmDeleteDialog.closeAlert();
+        }}
+      />
+
       <FlatList
         style={styles.ListContainer}
         contentContainerStyle={styles.ListContent}

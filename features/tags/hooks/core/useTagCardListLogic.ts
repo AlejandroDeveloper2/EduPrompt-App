@@ -9,6 +9,7 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { useSelectionModeStore } from "@/core/store";
 import {
+  useAlert,
   useListFilters,
   usePopUp,
   useResponsive,
@@ -60,7 +61,7 @@ const useTagCardListLogic = () => {
   } = useListFilters<TagType>("resource_tag");
 
   const updateTagPopUp = usePopUp();
-  const confirmTagDeletePopUp = usePopUp();
+  const confirmTagDeleteDialog = useAlert();
 
   const {
     data,
@@ -96,7 +97,7 @@ const useTagCardListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmTagDeletePopUp.openPopUp),
+        SELECTION_MODE_ACTIONS(confirmTagDeleteDialog.openAlert),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -132,7 +133,7 @@ const useTagCardListLogic = () => {
     isRefetching,
     /** PopUp Controls */
     updateTagPopUp,
-    confirmTagDeletePopUp,
+    confirmTagDeleteDialog,
     /** Tag Id  */
     selectedTag,
     setSelectedTag,

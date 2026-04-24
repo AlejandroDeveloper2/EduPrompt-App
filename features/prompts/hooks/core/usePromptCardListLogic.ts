@@ -9,7 +9,12 @@ import { SELECTION_MODE_ACTIONS } from "../../constants";
 import { eventBus } from "@/core/events/EventBus";
 
 import { useSelectionModeStore } from "@/core/store";
-import { usePopUp, useResponsive, useTranslations } from "@/shared/hooks/core";
+import {
+  useAlert,
+  usePopUp,
+  useResponsive,
+  useTranslations,
+} from "@/shared/hooks/core";
 import { usePromptsSelectionStore } from "../../store";
 import { usePromptFiltersContext } from "../context";
 import { useDeleteManyPromptsMutation } from "../mutations";
@@ -57,7 +62,7 @@ const usePromptCardListLogic = () => {
     onSearchTagValueChange,
   } = usePromptFiltersContext();
 
-  const confirmPromptDeletePopUp = usePopUp();
+  const confirmPromptDeleteDialog = useAlert();
   const updatePromptPopUp = usePopUp();
 
   const {
@@ -98,7 +103,7 @@ const usePromptCardListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0)
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmPromptDeletePopUp.openPopUp),
+        SELECTION_MODE_ACTIONS(confirmPromptDeleteDialog.openAlert),
       );
     else disableSelectionMode();
   }, [selectionCount]);
@@ -135,7 +140,7 @@ const usePromptCardListLogic = () => {
     isRefetching,
     /** PopUp Controls */
     updatePromptPopUp,
-    confirmPromptDeletePopUp,
+    confirmPromptDeleteDialog,
     /** Prompt Id  */
     selectedPrompt,
     setSelectedPrompt,

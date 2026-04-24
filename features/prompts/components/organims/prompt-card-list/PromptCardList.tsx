@@ -50,7 +50,7 @@ const PromptCardList = () => {
     isRefetching,
     /** PopUp Controls */
     updatePromptPopUp,
-    confirmPromptDeletePopUp,
+    confirmPromptDeleteDialog,
     /** Prompt Id  */
     selectedPrompt,
     setSelectedPrompt,
@@ -80,36 +80,32 @@ const PromptCardList = () => {
 
   return (
     <>
-      <PopUp
-        icon="information-circle-outline"
+      <Alert
+        isOpen={confirmPromptDeleteDialog.isOpen}
         title={t(
           "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.title",
         )}
-        isOpen={confirmPromptDeletePopUp.isOpen}
-        onClose={confirmPromptDeletePopUp.closePopUp}
-      >
-        <Alert
-          variant="danger"
-          message={t(
-            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.message",
-          )}
-          acceptButtonLabel={t(
-            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.btn_accept",
-          )}
-          acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmPromptDeletePopUp.closePopUp}
-          onAccept={() => {
-            const selectedPrompts = Array.from(selectedPromptIds);
-            removeManyPrompts(selectedPrompts, {
-              onSuccess: () => confirmPromptDeletePopUp.closePopUp(),
-            });
-          }}
-          loading={isDeleting}
-          loadingMessage={t(
-            "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.deleting_prompt_msg",
-          )}
-        />
-      </PopUp>
+        variant="danger"
+        message={t(
+          "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.message",
+        )}
+        acceptButtonLabel={t(
+          "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.btn_accept",
+        )}
+        acceptButtonIcon="trash-bin-outline"
+        closeAlert={confirmPromptDeleteDialog.closeAlert}
+        onCancel={confirmPromptDeleteDialog.closeAlert}
+        onAccept={() => {
+          const selectedPrompts = Array.from(selectedPromptIds);
+          removeManyPrompts(selectedPrompts, {
+            onSuccess: () => confirmPromptDeleteDialog.closeAlert(),
+          });
+        }}
+        loading={isDeleting}
+        loadingMessage={t(
+          "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.deleting_prompt_msg",
+        )}
+      />
       <PopUp
         title={
           isTagSelection

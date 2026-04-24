@@ -33,7 +33,7 @@ const TagCardList = () => {
     refetch,
     isRefetching,
     /** Popup controls */
-    confirmTagDeletePopUp,
+    confirmTagDeleteDialog,
     updateTagPopUp,
     /** Tag Id  */
     selectedTag,
@@ -57,36 +57,32 @@ const TagCardList = () => {
     );
   return (
     <>
-      <PopUp
-        icon="information-circle-outline"
+      <Alert
+        isOpen={confirmTagDeleteDialog.isOpen}
         title={t(
           "tags_translations.tag_list_labels.confirm_delete_alert_labels.title",
         )}
-        isOpen={confirmTagDeletePopUp.isOpen}
-        onClose={confirmTagDeletePopUp.closePopUp}
-      >
-        <Alert
-          variant="danger"
-          message={t(
-            "tags_translations.tag_list_labels.confirm_delete_alert_labels.message",
-          )}
-          acceptButtonLabel={t(
-            "tags_translations.tag_list_labels.confirm_delete_alert_labels.btn_accept",
-          )}
-          acceptButtonIcon="trash-bin-outline"
-          onCancel={confirmTagDeletePopUp.closePopUp}
-          onAccept={() => {
-            const tagsToDelete = Array.from(selectedTagIds);
-            removeManyTags(tagsToDelete, {
-              onSuccess: () => confirmTagDeletePopUp.closePopUp(),
-            });
-          }}
-          loading={isPending}
-          loadingMessage={t(
-            "tags_translations.tag_list_labels.confirm_delete_alert_labels.deleting_tag_msg",
-          )}
-        />
-      </PopUp>
+        variant="danger"
+        message={t(
+          "tags_translations.tag_list_labels.confirm_delete_alert_labels.message",
+        )}
+        acceptButtonLabel={t(
+          "tags_translations.tag_list_labels.confirm_delete_alert_labels.btn_accept",
+        )}
+        acceptButtonIcon="trash-bin-outline"
+        onCancel={confirmTagDeleteDialog.closeAlert}
+        onAccept={() => {
+          const tagsToDelete = Array.from(selectedTagIds);
+          removeManyTags(tagsToDelete, {
+            onSuccess: () => confirmTagDeleteDialog.closeAlert(),
+          });
+        }}
+        closeAlert={confirmTagDeleteDialog.closeAlert}
+        loading={isPending}
+        loadingMessage={t(
+          "tags_translations.tag_list_labels.confirm_delete_alert_labels.deleting_tag_msg",
+        )}
+      />
       <PopUp
         title={t(
           "tags_translations.tag_list_labels.update_tag_popup_labels.title",

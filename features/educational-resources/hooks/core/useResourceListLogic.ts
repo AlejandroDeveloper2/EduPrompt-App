@@ -7,7 +7,7 @@ import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { useSelectionModeStore } from "@/core/store";
-import { usePopUp, useTranslations } from "@/shared/hooks/core";
+import { useAlert, useTranslations } from "@/shared/hooks/core";
 import {
   useResourceFiltersStore,
   useResourcePreviewStore,
@@ -74,7 +74,7 @@ const useResourceListLogic = () => {
     ),
   );
 
-  const confirmDeletePopUp = usePopUp();
+  const confirmDeleteDialog = useAlert();
 
   const {
     data,
@@ -119,7 +119,7 @@ const useResourceListLogic = () => {
   useEffect(() => {
     if (selectionCount > 0) {
       enableSelectionMode(
-        SELECTION_MODE_ACTIONS(confirmDeletePopUp.openPopUp, () =>
+        SELECTION_MODE_ACTIONS(confirmDeleteDialog.openAlert, () =>
           router.navigate("/(app)/resources_sharing_sheet"),
         ),
       );
@@ -157,7 +157,7 @@ const useResourceListLogic = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    confirmDeletePopUp,
+    confirmDeleteDialog,
     isPending,
     removeManyResources,
     selectedResourceIds,

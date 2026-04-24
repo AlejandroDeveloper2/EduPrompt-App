@@ -10,8 +10,8 @@ import { eventBus } from "@/core/events/EventBus";
 import { FORM_TABS } from "./constants";
 
 import {
+  useAlert,
   useCheckNetwork,
-  usePopUp,
   useResponsive,
   useTranslations,
 } from "@/shared/hooks/core";
@@ -24,7 +24,7 @@ import {
   NoConnectionIndicator,
   Tabulator,
 } from "@/shared/components/molecules";
-import { Alert, PopUp } from "@/shared/components/organims";
+import { Alert } from "@/shared/components/organims";
 import ChangePasswordForm from "./forms/ChangePasswordForm";
 import UserEmailForm from "./forms/UpdateEmailForm";
 import UpdateUsernameForm from "./forms/UpdateUsernameForm";
@@ -45,7 +45,7 @@ const UserProfilePanel = () => {
   ]);
   const { isConnected } = useCheckNetwork();
   const size = useResponsive();
-  const { isOpen, closePopUp, openPopUp } = usePopUp();
+  const { isOpen, closeAlert, openAlert } = useAlert();
 
   const styles = dynamicStyles(size);
   const Form: FormSectionComponentMap = {
@@ -56,31 +56,27 @@ const UserProfilePanel = () => {
 
   return (
     <>
-      <PopUp
-        icon="information-circle-outline"
+      <Alert
+        isOpen={isOpen}
         title={t(
           "settings_translations.user_profile_panel.close_session_alert_labels.title",
         )}
-        isOpen={isOpen}
-        onClose={closePopUp}
-      >
-        <Alert
-          variant="danger"
-          message={t(
-            "settings_translations.user_profile_panel.close_session_alert_labels.message",
-          )}
-          acceptButtonLabel={t(
-            "settings_translations.user_profile_panel.close_session_alert_labels.btn_accept",
-          )}
-          loading={loading}
-          loadingMessage={t(
-            "settings_translations.user_profile_panel.close_session_alert_labels.closing_session_msg",
-          )}
-          acceptButtonIcon="power-outline"
-          onCancel={closePopUp}
-          onAccept={() => eventBus.emit("auth.logout.requested", undefined)}
-        />
-      </PopUp>
+        variant="danger"
+        message={t(
+          "settings_translations.user_profile_panel.close_session_alert_labels.message",
+        )}
+        acceptButtonLabel={t(
+          "settings_translations.user_profile_panel.close_session_alert_labels.btn_accept",
+        )}
+        loading={loading}
+        loadingMessage={t(
+          "settings_translations.user_profile_panel.close_session_alert_labels.closing_session_msg",
+        )}
+        acceptButtonIcon="power-outline"
+        closeAlert={closeAlert}
+        onCancel={closeAlert}
+        onAccept={() => eventBus.emit("auth.logout.requested", undefined)}
+      />
       <View style={styles.PanelContainer}>
         <ScreenSection
           description={t(
@@ -113,7 +109,7 @@ const UserProfilePanel = () => {
                   icon="power-outline"
                   variant="neutral"
                   width="100%"
-                  onPress={openPopUp}
+                  onPress={openAlert}
                   label={t(
                     "settings_translations.user_profile_panel.btn_close_session",
                   )}
