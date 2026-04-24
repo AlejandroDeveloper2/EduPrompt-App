@@ -1,8 +1,9 @@
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { useTranslations } from "@/shared/hooks/core";
-import { useResourcesFiltersContext } from "../context";
+import { useResourceFiltersStore } from "../../store";
 import { useResourcesQuery } from "../queries";
 
 const useResourcesSharingLogic = () => {
@@ -17,7 +18,13 @@ const useResourcesSharingLogic = () => {
   const router = useRouter();
 
   const { searchResourceValue, formatFilter, tagFilter } =
-    useResourcesFiltersContext();
+    useResourceFiltersStore(
+      useShallow((state) => ({
+        searchResourceValue: state.searchResourceValue,
+        formatFilter: state.formatFilter,
+        tagFilter: state.tagFilter,
+      })),
+    );
 
   const { t } = useTranslations();
 

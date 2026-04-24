@@ -9,7 +9,6 @@ import { EducationalResource } from "../../../types";
 import { AppColors } from "@/shared/styles";
 
 import { useSelectionModeStore } from "@/core/store";
-import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
 import { useResourcesSelectionStore } from "@/features/educational-resources/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
@@ -22,6 +21,7 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
+import { useResourceTags } from "@/features/educational-resources/hooks/core";
 import { dynamicStyles } from "./ResourceCard.style";
 
 interface ResourceCardProps {
@@ -51,9 +51,7 @@ const ResourceCard = ({
   const selectionMode = useSelectionModeStore(
     useShallow((state) => state.selectionMode),
   );
-  const {
-    paginatedTags: { tags },
-  } = useResourcesFiltersContext();
+  const { tags } = useResourceTags();
 
   const isSelected: boolean = useMemo(
     () => selectedResourceIds.has(resourceData.resourceId),

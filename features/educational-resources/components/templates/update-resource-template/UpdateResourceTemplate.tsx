@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { useShallow } from "zustand/react/shallow";
 
 import { eventBus } from "@/core/events/EventBus";
 
@@ -10,8 +11,8 @@ import {
 
 import { AppColors, Spacing } from "@/shared/styles";
 
-import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
-import { useResourcePreviewLogic } from "../../../hooks/core";
+import { useResourceFiltersStore } from "@/features/educational-resources/store";
+import { useResourcePreviewLogic, useResourceTags } from "../../../hooks/core";
 
 import { Typography } from "@/shared/components/atoms";
 import {
@@ -43,8 +44,14 @@ const UpdateResourceTemplate = () => {
     t,
   } = useResourcePreviewLogic();
 
-  const { searchTagValue, onSearchTagValueChange, paginatedTags } =
-    useResourcesFiltersContext();
+  const { searchTagValue, onSearchTagValueChange } = useResourceFiltersStore(
+    useShallow((state) => ({
+      searchTagValue: state.searchTagValue,
+      onSearchTagValueChange: state.onSearchTagValueChange,
+    })),
+  );
+
+  const paginatedTags = useResourceTags();
 
   const Section: SectionComponentMap = {
     "tab-1": (

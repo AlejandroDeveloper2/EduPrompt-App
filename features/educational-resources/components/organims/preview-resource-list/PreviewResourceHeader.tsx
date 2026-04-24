@@ -4,7 +4,8 @@ import { ScrollView, View } from "react-native";
 import { FORMAT_FILTERS } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
 
-import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
+import { useResourceTags } from "@/features/educational-resources/hooks/core";
+import { useResourceFiltersStore } from "@/features/educational-resources/store";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
@@ -20,10 +21,10 @@ const PreviewResourceHeader = () => {
     tagFilter,
     formatFilter,
     onSearchResourceValueChange,
-    paginatedTags,
     onTagFilterChange,
     onFormatFilterChange,
-  } = useResourcesFiltersContext();
+  } = useResourceFiltersStore();
+  const paginatedTags = useResourceTags();
   const { t, lang } = useTranslations();
 
   const styles = dynamicStyles(size);

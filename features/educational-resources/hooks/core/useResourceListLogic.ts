@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { useSelectionModeStore } from "@/core/store";
 import { usePopUp, useTranslations } from "@/shared/hooks/core";
-import { useShallow } from "zustand/react/shallow";
 import {
+  useResourceFiltersStore,
   useResourcePreviewStore,
   useResourcesSelectionStore,
 } from "../../store";
-import { useResourcesFiltersContext } from "../context";
 import { useDeleteManyResourcesMutation } from "../mutations";
 import { useResourcesQuery } from "../queries";
 
@@ -21,7 +21,13 @@ const useResourceListLogic = () => {
   const { t } = useTranslations();
 
   const { searchResourceValue, formatFilter, tagFilter } =
-    useResourcesFiltersContext();
+    useResourceFiltersStore(
+      useShallow((state) => ({
+        searchResourceValue: state.searchResourceValue,
+        formatFilter: state.formatFilter,
+        tagFilter: state.tagFilter,
+      })),
+    );
 
   const {
     selectionCount,

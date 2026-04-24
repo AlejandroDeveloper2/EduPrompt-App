@@ -1,9 +1,6 @@
 import { Stack } from "expo-router";
 import { Dimensions } from "react-native";
 
-/** Context */
-import { ResourcesFiltersProvider } from "@/features/educational-resources/context";
-
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 export const unstable_settings = {
@@ -38,45 +35,43 @@ const sheetOptions = isTablet
 
 export default function AppLayout() {
   return (
-    <ResourcesFiltersProvider>
-      <Stack screenOptions={{ headerShown: false, animation: "none" }}>
-        {/* El tab navigator como pantalla base */}
-        <Stack.Screen name="(tabs)" />
+    <Stack screenOptions={{ headerShown: false, animation: "none" }}>
+      {/* El tab navigator como pantalla base */}
+      <Stack.Screen name="(tabs)" />
 
-        {/* Sheets declarados aquí, fuera del tab navigator */}
-        <Stack.Screen
-          name="set_language_sheet"
-          options={{ ...sheetOptions, contentStyle: GlobalStyles.SheetContent }}
-        />
-        <Stack.Screen
-          name="set_clean_frecuency_sheet"
-          options={{
-            ...sheetOptions,
-            contentStyle: GlobalStyles.SheetContent,
-          }}
-        />
-        <Stack.Screen
-          name="update_resource_sheet"
-          options={{
-            ...sheetOptions,
-            contentStyle: GlobalStyles.SheetContent,
-          }}
-        />
-        <Stack.Screen
-          name="resource_tags_sheet"
-          options={{
-            ...sheetOptions,
-            contentStyle: GlobalStyles.SheetContent,
-          }}
-        />
-        <Stack.Screen
-          name="resources_sharing_sheet"
-          options={{
-            ...sheetOptions,
-            contentStyle: GlobalStyles.SheetContent,
-          }}
-        />
-      </Stack>
-    </ResourcesFiltersProvider>
+      {/* Sheets declarados aquí, fuera del tab navigator */}
+      <Stack.Screen
+        name="set_language_sheet"
+        options={{ ...sheetOptions, contentStyle: GlobalStyles.SheetContent }}
+      />
+      <Stack.Screen
+        name="set_clean_frecuency_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="update_resource_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="resource_tags_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="resources_sharing_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+    </Stack>
   );
 }

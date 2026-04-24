@@ -5,8 +5,8 @@ import { Tag } from "@/features/tags/types";
 import { EducationalResource } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
-import { useResourcesFiltersContext } from "../context";
 import { useUpdateResourceMutation } from "../mutations";
+import useResourceTags from "./useResourceTags";
 
 import { getSelectedOption } from "@/features/generations/helpers";
 
@@ -42,7 +42,7 @@ const useUpdateResourceFormLogic = (
     noReset: true,
   });
 
-  const { paginatedTags } = useResourcesFiltersContext();
+  const paginatedTags = useResourceTags();
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.groupTag, "tagId"),

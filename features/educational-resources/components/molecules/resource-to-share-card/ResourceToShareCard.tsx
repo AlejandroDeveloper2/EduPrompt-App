@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
+import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "@/features/educational-resources/types";
 
-import { useResourcesFiltersContext } from "@/features/educational-resources/hooks/context";
+import { useResourceTags } from "@/features/educational-resources/hooks/core";
 import { useResourcesSelectionStore } from "@/features/educational-resources/store";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 
@@ -29,11 +30,9 @@ const ResourceToShareCard = ({
   const { t } = useTranslations();
   const size = useResponsive();
   const toggleSelection = useResourcesSelectionStore(
-    (state) => state.toggleSelection,
+    useShallow((state) => state.toggleSelection),
   );
-  const {
-    paginatedTags: { tags },
-  } = useResourcesFiltersContext();
+  const { tags } = useResourceTags();
 
   const styles = dynamicStyles(size);
 

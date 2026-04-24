@@ -6,8 +6,9 @@ import { Tag } from "@/features/tags/types";
 import { eventBus } from "@/core/events/EventBus";
 import { AppColors } from "@/shared/styles";
 
+import { useResourceTags } from "@/features/educational-resources/hooks/core";
+import { useResourceFiltersStore } from "@/features/educational-resources/store";
 import { useTranslations } from "@/shared/hooks/core";
-import { useResourcesFiltersContext } from "../../../hooks/context";
 
 import { Typography } from "@/shared/components/atoms";
 import {
@@ -24,9 +25,9 @@ const ResourceTagsList = () => {
     searchTagValue,
     tagFilter,
     onSearchTagValueChange,
-    paginatedTags,
     onTagFilterChange,
-  } = useResourcesFiltersContext();
+  } = useResourceFiltersStore();
+  const paginatedTags = useResourceTags();
 
   return (
     <>

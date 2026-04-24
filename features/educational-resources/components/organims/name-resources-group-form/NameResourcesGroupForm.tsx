@@ -1,3 +1,5 @@
+import { useShallow } from "zustand/react/shallow";
+
 import { useOfflineResourcesStore } from "@/features/educational-resources/store";
 import { useForm, useTranslations } from "@/shared/hooks/core";
 
@@ -23,7 +25,10 @@ const NameResourcesGroupForm = ({
   closePopUp,
 }: NameResourcesGroupFormProps) => {
   const { shareResources, isSharing } = useOfflineResourcesStore(
-    ({ shareResources, isSharing }) => ({ shareResources, isSharing }),
+    useShallow(({ shareResources, isSharing }) => ({
+      shareResources,
+      isSharing,
+    })),
   );
   const { data, getFieldErrors, handleChange, handleClearInput, handleSubmit } =
     useForm({
