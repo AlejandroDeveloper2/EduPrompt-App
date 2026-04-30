@@ -1,26 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "expo-router";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
-
-import { Tag, TagType } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { useSelectionModeStore } from "@/core/store";
+import { useAlert, useResponsive, useTranslations } from "@/shared/hooks/core";
 import {
-  useAlert,
-  useListFilters,
-  usePopUp,
-  useResponsive,
-  useTranslations,
-} from "@/shared/hooks/core";
-import { useTagsSelectionStore } from "../../store";
+  useTagFiltersStore,
+  useTagsSelectionStore,
+  useTagViewStore,
+} from "../../store";
 import { useDeleteManyTagsMutation } from "../mutations";
 import { useTagsQuery } from "../queries";
 
 const useTagCardListLogic = () => {
-  const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
+  const router = useRouter();
 
   const size = useResponsive();
   const {
@@ -53,14 +50,12 @@ const useTagCardListLogic = () => {
   );
 
   const {
-    searchValue,
-    selectedFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange,
-  } = useListFilters<TagType>("resource_tag");
+    searchTagValue,
+    tagTypeFilter,
+    onSearchTagValueChange,
+    onTagTypeFilterChange,
+  } = useTagFiltersStore();
 
-  const updateTagPopUp = usePopUp();
   const confirmTagDeleteDialog = useAlert();
 
   const {
@@ -72,7 +67,10 @@ const useTagCardListLogic = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-  } = useTagsQuery({ name: searchValue, type: selectedFilter }, { limit: 10 });
+  } = useTagsQuery(
+    { name: searchTagValue, type: tagTypeFilter },
+    { limit: 10 },
+  );
 
   const { isPending, mutate: removeManyTags } = useDeleteManyTagsMutation();
 
@@ -82,6 +80,12 @@ const useTagCardListLogic = () => {
     () => data?.pages.flatMap((p) => p.records) ?? [],
     [data],
   );
+
+  const tagIdsRef = useRef<string[]>([]);
+
+  useEffect(() => {
+    tagIdsRef.current = tags.map((t) => t.tagId);
+  }, [tags]);
 
   /** Emitimos el cambio de elementos seleccionados */
   useEffect(() => {
@@ -109,19 +113,26 @@ const useTagCardListLogic = () => {
 
   /** Validamos si todos los elementos estan seleccionados */
   useEffect(() => {
-    if (allSelected) selectAll(tags.map((tag) => tag.tagId));
+    if (allSelected) selectAll(tagIdsRef.current);
     else if (!allSelected && isAllSelected) clearSelection();
   }, [allSelected]);
+
+  const handleViewTag = useCallback(
+    (tag: (typeof tags)[number]) => {
+      useTagViewStore.getState().setSelectedResource(tag);
+      router.navigate("/(app)/update_tag_sheet");
+    },
+    [router],
+  );
 
   return {
     /** Size */
     size,
     /** Search filters */
-    searchValue,
-    selectedFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange,
+    searchTagValue,
+    tagTypeFilter,
+    onSearchTagValueChange,
+    onTagTypeFilterChange,
     /** Query */
     tags,
     isLoading,
@@ -132,11 +143,9 @@ const useTagCardListLogic = () => {
     refetch,
     isRefetching,
     /** PopUp Controls */
-    updateTagPopUp,
+    handleViewTag,
     confirmTagDeleteDialog,
     /** Tag Id  */
-    selectedTag,
-    setSelectedTag,
     selectedTagIds,
     /** Actions */
     isPending,

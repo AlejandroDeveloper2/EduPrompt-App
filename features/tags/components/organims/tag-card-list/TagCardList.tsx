@@ -5,9 +5,8 @@ import { AppColors } from "@/shared/styles";
 import { useTagCardListLogic } from "@/features/tags/hooks/core";
 
 import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
-import { Alert, FetchingErrorPanel, PopUp } from "@/shared/components/organims";
+import { Alert, FetchingErrorPanel } from "@/shared/components/organims";
 import { TagCard } from "../../molecules";
-import UpdateTagForm from "../update-tag-form/UpdateTagForm";
 import TagCardListHeader from "./TagCardListHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
@@ -18,11 +17,10 @@ const TagCardList = () => {
     /** Size */
     size,
     /** Search filters */
-    searchValue,
-    selectedFilter,
-    handleSearchChange,
-    onClearSearchInput,
-    onFilterChange,
+    searchTagValue,
+    tagTypeFilter,
+    onSearchTagValueChange,
+    onTagTypeFilterChange,
     /** Query */
     tags,
     isLoading,
@@ -34,10 +32,8 @@ const TagCardList = () => {
     isRefetching,
     /** Popup controls */
     confirmTagDeleteDialog,
-    updateTagPopUp,
+    handleViewTag,
     /** Tag Id  */
-    selectedTag,
-    setSelectedTag,
     selectedTagIds,
     /** Actions */
     isPending,
@@ -83,23 +79,6 @@ const TagCardList = () => {
           "tags_translations.tag_list_labels.confirm_delete_alert_labels.deleting_tag_msg",
         )}
       />
-      <PopUp
-        title={t(
-          "tags_translations.tag_list_labels.update_tag_popup_labels.title",
-        )}
-        icon="pencil-outline"
-        isOpen={updateTagPopUp.isOpen}
-        onClose={() => {
-          updateTagPopUp.closePopUp();
-          setSelectedTag(null);
-        }}
-        scrollable
-      >
-        <UpdateTagForm
-          selectedTag={selectedTag}
-          onClosePopup={updateTagPopUp.closePopUp}
-        />
-      </PopUp>
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}
         contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
@@ -108,10 +87,7 @@ const TagCardList = () => {
         renderItem={({ item }) => (
           <TagCard
             data={item}
-            onEdit={() => {
-              setSelectedTag(item);
-              updateTagPopUp.openPopUp();
-            }}
+            onEdit={() => handleViewTag(item)}
             totalRecords={tags.length}
           />
         )}
@@ -129,11 +105,11 @@ const TagCardList = () => {
         ListHeaderComponent={
           <TagCardListHeader
             isDataSync={tags.every((t) => t.sync)}
-            searchValue={searchValue}
-            selectedFilter={selectedFilter}
-            onChangeFilter={onFilterChange}
-            handleSearchChange={handleSearchChange}
-            onClearSearchInput={onClearSearchInput}
+            searchValue={searchTagValue}
+            selectedFilter={tagTypeFilter}
+            onChangeFilter={onTagTypeFilterChange}
+            handleSearchChange={onSearchTagValueChange}
+            onClearSearchInput={() => onSearchTagValueChange("")}
           />
         }
         onEndReachedThreshold={0.4}

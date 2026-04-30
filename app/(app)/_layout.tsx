@@ -72,6 +72,13 @@ export default function AppLayout() {
           contentStyle: GlobalStyles.SheetContent,
         }}
       />
+      <Stack.Screen
+        name="update_tag_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
     </Stack>
   );
 }
