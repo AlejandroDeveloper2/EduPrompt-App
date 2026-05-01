@@ -11,7 +11,6 @@ import { FilterTag, Input } from "@/shared/components/molecules";
 import { dynamicStyles } from "./TagCardList.style";
 
 interface TagListHeaderProps {
-  isDataSync: boolean;
   selectedFilter: TagType;
   searchValue: string;
   onChangeFilter: (filter: TagType) => void;
@@ -20,7 +19,6 @@ interface TagListHeaderProps {
 }
 
 const TagCardListHeader = ({
-  isDataSync,
   selectedFilter,
   searchValue,
   handleSearchChange,

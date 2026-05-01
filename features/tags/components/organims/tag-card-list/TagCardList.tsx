@@ -104,7 +104,6 @@ const TagCardList = () => {
         }
         ListHeaderComponent={
           <TagCardListHeader
-            isDataSync={tags.every((t) => t.sync)}
             searchValue={searchTagValue}
             selectedFilter={tagTypeFilter}
             onChangeFilter={onTagTypeFilterChange}
