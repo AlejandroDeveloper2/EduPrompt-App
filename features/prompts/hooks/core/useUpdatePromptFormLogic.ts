@@ -5,8 +5,8 @@ import { Tag } from "@/features/tags/types";
 import { Prompt } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
-import { usePromptFiltersContext } from "../context";
 import { useUpdatePromptMutation } from "../mutations";
+import usePromptTags from "./usePromptTags";
 
 import {
   UpdatePromptFormData,
@@ -43,7 +43,7 @@ const useUpdatePromptFormLogic = (
     noReset: true,
   });
 
-  const { paginatedTags } = usePromptFiltersContext();
+  const paginatedTags = usePromptTags();
 
   const selectedTag = useMemo(
     () => getSelectedOption(paginatedTags.tags, data.tag, "tagId"),

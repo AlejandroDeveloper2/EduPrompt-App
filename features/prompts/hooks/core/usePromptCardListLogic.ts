@@ -1,30 +1,33 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "expo-router";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
-
-import { Prompt } from "../../types";
 
 import { SELECTION_MODE_ACTIONS } from "../../constants";
 
 import { eventBus } from "@/core/events/EventBus";
 
 import { useSelectionModeStore } from "@/core/store";
+import { useAlert, useResponsive, useTranslations } from "@/shared/hooks/core";
 import {
-  useAlert,
-  usePopUp,
-  useResponsive,
-  useTranslations,
-} from "@/shared/hooks/core";
-import { usePromptsSelectionStore } from "../../store";
-import { usePromptFiltersContext } from "../context";
+  usePromptFiltersStore,
+  usePromptsSelectionStore,
+  usePromptViewStore,
+} from "../../store";
 import { useDeleteManyPromptsMutation } from "../mutations";
 import { usePromptsQuery } from "../queries";
 
 const usePromptCardListLogic = () => {
-  const [isTagSelection, setIsTagSelection] = useState<boolean>(false);
-  const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
-
+  const router = useRouter();
   const size = useResponsive();
+
+  const { searchPromptValue, tagFilter } = usePromptFiltersStore(
+    useShallow((state) => ({
+      searchPromptValue: state.searchPromptValue,
+      tagFilter: state.tagFilter,
+    })),
+  );
+
   const {
     selectionCount,
     isAllSelected,
@@ -54,16 +57,7 @@ const usePromptCardListLogic = () => {
     })),
   );
 
-  const {
-    searchPromptValue,
-    searchTagValue,
-    tagFilter,
-    paginatedTags,
-    onSearchTagValueChange,
-  } = usePromptFiltersContext();
-
   const confirmPromptDeleteDialog = useAlert();
-  const updatePromptPopUp = usePopUp();
 
   const {
     data,
@@ -88,6 +82,12 @@ const usePromptCardListLogic = () => {
     () => data?.pages.flatMap((p) => p.records) ?? [],
     [data],
   );
+
+  const promptIdsRef = useRef<string[]>([]);
+
+  useEffect(() => {
+    promptIdsRef.current = prompts.map((p) => p.promptId);
+  }, [prompts]);
 
   /** Emitimos el cambio de elementos seleccionados */
   useEffect(() => {
@@ -115,21 +115,20 @@ const usePromptCardListLogic = () => {
 
   /** Validamos si todos los elementos estan seleccionados */
   useEffect(() => {
-    if (allSelected) selectAll(prompts.map((prompt) => prompt.promptId));
+    if (allSelected) selectAll(promptIdsRef.current);
     else if (!allSelected && isAllSelected) clearSelection();
   }, [allSelected]);
 
+  const handleViewPrompt = useCallback(
+    (prompt: (typeof prompts)[number]) => {
+      usePromptViewStore.getState().setSelectedPrompt(prompt);
+      router.navigate("/(app)/update_prompt_sheet");
+    },
+    [router],
+  );
+
   return {
-    /** Size */
     size,
-    /**Tag selection */
-    isTagSelection,
-    setIsTagSelection,
-    /** Search filters */
-    searchTagValue,
-    paginatedTags,
-    onSearchTagValueChange,
-    /** Query */
     prompts,
     isLoading,
     isError,
@@ -138,16 +137,10 @@ const usePromptCardListLogic = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    /** PopUp Controls */
-    updatePromptPopUp,
+    handleViewPrompt,
     confirmPromptDeleteDialog,
-    /** Prompt Id  */
-    selectedPrompt,
-    setSelectedPrompt,
-    /** Actions */
     isPending,
     removeManyPrompts,
-    /** Translations */
     t,
     selectedPromptIds,
   };

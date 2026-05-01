@@ -79,6 +79,20 @@ export default function AppLayout() {
           contentStyle: GlobalStyles.SheetContent,
         }}
       />
+      <Stack.Screen
+        name="prompt_tags_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="update_prompt_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
     </Stack>
   );
 }

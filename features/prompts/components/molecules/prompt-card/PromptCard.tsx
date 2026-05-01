@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { dynamicStyles } from "./PromptCard.style";
@@ -7,11 +6,7 @@ import { Prompt } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
-import { useSelectionModeStore } from "@/core/store";
-import { usePromptFiltersContext } from "@/features/prompts/hooks/context";
-import { usePromptsSelectionStore } from "@/features/prompts/store";
-import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { usePromptCardLogic } from "@/features/prompts/hooks/core";
 
 import {
   Badge,
@@ -20,8 +15,6 @@ import {
   SyncronizationIndicator,
   Typography,
 } from "@/shared/components/atoms";
-
-import { useShallow } from "zustand/react/shallow";
 
 interface PromptCardProps {
   promptData: Prompt;
@@ -38,25 +31,15 @@ const PromptCard = ({
 }: PromptCardProps) => {
   const { promptTitle } = promptData;
 
-  const size = useResponsive();
-  const { selectedPromptIds, toggleSelection } = usePromptsSelectionStore(
-    useShallow((state) => ({
-      selectedPromptIds: state.selectedPromptIds,
-      toggleSelection: state.toggleSelection,
-    })),
-  );
-  const selectionMode = useSelectionModeStore(
-    useShallow((state) => state.selectionMode),
-  );
   const {
-    paginatedTags: { tags },
-  } = usePromptFiltersContext();
-  const isSelected: boolean = useMemo(
-    () => selectedPromptIds.has(promptData.promptId),
-    [promptData.promptId, selectedPromptIds],
-  );
-  const animatedCardStyle = useAnimatedCard(isSelected);
-  const { t } = useTranslations();
+    size,
+    isSelected,
+    animatedCardStyle,
+    tags,
+    toggleSelection,
+    selectionMode,
+    t,
+  } = usePromptCardLogic(promptData);
 
   const styles = dynamicStyles(size);
 

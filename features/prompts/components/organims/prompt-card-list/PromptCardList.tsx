@@ -1,28 +1,12 @@
 import { FlatList } from "react-native";
 
-import { AppColors, Spacing } from "@/shared/styles";
+import { AppColors } from "@/shared/styles";
 
-import { eventBus } from "@/core/events/EventBus";
+import { usePromptCardListLogic } from "@/features/prompts/hooks/core";
 
-import {
-  usePromptCardListLogic,
-  useUpdatePromptFormLogic,
-} from "@/features/prompts/hooks/core";
-
-import {
-  Button,
-  Empty,
-  LoadingTextIndicator,
-} from "@/shared/components/molecules";
-import {
-  Alert,
-  ComposedDropdownOptionList,
-  FetchingErrorPanel,
-  PopUp,
-  TagSelectionPanel,
-} from "@/shared/components/organims";
+import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
+import { Alert, FetchingErrorPanel } from "@/shared/components/organims";
 import { PromptCard } from "../../molecules";
-import UpdatePromptForm from "../update-prompt-form/UpdatePromptForm";
 import PromptCardListHeader from "./PromptCardListHeader";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
@@ -30,16 +14,7 @@ import { dynamicStyles } from "./PromptCardList.style";
 
 const PromptCardList = () => {
   const {
-    /** Size */
     size,
-    /**Tag selection */
-    isTagSelection,
-    setIsTagSelection,
-    /** Search filters */
-    searchTagValue,
-    paginatedTags,
-    onSearchTagValueChange,
-    /** Query */
     prompts,
     isLoading,
     isError,
@@ -48,23 +23,13 @@ const PromptCardList = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    /** PopUp Controls */
-    updatePromptPopUp,
     confirmPromptDeleteDialog,
-    /** Prompt Id  */
-    selectedPrompt,
-    setSelectedPrompt,
-    /** Actions */
+    handleViewPrompt,
     isPending: isDeleting,
     removeManyPrompts,
     t,
     selectedPromptIds,
   } = usePromptCardListLogic();
-
-  const { isPending, selectedTag, form } = useUpdatePromptFormLogic(
-    selectedPrompt,
-    updatePromptPopUp.closePopUp,
-  );
 
   const styles = dynamicStyles(size);
 
@@ -106,84 +71,6 @@ const PromptCardList = () => {
           "prompts_translations.prompt_list_labels.confirm_delete_alert_labels.deleting_prompt_msg",
         )}
       />
-      <PopUp
-        title={
-          isTagSelection
-            ? t(
-                "prompts_translations.prompt_list_labels.tag_list_labels_popup.title",
-              )
-            : t("prompts_translations.update_prompt_template.title")
-        }
-        icon={isTagSelection ? "pricetag-outline" : "pencil-outline"}
-        isOpen={updatePromptPopUp.isOpen}
-        scrollable={!isTagSelection}
-        onClose={() => {
-          updatePromptPopUp.closePopUp();
-          setSelectedPrompt(null);
-        }}
-      >
-        {isTagSelection ? (
-          <ComposedDropdownOptionList<{
-            tagId: string;
-            type: "prompt_tag" | "resource_tag";
-            name: string;
-          }>
-            ControlPanelComponent={
-              <TagSelectionPanel
-                tagType="prompt_tag"
-                searchValue={searchTagValue}
-                onSearchChange={onSearchTagValueChange}
-              />
-            }
-            infinitePaginationOptions={{
-              ...paginatedTags,
-              onRefetch: () =>
-                eventBus.emit("tags.promptType.refetch.requested", undefined),
-              onEndReached: () => {
-                if (
-                  paginatedTags.hasNextPage &&
-                  !paginatedTags.isFetchingNextPage
-                )
-                  eventBus.emit(
-                    "tags.promptType.fetchNextPage.requested",
-                    undefined,
-                  );
-              },
-            }}
-            optionList={paginatedTags.tags}
-            optionIdkey="tagId"
-            optionLabelKey="name"
-            searchInputPlaceholder={t(
-              "prompts_translations.prompt_list_labels.tag_list_labels_popup.search_input_placeholder",
-            )}
-            selectedOption={selectedTag}
-            onSelectOption={(option) => {
-              form.handleChange("tag", option.tagId);
-              setIsTagSelection(false);
-            }}
-            FooterComponent={
-              <Button
-                label={t(
-                  "prompts_translations.prompt_list_labels.tag_list_labels_popup.btn_cancel_selection",
-                )}
-                icon="close-outline"
-                width="100%"
-                variant="neutral"
-                onPress={() => setIsTagSelection(false)}
-                style={{ marginVertical: Spacing.spacing_xl }}
-              />
-            }
-          />
-        ) : (
-          <UpdatePromptForm
-            isLoading={isPending}
-            selectedTag={selectedTag}
-            form={form}
-            onTagSelectionMode={() => setIsTagSelection(true)}
-            onClosePopUp={updatePromptPopUp.closePopUp}
-          />
-        )}
-      </PopUp>
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}
         contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
@@ -192,10 +79,7 @@ const PromptCardList = () => {
         renderItem={({ item }) => (
           <PromptCard
             promptData={item}
-            onEditPrompt={() => {
-              setSelectedPrompt(item);
-              updatePromptPopUp.openPopUp();
-            }}
+            onEditPrompt={() => handleViewPrompt(item)}
             totalRecords={prompts.length}
           />
         )}

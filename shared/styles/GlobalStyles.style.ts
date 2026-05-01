@@ -70,7 +70,7 @@ export const GlobalStyles = StyleSheet.create({
     alignItems: "center",
   },
   ClosePopUpDragIndicator: {
-    width: 180,
+    width: 80,
     height: 10,
     backgroundColor: AppColors.neutral[100],
     borderRadius: Radius.radius_pilled,
