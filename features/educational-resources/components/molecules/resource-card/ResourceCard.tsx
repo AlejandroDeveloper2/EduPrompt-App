@@ -1,17 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
-import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../../types";
 
 import { AppColors } from "@/shared/styles";
 
-import { useSelectionModeStore } from "@/core/store";
-import { useResourcesSelectionStore } from "@/features/educational-resources/store";
-import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useResourceCardLogic } from "@/features/educational-resources/hooks/core";
 
 import {
   Badge,
@@ -21,7 +16,6 @@ import {
   Typography,
 } from "@/shared/components/atoms";
 
-import { useResourceTags } from "@/features/educational-resources/hooks/core";
 import { dynamicStyles } from "./ResourceCard.style";
 
 interface ResourceCardProps {
@@ -41,24 +35,15 @@ const ResourceCard = ({
 }: ResourceCardProps) => {
   const { title, format, groupTag, creationDate } = resourceData;
 
-  const size = useResponsive();
-  const { selectedResourceIds, toggleSelection } = useResourcesSelectionStore(
-    useShallow(({ selectedResourceIds, toggleSelection }) => ({
-      selectedResourceIds,
-      toggleSelection,
-    })),
-  );
-  const selectionMode = useSelectionModeStore(
-    useShallow((state) => state.selectionMode),
-  );
-  const { tags } = useResourceTags();
-
-  const isSelected: boolean = useMemo(
-    () => selectedResourceIds.has(resourceData.resourceId),
-    [resourceData.resourceId, selectedResourceIds],
-  );
-  const animatedCardStyle = useAnimatedCard(isSelected);
-  const { t } = useTranslations();
+  const {
+    size,
+    isSelected,
+    animatedCardStyle,
+    selectionMode,
+    tags,
+    t,
+    toggleSelection,
+  } = useResourceCardLogic(resourceData);
 
   const styles = dynamicStyles(size);
 

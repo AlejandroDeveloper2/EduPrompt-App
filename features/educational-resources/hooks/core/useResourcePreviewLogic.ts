@@ -25,7 +25,7 @@ const useResourcePreviewLogic = () => {
 
   const handleClose = () => {
     reset();
-    router.navigate("/(app)/(tabs)/resources_screen");
+    router.back();
   };
 
   const { isPending, selectedTag, form } = useUpdateResourceFormLogic(

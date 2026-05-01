@@ -32,7 +32,7 @@ const ResourcesSharing = () => {
           textAlign="center"
           color={AppColors.neutral[1000]}
           width="100%"
-          icon="language-outline"
+          icon="share-outline"
         />
       </View>
       {currentSharingStep.stepId === "step1" ? (

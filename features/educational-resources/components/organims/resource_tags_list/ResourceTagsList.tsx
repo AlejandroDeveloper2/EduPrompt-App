@@ -42,7 +42,7 @@ const ResourceTagsList = () => {
           textAlign="center"
           color={AppColors.neutral[1000]}
           width="100%"
-          icon="language-outline"
+          icon="pricetag-outline"
         />
       </View>
       <ComposedDropdownOptionList<Tag>
