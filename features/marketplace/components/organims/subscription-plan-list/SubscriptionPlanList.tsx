@@ -4,9 +4,7 @@ import { useSubscriptionPlanList } from "@/features/marketplace/hooks/core";
 
 import { SubscriptionPlan } from "@/shared/components/atoms";
 import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
-import { PopUp } from "@/shared/components/organims";
 import TokenPackageCard from "../token-package-card/TokenPackageCard";
-import AuthPanel from "./AuthPanel";
 
 const SubscriptionPlanList = () => {
   const {
@@ -17,22 +15,12 @@ const SubscriptionPlanList = () => {
     isError,
     plans,
     isPlansLoading,
-    isOpen,
-    closePopUp,
     currentPlan,
     handleSubscribeToPlan,
   } = useSubscriptionPlanList();
 
   return (
     <>
-      <PopUp
-        title={t("marketplace_translations.plans_section.auth_popup_title")}
-        icon="log-in-outline"
-        isOpen={isOpen}
-        onClose={closePopUp}
-      >
-        <AuthPanel closePopUp={closePopUp} />
-      </PopUp>
       {isPlansLoading ? (
         <LoadingTextIndicator
           message={t(

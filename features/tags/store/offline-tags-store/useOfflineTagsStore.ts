@@ -185,7 +185,8 @@ export const useOfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
     );
   },
   deleteManyTags: async () => {
-    const { selectedTagIds, clearSelection } = useTagsSelectionStore.getState();
+    const { selectedTagIds, toggleSelectAll } =
+      useTagsSelectionStore.getState();
 
     const selectedTags = Array.from(selectedTagIds);
 
@@ -206,7 +207,7 @@ export const useOfflineTagsStore = create<OfflineTagsStoreType>((set, get) => ({
           });
           return;
         }
-        clearSelection();
+        toggleSelectAll([]);
       },
       (error) => {
         showToast({

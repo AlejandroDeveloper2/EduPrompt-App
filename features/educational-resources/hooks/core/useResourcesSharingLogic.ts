@@ -47,7 +47,7 @@ const useResourcesSharingLogic = () => {
   };
 
   const onCloseSharingSheet = (): void => {
-    router.navigate("/(app)/(tabs)/resources_screen");
+    router.back();
   };
 
   return {

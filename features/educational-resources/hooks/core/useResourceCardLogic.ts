@@ -3,7 +3,6 @@ import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../types";
 
-import { useSelectionModeStore } from "@/core/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 import { useResourcesSelectionStore } from "../../store";
@@ -11,15 +10,14 @@ import useResourceTags from "./useResourceTags";
 
 const useResourceCardLogic = (resourceData: EducationalResource) => {
   const size = useResponsive();
-  const { selectedResourceIds, toggleSelection } = useResourcesSelectionStore(
-    useShallow(({ selectedResourceIds, toggleSelection }) => ({
-      selectedResourceIds,
-      toggleSelection,
-    })),
-  );
-  const selectionMode = useSelectionModeStore(
-    useShallow((state) => state.selectionMode),
-  );
+  const { selectionMode, selectedResourceIds, toggleSelection } =
+    useResourcesSelectionStore(
+      useShallow(({ selectionMode, selectedResourceIds, toggleSelection }) => ({
+        selectionMode,
+        selectedResourceIds,
+        toggleSelection,
+      })),
+    );
   const { tags } = useResourceTags();
 
   const isSelected: boolean = useMemo(

@@ -5,7 +5,7 @@ export interface StoreStateProps {
 }
 
 export interface StoreActions {
-  setSelectedResource: (tag: Tag | null) => void;
+  setSelectedTag: (tag: Tag | null) => void;
   reset: () => void;
 }
 

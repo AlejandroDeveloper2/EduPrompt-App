@@ -10,7 +10,6 @@ import {
   SubscriptionIndicator,
   SyncronizationIndicatorBar,
   TokenBadge,
-  Toolbar,
 } from "@/shared/components/molecules";
 import FloatMenu from "../float-menu/FloatMenu";
 
@@ -28,8 +27,6 @@ const Header = () => {
     isMounted,
     animatedStyle,
     toggleDeploy,
-    /** Selection Mode */
-    selectionMode,
     /** Events bus */
     userProfile,
     loading,
@@ -81,79 +78,72 @@ const Header = () => {
         />
       </FloatMenu>
       <View style={styles.HeaderContainer}>
-        {selectionMode ? (
-          <Toolbar />
-        ) : (
-          <View style={styles.NavItemListContainer}>
-            <Logo />
-            <View style={styles.NavItems}>
-              {size === "mobile" ? (
-                <>
-                  <TokenBadge
-                    isLoading={loading}
-                    tokenAmount={
-                      userProfile
-                        ? formatTokenAmount(userProfile.tokenCoins ?? 0)
-                        : "?"
-                    }
-                    isPremium={isPremium}
-                  />
-                  <NavItem
-                    icon="ellipsis-vertical-outline"
-                    active={false}
-                    onPress={toggleDeploy}
-                    Node={
-                      thereAreNewUnreadNotifications ? (
-                        <View style={styles.NotificationIndicator} />
-                      ) : undefined
-                    }
-                  />
-                </>
-              ) : (
-                <>
-                  <NavItem
-                    active={pathname === "/notifications_screen"}
-                    icon={"notifications-outline"}
-                    Node={
-                      thereAreNewUnreadNotifications ? (
-                        <View style={styles.NotificationIndicator} />
-                      ) : undefined
-                    }
-                    onPress={() =>
-                      handleNavigate(
-                        "/(app)/(tabs)/notifications_screen",
-                        false,
-                      )
-                    }
-                  />
-                  <NavItem
-                    active={pathname === "/marketplace_screen"}
-                    icon="storefront-outline"
-                    onPress={() =>
-                      handleNavigate("/(app)/(tabs)/marketplace_screen", false)
-                    }
-                  />
-                  <NavItem
-                    active={pathname === "/settings_screen"}
-                    icon="settings-outline"
-                    onPress={() =>
-                      handleNavigate("/(app)/(tabs)/settings_screen", false)
-                    }
-                  />
-                  <TokenBadge
-                    isLoading={loading}
-                    isPremium={isPremium}
-                    tokenAmount={
-                      userProfile
-                        ? formatTokenAmount(userProfile.tokenCoins)
-                        : "?"
-                    }
-                  />
-                </>
-              )}
-            </View>
+        <View style={styles.NavItemListContainer}>
+          <Logo />
+          <View style={styles.NavItems}>
+            {size === "mobile" ? (
+              <>
+                <TokenBadge
+                  isLoading={loading}
+                  tokenAmount={
+                    userProfile
+                      ? formatTokenAmount(userProfile.tokenCoins ?? 0)
+                      : "?"
+                  }
+                  isPremium={isPremium}
+                />
+                <NavItem
+                  icon="ellipsis-vertical-outline"
+                  active={false}
+                  onPress={toggleDeploy}
+                  Node={
+                    thereAreNewUnreadNotifications ? (
+                      <View style={styles.NotificationIndicator} />
+                    ) : undefined
+                  }
+                />
+              </>
+            ) : (
+              <>
+                <NavItem
+                  active={pathname === "/notifications_screen"}
+                  icon={"notifications-outline"}
+                  Node={
+                    thereAreNewUnreadNotifications ? (
+                      <View style={styles.NotificationIndicator} />
+                    ) : undefined
+                  }
+                  onPress={() =>
+                    handleNavigate("/(app)/(tabs)/notifications_screen", false)
+                  }
+                />
+                <NavItem
+                  active={pathname === "/marketplace_screen"}
+                  icon="storefront-outline"
+                  onPress={() =>
+                    handleNavigate("/(app)/(tabs)/marketplace_screen", false)
+                  }
+                />
+                <NavItem
+                  active={pathname === "/settings_screen"}
+                  icon="settings-outline"
+                  onPress={() =>
+                    handleNavigate("/(app)/(tabs)/settings_screen", false)
+                  }
+                />
+                <TokenBadge
+                  isLoading={loading}
+                  isPremium={isPremium}
+                  tokenAmount={
+                    userProfile
+                      ? formatTokenAmount(userProfile.tokenCoins)
+                      : "?"
+                  }
+                />
+              </>
+            )}
           </View>
-        )}
+        </View>
         <SubscriptionIndicator />
         {isAuthenticated && <SyncronizationIndicatorBar />}
       </View>

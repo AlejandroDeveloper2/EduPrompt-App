@@ -1,12 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "@/features/educational-resources/types";
 
-import { useResourceTags } from "@/features/educational-resources/hooks/core";
-import { useResourcesSelectionStore } from "@/features/educational-resources/store";
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useResourceShareCardLogic } from "@/features/educational-resources/hooks/core";
 
 import { Badge, MaterialIcon, Typography } from "@/shared/components/atoms";
 
@@ -27,12 +24,7 @@ const ResourceToShareCard = ({
 }: ResourceToShareCardProps) => {
   const { title, format, creationDate, groupTag } = resourceData;
 
-  const { t } = useTranslations();
-  const size = useResponsive();
-  const toggleSelection = useResourcesSelectionStore(
-    useShallow((state) => state.toggleSelection),
-  );
-  const { tags } = useResourceTags();
+  const { t, size, tags, toggleSelection } = useResourceShareCardLogic();
 
   const styles = dynamicStyles(size);
 

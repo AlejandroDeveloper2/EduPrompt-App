@@ -1,6 +1,10 @@
 export { default as useResourceCardLogic } from "./useResourceCardLogic";
 export { default as useResourceListLogic } from "./useResourceListLogic";
+export { default as useResourceListUI } from "./useResourceListUI";
 export { default as useResourcePreviewLogic } from "./useResourcePreviewLogic";
+export { default as useResources } from "./useResources";
+export { default as useResourceSelection } from "./useResourceSelection";
+export { default as useResourceShareCardLogic } from "./useResourceShareCardLogic";
 export { default as useResourcesSharingLogic } from "./useResourcesSharingLogic";
 export { default as useResourceTags } from "./useResourceTags";
 export { default as useUpdateResourceFormLogic } from "./useUpdateResourceFormLogic";

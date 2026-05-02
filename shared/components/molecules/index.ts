@@ -22,4 +22,4 @@ export { default as SyncronizationIndicatorBar } from "./syncronization-indicato
 export { default as Tabulator } from "./tabulator/Tabulator";
 export { default as Toast } from "./toast/Toast";
 export { default as TokenBadge } from "./token-badge/TokenBadge";
-export { default as Toolbar } from "./toolbar/Toolbar";
+export { default as ToolButton } from "./tool-button/ToolButton";

@@ -4,25 +4,39 @@ import { NotificationsSelectionStoreType } from "./store-types";
 
 export const useNotificationsSelectionStore =
   create<NotificationsSelectionStoreType>((set, get) => ({
+    selectionMode: false,
     selectionCount: 0,
     selectedNotificationIds: new Set<string>(),
     isAllSelected: false,
-
-    toggleSelection: (tagId: string, totalTagIdsCount: number): void => {
+    toggleSelectionMode: (selectionMode: boolean): void => {
+      set({ selectionMode });
+    },
+    toggleSelection: (
+      notificationId: string,
+      totalNotificationIdsCount: number,
+    ): void => {
       const { selectedNotificationIds } = get();
       const selectedElements = new Set(selectedNotificationIds);
 
-      if (selectedElements.has(tagId)) selectedElements.delete(tagId);
-      else selectedElements.add(tagId);
+      if (selectedElements.has(notificationId))
+        selectedElements.delete(notificationId);
+      else selectedElements.add(notificationId);
 
       set({
         selectedNotificationIds: selectedElements,
         selectionCount: selectedElements.size,
-        isAllSelected: selectedElements.size >= totalTagIdsCount,
+        isAllSelected: selectedElements.size >= totalNotificationIdsCount,
       });
     },
-    selectAll: (notificationIds: string[]): void => {
+    toggleSelectAll: (notificationIds: string[]): void => {
       const selectedElements = new Set<string>();
+
+      if (notificationIds.length === 0)
+        return set({
+          selectedNotificationIds: selectedElements,
+          selectionCount: selectedElements.size,
+          isAllSelected: false,
+        });
 
       notificationIds.forEach((notificationId) => {
         selectedElements.add(notificationId);
@@ -32,14 +46,6 @@ export const useNotificationsSelectionStore =
         selectedNotificationIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: true,
-      });
-    },
-    clearSelection: (): void => {
-      const selectedElements = new Set<string>();
-      set({
-        selectedNotificationIds: selectedElements,
-        selectionCount: selectedElements.size,
-        isAllSelected: false,
       });
     },
   }));

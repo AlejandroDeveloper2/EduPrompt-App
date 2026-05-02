@@ -1,37 +1,41 @@
 import { View } from "react-native";
 
-import { TagType } from "@/features/tags/types";
 import { AppColors } from "@/shared/styles";
 
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useTagListUI, useTagSelection } from "@/features/tags/hooks/core";
+import { useTagFiltersStore } from "@/features/tags/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input } from "@/shared/components/molecules";
+import { SelectionOptionsBar } from "@/shared/components/organims";
 
 import { dynamicStyles } from "./TagCardList.style";
 
-interface TagListHeaderProps {
-  selectedFilter: TagType;
-  searchValue: string;
-  onChangeFilter: (filter: TagType) => void;
-  handleSearchChange: (text: string) => void;
-  onClearSearchInput: () => void;
-}
-
-const TagCardListHeader = ({
-  selectedFilter,
-  searchValue,
-  handleSearchChange,
-  onClearSearchInput,
-  onChangeFilter,
-}: TagListHeaderProps) => {
-  const size = useResponsive();
-  const { t } = useTranslations();
+const TagCardListHeader = () => {
+  const { size, t, actions } = useTagListUI();
+  const selectionLogic = useTagSelection();
+  const {
+    searchTagValue,
+    tagTypeFilter,
+    onSearchTagValueChange,
+    onTagTypeFilterChange,
+  } = useTagFiltersStore();
 
   const styles = dynamicStyles(size);
 
   return (
     <View style={styles.ListHeaderContainer}>
+      {selectionLogic.selectionMode && (
+        <SelectionOptionsBar
+          isAllSelected={selectionLogic.isAllSelected}
+          selectionMode={selectionLogic.selectionMode}
+          actionsDisabled={false}
+          actions={actions}
+          selectionCount={selectionLogic.selectionCount}
+          toggleSelectAll={selectionLogic.toggleSelectAll}
+          disableSelectionMode={() => selectionLogic.toggleSelectionMode(false)}
+        />
+      )}
       <ScreenSection
         description={t("tags_translations.tag_list_labels.description")}
         title={t("tags_translations.tag_list_labels.title")}
@@ -39,13 +43,13 @@ const TagCardListHeader = ({
       />
       <Input<{ searchValue: string }>
         name="searchValue"
-        value={searchValue}
+        value={searchTagValue}
         icon="search-outline"
         placeholder={t(
           "tags_translations.tag_list_labels.search_input_placeholder",
         )}
-        onChange={(_, value) => handleSearchChange(value)}
-        onClearInput={onClearSearchInput}
+        onChange={(_, value) => onSearchTagValueChange(value)}
+        onClearInput={() => onSearchTagValueChange("")}
       />
       <View style={styles.FiltersContainer}>
         <Typography
@@ -65,16 +69,16 @@ const TagCardListHeader = ({
             label={t(
               "tags_translations.tag_list_labels.tag_type_filters_labels.resources",
             )}
-            active={selectedFilter === "resource_tag"}
-            onPressFilter={() => onChangeFilter("resource_tag")}
+            active={tagTypeFilter === "resource_tag"}
+            onPressFilter={() => onTagTypeFilterChange("resource_tag")}
           />
           <FilterTag
             icon="chatbox-ellipses-outline"
             label={t(
               "tags_translations.tag_list_labels.tag_type_filters_labels.prompts",
             )}
-            active={selectedFilter === "prompt_tag"}
-            onPressFilter={() => onChangeFilter("prompt_tag")}
+            active={tagTypeFilter === "prompt_tag"}
+            onPressFilter={() => onTagTypeFilterChange("prompt_tag")}
           />
         </View>
       </View>

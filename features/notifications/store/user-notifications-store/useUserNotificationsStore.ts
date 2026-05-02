@@ -105,7 +105,7 @@ export const useUserNotificationsStore = create<UserNotificationStoreType>()(
 
       deleteSelectedNotifications: (): void => {
         const { notifications } = get();
-        const { selectedNotificationIds, clearSelection } =
+        const { selectedNotificationIds, toggleSelectAll } =
           useNotificationsSelectionStore.getState();
 
         const updated = notifications.filter(
@@ -114,7 +114,7 @@ export const useUserNotificationsStore = create<UserNotificationStoreType>()(
 
         set({ notifications: updated });
         eventBus.emit("notifications.userNotifications.updated", updated);
-        clearSelection();
+        toggleSelectAll([]);
       },
     }),
     {

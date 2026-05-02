@@ -13,5 +13,6 @@ export { default as NavigationTab } from "./navigation/NavigationTab";
 export { default as PopUp } from "./pop-up/PopUp";
 export { default as ProcessProgress } from "./process-progress/ProcessProgress";
 export { default as PromptInput } from "./prompt-input/PromptInput";
+export { default as SelectionOptionsBar } from "./selection-options-bar/SelectionOptionsBar";
 export { default as SubprocessList } from "./subprocess-list/SubprocessList";
 export { default as TagSelectionPanel } from "./tag-selection-panel/TagSelectionPanel";

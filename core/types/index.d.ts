@@ -62,10 +62,6 @@ type ProcessType = "generation" | "downloading" | "deleting" | "sharing";
 
 type ViewerType = "image" | "text" | "table/chart";
 
-type NavigationPropsBase = {
-  actions: NavOption[];
-};
-
 type FormErrors<T> = {
   [K in keyof T]?: T[K] extends (infer U)[]
     ? U extends object
@@ -270,7 +266,6 @@ export {
   Lang,
   LangSelectionTag,
   LangTag,
-  NavigationPropsBase,
   NavOption,
   Order,
   PaginatedResponse,

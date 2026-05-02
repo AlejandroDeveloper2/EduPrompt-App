@@ -4,9 +4,14 @@ import { PromptsSelectionStoreType } from "./store-types";
 
 export const usePromptsSelectionStore = create<PromptsSelectionStoreType>(
   (set, get) => ({
+    selectionMode: false,
     selectionCount: 0,
     selectedPromptIds: new Set<string>(),
     isAllSelected: false,
+
+    toggleSelectionMode: (selectionMode: boolean): void => {
+      set({ selectionMode });
+    },
 
     toggleSelection: (promptId: string, totalPromptIdsCount: number): void => {
       const { selectedPromptIds } = get();
@@ -21,8 +26,15 @@ export const usePromptsSelectionStore = create<PromptsSelectionStoreType>(
         isAllSelected: selectedElements.size >= totalPromptIdsCount,
       });
     },
-    selectAll: (promptIds: string[]): void => {
+    toggleSelectAll: (promptIds: string[]): void => {
       const selectedElements = new Set<string>();
+
+      if (promptIds.length === 0)
+        return set({
+          selectedPromptIds: selectedElements,
+          selectionCount: selectedElements.size,
+          isAllSelected: false,
+        });
 
       promptIds.forEach((promptId) => {
         selectedElements.add(promptId);
@@ -32,14 +44,6 @@ export const usePromptsSelectionStore = create<PromptsSelectionStoreType>(
         selectedPromptIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: true,
-      });
-    },
-    clearSelection: (): void => {
-      const selectedElements = new Set<string>();
-      set({
-        selectedPromptIds: selectedElements,
-        selectionCount: selectedElements.size,
-        isAllSelected: false,
       });
     },
   }),

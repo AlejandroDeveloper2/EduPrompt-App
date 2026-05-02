@@ -3,7 +3,6 @@ import { FlatList } from "react-native";
 import { AppColors } from "@/shared/styles";
 
 import { useResourceListLogic } from "@/features/educational-resources/hooks/core";
-import { useResponsive } from "@/shared/hooks/core";
 
 import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
 import { Alert, FetchingErrorPanel } from "@/shared/components/organims";
@@ -14,8 +13,8 @@ import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { dynamicStyles } from "./PreviewResourceList.style";
 
 const PreviewResourceList = () => {
-  const size = useResponsive();
   const {
+    size,
     resources,
     isLoading,
     isError,
@@ -24,7 +23,7 @@ const PreviewResourceList = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    confirmDeleteDialog,
+    confirmResourceDeleteDialog,
     isPending: isDeleting,
     removeManyResources,
     selectedResourceIds,
@@ -57,19 +56,19 @@ const PreviewResourceList = () => {
           "resources_translations.resources_list_labels.confirm_delete_alert_labels.btn_accept",
         )}
         acceptButtonIcon="trash-bin-outline"
-        onCancel={confirmDeleteDialog.closeAlert}
+        onCancel={confirmResourceDeleteDialog.closeAlert}
         onAccept={() => {
           const selectedResources = Array.from(selectedResourceIds);
           removeManyResources(selectedResources, {
-            onSuccess: () => confirmDeleteDialog.closeAlert(),
+            onSuccess: () => confirmResourceDeleteDialog.closeAlert(),
           });
         }}
         loading={isDeleting}
         loadingMessage={t(
           "resources_translations.resources_list_labels.confirm_delete_alert_labels.deleting_resources_msg",
         )}
-        isOpen={confirmDeleteDialog.isOpen}
-        closeAlert={confirmDeleteDialog.closeAlert}
+        isOpen={confirmResourceDeleteDialog.isOpen}
+        closeAlert={confirmResourceDeleteDialog.closeAlert}
       />
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}

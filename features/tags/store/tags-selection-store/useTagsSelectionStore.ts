@@ -4,9 +4,14 @@ import { TagsSelectionStoreType } from "./store-types";
 
 export const useTagsSelectionStore = create<TagsSelectionStoreType>(
   (set, get) => ({
+    selectionMode: false,
     selectionCount: 0,
     selectedTagIds: new Set<string>(),
     isAllSelected: false,
+
+    toggleSelectionMode: (selectionMode: boolean): void => {
+      set({ selectionMode });
+    },
 
     toggleSelection: (tagId: string, totalTagIdsCount: number): void => {
       const { selectedTagIds } = get();
@@ -21,8 +26,15 @@ export const useTagsSelectionStore = create<TagsSelectionStoreType>(
         isAllSelected: selectedElements.size >= totalTagIdsCount,
       });
     },
-    selectAll: (tagIds: string[]): void => {
+    toggleSelectAll: (tagIds: string[]): void => {
       const selectedElements = new Set<string>();
+
+      if (tagIds.length === 0)
+        return set({
+          selectedTagIds: selectedElements,
+          selectionCount: selectedElements.size,
+          isAllSelected: false,
+        });
 
       tagIds.forEach((tagId) => {
         selectedElements.add(tagId);
@@ -32,14 +44,6 @@ export const useTagsSelectionStore = create<TagsSelectionStoreType>(
         selectedTagIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: true,
-      });
-    },
-    clearSelection: (): void => {
-      const selectedElements = new Set<string>();
-      set({
-        selectedTagIds: selectedElements,
-        selectionCount: selectedElements.size,
-        isAllSelected: false,
       });
     },
   }),

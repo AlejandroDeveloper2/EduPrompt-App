@@ -14,14 +14,7 @@ import { dynamicStyles } from "./TagCardList.style";
 
 const TagCardList = () => {
   const {
-    /** Size */
     size,
-    /** Search filters */
-    searchTagValue,
-    tagTypeFilter,
-    onSearchTagValueChange,
-    onTagTypeFilterChange,
-    /** Query */
     tags,
     isLoading,
     isError,
@@ -30,15 +23,11 @@ const TagCardList = () => {
     isFetchingNextPage,
     refetch,
     isRefetching,
-    /** Popup controls */
     confirmTagDeleteDialog,
     handleViewTag,
-    /** Tag Id  */
     selectedTagIds,
-    /** Actions */
     isPending,
     removeManyTags,
-    /**Translations */
     t,
   } = useTagCardListLogic();
 
@@ -102,15 +91,7 @@ const TagCardList = () => {
             icon="pricetag-outline"
           />
         }
-        ListHeaderComponent={
-          <TagCardListHeader
-            searchValue={searchTagValue}
-            selectedFilter={tagTypeFilter}
-            onChangeFilter={onTagTypeFilterChange}
-            handleSearchChange={onSearchTagValueChange}
-            onClearSearchInput={() => onSearchTagValueChange("")}
-          />
-        }
+        ListHeaderComponent={<TagCardListHeader />}
         onEndReachedThreshold={0.4}
         onEndReached={() => {
           if (hasNextPage && !isFetchingNextPage) {

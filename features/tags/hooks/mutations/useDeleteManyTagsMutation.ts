@@ -3,10 +3,9 @@ import { useShallow } from "zustand/react/shallow";
 
 import { Tag } from "../../types";
 
-import { useSelectionModeStore } from "@/core/store";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflineTagsStore } from "../../store";
+import { useOfflineTagsStore, useTagsSelectionStore } from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -19,8 +18,8 @@ const useDeleteManyTagsMutation = () => {
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const disableSelectionMode = useSelectionModeStore(
-    useShallow((state) => state.disableSelectionMode),
+  const toggleSelectionMode = useTagsSelectionStore(
+    useShallow((state) => state.toggleSelectionMode),
   );
 
   /** Offline */
@@ -59,7 +58,7 @@ const useDeleteManyTagsMutation = () => {
       return { previousTags };
     },
     onSuccess: () => {
-      disableSelectionMode();
+      toggleSelectionMode(false);
       showToast({
         key: generateToastKey(),
         variant: "primary",

@@ -1,22 +1,10 @@
-import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
 import { View } from "react-native";
 
-import { Tab } from "@/core/types";
 import { FormSectionComponentMap, FormSectionId } from "./types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { FORM_TABS } from "./constants";
-
-import {
-  useAlert,
-  useCheckNetwork,
-  useResponsive,
-  useTranslations,
-} from "@/shared/hooks/core";
-import { useEventBusToggle } from "@/shared/hooks/events";
-import useEventBusValue from "@/shared/hooks/events/useEventbusValue";
+import { useUserProfilePanel } from "@/features/settings/hooks/core";
 
 import { Link, ScreenSection } from "@/shared/components/atoms";
 import {
@@ -32,20 +20,20 @@ import UpdateUsernameForm from "./forms/UpdateUsernameForm";
 import { dynamicStyles } from "./UserProfilePanel.style";
 
 const UserProfilePanel = () => {
-  const { t } = useTranslations();
-  const tabs = useMemo(() => FORM_TABS(t), [t]);
-
-  const [activeFormTab, setActiveFormTab] = useState<Tab>(tabs[0]);
-
-  const router = useRouter();
-  const isAuth = useEventBusValue("auth.authenticated", false);
-  const loading = useEventBusToggle("auth.logout.started", [
-    "auth.logout.completed",
-    "auth.logout.failed",
-  ]);
-  const { isConnected } = useCheckNetwork();
-  const size = useResponsive();
-  const { isOpen, closeAlert, openAlert } = useAlert();
+  const {
+    t,
+    size,
+    isConnected,
+    isOpen,
+    isAuth,
+    tabs,
+    router,
+    loading,
+    closeAlert,
+    openAlert,
+    activeFormTab,
+    setActiveFormTab,
+  } = useUserProfilePanel();
 
   const styles = dynamicStyles(size);
   const Form: FormSectionComponentMap = {

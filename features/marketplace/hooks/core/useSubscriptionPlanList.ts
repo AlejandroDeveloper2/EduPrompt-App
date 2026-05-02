@@ -3,7 +3,7 @@ import { useCallback, useMemo } from "react";
 
 import { SubscriptionPlan } from "../../types";
 
-import { usePopUp, useTranslations } from "@/shared/hooks/core";
+import { useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useSubscriptionPlansQuery } from "../query";
 import useMarketplace from "./useMarketplace";
@@ -25,8 +25,6 @@ const useSubscriptionPlanList = () => {
     isError,
   } = useSubscriptionPlansQuery();
 
-  const { isOpen, closePopUp, openPopUp } = usePopUp();
-
   const currentPlan = useMemo(
     () =>
       subscription
@@ -37,7 +35,7 @@ const useSubscriptionPlanList = () => {
 
   const handleSubscribeToPlan = useCallback(
     (plan: SubscriptionPlan) => {
-      if (!isAuthenticated) return openPopUp();
+      if (!isAuthenticated) return router.navigate("/(app)/auth_panel_sheet");
       if (
         currentPlan &&
         currentPlan.subscriptionPlanId === plan.subscriptionPlanId
@@ -57,7 +55,7 @@ const useSubscriptionPlanList = () => {
         false,
       );
     },
-    [createPurchase, currentPlan, isAuthenticated, lang, openPopUp, router],
+    [createPurchase, currentPlan, isAuthenticated, lang, router],
   );
 
   return {
@@ -68,8 +66,6 @@ const useSubscriptionPlanList = () => {
     isError,
     plans,
     isPlansLoading,
-    isOpen,
-    closePopUp,
     currentPlan,
     handleSubscribeToPlan,
   };

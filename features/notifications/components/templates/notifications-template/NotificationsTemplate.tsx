@@ -11,6 +11,7 @@ import { LIST_TABS } from "./constants";
 import { Tabulator } from "@/shared/components/molecules";
 import { NotificationList, SystemNotificationsList } from "../../organims";
 
+import { DeleteDialogProvider } from "@/features/notifications/context";
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 const NotificationsTemplate = () => {
@@ -22,23 +23,25 @@ const NotificationsTemplate = () => {
   };
 
   return (
-    <View style={GlobalStyles.RootContainer}>
-      <View
-        style={[
-          { paddingTop: Spacing.spacing_xl },
-          GlobalStyles.PageDimensions,
-        ]}
-      >
-        <Tabulator
-          tabs={LIST_TABS()}
-          activeTab={activeListTab}
-          onSwitchTab={(tab) => {
-            setActiveListTab(tab);
-          }}
-        />
+    <DeleteDialogProvider>
+      <View style={GlobalStyles.RootContainer}>
+        <View
+          style={[
+            { paddingTop: Spacing.spacing_xl },
+            GlobalStyles.PageDimensions,
+          ]}
+        >
+          <Tabulator
+            tabs={LIST_TABS()}
+            activeTab={activeListTab}
+            onSwitchTab={(tab) => {
+              setActiveListTab(tab);
+            }}
+          />
+        </View>
+        {NotificationsList[activeListTab.tabId as NotificationListId]}
       </View>
-      {NotificationsList[activeListTab.tabId as NotificationListId]}
-    </View>
+    </DeleteDialogProvider>
   );
 };
 

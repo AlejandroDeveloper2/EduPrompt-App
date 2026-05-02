@@ -1,16 +1,11 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
-import { useShallow } from "zustand/react/shallow";
 
 import { AppColors } from "@/shared/styles";
 
 import { Notification, NotificationLink } from "@/features/notifications/types";
 
-import { useCheckIsNewNotification } from "@/features/notifications/hooks/core";
-import { useNotificationsSelectionStore } from "@/features/notifications/store";
-import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
+import { useNotificationCardLogic } from "@/features/notifications/hooks/core";
 
 import { openExternalLink } from "@/features/notifications/helpers";
 
@@ -31,21 +26,16 @@ const NotificationCard = ({
   links,
   canSelect,
 }: NotificationCardProps) => {
-  const size = useResponsive();
-  const { selectedNotificationIds, toggleSelection } =
-    useNotificationsSelectionStore(
-      useShallow((state) => ({
-        selectedNotificationIds: state.selectedNotificationIds,
-        toggleSelection: state.toggleSelection,
-      })),
-    );
-  const isSelected: boolean = useMemo(
-    () => selectedNotificationIds.has(data.notificationId),
-    [data.notificationId, selectedNotificationIds],
-  );
-  const animatedCardStyle = useAnimatedCard(isSelected);
-  const { isNew, formattedDate } = useCheckIsNewNotification(data.creationDate);
-  const { t, lang } = useTranslations();
+  const {
+    size,
+    t,
+    lang,
+    animatedCardStyle,
+    isNew,
+    formattedDate,
+    toggleSelection,
+    isSelected,
+  } = useNotificationCardLogic(data);
 
   const styles = dynamicStyles(size);
 

@@ -4,10 +4,14 @@ import { ResourcesSelectionStoreType } from "./store-types";
 
 export const useResourcesSelectionStore = create<ResourcesSelectionStoreType>(
   (set, get) => ({
+    selectionMode: false,
     selectionCount: 0,
     selectedResourceIds: new Set<string>(),
     isAllSelected: false,
 
+    toggleSelectionMode: (selectionMode: boolean): void => {
+      set({ selectionMode });
+    },
     toggleSelection: (
       resourceId: string,
       totalResourceIdsCount: number,
@@ -24,8 +28,15 @@ export const useResourcesSelectionStore = create<ResourcesSelectionStoreType>(
         isAllSelected: selectedElements.size >= totalResourceIdsCount,
       });
     },
-    selectAll: (resourceIds: string[]): void => {
+    toggleSelectAll: (resourceIds: string[]): void => {
       const selectedElements = new Set<string>();
+
+      if (resourceIds.length === 0)
+        return set({
+          selectedResourceIds: selectedElements,
+          selectionCount: selectedElements.size,
+          isAllSelected: false,
+        });
 
       resourceIds.forEach((resourceId) => {
         selectedElements.add(resourceId);
@@ -35,14 +46,6 @@ export const useResourcesSelectionStore = create<ResourcesSelectionStoreType>(
         selectedResourceIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: true,
-      });
-    },
-    clearSelection: (): void => {
-      const selectedElements = new Set<string>();
-      set({
-        selectedResourceIds: selectedElements,
-        selectionCount: selectedElements.size,
-        isAllSelected: false,
       });
     },
   }),

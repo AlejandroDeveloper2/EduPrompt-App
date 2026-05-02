@@ -184,7 +184,7 @@ export const useOfflinePromptsStore = create<OfflinePromptsStoreType>()(
       );
     },
     deleteManyPrompts: async () => {
-      const { selectedPromptIds, clearSelection } =
+      const { selectedPromptIds, toggleSelectAll } =
         usePromptsSelectionStore.getState();
 
       const selectedPrompts = Array.from(selectedPromptIds);
@@ -206,7 +206,7 @@ export const useOfflinePromptsStore = create<OfflinePromptsStoreType>()(
             });
             return;
           }
-          clearSelection();
+          toggleSelectAll([]);
         },
         (error) => {
           showToast({

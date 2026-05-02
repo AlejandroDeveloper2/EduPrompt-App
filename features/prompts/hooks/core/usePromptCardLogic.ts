@@ -3,7 +3,6 @@ import { useShallow } from "zustand/react/shallow";
 
 import { Prompt } from "../../types";
 
-import { useSelectionModeStore } from "@/core/store";
 import { useAnimatedCard } from "@/shared/hooks/animations";
 import { useResponsive, useTranslations } from "@/shared/hooks/core";
 import { usePromptsSelectionStore } from "../../store";
@@ -12,16 +11,14 @@ import usePromptTags from "./usePromptTags";
 const usePromptCardListLogic = (promptData: Prompt) => {
   const size = useResponsive();
 
-  const { selectedPromptIds, toggleSelection } = usePromptsSelectionStore(
-    useShallow((state) => ({
-      selectedPromptIds: state.selectedPromptIds,
-      toggleSelection: state.toggleSelection,
-    })),
-  );
-
-  const selectionMode = useSelectionModeStore(
-    useShallow((state) => state.selectionMode),
-  );
+  const { selectionMode, selectedPromptIds, toggleSelection } =
+    usePromptsSelectionStore(
+      useShallow((state) => ({
+        selectionMode: state.selectionMode,
+        selectedPromptIds: state.selectedPromptIds,
+        toggleSelection: state.toggleSelection,
+      })),
+    );
 
   const { tags } = usePromptTags();
 

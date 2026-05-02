@@ -1,13 +1,17 @@
 export interface StoreStateProps {
+  selectionMode: boolean;
   selectionCount: number;
   selectedNotificationIds: Set<string>;
   isAllSelected: boolean;
 }
 
 export interface StoreActions {
-  toggleSelection: (tagId: string, totalNotificationIdsCount: number) => void;
-  selectAll: (tagIds: string[]) => void;
-  clearSelection: () => void;
+  toggleSelectionMode: (selectionMode: boolean) => void;
+  toggleSelection: (
+    notificationId: string,
+    totalNotificationIdsCount: number,
+  ) => void;
+  toggleSelectAll: (notificationIds: string[]) => void;
 }
 
 export type NotificationsSelectionStoreType = StoreStateProps & StoreActions;

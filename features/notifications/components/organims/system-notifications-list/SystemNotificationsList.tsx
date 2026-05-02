@@ -1,100 +1,18 @@
-import { useEffect } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { Order } from "@/core/types";
+import { useSystemNotificationsLogic } from "@/features/notifications/hooks/core";
 
-import { useMarkAsReadNotificationsMutation } from "@/features/notifications/hooks/mutations";
-import { useSystemNotificationsQuery } from "@/features/notifications/hooks/queries";
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
-
-import { ScreenSection, Typography } from "@/shared/components/atoms";
-import {
-  Empty,
-  FilterTag,
-  LoadingTextIndicator,
-} from "@/shared/components/molecules";
+import { Empty, LoadingTextIndicator } from "@/shared/components/molecules";
 import { NotificationCard } from "../../molecules";
+import SystemNotificationListHeader from "./SystemNotificationListHeader";
 
 import { systemNotificationListStyles } from "./SystemNotificationsList.style";
 
-interface NotificationListHeaderProps {
-  filter: Order;
-  updateFilter: (updatedFilter: Order) => void;
-}
-
-const NotificationListHeader = ({
-  filter,
-  updateFilter,
-}: NotificationListHeaderProps) => {
-  const size = useResponsive();
-  const { t } = useTranslations();
-
-  const styles = systemNotificationListStyles(size);
-
-  return (
-    <View style={styles.ListHeaderContainer}>
-      <ScreenSection
-        description={t(
-          "notifications_translations.system_notification_list.description",
-        )}
-        title={t("notifications_translations.system_notification_list.title")}
-        icon="notifications-outline"
-      />
-      <View style={styles.FiltersContainer}>
-        <Typography
-          text={t(
-            "notifications_translations.system_notification_list.order_filters_labels.title",
-          )}
-          weight="bold"
-          type="button"
-          textAlign="center"
-          color={AppColors.neutral[1000]}
-          width="auto"
-          icon="filter-outline"
-        />
-        <View style={styles.Filters}>
-          <FilterTag
-            icon="calendar-outline"
-            label={t(
-              "notifications_translations.system_notification_list.order_filters_labels.asc",
-            )}
-            active={filter === "asc"}
-            onPressFilter={() => updateFilter("asc")}
-          />
-          <FilterTag
-            icon="calendar-outline"
-            label={t(
-              "notifications_translations.system_notification_list.order_filters_labels.desc",
-            )}
-            active={filter === "desc"}
-            onPressFilter={() => updateFilter("desc")}
-          />
-        </View>
-      </View>
-    </View>
-  );
-};
-
 const SystemNotificationsList = () => {
-  const size = useResponsive();
-  const {
-    data: notifications,
-    isLoading,
-    filter,
-    updateFilter,
-  } = useSystemNotificationsQuery();
-  const { mutate } = useMarkAsReadNotificationsMutation();
-  const { t, lang } = useTranslations();
-
-  useEffect(() => {
-    if (!notifications) return;
-    const notificationsIds = notifications.map((n) => n.notificationId);
-    if (notificationsIds.length > 0) mutate(notificationsIds);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notifications]);
+  const { size, t, lang, notifications, isLoading, filter, updateFilter } =
+    useSystemNotificationsLogic();
 
   const styles = systemNotificationListStyles(size);
 
@@ -120,7 +38,10 @@ const SystemNotificationsList = () => {
       )}
       keyExtractor={(item) => item.notificationId}
       ListHeaderComponent={
-        <NotificationListHeader filter={filter} updateFilter={updateFilter} />
+        <SystemNotificationListHeader
+          filter={filter}
+          updateFilter={updateFilter}
+        />
       }
       ListEmptyComponent={
         <Empty

@@ -93,6 +93,13 @@ export default function AppLayout() {
           contentStyle: GlobalStyles.SheetContent,
         }}
       />
+      <Stack.Screen
+        name="auth_panel_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
     </Stack>
   );
 }

@@ -36,7 +36,7 @@ const CleanFrecuencyOptions = () => {
           textAlign="center"
           color={AppColors.neutral[1000]}
           width="100%"
-          icon="language-outline"
+          icon="time-outline"
         />
       </View>
       <DropdownOptionList<CleanFrecuencyOption>

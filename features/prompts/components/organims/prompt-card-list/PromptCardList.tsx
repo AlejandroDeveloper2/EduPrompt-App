@@ -96,9 +96,7 @@ const PromptCardList = () => {
             icon="pricetag-outline"
           />
         }
-        ListHeaderComponent={
-          <PromptCardListHeader isDataSync={prompts.every((p) => p.sync)} />
-        }
+        ListHeaderComponent={<PromptCardListHeader />}
         onEndReachedThreshold={0.4}
         onEndReached={() => {
           if (hasNextPage && !isFetchingNextPage) {
