@@ -9,6 +9,13 @@ export const useNotificationsSelectionStore =
     selectedNotificationIds: new Set<string>(),
     isAllSelected: false,
     toggleSelectionMode: (selectionMode: boolean): void => {
+      if (!selectionMode)
+        return set({
+          selectionMode: false,
+          selectedNotificationIds: new Set<string>(),
+          selectionCount: 0,
+          isAllSelected: false,
+        });
       set({ selectionMode });
     },
     toggleSelection: (
@@ -26,6 +33,7 @@ export const useNotificationsSelectionStore =
         selectedNotificationIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: selectedElements.size >= totalNotificationIdsCount,
+        selectionMode: selectedElements.size > 0,
       });
     },
     toggleSelectAll: (notificationIds: string[]): void => {
@@ -36,6 +44,7 @@ export const useNotificationsSelectionStore =
           selectedNotificationIds: selectedElements,
           selectionCount: selectedElements.size,
           isAllSelected: false,
+          selectionMode: false,
         });
 
       notificationIds.forEach((notificationId) => {

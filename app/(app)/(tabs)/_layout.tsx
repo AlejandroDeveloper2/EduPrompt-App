@@ -1,15 +1,11 @@
 import { Tabs } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { useEffect } from "react";
-import { useShallow } from "zustand/react/shallow";
 
 import { AppColors } from "@/shared/styles";
 
 import { jobScheduler } from "@/core/jobs/JobScheduler";
 import { registerJobs } from "@/core/jobs/registerJobs";
-
-/** Stores */
-import { useSelectionModeStore } from "@/core/store";
 
 /** Queries */
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
@@ -39,8 +35,6 @@ import {
 
 export default function TabLayout() {
   const size = useResponsive();
-
-  const actions = useSelectionModeStore(useShallow((state) => state.actions));
 
   /** Cargar perfil de usuario */
   const { isFetched } = useUserProfileQuery();
@@ -104,9 +98,7 @@ export default function TabLayout() {
               width: "auto",
             },
           }}
-          drawerContent={(props) => (
-            <NavigationDrawer actions={actions} {...props} />
-          )}
+          drawerContent={(props) => <NavigationDrawer {...props} />}
         />
       </>
     );
@@ -124,7 +116,7 @@ export default function TabLayout() {
             height: 0,
           },
         }}
-        tabBar={(props) => <NavigationTab actions={actions} {...props} />}
+        tabBar={(props) => <NavigationTab {...props} />}
       />
     </>
   );

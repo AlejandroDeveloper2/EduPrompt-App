@@ -4,17 +4,19 @@ import { Notification } from "../../types";
 export interface StoreStateProps {
   notifications: Notification[];
   notification: Notification | null;
+  hasMarkedNotificationsAsRead: boolean;
 }
 
 export interface StoreActions {
   createNotification: (
     notification: Omit<Notification, "read">,
-    pushNotificationsAvailable: boolean
+    pushNotificationsAvailable: boolean,
   ) => Promise<void>;
   getAllNotifications: (filters: Order) => void;
   getOneNotification: (notificationId: string) => void;
   removeAllNotifications: () => void;
   markAllNotificationsAsRead: () => void;
+  resetMarkedAsReadFlag: () => void;
   deleteSelectedNotifications: () => void;
 }
 

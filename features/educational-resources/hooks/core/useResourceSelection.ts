@@ -1,16 +1,13 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-import { PaginatedResponse } from "@/core/types";
-import { EducationalResource } from "../../types";
-
 import { useResourcesSelectionStore } from "../../store";
+import useResources from "./useResources";
 
 const useResourceSelection = () => {
   const resourceIdsRef = useRef<string[]>([]);
 
-  const queryClient = useQueryClient();
+  const { resources } = useResources();
 
   const selectionStore = useResourcesSelectionStore(
     useShallow((state) => ({
@@ -24,13 +21,8 @@ const useResourceSelection = () => {
   );
 
   useEffect(() => {
-    const cachedResources = queryClient.getQueryData<
-      PaginatedResponse<EducationalResource>
-    >(["resources"]);
-    if (cachedResources) {
-      resourceIdsRef.current = cachedResources.records.map((r) => r.resourceId);
-    }
-  }, [queryClient]);
+    resourceIdsRef.current = resources.map((r) => r.resourceId);
+  }, [resources]);
 
   return {
     ...selectionStore,

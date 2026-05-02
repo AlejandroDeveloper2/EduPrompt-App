@@ -1,16 +1,13 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-import { PaginatedResponse } from "@/core/types";
-import { Prompt } from "../../types";
-
 import { usePromptsSelectionStore } from "../../store";
+import usePrompts from "./usePrompts";
 
 const usePromptSelection = () => {
   const promptIdsRef = useRef<string[]>([]);
 
-  const queryClient = useQueryClient();
+  const { prompts } = usePrompts();
 
   const selectionStore = usePromptsSelectionStore(
     useShallow((state) => ({
@@ -24,13 +21,8 @@ const usePromptSelection = () => {
   );
 
   useEffect(() => {
-    const cachedPrompts = queryClient.getQueryData<PaginatedResponse<Prompt>>([
-      "prompts",
-    ]);
-    if (cachedPrompts) {
-      promptIdsRef.current = cachedPrompts.records.map((p) => p.promptId);
-    }
-  }, [queryClient]);
+    promptIdsRef.current = prompts.map((p) => p.promptId);
+  }, [prompts]);
 
   return {
     ...selectionStore,

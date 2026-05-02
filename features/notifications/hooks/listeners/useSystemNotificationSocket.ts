@@ -89,7 +89,7 @@ const useSystemNotificationSocket = (filters: Order) => {
       socket.off("notifications:deleteMany");
       socket.off("notifications:markAsRead");
     };
-  }, [queryClient, notificationsPushAvailable, filters, lang]);
+  }, [queryClient, notificationsPushAvailable, lang]);
 };
 
 export default useSystemNotificationSocket;

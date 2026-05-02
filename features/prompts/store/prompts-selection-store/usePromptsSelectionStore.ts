@@ -10,6 +10,13 @@ export const usePromptsSelectionStore = create<PromptsSelectionStoreType>(
     isAllSelected: false,
 
     toggleSelectionMode: (selectionMode: boolean): void => {
+      if (!selectionMode)
+        return set({
+          selectionMode: false,
+          selectedPromptIds: new Set<string>(),
+          selectionCount: 0,
+          isAllSelected: false,
+        });
       set({ selectionMode });
     },
 
@@ -24,6 +31,7 @@ export const usePromptsSelectionStore = create<PromptsSelectionStoreType>(
         selectedPromptIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: selectedElements.size >= totalPromptIdsCount,
+        selectionMode: selectedElements.size > 0,
       });
     },
     toggleSelectAll: (promptIds: string[]): void => {
@@ -34,6 +42,7 @@ export const usePromptsSelectionStore = create<PromptsSelectionStoreType>(
           selectedPromptIds: selectedElements,
           selectionCount: selectedElements.size,
           isAllSelected: false,
+          selectionMode: false,
         });
 
       promptIds.forEach((promptId) => {

@@ -22,6 +22,7 @@ export const useUserNotificationsStore = create<UserNotificationStoreType>()(
     (set, get) => ({
       notifications: [],
       notification: null,
+      hasMarkedNotificationsAsRead: false,
       /** Managment actions */
       createNotification: async (
         notification: Omit<Notification, "read">,
@@ -89,18 +90,29 @@ export const useUserNotificationsStore = create<UserNotificationStoreType>()(
         eventBus.emit("notifications.userNotifications.updated", []);
       },
       markAllNotificationsAsRead: (): void => {
-        const { notifications } = get();
+        const { notifications, hasMarkedNotificationsAsRead } = get();
+
+        // Evitar marcar como leídas si ya fueron marcadas
+        if (hasMarkedNotificationsAsRead) return;
+
+        // Solo marcar como leídas las que aún no estén leídas
         const updatedNotifications = notifications.map((n) => ({
           ...n,
           read: true,
         }));
 
-        set({ notifications: updatedNotifications });
+        set({
+          notifications: updatedNotifications,
+          hasMarkedNotificationsAsRead: true,
+        });
 
         eventBus.emit(
           "notifications.userNotifications.updated",
           updatedNotifications,
         );
+      },
+      resetMarkedAsReadFlag: (): void => {
+        set({ hasMarkedNotificationsAsRead: false });
       },
 
       deleteSelectedNotifications: (): void => {
@@ -134,6 +146,7 @@ export const useUserNotificationsStore = create<UserNotificationStoreType>()(
       partialize: (state) => ({
         notifications: state.notifications,
         notification: state.notification,
+        hasMarkedNotificationsAsRead: state.hasMarkedNotificationsAsRead,
       }),
     },
   ),

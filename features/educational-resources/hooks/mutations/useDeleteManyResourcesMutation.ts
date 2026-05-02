@@ -3,10 +3,12 @@ import { useShallow } from "zustand/react/shallow";
 
 import { EducationalResource } from "../../types";
 
-import { useSelectionModeStore } from "@/core/store";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
-import { useOfflineResourcesStore } from "../../store";
+import {
+  useOfflineResourcesStore,
+  useResourcesSelectionStore,
+} from "../../store";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
@@ -20,8 +22,8 @@ const useDeleteManyResourcesMutation = () => {
   const { isConnected } = useCheckNetwork();
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const disableSelectionMode = useSelectionModeStore(
-    useShallow((state) => state.disableSelectionMode),
+  const toggleSelectionMode = useResourcesSelectionStore(
+    useShallow((state) => state.toggleSelectionMode),
   );
 
   /** Offline */
@@ -62,7 +64,7 @@ const useDeleteManyResourcesMutation = () => {
       return { previousResources };
     },
     onSuccess: () => {
-      disableSelectionMode();
+      toggleSelectionMode(false);
       showToast({
         key: generateToastKey(),
         variant: "primary",

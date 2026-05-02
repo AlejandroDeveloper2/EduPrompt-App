@@ -1,16 +1,13 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-import { PaginatedResponse } from "@/core/types";
-import { Tag } from "../../types";
-
 import { useTagsSelectionStore } from "../../store";
+import useTags from "./useTags";
 
 const useTagSelection = () => {
   const tagIdsRef = useRef<string[]>([]);
 
-  const queryClient = useQueryClient();
+  const { tags } = useTags();
 
   const selectionStore = useTagsSelectionStore(
     useShallow((state) => ({
@@ -24,13 +21,8 @@ const useTagSelection = () => {
   );
 
   useEffect(() => {
-    const cachedTags = queryClient.getQueryData<PaginatedResponse<Tag>>([
-      "tags",
-    ]);
-    if (cachedTags) {
-      tagIdsRef.current = cachedTags.records.map((t) => t.tagId);
-    }
-  }, [queryClient]);
+    tagIdsRef.current = tags.map((t) => t.tagId);
+  }, [tags]);
 
   return {
     ...selectionStore,

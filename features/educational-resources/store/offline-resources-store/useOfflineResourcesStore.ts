@@ -214,7 +214,7 @@ export const useOfflineResourcesStore = create<OfflineResourcesStoreType>(
       );
     },
     deleteManyResources: async () => {
-      const { selectedResourceIds, clearSelection } =
+      const { selectedResourceIds, toggleSelectAll } =
         useResourcesSelectionStore.getState();
 
       const selectedResources = Array.from(selectedResourceIds);
@@ -236,7 +236,7 @@ export const useOfflineResourcesStore = create<OfflineResourcesStoreType>(
             });
             return;
           }
-          clearSelection();
+          toggleSelectAll([]);
         },
         (error) => {
           showToast({
@@ -298,7 +298,7 @@ export const useOfflineResourcesStore = create<OfflineResourcesStoreType>(
     },
 
     shareResources: async (groupName) => {
-      const { selectedResourceIds, clearSelection } =
+      const { selectedResourceIds, toggleSelectAll } =
         useResourcesSelectionStore.getState();
 
       const selectedResources = Array.from(selectedResourceIds);
@@ -363,7 +363,7 @@ export const useOfflineResourcesStore = create<OfflineResourcesStoreType>(
             ),
           });
 
-          clearSelection();
+          toggleSelectAll([]);
 
           setTimeout(() => {
             ResourceManager.clearTemporaryFiles();

@@ -10,6 +10,13 @@ export const useResourcesSelectionStore = create<ResourcesSelectionStoreType>(
     isAllSelected: false,
 
     toggleSelectionMode: (selectionMode: boolean): void => {
+      if (!selectionMode)
+        return set({
+          selectionMode: false,
+          selectedResourceIds: new Set<string>(),
+          selectionCount: 0,
+          isAllSelected: false,
+        });
       set({ selectionMode });
     },
     toggleSelection: (
@@ -26,6 +33,7 @@ export const useResourcesSelectionStore = create<ResourcesSelectionStoreType>(
         selectedResourceIds: selectedElements,
         selectionCount: selectedElements.size,
         isAllSelected: selectedElements.size >= totalResourceIdsCount,
+        selectionMode: selectedElements.size > 0,
       });
     },
     toggleSelectAll: (resourceIds: string[]): void => {
@@ -36,6 +44,7 @@ export const useResourcesSelectionStore = create<ResourcesSelectionStoreType>(
           selectedResourceIds: selectedElements,
           selectionCount: selectedElements.size,
           isAllSelected: false,
+          selectionMode: false,
         });
 
       resourceIds.forEach((resourceId) => {

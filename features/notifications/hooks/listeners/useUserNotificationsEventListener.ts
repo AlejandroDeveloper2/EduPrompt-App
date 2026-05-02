@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import { eventBus } from "@/core/events/EventBus";
@@ -15,10 +15,8 @@ const useUserNotificationsEventListener = () => {
 
   const userProfile = useEventbusValue("userProfile.user.updated", null);
 
-  useEffect(() => {
-    const handleCreateNotificationRequest = (
-      newNotification: Omit<Notification, "read">,
-    ) => {
+  const handleCreateNotificationRequest = useCallback(
+    (newNotification: Omit<Notification, "read">) => {
       eventBus.emit("notifications.createNotification.started", undefined);
 
       const notificationsPushAvailable = userProfile
@@ -37,8 +35,11 @@ const useUserNotificationsEventListener = () => {
             error: "Error al crear la notificación",
           }),
         );
-    };
+    },
+    [createNotification, userProfile],
+  );
 
+  useEffect(() => {
     eventBus.on(
       "notifications.createNotification.requested",
       handleCreateNotificationRequest,
@@ -49,7 +50,7 @@ const useUserNotificationsEventListener = () => {
         handleCreateNotificationRequest,
       );
     };
-  }, [createNotification, userProfile]);
+  }, [handleCreateNotificationRequest]);
 };
 
 export default useUserNotificationsEventListener;
