@@ -24,7 +24,7 @@ import {
   useCleanNotificationsJob,
   useNotificationCheckerJob,
 } from "@/features/notifications/hooks/core";
-import { useBlockBackWhenSelection, useResponsive } from "@/shared/hooks/core";
+import { useResponsive } from "@/shared/hooks/core";
 
 import { CustomStatusBar } from "@/shared/components/atoms";
 import {
@@ -65,9 +65,6 @@ export default function TabLayout() {
 
   /** Listener para escuchar eventos del módulo de Tienda */
   useMarketplaceEventsListener();
-
-  /** Detectar el back swipe del usuario */
-  useBlockBackWhenSelection();
 
   /** Registramos el Job schedule */
   useEffect(() => {
