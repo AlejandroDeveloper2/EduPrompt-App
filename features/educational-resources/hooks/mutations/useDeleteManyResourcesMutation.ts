@@ -9,10 +9,27 @@ import {
   useOfflineResourcesStore,
   useResourcesSelectionStore,
 } from "../../store";
+import { useResources } from "../core";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 import { deleteManyResources } from "../../services";
+
+const getSyncedResources = (
+  resources: EducationalResource[],
+  selectedResourceIds: string[],
+): string[] => {
+  let selectedResources: EducationalResource[] = [];
+  resources.forEach((resource) => {
+    if (selectedResourceIds.includes(resource.resourceId))
+      selectedResources.push(resource);
+  });
+  const syncedResourceIds = selectedResources
+    .filter((r) => r.sync)
+    .map((r) => r.resourceId);
+
+  return syncedResourceIds;
+};
 
 const useDeleteManyResourcesMutation = () => {
   const queryClient = useQueryClient();
@@ -26,13 +43,15 @@ const useDeleteManyResourcesMutation = () => {
     useShallow((state) => state.toggleSelectionMode),
   );
 
+  const { resources } = useResources();
+
   /** Offline */
   const deleteManyOffline = useOfflineResourcesStore(
     useShallow((state) => state.deleteManyResources),
   );
 
   return useMutation({
-    mutationFn: async (payload) => {
+    mutationFn: async (selectedResourceIds: string[]) => {
       /** Eliminación  offline inmediata */
       await deleteManyOffline();
 
@@ -41,7 +60,11 @@ const useDeleteManyResourcesMutation = () => {
 
       /** Eliminación online */
       if (isConnected && isAuthenticated) {
-        await deleteManyResources(payload);
+        const syncedResources = getSyncedResources(
+          resources,
+          selectedResourceIds,
+        );
+        await deleteManyResources(syncedResources);
       }
     },
     onMutate: async (resourcesIds: string[]) => {

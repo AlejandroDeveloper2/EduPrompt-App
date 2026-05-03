@@ -6,10 +6,20 @@ import { Tag } from "../../types";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflineTagsStore, useTagsSelectionStore } from "../../store";
+import useTags from "../core/useTags";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 import { deleteManyTags } from "../../services";
+
+const getSyncedTags = (tags: Tag[], selectedTagIds: string[]): string[] => {
+  let selectedTags: Tag[] = [];
+  tags.forEach((tag) => {
+    if (selectedTagIds.includes(tag.tagId)) selectedTags.push(tag);
+  });
+  const syncedTagsIds = selectedTags.filter((t) => t.sync).map((t) => t.tagId);
+  return syncedTagsIds;
+};
 
 const useDeleteManyTagsMutation = () => {
   const queryClient = useQueryClient();
@@ -22,13 +32,16 @@ const useDeleteManyTagsMutation = () => {
     useShallow((state) => state.toggleSelectionMode),
   );
 
+  /** Obtenemos las tags */
+  const { tags } = useTags();
+
   /** Offline */
   const deleteManyTagsOffline = useOfflineTagsStore(
     useShallow((state) => state.deleteManyTags),
   );
 
   return useMutation({
-    mutationFn: async (payload) => {
+    mutationFn: async (selectedTagIds) => {
       /** Eliminación  offline inmediata */
       await deleteManyTagsOffline();
 
@@ -37,7 +50,9 @@ const useDeleteManyTagsMutation = () => {
 
       /** Eliminación online */
       if (isConnected && isAuthenticated) {
-        await deleteManyTags(payload);
+        /** Eliminamos solo las etiquetas que estan sincronizadas */
+        const syncedTagsIds = getSyncedTags(tags, selectedTagIds);
+        await deleteManyTags(syncedTagsIds);
       }
     },
     onMutate: async (tagIds: string[]) => {

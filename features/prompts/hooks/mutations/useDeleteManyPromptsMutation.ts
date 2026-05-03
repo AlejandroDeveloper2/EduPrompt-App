@@ -6,10 +6,26 @@ import { Prompt } from "../../types";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflinePromptsStore, usePromptsSelectionStore } from "../../store";
+import { usePrompts } from "../core";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";
 import { deleteManyPrompts } from "../../services";
+
+const getSyncedPrompts = (
+  prompts: Prompt[],
+  selectedPromptIds: string[],
+): string[] => {
+  let selectedPrompts: Prompt[] = [];
+  prompts.forEach((prompt) => {
+    if (selectedPromptIds.includes(prompt.promptId))
+      selectedPrompts.push(prompt);
+  });
+  const syncedPromptIds = selectedPrompts
+    .filter((p) => p.sync)
+    .map((p) => p.promptId);
+  return syncedPromptIds;
+};
 
 const useDeleteManyPromptsMutation = () => {
   const queryClient = useQueryClient();
@@ -21,6 +37,8 @@ const useDeleteManyPromptsMutation = () => {
   const toggleSelectionMode = usePromptsSelectionStore(
     useShallow((state) => state.toggleSelectionMode),
   );
+
+  const { prompts } = usePrompts();
 
   /** Offline */
   const deleteOfflinePrompts = useOfflinePromptsStore(
@@ -37,7 +55,8 @@ const useDeleteManyPromptsMutation = () => {
 
       /** Eliminación online */
       if (isConnected && isAuthenticated) {
-        await deleteManyPrompts(selectedPromptIds);
+        const syncedPromptIds = getSyncedPrompts(prompts, selectedPromptIds);
+        await deleteManyPrompts(syncedPromptIds);
       }
     },
     onMutate: async (promptIds: string[]) => {
