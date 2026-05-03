@@ -16,15 +16,15 @@ import { renderGenerationStepImage } from "@/features/generations/utils";
 import { ScreenSection } from "@/shared/components/atoms";
 import { Button, Stepper } from "@/shared/components/molecules";
 
-import { styles } from "./GenerationStepView.style";
+import CountryForm from "../generation-forms/country-form/CountryForm";
+import EducationalLevelForm from "../generation-forms/educational-level-form/EducationalLevelForm";
+import LanguageForm from "../generation-forms/language-form/LanguageForm";
+import ResourceDescriptionForm from "../generation-forms/resource-description-form/ResourceDescriptionForm";
+import ResourceFormatForm from "../generation-forms/resource-format-form/ResourceFormatForm";
+import ResourceTypeForm from "../generation-forms/resource-type-form/ResourceTypeForm";
+import SubjectForm from "../generation-forms/subject-form/SubjectForm";
 
-import CountryForm from "../country-form/CountryForm";
-import EducationalLevelForm from "../educational-level-form/EducationalLevelForm";
-import LanguageForm from "../language-form/LanguageForm";
-import ResourceDescriptionForm from "../resource-description-form/ResourceDescriptionForm";
-import ResourceFormatForm from "../resource-format-form/ResourceFormatForm";
-import ResourceTypeForm from "../resource-type-form/ResourceTypeForm";
-import SubjectForm from "../subject-form/SubjectForm";
+import { styles } from "./GenerationStepView.style";
 
 interface GenerationStepViewProps {
   currentIaGeneration: IaGeneration;
@@ -43,6 +43,8 @@ const stepForms: Record<GenerationStepNameType, ReactNode> = {
 const GenerationStepView = ({
   currentIaGeneration,
 }: GenerationStepViewProps) => {
+  const { t } = useTranslations();
+
   const { setGenerationStep, clearSelectedGeneration } =
     useResourceGenerationStore(
       useShallow((state) => ({
@@ -50,7 +52,6 @@ const GenerationStepView = ({
         clearSelectedGeneration: state.clearSelectedGeneration,
       })),
     );
-  const { t } = useTranslations();
 
   return (
     <View style={{ alignItems: "flex-end" }}>

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Pressable, View } from "react-native";
 import Animated from "react-native-reanimated";
 
@@ -6,18 +5,11 @@ import { IaGeneration } from "@/features/generations/types";
 
 import { AppColors } from "@/shared/styles";
 
-import { useSelectionModeStore } from "@/core/store";
-import { useAnimatedCard } from "@/shared/hooks/animations";
-import { useResponsive, useTranslations } from "@/shared/hooks/core";
-import {
-  useGenerationsSelectionStore,
-  useResourceGenerationStore,
-} from "../../../store";
+import { useGenerationCardLogic } from "@/features/generations/hooks/core";
 
 import { Checkbox, Typography } from "@/shared/components/atoms";
 import { ProgressBar } from "@/shared/components/molecules";
 
-import { useShallow } from "zustand/react/shallow";
 import { dynamicStyles } from "./GenerationCard.style";
 
 interface GenerationCardProps {
@@ -28,33 +20,16 @@ interface GenerationCardProps {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const GenerationCard = ({ data, totalRecords }: GenerationCardProps) => {
-  const size = useResponsive();
-  const { selectedGenerationIds, toggleSelection } =
-    useGenerationsSelectionStore(
-      useShallow(({ selectedGenerationIds, toggleSelection }) => ({
-        selectedGenerationIds,
-        toggleSelection,
-      })),
-    );
-  const selectionMode = useSelectionModeStore(
-    useShallow((state) => state.selectionMode),
-  );
-  const getIaGeneration = useResourceGenerationStore(
-    useShallow((state) => state.getIaGeneration),
-  );
-  const generationProgress = useMemo(() => {
-    const completedSteps = data.steps.filter(
-      (step) => step.completed === true,
-    ).length;
-    return Math.floor((completedSteps * 100) / data.steps.length);
-  }, [data.steps]);
-
-  const isSelected: boolean = useMemo(
-    () => selectedGenerationIds.has(data.generationId),
-    [data.generationId, selectedGenerationIds],
-  );
-  const animatedCardStyle = useAnimatedCard(isSelected);
-  const { t } = useTranslations();
+  const {
+    size,
+    t,
+    animatedCardStyle,
+    toggleSelection,
+    selectionMode,
+    getIaGeneration,
+    generationProgress,
+    isSelected,
+  } = useGenerationCardLogic(data);
 
   const styles = dynamicStyles(size);
 

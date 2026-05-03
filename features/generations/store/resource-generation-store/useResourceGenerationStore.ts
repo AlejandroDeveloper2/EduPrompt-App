@@ -189,7 +189,7 @@ export const useResourceGenerationStore = create<ResourceGenerationStoreType>()(
       },
       deleteSelectedGenerations: (): void => {
         const { iaGenerations } = get();
-        const { selectedGenerationIds, clearSelection } =
+        const { selectedGenerationIds, toggleSelectAll } =
           useGenerationsSelectionStore.getState();
 
         const updated = iaGenerations.filter(
@@ -198,11 +198,11 @@ export const useResourceGenerationStore = create<ResourceGenerationStoreType>()(
 
         set({ iaGenerations: updated });
 
-        clearSelection();
+        toggleSelectAll([]);
       },
       reinitSelectedGenerations: (): void => {
         const { iaGenerations } = get();
-        const { selectedGenerationIds, clearSelection } =
+        const { selectedGenerationIds, toggleSelectAll } =
           useGenerationsSelectionStore.getState();
 
         let selectedGenerations: IaGeneration[] = [];
@@ -229,7 +229,7 @@ export const useResourceGenerationStore = create<ResourceGenerationStoreType>()(
           };
         });
         set({ iaGenerations: updated });
-        clearSelection();
+        toggleSelectAll([]);
       },
 
       /** Generation Actions */

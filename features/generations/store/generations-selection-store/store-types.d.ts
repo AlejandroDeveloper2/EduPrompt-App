@@ -1,16 +1,17 @@
 export interface StoreStateProps {
+  selectionMode: boolean;
   selectionCount: number;
   selectedGenerationIds: Set<string>;
   isAllSelected: boolean;
 }
 
 export interface StoreActions {
+  toggleSelectionMode: (selectionMode: boolean) => void;
   toggleSelection: (
     generationId: string,
-    totalGenerationIdsCount: number
+    totalGenerationIdsCount: number,
   ) => void;
-  selectAll: (generationIds: string[]) => void;
-  clearSelection: () => void;
+  toggleSelectAll: (generationIds: string[]) => void;
 }
 
 export type GenerationsSelectionStoreType = StoreStateProps & StoreActions;

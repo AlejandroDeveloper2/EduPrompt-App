@@ -1,52 +1,24 @@
-import { useCallback, useEffect, useState } from "react";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-import { Tag } from "@/features/tags/types";
-
 import { AppColors } from "@/shared/styles";
 
-import { eventBus } from "@/core/events/EventBus";
-
-import { useEventbusValue } from "@/shared/hooks/events";
+import { usePromptSelectionPanel } from "@/features/generations/hooks/core";
 
 import { Typography } from "@/shared/components/atoms";
 import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
 
 import { styles } from "./PromptSelectionPanel.style";
 
-interface PromptSelectionPanelProps {
-  isTagSelection: boolean;
-  enableTagSelection: () => void;
-}
-
-const PromptSelectionPanel = ({
-  isTagSelection,
-  enableTagSelection,
-}: PromptSelectionPanelProps) => {
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
-
-  const { tags } = useEventbusValue("tags.list.promptType.updated", {
-    tags: [],
-    hasNextPage: false,
-    isFetchingNextPage: false,
-    refreshing: false,
-  });
-
-  const emitFetchPrompts = useCallback(() => {
-    eventBus.emit("prompts.fetch", {
-      title: searchValue,
-      tag: selectedTag ? selectedTag.tagId : undefined,
-    });
-  }, [searchValue, selectedTag]);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      emitFetchPrompts();
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [emitFetchPrompts]);
+const PromptSelectionPanel = () => {
+  const {
+    tagFilter,
+    tags,
+    searchValue,
+    setSearchValue,
+    onTagFilterChange,
+    setIsTagSelection,
+  } = usePromptSelectionPanel();
 
   return (
     <View style={styles.Container}>
@@ -77,22 +49,22 @@ const PromptSelectionPanel = ({
           <FilterTag
             icon="star-outline"
             label="Todas"
-            active={selectedTag === null}
-            onPressFilter={() => setSelectedTag(null)}
+            active={tagFilter === null}
+            onPressFilter={() => onTagFilterChange(null)}
           />
           {tags.slice(0, 3).map((tag) => (
             <FilterTag
               key={tag.tagId}
               icon="pricetag-outline"
               label={tag.name}
-              active={selectedTag?.tagId === tag.tagId}
-              onPressFilter={() => setSelectedTag(tag)}
+              active={tagFilter?.tagId === tag.tagId}
+              onPressFilter={() => onTagFilterChange(tag)}
             />
           ))}
           <NavItem
-            active={isTagSelection}
+            active={false}
             icon="search-outline"
-            onPress={enableTagSelection}
+            onPress={() => setIsTagSelection(true)}
           />
         </ScrollView>
       </View>

@@ -100,6 +100,69 @@ export default function AppLayout() {
           contentStyle: GlobalStyles.SheetContent,
         }}
       />
+      <Stack.Screen
+        name="generation_language_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_country_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_resource_type_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_educational_level_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_grade_level_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_resource_format_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_save_prompt_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_prompt_selection_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
+      <Stack.Screen
+        name="generation_save_resource_sheet"
+        options={{
+          ...sheetOptions,
+          contentStyle: GlobalStyles.SheetContent,
+        }}
+      />
     </Stack>
   );
 }
