@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { SizeType } from "@/core/types";
 
-import { AppColors, Radius, Spacing } from "../../../styles";
+import { AppColors, Spacing } from "../../../styles";
 
 export const dynamicStyles = (size: SizeType) =>
   StyleSheet.create({
@@ -18,7 +18,11 @@ export const dynamicStyles = (size: SizeType) =>
       justifyContent: "space-between",
       alignItems: "center",
       elevation: 3,
-      borderRadius: Radius.radius_lg,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 10,
     },
     Slide: {
       flexDirection: "row",

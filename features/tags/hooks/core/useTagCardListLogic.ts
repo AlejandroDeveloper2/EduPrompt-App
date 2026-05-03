@@ -11,7 +11,7 @@ const useTagCardListLogic = () => {
   const { t, size, confirmTagDeleteDialog, handleViewTag } = useTagListUI();
 
   /** Selection Logic */
-  const { selectedTagIds } = useTagSelection();
+  const { selectedTagIds, selectionMode } = useTagSelection();
 
   /** Mutation */
   const { isPending, mutate: removeManyTags } = useDeleteManyTagsMutation();
@@ -25,6 +25,7 @@ const useTagCardListLogic = () => {
     selectedTagIds,
     isPending,
     removeManyTags,
+    selectionMode,
   };
 };
 

@@ -2,18 +2,17 @@ import { View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import { useTagListUI, useTagSelection } from "@/features/tags/hooks/core";
+import { useTagListUI } from "@/features/tags/hooks/core";
 import { useTagFiltersStore } from "@/features/tags/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input } from "@/shared/components/molecules";
-import { SelectionOptionsBar } from "@/shared/components/organims";
 
 import { dynamicStyles } from "./TagCardList.style";
 
 const TagCardListHeader = () => {
-  const { size, t, actions } = useTagListUI();
-  const selectionLogic = useTagSelection();
+  const { size, t } = useTagListUI();
+
   const {
     searchTagValue,
     tagTypeFilter,
@@ -25,17 +24,6 @@ const TagCardListHeader = () => {
 
   return (
     <View style={styles.ListHeaderContainer}>
-      {selectionLogic.selectionMode && (
-        <SelectionOptionsBar
-          isAllSelected={selectionLogic.isAllSelected}
-          selectionMode={selectionLogic.selectionMode}
-          actionsDisabled={false}
-          actions={actions}
-          selectionCount={selectionLogic.selectionCount}
-          toggleSelectAll={selectionLogic.toggleSelectAll}
-          disableSelectionMode={() => selectionLogic.toggleSelectionMode(false)}
-        />
-      )}
       <ScreenSection
         description={t("tags_translations.tag_list_labels.description")}
         title={t("tags_translations.tag_list_labels.title")}

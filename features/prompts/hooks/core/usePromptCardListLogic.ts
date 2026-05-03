@@ -12,7 +12,7 @@ const usePromptCardListLogic = () => {
     usePromptListUI();
 
   /** Selection Logic */
-  const { selectedPromptIds } = usePromptSelection();
+  const { selectedPromptIds, selectionMode } = usePromptSelection();
 
   /** Mutation */
   const { isPending, mutate: removeManyPrompts } =
@@ -27,6 +27,7 @@ const usePromptCardListLogic = () => {
     removeManyPrompts,
     t,
     selectedPromptIds,
+    selectionMode,
   };
 };
 

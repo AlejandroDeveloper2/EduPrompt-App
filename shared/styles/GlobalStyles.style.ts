@@ -11,6 +11,7 @@ export const GlobalStyles = StyleSheet.create({
     backgroundColor: AppColors.basic.white,
     justifyContent: "flex-start",
     alignItems: "center",
+    position: "relative",
   },
   PageContent: {
     justifyContent: "flex-start",

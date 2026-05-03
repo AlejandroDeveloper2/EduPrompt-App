@@ -1,18 +1,35 @@
 import { View } from "react-native";
 
-import { DeleteDialogProvider } from "@/features/prompts/context";
+import {
+  usePromptListUI,
+  usePromptSelection,
+} from "@/features/prompts/hooks/core";
 
+import { SelectionOptionsBar } from "@/shared/components/organims";
 import { PromptCardList } from "../../organims";
 
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 
 const PromptsTemplate = () => {
+  const { actions } = usePromptListUI();
+  const selectionLogic = usePromptSelection();
+
   return (
-    <DeleteDialogProvider>
-      <View style={GlobalStyles.RootContainer}>
-        <PromptCardList />
-      </View>
-    </DeleteDialogProvider>
+    <View style={GlobalStyles.RootContainer}>
+      <PromptCardList />
+
+      {selectionLogic.selectionMode && (
+        <SelectionOptionsBar
+          isAllSelected={selectionLogic.isAllSelected}
+          selectionMode={selectionLogic.selectionMode}
+          actionsDisabled={false}
+          actions={actions}
+          selectionCount={selectionLogic.selectionCount}
+          toggleSelectAll={selectionLogic.toggleSelectAll}
+          disableSelectionMode={() => selectionLogic.toggleSelectionMode(false)}
+        />
+      )}
+    </View>
   );
 };
 

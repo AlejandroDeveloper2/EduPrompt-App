@@ -7,6 +7,7 @@ import { GenerationCard } from "../../molecules";
 import GenerationEmpty from "./GenerationEmpty";
 import GenerationListHeader from "./GenerationListHeader";
 
+import { Spacing } from "@/shared/styles";
 import { GlobalStyles } from "@/shared/styles/GlobalStyles.style";
 import { dynamicStyles } from "./GenerationCardList.style";
 
@@ -14,6 +15,7 @@ const GenerationCardList = () => {
   const {
     size,
     t,
+    selectionMode,
     createIaGeneration,
     searchValue,
     filteredElements: iaGenerations,
@@ -26,7 +28,13 @@ const GenerationCardList = () => {
   return (
     <FlatList
       style={[styles.ListContainer, GlobalStyles.PageDimensions]}
-      contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
+      contentContainerStyle={[
+        styles.ListContent,
+        GlobalStyles.PageContent,
+        selectionMode && {
+          paddingTop: Spacing.spacing_4xl + Spacing.spacing_xl,
+        },
+      ]}
       numColumns={size === "laptop" ? 2 : 1}
       data={iaGenerations}
       renderItem={({ item }) => (

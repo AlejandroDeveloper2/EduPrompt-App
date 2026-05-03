@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { Dimensions } from "react-native";
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -10,21 +9,23 @@ import {
 
 import { scheduleOnRN } from "react-native-worklets";
 
-const SCREEN_WIDTH = Dimensions.get("screen").width;
+const BAR_HEIGHT = 74;
 
 const useAnimatedToolbar = (selectionMode: boolean, onHidden: () => void) => {
-  const translateX = useSharedValue(-SCREEN_WIDTH);
+  const translateY = useSharedValue(-BAR_HEIGHT);
 
   useEffect(() => {
-    if (selectionMode) translateX.value = withSpring(0, { duration: 1000 });
-    else
-      translateX.value = withTiming(-SCREEN_WIDTH, { duration: 300 }, () => {
+    if (selectionMode) {
+      translateY.value = withSpring(0, { duration: 1000 });
+    } else {
+      translateY.value = withTiming(-BAR_HEIGHT, { duration: 300 }, () => {
         scheduleOnRN(onHidden);
       });
-  }, [selectionMode, translateX]);
+    }
+  }, [selectionMode, translateY]);
 
   const animatedTranslate = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }],
+    transform: [{ translateY: translateY.value }],
   }));
 
   return animatedTranslate;

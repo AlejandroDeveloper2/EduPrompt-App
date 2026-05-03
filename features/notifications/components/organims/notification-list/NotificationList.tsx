@@ -7,12 +7,14 @@ import { Alert } from "@/shared/components/organims";
 import { NotificationCard } from "../../molecules";
 import NotificationListHeader from "./NotificationListHeader";
 
+import { Spacing } from "@/shared/styles";
 import { dynamicStyles } from "./NotificationList.style";
 
 const NotificationList = () => {
   const {
     t,
     size,
+    selectionMode,
     updateFilter,
     notifications,
     filter,
@@ -47,7 +49,12 @@ const NotificationList = () => {
 
       <FlatList
         style={styles.ListContainer}
-        contentContainerStyle={styles.ListContent}
+        contentContainerStyle={[
+          styles.ListContent,
+          selectionMode && {
+            paddingTop: Spacing.spacing_4xl + Spacing.spacing_xl,
+          },
+        ]}
         data={notifications}
         horizontal={false}
         windowSize={5}

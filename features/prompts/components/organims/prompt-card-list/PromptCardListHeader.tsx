@@ -2,21 +2,17 @@ import { ScrollView, View } from "react-native";
 
 import { AppColors } from "@/shared/styles";
 
-import {
-  usePromptListUI,
-  usePromptSelection,
-} from "@/features/prompts/hooks/core";
+import { usePromptListUI } from "@/features/prompts/hooks/core";
 import { usePromptFiltersStore } from "@/features/prompts/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
-import { SelectionOptionsBar } from "@/shared/components/organims";
 
 import { dynamicStyles } from "./PromptCardList.style";
 
 const PromptCardListHeader = () => {
-  const { router, size, t, actions, paginatedTags } = usePromptListUI();
-  const selectionLogic = usePromptSelection();
+  const { router, size, t, paginatedTags } = usePromptListUI();
+
   const {
     searchPromptValue,
     tagFilter,
@@ -28,17 +24,6 @@ const PromptCardListHeader = () => {
 
   return (
     <View style={styles.ListHeaderContainer}>
-      {selectionLogic.selectionMode && (
-        <SelectionOptionsBar
-          isAllSelected={selectionLogic.isAllSelected}
-          selectionMode={selectionLogic.selectionMode}
-          actionsDisabled={false}
-          actions={actions}
-          selectionCount={selectionLogic.selectionCount}
-          toggleSelectAll={selectionLogic.toggleSelectAll}
-          disableSelectionMode={() => selectionLogic.toggleSelectionMode(false)}
-        />
-      )}
       <ScreenSection
         description={t("prompts_translations.prompt_list_labels.description")}
         title={t("prompts_translations.prompt_list_labels.title")}

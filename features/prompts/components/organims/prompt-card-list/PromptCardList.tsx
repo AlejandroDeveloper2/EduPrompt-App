@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 
-import { AppColors } from "@/shared/styles";
+import { AppColors, Spacing } from "@/shared/styles";
 
 import { usePromptCardListLogic } from "@/features/prompts/hooks/core";
 
@@ -29,6 +29,7 @@ const PromptCardList = () => {
     removeManyPrompts,
     t,
     selectedPromptIds,
+    selectionMode,
   } = usePromptCardListLogic();
 
   const styles = dynamicStyles(size);
@@ -73,7 +74,13 @@ const PromptCardList = () => {
       />
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}
-        contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
+        contentContainerStyle={[
+          styles.ListContent,
+          GlobalStyles.PageContent,
+          selectionMode && {
+            paddingTop: Spacing.spacing_4xl + Spacing.spacing_xl,
+          },
+        ]}
         numColumns={size === "laptop" ? 2 : 1}
         data={prompts}
         renderItem={({ item }) => (

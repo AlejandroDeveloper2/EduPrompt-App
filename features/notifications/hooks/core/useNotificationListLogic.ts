@@ -13,7 +13,7 @@ const useNotificationListLogic = () => {
   const { t, size, confirmDeleteDialog } = useNotificationListUI();
 
   /** Selection Logic */
-  const { selectedNotificationIds } = useNotificationSelection();
+  const { selectedNotificationIds, selectionMode } = useNotificationSelection();
 
   /** Delete Action */
   const deleteSelectedNotifications = useUserNotificationsStore(
@@ -23,6 +23,7 @@ const useNotificationListLogic = () => {
   return {
     t,
     size,
+    selectionMode,
     ...notificationsLogic,
     selectedNotificationIds,
     confirmDeleteDialog,

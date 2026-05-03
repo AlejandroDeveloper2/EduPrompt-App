@@ -12,7 +12,7 @@ const useResourceListLogic = () => {
     useResourceListUI();
 
   /** Selection Logic */
-  const { selectedResourceIds } = useResourceSelection();
+  const { selectedResourceIds, selectionMode } = useResourceSelection();
 
   /** Mutation */
   const { isPending, mutate: removeManyResources } =
@@ -27,6 +27,7 @@ const useResourceListLogic = () => {
     removeManyResources,
     t,
     selectedResourceIds,
+    selectionMode,
   };
 };
 

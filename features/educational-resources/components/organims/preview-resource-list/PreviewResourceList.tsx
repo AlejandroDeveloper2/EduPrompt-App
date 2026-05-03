@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 
-import { AppColors } from "@/shared/styles";
+import { AppColors, Spacing } from "@/shared/styles";
 
 import { useResourceListLogic } from "@/features/educational-resources/hooks/core";
 
@@ -16,6 +16,7 @@ const PreviewResourceList = () => {
   const {
     size,
     resources,
+    selectionMode,
     isLoading,
     isError,
     fetchNextPage,
@@ -72,7 +73,13 @@ const PreviewResourceList = () => {
       />
       <FlatList
         style={[styles.ListContainer, GlobalStyles.PageDimensions]}
-        contentContainerStyle={[styles.ListContent, GlobalStyles.PageContent]}
+        contentContainerStyle={[
+          styles.ListContent,
+          GlobalStyles.PageContent,
+          selectionMode && {
+            paddingTop: Spacing.spacing_4xl + Spacing.spacing_xl,
+          },
+        ]}
         numColumns={size === "laptop" ? 2 : 1}
         windowSize={5}
         initialNumToRender={10}

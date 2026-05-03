@@ -3,22 +3,16 @@ import { ScrollView, View } from "react-native";
 import { FORMAT_FILTERS } from "@/shared/constants";
 import { AppColors } from "@/shared/styles";
 
-import {
-  useResourceListUI,
-  useResourceSelection,
-} from "@/features/educational-resources/hooks/core";
+import { useResourceListUI } from "@/features/educational-resources/hooks/core";
 import { useResourceFiltersStore } from "@/features/educational-resources/store";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag, Input, NavItem } from "@/shared/components/molecules";
-import { SelectionOptionsBar } from "@/shared/components/organims";
 
 import { dynamicStyles } from "./PreviewResourceList.style";
 
 const PreviewResourceHeader = () => {
-  const { router, size, t, lang, actions, paginatedTags } = useResourceListUI();
-
-  const selectionLogic = useResourceSelection();
+  const { router, size, t, lang, paginatedTags } = useResourceListUI();
 
   const {
     searchResourceValue,
@@ -33,17 +27,6 @@ const PreviewResourceHeader = () => {
 
   return (
     <View style={styles.ListHeaderContainer}>
-      {selectionLogic.selectionMode && (
-        <SelectionOptionsBar
-          isAllSelected={selectionLogic.isAllSelected}
-          selectionMode={selectionLogic.selectionMode}
-          actionsDisabled={false}
-          actions={actions}
-          selectionCount={selectionLogic.selectionCount}
-          toggleSelectAll={selectionLogic.toggleSelectAll}
-          disableSelectionMode={() => selectionLogic.toggleSelectionMode(false)}
-        />
-      )}
       <ScreenSection
         description={t(
           "resources_translations.resources_list_labels.description",

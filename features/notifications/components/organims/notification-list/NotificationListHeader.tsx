@@ -4,14 +4,10 @@ import { Order } from "@/core/types";
 
 import { AppColors } from "@/shared/styles";
 
-import {
-  useNotificationListUI,
-  useNotificationSelection,
-} from "@/features/notifications/hooks/core";
+import { useNotificationListUI } from "@/features/notifications/hooks/core";
 
 import { ScreenSection, Typography } from "@/shared/components/atoms";
 import { FilterTag } from "@/shared/components/molecules";
-import { SelectionOptionsBar } from "@/shared/components/organims";
 
 import { dynamicStyles } from "./NotificationList.style";
 
@@ -24,24 +20,12 @@ const NotificationListHeader = ({
   filter,
   updateFilter,
 }: NotificationHeaderProps) => {
-  const { size, t, actions } = useNotificationListUI();
-  const selectionLogic = useNotificationSelection();
+  const { size, t } = useNotificationListUI();
 
   const styles = dynamicStyles(size);
 
   return (
     <View style={styles.ListHeaderContainer}>
-      {selectionLogic.selectionMode && (
-        <SelectionOptionsBar
-          isAllSelected={selectionLogic.isAllSelected}
-          selectionMode={selectionLogic.selectionMode}
-          actionsDisabled={false}
-          actions={actions}
-          selectionCount={selectionLogic.selectionCount}
-          toggleSelectAll={selectionLogic.toggleSelectAll}
-          disableSelectionMode={() => selectionLogic.toggleSelectionMode(false)}
-        />
-      )}
       <ScreenSection
         description={t(
           "notifications_translations.user_notification_list.description",
