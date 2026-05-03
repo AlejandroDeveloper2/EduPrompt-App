@@ -1,6 +1,7 @@
 export { default as useGenerationCardLogic } from "./useGenerationCardLogic";
 export { default as useGenerationListLogic } from "./useGenerationListLogic";
 export { default as useGenerationListUI } from "./useGenerationListUI";
+export { default as useGenerationPromptSelectionList } from "./useGenerationPromptSelectionList";
 export { default as useGenerations } from "./useGenerations";
 export { default as useGenerationSelection } from "./useGenerationSelection";
 export { default as useGenerationTags } from "./useGenerationTags";
