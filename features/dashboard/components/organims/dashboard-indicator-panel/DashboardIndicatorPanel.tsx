@@ -49,7 +49,7 @@ const DashboardIndicatorPanel = () => {
       <View style={IndicatorsGrid}>
         <DashboardIndicator
           icon="book-outline"
-          value={`${indicators.generatedResources}`}
+          value={`${indicators?.generatedResources ?? 0}`}
           label={t(
             "dashboard_translations.dashboard_panel_labels.indicator_labels.generated_resources",
           )}
@@ -61,7 +61,7 @@ const DashboardIndicatorPanel = () => {
         />
         <DashboardIndicator
           icon="hardware-chip-outline"
-          value={formatTokenAmount(indicators.usedTokens)}
+          value={formatTokenAmount(indicators?.usedTokens ?? 0)}
           label={t(
             "dashboard_translations.dashboard_panel_labels.indicator_labels.used_tokens",
           )}
@@ -74,7 +74,7 @@ const DashboardIndicatorPanel = () => {
 
         <DashboardIndicator
           icon="download-outline"
-          value={`${indicators.dowloadedResources}`}
+          value={`${indicators?.dowloadedResources ?? 0}`}
           label={t(
             "dashboard_translations.dashboard_panel_labels.indicator_labels.downloaded_resources",
           )}
@@ -86,7 +86,7 @@ const DashboardIndicatorPanel = () => {
         />
         <DashboardIndicator
           icon="save-outline"
-          value={`${indicators.savedResources}`}
+          value={`${indicators?.savedResources ?? 0}`}
           label={t(
             "dashboard_translations.dashboard_panel_labels.indicator_labels.saved_resources",
           )}
@@ -99,7 +99,7 @@ const DashboardIndicatorPanel = () => {
         <DashboardIndicator
           icon="watch-outline"
           value={
-            !indicators.lastGeneratedResource
+            !indicators?.lastGeneratedResource
               ? t(
                   "dashboard_translations.dashboard_panel_labels.indicator_labels.not_last_generated_resource",
                 )

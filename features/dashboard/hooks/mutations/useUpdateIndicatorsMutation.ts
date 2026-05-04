@@ -24,6 +24,9 @@ const useUpdateIndicatorsMutation = () => {
       /** Actualización inmediata offline */
       setIndicators({ ...indicators, sync: false });
 
+      if (!isAuthenticated)
+        await queryClient.refetchQueries({ queryKey: ["app_indicators"] });
+
       /** Actualización online */
       if (isConnected && isAuthenticated) {
         await patchIndicators(indicators);

@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 import { useSyncDataStore } from "@/core/store";
 import { useCheckNetwork } from "@/shared/hooks/core";
@@ -11,7 +12,7 @@ const useIndicatorsQuery = () => {
   const { isConnected } = useCheckNetwork();
 
   const loadIndicators = useIndicatorPanelStore(
-    (state) => state.loadIndicators,
+    useShallow((state) => state.loadIndicators),
   );
 
   const updateModuleSyncMapState = useSyncDataStore(
@@ -20,31 +21,27 @@ const useIndicatorsQuery = () => {
 
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
-  const loadOfflineIndicators = () => {
-    const indicators = loadIndicators();
-    return { indicators, isLoading: false };
-  };
-
   const query = useQuery({
     queryKey: ["app_indicators"],
-    enabled:
-      isConnected !== null &&
-      isConnected !== undefined &&
-      isAuthenticated === true,
+    enabled: isConnected !== null && isConnected !== undefined,
+
     queryFn: async () => {
-      const indicators = await getIndicators();
-      const sync = loadOfflineIndicators().indicators.sync;
+      const localIndicators = loadIndicators();
 
-      updateModuleSyncMapState("dashboard", { isDataSynced: sync });
+      if (isConnected && isAuthenticated) {
+        const indicators = await getIndicators();
+        const sync = localIndicators.sync;
 
-      return { ...indicators, sync };
+        updateModuleSyncMapState("dashboard", { isDataSynced: sync });
+
+        return { ...indicators, sync };
+      }
+
+      return localIndicators;
     },
     staleTime: Infinity,
   });
-
-  if (query.data) return { indicators: query.data, isLoading: query.isLoading };
-
-  return loadOfflineIndicators();
+  return { indicators: query.data, isLoading: query.isLoading };
 };
 
 export default useIndicatorsQuery;
