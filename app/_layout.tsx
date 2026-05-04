@@ -1,4 +1,3 @@
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -24,11 +23,9 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Host>
         <QueryClientProvider client={queryClient}>
-          <BottomSheetModalProvider>
-            <ToastProvider>
-              <InnerApp loaded={loaded} db={db} />
-            </ToastProvider>
-          </BottomSheetModalProvider>
+          <ToastProvider>
+            <InnerApp loaded={loaded} db={db} />
+          </ToastProvider>
         </QueryClientProvider>
       </Host>
     </GestureHandlerRootView>

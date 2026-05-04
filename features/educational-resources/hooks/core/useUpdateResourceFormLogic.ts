@@ -5,7 +5,7 @@ import { Tag } from "@/features/tags/types";
 import { EducationalResource } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
-import { useUpdateResourceMutation } from "../mutations";
+import useUpdateResourceMutation from "../mutations/useUpdateResourceMutation";
 import useResourceTags from "./useResourceTags";
 
 import { getSelectedOption } from "@/features/generations/helpers";

@@ -6,7 +6,8 @@ import { BaseFilters, CreatePromptPayload } from "../../types";
 
 import { eventBus } from "@/core/events/EventBus";
 
-import { useCreatePromptMutation, useSyncPromptsMutation } from "../mutations";
+import useCreatePromptMutation from "../mutations/useCreatePromptMutation";
+import useSyncPromptsMutation from "../mutations/useSyncPromptsMutation";
 import { usePromptsQuery } from "../queries";
 
 const usePromptEventListeners = () => {

@@ -1,4 +1,5 @@
 import { ScrollView, View } from "react-native";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   useGenerationListUI,
@@ -21,7 +22,7 @@ const ResourceGenerationTemplate = () => {
   const selectionLogic = useGenerationSelection();
 
   const currentIaGeneration = useResourceGenerationStore(
-    (state) => state.currentIaGeneration,
+    useShallow((state) => state.currentIaGeneration),
   );
 
   return (

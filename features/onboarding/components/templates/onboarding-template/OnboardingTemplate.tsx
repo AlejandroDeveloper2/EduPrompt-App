@@ -1,6 +1,7 @@
 import { ImageBackground, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useShallow } from "zustand/react/shallow";
 
 import { OnboardingStep } from "@/features/onboarding/types";
 
@@ -20,11 +21,13 @@ import EduPromptBackground from "@/assets/images/eduprompt-background.png";
 const OnboardingTemplate = () => {
   const insets = useSafeAreaInsets();
   const size = useResponsive();
-  const { currentStep, steps, goToExactStep } = useOnboardingStore((state) => ({
-    currentStep: state.currentStep,
-    steps: state.steps,
-    goToExactStep: state.goToExactStep,
-  }));
+  const { currentStep, steps, goToExactStep } = useOnboardingStore(
+    useShallow((state) => ({
+      currentStep: state.currentStep,
+      steps: state.steps,
+      goToExactStep: state.goToExactStep,
+    })),
+  );
   const {
     animatedOnboardingStyle,
     animatedLogoStyle,

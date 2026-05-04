@@ -5,10 +5,8 @@ import { eventBus } from "@/core/events/EventBus";
 
 import { CreateResourcePayload } from "../../types";
 
-import {
-  useCreateResourceMutation,
-  useSyncResourcesMutation,
-} from "../mutations";
+import useCreateResourceMutation from "../mutations/useCreateResourceMutation";
+import useSyncResourcesMutation from "../mutations/useSyncResourcesMutation";
 
 const useResourceEventListeners = () => {
   const createMutation = useCreateResourceMutation();

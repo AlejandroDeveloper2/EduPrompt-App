@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import Animated from "react-native-reanimated";
+import { useShallow } from "zustand/react/shallow";
 
 import { AppColors, Spacing } from "@/shared/styles";
 
@@ -35,13 +36,15 @@ const OnboardingDescription = ({
     handleNextStep,
     handlePreviousStep,
     completeOnboarding,
-  } = useOnboardingStore((state) => ({
-    isCompleting: state.isCompleting,
-    currentStep: state.currentStep,
-    handleNextStep: state.handleNextStep,
-    handlePreviousStep: state.handlePreviousStep,
-    completeOnboarding: state.completeOnboarding,
-  }));
+  } = useOnboardingStore(
+    useShallow((state) => ({
+      isCompleting: state.isCompleting,
+      currentStep: state.currentStep,
+      handleNextStep: state.handleNextStep,
+      handlePreviousStep: state.handlePreviousStep,
+      completeOnboarding: state.completeOnboarding,
+    })),
+  );
   const { t } = useTranslations();
 
   const styles = dynamicStyles(size);

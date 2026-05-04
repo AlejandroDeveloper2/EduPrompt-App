@@ -1,4 +1,4 @@
-import { useDeleteManyResourcesMutation } from "../mutations";
+import useDeleteManyResourcesMutation from "../mutations/useDeleteManyResourcesMutation";
 import useResourceListUI from "./useResourceListUI";
 import useResources from "./useResources";
 import useResourceSelection from "./useResourceSelection";

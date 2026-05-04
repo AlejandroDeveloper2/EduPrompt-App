@@ -6,6 +6,7 @@ import {
   withDelay,
   withTiming,
 } from "react-native-reanimated";
+import { useShallow } from "zustand/react/shallow";
 
 import { useResponsive } from "@/shared/hooks/core";
 import { useOnboardingStore } from "../../store";
@@ -22,7 +23,9 @@ const useAnimatedOnboarding = () => {
   const logoScale = useSharedValue(size === "mobile" ? 0.6 : 1);
   const boxTranslateY = useSharedValue(positionY);
 
-  const currentStep = useOnboardingStore((state) => state.currentStep);
+  const currentStep = useOnboardingStore(
+    useShallow((state) => state.currentStep),
+  );
 
   useEffect(() => {
     logoTranslateY.value = withDelay(1000, withTiming(20, { duration: 1000 }));

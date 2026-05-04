@@ -6,7 +6,7 @@ import { Prompt } from "../../types";
 import { useCheckNetwork, useTranslations } from "@/shared/hooks/core";
 import { useEventbusValue } from "@/shared/hooks/events";
 import { useOfflinePromptsStore, usePromptsSelectionStore } from "../../store";
-import { usePrompts } from "../core";
+import usePrompts from "../core/usePrompts";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";

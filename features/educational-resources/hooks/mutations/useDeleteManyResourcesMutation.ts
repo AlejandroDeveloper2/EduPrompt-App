@@ -9,7 +9,7 @@ import {
   useOfflineResourcesStore,
   useResourcesSelectionStore,
 } from "../../store";
-import { useResources } from "../core";
+import useResources from "../core/useResources";
 
 import { showToast } from "@/shared/context";
 import { generateToastKey } from "@/shared/helpers";

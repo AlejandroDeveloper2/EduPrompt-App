@@ -3,12 +3,15 @@ import { useRouter } from "expo-router";
 
 import { useAuthStore } from "../../store";
 
+import { useShallow } from "zustand/react/shallow";
 import { postLogin } from "../../services";
 
 const useLoginMutation = () => {
   const router = useRouter();
 
-  const setAuthTokens = useAuthStore((state) => state.setAuthTokens);
+  const setAuthTokens = useAuthStore(
+    useShallow((state) => state.setAuthTokens),
+  );
 
   return useMutation({
     mutationFn: postLogin,

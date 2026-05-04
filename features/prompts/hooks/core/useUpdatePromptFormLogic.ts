@@ -5,7 +5,7 @@ import { Tag } from "@/features/tags/types";
 import { Prompt } from "../../types";
 
 import { useForm } from "@/shared/hooks/core";
-import { useUpdatePromptMutation } from "../mutations";
+import useUpdatePromptMutation from "../mutations/useUpdatePromptMutation";
 import usePromptTags from "./usePromptTags";
 
 import {

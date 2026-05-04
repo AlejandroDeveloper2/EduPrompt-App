@@ -1,4 +1,4 @@
-import { useDeleteManyPromptsMutation } from "../mutations";
+import useDeleteManyPromptsMutation from "../mutations/useDeleteManyPromptsMutation";
 import usePromptListUI from "./usePromptListUI";
 import usePrompts from "./usePrompts";
 import usePromptSelection from "./usePromptSelection";
