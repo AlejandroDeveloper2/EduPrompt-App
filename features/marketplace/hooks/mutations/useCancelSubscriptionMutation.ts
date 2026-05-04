@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { showToast } from "@/shared/context";
 
@@ -8,10 +8,13 @@ import { generateToastKey } from "@/shared/helpers";
 import { patchSubscriptionCancellation } from "../../services";
 
 const useCancelSubscriptionMutation = () => {
+  const queryClient = useQueryClient();
   const { t } = useTranslations();
+
   return useMutation({
     mutationFn: patchSubscriptionCancellation,
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.refetchQueries({ queryKey: ["user_profile"] });
       showToast({
         key: generateToastKey(),
         variant: "primary",

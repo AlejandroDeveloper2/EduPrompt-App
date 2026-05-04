@@ -71,6 +71,10 @@ const useSyncIndicatorsMutation = () => {
       savedResources:
         indicators.savedResources + onlineIndicators.savedResources,
     };
+
+    /** Actualización offline */
+    setIndicators(syncedIndicators);
+
     mutation.mutate(syncedIndicators, {
       onSuccess: () => eventBus.emit("dashboard.syncData.completed", undefined),
       onError: (error) =>
@@ -78,7 +82,7 @@ const useSyncIndicatorsMutation = () => {
           error: error.message,
         }),
     });
-  }, [indicators, mutation, queryClient]);
+  }, [indicators, mutation, queryClient, setIndicators]);
 
   return {
     ...mutation,

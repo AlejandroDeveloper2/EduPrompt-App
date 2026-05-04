@@ -12,10 +12,11 @@ import { putUserStats } from "../../services";
 const useUserSyncMutation = () => {
   const queryClient = useQueryClient();
 
-  const { userStats, markAsSynced } = useUserOfflineStore(
+  const { userStats, markAsSynced, setUserStats } = useUserOfflineStore(
     useShallow((state) => ({
       userStats: state.userStats,
       markAsSynced: state.markAsSynced,
+      setUserStats: state.setUserStats,
     })),
   );
 
@@ -65,13 +66,22 @@ const useUserSyncMutation = () => {
       tokenCoins: userStats.tokenCoins + onlineUserStats.tokenCoins,
     };
 
+    /** Actualización offline solo de los campos aplicables*/
+    setUserStats({
+      sync: false,
+      tokenCoins: syncedUserStats.tokenCoins,
+      isPremiumUser: false, //En offline no se usa esta propiedad, para usar suscripción premium debe estar autenticado y con conexión a internet
+      hasSubscription: false, //En offline no se usa esta propiedad, solo cuando el usuario está autenticado y con conexión a internet
+      userPreferences: syncedUserStats.userPreferences,
+    });
+
     mutation.mutate(syncedUserStats, {
       onSuccess: () =>
         eventBus.emit("userProfile.syncData.completed", undefined),
       onError: (error) =>
         eventBus.emit("userProfile.syncData.failed", { error: error.message }),
     });
-  }, [mutation, userStats, queryClient]);
+  }, [mutation, userStats, queryClient, setUserStats]);
 
   return {
     ...mutation,

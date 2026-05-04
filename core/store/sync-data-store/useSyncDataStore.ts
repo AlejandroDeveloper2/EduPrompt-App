@@ -73,6 +73,7 @@ export const useSyncDataStore = create<SyncDataStoreType>()(
           },
         ],
       ]),
+      isGlobalSyncing: false,
 
       updateModuleSyncMapState: (module, updates): void => {
         const { moduleSyncMap } = get();
@@ -89,8 +90,13 @@ export const useSyncDataStore = create<SyncDataStoreType>()(
         set({ moduleSyncMap: updatedModuleSyncMap });
       },
 
-      runDataSyncronization: async (modulesToSync): Promise<void> => {
-        const { moduleSyncMap, updateModuleSyncMapState } = get();
+      runDataSyncronization: async (modulesToSync): Promise<boolean> => {
+        const { isGlobalSyncing, moduleSyncMap, updateModuleSyncMapState } =
+          get();
+
+        if (isGlobalSyncing || modulesToSync.length === 0) return false;
+
+        set({ isGlobalSyncing: true });
 
         const promises = modulesToSync.map(async (module) => {
           const element = moduleSyncMap.get(module);
@@ -115,6 +121,8 @@ export const useSyncDataStore = create<SyncDataStoreType>()(
         });
 
         await Promise.all(promises);
+        set({ isGlobalSyncing: false });
+        return true;
       },
     }),
     {
@@ -147,6 +155,7 @@ export const useSyncDataStore = create<SyncDataStoreType>()(
         },
       },
       partialize: (state) => ({
+        isGlobalSyncing: state.isGlobalSyncing,
         moduleSyncMap: state.moduleSyncMap,
       }),
     },

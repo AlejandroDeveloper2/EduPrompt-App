@@ -13,6 +13,7 @@ export type ModuleSyncMapState = {
 
 export interface StoreStateProps {
   moduleSyncMap: Map<AppModules, ModuleSyncMapState>;
+  isGlobalSyncing: boolean;
 }
 
 export interface StoreActions {
@@ -20,7 +21,7 @@ export interface StoreActions {
     module: AppModules,
     updates: Partial<Omit<ModuleSyncMapState, "handler">>,
   ) => void;
-  runDataSyncronization: (modulesToSync: AppModules[]) => Promise<void>;
+  runDataSyncronization: (modulesToSync: AppModules[]) => Promise<boolean>;
 }
 
 export type SyncDataStoreType = StoreStateProps & StoreActions;
