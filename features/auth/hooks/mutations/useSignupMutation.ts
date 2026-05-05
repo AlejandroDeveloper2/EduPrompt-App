@@ -20,7 +20,7 @@ const useSignupMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-          "auth_translations.sign_up_template.module_success_messages.account_created_msg"
+          "auth_translations.module_success_messages.account_created_msg",
         ),
         toastDuration: 4000,
       });

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { NativeSyntheticEvent, TextInputKeyPressEvent } from "react-native";
+import { TextInputKeyPressEvent } from "react-native";
 
 import { TextInputInstance } from "@/core/types";
 
@@ -39,11 +39,11 @@ const useCodeInput = (
   };
 
   const handleKeyPress = (
-    e: NativeSyntheticEvent<TextInputKeyPressEvent>,
+    e: TextInputKeyPressEvent,
     index: number,
   ) => {
     if (
-      e.nativeEvent.nativeEvent.key === "Backspace" &&
+      e.nativeEvent.key === "Backspace" &&
       !codeArray[index] &&
       index > 0
     ) {
