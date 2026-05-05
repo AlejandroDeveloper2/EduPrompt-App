@@ -24,16 +24,19 @@ const useUserProfileQuery = () => {
   const isAuthenticated = useEventbusValue("auth.authenticated", false);
 
   const query = useQuery({
-    queryKey: ["user_profile"],
-    enabled:
-      isConnected !== null && isConnected !== undefined && isAuthenticated,
+    queryKey: ["user_profile", isAuthenticated],
+    enabled: isConnected !== null && isConnected !== undefined,
     queryFn: async () => {
-      const userProfile = await getUserProfile();
-      const sync = loadLocalUserStats().sync;
+      if (isAuthenticated) {
+        const userProfile = await getUserProfile();
+        const sync = loadLocalUserStats().sync;
 
-      updateModuleSyncMapState("settings", { isDataSynced: sync });
+        updateModuleSyncMapState("settings", { isDataSynced: sync });
 
-      return { ...userProfile, sync };
+        return { ...userProfile, sync };
+      }
+
+      return loadLocalUserStats();
     },
     staleTime: Infinity,
     // gcTime: 1000 * 60 * 5,

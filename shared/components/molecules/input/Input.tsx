@@ -79,7 +79,7 @@ function Input<T>({
         />
 
         <View style={styles.Tools}>
-          {value.length > 0 && !props.disabled && (
+          {value?.length > 0 && !props.disabled && (
             <Ionicon
               name="close-outline"
               color={AppColors.neutral[700]}
