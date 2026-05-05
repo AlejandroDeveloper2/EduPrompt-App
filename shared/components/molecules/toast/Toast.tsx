@@ -66,7 +66,7 @@ const Toast = ({
             ? AppColors.neutral[1000]
             : AppColors.basic.white
         }
-        width={200}
+        width="auto"
         icon={icon}
       />
       {link && <ToastLink label={link.label} href={link.href} />}

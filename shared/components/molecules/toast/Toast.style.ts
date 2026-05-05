@@ -9,7 +9,7 @@ export const dynamicStyles = (size: SizeType, variant: ToastVariantType) =>
     Container: {
       width: "auto",
       height: "auto",
-      maxWidth: 250,
+      maxWidth: "80%",
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
