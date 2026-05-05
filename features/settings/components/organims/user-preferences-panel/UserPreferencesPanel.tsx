@@ -98,7 +98,7 @@ const UserPreferencesPanel = () => {
               }
               optionValueKey="label"
               displayDropdownOptions={() =>
-                router.navigate("/(app)/set_clean_frecuency_sheet")
+                router.push("/set_clean_frecuency_sheet")
               }
               clearSelectedOption={() =>
                 mutate({
@@ -122,9 +122,7 @@ const UserPreferencesPanel = () => {
                 : appLanguages[0]
             }
             optionValueKey="label"
-            displayDropdownOptions={() =>
-              router.navigate("/(app)/set_language_sheet")
-            }
+            displayDropdownOptions={() => router.push("/set_language_sheet")}
             clearSelectedOption={() =>
               mutate({ language: appLanguages[0].key })
             }

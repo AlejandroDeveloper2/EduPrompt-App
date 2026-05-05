@@ -58,7 +58,7 @@ const AppLanguageList = () => {
           mutate(
             { language: option.key },
             {
-              onSuccess: () => router.navigate("/(app)/(tabs)/settings_screen"),
+              onSuccess: () => router.back(),
             },
           );
         }}
