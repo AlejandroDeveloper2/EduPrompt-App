@@ -14,7 +14,9 @@ const useCancelSubscriptionMutation = () => {
   return useMutation({
     mutationFn: patchSubscriptionCancellation,
     onSuccess: async () => {
-      await queryClient.refetchQueries({ queryKey: ["user_profile"] });
+      await queryClient.invalidateQueries({
+        queryKey: ["user_profile"],
+      });
       showToast({
         key: generateToastKey(),
         variant: "primary",

@@ -33,7 +33,12 @@ const useUserProfileQuery = () => {
 
         updateModuleSyncMapState("settings", { isDataSynced: sync });
 
-        return { ...userProfile, sync };
+        return {
+          ...userProfile,
+          isPremiumUser: !!userProfile.isPremiumUser,
+          hasSubscription: !!userProfile.hasSubscription,
+          sync,
+        };
       }
 
       return loadLocalUserStats();

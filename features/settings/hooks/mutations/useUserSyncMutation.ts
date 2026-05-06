@@ -2,15 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { useShallow } from "zustand/react/shallow";
 
-import { User, UserStats } from "../../types";
+import { UserStats } from "../../types";
 
 import { useUserOfflineStore } from "../../store";
+import { useUserProfileQuery } from "../queries";
 
 import { eventBus } from "@/core/events/EventBus";
 import { putUserStats } from "../../services";
 
 const useUserSyncMutation = () => {
   const queryClient = useQueryClient();
+  const { userProfile: onlineUserStats } = useUserProfileQuery();
 
   const { userStats, markAsSynced, setUserStats } = useUserOfflineStore(
     useShallow((state) => ({
@@ -55,13 +57,9 @@ const useUserSyncMutation = () => {
   });
 
   const syncUserProfile = useCallback(() => {
-    const onlineUserStats = queryClient.getQueryData<User>(["user_profile"]);
-
-    if (!onlineUserStats) return;
-
     eventBus.emit("userProfile.syncData.started", undefined);
 
-    const syncedUserStats: User = {
+    const syncedUserStats: UserStats = {
       ...onlineUserStats,
       tokenCoins: userStats.tokenCoins + onlineUserStats.tokenCoins,
     };
@@ -81,7 +79,7 @@ const useUserSyncMutation = () => {
       onError: (error) =>
         eventBus.emit("userProfile.syncData.failed", { error: error.message }),
     });
-  }, [mutation, userStats, queryClient, setUserStats]);
+  }, [onlineUserStats, userStats.tokenCoins, setUserStats, mutation]);
 
   return {
     ...mutation,
