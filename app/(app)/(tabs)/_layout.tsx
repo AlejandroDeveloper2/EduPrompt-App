@@ -8,6 +8,7 @@ import { jobScheduler } from "@/core/jobs/JobScheduler";
 import { registerJobs } from "@/core/jobs/registerJobs";
 
 /** Queries */
+import { useSystemNotificationsQuery } from "@/features/notifications/hooks/queries";
 import { useUserProfileQuery } from "@/features/settings/hooks/queries";
 
 /** Listeners */
@@ -38,6 +39,9 @@ export default function TabLayout() {
 
   /** Cargar perfil de usuario */
   const { isFetched } = useUserProfileQuery();
+
+  /** Cargar notificaciones del sistema y web socket de notificaciones*/
+  useSystemNotificationsQuery();
 
   /** Listener para escuchar eventos del modulo de notificaciones */
   useUserNotificationsEventListener();
