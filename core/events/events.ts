@@ -19,8 +19,6 @@ import {
 export type AppEvents = {
   /** Eventos módulo de auth */
   "auth.authenticated": boolean;
-  "auth.tokens.getted": { token: string | null; refreshToken: string | null };
-  "auth.setTokens": { token: string; refreshToken: string };
   "auth.clearTokens": undefined;
 
   "auth.logout.requested": undefined;
@@ -108,10 +106,6 @@ export type AppEvents = {
   "dashboard.syncData.started": undefined;
   "dashboard.syncData.completed": undefined;
   "dashboard.syncData.failed": EventError;
-
-  /** Eventos modo seleccion */
-  "selectionMode.selectedElements.updated": number;
-  "selectionMode.isAllSelected.updated": boolean;
 
   /** Eventos módulo de tags */
   "tags.list.promptType.updated": {
