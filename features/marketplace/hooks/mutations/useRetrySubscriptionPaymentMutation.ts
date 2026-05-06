@@ -17,7 +17,8 @@ const useRetrySubscriptionPaymentMutation = () => {
         key: generateToastKey(),
         variant: "primary",
         message: t(
-        "marketplace_translations.module_success_messages.plan_order_completed_msg",
+          "marketplace_translations.module_success_messages.plan_order_completed_msg",
+          { plan: "EduPrompt Pro" },
         ),
         toastDuration: 10000,
       });

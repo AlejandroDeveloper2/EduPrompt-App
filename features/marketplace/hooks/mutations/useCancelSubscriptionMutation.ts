@@ -17,6 +17,9 @@ const useCancelSubscriptionMutation = () => {
       await queryClient.invalidateQueries({
         queryKey: ["user_profile"],
       });
+      await queryClient.invalidateQueries({
+        queryKey: ["subscription"],
+      });
       showToast({
         key: generateToastKey(),
         variant: "primary",
