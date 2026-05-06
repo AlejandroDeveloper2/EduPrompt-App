@@ -7,11 +7,14 @@ import { Indicator } from "../../types";
 import { eventBus } from "@/core/events/EventBus";
 
 import { useIndicatorPanelStore } from "../../store";
+import { useIndicatorsQuery } from "../queries";
 
 import { putIndicators } from "../../services";
 
 const useSyncIndicatorsMutation = () => {
   const queryClient = useQueryClient();
+
+  const { indicators: onlineIndicators } = useIndicatorsQuery();
 
   const { setIndicators, indicators } = useIndicatorPanelStore(
     useShallow((state) => ({
@@ -54,11 +57,10 @@ const useSyncIndicatorsMutation = () => {
   });
 
   const syncIndicators = useCallback(() => {
-    const onlineIndicators = queryClient.getQueryData<Indicator>([
-      "app_indicators",
-    ]);
     if (!onlineIndicators) return;
+
     eventBus.emit("dashboard.syncData.started", undefined);
+
     const syncedIndicators: Indicator = {
       generatedResources:
         indicators.generatedResources + onlineIndicators.generatedResources,
@@ -82,7 +84,16 @@ const useSyncIndicatorsMutation = () => {
           error: error.message,
         }),
     });
-  }, [indicators, mutation, queryClient, setIndicators]);
+  }, [
+    indicators.dowloadedResources,
+    indicators.generatedResources,
+    indicators.lastGeneratedResource,
+    indicators.savedResources,
+    indicators.usedTokens,
+    mutation,
+    onlineIndicators,
+    setIndicators,
+  ]);
 
   return {
     ...mutation,
